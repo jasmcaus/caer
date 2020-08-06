@@ -2,10 +2,19 @@ import tensorflow as tf
 import cv2 as cv
 import os
 from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Dense, Flatten, Activation, MaxPooling2D, Conv2D, Dropout
+from tensorflow.keras.layers import Dense, Flatten, MaxPooling2D, Conv2D, Dropout
 import numpy as np
 
+
 def preprocess(DIR, categories, size, isSave=False ):
+    """
+    Reads Images in image paths
+    Returns
+        featureSet -> Image Pixel Values
+        labels -> Image Labels
+        train -> [featureSet,labels]
+    Saves the above variables as .npy files
+    """
     train = [] 
     featureSet = []
     labels = []
@@ -38,11 +47,13 @@ def preprocess(DIR, categories, size, isSave=False ):
 
         #Converting to Numpy
         train = np.array(train)
-        featureSet = np.array(featureSet)
+        featureSet = np.array(featureSet).reshape(-1,100,100,1)
         labels = np.array(labels)
 
         if isSave == True:
-            saveData(featureSet, labels, train)
+            saveData(featureSet)
+            saveData(labels)
+            saveData(train)
 
     #Returns FeatureSet and Labels
     return train, featureSet, labels
@@ -76,33 +87,111 @@ def sepTrain(train):
         y.append(label)
     return x, y
 
-def saveData(x,y,train):
-    np.save('featureSet',x)
-    np.save('labels', y)
-    np.save('train', train)
-    print('[INFO] Numpy Files successfully saved!')
+def saveData(x):
+    np.save(str(x),x)
+
+def train_val_split(X,y,val_ratio=.2):
+    from sklearn.model_selection import train_test_split    
+    X_train, X_val, y_train, y_val = train_test_split(X,y,test_size=val_ratio,random_state = 2)
+    return X_train, X_val, y_train, y_val
+
+def normalize(x):
+    # Normalizes the data to mean 0 and standard deviation 1
+    x = x/255.0
+    return x
 
 def createModel(img_size=224, optimizer='adam', batch_size=32, loss='binary_crossentropy'):
     model = Sequential() 
-    model.add(Conv2D(64, (3,3), input_shape=featureSet.shape[1:]))
-    model.add(Activation('relu'))
+    model.add(Conv2D(32, (3,3), ,activation='relu', input_shape=(img_size,img_size,1)))
     model.add(MaxPooling2D(pool_size=(2,2)))
 
-    model.add(Conv2D(64, (3,3)))
-    model.add(Activation('relu'))
+    model.add(Conv2D(64, (3,3),activation='relu'))
     model.add(MaxPooling2D(pool_size=(2,2)))
 
-    model.add(Conv2D(64, (3,3)))
-    model.add(Activation('relu'))
+    model.add(Conv2D(128, (3,3),activation='relu'))
     model.add(MaxPooling2D(pool_size=(2,2)))
 
+    model.add(Conv2D(128, (3,3),activation='relu'))
+    model.add(MaxPooling2D(pool_size=(2,2)))
     # Converts the 4D output of the Convolutional blocks to a 2D feature which can be read by the Dense layer
     model.add(Flatten())
-    model.add(Dense(64))
+    # model.add(Dropout(0.5))
+    model.add(Dense(512, activation='relu'))
 
     # Output Layer
-    model.add(Dense(1))
-    model.add(Activation('sigmoid'))
+    model.add(Dense(1),activation='sigmoid')
 
     model.compile(loss=loss, optimizer=optimizer, metrics=['accuracy'])
     return model
+
+
+def imageDataGenerator():
+    """
+    We are not adding a 'rescale' attribute because the data has already been normalized using the 'normalize' function of this class
+    """
+    from tensorflow.keras.preprocessing.image import ImageDataGenerator
+    train_datagen = ImageDataGenerator(rotation_range=40, 
+                                        width_shift_range=.2
+                                        height_shift_range=.2
+                                        shear_range=.2
+                                        zoom_range=.2
+                                        horizontal_flip=True)
+    # We do not augment the validation data
+    val_datagen = ImageDataGenerator()
+
+    return train_datagen, val_datagen
+
+
+def saveModel(model, base_name, attempt):
+    model.save_weights(f'{base_name}_{attempt}.h5')
+    model.save(f'{base_name}_{attempt}.h5')
+
+
+def plotAcc(histories):
+    acc = histories.history['acc']
+    val_acc = histories.history['val_acc']
+    loss = histories.history['loss']
+    val_acc = histories.history['val_loss']
+
+    epochs = range(1, len(acc)+1)
+
+    # Plotting Accuracy
+    plt.plot(epochs, acc, 'b', label='Training Accuracy')
+    plt.plot(epochs, val_acc, 'r', label='Validation Accuracy')
+    plt.title('Training and Validation Accuracy')
+    plt.legend()
+
+    # Plotting Loss
+    plt.plot(epochs, loss, 'b', label='Training Loss')
+    plt.plot(epochs, val_loss, 'r', label='Validation Loss')
+    plt.title('Training and Validation Loss')
+    plt.legend()
+
+    plt.show()
+
+################################### REFACTOR preprocess() TO BETTER SUIT A CALL FROM testModel
+def testModel(model):
+    X_test, y_test = preprocess(array) # y_test will be empty
+    x = np.array(X_test)
+    x = normalize(x)
+    test_datagen = imageDataGenerator()
+
+    # Plotting
+    columns = 5
+    i=0
+    test_labels = []
+    plt.figure(figsize=(30,30))
+    for batch in test_datagen.flow(x, batch_size=1):
+        pred = model.predict(batch)
+        if pred > 0.5:
+            test_labels.append(str(categories[1]))
+        else:
+            test_labels.append(str(categories[0]))
+        plt.subplot(5/columns+1, columns, i+1)
+        plt.title(f'This is a {test_labels[i]}')
+        i += 1
+        # Displaying the first 10 images
+        if i%10:
+            break
+
+        plt.show()
