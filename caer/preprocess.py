@@ -89,11 +89,11 @@ def imageDataGenerator():
     """
     from tensorflow.keras.preprocessing.image import ImageDataGenerator
     train_datagen = ImageDataGenerator(rotation_range=40, 
-                                        width_shift_range=.2
-                                        height_shift_range=.2
-                                        shear_range=.2
-                                        zoom_range=.2
-                                        horizontal_flip=True
+                                        width_shift_range=.2,
+                                        height_shift_range=.2,
+                                        shear_range=.2,
+                                        zoom_range=.2,
+                                        horizontal_flip=True,
                                         fill_mode='nearest')
     # We do not augment the validation data
     val_datagen = ImageDataGenerator()
