@@ -11,16 +11,11 @@ def preprocess(DIR, categories, size, isSave=False ):
     Reads Images in image paths
     Returns
         featureSet -> Image Pixel Values
-        labels -> Image Labels
-        train -> [featureSet,labels]
     Saves the above variables as .npy files
     """
     train = [] 
-    featureSet = []
-    labels = []
     try:
-        featureSet = np.load('featureSet.npy', allow_pickle=True)
-        labels = np.load('labels.npy', allow_pickle=True)
+        # if os.path.exists('featureSet.npy')
         train = np.load('train.npy', allow_pickle=True)
         print('[INFO] Loading from Numpy Files')
     except:
@@ -42,21 +37,14 @@ def preprocess(DIR, categories, size, isSave=False ):
         # Shuffling the Training Set
         train = shuffleTrain(train)
 
-        # Separating the FeatureSet and Labels into separate lists 
-        featureSet, labels = sepTrain(train)
-
         #Converting to Numpy
         train = np.array(train)
-        featureSet = np.array(featureSet).reshape(-1,100,100,1)
-        labels = np.array(labels)
 
         if isSave == True:
-            saveData(featureSet)
-            saveData(labels)
             saveData(train)
 
-    #Returns FeatureSet and Labels
-    return train, featureSet, labels
+    #Returns Training Set
+    return train
 
 def printTotal(count):
     print(count)
@@ -79,12 +67,19 @@ def shuffleTrain(train):
     random.shuffle(train)
     return train
 
-def sepTrain(train):
-    x = []
-    y = []
-    for feature, label in train:
-        x.append(feature)
-        y.append(label)
+def sepTrain(train,IMG_SIZE=224,channels=1):
+    # x = []
+    # y = []
+    # for feature, label in train:
+    #     x.append(feature)
+    #     y.append(label)
+
+    x = [i[0] for i in train]
+    y = [i[1] for i in train]
+
+    # Converting to Numpy
+    x = np.array(x).reshape(-1,IMG_SIZE,IMG_SIZE,channels)
+    y = np.array(y)
     return x, y
 
 def saveData(x):
@@ -135,15 +130,16 @@ def imageDataGenerator():
                                         height_shift_range=.2
                                         shear_range=.2
                                         zoom_range=.2
-                                        horizontal_flip=True)
+                                        horizontal_flip=True
+                                        fill_mode='nearest')
     # We do not augment the validation data
     val_datagen = ImageDataGenerator()
 
     return train_datagen, val_datagen
 
 
-def saveModel(model, base_name, attempt):
-    model.save_weights(f'{base_name}_{attempt}.h5')
+def saveModel(model, base_name, learn_rate ,attempt):
+    model.save_weights(f'{base_name}-{learn_rate}-{attempt}.h5')
     model.save(f'{base_name}_{attempt}.h5')
 
 
@@ -169,7 +165,6 @@ def plotAcc(histories):
 
     plt.show()
 
-################################### REFACTOR preprocess() TO BETTER SUIT A CALL FROM testModel
 def testModel(model):
     X_test, y_test = preprocess(array) # y_test will be empty
     x = np.array(X_test)
