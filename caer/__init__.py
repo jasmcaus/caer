@@ -22,4 +22,3 @@ from .convenience import rotate
 from .convenience import rotate_bound 
 from .convenience import resize 
 from .convenience import canny 
-
