@@ -6,7 +6,7 @@ from tensorflow.keras.layers import Dense, Flatten, MaxPooling2D, Conv2D, Dropou
 import numpy as np
 
 
-def preprocess(DIR, categories, size, isSave=False ):
+def preprocess(DIR, categories, size, isSave=True ):
     """
     Reads Images in image paths
     Returns
