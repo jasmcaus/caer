@@ -1,10 +1,10 @@
 # Author: Jason Dsouza
 # Github: http://www.github.com/jasmcaus
 
-from .preprocess import preprocess
-from .preprocess import imageDataGenerator
-from .preprocess import sepTrain
-from .preprocess import normalize
+from .utils import preprocess
+from .utils import imageDataGenerator
+from .utils import sepTrain
+from .utils import normalize
 
 from .model import createDefaultModel
 from .model import LeNet

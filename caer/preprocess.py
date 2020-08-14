@@ -3,8 +3,8 @@
 
 # Importing the necessary packages
 import numpy as np
-from .convenience import readToGray
-from .convenience import saveNumpy
+from .utils import readToGray
+from .utils import saveNumpy
 
 
 def preprocess(DIR, categories, size, isSave=True ):
