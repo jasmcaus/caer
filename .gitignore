@@ -4,3 +4,4 @@ caer.egg-info/*
 build/*
 __pycache__/*
 *.pyc
+.vscode/*
