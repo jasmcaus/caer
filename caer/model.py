@@ -1,13 +1,27 @@
 # Author: Jason Dsouza
 # Github: http://www.github.com/jasmcaus
 
+# Surpressing Tensorflow Warnings
+import os
+import time
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' 
+# 0 = all messages are logged (default behavior)
+# 1 = INFO messages are not printed
+# 2 = INFO and WARNING messages are not printed
+# 3 = INFO, WARNING, and ERROR messages are not printed
+
 # Importing the necessary packages
 from tensorflow.keras import backend
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Flatten, Dropout, Activation, Conv2D, MaxPooling2D
 
 # Surpressing Tensorflow Warnings
-tensorflow.logging.set_verbosity(tf.logging.ERROR)
+import os
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' 
+# 0 = all messages are logged (default behavior)
+# 1 = INFO messages are not printed
+# 2 = INFO and WARNING messages are not printed
+# 3 = INFO, WARNING, and ERROR messages are not printed
 
 def saveModel(model, base_name, learn_rate ,attempt):
     model.save_weights(f'{base_name}-{learn_rate}-{attempt}.h5')
@@ -41,7 +55,7 @@ def createDefaultModel(img_size=224, optimizer='adam', loss='binary_crossentropy
     except ModuleNotFoundError:
         print('[Error] The Tensorflow Python package needs to be installed')
 
-def LeNet(img_size=224, channels=1, categories=2):
+def LeNet(img_size=224, channels=1):
     """
     Adding some extra code for v0.0.14
     """
