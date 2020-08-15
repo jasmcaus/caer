@@ -13,26 +13,27 @@ import numpy as np
 #     from urllib2 import urlopen
 # For Python
 
-def readToGray(image,size):
+def readToGray(image,resized_size):
     try:
         image_array = cv.imread(image)
 
         # [INFO] Using the following piece of code results in a 'None' in the training set
         # if image_array == None:
         #     pass
+        
         image_gray = cv.cvtColor(image_array, cv.COLOR_BGR2GRAY)
-        image_gray = cv.resize(image_gray, (size,size))
+        image_gray = cv.resize(image_gray, (resized_size,resized_size))
         return image_gray
     except:
         pass
 
-def saveNumpy(x):
+def saveNumpy(name, x):
     """
     Saves an array to a .npy file
     Converts to Numpy (if not already)
     """
     x = np.array(x)
-    np.save(str(x), x)
+    np.save(name, x)
 
 def train_val_split(X,y,val_ratio=.2):
     """
