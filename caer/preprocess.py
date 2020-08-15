@@ -2,6 +2,7 @@
 # Github: http://www.github.com/jasmcaus
 
 # Importing the necessary packages
+import os
 import numpy as np
 from .utils import readToGray
 from .utils import saveNumpy
@@ -41,8 +42,8 @@ def preprocess(DIR, categories, resized_size, size, name, isSave=True):
         # Shuffling the Training Set
         train = shuffle(train)
 
-        # # Converting to Numpy handled by saveNumpy()
-        # train = np.array(train)
+        # Converting to Numpy
+        train = np.array(train)
 
         # Saves the Train set as a .npy file
         if isSave == True:
@@ -73,6 +74,9 @@ def sepTrain(train, IMG_SIZE=224, channels=1):
     x = [i[0] for i in train]
     y = [i[1] for i in train]
 
+    # Without reshaping, X.shape --> (no. of images, IMG_SIZE, IMG_SIZE)
+    # On reshaping, X.shape --> (no. of images, IMG_SIZE, IMG_SIZE,channels)
+
     # Converting to Numpy + Reshaping X
     x = reshape(x, IMG_SIZE, channels)
     y = np.array(y)
@@ -88,3 +92,4 @@ def normalize(x):
     """
     x = x/255.0
     return x
+    
