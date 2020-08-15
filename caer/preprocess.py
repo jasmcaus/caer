@@ -5,32 +5,24 @@
 import numpy as np
 from .utils import readToGray
 from .utils import saveNumpy
-# Surpressing Tensorflow Warnings
-import os
-import time
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2' 
-# 0 = all messages are logged (default behavior)
-# 1 = INFO messages are not printed
-# 2 = INFO and WARNING messages are not printed
-# 3 = INFO, WARNING, and ERROR messages are not printed
 
-
-def preprocess(DIR, categories, size, isSave=True ):
+def preprocess(DIR, categories, resized_size, size, name, isSave=True):
     """
-    Reads Images in image paths
+    Reads Images in base directory DIR
     Returns
         train -> Image Pixel Values with corresponding labels
-    Saves the above variables as .npy files
+    Saves the above variables as .npy files if isSave = True
     """
 
     train = [] 
     try:
         # If train.npy already exists, load it in
-        # if os.path.exists('featureSet.npy')
-        train = np.load('train.npy', allow_pickle=True)
+        # if os.path.exists('train.npy')
+
+        train = np.load(f'{name}.npy', allow_pickle=True)
         print('[INFO] Loading from Numpy Files')
     except:
-        print('[INFO] Generating the Image Files')
+        print(f'[INFO] Could not find {name}.npy. Generating the Image Files')
         for category in categories:
             category_path = os.path.join(DIR, category)
             classNum = categories.index(category)
@@ -38,35 +30,40 @@ def preprocess(DIR, categories, size, isSave=True ):
             for image in os.listdir(category_path):
                 if count != size:
                     image_path = os.path.join(category_path, image)
-                    gray = readToGray(image_path, 100)
+                    # Returns image RESIZED and GRAY
+                    gray = readToGray(image_path, resized_size)
 
                     train.append([gray, classNum])
                     count +=1 
-                    printTotal(count)
+                    _printTotal(count)
                 else:
                     break
         # Shuffling the Training Set
         train = shuffle(train)
 
-        #Converting to Numpy
-        train = np.array(train)
+        # # Converting to Numpy handled by saveNumpy()
+        # train = np.array(train)
 
         # Saves the Train set as a .npy file
         if isSave == True:
-            saveNumpy(train)
+            #Converts to Numpy and saves
+            saveNumpy(name, train)
 
     #Returns Training Set
     return train
 
-def printTotal(count):
+def _printTotal(count):
     print(count)
 
 def shuffle(train):
+    """
+    Shuffles the Array
+    """
     import random
     random.shuffle(train)
     return train
 
-def sepTrain(train,IMG_SIZE=224,channels=1):
+def sepTrain(train, IMG_SIZE=224, channels=1):
     # x = []
     # y = []
     # for feature, label in train:
@@ -76,11 +73,14 @@ def sepTrain(train,IMG_SIZE=224,channels=1):
     x = [i[0] for i in train]
     y = [i[1] for i in train]
 
-    # Converting to Numpy
-    x = np.array(x).reshape(-1,IMG_SIZE,IMG_SIZE,channels)
+    # Converting to Numpy + Reshaping X
+    x = reshape(x, IMG_SIZE, channels)
     y = np.array(y)
 
     return x, y
+
+def reshape(x, IMG_SIZE, channels):
+    return np.array(x).reshape(-1, IMG_SIZE, IMG_SIZE, channels)
 
 def normalize(x):
     """
@@ -88,22 +88,3 @@ def normalize(x):
     """
     x = x/255.0
     return x
-
-def imageDataGenerator():
-    """
-    We are not adding a 'rescale' attribute because the data has already been normalized using the 'normalize' function of this class
-
-    Returns train_datagen, val_datagen
-    """
-    from tensorflow.keras.preprocessing.image import ImageDataGenerator
-    train_datagen = ImageDataGenerator(rotation_range=40, 
-                                        width_shift_range=.2,
-                                        height_shift_range=.2,
-                                        shear_range=.2,
-                                        zoom_range=.2,
-                                        horizontal_flip=True,
-                                        fill_mode='nearest')
-    # We do not augment the validation data
-    val_datagen = ImageDataGenerator()
-
-    return train_datagen, val_datagen
