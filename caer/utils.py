@@ -2,15 +2,16 @@
 # Github: http://www.github.com/jasmcaus
 
 # Importing the necessary packages
+# import os
+from urllib.request import urlopen
 import cv2 as cv
-import os
 import numpy as np
-# For Python 2.7
-if sys.version_info.major == 2:
-    from urllib import urlopen
+
+# # For Python 2.7
+# import sys
+# if sys.version_info.major == 2:
+#     from urllib2 import urlopen
 # For Python
-elif sys.version_info.major == 3:
-    from urllib.request import urlopen
 
 def readToGray(image,size):
     try:
@@ -30,17 +31,19 @@ def saveNumpy(x):
     Saves an array to a .npy file
     Converts to Numpy (if not already)
     """
-    import numpy as np
     x = np.array(x)
-    np.save(str(x),x)
+    np.save(str(x), x)
 
 def train_val_split(X,y,val_ratio=.2):
     """
     Returns X_train, X_val, y_train, y_val
     """
-    from sklearn.model_selection import train_test_split    
-    X_train, X_val, y_train, y_val = train_test_split(X,y,test_size=val_ratio,random_state = 2)
-    return X_train, X_val, y_train, y_val
+    try:
+        from sklearn.model_selection import train_test_split    
+        X_train, X_val, y_train, y_val = train_test_split(X,y,test_size=val_ratio,random_state = 2)
+        return X_train, X_val, y_train, y_val
+    except ModuleNotFoundError:
+        print('[ERROR] The Sklearn Python package needs to be installed')
 
 def plotAcc(histories):
     """
@@ -50,7 +53,7 @@ def plotAcc(histories):
     acc = histories.history['acc']
     val_acc = histories.history['val_acc']
     loss = histories.history['loss']
-    val_acc = histories.history['val_loss']
+    val_loss = histories.history['val_loss']
 
     epochs = range(1, len(acc)+1)
 
@@ -73,7 +76,7 @@ def plotAcc(histories):
 def translate(image, x, y):
     # Defines the translation matrix and performs the translation
     matrix = np.float32([[1, 0, x], [0, 1, y]])
-    shifted = cv2.warpAffine(image, matrix, (image.shape[1], image.shape[0]))
+    shifted = cv.warpAffine(image, matrix, (image.shape[1], image.shape[0]))
 
     return shifted
 
@@ -86,8 +89,8 @@ def rotate(image, angle, centre=None, scale=1.0):
         centre = (width // 2, height // 2)
 
     # Rotates the image
-    M = cv2.getRotationMatrix2D(center, angle, scale)
-    rotated = cv2.warpAffine(image, M, (w, h))
+    M = cv.getRotationMatrix2D(centre, angle, scale)
+    rotated = cv.warpAffine(image, M, (width, height))
 
     return rotated
 
@@ -99,7 +102,7 @@ def rotate_bound(image, angle):
     # grab the rotation matrix (applying the negative of the
     # angle to rotate clockwise), then grab the sine and cosine
     # (i.e., the rotation components of the matrix)
-    M = cv2.getRotationMatrix2D((cX, cY), -angle, 1.0)
+    M = cv.getRotationMatrix2D((cX, cY), -angle, 1.0)
     cos = np.abs(M[0, 0])
     sin = np.abs(M[0, 1])
 
@@ -112,9 +115,9 @@ def rotate_bound(image, angle):
     M[1, 2] += (nH / 2) - cY
 
     # Performs the actual rotation and returns the image
-    return cv2.warpAffine(image, M, (nW, nH))
+    return cv.warpAffine(image, M, (nW, nH))
 
-def resize(image, width=None, height=None, interpolation=cv2.INTER_AREA):
+def resize(image, width=None, height=None, interpolation=cv.INTER_AREA):
     """
     Resizes the image while maintaing the aspect ratio of the original image
     """
@@ -140,7 +143,7 @@ def resize(image, width=None, height=None, interpolation=cv2.INTER_AREA):
         dim = (width, int(h * r))
 
     # Resizes the image
-    resized = cv2.resize(image, dim, interpolation=interpolation)
+    resized = cv.resize(image, dim, interpolation=interpolation)
 
     return resized
 
@@ -148,13 +151,13 @@ def toMatplotlib(image):
     """
     Converts BGR image ordering to RGB ordering
     """
-    return cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+    return cv.cvtColor(image, cv.COLOR_BGR2RGB)
 
-def url_to_image(url, flag=cv2.IMREAD_COLOR):
+def url_to_image(url, flag=cv.IMREAD_COLOR):
     # Converts the image to a Numpy array and reads it in OpenCV
     response = urlopen(url)
     image = np.asarray(bytearray(response.read()), dtype="uint8")
-    image = cv2.imdecode(image, flag)
+    image = cv.imdecode(image, flag)
 
     return image
 
@@ -165,6 +168,6 @@ def canny(image, sigma=0.33):
     # apply automatic Canny edge detection using the computed median
     lower = int(max(0, (1.0 - sigma) * med))
     upper = int(min(255, (1.0 + sigma) * med))
-    edged = cv2.Canny(image, lower, upper)
+    edged = cv.Canny(image, lower, upper)
 
     return edged
