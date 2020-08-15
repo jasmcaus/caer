@@ -8,7 +8,7 @@ This repository is actively being maintained. If there are any issues, kindly op
 """
 setuptools.setup(
     name="caer",
-    version="1.0.3",
+    version="1.0.5",
     author="Jason Dsouza",
     author_email="jasmcaus@gmail.com",
     description=DESCRIPTION,
