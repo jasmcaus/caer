@@ -102,8 +102,7 @@ def LeNet(img_size=224, channels=1):
         model.add(Dense(500))
         model.add(Activation('relu'))
 
-        model.add(Dense(1))
-        model.add(Activation('sigmoid')) # Softmax works too if multiple Dense nodes required
+        model.add(Dense(1, activation="relu")) # Softmax works too if multiple Dense nodes required
 
         return model
     except ModuleNotFoundError:
@@ -151,11 +150,12 @@ def VGG16(img_size=224, channels=1):
         # Final Block
         # Flattening
         model.add(Flatten())
-        model.add(Dense(500))
-        model.add(Activation('relu'))
 
-        model.add(Dense(1))
-        model.add(Activation('sigmoid')) # Softmax works too if multiple Dense nodes required
+        model.add(Dense(4096,activation="relu"))
+        model.add(Dense(4096,activation="relu"))
+
+        model.add(Dense(1), activate='sigmoid') # Softmax works too if multiple Dense nodes required
+
         return model
         
     except ModuleNotFoundError:
