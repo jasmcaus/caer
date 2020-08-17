@@ -6,9 +6,12 @@ LONG_DESCRIPTION = """A Computer Vision library in Python with powerful image pr
 
 This repository is actively being maintained. If there are any issues, kindly open a thread in the 'Issues' pane on the official Github repository. 
 """
+
+# Repository on PyPi.org = https://pypi.org/project/caer/
+
 setuptools.setup(
     name="caer",
-    version="1.0.5",
+    version="1.0.6",
     author="Jason Dsouza",
     author_email="jasmcaus@gmail.com",
     description=DESCRIPTION,

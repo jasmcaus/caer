@@ -7,12 +7,6 @@ from .preprocess import shuffle
 from .preprocess import reshape
 from .preprocess import normalize
 
-from .model import createDefaultModel
-from .model import LeNet
-from .model import saveModel
-from .model import testModel
-from .model import imageDataGenerator
-
 from .utils import readToGray
 from .utils import saveNumpy
 from .utils import train_val_split
