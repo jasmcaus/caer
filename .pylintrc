@@ -1,3 +1,2 @@
-[MESSAGES-CONTROL]
-disable=bad-whitespace
-disable=invalid-name
+[MESSAGES CONTROL]
+disable=R,C,no-member,too-many-function-args

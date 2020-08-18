@@ -3,11 +3,12 @@
 
 # Importing the necessary packages
 import os
+import time
 import numpy as np
 from .utils import readToGray
 from .utils import saveNumpy
 
-def preprocess(DIR, classes, name, resized_size=224, train_size=None):
+def preprocess(DIR, classes, name, resized_size=224, train_size=None, isSave = True):
     """
     Reads Images in base directory DIR
     Returns
@@ -17,15 +18,17 @@ def preprocess(DIR, classes, name, resized_size=224, train_size=None):
 
     train = [] 
     try:
-        # If train.npy already exists, load it in
-        # if os.path.exists('train.npy')
+        if os.path.exists(f'{name}.npy'):
+            train = np.load(f'{name}.npy', allow_pickle=True)
+            print('[INFO] Loading from Numpy Files')
+        else:
+            raise FileNotFoundError
 
-        train = np.load(f'{name}.npy', allow_pickle=True)
-        print('[INFO] Loading from Numpy Files')
-    except:
+    except FileNotFoundError:
         print(f'[INFO] Could not find {name}.npy. Generating the Image Files')
+        since_preprocess = time.time()
 
-        if train_size == None:
+        if train_size is None:
             train_size = len(os.listdir(os.path.join(DIR, classes[0])))
 
         for item in classes:
@@ -50,16 +53,24 @@ def preprocess(DIR, classes, name, resized_size=224, train_size=None):
         # # Converting to Numpy
         # train = np.array(train)
 
-        # # Saves the Train set as a .npy file
-        # if isSave == True:
-        #     #Converts to Numpy and saves
-        #     saveNumpy(name, train)
+        # Saves the Train set as a .npy file
+        if isSave == True:
+            #Converts to Numpy and saves
+            print('[INFO] Saving as .npy file')
+            since = time.time()
+
+            saveNumpy(name, train)
+            
+            end = time.time()
+            print(f'{name}.npy saved! Took {end-since}s')
 
     #Returns Training Set
+    end_preprocess = time.time()
+    print(f'Preprocessing took {end_preprocess-since_preprocess}s')
     return train
 
 def _printTotal(count, category):
-    print(f'{_printTotal(count)} - {category}')
+    print(f'{count} - {category}')
 
 def shuffle(train):
     """
