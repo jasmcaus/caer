@@ -7,7 +7,7 @@ import numpy as np
 from .utils import readToGray
 from .utils import saveNumpy
 
-def preprocess(DIR, categories, resized_size, size, name, isSave=True):
+def preprocess(DIR, categories, resized_size=None, train_size, name, isSave=True):
     """
     Reads Images in base directory DIR
     Returns
@@ -24,21 +24,26 @@ def preprocess(DIR, categories, resized_size, size, name, isSave=True):
         print('[INFO] Loading from Numpy Files')
     except:
         print(f'[INFO] Could not find {name}.npy. Generating the Image Files')
-        for category in categories:
-            category_path = os.path.join(DIR, category)
-            classNum = categories.index(category)
+
+        if train_size == None:
+            train_size = len(os.listdir(os.path.join(DIR, classes[0])))
+
+        for item in classes:
+            class_path = os.path.join(DIR, item)
+            classNum = classes.index(item)
             count = 0 
-            for image in os.listdir(category_path):
+            for image in os.listdir(class_path):
                 if count != size:
-                    image_path = os.path.join(category_path, image)
+                    image_path = os.path.join(class_path, image)
                     # Returns image RESIZED and GRAY
                     gray = readToGray(image_path, resized_size)
 
                     train.append([gray, classNum])
                     count +=1 
-                    _printTotal(count)
+                    print(f'{_printTotal(count)} - {item}')
                 else:
                     break
+
         # Shuffling the Training Set
         train = shuffle(train)
 
@@ -92,4 +97,3 @@ def normalize(x):
     """
     x = x/255.0
     return x
-    
