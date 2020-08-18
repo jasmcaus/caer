@@ -17,6 +17,7 @@ def preprocess(DIR, classes, name, resized_size=224, train_size=None, isSave = T
     """
 
     train = [] 
+    since_preprocess = time.time()
     try:
         if os.path.exists(f'{name}.npy'):
             train = np.load(f'{name}.npy', allow_pickle=True)
@@ -26,7 +27,6 @@ def preprocess(DIR, classes, name, resized_size=224, train_size=None, isSave = T
 
     except FileNotFoundError:
         print(f'[INFO] Could not find {name}.npy. Generating the Image Files')
-        since_preprocess = time.time()
 
         if train_size is None:
             train_size = len(os.listdir(os.path.join(DIR, classes[0])))
@@ -50,8 +50,8 @@ def preprocess(DIR, classes, name, resized_size=224, train_size=None, isSave = T
         # Shuffling the Training Set
         train = shuffle(train)
 
-        # # Converting to Numpy
-        # train = np.array(train)
+        # Converting to Numpy
+        train = np.array(train)
 
         # Saves the Train set as a .npy file
         if isSave == True:
