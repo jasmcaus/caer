@@ -8,7 +8,7 @@ import numpy as np
 from .utils import readToGray
 from .utils import saveNumpy
 
-def preprocess(DIR, classes, name, resized_size=224, train_size=None, isSave = True):
+def preprocess(DIR, classes, name, resized_size=224, train_size=None, isShuffle=True, isSave = True):
     """
     Reads Images in base directory DIR
     Returns
@@ -60,15 +60,19 @@ def preprocess(DIR, classes, name, resized_size=224, train_size=None, isSave = T
                         break
 
             # Shuffling the Training Set
-            train = shuffle(train)
+            if isShuffle is True:
+                train = shuffle(train)
 
             # Converting to Numpy
             train = np.array(train)
 
             # Saves the Train set as a .npy file
-            if isSave == True:
+            if isSave is True:
                 #Converts to Numpy and saves
-                print('[INFO] Saving as .npy file')
+                if '.npy' in name:
+                    print('[INFO] Saving as .npy file')
+                elif '.npz' in name:
+                    print('[INFO] Saving as .npz file')
                 since = time.time()
                 
                 # Saving
@@ -76,12 +80,16 @@ def preprocess(DIR, classes, name, resized_size=224, train_size=None, isSave = T
 
                 end = time.time()
                 time_elapsed = end-since
-                print('{}.npy saved! Took {:.0f}m {:.0f}s'.format(name, time_elapsed // 60, time_elapsed % 60))
+                if '.npy' in name:
+                    print('{}.npy saved! Took {:.0f}m {:.0f}s'.format(name, time_elapsed // 60, time_elapsed % 60))
+
+                elif '.npz' in name:
+                    print('{}.npz saved! Took {:.0f}m {:.0f}s'.format(name, time_elapsed // 60, time_elapsed % 60))
 
             #Returns Training Set
             end_preprocess = time.time()
             time_elapsed_preprocess = end_preprocess-since_preprocess
-            print('{}.npy saved! Took {:.0f}m {:.0f}s'.format(name, time_elapsed_preprocess // 60, time_elapsed_preprocess % 60))
+            print('Preprocessing complete! Took {:.0f}m {:.0f}s'.format(time_elapsed_preprocess // 60, time_elapsed_preprocess % 60))
 
             return train
 
