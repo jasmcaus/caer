@@ -32,8 +32,12 @@ def saveNumpy(name, x):
     Saves an array to a .npy file
     Converts to Numpy (if not already)
     """
+
     x = np.array(x)
-    np.save(name, x)
+    if '.npy' in name:
+        np.save(name, x)
+    elif '.npz' in name:
+        np.savez_compressed(name, x)
 
 def train_val_split(X,y,val_ratio=.2):
     """
