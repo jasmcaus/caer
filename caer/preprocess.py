@@ -17,57 +17,76 @@ def preprocess(DIR, classes, name, resized_size=224, train_size=None, isSave = T
     """
 
     train = [] 
-    since_preprocess = time.time()
     try:
-        if os.path.exists(f'{name}.npy'):
-            train = np.load(f'{name}.npy', allow_pickle=True)
-            print('[INFO] Loading from Numpy Files')
-        else:
-            raise FileNotFoundError
-
-    except FileNotFoundError:
-        print(f'[INFO] Could not find {name}.npy. Generating the Image Files')
-
-        if train_size is None:
-            train_size = len(os.listdir(os.path.join(DIR, classes[0])))
-
-        for item in classes:
-            class_path = os.path.join(DIR, item)
-            classNum = classes.index(item)
-            count = 0 
-            for image in os.listdir(class_path):
-                if count != train_size:
-                    image_path = os.path.join(class_path, image)
-                    # Returns image RESIZED and GRAY
-                    gray = readToGray(image_path, resized_size)
-
-                    train.append([gray, classNum])
-                    count +=1 
-                    _printTotal(count, item)
-                else:
-                    break
-
-        # Shuffling the Training Set
-        train = shuffle(train)
-
-        # Converting to Numpy
-        train = np.array(train)
-
-        # Saves the Train set as a .npy file
-        if isSave == True:
-            #Converts to Numpy and saves
-            print('[INFO] Saving as .npy file')
-            since = time.time()
-
-            saveNumpy(name, train)
+        if isSave is True and not ('.npy' in name or '.npz' in name):
+            print('[ERROR] Specify the correct numpy destination file extension (.npy or .npz)')
+            raise TypeError
             
+        elif os.path.exists(name):
+            since = time.time()
+            print('[INFO] Loading from Numpy Files')
+            train = np.load(name, allow_pickle=True)
             end = time.time()
-            print(f'{name}.npy saved! Took {end-since}s')
+            print('[INFO] Loaded in {:.0f}s from Numpy Files'.format(end-since))
 
-    #Returns Training Set
-    end_preprocess = time.time()
-    print(f'Preprocessing took {end_preprocess-since_preprocess}s')
-    return train
+            # Raising TypeError although not a TypeError to escape from the try block
+            # Alternatively, use the 'pass' keyword
+            # raise TypeError
+
+            return train
+
+        else:
+            since_preprocess = time.time()
+            print(f'[INFO] Could not find {name}. Generating the Image Files')
+
+            if train_size is None:
+                train_size = len(os.listdir(os.path.join(DIR, classes[0])))
+
+            for item in classes:
+                class_path = os.path.join(DIR, item)
+                classNum = classes.index(item)
+                count = 0 
+                for image in os.listdir(class_path):
+                    if count != train_size:
+                        image_path = os.path.join(class_path, image)
+
+                        # Returns image RESIZED and GRAY
+                        gray = readToGray(image_path, resized_size)
+
+                        train.append([gray, classNum])
+                        count +=1 
+                        _printTotal(count, item)
+                    else:
+                        break
+
+            # Shuffling the Training Set
+            train = shuffle(train)
+
+            # Converting to Numpy
+            train = np.array(train)
+
+            # Saves the Train set as a .npy file
+            if isSave == True:
+                #Converts to Numpy and saves
+                print('[INFO] Saving as .npy file')
+                since = time.time()
+                
+                # Saving
+                saveNumpy(name, train)
+
+                end = time.time()
+                time_elapsed = end-since
+                print('{}.npy saved! Took {:.0f}m {:.0f}s'.format(name, time_elapsed // 60, time_elapsed % 60))
+
+            #Returns Training Set
+            end_preprocess = time.time()
+            time_elapsed_preprocess = end_preprocess-since_preprocess
+            print('{}.npy saved! Took {:.0f}m {:.0f}s'.format(name, time_elapsed_preprocess // 60, time_elapsed_preprocess % 60))
+
+            return train
+
+    except TypeError:
+        pass
 
 def _printTotal(count, category):
     print(f'{count} - {category}')
