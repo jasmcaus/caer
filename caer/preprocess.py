@@ -7,7 +7,7 @@ import numpy as np
 from .utils import readToGray
 from .utils import saveNumpy
 
-def preprocess(DIR, categories, resized_size=None, train_size, name, isSave=True):
+def preprocess(DIR, classes, name, resized_size=224, train_size=None):
     """
     Reads Images in base directory DIR
     Returns
@@ -33,33 +33,33 @@ def preprocess(DIR, categories, resized_size=None, train_size, name, isSave=True
             classNum = classes.index(item)
             count = 0 
             for image in os.listdir(class_path):
-                if count != size:
+                if count != train_size:
                     image_path = os.path.join(class_path, image)
                     # Returns image RESIZED and GRAY
                     gray = readToGray(image_path, resized_size)
 
                     train.append([gray, classNum])
                     count +=1 
-                    print(f'{_printTotal(count)} - {item}')
+                    _printTotal(count, item)
                 else:
                     break
 
         # Shuffling the Training Set
         train = shuffle(train)
 
-        # Converting to Numpy
-        train = np.array(train)
+        # # Converting to Numpy
+        # train = np.array(train)
 
-        # Saves the Train set as a .npy file
-        if isSave == True:
-            #Converts to Numpy and saves
-            saveNumpy(name, train)
+        # # Saves the Train set as a .npy file
+        # if isSave == True:
+        #     #Converts to Numpy and saves
+        #     saveNumpy(name, train)
 
     #Returns Training Set
     return train
 
-def _printTotal(count):
-    print(count)
+def _printTotal(count, category):
+    print(f'{_printTotal(count)} - {category}')
 
 def shuffle(train):
     """

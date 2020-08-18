@@ -4,6 +4,7 @@
 # Importing the necessary packages
 # import os
 from urllib.request import urlopen
+import time
 import cv2 as cv
 import numpy as np
 
@@ -32,8 +33,11 @@ def saveNumpy(name, x):
     Saves an array to a .npy file
     Converts to Numpy (if not already)
     """
+    since = time.time()
     x = np.array(x)
     np.save(name, x)
+    end = time.time()
+    print(f'Took {end-since}s to save')
 
 def train_val_split(X,y,val_ratio=.2):
     """
