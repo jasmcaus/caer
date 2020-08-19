@@ -8,7 +8,7 @@ import numpy as np
 from .utils import readToGray
 from .utils import saveNumpy
 
-def preprocess(DIR, classes, name, resized_size=224, train_size=None, isShuffle=True, isSave = True):
+def preprocess(DIR, classes, name, IMG_SIZE=224, train_size=None, isNormalize=False, isShuffle=True, isSave = True):
     """
     Reads Images in base directory DIR
     Returns
@@ -51,8 +51,11 @@ def preprocess(DIR, classes, name, resized_size=224, train_size=None, isShuffle=
                         image_path = os.path.join(class_path, image)
 
                         # Returns image RESIZED and GRAY
-                        gray = readToGray(image_path, resized_size)
-
+                        gray = readToGray(image_path, IMG_SIZE)
+                        # Normalizing
+                        if isNormalize is True:
+                            gray = normalize(gray)
+                            
                         train.append([gray, classNum])
                         count +=1 
                         _printTotal(count, item)
@@ -95,6 +98,7 @@ def preprocess(DIR, classes, name, resized_size=224, train_size=None, isShuffle=
 
     except TypeError:
         pass
+
 
 def _printTotal(count, category):
     print(f'{count} - {category}')
