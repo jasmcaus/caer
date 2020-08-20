@@ -76,18 +76,16 @@ def preprocess(DIR, classes, name, IMG_SIZE=224, train_size=None, isNormalize=Fa
                     print('[INFO] Saving as .npy file')
                 elif '.npz' in name:
                     print('[INFO] Saving as .npz file')
-                since = time.time()
                 
+                since = time.time()
                 # Saving
                 saveNumpy(name, train)
 
                 end = time.time()
+                
                 time_elapsed = end-since
-                if '.npy' in name:
-                    print('{}.npy saved! Took {:.0f}m {:.0f}s'.format(name, time_elapsed // 60, time_elapsed % 60))
 
-                elif '.npz' in name:
-                    print('{}.npz saved! Took {:.0f}m {:.0f}s'.format(name, time_elapsed // 60, time_elapsed % 60))
+                print('{} saved! Took {:.0f}m {:.0f}s'.format(name, time_elapsed // 60, time_elapsed % 60))
 
             #Returns Training Set
             end_preprocess = time.time()
@@ -98,7 +96,6 @@ def preprocess(DIR, classes, name, IMG_SIZE=224, train_size=None, isNormalize=Fa
 
     except TypeError:
         pass
-
 
 def _printTotal(count, category):
     print(f'{count} - {category}')
