@@ -7,7 +7,7 @@ from .preprocess import shuffle
 from .preprocess import reshape
 from .preprocess import normalize
 
-from .utils import readToGray
+from .utils import readImg
 from .utils import saveNumpy
 from .utils import train_val_split
 from .utils import plotAcc 
