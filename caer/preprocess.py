@@ -8,7 +8,7 @@ import numpy as np
 from .utils import readImg
 from .utils import saveNumpy
 
-def preprocess(DIR, classes, name, IMG_SIZE=224, train_size=None, isNormalize=False, isShuffle=True, isSave = True):
+def preprocess(DIR, classes, name, channels=1, IMG_SIZE=224, train_size=None, isNormalize=False, isShuffle=True, isSave = True):
     """
     Reads Images in base directory DIR
     Returns
@@ -51,7 +51,7 @@ def preprocess(DIR, classes, name, IMG_SIZE=224, train_size=None, isNormalize=Fa
                         image_path = os.path.join(class_path, image)
 
                         # Returns image RESIZED and GRAY
-                        gray = readImg(image_path, IMG_SIZE)
+                        gray = readImg(image_path, IMG_SIZE=IMG_SIZE, channels=channels)
                         # Normalizing
                         if isNormalize is True:
                             gray = normalize(gray)

@@ -6,6 +6,7 @@ from .preprocess import sepTrain
 from .preprocess import shuffle
 from .preprocess import reshape
 from .preprocess import normalize
+from .preprocess import _printTotal
 
 from .utils import readImg
 from .utils import saveNumpy
