@@ -13,16 +13,17 @@ import numpy as np
 #     from urllib2 import urlopen
 # For Python
 
-def readToGray(image,IMG_SIZE):
+def readImg(image, IMG_SIZE, channels=1):
     image_array = cv.imread(image)
 
     # [INFO] Using the following piece of code results in a 'None' in the training set
     # if image_array == None:
     #     pass
-    
-    image_gray = cv.cvtColor(image_array, cv.COLOR_BGR2GRAY)
-    image_gray = cv.resize(image_gray, (IMG_SIZE,IMG_SIZE))
-    return image_gray
+    if channels is 1:
+        image_array = cv.cvtColor(image_array, cv.COLOR_BGR2GRAY)
+
+    image_array = cv.resize(image_array, (IMG_SIZE,IMG_SIZE))
+    return image_array
 
 def saveNumpy(name, x):
     """
