@@ -11,7 +11,7 @@ This repository is actively being maintained. If there are any issues, kindly op
 
 setuptools.setup(
     name="caer",
-    version="1.2.8",
+    version="1.2.9",
     author="Jason Dsouza",
     author_email="jasmcaus@gmail.com",
     description=DESCRIPTION,
