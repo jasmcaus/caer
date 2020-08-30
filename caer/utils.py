@@ -14,16 +14,19 @@ import numpy as np
 # For Python
 
 def readImg(image_path, IMG_SIZE, channels=1):
-    image_array = cv.imread(image_path)
+    try:
+        image_array = cv.imread(image_path)
 
-    # [INFO] Using the following piece of code results in a 'None' in the training set
-    # if image_array == None:
-    #     pass
-    if channels == 1:
-        image_array = cv.cvtColor(image_array, cv.COLOR_BGR2GRAY)
+        # [INFO] Using the following piece of code results in a 'None' in the training set
+        # if image_array == None:
+        #     pass
+        if channels == 1:
+            image_array = cv.cvtColor(image_array, cv.COLOR_BGR2GRAY)
 
-    image_array = cv.resize(image_array, (IMG_SIZE,IMG_SIZE))
-    return image_array
+        image_array = cv.resize(image_array, (IMG_SIZE,IMG_SIZE))
+        return image_array
+    except:
+        return None
 
 def saveNumpy(name, x):
     """

@@ -52,6 +52,8 @@ def preprocess(DIR, classes, name, channels=1, IMG_SIZE=224, train_size=None, is
 
                         # Returns image RESIZED and GRAY
                         gray = readImg(image_path, IMG_SIZE=IMG_SIZE, channels=channels)
+                        if gray is None:
+                            continue
                         # Normalizing
                         if isNormalize is True:
                             gray = normalize(gray)
