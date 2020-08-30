@@ -1,3 +1,4 @@
+#pylint: disable=bare-except
 # Author: Jason Dsouza
 # Github: http://www.github.com/jasmcaus
 
