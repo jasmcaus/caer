@@ -8,7 +8,7 @@ import numpy as np
 from .utils import readImg
 from .utils import saveNumpy
 
-def preprocess_folders(DIR, classes, name, channels=1, IMG_SIZE=224, train_size=None, isNormalize=False, isShuffle=True, isSave = True):
+def preprocess_folders(DIR, classes, name, channels=1, IMG_SIZE=224, train_size=None, isNormalize=False, isShuffle=True, isSave = True, display_count=True):
     """
     Reads Images in base directory DIR
     Returns
@@ -60,7 +60,8 @@ def preprocess_folders(DIR, classes, name, channels=1, IMG_SIZE=224, train_size=
                             
                         train.append([gray, classNum])
                         count +=1 
-                        _printTotal(count, item)
+                        if display_count is True:
+                            _printTotal(count, item)
                     else:
                         break
 
