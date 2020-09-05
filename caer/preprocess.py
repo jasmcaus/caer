@@ -8,7 +8,7 @@ import numpy as np
 from .utils import readImg
 from .utils import saveNumpy
 
-def preprocess(DIR, classes, name, channels=1, IMG_SIZE=224, train_size=None, isNormalize=False, isShuffle=True, isSave = True):
+def preprocess_folders(DIR, classes, name, channels=1, IMG_SIZE=224, train_size=None, isNormalize=False, isShuffle=True, isSave = True):
     """
     Reads Images in base directory DIR
     Returns

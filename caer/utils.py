@@ -1,6 +1,7 @@
-#pylint: disable=bare-except
 # Author: Jason Dsouza
 # Github: http://www.github.com/jasmcaus
+
+#pylint: disable=bare-except
 
 # Importing the necessary packages
 # import os
