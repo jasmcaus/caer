@@ -8,6 +8,8 @@ from .preprocess import reshape
 from .preprocess import normalize
 from .preprocess import _printTotal
 
+from .training import create_dataset
+
 from .utils import readImg
 from .utils import saveNumpy
 from .utils import train_val_split

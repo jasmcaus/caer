@@ -10,7 +10,7 @@ from .utils import saveNumpy
 
 def preprocess_from_directory(DIR, classes, name, channels=1, IMG_SIZE=224, train_size=None, isNormalize=False, isShuffle=True, isSave = True, display_count=True):
     """
-    Reads Images in base directory DIR
+    Reads Images in base directory DIR using 'classes' 
     Returns
         train -> Image Pixel Values with corresponding labels
     Saves the above variables as .npy files if isSave = True
