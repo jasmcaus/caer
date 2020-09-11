@@ -138,5 +138,8 @@ def normalize(x):
     Normalizes the data to mean 0 and standard deviation 1
     """
     # x/=255.0 raises a TypeError
-    x = x/255.0
+    # x = x/255.0
+    
+    # Converting to float32 and normalizing
+    x = x.astype('float32') / 255
     return x
