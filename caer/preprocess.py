@@ -111,7 +111,7 @@ def shuffle(train):
     random.shuffle(train)
     return train
 
-def sepTrain(train, IMG_SIZE=224, channels=1):
+def sep_train(train, IMG_SIZE=224, channels=1):
     # x = []
     # y = []
     # for feature, label in train:
