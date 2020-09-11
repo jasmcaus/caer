@@ -2,7 +2,7 @@
 # Github: http://www.github.com/jasmcaus
 
 from .preprocess import preprocess_from_directory
-from .preprocess import sepTrain
+from .preprocess import sep_train
 from .preprocess import shuffle
 from .preprocess import reshape
 from .preprocess import normalize
