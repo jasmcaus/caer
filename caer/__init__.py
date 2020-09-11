@@ -1,7 +1,7 @@
 # Author: Jason Dsouza
 # Github: http://www.github.com/jasmcaus
 
-from .preprocess import preprocess_folders
+from .preprocess import preprocess_from_directory
 from .preprocess import sepTrain
 from .preprocess import shuffle
 from .preprocess import reshape
