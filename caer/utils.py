@@ -33,12 +33,15 @@ def readImg(image_path, IMG_SIZE, channels=1):
     except:
         return None
 
-def compute_mean(DIR):
-    rMean, gMean, bMean = 0,0,0
+def compute_mean(DIR, channels):
+    if channels == 3:
+        rMean, gMean, bMean = 0,0,0
+    if channels == 1:
+        mean = 0
     count = 0
 
     if os.path.exists(DIR) is False:
-        raise ValueError('The specified diretory does not exist', DIR)
+        raise ValueError('The specified directory does not exist', DIR)
 
     for root, _, files in os.walk(DIR):
         for file in files:
@@ -46,18 +49,25 @@ def compute_mean(DIR):
                 count += 1
                 filepath = root + os.sep + file
                 img = cv.imread(filepath)
-                b,g,r = cv.mean(img)[:3]
-
-                rMean += r
-                bMean += b
-                gMean += g
+                if channels == 3:
+                    b,g,r = cv.mean(img.astype('float32'))[:3]
+                    rMean += r
+                    bMean += b
+                    gMean += g
+                if channels == 1:
+                    mean += cv.mean(img.astype('float32'))[0]
 
     # Computing average mean
-    rMean /= count
-    bMean /= count 
-    gMean /= count
+    if channels == 3:
+        rMean /= count
+        bMean /= count 
+        gMean /= count
+        return rMean, bMean, gMean
 
-    return rMean, bMean, gMean
+    if channels == 1:
+        mean /= count
+        return mean
+
 
 def saveNumpy(name, x):
     """
@@ -298,6 +308,6 @@ def canny(image, sigma=0.33):
     # apply automatic Canny edge detection using the computed median
     lower = int(max(0, (1.0 - sigma) * med))
     upper = int(min(255, (1.0 + sigma) * med))
-    edged = cv.Canny(image, lower, upper)
+    edges = cv.Canny(image, lower, upper)
 
-    return edged
+    return edges
