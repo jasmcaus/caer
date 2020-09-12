@@ -2,22 +2,21 @@
 # Github: http://www.github.com/jasmcaus
 
 import h5py 
-import os
 
 class HDF5Dataset:
-    def __init__(self, dimensions, dataset_name, buffer_size=1000):
+    def __init__(self, shape, dataset_name, buffer_size=1000):
         if '.h5' not in dataset_name:
             dataset_name += '.h5'
         
         # Creating 2 datasets -> Features/Images and corresponding labels
         self.db = h5py.File('dataset_name', 'w')
 
-        self.features = self.db.create_dataset(name='features', shape=dimensions, dtype='float')
-        self.labels = self.db.create_dataset(name='labels', shape=dimensions[0], dtype='int')
+        self.features = self.db.create_dataset(name='features', shape=shape, dtype='float')
+        self.labels = self.db.create_dataset(name='labels', shape=shape[0], dtype='int')
 
         # # We aren't adding data directly because that is handled via the buffer
-        # self.features = self.db.create_dataset(name='features', shape=dimensions, data=X)
-        # self.labels = self.db.create_dataset(name='labels', shape=dimensions[0], data=y)
+        # self.features = self.db.create_dataset(name='features', shape=shape, data=X)
+        # self.labels = self.db.create_dataset(name='labels', shape=shape[0], data=y)
 
         # Storing buffer size and initializing the buffer
         self.buffSize = buffer_size
