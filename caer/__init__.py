@@ -8,8 +8,8 @@ from .preprocess import reshape
 from .preprocess import normalize
 from .preprocess import _printTotal
 
-from .training import create_dataset
-from .training import load_dataset
+from .io import create_dataset
+from .io import load_dataset
 
 from .utils import readImg
 from .utils import saveNumpy
