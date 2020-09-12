@@ -31,10 +31,6 @@ def preprocess_from_directory(DIR, classes, name, channels=1, IMG_SIZE=224, trai
             end = time.time()
             print('[INFO] Loaded in {:.0f}s from Numpy Files'.format(end-since))
 
-            # Raising TypeError although not a TypeError to escape from the try block
-            # Alternatively, use the 'pass' keyword
-            # raise TypeError
-
             return train
 
         else:
@@ -64,11 +60,12 @@ def preprocess_from_directory(DIR, classes, name, channels=1, IMG_SIZE=224, trai
                             img = normalize(img)
                         
                         if subtract_mean:
-                            mean_subtract = MeanProcess(mean_subtraction)
-                            img = mean_subtract.mean_preprocess(img)
+                            mean_subtract = MeanProcess(mean_subtraction, channels)
+                            img = mean_subtract.mean_preprocess(img, channels)
                             
                         train.append([img, class_label])
                         count +=1 
+
                         if display_count is True:
                             _printTotal(count, item)
                     else:
@@ -84,15 +81,14 @@ def preprocess_from_directory(DIR, classes, name, channels=1, IMG_SIZE=224, trai
             # Saves the Train set as a .npy file
             if isSave is True:
                 #Converts to Numpy and saves
-                if '.npy' in name:
+                if name.endswith('.npy'):
                     print('[INFO] Saving as .npy file')
-                elif '.npz' in name:
+                elif name.endswith('.npz'):
                     print('[INFO] Saving as .npz file')
                 
                 since = time.time()
                 # Saving
                 saveNumpy(name, train)
-
                 end = time.time()
                 
                 time_elapsed = end-since
