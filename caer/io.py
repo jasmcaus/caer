@@ -5,6 +5,10 @@ import h5py
 
 class HDF5Dataset:
     def __init__(self, shape, dataset_name, buffer_size=1000):
+        """
+            shape holds the dimensions of the data. 
+            For the MNIST Dataset, shape = (70000, 28, 28). This can be flattened into a feature vector (to be fed into any Machine Learning classifier like SVM or Logistic Regression) by reshaping to (70000, 784) --> 28*28 = 784
+        """
         if '.h5' not in dataset_name:
             dataset_name += '.h5'
         
@@ -22,6 +26,15 @@ class HDF5Dataset:
         self.buffSize = buffer_size
         self.buffer = {'features': [], 'labels': []}
         self.buff_idx = 0
+    
+    def add(self, rows, labels):
+        # Adding rows and labels to the buffer
+        self.buffer['features'].extend(rows)
+        self.buffer['labels'].extend(labels)
+
+        # If buffer needs to be flushed to disk (if >buffer_size)
+        if len(self.buffer['features']) >= self.buffSize:
+            self.flush()
 
 
 def create_dataset(X, y, dataset_name):
