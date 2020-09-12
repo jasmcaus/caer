@@ -1,5 +1,6 @@
 # Author: Jason Dsouza
 # Github: http://www.github.com/jasmcaus
+# pylint: disable=unused-variable
 
 import h5py 
 
@@ -62,21 +63,21 @@ class HDF5Dataset:
         # Closing the dataset
         self.db.close()
 
-def create_dataset(X, y, dataset_name):
-    """
-    Creates an h5 dataset of features and corresponding labels
-    :param X: feature set
-    :param y: labels
-    :param dataset_name: Name for the dataset
-    """
+# def create_dataset(X, y, dataset_name):
+#     """
+#     Creates an h5 dataset of features and corresponding labels
+#     :param X: feature set
+#     :param y: labels
+#     :param dataset_name: Name for the dataset
+#     """
 
-    if '.h5' not in dataset_name:
-        dataset_name += '.h5'
+#     if '.h5' not in dataset_name:
+#         dataset_name += '.h5'
 
-    h5f = h5py.File('dataset_name', 'w')
-    h5f.create_dataset('features', data=X)
-    h5f.create_dataset('labels', data=y)
-    h5f.close()
+#     h5f = h5py.File('dataset_name', 'w')
+#     h5f.create_dataset('features', data=X)
+#     h5f.create_dataset('labels', data=y)
+#     h5f.close()
     
 
 def load_dataset(dataset_name):
