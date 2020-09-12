@@ -2,13 +2,16 @@
 # Github: http://www.github.com/jasmcaus
 
 # Importing the necessary packages
+import sys
+sys.path.append('..')
 import os
 import time
 import numpy as np
 from .utils import readImg
 from .utils import saveNumpy
+from .preprocessing import MeanProcess
 
-def preprocess_from_directory(DIR, classes, name, channels=1, IMG_SIZE=224, train_size=None, isNormalize=False, isShuffle=True, isSave = True, display_count=True):
+def preprocess_from_directory(DIR, classes, name, channels=1, IMG_SIZE=224, train_size=None, isNormalize=False, mean_subtraction=None, isShuffle=True, isSave = True, display_count=True):
     """
     Reads Images in base directory DIR using 'classes' 
     Returns
@@ -19,8 +22,7 @@ def preprocess_from_directory(DIR, classes, name, channels=1, IMG_SIZE=224, trai
     train = [] 
     try:
         if isSave is True and not ('.npy' in name or '.npz' in name):
-            print('[ERROR] Specify the correct numpy destination file extension (.npy or .npz)')
-            raise TypeError
+            raise TypeError('[ERROR] Specify the correct numpy destination file extension (.npy or .npz)', name)
             
         elif os.path.exists(name):
             since = time.time()
@@ -42,23 +44,30 @@ def preprocess_from_directory(DIR, classes, name, channels=1, IMG_SIZE=224, trai
             if train_size is None:
                 train_size = len(os.listdir(os.path.join(DIR, classes[0])))
 
+            # Checking if 'mean_subtraction' values are valid. If yes, then mean subtraction is applied
+            subtract_mean = check_mean_subtraction(mean_subtraction, channels)
+
             for item in classes:
                 class_path = os.path.join(DIR, item)
-                classNum = classes.index(item)
+                class_label = classes.index(item)
                 count = 0 
                 for image in os.listdir(class_path):
                     if count != train_size:
                         image_path = os.path.join(class_path, image)
 
-                        # Returns image RESIZED and GRAY
-                        gray = readImg(image_path, IMG_SIZE=IMG_SIZE, channels=channels)
-                        if gray is None:
+                        # Returns image RESIZED and img
+                        img = readImg(image_path, IMG_SIZE=IMG_SIZE, channels=channels)
+                        if img is None:
                             continue
                         # Normalizing
-                        if isNormalize is True:
-                            gray = normalize(gray)
+                        if isNormalize:
+                            img = normalize(img)
+                        
+                        if subtract_mean:
+                            mean_subtract = MeanProcess(mean_subtraction)
+                            img = mean_subtract.mean_preprocess(img)
                             
-                        train.append([gray, classNum])
+                        train.append([img, class_label])
                         count +=1 
                         if display_count is True:
                             _printTotal(count, item)
@@ -102,6 +111,14 @@ def preprocess_from_directory(DIR, classes, name, channels=1, IMG_SIZE=224, trai
 
 def _printTotal(count, category):
     print(f'{count} - {category}')
+
+def check_mean_subtraction(value, channels):
+    if value is None:
+        return False
+    elif type(value) is tuple and len(value) == channels:
+        return True
+    else:
+        raise ValueError(f'[ERROR] Expected a tuple of dimension {channels}', value) 
 
 def shuffle(train):
     """

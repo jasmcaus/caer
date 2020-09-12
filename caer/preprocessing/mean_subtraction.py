@@ -5,10 +5,11 @@
 import cv2 as cv
 
 class MeanProcess:
-    def __init__(self, rMean, gMean, bMean):
-        self.rMean = rMean
-        self.gMean = gMean
-        self.bMean = bMean
+    def __init__(self, mean_sub_values):
+        # mean_sub_values is a tuple
+        self.rMean = mean_sub_values[0]
+        self.gMean = mean_sub_values[1]
+        self.bMean = mean_sub_values[2]
 
     def mean_preprocess(self, image):
         (b,g,r) = cv.split(image.astype('float32')[:3])
