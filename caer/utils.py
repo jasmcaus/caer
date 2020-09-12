@@ -101,6 +101,9 @@ def extract_frames(input_folder, output_folder, IMG_SIZE=None, label_counter = N
     processed_videos = 0
     vid_count = 0 # to check if < video_count
 
+    if os.path.exists(input_folder) is False:
+        raise ValueError('Input folder does not exist', input_folder)
+
     if label_counter is None:
         label_counter = 0
 
@@ -112,46 +115,48 @@ def extract_frames(input_folder, output_folder, IMG_SIZE=None, label_counter = N
 
     start = time.time()
 
-    for file in os.listdir(input_folder):
-        if vid_count < video_count:
-            if '.mp4' in file: # if a video file
-                capture = cv.VideoCapture(os.path.join(input_folder,file))
-                video_frame_counter = 0
+    for root, _, files in os.walk(input_folder):
+        for file in files:
+            if vid_count < video_count:
+                if file.endswith('.mp4') or file.endswith('.avi'): # if a video file
+                    vid_filepath = root + os.sep + file
+                    capture = cv.VideoCapture(vid_filepath)
+                    video_frame_counter = 0
 
-                # Find the number of frames and FPS
-                video_frame_count = int(capture.get(cv.CAP_PROP_FRAME_COUNT)) - 1
-                video_fps = math.ceil(capture.get(cv.CAP_PROP_FPS))
+                    # Find the number of frames and FPS
+                    video_frame_count = int(capture.get(cv.CAP_PROP_FRAME_COUNT)) - 1
+                    video_fps = math.ceil(capture.get(cv.CAP_PROP_FPS))
 
-                print(f'{vid_count+1}. Reading \'{file}\'. Number of frames: {video_frame_count}. FPS: {video_fps}')
+                    print(f'{vid_count+1}. Reading \'{file}\'. Number of frames: {video_frame_count}. FPS: {video_fps}')
 
-                if frames_per_sec is not None:
-                    interval= determine_interval(video_fps/frames_per_sec) # eg: 30//15
-                    print('Interval: ', interval)
-                # if frames_per_sec is None, we assume that each frame should be processed
-                else:
-                    interval = 1
-                
-                # Start converting the video
-                while capture.isOpened():
-                    _, frame = capture.read()
-
-                    if IMG_SIZE is not None:                    
-                        frame = cv.resize(frame, (IMG_SIZE,IMG_SIZE))
+                    if frames_per_sec is not None:
+                        interval= determine_interval(video_fps/frames_per_sec) # eg: 30//15
+                        print('Interval: ', interval)
+                    # if frames_per_sec is None, we assume that each frame should be processed
+                    else:
+                        interval = 1
                     
-                    # Write the results back to output location as per specified frames per second
-                    if video_frame_counter % interval == 0:
-                        cv.imwrite(f'{output_folder}/{label_counter}.{dest_filetype}', frame)
+                    # Start converting the video
+                    while capture.isOpened():
+                        _, frame = capture.read()
+
+                        if IMG_SIZE is not None:                    
+                            frame = cv.resize(frame, (IMG_SIZE,IMG_SIZE))
+                        
+                        # Write the results back to output location as per specified frames per second
+                        if video_frame_counter % interval == 0:
+                            cv.imwrite(f'{output_folder}/{label_counter}.{dest_filetype}', frame)
+                            video_frame_counter += 1
+                            label_counter += 1
+                            print('Frame counter: ', video_frame_counter)
+                        
                         video_frame_counter += 1
-                        label_counter += 1
-                        print('Frame counter: ', video_frame_counter)
-                    
-                    video_frame_counter += 1
 
-                    # If there are no more frames left
-                    if video_frame_counter > (video_frame_count-1):
-                        capture.release()
-                        processed_videos += 1
-                        break
+                        # If there are no more frames left
+                        if video_frame_counter > (video_frame_count-1):
+                            capture.release()
+                            processed_videos += 1
+                            break
 
     end = time.time()
     # Printing stats
