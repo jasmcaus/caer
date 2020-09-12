@@ -35,7 +35,16 @@ class HDF5Dataset:
         # If buffer needs to be flushed to disk (if >buffer_size)
         if len(self.buffer['features']) >= self.buffSize:
             self.flush()
+    
+    def flush(self):
+        # Buffers and written to disk and then flushed
+        idx = self.buff_idx + len(self.buffer['features'])
+        self.features[self.buff_idx : idx] = self.buffer['features']
+        self.labels[self.buff_idx : idx] = self.buffer['labels']
 
+        # Resetting buffer
+        self.buff_idx = idx
+        self.buffer = {'features': [], 'labels': []}
 
 def create_dataset(X, y, dataset_name):
     """
