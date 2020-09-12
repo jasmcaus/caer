@@ -7,6 +7,7 @@
 # import os
 from urllib.request import urlopen
 import cv2 as cv
+import os
 import numpy as np
 
 # # For Python 2.7
@@ -29,6 +30,32 @@ def readImg(image_path, IMG_SIZE, channels=1):
         return image_array
     except:
         return None
+
+def compute_mean(DIR):
+    rMean, gMean, bMean = 0,0,0
+    count = 0
+
+    if os.path.exists(DIR) is False:
+        raise ValueError('The specified diretory does not exist', DIR)
+
+    for root, _, files in os.walk(DIR):
+        for file in files:
+            if file.endswith('.png') or file.endswith('.jpg'):
+                count += 1
+                filepath = root + os.sep + file
+                img = cv.imread(filepath)
+                b,g,r = cv.mean(img)[:3]
+
+                rMean += r
+                bMean += b
+                gMean += g
+
+    # Computing average mean
+    rMean /= count
+    bMean /= count 
+    gMean /= count
+
+    return rMean, bMean, gMean
 
 def saveNumpy(name, x):
     """
