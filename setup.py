@@ -11,7 +11,7 @@ This repository is actively being maintained. If there are any issues, kindly op
 
 setuptools.setup(
     name="caer",
-    version="1.3.2",
+    version="1.3.3",
     author="Jason Dsouza",
     author_email="jasmcaus@gmail.com",
     description=DESCRIPTION,
@@ -19,7 +19,7 @@ setuptools.setup(
     url="https://github.com/jasmcaus/caer",
     packages=setuptools.find_packages(),
     license='MIT',
-    install_requires=['numpy', 'opencv-contrib-python'],
+    install_requires=['numpy', 'opencv-contrib-python', 'h5py'],
     keywords=['computer vision', 'deep learning', 'image processing', 'opencv', 'matplotlib'],
     classifiers=[
         "Development Status :: 3 - Alpha",
