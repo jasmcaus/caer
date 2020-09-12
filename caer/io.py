@@ -45,6 +45,16 @@ class HDF5Dataset:
         # Resetting buffer
         self.buff_idx = idx
         self.buffer = {'features': [], 'labels': []}
+    
+    def storeClassLabels(self, classLabels):
+        """
+            Stores the actual classLabels as an additional piece of the dataset
+            classLabels must be a LIST
+        """
+        dtype = h5py.special_dtype(vlen='unicode')
+        classLabels_set = self.db.create_dataset('class labels', shape=len(classLabels), dtype=dtype, data = classLabels)
+
+
 
 def create_dataset(X, y, dataset_name):
     """
