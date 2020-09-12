@@ -22,7 +22,7 @@ setuptools.setup(
     url="https://github.com/jasmcaus/caer",
     packages=setuptools.find_packages(),
     license='MIT',
-    install_requires=['numpy', 'opencv-contrib-python', 'h5py'],
+    install_requires=['numpy', 'opencv-contrib-python', 'h5py', 'sklearn'],
     keywords=['computer vision', 'deep learning', 'image processing', 'opencv', 'matplotlib'],
     classifiers=[
         "Development Status :: 3 - Alpha",
