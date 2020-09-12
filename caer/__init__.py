@@ -1,6 +1,12 @@
 # Author: Jason Dsouza
 # Github: http://www.github.com/jasmcaus
 
+import sys
+sys.path.append('..')
+
+from setup import version
+__version__ = version
+
 from .preprocess import preprocess_from_directory
 from .preprocess import sep_train
 from .preprocess import shuffle

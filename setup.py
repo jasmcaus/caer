@@ -9,9 +9,11 @@ This repository is actively being maintained. If there are any issues, kindly op
 
 # Repository on PyPi.org = https://pypi.org/project/caer/
 
+version = '1.3.4'
+
 setuptools.setup(
     name="caer",
-    version="1.3.3",
+    version=version,
     author="Jason Dsouza",
     author_email="jasmcaus@gmail.com",
     description=DESCRIPTION,
