@@ -54,6 +54,14 @@ class HDF5Dataset:
         dtype = h5py.special_dtype(vlen='unicode')
         classLabels_set = self.db.create_dataset('class labels', shape=len(classLabels), dtype=dtype, data = classLabels)
 
+    def close(self):
+        # Writing any remaining items in buffer to disk
+        if len(self.buffer['data']) > 0:
+            self.flush()
+        
+        # Closing the dataset
+        self.db.close()
+
 def create_dataset(X, y, dataset_name):
     """
     Creates an h5 dataset of features and corresponding labels
