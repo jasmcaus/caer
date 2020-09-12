@@ -1,5 +1,6 @@
 import setuptools
 
+
 DESCRIPTION = """A Computer Vision library in Python with powerful image processing operations, including support for Deep Learning models built using the Keras framework"""
 
 LONG_DESCRIPTION = """A Computer Vision library in Python with powerful image processing operations, including support for Deep Learning models built using the Keras framework
@@ -9,7 +10,7 @@ This repository is actively being maintained. If there are any issues, kindly op
 
 # Repository on PyPi.org = https://pypi.org/project/caer/
 
-version = '1.3.4'
+version = '1.3.5'
 
 setuptools.setup(
     name="caer",
