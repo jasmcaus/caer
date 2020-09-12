@@ -28,9 +28,9 @@ class HDF5Dataset:
         self.buffer = {'features': [], 'labels': []}
         self.buff_idx = 0
     
-    def add(self, rows, labels):
+    def add(self, features, labels):
         # Adding rows and labels to the buffer
-        self.buffer['features'].extend(rows)
+        self.buffer['features'].extend(features)
         self.buffer['labels'].extend(labels)
 
         # If buffer needs to be flushed to disk (if >buffer_size)
