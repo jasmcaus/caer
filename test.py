@@ -1,26 +1,34 @@
+#pylint: disable=bare-except
+
 import cv2 as cv
+import numpy as np
+import os
 
-file = r'C:\Users\aus\Downloads\atd-sdop-izKxBS9s5vs-unsplash.jpg'
+file = r'C:\Users\aus\Downloads'
+train = []
 
-img = cv.imread(file)
-img = cv.resize(img, (500,500))
-cv.imshow('img', img)
-# (b,g,r) = cv.split(img.astype('float32'))
+def readImg(image_path, IMG_SIZE, channels=1):
+    try:
+        image_array = cv.imread(image_path)
 
-# b -= 50
-# g -= 50
-# r -= 50
+        # [INFO] Using the following piece of code results in a 'None' in the training set
+        # if image_array == None:
+        #     pass
+        if channels == 1:
+            image_array = cv.cvtColor(image_array, cv.COLOR_BGR2GRAY)
 
-# cv.imshow('ee', cv.merge([b,g,r]))
+        image_array = cv.resize(image_array, (IMG_SIZE,IMG_SIZE))
+        return image_array
+    except:
+        return None
 
-img = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
-cv.imshow('Imga', img)
+for img in os.listdir(file):
+    if img.endswith('.png') or img.endswith('.jpg'):
+        path = os.path.join(file, img)
+        img = readImg(path, 300, 1)
+        img = img.astype('float32') - 80
 
-img = img.astype('float32')
+        train.append(img)
 
-img -= cv.mean(img)[0]
-# print('Mean', cv.mean(img))
-
-cv.imshow('Subtracted', img)
-
-cv.waitKey(0)
+print('Length=', len(train))
+np.save('train_float_subtracted_gray.npy', train)
