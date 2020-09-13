@@ -10,7 +10,7 @@ This repository is actively being maintained. If there are any issues, kindly op
 
 # Repository on PyPi.org = https://pypi.org/project/caer/
 
-version = '1.3.5'
+version = '1.3.7'
 
 setuptools.setup(
     name="caer",
