@@ -11,17 +11,17 @@ from .utils import readImg
 from .utils import saveNumpy
 from .preprocessing import MeanProcess
 
-def preprocess_from_directory(DIR, classes, name, channels=1, IMG_SIZE=224, train_size=None, isNormalize=False, mean_subtraction=None, isShuffle=True, isSave = True, display_count=True):
+def preprocess_from_directory(DIR, classes, name, channels=1, IMG_SIZE=224, train_size=None, isNormalize=False, mean_subtraction=None, isShuffle=True, save_train = True, display_count=True):
     """
     Reads Images in base directory DIR using 'classes' 
     Returns
         train -> Image Pixel Values with corresponding labels
-    Saves the above variables as .npy files if isSave = True
+    Saves the above variables as .npy files if save_train = True
     """
 
     train = [] 
     try:
-        if isSave is True and not ('.npy' in name or '.npz' in name):
+        if save_train is True and not ('.npy' in name or '.npz' in name):
             raise TypeError('[ERROR] Specify the correct numpy destination file extension (.npy or .npz)', name)
             
         elif os.path.exists(name):
@@ -36,6 +36,9 @@ def preprocess_from_directory(DIR, classes, name, channels=1, IMG_SIZE=224, trai
         else:
             since_preprocess = time.time()
             print(f'[INFO] Could not find {name}. Generating the Image Files')
+
+            if not save_train:
+                name = None
 
             if train_size is None:
                 train_size = len(os.listdir(os.path.join(DIR, classes[0])))
@@ -79,7 +82,7 @@ def preprocess_from_directory(DIR, classes, name, channels=1, IMG_SIZE=224, trai
             train = np.array(train)
 
             # Saves the Train set as a .npy file
-            if isSave is True:
+            if save_train is True:
                 #Converts to Numpy and saves
                 if name.endswith('.npy'):
                     print('[INFO] Saving as .npy file')
@@ -93,12 +96,13 @@ def preprocess_from_directory(DIR, classes, name, channels=1, IMG_SIZE=224, trai
                 
                 time_elapsed = end-since
 
-                print('{} saved! Took {:.0f}m {:.0f}s'.format(name, time_elapsed // 60, time_elapsed % 60))
+                print('[INFO] {} saved! Took {:.0f}m {:.0f}s'.format(name, time_elapsed // 60, time_elapsed % 60))
 
             #Returns Training Set
             end_preprocess = time.time()
             time_elapsed_preprocess = end_preprocess-since_preprocess
-            print('Preprocessing complete! Took {:.0f}m {:.0f}s'.format(time_elapsed_preprocess // 60, time_elapsed_preprocess % 60))
+            print('----------------------------------------------')
+            print('[INFO] Preprocessing complete! Took {:.0f}m {:.0f}s'.format(time_elapsed_preprocess // 60, time_elapsed_preprocess % 60))
 
             return train
 
@@ -153,6 +157,6 @@ def normalize(x):
     # x/=255.0 raises a TypeError
     # x = x/255.0
     
-    # Converting to float32 and normalizing
+    # Converting to float32 and normalizing (float32 saves memory)
     x = x.astype('float32') / 255
     return x
