@@ -7,6 +7,7 @@
 # import os
 from urllib.request import urlopen
 import os
+import re
 import time
 import math
 import cv2 as cv
@@ -67,7 +68,6 @@ def compute_mean(DIR, channels):
     if channels == 1:
         mean /= count
         return mean
-
 
 def saveNumpy(name, x):
     """
