@@ -4,6 +4,5 @@ caer.egg-info/*
 build/*
 __pycache__/*
 *.pyc
-*.*.pyc
 .vscode/*
 test.py
