@@ -12,7 +12,7 @@ from .utils import readImg
 from .utils import saveNumpy
 from .preprocessing import MeanProcess
 
-def preprocess_from_directory(DIR, classes, channels=1, IMG_SIZE=224, train_size=None, isNormalize=False, mean_subtraction=None, isShuffle=True, save_train = True, name=None,display_count=True):
+def preprocess_from_directory(DIR, classes, channels=1, IMG_SIZE=224, train_size=None, normalize_train=False, mean_subtraction=None, isShuffle=True, save_train=True, name=None,display_count=True):
     """
     Reads Images in base directory DIR using 'classes' 
     Returns
@@ -22,7 +22,10 @@ def preprocess_from_directory(DIR, classes, channels=1, IMG_SIZE=224, train_size
 
     train = [] 
     try:
-        if save_train is True and not ('.npy' in name or '.npz' in name):
+        if save_train and name is None:
+            raise ValueError('[ERROR] Specify a destination file name')
+
+        elif save_train is True and not ('.npy' in name or '.npz' in name):
             raise TypeError('[ERROR] Specify the correct numpy destination file extension (.npy or .npz)', name)
             
         elif os.path.exists(name):
@@ -40,8 +43,6 @@ def preprocess_from_directory(DIR, classes, channels=1, IMG_SIZE=224, train_size
 
             if not save_train:
                 name = None
-            if save_train and name is None:
-                raise ValueError('[ERROR] Specify a destination file name')
 
             if train_size is None:
                 train_size = len(os.listdir(os.path.join(DIR, classes[0])))
@@ -62,7 +63,7 @@ def preprocess_from_directory(DIR, classes, channels=1, IMG_SIZE=224, train_size
                         if img is None:
                             continue
                         # Normalizing
-                        if isNormalize:
+                        if normalize_train:
                             img = normalize(img)
                         
                         if subtract_mean:
