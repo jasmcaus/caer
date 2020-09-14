@@ -12,7 +12,7 @@ from .utils import readImg
 from .utils import saveNumpy
 from .preprocessing import MeanProcess
 
-def preprocess_from_directory(DIR, classes, channels=1, IMG_SIZE=224, train_size=None, normalize_train=False, mean_subtraction=None, isShuffle=True, save_train=True, destination_filename=None,display_count=True):
+def preprocess_from_dir(DIR, classes, channels=1, IMG_SIZE=224, train_size=None, normalize_train=False, mean_subtraction=None, isShuffle=True, save_train=True, destination_filename=None,display_count=True):
     """
     Reads Images in base directory DIR using 'classes' 
     Returns
