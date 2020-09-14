@@ -12,7 +12,7 @@ from .utils import readImg
 from .utils import saveNumpy
 from .preprocessing import MeanProcess
 
-def preprocess_from_directory(DIR, classes, channels=1, IMG_SIZE=224, train_size=None, normalize_train=False, mean_subtraction=None, isShuffle=True, save_train=True, name=None,display_count=True):
+def preprocess_from_directory(DIR, classes, channels=1, IMG_SIZE=224, train_size=None, normalize_train=False, mean_subtraction=None, isShuffle=True, save_train=True, destination_filename=None,display_count=True):
     """
     Reads Images in base directory DIR using 'classes' 
     Returns
@@ -22,16 +22,16 @@ def preprocess_from_directory(DIR, classes, channels=1, IMG_SIZE=224, train_size
 
     train = [] 
     try:
-        if save_train and name is None:
+        if save_train and destination_filename is None:
             raise ValueError('[ERROR] Specify a destination file name')
 
-        elif save_train is True and not ('.npy' in name or '.npz' in name):
-            raise TypeError('[ERROR] Specify the correct numpy destination file extension (.npy or .npz)', name)
+        elif save_train and not ('.npy' in destination_filename or '.npz' in destination_filename):
+            raise TypeError('[ERROR] Specify the correct numpy destination file extension (.npy or .npz)', destination_filename)
             
-        elif os.path.exists(name):
+        elif destination_filename is None and os.path.exists(destination_filename):
             since = time.time()
             print('[INFO] Loading from Numpy Files')
-            train = np.load(name, allow_pickle=True)
+            train = np.load(destination_filename, allow_pickle=True)
             end = time.time()
             print('[INFO] Loaded in {:.0f}s from Numpy Files'.format(end-since))
 
@@ -39,10 +39,10 @@ def preprocess_from_directory(DIR, classes, channels=1, IMG_SIZE=224, train_size
 
         else:
             since_preprocess = time.time()
-            print(f'[INFO] Could not find {name}. Generating the Image Files')
+            print(f'[INFO] Could not find {destination_filename}. Generating the Image Files')
 
             if not save_train:
-                name = None
+                destination_filename = None
 
             if train_size is None:
                 train_size = len(os.listdir(os.path.join(DIR, classes[0])))
@@ -88,19 +88,19 @@ def preprocess_from_directory(DIR, classes, channels=1, IMG_SIZE=224, train_size
             # Saves the Train set as a .npy file
             if save_train is True:
                 #Converts to Numpy and saves
-                if name.endswith('.npy'):
+                if destination_filename.endswith('.npy'):
                     print('[INFO] Saving as .npy file')
-                elif name.endswith('.npz'):
+                elif destination_filename.endswith('.npz'):
                     print('[INFO] Saving as .npz file')
                 
                 since = time.time()
                 # Saving
-                saveNumpy(name, train)
+                saveNumpy(destination_filename, train)
                 end = time.time()
                 
                 time_elapsed = end-since
 
-                print('[INFO] {} saved! Took {:.0f}m {:.0f}s'.format(name, time_elapsed // 60, time_elapsed % 60))
+                print('[INFO] {} saved! Took {:.0f}m {:.0f}s'.format(destination_filename, time_elapsed // 60, time_elapsed % 60))
 
             #Returns Training Set
             end_preprocess = time.time()
