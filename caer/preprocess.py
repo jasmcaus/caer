@@ -21,9 +21,7 @@ def preprocess_from_dir(DIR, classes, channels=1, IMG_SIZE=224, train_size=None,
     """
 
     train = [] 
-    print('Trying before try')
     if save_train:
-        print('Before destination_filename is None')
         if destination_filename is None:
             raise ValueError('[ERROR] Specify a destination file name')
 
@@ -47,7 +45,6 @@ def preprocess_from_dir(DIR, classes, channels=1, IMG_SIZE=224, train_size=None,
 
     # Loading from Numpy Files
     elif destination_filename is not None and os.path.exists(destination_filename):
-        print('os.path.exists(destination_filename)')
         since = time.time()
         print('[INFO] Loading from Numpy Files')
         train = np.load(destination_filename, allow_pickle=True)
@@ -59,7 +56,6 @@ def preprocess_from_dir(DIR, classes, channels=1, IMG_SIZE=224, train_size=None,
 
     # Extracting image data
     else:
-        print('We are here!!')
         since_preprocess = time.time()
         print(f'[INFO] Could not find {destination_filename}. Generating the Image Files')
         print('----------------------------------------------')
