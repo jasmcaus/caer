@@ -37,7 +37,7 @@ def preprocess_from_dir(DIR, classes, channels=1, IMG_SIZE=224, train_size=None,
 
         elif not os.path.exists(DIR):
             raise ValueError('[ERROR] The specified directory does not exist', DIR)
-        
+
         elif IMG_SIZE is None:
             raise ValueError('[ERROR] IMG_SIZE must be specified')
 
@@ -50,6 +50,7 @@ def preprocess_from_dir(DIR, classes, channels=1, IMG_SIZE=224, train_size=None,
             print('[INFO] Loading from Numpy Files')
             train = np.load(destination_filename, allow_pickle=True)
             end = time.time()
+            print('----------------------------------------------')
             print('[INFO] Loaded in {:.0f}s from Numpy Files'.format(end-since))
 
             return train
