@@ -4,6 +4,7 @@
 # Importing the necessary packages
 import sys
 sys.path.append('..')
+
 import os
 import time
 import numpy as np
@@ -11,7 +12,7 @@ from .utils import readImg
 from .utils import saveNumpy
 from .preprocessing import MeanProcess
 
-def preprocess_from_directory(DIR, classes, name, channels=1, IMG_SIZE=224, train_size=None, isNormalize=False, mean_subtraction=None, isShuffle=True, save_train = True, display_count=True):
+def preprocess_from_directory(DIR, classes, channels=1, IMG_SIZE=224, train_size=None, isNormalize=False, mean_subtraction=None, isShuffle=True, save_train = True, name=None,display_count=True):
     """
     Reads Images in base directory DIR using 'classes' 
     Returns
@@ -39,6 +40,8 @@ def preprocess_from_directory(DIR, classes, name, channels=1, IMG_SIZE=224, trai
 
             if not save_train:
                 name = None
+            if save_train and name is None:
+                raise ValueError('[ERROR] Specify a destination file name')
 
             if train_size is None:
                 train_size = len(os.listdir(os.path.join(DIR, classes[0])))
