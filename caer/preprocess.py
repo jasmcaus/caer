@@ -60,7 +60,7 @@ def preprocess_from_dir(DIR, classes, channels=1, IMG_SIZE=224, train_size=None,
         if destination_filename is not None:
             print(f'[INFO] Could not find {destination_filename}. Generating the Image Files')
         else:
-            print(f'[INFO] Could not find a file to load from. Generating Image Files')
+            print('[INFO] Could not find a file to load from. Generating Image Files')
         print('----------------------------------------------')
 
         if train_size is None:
