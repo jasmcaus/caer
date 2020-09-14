@@ -21,114 +21,114 @@ def preprocess_from_dir(DIR, classes, channels=1, IMG_SIZE=224, train_size=None,
     """
 
     train = [] 
-    try:
-        if save_train:
-            if destination_filename is None:
-                raise ValueError('[ERROR] Specify a destination file name')
+    print('Trying before try')
+    if save_train:
+        print('Before destination_filename is None')
+        if destination_filename is None:
+            raise ValueError('[ERROR] Specify a destination file name')
 
-            elif not ('.npy' in destination_filename or '.npz' in destination_filename):
-                raise TypeError('[ERROR] Specify the correct numpy destination file extension (.npy or .npz)', destination_filename)
-        
-            elif destination_filename is not None:
-                destination_filename = None
-        
-        elif type(classes) is not list:
-            raise ValueError('[ERROR] "classes" must be a list')
+        elif not ('.npy' in destination_filename or '.npz' in destination_filename):
+            raise TypeError('[ERROR] Specify the correct numpy destination file extension (.npy or .npz)', destination_filename)
+    
+        elif destination_filename is not None:
+            destination_filename = None
+    
+    elif type(classes) is not list:
+        raise ValueError('[ERROR] "classes" must be a list')
 
-        elif not os.path.exists(DIR):
-            raise ValueError('[ERROR] The specified directory does not exist', DIR)
+    elif not os.path.exists(DIR):
+        raise ValueError('[ERROR] The specified directory does not exist', DIR)
 
-        elif IMG_SIZE is None:
-            raise ValueError('[ERROR] IMG_SIZE must be specified')
+    elif IMG_SIZE is None:
+        raise ValueError('[ERROR] IMG_SIZE must be specified')
 
-        elif type(IMG_SIZE) is not int:
-            raise ValueError('[ERROR] IMG_SIZE must be an integer')
+    elif type(IMG_SIZE) is not int:
+        raise ValueError('[ERROR] IMG_SIZE must be an integer')
 
-        # Loading from Numpy Files
-        elif os.path.exists(destination_filename):
-            since = time.time()
-            print('[INFO] Loading from Numpy Files')
-            train = np.load(destination_filename, allow_pickle=True)
-            end = time.time()
-            print('----------------------------------------------')
-            print('[INFO] Loaded in {:.0f}s from Numpy Files'.format(end-since))
+    # Loading from Numpy Files
+    elif destination_filename is not None and os.path.exists(destination_filename):
+        print('os.path.exists(destination_filename)')
+        since = time.time()
+        print('[INFO] Loading from Numpy Files')
+        train = np.load(destination_filename, allow_pickle=True)
+        end = time.time()
+        print('----------------------------------------------')
+        print('[INFO] Loaded in {:.0f}s from Numpy Files'.format(end-since))
 
-            return train
+        return train
 
-        # Extracting image data
-        else:
-            since_preprocess = time.time()
-            print(f'[INFO] Could not find {destination_filename}. Generating the Image Files')
-            print('----------------------------------------------')
+    # Extracting image data
+    else:
+        print('We are here!!')
+        since_preprocess = time.time()
+        print(f'[INFO] Could not find {destination_filename}. Generating the Image Files')
+        print('----------------------------------------------')
 
-            if train_size is None:
-                train_size = len(os.listdir(os.path.join(DIR, classes[0])))
+        if train_size is None:
+            train_size = len(os.listdir(os.path.join(DIR, classes[0])))
 
-            # Checking if 'mean_subtraction' values are valid. Returns boolean value
-            subtract_mean = check_mean_subtraction(mean_subtraction, channels)
+        # Checking if 'mean_subtraction' values are valid. Returns boolean value
+        subtract_mean = check_mean_subtraction(mean_subtraction, channels)
 
-            for item in classes:
-                class_path = os.path.join(DIR, item)
-                class_label = classes.index(item)
-                count = 0 
-                for image in os.listdir(class_path):
-                    if count != train_size:
-                        image_path = os.path.join(class_path, image)
+        for item in classes:
+            class_path = os.path.join(DIR, item)
+            class_label = classes.index(item)
+            count = 0 
+            for image in os.listdir(class_path):
+                if count != train_size:
+                    image_path = os.path.join(class_path, image)
 
-                        # Returns image RESIZED and img
-                        img = readImg(image_path, IMG_SIZE=IMG_SIZE, channels=channels)
-                        if img is None:
-                            continue
-                        # Normalizing
-                        if normalize_train:
-                            img = normalize(img)
+                    # Returns image RESIZED and img
+                    img = readImg(image_path, IMG_SIZE=IMG_SIZE, channels=channels)
+                    if img is None:
+                        continue
+                    # Normalizing
+                    if normalize_train:
+                        img = normalize(img)
+                    
+                    if subtract_mean:
+                        mean_subtract = MeanProcess(mean_subtraction, channels)
+                        img = mean_subtract.mean_preprocess(img, channels)
                         
-                        if subtract_mean:
-                            mean_subtract = MeanProcess(mean_subtraction, channels)
-                            img = mean_subtract.mean_preprocess(img, channels)
-                            
-                        train.append([img, class_label])
-                        count +=1 
+                    train.append([img, class_label])
+                    count +=1 
 
-                        if display_count is True:
-                            _printTotal(count, item)
-                    else:
-                        break
+                    if display_count is True:
+                        _printTotal(count, item)
+                else:
+                    break
 
-            # Shuffling the Training Set
-            if isShuffle is True:
-                train = shuffle(train)
+        # Shuffling the Training Set
+        if isShuffle is True:
+            train = shuffle(train)
 
-            # Converting to Numpy
-            train = np.array(train)
+        # Converting to Numpy
+        train = np.array(train)
 
-            # Saves the Train set as a .npy file
-            if save_train is True:
-                #Converts to Numpy and saves
-                if destination_filename.endswith('.npy'):
-                    print('[INFO] Saving as .npy file')
-                elif destination_filename.endswith('.npz'):
-                    print('[INFO] Saving as .npz file')
-                
-                since = time.time()
-                # Saving
-                saveNumpy(destination_filename, train)
-                end = time.time()
-                
-                time_elapsed = end-since
+        # Saves the Train set as a .npy file
+        if save_train is True:
+            #Converts to Numpy and saves
+            if destination_filename.endswith('.npy'):
+                print('[INFO] Saving as .npy file')
+            elif destination_filename.endswith('.npz'):
+                print('[INFO] Saving as .npz file')
+            
+            since = time.time()
+            # Saving
+            saveNumpy(destination_filename, train)
+            end = time.time()
+            
+            time_elapsed = end-since
 
-                print('[INFO] {} saved! Took {:.0f}m {:.0f}s'.format(destination_filename, time_elapsed // 60, time_elapsed % 60))
+            print('[INFO] {} saved! Took {:.0f}m {:.0f}s'.format(destination_filename, time_elapsed // 60, time_elapsed % 60))
 
-            #Returns Training Set
-            end_preprocess = time.time()
-            time_elapsed_preprocess = end_preprocess-since_preprocess
-            print('----------------------------------------------')
-            print('[INFO] Preprocessing complete! Took {:.0f}m {:.0f}s'.format(time_elapsed_preprocess // 60, time_elapsed_preprocess % 60))
+        #Returns Training Set
+        end_preprocess = time.time()
+        time_elapsed_preprocess = end_preprocess-since_preprocess
+        print('----------------------------------------------')
+        print('[INFO] Preprocessing complete! Took {:.0f}m {:.0f}s'.format(time_elapsed_preprocess // 60, time_elapsed_preprocess % 60))
 
-            return train
-
-    except TypeError:
-        pass
+        return train
 
 def _printTotal(count, category):
     print(f'{count} - {category}')
