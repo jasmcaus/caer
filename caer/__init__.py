@@ -2,6 +2,7 @@
 # Github: http://www.github.com/jasmcaus
 
 from .version import version as __version__
+from .version import author as __author__
 
 from .preprocess import preprocess_from_dir
 from .preprocess import sep_train

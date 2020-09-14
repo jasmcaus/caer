@@ -7,7 +7,6 @@
 # import os
 from urllib.request import urlopen
 import os
-import re
 import time
 import math
 import cv2 as cv
