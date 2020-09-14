@@ -20,7 +20,7 @@ from .utils import extract_frames
 from .utils import plotAcc 
 from .utils import url_to_image 
 from .utils import toMatplotlib 
-from .utils import translate 
+from .utils import translate
 from .utils import rotate 
 from .utils import rotate_bound 
 from .utils import resize 
