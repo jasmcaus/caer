@@ -1,6 +1,9 @@
 # Author: Jason Dsouza
 # Github: http://www.github.com/jasmcaus
 
+from .version import version
+
+__version__ = version 
 
 from .preprocess import preprocess_from_dir
 from .preprocess import sep_train
