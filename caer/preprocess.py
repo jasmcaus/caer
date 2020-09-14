@@ -12,23 +12,40 @@ from .utils import readImg
 from .utils import saveNumpy
 from .preprocessing import MeanProcess
 
-def preprocess_from_dir(DIR, classes, channels=1, IMG_SIZE=224, train_size=None, normalize_train=False, mean_subtraction=None, isShuffle=True, save_train=True, destination_filename=None,display_count=True):
+def preprocess_from_dir(DIR, classes, channels=1, IMG_SIZE=224, train_size=None, normalize_train=False, mean_subtraction=None, isShuffle=True, save_train=False, destination_filename=None, display_count=True):
     """
     Reads Images in base directory DIR using 'classes' 
     Returns
-        train -> Image Pixel Values with corresponding labels
+        train -> Image Pixel Values with corresponding labels (float32)
     Saves the above variables as .npy files if save_train = True
     """
 
     train = [] 
     try:
-        if save_train and destination_filename is None:
-            raise ValueError('[ERROR] Specify a destination file name')
+        if save_train:
+            if destination_filename is None:
+                raise ValueError('[ERROR] Specify a destination file name')
 
-        elif save_train and not ('.npy' in destination_filename or '.npz' in destination_filename):
-            raise TypeError('[ERROR] Specify the correct numpy destination file extension (.npy or .npz)', destination_filename)
-            
-        elif destination_filename is None and os.path.exists(destination_filename):
+            elif not ('.npy' in destination_filename or '.npz' in destination_filename):
+                raise TypeError('[ERROR] Specify the correct numpy destination file extension (.npy or .npz)', destination_filename)
+        
+            elif destination_filename is not None:
+                destination_filename = None
+        
+        elif type(classes) is not list:
+            raise ValueError('[ERROR] "classes" must be a list')
+
+        elif not os.path.exists(DIR):
+            raise ValueError('[ERROR] The specified directory does not exist', DIR)
+        
+        elif IMG_SIZE is None:
+            raise ValueError('[ERROR] IMG_SIZE must be specified')
+
+        elif type(IMG_SIZE) is not int:
+            raise ValueError('[ERROR] IMG_SIZE must be an integer')
+
+        # Loading from Numpy Files
+        elif os.path.exists(destination_filename):
             since = time.time()
             print('[INFO] Loading from Numpy Files')
             train = np.load(destination_filename, allow_pickle=True)
@@ -37,17 +54,16 @@ def preprocess_from_dir(DIR, classes, channels=1, IMG_SIZE=224, train_size=None,
 
             return train
 
+        # Extracting image data
         else:
             since_preprocess = time.time()
             print(f'[INFO] Could not find {destination_filename}. Generating the Image Files')
-
-            if not save_train:
-                destination_filename = None
+            print('----------------------------------------------')
 
             if train_size is None:
                 train_size = len(os.listdir(os.path.join(DIR, classes[0])))
 
-            # Checking if 'mean_subtraction' values are valid. If yes, then mean subtraction is applied
+            # Checking if 'mean_subtraction' values are valid. Returns boolean value
             subtract_mean = check_mean_subtraction(mean_subtraction, channels)
 
             for item in classes:
@@ -117,6 +133,13 @@ def _printTotal(count, category):
     print(f'{count} - {category}')
 
 def check_mean_subtraction(value, channels):
+    """
+        Checks if mean subtraction values are valid based on the number of channels
+        Must be a tuple of dimensions = number of channels
+    Returns boolean value
+        True -> Expression is valid
+        False -> Expression is invalid
+    """
     if value is None:
         return False
     elif type(value) is tuple and len(value) == channels:
@@ -132,29 +155,32 @@ def shuffle(train):
     random.shuffle(train)
     return train
 
-def sep_train(train, IMG_SIZE=224, channels=1):
+def sep_train(train, IMG_SIZE=None, channels=1):
     # x = []
     # y = []
     # for feature, label in train:
     #     x.append(feature)
     #     y.append(label)
+    
+    if IMG_SIZE is None:
+        raise ValueError('[ERROR] IMG_SIZE not defined')
+    else:
+        x = [i[0] for i in train]
+        y = [i[1] for i in train]
 
-    x = [i[0] for i in train]
-    y = [i[1] for i in train]
+        # Without reshaping, X.shape --> (no. of images, IMG_SIZE, IMG_SIZE)
+        # On reshaping, X.shape --> (no. of images, IMG_SIZE, IMG_SIZE,channels)
 
-    # Without reshaping, X.shape --> (no. of images, IMG_SIZE, IMG_SIZE)
-    # On reshaping, X.shape --> (no. of images, IMG_SIZE, IMG_SIZE,channels)
+        # Converting to Numpy + Reshaping X
+        x = reshape(x, IMG_SIZE, channels)
+        y = np.array(y)
 
-    # Converting to Numpy + Reshaping X
-    x = reshape(x, IMG_SIZE, channels)
-    y = np.array(y)
-
-    return x, y
+        return x, y
 
 def reshape(x, IMG_SIZE, channels):
     return np.array(x).reshape(-1, IMG_SIZE, IMG_SIZE, channels)
 
-def normalize(x):
+def normalize(x, dtype='float32'):
     """
     Normalizes the data to mean 0 and standard deviation 1
     """
@@ -162,5 +188,5 @@ def normalize(x):
     # x = x/255.0
     
     # Converting to float32 and normalizing (float32 saves memory)
-    x = x.astype('float32') / 255
+    x = x.astype(dtype) / 255
     return x
