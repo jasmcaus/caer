@@ -1,8 +1,6 @@
 from setuptools import setup, find_packages
-import sys
-sys.path.append('..')
 
-VERSION = '1.5.0'
+VERSION = '1.5.2'
 
 DESCRIPTION = """A Computer Vision library in Python with powerful image processing operations, including support for Deep Learning models built using the Keras framework"""
 
