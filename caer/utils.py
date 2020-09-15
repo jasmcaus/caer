@@ -184,6 +184,12 @@ def determine_interval(x):
     else:
         return math.ceil(x)
 
+def sort_dict(unsorted_dict, descending=False):
+    """
+    Sorts a dictionary in ascending order (if descending = False) or descending order (if descending = True)
+    """
+    return sorted(unsorted_dict.items(), key=lambda x:x[1], reverse=descending)
+
 def plotAcc(histories):
     """
     Plots the model accuracies as 2 graphs
