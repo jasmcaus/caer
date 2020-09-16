@@ -305,11 +305,11 @@ def toMatplotlib(image):
     """
     return cv.cvtColor(image, cv.COLOR_BGR2RGB)
 
-def url_to_image(url, flag=cv.IMREAD_COLOR):
+def url_to_image(url):
     # Converts the image to a Numpy array and reads it in OpenCV
     response = urlopen(url)
     image = np.asarray(bytearray(response.read()), dtype="uint8")
-    image = cv.imdecode(image, flag)
+    image = cv.imdecode(image, cv.IMREAD_COLOR)
 
     return image
 
