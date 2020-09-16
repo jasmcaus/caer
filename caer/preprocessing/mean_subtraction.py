@@ -11,7 +11,6 @@ import os
     Important notes:
     Mean subtract must be computed ONLY on the training set and then later applied on the validation/test set
 """
-
 class MeanProcess:
     def __init__(self, mean_sub_values, channels):
         # mean_sub_values is a tuple
@@ -29,7 +28,7 @@ class MeanProcess:
             Mean must be calculated ONLY on the training set
         """
         if channels == 3:
-            (b,g,r) = cv.split(image.astype('float32')[:3])
+            (b,g,r) = cv.split(image.astype('float32'))[:3]
 
             # Subtracting the mean
             r -= self.rMean
@@ -89,7 +88,7 @@ def compute_mean(train, channels):
     if len(train) == 0:
         raise ValueError('[ERROR] Training set is empty')
     
-    if type(train) is not tuple:
+    if type(train) is not list:
         raise ValueError('[ERROR] Training set must be a list of size=number of images and shape=image shape')
 
     if channels == 3:
@@ -99,7 +98,7 @@ def compute_mean(train, channels):
     count = 0
 
     for img in train:
-        count += 0
+        count += 1
         if channels == 3:
             b,g,r = cv.mean(img.astype('float32'))[:3]
             rMean += r
@@ -127,7 +126,7 @@ def subtract_mean(val_data, channels, mean_sub_values):
     if len(val_data) == 0:
         raise ValueError('[ERROR] Training set is empty')
     
-    if type(val_data) is not tuple:
+    if type(val_data) is not list:
         raise ValueError('[ERROR] Training set must be a list of size=number of images and shape=image shape')
 
     for img in val_data:
