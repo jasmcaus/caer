@@ -4,8 +4,7 @@ VERSION = '1.5.6'
 
 DESCRIPTION = """A Computer Vision library in Python with powerful image processing operations, including support for Deep Learning models built using the Keras framework"""
 
-LONG_DESCRIPTION = DESCRIPTION + 
-"""
+LONG_DESCRIPTION = DESCRIPTION + """
 
 This repository is actively being maintained. If there are any issues, kindly open a thread in the 'Issues' pane on the official Github repository. 
 """
