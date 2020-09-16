@@ -39,44 +39,7 @@ def get_classes_from_dir(DIR):
     else:
         classes = [i for i in os.listdir(DIR)]
         return classes
-
-def compute_mean(DIR, channels):
-    """
-        Mean must be computed ONLY on the train set
-    """
-    if channels == 3:
-        rMean, gMean, bMean = 0,0,0
-    if channels == 1:
-        mean = 0
-    count = 0
-
-    if os.path.exists(DIR) is False:
-        raise ValueError('The specified directory does not exist', DIR)
-
-    for root, _, files in os.walk(DIR):
-        for file in files:
-            if file.endswith('.png') or file.endswith('.jpg'):
-                count += 1
-                filepath = root + os.sep + file
-                img = cv.imread(filepath)
-                if channels == 3:
-                    b,g,r = cv.mean(img.astype('float32'))[:3]
-                    rMean += r
-                    bMean += b
-                    gMean += g
-                if channels == 1:
-                    mean += cv.mean(img.astype('float32'))[0]
-
-    # Computing average mean
-    if channels == 3:
-        rMean /= count
-        bMean /= count 
-        gMean /= count
-        return rMean, bMean, gMean
-
-    if channels == 1:
-        mean /= count
-        return mean
+        
 
 def saveNumpy(name, x):
     """

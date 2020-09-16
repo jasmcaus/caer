@@ -15,7 +15,6 @@ from .io import HDF5Dataset
 from .io import load_dataset
 
 from .utils import readImg
-from .utils import compute_mean
 from .utils import saveNumpy
 from .utils import train_val_split
 from .utils import get_classes_from_dir
