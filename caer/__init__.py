@@ -20,7 +20,7 @@ from .utils import saveNumpy
 from .utils import train_val_split
 from .utils import extract_frames
 from .utils import sort_dict
-from .utils import plotAcc 
+from .utils import plotAcc
 from .utils import url_to_image 
 from .utils import toMatplotlib 
 from .utils import translate
