@@ -18,20 +18,20 @@ import numpy as np
 #     from urllib2 import urlopen
 # For Python
 
-def readImg(image_path, IMG_SIZE, channels=1):
-    try:
-        image_array = cv.imread(image_path)
+def readImg(image_path, resized_img_size=None, channels=1):
+    if not os.path.exists(image_path):
+        raise FileNotFoundError('[ERROR] The image file was not found')
 
-        # [INFO] Using the following piece of code results in a 'None' in the training set
-        # if image_array == None:
-        #     pass
-        if channels == 1:
-            image_array = cv.cvtColor(image_array, cv.COLOR_BGR2GRAY)
+    image_array = cv.imread(image_path)
 
-        image_array = cv.resize(image_array, (IMG_SIZE,IMG_SIZE))
-        return image_array
-    except:
-        return None
+    # [INFO] Using the following piece of code results in a 'None' in the training set
+    # if image_array == None:
+    #     pass
+    if channels == 1:
+        image_array = cv.cvtColor(image_array, cv.COLOR_BGR2GRAY)
+    if resized_img_size is not None:
+        image_array = cv.resize(image_array, (resized_img_size,resized_img_size))
+    return image_array
 
 def compute_mean(DIR, channels):
     if channels == 3:
