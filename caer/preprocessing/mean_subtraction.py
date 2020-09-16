@@ -46,7 +46,7 @@ class MeanProcess:
             return image
             
 
-def compute_mean_from_dir(DIR, channels, per_channel=True):
+def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True):
     """
         Computes mean per channel
         Mean must be computed ONLY on the train set
@@ -79,7 +79,7 @@ def compute_mean_from_dir(DIR, channels, per_channel=True):
         rMean /= count
         bMean /= count 
         gMean /= count
-        if per_channel:
+        if per_channel_subtraction:
             return rMean, bMean, gMean
         else:
             mean_of_means = (rMean + bMean + gMean) / 3
@@ -89,7 +89,7 @@ def compute_mean_from_dir(DIR, channels, per_channel=True):
         mean /= count
         return tuple([mean])
 
-def compute_mean(train, channels, per_channel=True):
+def compute_mean(train, channels, per_channel_subtraction=True):
     """
         Computes mean oer channel over the train set and returns a tuple of dimensions=channels
         Train should not be normalized
@@ -121,7 +121,7 @@ def compute_mean(train, channels, per_channel=True):
         rMean /= count
         bMean /= count 
         gMean /= count
-        if per_channel:
+        if per_channel_subtraction:
             return rMean, bMean, gMean
         else:
             mean_of_means = (rMean + bMean + gMean) / 3
@@ -131,11 +131,13 @@ def compute_mean(train, channels, per_channel=True):
         mean /= count
         return tuple([mean])
 
-def subtract_mean(val_data, channels, mean_sub_values, per_channel=True):
+def subtract_mean(val_data, channels, mean_sub_values):
     """
+        Per channel subtraction values computed from compute_mean() or compute_mean_from_dir()
         Subtracts mean from the validation set
     """
-    mean_process = MeanProcess(mean_sub_values,channels, per_channel)
+
+    mean_process = MeanProcess(mean_sub_values, channels)
 
     if len(val_data) == 0:
         raise ValueError('[ERROR] Training set is empty')
