@@ -155,7 +155,7 @@ def preprocess_from_dir(DIR,
         print('----------------------------------------------')
         print('[INFO] Preprocessing complete! Took {:.0f}m {:.0f}s'.format(time_elapsed_preprocess // 60, time_elapsed_preprocess % 60))
 
-        return train
+        return train, classes
 
 def _printTotal(count, category):
     print(f'{count} - {category}')
