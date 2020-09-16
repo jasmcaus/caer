@@ -33,6 +33,13 @@ def readImg(image_path, resized_img_size=None, channels=1):
         image_array = cv.resize(image_array, (resized_img_size,resized_img_size))
     return image_array
 
+def get_classes_from_dir(DIR):
+    if len(os.listdir(DIR)) == 0:
+        raise ValueError('[ERROR] The specified directory does not seem to have any folders in it')
+    else:
+        classes = [i for i in os.listdir(DIR)]
+        return classes
+
 def compute_mean(DIR, channels):
     if channels == 3:
         rMean, gMean, bMean = 0,0,0

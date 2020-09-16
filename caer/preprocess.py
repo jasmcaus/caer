@@ -10,29 +10,51 @@ import time
 import numpy as np
 from .utils import readImg
 from .utils import saveNumpy
+from .utils import get_classes_from_dir
 from .preprocessing import MeanProcess
 
-def preprocess_from_dir(DIR, classes, channels=1, IMG_SIZE=224, train_size=None, normalize_train=False, mean_subtraction=None, isShuffle=True, save_train=False, destination_filename=None, display_count=True):
+def preprocess_from_dir(DIR, 
+                        classes=None, 
+                        channels=1, 
+                        IMG_SIZE=224, 
+                        train_size=None, 
+                        normalize_train=False, 
+                        mean_subtraction=None, 
+                        isShuffle=True, 
+                        save_train=False, 
+                        destination_filename=None, 
+                        display_count=True):
     """
-    Reads Images in base directory DIR using 'classes' 
-    Returns
-        train -> Image Pixel Values with corresponding labels (float32)
+    Reads Images in base directory DIR using 'classes' (computed from sub directories )
+    :param DIR: Directory 
+    :param classes: A list of folder names within 'DIR'
+    :param channels: Number of channels each image will be processed to (default: 1)
+    :param train_size: Size of the training set
+    :param normalize_train: Whether to normalize each image to between [0,1]
+    :param mean_subtraction: Whether mean subtraction should be applied (Tuple)
+    :param isShuffle: Shuffle the training set
+    :param save_train: If True, saves the training set as a .npy or .npz file based on destination_filename
+    :param destination_filename: if save_train is True, the train set will be saved as the filename specified
+    :param display_count: Displays the progress as preprocessing continues
+    
+    :return train: Image Pixel Values with corresponding labels (float32)
     Saves the above variables as .npy files if save_train = True
     """
 
     train = [] 
     if save_train:
         if destination_filename is None:
-            raise ValueError('[ERROR] Specify a destination file name')
+            raise TypeError('[ERROR] Specify a destination file name')
 
         elif not ('.npy' in destination_filename or '.npz' in destination_filename):
-            raise TypeError('[ERROR] Specify the correct numpy destination file extension (.npy or .npz)', destination_filename)
+            raise ValueError('[ERROR] Specify the correct numpy destination file extension (.npy or .npz)', destination_filename)
     
         elif destination_filename is not None:
             destination_filename = None
     
-    elif type(classes) is not list:
-        raise ValueError('[ERROR] "classes" must be a list')
+    elif classes is not None:
+        if type(classes) is not list:
+            raise ValueError('[ERROR] "classes" must be a list')
 
     elif not os.path.exists(DIR):
         raise ValueError('[ERROR] The specified directory does not exist', DIR)
@@ -63,6 +85,9 @@ def preprocess_from_dir(DIR, classes, channels=1, IMG_SIZE=224, train_size=None,
             print('[INFO] Could not find a file to load from. Generating Image Files')
         print('----------------------------------------------')
 
+        if classes is None:
+            classes = get_classes_from_dir(DIR)
+
         if train_size is None:
             train_size = len(os.listdir(os.path.join(DIR, classes[0])))
 
@@ -78,7 +103,7 @@ def preprocess_from_dir(DIR, classes, channels=1, IMG_SIZE=224, train_size=None,
                     image_path = os.path.join(class_path, image)
 
                     # Returns image RESIZED and img
-                    img = readImg(image_path, IMG_SIZE=IMG_SIZE, channels=channels)
+                    img = readImg(image_path, resized_img_size=IMG_SIZE, channels=channels)
                     if img is None:
                         continue
                     # Normalizing
