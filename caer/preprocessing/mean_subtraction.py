@@ -1,8 +1,15 @@
 # Author: Jason Dsouza
 # Github: http://www.github.com/jasmcaus
 
+#pylint:disable=pointless-string-statement
+
 # Importing the necessary packages
 import cv2 as cv
+
+"""
+    Important notes:
+    Mean subtract must be computed ONLY on the training set and then later applied on the validation/test set
+"""
 
 class MeanProcess:
     def __init__(self, mean_sub_values, channels):
@@ -15,6 +22,9 @@ class MeanProcess:
             self.mean = mean_sub_values
 
     def mean_preprocess(self, image, channels):
+        """
+            Mean must be calculated ONLY on the training set
+        """
         if channels == 3:
             (b,g,r) = cv.split(image.astype('float32')[:3])
 

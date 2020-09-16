@@ -41,6 +41,9 @@ def get_classes_from_dir(DIR):
         return classes
 
 def compute_mean(DIR, channels):
+    """
+        Mean must be computed ONLY on the train set
+    """
     if channels == 3:
         rMean, gMean, bMean = 0,0,0
     if channels == 1:
@@ -89,6 +92,7 @@ def saveNumpy(name, x):
 
 def train_val_split(X,y,val_ratio=.2):
     """
+    Do not use if mean subtraction is being employed
     Returns X_train, X_val, y_train, y_val
     """
     try:
@@ -98,7 +102,13 @@ def train_val_split(X,y,val_ratio=.2):
     except ModuleNotFoundError:
         print('[ERROR] The Sklearn Python package needs to be installed')
 
-def extract_frames(input_folder, output_folder, IMG_SIZE=None, label_counter = None, video_count=None, frames_per_sec=None, dest_filetype='jpg'):
+def extract_frames(input_folder, 
+                   output_folder, 
+                   IMG_SIZE=None, 
+                   label_counter = None, 
+                   video_count=None, 
+                   frames_per_sec=None, 
+                   dest_filetype='jpg'):
     """ Function to extract frames from videos within a directory
     and save them as separate frames in an output directory.
     Args:

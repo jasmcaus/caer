@@ -110,10 +110,13 @@ def preprocess_from_dir(DIR,
                     if normalize_train:
                         img = normalize(img)
                     
+                    # Subtracting Mean
+                    # Mean must be calculated ONLY on the training set
                     if subtract_mean:
                         mean_subtract = MeanProcess(mean_subtraction, channels)
                         img = mean_subtract.mean_preprocess(img, channels)
                         
+                    # Appending to train set
                     train.append([img, class_label])
                     count +=1 
 
