@@ -1,12 +1,14 @@
 from setuptools import setup, find_packages
 
-VERSION = '1.6.0'
+VERSION = '1.6.1'
 
 DESCRIPTION = """A Computer Vision library in Python with powerful image processing operations, including support for Deep Learning models built using the Keras framework"""
 
 LONG_DESCRIPTION = DESCRIPTION + """
 
-This repository is actively being maintained. If there are any issues, kindly open a thread in the 'Issues' pane on the official Github repository. 
+This repository is actively being maintained. Relevant documentation can be found on the official Github repository. 
+
+All Caer wheels on PyPi are MIT licensed.
 """
 
 AUTHOR = 'Jason Dsouza: http://www.github.com/jasmcaus'
@@ -57,6 +59,7 @@ def setup_package():
         download_url = "https://pypi.org/project/caer/",
         project_urls={
             "Bug Tracker": "https://github.com/jasmcaus/caer/issues",
+            "Documentation": "https://github.com/jasmcaus/caer/blob/master/DOCS.md",
             "Source Code": "https://github.com/jasmcaus/caer",
         },
         packages=find_packages(),
