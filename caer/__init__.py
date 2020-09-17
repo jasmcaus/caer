@@ -18,7 +18,6 @@ from .utils import readImg
 from .utils import saveNumpy
 from .utils import train_val_split
 from .utils import get_classes_from_dir
-from .utils import extract_frames
 from .utils import sort_dict
 from .utils import plotAcc
 from .utils import url_to_image 
