@@ -15,10 +15,13 @@ class VideoStream():
     
     def update_frame(self):
         self.video_stream.update_frame()
-    
+      
     def read_frame(self):
         # Returns the current frame
         self.video_stream.read_frame()
     
-    def stop_stream(self):
-        self.video_stream.stop_stream()
+    def count_frames(self):
+        return self.video_stream.count_frames()
+        
+    def release(self):
+        self.video_stream.release()
