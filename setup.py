@@ -3,7 +3,7 @@ import io
 
 # Repository on PyPi.org = https://pypi.org/project/caer/
 
-VERSION = '1.6.5'
+VERSION = '1.6.6'
 
 DESCRIPTION = """ A Computer Vision library in Python with powerful image processing operations, including support for Deep Learning models built using the Keras framework"""
 
