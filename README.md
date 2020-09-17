@@ -1,5 +1,7 @@
-# caer - Computer Vision for Humans
+# Caer: Computer Vision for Humans
 A Computer Vision library in Python with powerful image processing operations, including support for Deep Learning models built using the Keras framework
+
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/jasmcaus/caer/blob/master/LICENSE)
 
 ## Installation
 The `caer` package can be installed via a simple pip install command 
