@@ -4,7 +4,7 @@
 
 from .extract_frames import extract_frames
 
-from .default_videostream import DefaultVideoStream
+from .live_videostream import LiveVideoStream
 
 from .videostream import VideoStream
 

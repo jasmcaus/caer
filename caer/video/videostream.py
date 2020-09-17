@@ -2,19 +2,21 @@
 # Github: http://www.github.com/jasmcaus
 
 # Importing the necessary packages
-from .default_videostream import DefaultVideoStream
+from .file_videostream import FileVideoStream
+
+# Using the FileVideoStream class as it can handle both live as well as pre-existing videos
 
 class VideoStream():
     def __init__(self, source=0):
         # Initializing the stream from DefaultVideoStream
-        self.video_stream = DefaultVideoStream(source=source)
+        self.video_stream = FileVideoStream(source=source)
 
-    def start(self):
+    def begin_stream(self):
         # Begins the threaded video stream
-        return self.video_stream.start()
+        return self.video_stream.begin_stream()
     
-    def update_frame(self):
-        self.video_stream.update_frame()
+    def update(self):
+        self.video_stream.update()
       
     def read(self):
         # Returns the current frame
