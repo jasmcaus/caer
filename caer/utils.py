@@ -96,6 +96,9 @@ def plotAcc(histories):
 
     plt.show()
 
+def get_opencv_version():
+    return cv.__version__[0]
+
 # -------------------- OPENCV IMAGE-SPECIFIC METHODS --------------------- 
 
 def translate(image, x, y):
