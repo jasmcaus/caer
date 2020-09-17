@@ -9,19 +9,22 @@ class VideoStream():
         # Initializing the stream from DefaultVideoStream
         self.video_stream = DefaultVideoStream(source=source)
 
-    def start_stream(self):
+    def start(self):
         # Begins the threaded video stream
-        return self.video_stream.start_stream()
+        return self.video_stream.start()
     
     def update_frame(self):
         self.video_stream.update_frame()
       
-    def read_frame(self):
+    def read(self):
         # Returns the current frame
-        self.video_stream.read_frame()
+        return self.video_stream.read()
     
     def count_frames(self):
         return self.video_stream.count_frames()
+    
+    def get_fps(self):
+        return self.video_stream.get_fps()
         
     def release(self):
         self.video_stream.release()
