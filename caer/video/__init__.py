@@ -8,4 +8,5 @@ from .default_videostream import DefaultVideoStream
 
 from .videostream import VideoStream
 
-from .count_frames import count_frames
+from .frames_and_fps import count_frames
+from .frames_and_fps import get_fps

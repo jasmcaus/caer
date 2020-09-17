@@ -1,12 +1,11 @@
 # Author: Jason Dsouza
 # Github: http://www.github.com/jasmcaus
 
-#pylint:disable=pointless-string-statement
-
 # Importing the necessary packages
-import cv2 as cv
 from threading import Thread
 import os
+import math
+import cv2 as cv
 from ..utils import get_opencv_version
 
 class DefaultVideoStream:
@@ -42,23 +41,30 @@ class DefaultVideoStream:
         thread.start()
         return self
 
-    def read_frame(self):
+    def read(self):
         return self.frame
     
     def update_frame(self):
-        # while True:
-        #     if self.kill_stream:
-        #         return
         while not self.kill_stream:
             self.ret, self.frame = self.stream.read()
     
     def release(self):
         # Stops the stream
+        # Releases video pointer
         self.kill_stream = True
     
+    # Gets frame count
     def count_frames(self):
         if not self.kill_stream:
             if get_opencv_version() == '2':
                 return int(self.stream.get(cv.cv.CAP_PROP_FRAME_COUNT))
             else:
                 return int(self.stream.get(cv.CAP_PROP_FRAME_COUNT))
+
+    # Gets FPS count
+    def get_fps(self):
+        if not self.kill_stream:
+            if get_opencv_version() == '2':
+                return math.ceil(self.stream.get(cv.cv.CAP_PROP_FPS))
+            else:
+                return math.ceil(self.stream.get(cv.CAP_PROP_FPS))
