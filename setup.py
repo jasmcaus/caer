@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = '1.6.1'
+VERSION = '1.6.2'
 
 DESCRIPTION = """A Computer Vision library in Python with powerful image processing operations, including support for Deep Learning models built using the Keras framework"""
 
