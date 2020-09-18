@@ -2,7 +2,7 @@
 # Github: http://www.github.com/jasmcaus
 
 # Importing the necessary packages
-from .file_videostream import FileVideoStream
+from .FileVideoStream import FileVideoStream
 
 # Using the FileVideoStream class as it can handle both live as well as pre-existing videos
 

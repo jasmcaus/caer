@@ -3,7 +3,7 @@ import io
 
 # Repository on PyPi.org = https://pypi.org/project/caer/
 
-VERSION = '1.6.6'
+VERSION = '1.6.7'
 
 DESCRIPTION = """ A Computer Vision library in Python with powerful image processing operations, including support for Deep Learning models built using the Keras framework"""
 
@@ -22,7 +22,7 @@ if not release:
     version = full_version """
 
 
-def write_version_py(filename='caer/version.py'):
+def write_version_py(filename='caer/_version.py'):
     print('[INFO] Writing version.py')
     TEXT = VERSION_PY_TEXT
     FULL_VERSION = VERSION
@@ -60,7 +60,7 @@ def setup_package():
         maintainer="Jason Dsouza",
         packages=find_packages(),
         license='MIT',
-        install_requires=['numpy', 'opencv-contrib-python', 'h5py', 'sklearn'],
+        install_requires=['numpy', 'opencv-contrib-python', 'h5py'],
         keywords=['computer vision', 'deep learning', 'image processing', 'opencv', 'matplotlib'],
         classifiers=[
             "Development Status :: 3 - Alpha",
