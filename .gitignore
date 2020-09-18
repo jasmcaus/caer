@@ -1,8 +1,10 @@
 # Removing PyPi-specific packages
 dist/*
 caer.egg-info/*
+pythonenv3.8/*
 build/*
 __pycache__/*
 *.pyc
 .vscode/*
 test.py
+speeds.py
