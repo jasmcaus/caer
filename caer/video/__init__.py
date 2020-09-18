@@ -4,9 +4,9 @@
 
 from .extract_frames import extract_frames
 
-from .live_videostream import LiveVideoStream
+from .LiveVideoStream import LiveVideoStream
 
-from .videostream import VideoStream
+from .VideoStream import VideoStream
 
 from .frames_and_fps import count_frames
 from .frames_and_fps import get_fps
