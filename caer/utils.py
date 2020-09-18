@@ -9,6 +9,7 @@ from urllib.request import urlopen
 import os
 import cv2 as cv
 import numpy as np
+from ._split import train_test_split
 
 # # For Python 2.7
 # import sys
@@ -56,12 +57,8 @@ def train_val_split(X,y,val_ratio=.2):
     Do not use if mean subtraction is being employed
     Returns X_train, X_val, y_train, y_val
     """
-    try:
-        from sklearn.model_selection import train_test_split    
-        X_train, X_val, y_train, y_val = train_test_split(X,y,test_size=val_ratio,random_state = 2)
-        return X_train, X_val, y_train, y_val
-    except ModuleNotFoundError:
-        print('[ERROR] The Sklearn Python package needs to be installed')
+    X_train, X_val, y_train, y_val = train_test_split(X,y,test_size=val_ratio)
+    return X_train, X_val, y_train, y_val
 
 
 def sort_dict(unsorted_dict, descending=False):
