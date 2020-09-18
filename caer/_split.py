@@ -1,9 +1,9 @@
 # Pulled from Scikit-Learn's official Github Repo (18 Sep 2020) to speed up 'caer' package import speeds (since this was the only method referenced from sklearn)
 
-from itertools import chain,compress
+from itertools import chain, compress
 from math import ceil, floor
 import numpy as np
-from .utils import _num_samples, issparse
+from ._sklearn_utils import _num_samples, issparse
 
 try:
     from pkg_resources import parse_version  # type: ignore
