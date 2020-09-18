@@ -1,10 +1,9 @@
 # Pulled from Scikit-Learn's official Github Repo (18 Sep 2020) to speed up 'caer' package import speeds (since this was the only method referenced from sklearn)
 
 from itertools import chain,compress
-import numbers
 from math import ceil, floor
 import numpy as np
-from ._spmatrix import spmatrix
+from .utils import _num_samples, issparse
 
 try:
     from pkg_resources import parse_version  # type: ignore
@@ -58,46 +57,6 @@ def train_test_split(*arrays,
 
     return list(chain.from_iterable((_safe_indexing(a, train),
                                      _safe_indexing(a, test)) for a in arrays))
-
-def _num_samples(x):
-    """Return number of samples in array-like x."""
-    message = 'Expected sequence or array-like, got %s' % type(x)
-    if hasattr(x, 'fit') and callable(x.fit):
-        # Don't get num_samples from an ensembles length!
-        raise TypeError(message)
-
-    if not hasattr(x, '__len__') and not hasattr(x, 'shape'):
-        if hasattr(x, '__array__'):
-            x = np.asarray(x)
-        else:
-            raise TypeError(message)
-
-    if hasattr(x, 'shape') and x.shape is not None:
-        if len(x.shape) == 0:
-            raise TypeError("Singleton array %r cannot be considered"
-                            " a valid collection." % x)
-        # Check that shape is returning an integer or default to len
-        # Dask dataframes may not return numeric shape[0] value
-        if isinstance(x.shape[0], numbers.Integral):
-            return x.shape[0]
-
-    try:
-        return len(x)
-    except TypeError as type_error:
-        raise TypeError(message) from type_error
-
-def issparse(x):
-    """Is x of a sparse matrix type?
-    Parameters
-    ----------
-    x
-        object to check for being a sparse matrix
-    Returns
-    -------
-    bool
-        True if x is a sparse matrix, False otherwise
-    """
-    return isinstance(x, spmatrix)
 
 
 def _make_indexable(iterable):

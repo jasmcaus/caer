@@ -2,7 +2,7 @@
 # Github: http://www.github.com/jasmcaus
 
 # Importing the necessary packages
-from sklearn.feature_extraction.image import extract_patches_2d
+from ._patches import extract_patches_2d
 
 class PatchPreprocess:
     def __init__(self, width, height):
