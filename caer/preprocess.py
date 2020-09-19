@@ -8,9 +8,7 @@ sys.path.append('..')
 import os
 import time
 import numpy as np
-from .utils import readImg
-from .utils import saveNumpy
-from .utils import get_classes_from_dir
+from .utils import readImg, saveNumpy, get_classes_from_dir
 from .preprocessing import MeanProcess
 
 def preprocess_from_dir(DIR, 
@@ -52,21 +50,20 @@ def preprocess_from_dir(DIR,
         elif destination_filename is not None:
             destination_filename = None
     
-    elif classes is not None:
-        if type(classes) is not list:
-            raise ValueError('[ERROR] "classes" must be a list')
+    if classes is not None and type(classes) is not list:
+        raise ValueError('[ERROR] "classes" must be a list')
 
-    elif not os.path.exists(DIR):
+    if not os.path.exists(DIR):
         raise ValueError('[ERROR] The specified directory does not exist', DIR)
 
-    elif IMG_SIZE is None:
+    if IMG_SIZE is None:
         raise ValueError('[ERROR] IMG_SIZE must be specified')
 
-    elif type(IMG_SIZE) is not int:
+    if type(IMG_SIZE) is not int:
         raise ValueError('[ERROR] IMG_SIZE must be an integer')
 
     # Loading from Numpy Files
-    elif destination_filename is not None and os.path.exists(destination_filename):
+    if destination_filename is not None and os.path.exists(destination_filename):
         since = time.time()
         print('[INFO] Loading from Numpy Files')
         train = np.load(destination_filename, allow_pickle=True)
