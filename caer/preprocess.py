@@ -36,16 +36,20 @@ def preprocess_from_dir(DIR,
     :param verbose: Integer either 0 (verbosity off) or 1 (verbosity on). Displays the progress to the terminal as preprocessing continues. Default = 1
     
     :return train: Image Pixel Values with corresponding labels (float32)
+    :return classes: ONLY if classes=None
     Saves the above variables as .npy files if save_train = True
     """
-
+    return_classes = False
     train = [] 
     if verbose in [0,1]:
         if verbose == 0:
             display_count = False
         else:
             display_count = True
-            
+
+    if classes is None:
+        return_classes = True
+
     if save_train:
         if destination_filename is None:
             raise TypeError('[ERROR] Specify a destination file name')
@@ -158,7 +162,10 @@ def preprocess_from_dir(DIR,
         print('----------------------------------------------')
         print('[INFO] Preprocessing complete! Took {:.0f}m {:.0f}s'.format(time_elapsed_preprocess // 60, time_elapsed_preprocess % 60))
 
-        return train, classes
+        if return_classes:
+            return train, classes
+        else:
+            return train
 
 def _printTotal(count, category):
     print(f'{count} - {category}')
