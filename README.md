@@ -16,7 +16,15 @@ The `caer` package can be installed via a simple pip install command
 - **Docs:** <https://github.com/jasmcaus/caer/blob/master/DOCS.md>
 - **Issue tracking:** <https://github.com/jasmcaus/caer/issues>
 
-## Call for Contributors
+## Contribution Guidelines
 
-This repository is actively being maintained. `caer` appreciates help from a wide range of different backgrounds. Work such as high-level documentation or website improvements are valuable and we would like to grow our team with people filling these roles. Small improvements or fixes are always appreciated and issues labeled as easy may be a good starting point.
-Please read the [contribution guidelines](https://github.com/jasmcaus/caer/wiki/How-to-Contribute) before starting work on a pull request.
+If you have improvements to `caer`, send us your pull requests! We'd love to accept your patches! We strongly encourage you to go through the [Contribution Guidelines](CONTRIBUTING.md)
+
+One of our team members will be assigned to review your pull requests. Once the pull requests are approved and pass continuous integration checks, a `ready to pull` label will be applied to your change. This means we are working on getting your pull request submitted to our internal repository. Once the change has been submitted internally, your pull request will be merged automatically on GitHub.
+
+If you want to contribute, start working through the Caer codebase, navigate to the
+[Issues](https://github.com/jasmcaus/caer/issues) tab and start looking through interesting issues. 
+
+## License
+
+[MIT License](https://github.com/jasmcaus/caer/blob/master/LICENSE)
