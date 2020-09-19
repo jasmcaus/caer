@@ -1,8 +1,8 @@
 # Caer: Computer Vision in Python, built for Humans
 A Computer Vision library in Python with powerful image processing operations, including support for Deep Learning models built using the Keras framework
 
-[![Python](https://img.shields.io/pypi/pyversions/caer.svg?style=plastic)](https://badge.fury.io/py/caer)
-[![PyPI](https://badge.fury.io/py/caer.svg)](https://badge.fury.io/py/caer)
+[![Python](https://img.shields.io/pypi/pyversions/caer.svg?style=plastic)](https://pypi.org/project/caer/)
+[![PyPI](https://badge.fury.io/py/caer.svg)](https://pypi.org/project/caer/)
 
 [![Downloads](https://pepy.tech/badge/caer)](https://pepy.tech/project/caer)
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/jasmcaus/caer/blob/master/LICENSE)
