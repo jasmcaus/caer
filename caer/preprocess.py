@@ -21,7 +21,7 @@ def preprocess_from_dir(DIR,
                         isShuffle=True, 
                         save_train=False, 
                         destination_filename=None, 
-                        display_count=True):
+                        verbose=1):
     """
     Reads Images in base directory DIR using 'classes' (computed from sub directories )
     :param DIR: Directory 
@@ -33,13 +33,19 @@ def preprocess_from_dir(DIR,
     :param isShuffle: Shuffle the training set
     :param save_train: If True, saves the training set as a .npy or .npz file based on destination_filename
     :param destination_filename: if save_train is True, the train set will be saved as the filename specified
-    :param display_count: Displays the progress as preprocessing continues
+    :param verbose: Integer either 0 (verbosity off) or 1 (verbosity on). Displays the progress to the terminal as preprocessing continues. Default = 1
     
     :return train: Image Pixel Values with corresponding labels (float32)
     Saves the above variables as .npy files if save_train = True
     """
 
     train = [] 
+    if verbose in [0,1]:
+        if verbose == 0:
+            display_count = False
+        else:
+            display_count = True
+            
     if save_train:
         if destination_filename is None:
             raise TypeError('[ERROR] Specify a destination file name')
