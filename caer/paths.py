@@ -4,7 +4,7 @@
 # Importing the necessary packages
 import os
 
-_acceptable_video_formats = ['.mp4', '.avi']
+_acceptable_video_formats = ('.mp4', '.avi', '.mov', '.mkv', '.webm')
 _acceptable_image_formats = ('.jpg', '.jpeg', '.png', '.bmp', '.tif', '.tiff')
 
 def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, get_size=True,  list_image_files=False, list_video_files=False):
