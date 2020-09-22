@@ -24,9 +24,9 @@ def preprocess_from_dir(DIR,
                         verbose=1):
     """
     Reads Images in base directory DIR using 'classes' (computed from sub directories )
-    :param DIR: Directory 
-    :param classes: A list of folder names within 'DIR'
-    :param channels: Number of channels each image will be processed to (default: 1)
+    @param DIR: Directory 
+    @param classes --> A list of folder names within `DIR`
+    @param channels: Number of channels each image will be processed to (default: 1)
     :param train_size: Size of the training set
     :param normalize_train: Whether to normalize each image to between [0,1]
     :param mean_subtraction: Whether mean subtraction should be applied (Tuple)
@@ -36,8 +36,8 @@ def preprocess_from_dir(DIR,
     :param verbose: Integer either 0 (verbosity off) or 1 (verbosity on). Displays the progress to the terminal as preprocessing continues. Default = 1
     
     :return train: Image Pixel Values with corresponding labels (float32)
-    :return classes: ONLY if classes=None
-    Saves the above variables as .npy files if save_train = True
+    :return classes: ONLY if `classes=None`
+    Saves the above variables as .npy files if `save_train = True`
     """
     return_classes = False
     train = [] 

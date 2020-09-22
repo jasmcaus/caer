@@ -20,11 +20,16 @@ from .utils import train_val_split
 from .utils import get_classes_from_dir
 from .utils import sort_dict
 from .utils import plotAcc
-from .utils import get_opencv_version
-from .utils import url_to_image 
-from .utils import toMatplotlib 
-from .utils import translate
-from .utils import rotate 
-from .utils import rotate_bound 
-from .utils import resize 
-from .utils import canny 
+
+from .paths import list_media
+from .paths import list_images
+from .paths import list_videos
+
+from .opencv import get_opencv_version
+from .opencv import url_to_image 
+from .opencv import toMatplotlib 
+from .opencv import translate
+from .opencv import rotate 
+from .opencv import rotate_bound 
+from .opencv import resize 
+from .opencv import canny 

@@ -34,7 +34,7 @@ def extract_frames(input_folder,
     vid_count = 0 # to check if < video_count
 
     if os.path.exists(input_folder) is False:
-        raise ValueError('Input folder does not exist', input_folder)
+        raise ValueError('[ERROR] Input folder does not exist', input_folder)
 
     if label_counter is None:
         label_counter = 0
