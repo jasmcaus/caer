@@ -24,10 +24,14 @@ from .utils import plotAcc
 from .paths import list_media
 from .paths import list_images
 from .paths import list_videos
+from .paths import listdir
 
 from .opencv import get_opencv_version
+from .opencv import to_gray
+from .opencv import to_hsv
+from .opencv import to_lab
+from .opencv import to_rgb
 from .opencv import url_to_image 
-from .opencv import toMatplotlib 
 from .opencv import translate
 from .opencv import rotate 
 from .opencv import rotate_bound 
