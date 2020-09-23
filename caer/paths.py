@@ -7,6 +7,7 @@ import os
 _acceptable_video_formats = ('.mp4', '.avi', '.mov', '.mkv', '.webm')
 _acceptable_image_formats = ('.jpg', '.jpeg', '.png', '.bmp', '.tif', '.tiff')
 
+
 def list_images(DIR, include_subdirs=True, use_fullpath=False, get_size=True):
     """
         Lists all image files within a specific directory (and sub-directories if `include_subdirs=True`)
@@ -29,6 +30,7 @@ def list_videos(DIR, include_subdirs=True, use_fullpath=False, get_size=True):
     videos = _get_media_from_dir(DIR=DIR, include_subdirs=include_subdirs, use_fullpath=use_fullpath, get_size=get_size, list_video_files=True)
     return videos # videos is a list
 
+
 def list_media(DIR, include_subdirs=True, use_fullpath=False, get_size=True):
     """
         Lists all media files within a specific directory (and sub-directories if `include_subdirs=True`)
@@ -39,6 +41,7 @@ def list_media(DIR, include_subdirs=True, use_fullpath=False, get_size=True):
     """
     media = _get_media_from_dir(DIR=DIR, include_subdirs=include_subdirs, use_fullpath=use_fullpath, get_size=get_size, list_image_files=True, list_video_files=True)
     return media # media is a list
+
 
 def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, get_size=True,  list_image_files=False, list_video_files=False):
     """
@@ -152,3 +155,29 @@ def is_extension_acceptable(file):
         return 1
     else:
         return -1
+
+def listdir(DIR, include_subdirs=False):
+    if not os.path.exists(DIR):
+        raise ValueError('[ERROR] Specified directory does not exist')
+    
+    count = 0
+
+    if include_subdirs:
+        for _,_,files in os.walk(DIR):
+            for file in files:
+                print(file)
+                count += 1
+        if count == 1:
+            print(f'[INFO] {count} file found')
+        else:
+            print(f'[INFO] {count} files found')
+
+    else:
+        for file in os.listdir(DIR):
+            print(file)
+            count += 1
+        if count == 1:
+            print(f'[INFO] {count} file found')
+        else:
+            print(f'[INFO] {count} files found')
+

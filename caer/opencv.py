@@ -10,26 +10,24 @@ from urllib.request import urlopen
 def get_opencv_version():
     return cv.__version__[0]
 
+
 def translate(image, x, y):
-    # Defines the translation matrix and performs the translation
-    matrix = np.float32([[1, 0, x], [0, 1, y]])
-    shifted = cv.warpAffine(image, matrix, (image.shape[1], image.shape[0]))
+    transMat = np.float32([[1, 0, x], [0, 1, y]])
+    return cv.warpAffine(image, transMat, (image.shape[1], image.shape[0]))
 
-    return shifted
 
-def rotate(image, angle, centre=None, scale=1.0):
+def rotate(image, angle, rotPoint=None):
     # Grabs the dimensions of the image
     (height, width) = image.shape[:2]
 
-    # If no centre is specified, we grab the centre coordinates of the image
-    if centre is None:
-        centre = (width // 2, height // 2)
+    # If no rotPoint is specified, we assume the rotation point to be around the centre
+    if rotPoint is None:
+        centre = (width//2, height//2)
 
     # Rotates the image
-    M = cv.getRotationMatrix2D(centre, angle, scale)
-    rotated = cv.warpAffine(image, M, (width, height))
+    rotMat = cv.getRotationMatrix2D(centre, angle, scale=1.0)
+    return cv.warpAffine(image, rotMat, (width, height))
 
-    return rotated
 
 def rotate_bound(image, angle):
     # Grabs the dimensions of the image and then determines the centre
@@ -54,13 +52,17 @@ def rotate_bound(image, angle):
     # Performs the actual rotation and returns the image
     return cv.warpAffine(image, M, (nW, nH))
 
-def resize(image, width=None, height=None, interpolation=cv.INTER_AREA):
+
+def resize(image, width=None, height=None, interpolation=None):
     """
     Resizes the image while maintaing the aspect ratio of the original image
     """
+    if interpolation is None:
+        interpolation = cv.INTER_AREA
+
     # Grabs the image dimensions 
-    dim = None
-    (h, w) = image.shape[:2]
+    dimensions = None
+    h, w = image.shape[:2]
 
     # if both the width and height are None, we return the original image
     if width is None and height is None:
@@ -71,24 +73,69 @@ def resize(image, width=None, height=None, interpolation=cv.INTER_AREA):
         # calculate the ratio of the height and construct the
         # dimensions
         r = height / float(h)
-        dim = (int(w * r), height)
+        dimensions = (int(w * r), height)
 
     # If height is None
     else:
         # Calculates the ratio of the width and constructs the dimensions
         r = width / float(w)
-        dim = (width, int(h * r))
+        dimensions = (width, int(h * r))
 
     # Resizes the image
-    resized = cv.resize(image, dim, interpolation=interpolation)
+    return cv.resize(image, dimensions, interpolation=interpolation)
 
-    return resized
 
-def toMatplotlib(image):
+def canny(image, sigma=0.33):
+    # computes the median of the single channel pixel intensities
+    med = np.median(image)
+
+    # apply Canny edge detection using the computed median
+    lower = int(max(0, (1.0 - sigma) * med))
+    upper = int(min(255, (1.0 + sigma) * med))
+    edges = cv.Canny(image, lower, upper)
+
+    return edges
+
+
+def to_rgb(img):
     """
-    Converts BGR image ordering to RGB ordering
+        Converts an image from the BGR image format to its RGB version
     """
-    return cv.cvtColor(image, cv.COLOR_BGR2RGB)
+    if img.shape != 3:
+        raise ValueError(f'[ERROR] Image of shape 3 expected. Found shape {img.shape}')
+
+    return cv.cvtColor(img, cv.COLOR_BGR2RGB)
+
+
+def to_gray(img):
+    """
+        Converts an image from the BGR image format to its Grayscale version
+    """
+    if img.shape != 3:
+        raise ValueError(f'[ERROR] Image of shape 3 expected. Found shape {img.shape}')
+
+    return cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+
+
+def to_hsv(img):
+    """
+        Converts an image from the BGR image format to its HSV version
+    """
+    if img.shape != 3:
+        raise ValueError(f'[ERROR] Image of shape 3 expected. Found shape {img.shape}')
+
+    return cv.cvtColor(img, cv.COLOR_BGR2HSV)
+
+
+def to_lab(img):
+    """
+        Converts an image from the BGR image format to its HSV version
+    """
+    if img.shape != 3:
+        raise ValueError(f'[ERROR] Image of shape 3 expected. Found shape {img.shape}')
+
+    return cv.cvtColor(img, cv.COLOR_BGR2LAB)
+
 
 def url_to_image(url):
     # Converts the image to a Numpy array and reads it in OpenCV
@@ -97,14 +144,3 @@ def url_to_image(url):
     image = cv.imdecode(image, cv.IMREAD_COLOR)
 
     return image
-
-def canny(image, sigma=0.33):
-    # computes the median of the single channel pixel intensities
-    med = np.median(image)
-
-    # apply automatic Canny edge detection using the computed median
-    lower = int(max(0, (1.0 - sigma) * med))
-    upper = int(min(255, (1.0 + sigma) * med))
-    edges = cv.Canny(image, lower, upper)
-
-    return edges
