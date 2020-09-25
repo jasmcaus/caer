@@ -50,6 +50,7 @@ def saveNumpy(name, x):
     elif '.npz' in name:
         np.savez_compressed(name, x)
 
+
 def train_val_split(X,y,val_ratio=.2):
     """
     Do not use if mean subtraction is being employed
@@ -60,7 +61,7 @@ def train_val_split(X,y,val_ratio=.2):
 
 
 def sort_dict(unsorted_dict, descending=False):
-    """
+    """ 
     Sorts a dictionary in ascending order (if descending = False) or descending order (if descending = True)
     """
     return sorted(unsorted_dict.items(), key=lambda x:x[1], reverse=descending)

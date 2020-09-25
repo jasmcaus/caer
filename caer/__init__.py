@@ -1,8 +1,10 @@
 # Author: Jason Dsouza
 # Github: http://www.github.com/jasmcaus
 
-from ._version import version as __version__
+from ._version import version as v
 from ._version import author as __author__
+version = v
+__version__ = v
 
 from .preprocess import preprocess_from_dir
 from .preprocess import sep_train
@@ -35,5 +37,4 @@ from .opencv import url_to_image
 from .opencv import translate
 from .opencv import rotate 
 from .opencv import rotate_bound 
-from .opencv import resize 
 from .opencv import canny 

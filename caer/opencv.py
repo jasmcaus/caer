@@ -29,6 +29,19 @@ def rotate(image, angle, rotPoint=None):
     return cv.warpAffine(image, rotMat, (width, height))
 
 
+def _cv2_resize(image, width, height, interpolation=None):
+    """
+    Resizes the image while maintaing the aspect ratio of the original image
+    """
+    if interpolation is None:
+        interpolation = cv.INTER_AREA
+        
+    dimensions = (width,height)
+
+    # Resizes the image
+    return cv.resize(image, dimensions, interpolation=interpolation)
+
+
 def rotate_bound(image, angle):
     # Grabs the dimensions of the image and then determines the centre
     (h, w) = image.shape[:2]
@@ -51,38 +64,6 @@ def rotate_bound(image, angle):
 
     # Performs the actual rotation and returns the image
     return cv.warpAffine(image, M, (nW, nH))
-
-
-def resize(image, width=None, height=None, interpolation=None):
-    """
-    Resizes the image while maintaing the aspect ratio of the original image
-    """
-    if interpolation is None:
-        interpolation = cv.INTER_AREA
-
-    # Grabs the image dimensions 
-    dimensions = None
-    h, w = image.shape[:2]
-
-    # if both the width and height are None, we return the original image
-    if width is None and height is None:
-        return image
-
-    # If  width is None
-    if width is None:
-        # calculate the ratio of the height and construct the
-        # dimensions
-        r = height / float(h)
-        dimensions = (int(w * r), height)
-
-    # If height is None
-    else:
-        # Calculates the ratio of the width and constructs the dimensions
-        r = width / float(w)
-        dimensions = (width, int(h * r))
-
-    # Resizes the image
-    return cv.resize(image, dimensions, interpolation=interpolation)
 
 
 def canny(image, sigma=0.33):
