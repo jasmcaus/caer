@@ -15,7 +15,7 @@ import os
 class MeanProcess:
     def __init__(self, mean_sub_values, channels):
         # mean_sub_values is a tuple
-        flag = check_mean_sub_values(mean_sub_values, channels)
+        flag = _check_mean_sub_values(mean_sub_values, channels)
         if flag:
             if channels == 3:
                 self.rMean = mean_sub_values[0]
@@ -89,16 +89,16 @@ def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True):
         mean /= count
         return tuple([mean])
 
-def compute_mean(train, channels, per_channel_subtraction=True):
+def compute_mean(data, channels, per_channel_subtraction=True):
     """
         Computes mean oer channel over the train set and returns a tuple of dimensions=channels
         Train should not be normalized
     """
-    if len(train) == 0:
-        raise ValueError('[ERROR] Training set is empty')
+    if len(data) == 0:
+        raise ValueError('[ERROR] Dataset is empty')
     
-    if type(train) is not list:
-        raise ValueError('[ERROR] Training set must be a list of size=number of images and shape=image shape')
+    if type(data) is not list:
+        raise ValueError('[ERROR] Dataset must be a list of size=number of images and shape=image shape')
 
     if channels == 3:
         rMean, gMean, bMean = 0,0,0
@@ -106,7 +106,7 @@ def compute_mean(train, channels, per_channel_subtraction=True):
         mean = 0
     count = 0
 
-    for img in train:
+    for img in data:
         count += 1
         if channels == 3:
             b,g,r = cv.mean(img.astype('float32'))[:3]
@@ -131,7 +131,7 @@ def compute_mean(train, channels, per_channel_subtraction=True):
         mean /= count
         return tuple([mean])
 
-def subtract_mean(val_data, channels, mean_sub_values):
+def subtract_mean(data, channels, mean_sub_values):
     """
         Per channel subtraction values computed from compute_mean() or compute_mean_from_dir()
         Subtracts mean from the validation set
@@ -139,18 +139,18 @@ def subtract_mean(val_data, channels, mean_sub_values):
 
     mean_process = MeanProcess(mean_sub_values, channels)
 
-    if len(val_data) == 0:
-        raise ValueError('[ERROR] Training set is empty')
+    if len(data) == 0:
+        raise ValueError('[ERROR] Dataset is empty')
     
-    if type(val_data) is not list:
-        raise ValueError('[ERROR] Training set must be a list of size=number of images and shape=image shape')
+    if type(data) is not list:
+        raise ValueError('[ERROR] Dataset must be a list of size=number of images and shape=image shape')
 
-    val_data = [mean_process.mean_preprocess(img, channels) for img in val_data]
+    data = [mean_process.mean_preprocess(img, channels) for img in data]
     
-    return val_data
+    return data
 
 
-def check_mean_sub_values(value, channels):
+def _check_mean_sub_values(value, channels):
     """
         Checks if mean subtraction values are valid based on the number of channels
         Must be a tuple of dimensions = number of channels
