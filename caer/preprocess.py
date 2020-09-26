@@ -15,7 +15,7 @@ def preprocess_from_dir(DIR,
                         classes=None, 
                         channels=1, 
                         IMG_SIZE=224, 
-                        train_size=None, 
+                        per_class_size=None, 
                         normalize_train=False, 
                         mean_subtraction=None, 
                         isShuffle=True, 
@@ -27,7 +27,7 @@ def preprocess_from_dir(DIR,
     @param DIR: Directory 
     @param classes --> A list of folder names within `DIR`
     @param channels: Number of channels each image will be processed to (default: 1)
-    :param train_size: Size of the training set
+    :param per_class_size: Intended size of the each class to be preprocessed
     :param normalize_train: Whether to normalize each image to between [0,1]
     :param mean_subtraction: Whether mean subtraction should be applied (Tuple)
     :param isShuffle: Shuffle the training set
@@ -102,8 +102,8 @@ def preprocess_from_dir(DIR,
         if classes is None:
             classes = get_classes_from_dir(DIR)
 
-        if train_size is None:
-            train_size = len(os.listdir(os.path.join(DIR, classes[0])))
+        if per_class_size is None:
+            per_class_size = len(os.listdir(os.path.join(DIR, classes[0])))
 
         # Checking if 'mean_subtraction' values are valid. Returns boolean value
         subtract_mean = _check_mean_sub_values(mean_subtraction, channels)
@@ -113,7 +113,7 @@ def preprocess_from_dir(DIR,
             class_label = classes.index(item)
             count = 0 
             for image in os.listdir(class_path):
-                if count != train_size:
+                if count != per_class_size:
                     image_path = os.path.join(class_path, image)
 
                     # Returns image RESIZED and img
@@ -222,7 +222,7 @@ def reshape(x, IMG_SIZE, channels):
     if type(IMG_SIZE) is not tuple or len(IMG_SIZE) != 2:
         raise ValueError('[ERROR] IMG_SIZE must be a tuple of size 2')
 
-    width, height = IMG_SIZE
+    width, height = IMG_SIZE[:2]
     return np.array(x).reshape(-1, width, height, channels)
 
 
