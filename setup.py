@@ -39,6 +39,7 @@ def write_version_py(filename='caer/_version.py'):
     finally:
         a.close()
 
+
 classifiers = [
             "Development Status :: 3 - Alpha",
             "Intended Audience :: Developers",
@@ -54,6 +55,7 @@ classifiers = [
             "Operating System :: Microsoft :: Windows",
             "License :: OSI Approved :: MIT License",
         ]
+
 
 def setup_package():
     # Rewrite the version file everytime
