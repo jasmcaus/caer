@@ -12,7 +12,7 @@ import warnings
 
 
 # ------------------------ SKLEARN SPECIFIC METHODS ------------------------- 
-# -------------------- REFERENCE FROM ITS OFFICIAL REPO ---------------------
+# -------------------- REFERENCED FROM ITS OFFICIAL REPO ---------------------
 
 def _deprecate_positional_args(f):
     """Decorator for methods that issues warnings for positional arguments.
