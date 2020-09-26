@@ -89,6 +89,7 @@ def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True):
         mean /= count
         return tuple([mean])
 
+
 def compute_mean(data, channels, per_channel_subtraction=True):
     """
         Computes mean oer channel over the train set and returns a tuple of dimensions=channels
@@ -131,6 +132,7 @@ def compute_mean(data, channels, per_channel_subtraction=True):
         mean /= count
         return tuple([mean])
 
+
 def subtract_mean(data, channels, mean_sub_values):
     """
         Per channel subtraction values computed from compute_mean() or compute_mean_from_dir()
@@ -153,8 +155,8 @@ def subtract_mean(data, channels, mean_sub_values):
 def _check_mean_sub_values(value, channels):
     """
         Checks if mean subtraction values are valid based on the number of channels
-        Must be a tuple of dimensions = number of channels
-    Returns boolean value
+        'value' must be a tuple of dimensions = number of channels
+    Returns boolean:
         True -> Expression is valid
         False -> Expression is invalid
     """
