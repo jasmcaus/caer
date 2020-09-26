@@ -19,6 +19,9 @@ def readImg(image_path, resized_img_size=None, channels=1):
     if not os.path.exists(image_path):
         raise FileNotFoundError('[ERROR] The image file was not found')
 
+    if type(resized_img_size) is not tuple or len(resized_img_size) != 2:
+        raise ValueError('[ERROR] resized_img_size must be a tuple of size 2 (width,height')
+
     image_array = cv.imread(image_path)
 
     # [INFO] Using the following piece of code results in a 'None' in the training set
@@ -27,7 +30,7 @@ def readImg(image_path, resized_img_size=None, channels=1):
     if channels == 1:
         image_array = cv.cvtColor(image_array, cv.COLOR_BGR2GRAY)
     if resized_img_size is not None:
-        image_array = cv.resize(image_array, (resized_img_size,resized_img_size))
+        image_array = cv.resize(image_array, resized_img_size)
     return image_array
 
 def get_classes_from_dir(DIR):
