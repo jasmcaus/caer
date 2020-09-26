@@ -103,6 +103,7 @@ def extract_frames(input_folder,
                             break
     # End timer
     end = time.time()
+    
     # Printing stats
     taken = end-start
     print('[INFO] {} videos extracted in {:.2f} seconds'.format(processed_videos, taken ))
