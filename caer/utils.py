@@ -9,11 +9,6 @@ import cv2 as cv
 import numpy as np
 from ._split import train_test_split
 
-# # For Python 2.7
-# import sys
-# if sys.version_info.major == 2:
-#     from urllib2 import urlopen
-# For Python
 
 def readImg(image_path, resized_img_size=None, channels=1):
     if not os.path.exists(image_path):
@@ -32,6 +27,7 @@ def readImg(image_path, resized_img_size=None, channels=1):
     if resized_img_size is not None:
         image_array = cv.resize(image_array, resized_img_size)
     return image_array
+
 
 def get_classes_from_dir(DIR):
     if len(os.listdir(DIR)) == 0:
@@ -68,6 +64,7 @@ def sort_dict(unsorted_dict, descending=False):
     Sorts a dictionary in ascending order (if descending = False) or descending order (if descending = True)
     """
     return sorted(unsorted_dict.items(), key=lambda x:x[1], reverse=descending)
+
 
 def plotAcc(histories):
     """
