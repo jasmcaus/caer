@@ -9,7 +9,7 @@ import os
 import time
 import numpy as np
 from .utils import readImg, saveNumpy, get_classes_from_dir
-from .preprocessing import MeanProcess
+from .preprocessing import MeanProcess, _check_mean_sub_values
 
 def preprocess_from_dir(DIR, 
                         classes=None, 
@@ -99,7 +99,7 @@ def preprocess_from_dir(DIR,
             train_size = len(os.listdir(os.path.join(DIR, classes[0])))
 
         # Checking if 'mean_subtraction' values are valid. Returns boolean value
-        subtract_mean = check_mean_subtraction(mean_subtraction, channels)
+        subtract_mean = _check_mean_sub_values(mean_subtraction, channels)
 
         for item in classes:
             class_path = os.path.join(DIR, item)
@@ -170,20 +170,6 @@ def preprocess_from_dir(DIR,
 def _printTotal(count, category):
     print(f'{count} - {category}')
 
-def check_mean_subtraction(value, channels):
-    """
-        Checks if mean subtraction values are valid based on the number of channels
-        Must be a tuple of dimensions = number of channels
-    Returns boolean value
-        True -> Expression is valid
-        False -> Expression is invalid
-    """
-    if value is None:
-        return False
-    elif type(value) is tuple and len(value) == channels:
-        return True
-    else:
-        raise ValueError(f'[ERROR] Expected a tuple of dimension {channels}', value) 
 
 def shuffle(train):
     """
@@ -192,6 +178,7 @@ def shuffle(train):
     import random
     random.shuffle(train)
     return train
+
 
 def sep_train(train, IMG_SIZE=None, channels=1):
     # x = []
