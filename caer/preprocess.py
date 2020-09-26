@@ -19,7 +19,7 @@ def preprocess_from_dir(DIR,
                         normalize_train=False, 
                         mean_subtraction=None, 
                         isShuffle=True, 
-                        save_train=False, 
+                        save_data=False, 
                         destination_filename=None, 
                         verbose=1):
     """
@@ -31,46 +31,53 @@ def preprocess_from_dir(DIR,
     :param normalize_train: Whether to normalize each image to between [0,1]
     :param mean_subtraction: Whether mean subtraction should be applied (Tuple)
     :param isShuffle: Shuffle the training set
-    :param save_train: If True, saves the training set as a .npy or .npz file based on destination_filename
-    :param destination_filename: if save_train is True, the train set will be saved as the filename specified
+    :param save_data: If True, saves the training set as a .npy or .npz file based on destination_filename
+    :param destination_filename: if save_data is True, the train set will be saved as the filename specified
     :param verbose: Integer either 0 (verbosity off) or 1 (verbosity on). Displays the progress to the terminal as preprocessing continues. Default = 1
     
     :return train: Image Pixel Values with corresponding labels (float32)
     :return classes: ONLY if `classes=None`
-    Saves the above variables as .npy files if `save_train = True`
+    Saves the above variables as .npy files if `save_data = True`
     """
-    return_classes = False
+    return_classes_flag = False
     train = [] 
+
     if verbose in [0,1]:
         if verbose == 0:
             display_count = False
         else:
             display_count = True
+    
+    if verbose not in [0,1]:
+        raise ValueError('[ERROR] verbose flag must be either 1 (display progress to terminal) or 0 (otherwise)')
+
+    if type(save_data) is not bool:
+        raise ValueError('[ERROR] save_data is a boolean (True/False)')
 
     if classes is None:
-        return_classes = True
+        return_classes_flag = True
 
-    if save_train:
+    if save_data:
         if destination_filename is None:
-            raise TypeError('[ERROR] Specify a destination file name')
+            raise ValueError('[ERROR] Specify a destination file name')
 
         elif not ('.npy' in destination_filename or '.npz' in destination_filename):
-            raise ValueError('[ERROR] Specify the correct numpy destination file extension (.npy or .npz)', destination_filename)
+            raise ValueError('[ERROR] Specify the correct numpy destination file extension (.npy or .npz)')
     
-        elif destination_filename is not None:
-            destination_filename = None
+    if not save_data and destination_filename is not None:
+        destination_filename = None
     
     if classes is not None and type(classes) is not list:
         raise ValueError('[ERROR] "classes" must be a list')
 
     if not os.path.exists(DIR):
-        raise ValueError('[ERROR] The specified directory does not exist', DIR)
+        raise ValueError('[ERROR] The specified directory does not exist')
 
     if IMG_SIZE is None:
         raise ValueError('[ERROR] IMG_SIZE must be specified')
 
-    if type(IMG_SIZE) is not int:
-        raise ValueError('[ERROR] IMG_SIZE must be an integer')
+    if type(IMG_SIZE) is not tuple or len(IMG_SIZE) != 2:
+        raise ValueError('[ERROR] IMG_SIZE must be a tuple of size 2 (width,height)')
 
     # Loading from Numpy Files
     if destination_filename is not None and os.path.exists(destination_filename):
@@ -140,7 +147,7 @@ def preprocess_from_dir(DIR,
         train = np.array(train)
 
         # Saves the Train set as a .npy file
-        if save_train is True:
+        if save_data:
             #Converts to Numpy and saves
             if destination_filename.endswith('.npy'):
                 print('[INFO] Saving as .npy file')
@@ -162,25 +169,26 @@ def preprocess_from_dir(DIR,
         print('----------------------------------------------')
         print('[INFO] Preprocessing complete! Took {:.0f}m {:.0f}s'.format(time_elapsed_preprocess // 60, time_elapsed_preprocess % 60))
 
-        if return_classes:
+        if return_classes_flag:
             return train, classes
         else:
             return train
+
 
 def _printTotal(count, category):
     print(f'{count} - {category}')
 
 
-def shuffle(train):
+def shuffle(data):
     """
     Shuffles the Array
     """
     import random
-    random.shuffle(train)
-    return train
+    random.shuffle(data)
+    return data
 
 
-def sep_train(train, IMG_SIZE=None, channels=1):
+def sep_train(train, IMG_SIZE, channels=1):
     # x = []
     # y = []
     # for feature, label in train:
@@ -189,6 +197,10 @@ def sep_train(train, IMG_SIZE=None, channels=1):
     
     if IMG_SIZE is None:
         raise ValueError('[ERROR] IMG_SIZE not defined')
+
+    if type(IMG_SIZE) is not tuple or len(IMG_SIZE) != 2:
+        raise ValueError('[ERROR] IMG_SIZE must be a tuple of size 2')
+
     else:
         x = [i[0] for i in train]
         y = [i[1] for i in train]
@@ -202,8 +214,17 @@ def sep_train(train, IMG_SIZE=None, channels=1):
 
         return x, y
 
+
 def reshape(x, IMG_SIZE, channels):
-    return np.array(x).reshape(-1, IMG_SIZE, IMG_SIZE, channels)
+    if IMG_SIZE is None:
+        raise ValueError('[ERROR] IMG_SIZE not defined')
+
+    if type(IMG_SIZE) is not tuple or len(IMG_SIZE) != 2:
+        raise ValueError('[ERROR] IMG_SIZE must be a tuple of size 2')
+
+    width, height = IMG_SIZE
+    return np.array(x).reshape(-1, width, height, channels)
+
 
 def normalize(x, dtype='float32'):
     """
