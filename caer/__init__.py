@@ -13,9 +13,6 @@ from .preprocess import reshape
 from .preprocess import normalize
 from .preprocess import _printTotal
 
-from .io import HDF5Dataset
-from .io import load_dataset
-
 from .utils import readImg
 from .utils import saveNumpy
 from .utils import train_val_split
