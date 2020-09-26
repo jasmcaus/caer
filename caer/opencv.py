@@ -12,13 +12,20 @@ def get_opencv_version():
 
 
 def translate(image, x, y):
+    """
+        Translates a given image across the x-axis and the y-axis
+        :param x: shifts the image right (positive) or left (negative)
+        :param y: shifts the image down (positive) or up (negative)
+    """
     transMat = np.float32([[1, 0, x], [0, 1, y]])
     return cv.warpAffine(image, transMat, (image.shape[1], image.shape[0]))
 
 
 def rotate(image, angle, rotPoint=None):
-    # Grabs the dimensions of the image
-    (height, width) = image.shape[:2]
+    """
+        Rotates an given image by an angle around a particular rotation point (if provided) or centre otherwise.
+    """
+    height, width = image.shape[:2]
 
     # If no rotPoint is specified, we assume the rotation point to be around the centre
     if rotPoint is None:
@@ -31,20 +38,18 @@ def rotate(image, angle, rotPoint=None):
 
 def _cv2_resize(image, width, height, interpolation=None):
     """
-    Resizes the image while maintaing the aspect ratio of the original image
+    ONLY TO BE USED INTERNALLY. NOT AVAILABLE FOR USAGE. 
+    Resizes the image ignoring the aspect ratio of the original image
     """
     if interpolation is None:
         interpolation = cv.INTER_AREA
-        
     dimensions = (width,height)
-
-    # Resizes the image
     return cv.resize(image, dimensions, interpolation=interpolation)
 
 
 def rotate_bound(image, angle):
     # Grabs the dimensions of the image and then determines the centre
-    (h, w) = image.shape[:2]
+    h, w = image.shape[:2]
     (cX, cY) = (w / 2, h / 2)
 
     # grab the rotation matrix (applying the negative of the
