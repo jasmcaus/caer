@@ -24,7 +24,7 @@ if not release:
 """
 
 
-def write_version_py(filename='caer/_version.py'):
+def write_version(filename='caer/_version.py'):
     print('[INFO] Writing version.py')
     TEXT = VERSION_PY_TEXT
     FULL_VERSION = VERSION
@@ -59,7 +59,7 @@ classifiers = [
 
 def setup_package():
     # Rewrite the version file everytime
-    write_version_py()
+    write_version()
 
     setup(
         name="caer",
