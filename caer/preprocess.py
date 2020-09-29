@@ -6,6 +6,7 @@ import sys
 sys.path.append('..')
 
 import os
+import random
 import time
 import numpy as np
 from .utils import readImg, saveNumpy, get_classes_from_dir
@@ -185,7 +186,6 @@ def shuffle(data):
     """
     Shuffles the Array
     """
-    import random
     random.shuffle(data)
     return data
 
