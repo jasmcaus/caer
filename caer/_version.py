@@ -2,8 +2,8 @@
 # Copyright 2020, Caer
 
 author = 'Jason Dsouza: http://www.github.com/jasmcaus'
-version = '1.7.3'
-full_version = '1.7.3'
+version = '1.7.4'
+full_version = '1.7.4'
 release = True
 if not release:
     version = full_version 
