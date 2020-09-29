@@ -43,6 +43,15 @@ def preprocess_from_dir(DIR,
     return_classes_flag = False
     train = [] 
 
+    if not os.path.exists(DIR):
+        raise ValueError('[ERROR] The specified directory does not exist')
+
+    if IMG_SIZE is None:
+        raise ValueError('[ERROR] IMG_SIZE must be specified')
+
+    if type(IMG_SIZE) is not tuple or len(IMG_SIZE) != 2:
+        raise ValueError('[ERROR] IMG_SIZE must be a tuple of size 2 (width,height)')
+    
     if verbose in [0,1]:
         if verbose == 0:
             display_count = False
@@ -71,14 +80,6 @@ def preprocess_from_dir(DIR,
     if not save_data and destination_filename is not None:
         destination_filename = None
     
-    if not os.path.exists(DIR):
-        raise ValueError('[ERROR] The specified directory does not exist')
-
-    if IMG_SIZE is None:
-        raise ValueError('[ERROR] IMG_SIZE must be specified')
-
-    if type(IMG_SIZE) is not tuple or len(IMG_SIZE) != 2:
-        raise ValueError('[ERROR] IMG_SIZE must be a tuple of size 2 (width,height)')
 
     # Loading from Numpy Files
     if destination_filename is not None and os.path.exists(destination_filename):
