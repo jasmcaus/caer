@@ -107,8 +107,8 @@ def preprocess_from_dir(DIR,
         if per_class_size is None:
             per_class_size = len(os.listdir(os.path.join(DIR, classes[0])))
 
-        # Checking if 'mean_subtraction' values are valid. Returns boolean value
         if mean_subtraction is not None:
+            # Checking if 'mean_subtraction' values are valid. Returns boolean value
             subtract_mean = _check_mean_sub_values(mean_subtraction, channels)
 
         for item in classes:
@@ -119,7 +119,7 @@ def preprocess_from_dir(DIR,
                 if count != per_class_size:
                     image_path = os.path.join(class_path, image)
 
-                    # Returns image RESIZED and img
+                    # Returns the resized image
                     img = readImg(image_path, resized_img_size=IMG_SIZE, channels=channels)
                     if img is None:
                         continue
