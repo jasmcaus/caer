@@ -57,6 +57,9 @@ def preprocess_from_dir(DIR,
     if classes is None:
         return_classes_flag = True
 
+    if classes is not None and type(classes) is not list:
+        raise ValueError('[ERROR] "classes" must be a list')
+
     if save_data:
         if destination_filename is None:
             raise ValueError('[ERROR] Specify a destination file name')
@@ -67,9 +70,6 @@ def preprocess_from_dir(DIR,
     if not save_data and destination_filename is not None:
         destination_filename = None
     
-    if classes is not None and type(classes) is not list:
-        raise ValueError('[ERROR] "classes" must be a list')
-
     if not os.path.exists(DIR):
         raise ValueError('[ERROR] The specified directory does not exist')
 
@@ -106,7 +106,8 @@ def preprocess_from_dir(DIR,
             per_class_size = len(os.listdir(os.path.join(DIR, classes[0])))
 
         # Checking if 'mean_subtraction' values are valid. Returns boolean value
-        subtract_mean = _check_mean_sub_values(mean_subtraction, channels)
+        if mean_subtraction is not None:
+            subtract_mean = _check_mean_sub_values(mean_subtraction, channels)
 
         for item in classes:
             class_path = os.path.join(DIR, item)
@@ -120,13 +121,14 @@ def preprocess_from_dir(DIR,
                     img = readImg(image_path, resized_img_size=IMG_SIZE, channels=channels)
                     if img is None:
                         continue
+
                     # Normalizing
                     if normalize_train:
                         img = normalize(img)
                     
                     # Subtracting Mean
                     # Mean must be calculated ONLY on the training set
-                    if subtract_mean:
+                    if mean_subtraction is not None and subtract_mean:
                         mean_subtract = MeanProcess(mean_subtraction, channels)
                         img = mean_subtract.mean_preprocess(img, channels)
                         
