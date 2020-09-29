@@ -3,7 +3,7 @@ import io
 
 # Repository on PyPi.org = https://pypi.org/project/caer/
 
-VERSION = '1.7.3'
+VERSION = '1.7.4'
 
 DESCRIPTION = """ A Computer Vision library in Python, built for Humans."""
 
