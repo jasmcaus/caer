@@ -51,7 +51,7 @@ def preprocess_from_dir(DIR,
 
     if type(IMG_SIZE) is not tuple or len(IMG_SIZE) != 2:
         raise ValueError('[ERROR] IMG_SIZE must be a tuple of size 2 (width,height)')
-    
+
     if verbose in [0,1]:
         if verbose == 0:
             display_count = False
@@ -92,7 +92,7 @@ def preprocess_from_dir(DIR,
 
         return train
 
-    # Extracting image data
+    # Extracting image data and adding to `train`
     else:
         since_preprocess = time.time()
         if destination_filename is not None:
