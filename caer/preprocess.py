@@ -50,7 +50,7 @@ def preprocess_from_dir(DIR,
             display_count = True
     
     if verbose not in [0,1]:
-        raise ValueError('[ERROR] verbose flag must be either 1 (display progress to terminal) or 0 (otherwise)')
+        raise ValueError('[ERROR] verbose flag must be either 1 (display progress to terminal) or 0 otherwise')
 
     if type(save_data) is not bool:
         raise ValueError('[ERROR] save_data is a boolean (True/False)')
