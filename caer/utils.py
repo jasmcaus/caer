@@ -37,17 +37,17 @@ def get_classes_from_dir(DIR):
         return classes
         
 
-def saveNumpy(name, x):
+def saveNumpy(name, data):
     """
     Saves an array to a .npy file
     Converts to Numpy (if not already)
     """
 
-    x = np.array(x)
+    data = np.array(data)
     if '.npy' in name:
-        np.save(name, x)
+        np.save(name, data)
     elif '.npz' in name:
-        np.savez_compressed(name, x)
+        np.savez_compressed(name, data)
 
 
 def train_val_split(X,y,val_ratio=.2):
