@@ -50,7 +50,7 @@ def saveNumpy(name, data):
         np.savez_compressed(name, data)
 
 
-def train_val_split(X,y,val_ratio=.2):
+def train_val_split(X, y, val_ratio=.2):
     """
     Do not use if mean subtraction is being employed
     Returns X_train, X_val, y_train, y_val
