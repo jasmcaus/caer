@@ -171,7 +171,7 @@ def preprocess_from_dir(DIR,
         end_preprocess = time.time()
         time_elapsed_preprocess = end_preprocess-since_preprocess
         print('----------------------------------------------')
-        print('[INFO] Preprocessing complete! Took {:.0f}m {:.0f}s'.format(time_elapsed_preprocess // 60, time_elapsed_preprocess % 60))
+        print('[INFO] {count} files preprocessed! Took {:.0f}m {:.0f}s'.format(time_elapsed_preprocess // 60, time_elapsed_preprocess % 60))
 
         if return_classes_flag:
             return data, classes
