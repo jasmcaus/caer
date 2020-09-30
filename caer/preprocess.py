@@ -36,12 +36,12 @@ def preprocess_from_dir(DIR,
     :param destination_filename: if save_data is True, the train set will be saved as the filename specified
     :param verbose: Integer either 0 (verbosity off) or 1 (verbosity on). Displays the progress to the terminal as preprocessing continues. Default = 1
     
-    :return train: Image Pixel Values with corresponding labels (float32)
+    :return data: Image Pixel Values with corresponding labels (float32)
     :return classes: ONLY if `classes=None`
     Saves the above variables as .npy files if `save_data = True`
     """
     return_classes_flag = False
-    train = [] 
+    data = [] 
 
     if not os.path.exists(DIR):
         raise ValueError('[ERROR] The specified directory does not exist')
@@ -85,14 +85,14 @@ def preprocess_from_dir(DIR,
     if destination_filename is not None and os.path.exists(destination_filename):
         since = time.time()
         print('[INFO] Loading from Numpy Files')
-        train = np.load(destination_filename, allow_pickle=True)
+        data = np.load(destination_filename, allow_pickle=True)
         end = time.time()
         print('----------------------------------------------')
         print('[INFO] Loaded in {:.0f}s from Numpy Files'.format(end-since))
 
-        return train
+        return data
 
-    # Extracting image data and adding to `train`
+    # Extracting image data and adding to `data`
     else:
         since_preprocess = time.time()
         if destination_filename is not None:
@@ -135,7 +135,7 @@ def preprocess_from_dir(DIR,
                         img = mean_subtract.mean_preprocess(img, channels)
                         
                     # Appending to train set
-                    train.append([img, class_label])
+                    data.append([img, class_label])
                     count +=1 
 
                     if display_count is True:
@@ -145,12 +145,12 @@ def preprocess_from_dir(DIR,
 
         # Shuffling the Training Set
         if isShuffle is True:
-            train = shuffle(train)
+            data = shuffle(data)
 
         # Converting to Numpy
-        train = np.array(train)
+        data = np.array(data)
 
-        # Saves the Train set as a .npy file
+        # Saves the Data set as a .npy file
         if save_data:
             #Converts to Numpy and saves
             if destination_filename.endswith('.npy'):
@@ -160,7 +160,7 @@ def preprocess_from_dir(DIR,
             
             since = time.time()
             # Saving
-            saveNumpy(destination_filename, train)
+            saveNumpy(destination_filename, data)
             end = time.time()
             
             time_elapsed = end-since
@@ -174,9 +174,9 @@ def preprocess_from_dir(DIR,
         print('[INFO] Preprocessing complete! Took {:.0f}m {:.0f}s'.format(time_elapsed_preprocess // 60, time_elapsed_preprocess % 60))
 
         if return_classes_flag:
-            return train, classes
+            return data, classes
         else:
-            return train
+            return data
 
 
 def _printTotal(count, category):
@@ -191,10 +191,10 @@ def shuffle(data):
     return data
 
 
-def sep_train(train, IMG_SIZE, channels=1):
+def sep_train(data, IMG_SIZE, channels=1):
     # x = []
     # y = []
-    # for feature, label in train:
+    # for feature, label in data:
     #     x.append(feature)
     #     y.append(label)
     
@@ -205,8 +205,8 @@ def sep_train(train, IMG_SIZE, channels=1):
         raise ValueError('[ERROR] IMG_SIZE must be a tuple of size 2')
 
     else:
-        x = [i[0] for i in train]
-        y = [i[1] for i in train]
+        x = [i[0] for i in data]
+        y = [i[1] for i in data]
 
         # Without reshaping, X.shape --> (no. of images, IMG_SIZE, IMG_SIZE)
         # On reshaping, X.shape --> (no. of images, IMG_SIZE, IMG_SIZE,channels)
