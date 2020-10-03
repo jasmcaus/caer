@@ -37,7 +37,7 @@ def rotate(image, angle, rotPoint=None):
 
 def _cv2_resize(image, width, height, interpolation=None):
     """
-    ONLY TO BE USED INTERNALLY. NOT AVAILABLE FOR USAGE. 
+    ONLY TO BE USED INTERNALLY. NOT AVAILABLE FOR EXTERNAL USAGE. 
     Resizes the image ignoring the aspect ratio of the original image
     """
     if interpolation is None:
