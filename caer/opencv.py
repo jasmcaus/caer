@@ -129,7 +129,7 @@ def to_lab(img):
 def url_to_image(url):
     # Converts the image to a Numpy array and reads it in OpenCV
     response = urlopen(url)
-    image = np.asarray(bytearray(response.read()), dtype="uint8")
+    image = np.asarray(bytearray(response.read()), dtype='uint8')
     image = cv.imdecode(image, cv.IMREAD_COLOR)
 
     return image
