@@ -21,18 +21,18 @@ def translate(image, x, y):
     return cv.warpAffine(image, transMat, (image.shape[1], image.shape[0]))
 
 
-def rotate(image, angle, rotPoint=None):
-    """
-        Rotates an given image by an angle around a particular rotation point (if provided) or centre otherwise.
-    """
-    height, width = image.shape[:2]
+# def rotate(image, angle, rotPoint=None):
+#     """
+#         Rotates an given image by an angle around a particular rotation point (if provided) or centre otherwise.
+#     """
+#     height, width = image.shape[:2]
 
-    # If no rotPoint is specified, we assume the rotation point to be around the centre
-    if rotPoint is None:
-        centre = (width//2, height//2)
+#     # If no rotPoint is specified, we assume the rotation point to be around the centre
+#     if rotPoint is None:
+#         centre = (width//2, height//2)
 
-    rotMat = cv.getRotationMatrix2D(centre, angle, scale=1.0)
-    return cv.warpAffine(image, rotMat, (width, height))
+#     rotMat = cv.getRotationMatrix2D(centre, angle, scale=1.0)
+#     return cv.warpAffine(image, rotMat, (width, height))
 
 
 def _cv2_resize(image, width, height, interpolation=None):
@@ -46,17 +46,16 @@ def _cv2_resize(image, width, height, interpolation=None):
     return cv.resize(image, dimensions, interpolation=interpolation)
 
 
-def rotate_bound(image, angle):
-    # Grabs the dimensions of the image and then determines the centre
-    h, w = image.shape[:2]
+def rotate(img, angle):
+    h, w = img.shape[:2]
     (cX, cY) = (w / 2, h / 2)
 
     # grab the rotation matrix (applying the negative of the
     # angle to rotate clockwise), then grab the sine and cosine
     # (i.e., the rotation components of the matrix)
-    M = cv.getRotationMatrix2D((cX, cY), -angle, 1.0)
-    cos = np.abs(M[0, 0])
-    sin = np.abs(M[0, 1])
+    transMat = cv.getRotationMatrix2D((cX, cY), angle, 1.0)
+    cos = np.abs(transMat[0, 0])
+    sin = np.abs(transMat[0, 1])
 
     # compute the new bounding dimensions of the image
     nW = int((h * sin) + (w * cos))
@@ -67,7 +66,7 @@ def rotate_bound(image, angle):
     M[1, 2] += (nH / 2) - cY
 
     # Performs the actual rotation and returns the image
-    return cv.warpAffine(image, M, (nW, nH))
+    return cv.warpAffine(img, transMat, (nW, nH))
 
 
 def canny(image, sigma=0.33):
