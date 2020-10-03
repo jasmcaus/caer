@@ -7,7 +7,7 @@ VERSION = '1.7.4'
 
 DESCRIPTION = """ A Computer Vision library in Python, built for Humans."""
 
-LONG_DESCRIPTION = io.open('LONG_DESCRIPTION.md', encoding="utf-8").read()
+LONG_DESCRIPTION = io.open('LONG_DESCRIPTION.md', encoding='utf-8').read()
 
 AUTHOR = 'Jason Dsouza: http://www.github.com/jasmcaus'
 
