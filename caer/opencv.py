@@ -50,9 +50,7 @@ def rotate(img, angle):
     h, w = img.shape[:2]
     (cX, cY) = (w / 2, h / 2)
 
-    # grab the rotation matrix (applying the negative of the
-    # angle to rotate clockwise), then grab the sine and cosine
-    # (i.e., the rotation components of the matrix)
+    # Computing the sine and cosine (rotation components of the matrix)
     transMat = cv.getRotationMatrix2D((cX, cY), angle, 1.0)
     cos = np.abs(transMat[0, 0])
     sin = np.abs(transMat[0, 1])
