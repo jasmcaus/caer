@@ -60,8 +60,8 @@ def rotate(img, angle):
     nH = int((h*cos) + (w*sin))
 
     # Adjusts the rotation matrix to take into account translation
-    transMat[0, 2] += (nW / 2) - cX
-    transMat[1, 2] += (nH / 2) - cY
+    transMat[0, 2] += (nW/2) - cX
+    transMat[1, 2] += (nH/2) - cY
 
     # Performs the actual rotation and returns the image
     return cv.warpAffine(img, transMat, (nW, nH))
