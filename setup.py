@@ -80,7 +80,7 @@ def setup_package():
         packages=find_packages(),
         license='MIT',
         install_requires=['numpy', 'opencv-contrib-python', 'h5py'],
-        keywords=['computer vision', 'deep learning', 'image processing', 'opencv', 'matplotlib'],
+        keywords=['computer vision', 'deep learning', 'h5py', 'image processing', 'opencv', 'matplotlib'],
         classifiers= [x for x in classifiers if x]
     )
 
