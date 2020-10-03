@@ -33,5 +33,4 @@ from .opencv import to_rgb
 from .opencv import url_to_image 
 from .opencv import translate
 from .opencv import rotate 
-from .opencv import rotate_bound 
 from .opencv import canny 
