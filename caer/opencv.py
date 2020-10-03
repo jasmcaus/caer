@@ -31,7 +31,6 @@ def rotate(image, angle, rotPoint=None):
     if rotPoint is None:
         centre = (width//2, height//2)
 
-    # Rotates the image
     rotMat = cv.getRotationMatrix2D(centre, angle, scale=1.0)
     return cv.warpAffine(image, rotMat, (width, height))
 
