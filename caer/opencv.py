@@ -56,8 +56,8 @@ def rotate(img, angle):
     sin = np.abs(transMat[0, 1])
 
     # compute the new bounding dimensions of the image
-    nW = int((h * sin) + (w * cos))
-    nH = int((h * cos) + (w * sin))
+    nW = int((h*sin) + (w*cos))
+    nH = int((h*cos) + (w*sin))
 
     # Adjusts the rotation matrix to take into account translation
     transMat[0, 2] += (nW / 2) - cX
