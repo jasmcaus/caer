@@ -51,7 +51,7 @@ def rotate(img, angle):
     (cX, cY) = (w / 2, h / 2)
 
     # Computing the sine and cosine (rotation components of the matrix)
-    transMat = cv.getRotationMatrix2D((cX, cY), angle, 1.0)
+    transMat = cv.getRotationMatrix2D((cX, cY), angle, scale=1.0)
     cos = np.abs(transMat[0, 0])
     sin = np.abs(transMat[0, 1])
 
