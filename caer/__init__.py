@@ -3,8 +3,10 @@
 
 from ._version import version as v
 from ._version import author as __author__
+from ._version import release as r
 version = v
 __version__ = v
+release = r
 
 from .preprocess import preprocess_from_dir
 from .preprocess import sep_train
