@@ -48,7 +48,7 @@ def _cv2_resize(image, width, height, interpolation=None):
 
 def rotate(img, angle):
     h, w = img.shape[:2]
-    (cX, cY) = (w / 2, h / 2)
+    (cX, cY) = (w/2, h/2)
 
     # Computing the sine and cosine (rotation components of the matrix)
     transMat = cv.getRotationMatrix2D((cX, cY), angle, scale=1.0)
