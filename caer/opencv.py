@@ -67,14 +67,21 @@ def rotate(img, angle):
     return cv.warpAffine(img, transMat, (nW, nH))
 
 
-def canny(image, sigma=0.33):
-    # computes the median of the single channel pixel intensities
-    med = np.median(image)
+def canny(img, threshold1, threshold2, use_median=True, sigma=None):
+    if use_median and sigma is None:
+        sigma = .3
+    
+    if use_median:
+        # computes the median of the single channel pixel intensities
+        med = np.median(img)
 
-    # apply Canny edge detection using the computed median
-    lower = int(max(0, (1.0 - sigma) * med))
-    upper = int(min(255, (1.0 + sigma) * med))
-    edges = cv.Canny(image, lower, upper)
+        # Canny edge detection using the computed mean
+        low = int(max(0, (1.0-sigma) * med))
+        up = int(min(255, (1.0+sigma) * med))
+        edges = cv.Canny(img, low, up)
+    
+    else:
+        edges = cv.Canny(img, threshold1, threshold2)
 
     return edges
 
