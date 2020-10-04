@@ -8,6 +8,7 @@ from ._meta import contributors as c
 version = v
 __version__ = v
 release = r
+__contributors__ = c
 contributors = c
 
 from .preprocess import preprocess_from_dir
