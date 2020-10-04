@@ -1,5 +1,4 @@
 import cv2 as cv
-from .opencv import _cv2_resize
 
 def resize(image, resize_factor, interpolation="area"):
     """
@@ -26,3 +25,14 @@ def resize(image, resize_factor, interpolation="area"):
 
     width, height = new_shape[:2]
     return _cv2_resize(image, width, height, interpolation=interpolation_methods[interpolation])
+
+
+def _cv2_resize(image, width, height, interpolation=None):
+    """
+    ONLY TO BE USED INTERNALLY. NOT AVAILABLE FOR EXTERNAL USAGE. 
+    Resizes the image ignoring the aspect ratio of the original image
+    """
+    if interpolation is None:
+        interpolation = cv.INTER_AREA
+    dimensions = (width,height)
+    return cv.resize(image, dimensions, interpolation=interpolation)
