@@ -6,6 +6,6 @@ build/*
 __pycache__/*
 *.pyc
 .vscode/*
-setup_old.py
+oldsetup.py
 test.py
 speeds.py
