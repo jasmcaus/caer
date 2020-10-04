@@ -5,7 +5,7 @@ import io
 
 # Repository on PyPi.org = https://pypi.org/project/caer/
 
-VERSION = '1.7.4'
+VERSION = '1.7.5'
 
 NAME = 'caer'
 AUTHOR = 'Jason Dsouza'
@@ -57,6 +57,8 @@ release = %(isrelease)s
 contributors = 
 %(contributors)s
 """
+# Converting to a list
+CONTRIBUTORS = '[\n'+CONTRIBUTORS+'\n]'
 
 def write_version(filename='caer/_meta.py'):
     print('[INFO] Writing version.py')
@@ -70,7 +72,7 @@ def write_version(filename='caer/_meta.py'):
                         'version': VERSION,
                        'full_version': FULL_VERSION,
                        'isrelease': str(ISRELEASED),
-                       'contributors': CONTRIBUTORS})
+                       'contributors': CONTRIBUTORS })
     finally:
         a.close()
 
@@ -98,7 +100,7 @@ def setup_package():
         packages=PACKAGES,
         license=LICENSE,
         install_requires=INSTALL_REQUIRES,
-        extras_requires=EXTRAS_REQUIRE,
+        extras_require=EXTRAS_REQUIRE,
         keywords=KEYWORDS,
         classifiers= [x for x in CLASSIFIERS if x]
     )
