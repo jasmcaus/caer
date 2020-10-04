@@ -17,11 +17,9 @@ $ pip install caer
 You can run the following to verify things installed correctly:
 
 ```python
-import tensorflow as tf
-import sonnet as snt
+import caer
 
-print("TensorFlow version {}".format(tf.__version__))
-print("Sonnet version {}".format(snt.__version__))
+print(f'Caer version {caer.__version__}')
 ```
 
 ## Resources
