@@ -38,3 +38,5 @@ from .opencv import url_to_image
 from .opencv import translate
 from .opencv import rotate 
 from .opencv import canny 
+
+from .visualizations import hex_to_rgb
