@@ -23,7 +23,7 @@ INSTALL_REQUIRES = [
 ]
 DESCRIPTION = """ A Computer Vision library in Python, built for Humans."""
 LONG_DESCRIPTION = io.open('LONG_DESCRIPTION.md', encoding='utf-8').read()
-CONTRIBUTORS = io.open('CONTRIBUTORS.md', encoding='utf-8').read()
+# CONTRIBUTORS = io.open('CONTRIBUTORS.md', encoding='utf-8').read()
 CLASSIFIERS = [
     'Development Status :: 3 - Alpha',
     'Intended Audience :: Developers',
@@ -55,17 +55,23 @@ author = '%(author)s'
 version = '%(version)s'
 full_version = '%(full_version)s'
 release = %(isrelease)s
-contributors = [
-%(contributors)s
-]
+contributors = %(contributors)s
 """
-
+def get_contributors_list(filename='CONTRIBUTORS.md'):
+    contr = [] 
+    with open(filename, "r") as a:
+        for line in a:
+            line = line.strip()
+            # line = "'" + line + "'"
+            contr.append(line)
+    return contr
 
 def write_version(filename='caer/_meta.py'):
     print('[INFO] Writing version.py')
     TEXT = VERSION_PY_TEXT
     FULL_VERSION = VERSION
     ISRELEASED = True
+    CONTRIBUTORS = get_contributors_list()
 
     a = open(filename, 'w')
     try:
