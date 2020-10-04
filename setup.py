@@ -40,10 +40,11 @@ CLASSIFIERS = [
     'License :: OSI Approved :: MIT License',
 ]
 EXTRAS_REQUIRE={
-        'canaro': [
-            'tensorflow'
-        ]
-    },
+        # 'deep': [
+        #     'canaro>=1.0.0'
+        # ]
+        'deep': 'canaro>=1.0.0'
+    }
 
 VERSION_PY_TEXT =\
 """
@@ -54,11 +55,11 @@ author = '%(author)s'
 version = '%(version)s'
 full_version = '%(full_version)s'
 release = %(isrelease)s
-contributors = 
+contributors = [
 %(contributors)s
+]
 """
-# Converting to a list
-CONTRIBUTORS = '[\n'+CONTRIBUTORS+'\n]'
+
 
 def write_version(filename='caer/_meta.py'):
     print('[INFO] Writing version.py')

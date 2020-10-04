@@ -6,5 +6,6 @@ author = 'Jason Dsouza'
 version = '1.7.5'
 full_version = '1.7.5'
 release = True
-contributors = 
+contributors = [
 Jason Dsouza <jasmcaus@gmail.com>
+]
