@@ -49,7 +49,7 @@ One of our maintainers will be assigned to review your pull requests. Once the p
 If you want to contribute, start working through the `caer` codebase, navigate to the
 [Issues](https://github.com/jasmcaus/caer/issues) tab and start looking through interesting issues. 
 
-Current contributors can be viewed either from the [CONTRIBUTORS](https://github.com/jasmcaus/caer/blob/master/CONTRIBUTORS.md) or by using the `caer.__contributors__` command :
+Current contributors can be viewed either from the [CONTRIBUTORS](https://github.com/jasmcaus/caer/blob/master/CONTRIBUTORS) or by using the `caer.__contributors__` command
 
 
 ## License
