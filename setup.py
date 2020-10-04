@@ -49,7 +49,6 @@ if not release:
 """
 
 def write_version(filename='caer/_version.py'):
-    
     print('[INFO] Writing version.py')
     TEXT = VERSION_PY_TEXT
     FULL_VERSION = VERSION
