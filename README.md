@@ -8,7 +8,7 @@ A Computer Vision library in Python with powerful image and video processing ope
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/jasmcaus/caer/blob/master/LICENSE)
 
 ## Installation
-The `caer` package can be installed via a simple pip install command 
+To install the current release:
 
 ```shell
 $ pip install caer
