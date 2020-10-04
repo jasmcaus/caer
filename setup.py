@@ -87,9 +87,9 @@ def setup_package():
         },
         packages=PACKAGES,
         license=LICENSE,
-        install_requires=['numpy', 'opencv-contrib-python', 'h5py'],
+        install_requires=INSTALL_REQUIRES,
         keywords=['computer vision', 'deep learning', 'h5py', 'image processing', 'opencv', 'matplotlib'],
-        classifiers= [x for x in classifiers if x]
+        classifiers= [x for x in CLASSIFIERS if x]
     )
 
 
