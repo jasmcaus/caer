@@ -14,6 +14,17 @@ To install the current release:
 $ pip install caer
 ```
 
+Optionally, Caer can also install [canaro](https://github.com/jasmcaus/canaro) if you install it with `pip install caer[canaro]`
+
+### Installing from Source
+First, clone the repo on your machine and then install with `pip`:
+
+```shell
+git clone https://github.com/jasmcaus/caer.git
+cd caer
+pip install -e .
+```
+
 You can run the following to verify things installed correctly:
 
 ```python
