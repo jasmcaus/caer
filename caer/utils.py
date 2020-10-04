@@ -8,16 +8,14 @@ import os
 import cv2 as cv
 import numpy as np
 from ._split import train_test_split
+from .io_disk import read_image
 
 
 def readImg(image_path, resized_img_size=None, channels=1):
-    if not os.path.exists(image_path):
-        raise FileNotFoundError('[ERROR] The image file was not found')
-
     if type(resized_img_size) is not tuple or len(resized_img_size) != 2:
         raise ValueError('[ERROR] resized_img_size must be a tuple of size 2 (width,height')
 
-    image_array = cv.imread(image_path)
+    image_array = read_image(image_path)
 
     # [INFO] Using the following piece of code results in a 'None' in the training set
     # if image_array == None:
