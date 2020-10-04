@@ -9,6 +9,7 @@ VERSION = '1.7.4'
 
 NAME = 'caer'
 AUTHOR = 'Jason Dsouza'
+LICENSE = 'MIT'
 PACKAGES = find_packages()
 KEYWORDS = [
     'computer vision', 'deep learning', 'toolkit', 'image processing', 'video processing','opencv', 'matplotlib'
@@ -17,7 +18,6 @@ INSTALL_REQUIRES = [
     'numpy', 'opencv-contrib-python', 'h5py'
 ]
 DESCRIPTION = """ A Computer Vision library in Python, built for Humans."""
-
 LONG_DESCRIPTION = io.open('LONG_DESCRIPTION.md', encoding='utf-8').read()
 CLASSIFIERS = [
     'Development Status :: 3 - Alpha',
@@ -74,7 +74,7 @@ def setup_package():
         version=VERSION,
         author=AUTHOR,
         author_email='jasmcaus@gmail.com',
-        maintainer='Jason Dsouza',
+        maintainer=AUTHOR,
         description=DESCRIPTION,
         long_description=LONG_DESCRIPTION,
         long_description_content_type='text/markdown',
@@ -85,8 +85,8 @@ def setup_package():
             'Documentation': 'https://github.com/jasmcaus/caer/blob/master/DOCS.md',
             'Source Code': 'https://github.com/jasmcaus/caer',
         },
-        packages=find_packages(),
-        license='MIT',
+        packages=PACKAGES,
+        license=LICENSE,
         install_requires=['numpy', 'opencv-contrib-python', 'h5py'],
         keywords=['computer vision', 'deep learning', 'h5py', 'image processing', 'opencv', 'matplotlib'],
         classifiers= [x for x in classifiers if x]
