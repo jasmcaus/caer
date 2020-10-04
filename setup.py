@@ -39,7 +39,11 @@ CLASSIFIERS = [
     'Operating System :: Microsoft :: Windows',
     'License :: OSI Approved :: MIT License',
 ]
-
+EXTRAS_REQUIRE={
+        'canaro': [
+            'tensorflow'
+        ]
+    },
 
 VERSION_PY_TEXT =\
 """
@@ -93,6 +97,7 @@ def setup_package():
         packages=PACKAGES,
         license=LICENSE,
         install_requires=INSTALL_REQUIRES,
+        extras_requires=EXTRAS_REQUIRE,
         keywords=KEYWORDS,
         classifiers= [x for x in CLASSIFIERS if x]
     )
