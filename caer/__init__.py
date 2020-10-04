@@ -5,13 +5,14 @@ from ._meta import version as v
 from ._meta import author as __author__
 from ._meta import release as r
 from ._meta import contributors as c
-version = v
 __version__ = v
-release = r
 __contributors__ = c
-contributors = c
 __license__ = 'MIT License'
 __copyright__ = 'Copyright (c) 2020 Jason Dsouza'
+version = v
+release = r
+contributors = c
+
 
 from .preprocess import preprocess_from_dir
 from .preprocess import sep_train
