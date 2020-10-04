@@ -86,9 +86,9 @@ def setup_package():
         url = URL,
         download_url = DOWNLOAD_URL,
         project_urls={
-            'Bug Tracker': 'https://github.com/jasmcaus/caer/issues',
-            'Documentation': 'https://github.com/jasmcaus/caer/blob/master/DOCS.md',
-            'Source Code': 'https://github.com/jasmcaus/caer',
+            'Bug Tracker': URL + '/issues',
+            'Documentation': URL + '/blob/master/DOCS.md',
+            'Source Code': URL,
         },
         packages=PACKAGES,
         license=LICENSE,
