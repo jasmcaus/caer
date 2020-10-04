@@ -6,7 +6,7 @@ import io
 VERSION = '1.7.4'
 
 NAME = 'caer'
-
+PACKAGES = find_packages()
 DESCRIPTION = """ A Computer Vision library in Python, built for Humans."""
 
 LONG_DESCRIPTION = io.open('LONG_DESCRIPTION.md', encoding='utf-8').read()
