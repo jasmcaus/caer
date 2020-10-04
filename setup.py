@@ -88,7 +88,7 @@ def setup_package():
         packages=PACKAGES,
         license=LICENSE,
         install_requires=INSTALL_REQUIRES,
-        keywords=['computer vision', 'deep learning', 'h5py', 'image processing', 'opencv', 'matplotlib'],
+        keywords=KEYWORDS,
         classifiers= [x for x in CLASSIFIERS if x]
     )
 
