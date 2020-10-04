@@ -21,6 +21,7 @@ INSTALL_REQUIRES = [
 ]
 DESCRIPTION = """ A Computer Vision library in Python, built for Humans."""
 LONG_DESCRIPTION = io.open('LONG_DESCRIPTION.md', encoding='utf-8').read()
+CONTRIBUTORS = io.open('CONTRIBUTORS.md', encoding='utf-8').read()
 CLASSIFIERS = [
     'Development Status :: 3 - Alpha',
     'Intended Audience :: Developers',
@@ -36,6 +37,7 @@ CLASSIFIERS = [
     'Operating System :: Microsoft :: Windows',
     'License :: OSI Approved :: MIT License',
 ]
+
 
 VERSION_PY_TEXT =\
 """
@@ -53,15 +55,15 @@ contributors =
 def write_version(filename='caer/_version.py'):
     print('[INFO] Writing version.py')
     TEXT = VERSION_PY_TEXT
-    FULL_VERSION = VERSION
     ISRELEASED = True
 
     a = open(filename, 'w')
     try:
-        a.write(TEXT % {'author': AUTHOR_LONG,
-                        'version': VERSION,
-                       'full_version': FULL_VERSION,
-                       'isrelease': str(ISRELEASED)})
+        a.write(TEXT % {'author': 'Ja',
+                        'version': '0.1.1',
+                       'full_version': '.1.1',
+                       'isrelease': str(ISRELEASED),
+                       'contributors': CONTRIBUTORS})
     finally:
         a.close()
 
