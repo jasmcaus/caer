@@ -10,6 +10,8 @@ __version__ = v
 release = r
 __contributors__ = c
 contributors = c
+__license__ = 'MIT License'
+__copyright__ = 'Copyright (c) 2020 Jason Dsouza'
 
 from .preprocess import preprocess_from_dir
 from .preprocess import sep_train
