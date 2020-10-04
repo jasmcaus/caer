@@ -56,6 +56,7 @@ full_version = '%(full_version)s'
 release = %(isrelease)s
 contributors = %(contributors)s
 """
+
 def get_contributors_list(filename='CONTRIBUTORS.md'):
     contr = [] 
     with open(filename, "r") as a:
