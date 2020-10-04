@@ -12,6 +12,9 @@ PACKAGES = find_packages()
 KEYWORDS = [
     'computer vision', 'deep learning', 'toolkit', 'image processing', 'video processing','opencv', 'matplotlib'
 ]
+INSTALL_REQUIRES = [
+    'numpy', 'opencv-contrib-python', 'h5py'
+]
 CLASSIFIERS = [
     'Development Status :: 3 - Alpha',
     'Intended Audience :: Developers',
