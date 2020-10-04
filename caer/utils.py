@@ -61,6 +61,8 @@ def sort_dict(unsorted_dict, descending=False):
     """ 
     Sorts a dictionary in ascending order (if descending = False) or descending order (if descending = True)
     """
+    if type(descending) is not bool:
+        raise ValueError('[ERROR] `descending` must be a boolean')
     return sorted(unsorted_dict.items(), key=lambda x:x[1], reverse=descending)
 
 
