@@ -57,7 +57,7 @@ release = %(isrelease)s
 contributors = %(contributors)s
 """
 
-def get_contributors_list(filename='CONTRIBUTORS.md'):
+def get_contributors_list(filename='CONTRIBUTORS'):
     contr = [] 
     with open(filename, "r") as a:
         for line in a:
