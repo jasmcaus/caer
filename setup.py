@@ -10,7 +10,7 @@ VERSION = '1.7.4'
 NAME = 'caer'
 PACKAGES = find_packages()
 KEYWORDS = [
-    'computer vision', 'deep learning', 'toolkit', 'image processing', 'video processing, ','opencv', 'matplotlib'
+    'computer vision', 'deep learning', 'toolkit', 'image processing', 'video processing','opencv', 'matplotlib'
 ]
 CLASSIFIERS = [
     'Development Status :: 3 - Alpha',
