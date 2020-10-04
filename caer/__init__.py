@@ -47,3 +47,49 @@ from .visualizations import hex_to_rgb
 from .visualizations import draw_rectangle
 
 from .io_disk import read_image
+
+
+#pylint:disable=undefined-all-variable
+
+__all__ = (
+    'preprocess_from_dir',
+    'sep_train',
+    'shuffle',
+    'reshape',
+    'normalize',
+    '_printTotal',
+    'readImg',
+    'train_val_split',
+    'get_classes_from_dir',
+    'sort_dict',
+    'plotAcc',
+    'list_media',
+    'read_image'
+    'list_images',
+    'list_videos',
+    'listdir',
+    'get_opencv_version',
+    'to_gray',
+    'to_rgb',
+    'to_lab',
+    'to_hsv',
+    'url_to_image',
+    'translate',
+    'rotate',
+    'canny',
+    'hex_to_rgb',
+    'draw_rectangle',
+    'extract_frames',
+    'LiveVideoStream',
+    'VideoStream',
+    'count_frames',
+    'get_fps',
+    'MeanProcess',
+    'compute_mean',
+    'compute_mean_from_dir',
+    'subtract_mean',
+    '_check_mean_sub_values',
+    'PatchPreProcess',
+    'HDF5Dataset',
+    'load_dataset'
+)
