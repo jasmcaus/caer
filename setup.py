@@ -58,16 +58,17 @@ contributors =
 %(contributors)s
 """
 
-def write_version(filename='caer/_version.py'):
+def write_version(filename='caer/_meta.py'):
     print('[INFO] Writing version.py')
     TEXT = VERSION_PY_TEXT
+    FULL_VERSION = VERSION
     ISRELEASED = True
 
     a = open(filename, 'w')
     try:
-        a.write(TEXT % {'author': 'Ja',
-                        'version': '0.1.1',
-                       'full_version': '.1.1',
+        a.write(TEXT % {'author': AUTHOR,
+                        'version': VERSION,
+                       'full_version': FULL_VERSION,
                        'isrelease': str(ISRELEASED),
                        'contributors': CONTRIBUTORS})
     finally:
