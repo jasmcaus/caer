@@ -35,17 +35,6 @@ def translate(image, x, y):
 #     return cv.warpAffine(image, rotMat, (width, height))
 
 
-def _cv2_resize(image, width, height, interpolation=None):
-    """
-    ONLY TO BE USED INTERNALLY. NOT AVAILABLE FOR EXTERNAL USAGE. 
-    Resizes the image ignoring the aspect ratio of the original image
-    """
-    if interpolation is None:
-        interpolation = cv.INTER_AREA
-    dimensions = (width,height)
-    return cv.resize(image, dimensions, interpolation=interpolation)
-
-
 def rotate(img, angle):
     h, w = img.shape[:2]
     (cX, cY) = (w/2, h/2)
