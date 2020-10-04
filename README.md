@@ -40,4 +40,4 @@ If you want to contribute, start working through the `caer` codebase, navigate t
 
 ## License
 
-[MIT License](https://github.com/jasmcaus/caer/blob/master/LICENSE)
+Caer is released under the [MIT License](https://github.com/jasmcaus/caer/blob/master/LICENSE)
