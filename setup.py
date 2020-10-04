@@ -9,7 +9,8 @@ VERSION = '1.7.4'
 
 NAME = 'caer'
 AUTHOR = 'Jason Dsouza'
-AUTHOR_LONG = AUTHOR + ' <jasmcaus@gmail.com>'
+AUTHOR_EMAIL = 'jasmcaus@gmail.com'
+AUTHOR_LONG = AUTHOR + ' <' + AUTHOR_EMAIL + '>'
 LICENSE = 'MIT'
 PACKAGES = find_packages()
 KEYWORDS = [
@@ -72,7 +73,7 @@ def setup_package():
         name=NAME,
         version=VERSION,
         author=AUTHOR,
-        author_email='jasmcaus@gmail.com',
+        author_email=AUTHOR_EMAIL,
         maintainer=AUTHOR,
         description=DESCRIPTION,
         long_description=LONG_DESCRIPTION,
