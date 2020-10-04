@@ -1,12 +1,14 @@
 # Author: Jason Dsouza
 # Github: http://www.github.com/jasmcaus
 
-from ._version import version as v
-from ._version import author as __author__
-from ._version import release as r
+from ._meta import version as v
+from ._meta import author as __author__
+from ._meta import release as r
+from ._meta import contributors as c
 version = v
 __version__ = v
 release = r
+contributors = c
 
 from .preprocess import preprocess_from_dir
 from .preprocess import sep_train
