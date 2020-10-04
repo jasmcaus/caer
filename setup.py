@@ -73,7 +73,7 @@ def write_version(filename='caer/_meta.py'):
 
     a = open(filename, 'w')
     try:
-        a.write(TEXT % {'author': AUTHOR,
+        a.write(TEXT % {'author': AUTHOR_LONG,
                         'version': VERSION,
                        'full_version': FULL_VERSION,
                        'isrelease': str(ISRELEASED),
