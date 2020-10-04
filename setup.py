@@ -12,6 +12,8 @@ AUTHOR = 'Jason Dsouza'
 AUTHOR_EMAIL = 'jasmcaus@gmail.com'
 AUTHOR_LONG = AUTHOR + ' <' + AUTHOR_EMAIL + '>'
 LICENSE = 'MIT'
+URL = 'https://github.com/jasmcaus/caer'
+DOWNLOAD_URL = 'https://pypi.org/project/caer/'
 PACKAGES = find_packages()
 KEYWORDS = [
     'computer vision', 'deep learning', 'toolkit', 'image processing', 'video processing','opencv', 'matplotlib'
@@ -81,8 +83,8 @@ def setup_package():
         description=DESCRIPTION,
         long_description=LONG_DESCRIPTION,
         long_description_content_type='text/markdown',
-        url='https://github.com/jasmcaus/caer',
-        download_url = 'https://pypi.org/project/caer/',
+        url = URL,
+        download_url = DOWNLOAD_URL,
         project_urls={
             'Bug Tracker': 'https://github.com/jasmcaus/caer/issues',
             'Documentation': 'https://github.com/jasmcaus/caer/blob/master/DOCS.md',
