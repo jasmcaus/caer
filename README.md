@@ -10,7 +10,19 @@ A Computer Vision library in Python with powerful image processing operations, i
 ## Installation
 The `caer` package can be installed via a simple pip install command 
 
-<pre>$ pip install caer</pre>
+```shell
+$ pip install caer
+```
+
+You can run the following to verify things installed correctly:
+
+```python
+import tensorflow as tf
+import sonnet as snt
+
+print("TensorFlow version {}".format(tf.__version__))
+print("Sonnet version {}".format(snt.__version__))
+```
 
 ## Resources
 
