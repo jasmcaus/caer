@@ -1,5 +1,3 @@
-#pylint:disable=implicit-str-concat
-
 from setuptools import setup, find_packages
 import io 
 
