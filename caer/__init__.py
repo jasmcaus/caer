@@ -40,3 +40,6 @@ from .opencv import rotate
 from .opencv import canny 
 
 from .visualizations import hex_to_rgb
+from .visualizations import draw_rectangle
+
+from .io_disk import read_image
