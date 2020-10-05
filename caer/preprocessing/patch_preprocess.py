@@ -1,5 +1,5 @@
-# Author: Jason Dsouza
-# Github: http://www.github.com/jasmcaus
+# Copyright (c) 2020 Jason Dsouza <jasmcaus@gmail.com>
+# Protected under the MIT License (see LICENSE)
 
 # Importing the necessary packages
 from ._patches import extract_patches_2d
