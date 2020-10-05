@@ -1,3 +1,6 @@
+# Copyright (c) 2020 Jason Dsouza <jasmcaus@gmail.com>
+# Protected under the MIT License (see LICENSE)
+
 import cv2 as cv
 
 def resize(image, resize_factor, interpolation="area"):
