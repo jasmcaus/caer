@@ -7,7 +7,7 @@
 from threading import Thread
 import math
 import cv2 as cv
-from ..utils import get_opencv_version
+from ..opencv import get_opencv_version
 
 """
     Python threading has a specific meaning for daemon. A daemon thread will shut down immediately when the program exits. One way to think about these definitions is to consider the daemon thread a thread that runs in the background without worrying about shutting it down.
