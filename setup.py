@@ -13,6 +13,8 @@ LICENSE = 'MIT'
 URL = 'https://github.com/jasmcaus/caer'
 DOWNLOAD_URL = 'https://pypi.org/project/caer/'
 PACKAGES = find_packages()
+DESCRIPTION = """ A Computer Vision library in Python, built for Humans."""
+LONG_DESCRIPTION = io.open('LONG_DESCRIPTION.md', encoding='utf-8').read()
 KEYWORDS = [
     'computer vision', 'deep learning', 'toolkit', 'image processing', 'video processing','opencv', 'matplotlib'
 ]
@@ -25,9 +27,6 @@ EXTRAS_REQUIRE={
         # ]
         'canaro': 'canaro>=1.0.0'
 }
-DESCRIPTION = """ A Computer Vision library in Python, built for Humans."""
-LONG_DESCRIPTION = io.open('LONG_DESCRIPTION.md', encoding='utf-8').read()
-# CONTRIBUTORS = io.open('CONTRIBUTORS.md', encoding='utf-8').read()
 CLASSIFIERS = [
     'Development Status :: 3 - Alpha',
     'Intended Audience :: Developers',
