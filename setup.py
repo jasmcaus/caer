@@ -19,6 +19,12 @@ KEYWORDS = [
 INSTALL_REQUIRES = [
     'numpy', 'opencv-contrib-python', 'h5py'
 ]
+EXTRAS_REQUIRE={
+        # 'deep': [
+        #     'canaro>=1.0.0'
+        # ]
+        'canaro': 'canaro>=1.0.0'
+}
 DESCRIPTION = """ A Computer Vision library in Python, built for Humans."""
 LONG_DESCRIPTION = io.open('LONG_DESCRIPTION.md', encoding='utf-8').read()
 # CONTRIBUTORS = io.open('CONTRIBUTORS.md', encoding='utf-8').read()
@@ -37,12 +43,6 @@ CLASSIFIERS = [
     'Operating System :: Microsoft :: Windows',
     'License :: OSI Approved :: MIT License',
 ]
-EXTRAS_REQUIRE={
-        # 'deep': [
-        #     'canaro>=1.0.0'
-        # ]
-        'canaro': 'canaro>=1.0.0'
-}
 
 VERSION_PY_TEXT =\
 """
