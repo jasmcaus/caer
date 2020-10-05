@@ -1,5 +1,5 @@
 # Copyright (c) 2020 Jason Dsouza <jasmcaus@gmail.com>
-# Protected under the MIT License (see LICENSE file)
+# Protected under the MIT License (see LICENSE)
 
 from ._meta import version as v
 from ._meta import author as __author__
