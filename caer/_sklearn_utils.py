@@ -1,3 +1,5 @@
+# Copyright (c) 2020 Jason Dsouza <jasmcaus@gmail.com>
+# Protected under the MIT License (see LICENSE)
 
 #pylint: disable=bare-except,protected-access,c-extension-no-member
 
