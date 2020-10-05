@@ -1,3 +1,6 @@
+# Copyright (c) 2020 Jason Dsouza <jasmcaus@gmail.com>
+# Protected under the MIT License (see LICENSE)
+
 import numbers
 import numpy as np
 from numpy.lib.stride_tricks import as_strided
