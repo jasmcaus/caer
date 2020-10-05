@@ -5,7 +5,7 @@
 
 # Importing the necessary packages
 import cv2 as cv
-from .opencv import _cv2_resize
+from .resize import _cv2_resize
 
 def resize(img, IMG_SIZE, keep_aspect_ratio=False):
     """
