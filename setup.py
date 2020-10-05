@@ -1,8 +1,6 @@
 from setuptools import setup, find_packages
 import io 
 
-# Repository on PyPi.org = https://pypi.org/project/caer/
-
 VERSION = '1.7.5'
 
 NAME = 'caer'
