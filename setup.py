@@ -42,7 +42,7 @@ EXTRAS_REQUIRE={
         #     'canaro>=1.0.0'
         # ]
         'canaro': 'canaro>=1.0.0'
-    }
+}
 
 VERSION_PY_TEXT =\
 """
