@@ -2,7 +2,7 @@
 # Protected under the MIT License (see LICENSE)
 
 # Importing the necessary packages
-from .FileVideoStream import FileVideoStream
+from .filevideostream import FileVideoStream
 
 # Using the FileVideoStream class as it can handle both live as well as pre-existing videos
 
