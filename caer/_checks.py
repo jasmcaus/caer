@@ -1,3 +1,6 @@
+# Copyright (c) 2020 Jason Dsouza <jasmcaus@gmail.com>
+# Protected under the MIT License (see LICENSE)
+
 def _check_size(size):
     """
     Common check to enforce type and sanity check on size tuples
