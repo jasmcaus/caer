@@ -6,6 +6,7 @@
 # Importing the necessary packages
 import cv2 as cv
 import os 
+from .._checks import _check_mean_sub_values
 
 """
     Important notes:
@@ -150,34 +151,3 @@ def subtract_mean(data, channels, mean_sub_values):
     data = [mean_process.mean_preprocess(img, channels) for img in data]
     
     return data
-
-
-def _check_mean_sub_values(value, channels):
-    """
-        Checks if mean subtraction values are valid based on the number of channels
-        'value' must be a tuple of dimensions = number of channels
-    Returns boolean:
-        True -> Expression is valid
-        False -> Expression is invalid
-    """
-    if value is None:
-        raise ValueError('Value(s) specified is of NoneType()')
-    
-    if type(value) is not tuple:
-        # If not a tuple, we convert it to one
-        try:
-            value = tuple(value)
-        except TypeError:
-            value = tuple([value])
-    
-    if channels not in [1,3]:
-        raise ValueError('Number of channels must be either 1 (Grayscale) or 3 (RGB/BGR)')
-
-    if len(value) not in [1,3]:
-        raise ValueError('Tuple length must be either 1 (subtraction over the entire image) or 3 (per channel subtraction)', value)
-    
-    if len(value) == channels:
-        return True 
-
-    else:
-        raise ValueError(f'Expected a tuple of dimension {channels}', value) 
