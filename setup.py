@@ -54,10 +54,10 @@ contributors = %(contributors)s
 
 def get_contributors_list(filename='CONTRIBUTORS'):
     contr = [] 
-    with open(filename, "r") as a:
+    with open(filename, 'r') as a:
         for line in a:
             line = line.strip()
-            # line = "'" + line + "'"
+            # line = """ + line + """
             contr.append(line)
     return contr
 

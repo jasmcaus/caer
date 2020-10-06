@@ -12,6 +12,6 @@ def _read_image(image_path):
         `numpy.ndarray` of size `(height, width, channels)`.
     """
     if not os.path.exists(image_path):
-        raise FileNotFoundError('[ERROR] The image file was not found')
+        raise FileNotFoundError('The image file was not found')
     
     return cv.imread(image_path)

@@ -96,10 +96,10 @@ def compute_mean(data, channels, per_channel_subtraction=True):
         Train should not be normalized
     """
     if len(data) == 0:
-        raise ValueError('[ERROR] Dataset is empty')
+        raise ValueError('Dataset is empty')
     
     if type(data) is not list:
-        raise ValueError('[ERROR] Dataset must be a list of size=number of images and shape=image shape')
+        raise ValueError('Dataset must be a list of size=number of images and shape=image shape')
 
     if channels == 3:
         rMean, gMean, bMean = 0,0,0
@@ -142,10 +142,10 @@ def subtract_mean(data, channels, mean_sub_values):
     mean_process = MeanProcess(mean_sub_values, channels)
 
     if len(data) == 0:
-        raise ValueError('[ERROR] Dataset is empty')
+        raise ValueError('Dataset is empty')
     
     if type(data) is not list:
-        raise ValueError('[ERROR] Dataset must be a list of size=number of images and shape=image shape')
+        raise ValueError('Dataset must be a list of size=number of images and shape=image shape')
 
     data = [mean_process.mean_preprocess(img, channels) for img in data]
     
@@ -161,7 +161,7 @@ def _check_mean_sub_values(value, channels):
         False -> Expression is invalid
     """
     if value is None:
-        raise ValueError('[ERROR] Value(s) specified is of NoneType()')
+        raise ValueError('Value(s) specified is of NoneType()')
     
     if type(value) is not tuple:
         # If not a tuple, we convert it to one
@@ -171,13 +171,13 @@ def _check_mean_sub_values(value, channels):
             value = tuple([value])
     
     if channels not in [1,3]:
-        raise ValueError('[ERROR] Number of channels must be either 1 (Grayscale) or 3 (RGB/BGR)')
+        raise ValueError('Number of channels must be either 1 (Grayscale) or 3 (RGB/BGR)')
 
     if len(value) not in [1,3]:
-        raise ValueError('[ERROR] Tuple length must be either 1 (subtraction over the entire image) or 3 (per channel subtraction)', value)
+        raise ValueError('Tuple length must be either 1 (subtraction over the entire image) or 3 (per channel subtraction)', value)
     
     if len(value) == channels:
         return True 
 
     else:
-        raise ValueError(f'[ERROR] Expected a tuple of dimension {channels}', value) 
+        raise ValueError(f'Expected a tuple of dimension {channels}', value) 

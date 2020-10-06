@@ -14,10 +14,10 @@ def resize(img, IMG_SIZE, keep_aspect_ratio=False):
         :param keep_aspect_ratio: Boolean to keep/ignore aspect ratio when resizing
     """
     if type(IMG_SIZE) is not tuple or (type(IMG_SIZE) is tuple and len(IMG_SIZE) != 2):
-        raise ValueError("[ERROR] IMG_SIZE needs to be a tuple of size 2")
+        raise ValueError('IMG_SIZE needs to be a tuple of size 2")
     
     if type(keep_aspect_ratio) is not bool:
-        raise ValueError("[ERROR] keep_aspect_ratio must be a boolean")
+        raise ValueError('keep_aspect_ratio must be a boolean")
 
     new_w, new_h = IMG_SIZE
 

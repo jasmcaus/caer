@@ -44,13 +44,13 @@ def preprocess_from_dir(DIR,
     data = [] 
 
     if not os.path.exists(DIR):
-        raise ValueError('[ERROR] The specified directory does not exist')
+        raise ValueError('The specified directory does not exist')
 
     if IMG_SIZE is None:
-        raise ValueError('[ERROR] IMG_SIZE must be specified')
+        raise ValueError('IMG_SIZE must be specified')
 
     if type(IMG_SIZE) is not tuple or len(IMG_SIZE) != 2:
-        raise ValueError('[ERROR] IMG_SIZE must be a tuple of size 2 (width,height)')
+        raise ValueError('IMG_SIZE must be a tuple of size 2 (width,height)')
 
     if verbose in [0,1]:
         if verbose == 0:
@@ -59,23 +59,23 @@ def preprocess_from_dir(DIR,
             display_count = True
     
     if verbose not in [0,1]:
-        raise ValueError('[ERROR] verbose flag must be either 1 (display progress to terminal) or 0 otherwise')
+        raise ValueError('verbose flag must be either 1 (display progress to terminal) or 0 otherwise')
 
     if type(save_data) is not bool:
-        raise ValueError('[ERROR] save_data is a boolean (True/False)')
+        raise ValueError('save_data is a boolean (True/False)')
 
     if classes is None:
         return_classes_flag = True
 
     if classes is not None and type(classes) is not list:
-        raise ValueError('[ERROR] "classes" must be a list')
+        raise ValueError('"classes" must be a list')
 
     if save_data:
         if destination_filename is None:
-            raise ValueError('[ERROR] Specify a destination file name')
+            raise ValueError('Specify a destination file name')
 
         elif not ('.npy' in destination_filename or '.npz' in destination_filename):
-            raise ValueError('[ERROR] Specify the correct numpy destination file extension (.npy or .npz)')
+            raise ValueError('Specify the correct numpy destination file extension (.npy or .npz)')
     
     if not save_data and destination_filename is not None:
         destination_filename = None
@@ -199,10 +199,10 @@ def sep_train(data, IMG_SIZE, channels=1):
     #     y.append(label)
     
     if IMG_SIZE is None:
-        raise ValueError('[ERROR] IMG_SIZE not defined')
+        raise ValueError('IMG_SIZE not defined')
 
     if type(IMG_SIZE) is not tuple or len(IMG_SIZE) != 2:
-        raise ValueError('[ERROR] IMG_SIZE must be a tuple of size 2')
+        raise ValueError('IMG_SIZE must be a tuple of size 2')
 
     else:
         x = [i[0] for i in data]
@@ -220,10 +220,10 @@ def sep_train(data, IMG_SIZE, channels=1):
 
 def reshape(x, IMG_SIZE, channels):
     if IMG_SIZE is None:
-        raise ValueError('[ERROR] IMG_SIZE not defined')
+        raise ValueError('IMG_SIZE not defined')
 
     if type(IMG_SIZE) is not tuple or len(IMG_SIZE) != 2:
-        raise ValueError('[ERROR] IMG_SIZE must be a tuple of size 2')
+        raise ValueError('IMG_SIZE must be a tuple of size 2')
 
     width, height = IMG_SIZE[:2]
     return np.array(x).reshape(-1, width, height, channels)
