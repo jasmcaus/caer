@@ -23,7 +23,7 @@ class LiveVideoStream:
         """
             Source must either be an integer (0,1,2 etc) or a path to a video file
         """
-        if type(source) is str:
+        if isinstance(source, str):
             raise ValueError('Expected an integer. Got a filepath. LiveVideoStream is for live streams only')
         
         # Initializing the video stream

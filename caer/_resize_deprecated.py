@@ -6,6 +6,7 @@
 # Importing the necessary packages
 import cv2 as cv
 from .resize import _cv2_resize
+from ._checks import _check_size
 
 def resize(img, IMG_SIZE, keep_aspect_ratio=False):
     """
@@ -13,11 +14,10 @@ def resize(img, IMG_SIZE, keep_aspect_ratio=False):
         :param IMG_SIZE: Tuple of size 2 in the format (width,height)
         :param keep_aspect_ratio: Boolean to keep/ignore aspect ratio when resizing
     """
-    if type(IMG_SIZE) is not tuple or (type(IMG_SIZE) is tuple and len(IMG_SIZE) != 2):
-        raise ValueError('IMG_SIZE needs to be a tuple of size 2")
+    _ = _check_size(IMG_SIZE)
     
-    if type(keep_aspect_ratio) is not bool:
-        raise ValueError('keep_aspect_ratio must be a boolean")
+    if isinstance(keep_aspect_ratio, bool):
+        raise ValueError('keep_aspect_ratio must be a boolean')
 
     new_w, new_h = IMG_SIZE
 

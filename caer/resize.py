@@ -18,7 +18,7 @@ def resize(image, resize_factor, interpolation="area"):
     if interpolation not in interpolation_methods:
         raise ValueError('Specify a valid interpolation type')
 
-    if type(resize_factor) is not tuple:
+    if isinstance(resize_factor, tuple):
         new_shape = (int(resize_factor * image.shape[0]), int(resize_factor * image.shape[1]))
     else:
         if len(resize_factor) == 2:

@@ -40,7 +40,7 @@ def extract_frames(input_folder,
         raise ValueError('Input folder does not exist', input_folder)
     
     if IMG_SIZE is not None:
-        if type(IMG_SIZE) is not tuple or len(IMG_SIZE) != 2:
+        if isinstance(IMG_SIZE, tuple) or len(IMG_SIZE) != 2:
             raise ValueError('IMG_SIZE must be a tuple of size 2')
 
     if label_counter is None:

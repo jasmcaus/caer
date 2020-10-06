@@ -25,13 +25,13 @@ def load_img(image_path, target_size=None, channels=1, swapRB=True):
     if not os.path.exists(image_path):
         raise ValueError('Specified filepath does not exist')
 
-    if type(target_size) is not tuple or len(target_size) != 2:
+    if isinstance(target_size, tuple) or len(target_size) != 2:
         raise ValueError('target_size must be a tuple of size 2 (width,height')
     
-    if type(channels) is not int or channels not in [0,1]:
+    if isinstance(channels, int) or channels not in [0,1]:
         raise ValueError('channels must be an integer - 1 (Grayscale) or 3 (RGB)')
 
-    if type(swapRB) is not bool:
+    if isinstance(swapRB, bool):
         raise ValueError('swapRB must be a boolean')
 
     image_array = _read_image(image_path)
@@ -83,7 +83,7 @@ def sort_dict(unsorted_dict, descending=False):
     """ 
     Sorts a dictionary in ascending order (if descending = False) or descending order (if descending = True)
     """
-    if type(descending) is not bool:
+    if isinstance(descending, bool):
         raise ValueError('`descending` must be a boolean')
     return sorted(unsorted_dict.items(), key=lambda x:x[1], reverse=descending)
 
