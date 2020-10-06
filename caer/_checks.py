@@ -29,7 +29,7 @@ def _check_mean_sub_values(value, channels):
     if value is None:
         raise ValueError('Value(s) specified is of NoneType()')
     
-    if type(value) is not tuple:
+    if isinstance(value, tuple):
         # If not a tuple, we convert it to one
         try:
             value = tuple(value)

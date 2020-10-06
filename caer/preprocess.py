@@ -52,7 +52,7 @@ def preprocess_from_dir(DIR,
     if IMG_SIZE is None:
         raise ValueError('IMG_SIZE must be specified')
 
-    if type(IMG_SIZE) is not tuple or len(IMG_SIZE) != 2:
+    if isinstance(IMG_SIZE, tuple) or len(IMG_SIZE) != 2:
         raise ValueError('IMG_SIZE must be a tuple of size 2 (width,height)')
 
     if verbose in [0,1]:
@@ -64,7 +64,7 @@ def preprocess_from_dir(DIR,
     if verbose not in [0,1]:
         raise ValueError('verbose flag must be either 1 (display progress to terminal) or 0 otherwise')
 
-    if type(save_data) is not bool:
+    if isinstance(save_data, bool):
         raise ValueError('save_data is a boolean (True/False)')
 
     if classes is None:
@@ -204,7 +204,7 @@ def sep_train(data, IMG_SIZE, channels=1):
     if IMG_SIZE is None:
         raise ValueError('IMG_SIZE not defined')
 
-    if type(IMG_SIZE) is not tuple or len(IMG_SIZE) != 2:
+    if isinstance(IMG_SIZE, tuple) or len(IMG_SIZE) != 2:
         raise ValueError('IMG_SIZE must be a tuple of size 2')
 
     else:
