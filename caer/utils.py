@@ -23,7 +23,7 @@ def load_img(image_path, target_size=None, channels=1, swapRB=True):
     """
     if not os.path.exists(image_path):
         raise ValueError('[ERROR] Specified filepath does not exist')
-    
+
     if type(target_size) is not tuple or len(target_size) != 2:
         raise ValueError('[ERROR] target_size must be a tuple of size 2 (width,height')
     
@@ -40,12 +40,29 @@ def load_img(image_path, target_size=None, channels=1, swapRB=True):
     #     pass
     if channels == 1:
         image_array = cv.cvtColor(image_array, cv.COLOR_BGR2GRAY)
-    if target_size is not None:
+    if target_size is not None and _check_size(target_size):
         image_array = cv.resize(image_array, target_size)
     if swapRB:
         image_array = to_rgb(image_array)
 
     return image_array
+
+
+def _check_size(size):
+    """
+    Common check to enforce type and sanity check on size tuples
+    :param size: Should be a tuple of size 2 (width, height)
+    :returns: True, or raises a ValueError
+    """
+
+    if not isinstance(size, (list, tuple)):
+        raise ValueError("Size must be a tuple")
+    if len(size) != 2:
+        raise ValueError("Size must be a tuple of length 2")
+    if size[0] < 0 or size[1] < 0:
+        raise ValueError("Width and height must be >= 0")
+
+    return True
 
 
 def get_classes_from_dir(DIR):
