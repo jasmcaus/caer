@@ -9,7 +9,7 @@ import os
 import random
 import time
 import numpy as np
-from .utils import load_img, saveNumpy, get_classes_from_dir
+from .utils import load_img, saveNumpy, get_classes_from_dir, _check_size
 from .preprocessing import MeanProcess, _check_mean_sub_values
 
 def preprocess_from_dir(DIR, 
