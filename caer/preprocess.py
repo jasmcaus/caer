@@ -224,11 +224,9 @@ def reshape(x, IMG_SIZE, channels):
     if IMG_SIZE is None:
         raise ValueError('IMG_SIZE not defined')
 
-    if type(IMG_SIZE) is not tuple or len(IMG_SIZE) != 2:
-        raise ValueError('IMG_SIZE must be a tuple of size 2')
-
-    width, height = IMG_SIZE[:2]
-    return np.array(x).reshape(-1, width, height, channels)
+    if _check_size(IMG_SIZE):
+        width, height = IMG_SIZE[:2]
+        return np.array(x).reshape(-1, width, height, channels)
 
 
 def normalize(x, dtype='float32'):
