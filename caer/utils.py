@@ -10,6 +10,7 @@ import numpy as np
 from ._split import train_test_split
 from .io_disk import _read_image
 from .opencv import to_rgb
+from ._checks import _check_size
 
 
 def load_img(image_path, target_size=None, channels=1, swapRB=True):
@@ -46,23 +47,6 @@ def load_img(image_path, target_size=None, channels=1, swapRB=True):
         image_array = to_rgb(image_array)
 
     return image_array
-
-
-def _check_size(size):
-    """
-    Common check to enforce type and sanity check on size tuples
-    :param size: Should be a tuple of size 2 (width, height)
-    :returns: True, or raises a ValueError
-    """
-
-    if not isinstance(size, (list, tuple)):
-        raise ValueError("Size must be a tuple")
-    if len(size) != 2:
-        raise ValueError("Size must be a tuple of length 2")
-    if size[0] < 0 or size[1] < 0:
-        raise ValueError("Width and height must be >= 0")
-
-    return True
 
 
 def get_classes_from_dir(DIR):
