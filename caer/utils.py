@@ -12,6 +12,9 @@ from .io_disk import read_image
 
 
 def load_img(image_path, target_size=None, channels=1):
+    """
+        Loads in an image from `image_path`
+    """
     if type(target_size) is not tuple or len(target_size) != 2:
         raise ValueError('[ERROR] target_size must be a tuple of size 2 (width,height')
 
