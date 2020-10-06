@@ -21,6 +21,9 @@ def load_img(image_path, target_size=None, channels=1, swapRB=True):
             channels: 1 (grayscale) or 3 (RGB/BGR). Default: 1
             swapRB: Boolean to keep RGB ordering. Default: True
     """
+    if not os.path.exists(image_path):
+        raise ValueError('[ERROR] Specified filepath does not exist')
+    
     if type(target_size) is not tuple or len(target_size) != 2:
         raise ValueError('[ERROR] target_size must be a tuple of size 2 (width,height')
     
