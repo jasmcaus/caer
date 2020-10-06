@@ -14,7 +14,7 @@ PACKAGES = find_packages()
 DESCRIPTION = """ A Computer Vision library in Python, built for Humans."""
 LONG_DESCRIPTION = io.open('LONG_DESCRIPTION.md', encoding='utf-8').read()
 KEYWORDS = [
-    'computer vision', 'deep learning', 'toolkit', 'image processing', 'video processing','opencv', 'matplotlib'
+    'computer vision', 'toolkit', 'opencv', 'deep learning', 'image processing', 'video processing', 'matplotlib'
 ]
 INSTALL_REQUIRES = [
     'numpy', 'opencv-contrib-python', 'h5py'
