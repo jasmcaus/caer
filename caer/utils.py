@@ -8,10 +8,11 @@ import os
 import cv2 as cv
 import numpy as np
 from ._split import train_test_split
-from .io_disk import read_image
+from .io_disk import _read_image
+from .opencv import to_rgb
 
 
-def load_img(image_path, target_size=None, channels=1):
+def load_img(image_path, target_size=None, channels=1, swapRB=True):
     """
         Loads in an image from `image_path`
     """
@@ -21,7 +22,7 @@ def load_img(image_path, target_size=None, channels=1):
     if type(channels) is not int or channels not in [0,1]:
         raise ValueError('[ERROR] channels must be an integer - 1 (Grayscale) or 3 (RGB)')
 
-    image_array = read_image(image_path)
+    image_array = _read_image(image_path)
 
     # [INFO] Using the following piece of code results in a 'None' in the training set
     # if image_array == None:
@@ -30,6 +31,9 @@ def load_img(image_path, target_size=None, channels=1):
         image_array = cv.cvtColor(image_array, cv.COLOR_BGR2GRAY)
     if target_size is not None:
         image_array = cv.resize(image_array, target_size)
+    if swapRB:
+        image_array = to_rgb(image_array)
+        
     return image_array
 
 
