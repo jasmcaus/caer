@@ -42,14 +42,12 @@ print(f'Caer version {caer.__version__}')
 
 ## Contribution Guidelines
 
-If you have improvements to `caer`, send us your pull requests! We'd love to accept your patches! We strongly encourage you to go through the [Contribution Guidelines](CONTRIBUTING.md)
-
-One of our maintainers will be assigned to review your pull requests. Once the pull requests are approved and pass continuous integration checks, a `ready to pull` label will be applied to your change. This means we are working on getting your pull request submitted to our internal repository. Once the change has been submitted internally, your pull request will be merged automatically on GitHub.
+If you have improvements to `caer`, send us your pull requests! We'd love to accept your patches! We strongly encourage you to go through the [Contribution Guidelines](CONTRIBUTING.md).
 
 If you want to contribute, start working through the `caer` codebase, navigate to the
 [Issues](https://github.com/jasmcaus/caer/issues) tab and start looking through interesting issues. 
 
-Current contributors can be viewed either from the [CONTRIBUTORS](https://github.com/jasmcaus/caer/blob/master/CONTRIBUTORS) or by using the `caer.__contributors__` command
+Current contributors can be viewed either from the [CONTRIBUTORS](https://github.com/jasmcaus/caer/blob/master/CONTRIBUTORS) file or by using the `caer.__contributors__` command
 
 
 ## License
