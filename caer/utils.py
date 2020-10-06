@@ -11,9 +11,9 @@ from ._split import train_test_split
 from .io_disk import read_image
 
 
-def load_img(image_path, resized_img_size=None, channels=1):
-    if type(resized_img_size) is not tuple or len(resized_img_size) != 2:
-        raise ValueError('[ERROR] resized_img_size must be a tuple of size 2 (width,height')
+def load_img(image_path, target_size=None, channels=1):
+    if type(target_size) is not tuple or len(target_size) != 2:
+        raise ValueError('[ERROR] target_size must be a tuple of size 2 (width,height')
 
     image_array = read_image(image_path)
 
@@ -22,8 +22,8 @@ def load_img(image_path, resized_img_size=None, channels=1):
     #     pass
     if channels == 1:
         image_array = cv.cvtColor(image_array, cv.COLOR_BGR2GRAY)
-    if resized_img_size is not None:
-        image_array = cv.resize(image_array, resized_img_size)
+    if target_size is not None:
+        image_array = cv.resize(image_array, target_size)
     return image_array
 
 
