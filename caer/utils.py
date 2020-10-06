@@ -15,12 +15,20 @@ from .opencv import to_rgb
 def load_img(image_path, target_size=None, channels=1, swapRB=True):
     """
         Loads in an image from `image_path`
+        Arguments
+            image_path: Filepath to read the image from
+            target_size: Target image size
+            channels: 1 (grayscale) or 3 (RGB/BGR). Default: 1
+            swapRB: Boolean to keep RGB ordering. Default: True
     """
     if type(target_size) is not tuple or len(target_size) != 2:
         raise ValueError('[ERROR] target_size must be a tuple of size 2 (width,height')
     
     if type(channels) is not int or channels not in [0,1]:
         raise ValueError('[ERROR] channels must be an integer - 1 (Grayscale) or 3 (RGB)')
+
+    if type(swapRB) is not bool:
+        raise ValueError('[ERROR] swapRB must be a boolean')
 
     image_array = _read_image(image_path)
 
@@ -33,7 +41,7 @@ def load_img(image_path, target_size=None, channels=1, swapRB=True):
         image_array = cv.resize(image_array, target_size)
     if swapRB:
         image_array = to_rgb(image_array)
-        
+
     return image_array
 
 
