@@ -25,20 +25,22 @@ def preprocess_from_dir(DIR,
                         verbose=1):
     """
     Reads Images in base directory DIR using 'classes' (computed from sub directories )
-    @param DIR: Directory 
-    @param classes --> A list of folder names within `DIR`
-    @param channels: Number of channels each image will be processed to (default: 1)
-    :param per_class_size: Intended size of the each class to be preprocessed
-    :param normalize_train: Whether to normalize each image to between [0,1]
-    :param mean_subtraction: Whether mean subtraction should be applied (Tuple)
-    :param isShuffle: Shuffle the training set
-    :param save_data: If True, saves the training set as a .npy or .npz file based on destination_filename
-    :param destination_filename: if save_data is True, the train set will be saved as the filename specified
-    :param verbose: Integer either 0 (verbosity off) or 1 (verbosity on). Displays the progress to the terminal as preprocessing continues. Default = 1
+    Arguments:
+        :param DIR: Base directory 
+        :param classes: A list of folder names within `DIR`. Automatically inferred from DIR if not provided
+        :param channels: Number of channels each image will be processed to (default: 1)
+        :param per_class_size: Intended size of the each class to be preprocessed
+        :param normalize_train: Whether to normalize each image to between [0,1]
+        :param mean_subtraction: Whether mean subtraction should be applied (Tuple)
+        :param isShuffle: Shuffle the training set
+        :param save_data: If True, saves the training set as a .npy or .npz file based on destination_filename
+        :param destination_filename: if save_data is True, the train set will be saved as the filename specified
+        :param verbose: Integer either 0 (verbosity off) or 1 (verbosity on). Displays the progress to the terminal as preprocessing continues. Default = 1
     
-    :return data: Image Pixel Values with corresponding labels (float32)
-    :return classes: ONLY if `classes=None`
-    Saves the above variables as .npy files if `save_data = True`
+    Returns
+        :return data: Image Pixel Values with corresponding labels (float32)
+        :return classes: ONLY if `classes=None`
+        Saves the above variables as .npy files if `save_data = True`
     """
     return_classes_flag = False
     data = [] 
@@ -120,7 +122,7 @@ def preprocess_from_dir(DIR,
                     image_path = os.path.join(class_path, image)
 
                     # Returns the resized image
-                    img = load_img(image_path, resized_img_size=IMG_SIZE, channels=channels)
+                    img = load_img(image_path, target_size=IMG_SIZE, channels=channels)
                     if img is None:
                         continue
 
