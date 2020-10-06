@@ -21,7 +21,7 @@ from .preprocess import reshape
 from .preprocess import normalize
 from .preprocess import _printTotal
 
-from .utils import readImg
+from .utils import load_img
 from .utils import saveNumpy
 from .utils import train_val_split
 from .utils import get_classes_from_dir
@@ -58,7 +58,7 @@ __all__ = (
     'reshape',
     'normalize',
     '_printTotal',
-    'readImg',
+    'load_img',
     'train_val_split',
     'get_classes_from_dir',
     'sort_dict',
