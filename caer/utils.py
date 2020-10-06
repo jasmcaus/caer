@@ -11,7 +11,7 @@ from ._split import train_test_split
 from .io_disk import read_image
 
 
-def readImg(image_path, resized_img_size=None, channels=1):
+def load_img(image_path, resized_img_size=None, channels=1):
     if type(resized_img_size) is not tuple or len(resized_img_size) != 2:
         raise ValueError('[ERROR] resized_img_size must be a tuple of size 2 (width,height')
 

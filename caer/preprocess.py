@@ -9,7 +9,7 @@ import os
 import random
 import time
 import numpy as np
-from .utils import readImg, saveNumpy, get_classes_from_dir
+from .utils import load_img, saveNumpy, get_classes_from_dir
 from .preprocessing import MeanProcess, _check_mean_sub_values
 
 def preprocess_from_dir(DIR, 
@@ -120,7 +120,7 @@ def preprocess_from_dir(DIR,
                     image_path = os.path.join(class_path, image)
 
                     # Returns the resized image
-                    img = readImg(image_path, resized_img_size=IMG_SIZE, channels=channels)
+                    img = load_img(image_path, resized_img_size=IMG_SIZE, channels=channels)
                     if img is None:
                         continue
 
