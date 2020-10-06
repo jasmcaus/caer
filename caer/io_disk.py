@@ -4,7 +4,7 @@
 import os
 import cv2 as cv
 
-def read_image(image_path):
+def _read_image(image_path):
     """Reads an image located at `path` into an array.
     Arguments:
         path (str): Path to a valid image file in the filesystem.
