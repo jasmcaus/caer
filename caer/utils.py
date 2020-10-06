@@ -18,9 +18,9 @@ def load_img(image_path, target_size=None, channels=1):
     if type(target_size) is not tuple or len(target_size) != 2:
         raise ValueError('[ERROR] target_size must be a tuple of size 2 (width,height')
     
-    if type(channels) is not int:
+    if type(channels) is not int or channels not in [0,1]:
         raise ValueError('[ERROR] channels must be an integer - 1 (Grayscale) or 3 (RGB)')
-    
+
     image_array = read_image(image_path)
 
     # [INFO] Using the following piece of code results in a 'None' in the training set
