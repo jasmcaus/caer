@@ -16,7 +16,7 @@ def resize(image, resize_factor, interpolation="area"):
         "bilinear": cv.INTER_LINEAR
     }
     if interpolation not in interpolation_methods:
-        raise ValueError('[ERROR] Specify a valid interpolation type')
+        raise ValueError('Specify a valid interpolation type')
 
     if type(resize_factor) is not tuple:
         new_shape = (int(resize_factor * image.shape[0]), int(resize_factor * image.shape[1]))
@@ -24,7 +24,7 @@ def resize(image, resize_factor, interpolation="area"):
         if len(resize_factor) == 2:
             new_shape = resize_factor
         else:
-            raise ValueError('[ERROR] Tuple Shape must be equal to 2 (width,height)')
+            raise ValueError('Tuple Shape must be equal to 2 (width,height)')
 
     width, height = new_shape[:2]
     return _cv2_resize(image, width, height, interpolation=interpolation_methods[interpolation])

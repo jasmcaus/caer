@@ -22,16 +22,16 @@ def load_img(image_path, target_size=None, channels=1, swapRB=True):
             swapRB: Boolean to keep RGB ordering. Default: True
     """
     if not os.path.exists(image_path):
-        raise ValueError('[ERROR] Specified filepath does not exist')
+        raise ValueError('Specified filepath does not exist')
 
     if type(target_size) is not tuple or len(target_size) != 2:
-        raise ValueError('[ERROR] target_size must be a tuple of size 2 (width,height')
+        raise ValueError('target_size must be a tuple of size 2 (width,height')
     
     if type(channels) is not int or channels not in [0,1]:
-        raise ValueError('[ERROR] channels must be an integer - 1 (Grayscale) or 3 (RGB)')
+        raise ValueError('channels must be an integer - 1 (Grayscale) or 3 (RGB)')
 
     if type(swapRB) is not bool:
-        raise ValueError('[ERROR] swapRB must be a boolean')
+        raise ValueError('swapRB must be a boolean')
 
     image_array = _read_image(image_path)
 
@@ -67,7 +67,7 @@ def _check_size(size):
 
 def get_classes_from_dir(DIR):
     if len(os.listdir(DIR)) == 0:
-        raise ValueError('[ERROR] The specified directory does not seem to have any folders in it')
+        raise ValueError('The specified directory does not seem to have any folders in it')
     else:
         classes = [i for i in os.listdir(DIR)]
         return classes
@@ -100,7 +100,7 @@ def sort_dict(unsorted_dict, descending=False):
     Sorts a dictionary in ascending order (if descending = False) or descending order (if descending = True)
     """
     if type(descending) is not bool:
-        raise ValueError('[ERROR] `descending` must be a boolean')
+        raise ValueError('`descending` must be a boolean')
     return sorted(unsorted_dict.items(), key=lambda x:x[1], reverse=descending)
 
 

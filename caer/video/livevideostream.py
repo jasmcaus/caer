@@ -24,7 +24,7 @@ class LiveVideoStream:
             Source must either be an integer (0,1,2 etc) or a path to a video file
         """
         if type(source) is str:
-            raise ValueError('[ERROR] Expected an integer. Got a filepath. LiveVideoStream is for live streams only')
+            raise ValueError('Expected an integer. Got a filepath. LiveVideoStream is for live streams only')
         
         # Initializing the video stream
         self.stream = cv.VideoCapture(source)

@@ -52,7 +52,7 @@ def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, get_size=
         :return video_list: --> List of names (or full filepaths if `use_fullpath=True`) of the video files
     """
     if not os.path.exists(DIR):
-        raise ValueError('[ERROR] Specified directory does not exist')
+        raise ValueError('Specified directory does not exist')
 
     list_media_files = False
     if list_video_files and list_image_files:
@@ -158,7 +158,7 @@ def is_extension_acceptable(file):
 
 def listdir(DIR, include_subdirs=False):
     if not os.path.exists(DIR):
-        raise ValueError('[ERROR] Specified directory does not exist')
+        raise ValueError('Specified directory does not exist')
     
     count = 0
 

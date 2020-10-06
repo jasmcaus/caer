@@ -37,11 +37,11 @@ def extract_frames(input_folder,
     vid_count = 0 # to check if < video_count
 
     if os.path.exists(input_folder) is False:
-        raise ValueError('[ERROR] Input folder does not exist', input_folder)
+        raise ValueError('Input folder does not exist', input_folder)
     
     if IMG_SIZE is not None:
         if type(IMG_SIZE) is not tuple or len(IMG_SIZE) != 2:
-            raise ValueError('[ERROR] IMG_SIZE must be a tuple of size 2')
+            raise ValueError('IMG_SIZE must be a tuple of size 2')
 
     if label_counter is None:
         label_counter = 0
