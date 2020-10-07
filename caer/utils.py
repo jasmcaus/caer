@@ -64,7 +64,7 @@ def saveNumpy(base_name, data):
     """
     if not (isinstance(data, list) or isinstance(data, np.ndarray)):
         raise ValueError('data needs to be a Python list or a Numpy array')
-    
+
     data = np.array(data)
     if '.npy' in base_name:
         np.save(base_name, data)
@@ -78,7 +78,7 @@ def train_val_split(X, y, val_ratio=.2):
     Returns X_train, X_val, y_train, y_val
     """
     X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=val_ratio)
-    return X_train, X_val, y_train, y_val
+    return X_train, y_train, X_val, y_val
 
 
 def sort_dict(unsorted_dict, descending=False):
