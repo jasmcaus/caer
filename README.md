@@ -43,7 +43,7 @@ print(f'Caer version {caer.__version__}')
 
 ## Contribution Guidelines
 
-If you have improvements to `caer`, send us your pull requests! We'd love to accept your patches! We strongly encourage you to go through the [Contribution Guidelines](CONTRIBUTING.md).
+If you have improvements to `caer`, send us your pull requests! We'd love to accept your patches! We strongly encourage you to go through the [Contribution Guidelines](https://github.com/jasmcaus/caer/blob/master/.github/CONTRIBUTING.md).
 
 If you want to contribute, start working through the `caer` codebase, read the [Documentation](https://github.com/jasmcaus/caer/blob/master/DOCS.md), navigate to the
 [Issues](https://github.com/jasmcaus/caer/issues) tab and start looking through interesting issues. 
