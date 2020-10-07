@@ -56,7 +56,7 @@ def rotate(image, angle, rotPoint=None):
 #     return cv.warpAffine(img, transMat, (nW, nH))
 
 
-def canny(img, threshold1=None, threshold2=None, use_median=True, sigma=None):
+def edges(img, threshold1=None, threshold2=None, use_median=True, sigma=None):
     if not isinstance(use_median, bool):
         raise ValueError('use_median must be a boolean')
 
@@ -65,7 +65,7 @@ def canny(img, threshold1=None, threshold2=None, use_median=True, sigma=None):
 
     if img is None:
         raise ValueError('Image is of NoneType()')
-    
+
     if not use_median and (threshold1 is None or threshold2 is None):
         raise ValueError('Specify valid threshold values')
     
@@ -79,12 +79,12 @@ def canny(img, threshold1=None, threshold2=None, use_median=True, sigma=None):
         # Canny edge detection using the computed mean
         low = int(max(0, (1.0-sigma) * med))
         up = int(min(255, (1.0+sigma) * med))
-        edges = cv.Canny(img, low, up)
+        canny_edges = cv.Canny(img, low, up)
     
     else:
-        edges = cv.Canny(img, threshold1, threshold2)
+        canny_edges = cv.Canny(img, threshold1, threshold2)
 
-    return edges
+    return canny_edges
 
 
 def to_rgb(img):
