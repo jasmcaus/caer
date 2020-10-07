@@ -3,6 +3,7 @@ Caer is a set of utility functions based off OpenCV, designed to help speed up y
 
 ## Get Caer Version
 Get the current version number of your `caer` installation.
+
 For versions 1.7.6 above, use either `caer.get_caer_version()` or `caer.get_version()`.
 For versions below 1.7.6, use `caer.__version__`.
 
@@ -26,6 +27,7 @@ rotated = caer.rotate(image, 45, rotPoint=None)
 
 ## Edge Cascades (v1.7.6 onwards)
 `caer.edges` computes the edges in an image either using 2 threshold values or the median of the image (if `use_median` = True). 
+
 Note: Median is given priority is 2 threshold values are passed and `use_median` is True
 ```python
 # Creating an edge cascade using the computed median 
