@@ -13,5 +13,5 @@ Image rotate can be performed by calling `caer.rotate`.
 If rotation point `rotPoint` is not specified, the image will be rotated around the centre. 
 ```python
 # Rotates an image around the centre counter-clockwise by 45 degrees
-rotated = caer.rotate(image, )
+rotated = caer.rotate(image, 45, rotPoint=None)
 ```
