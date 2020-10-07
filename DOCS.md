@@ -39,3 +39,6 @@ hsv = caer.to_hsv(image)
 # BGR to LAB
 lab = caer.to_lab(image)
 ```
+
+
+## `caer.url_to_image(url)`
