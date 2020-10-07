@@ -84,7 +84,7 @@ img_from_url_rgb = caer.url_from_image(url, swapRB=True)
 img_from_url_bgr = caer.url_from_image(url, swapRB=False)
 ```
 
-## Save Python lists to Numpy arrays
+## Save Python lists to disk
 `caer.saveNumpy` saves Python lists or Numpy arrays as .npy or .npz files (extension inferred from the `base_name`)
 ```python
 py_list = [1,2,3,4]
