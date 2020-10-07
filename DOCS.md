@@ -28,7 +28,7 @@ rotated = caer.rotate(image, 45, rotPoint=None)
 ## Edge Cascades (v1.7.6 onwards)
 `caer.edges` computes the edges in an image either using 2 threshold values or the median of the image (if `use_median` = True). 
 
-Note: Median is given priority is 2 threshold values are passed and `use_median` is True
+Note: Median is given priority if 2 threshold values are passed and `use_median` is True
 ```python
 # Creating an edge cascade using the computed median 
 median_edges = caer.edges(image, use_median=True, sigma=0.4)
