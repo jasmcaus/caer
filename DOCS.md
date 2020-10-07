@@ -25,6 +25,14 @@ If rotation point `rotPoint` is not specified, the image will be rotated around 
 rotated = caer.rotate(image, 45, rotPoint=None)
 ```
 
+## Resizing
+`caer.resize` resizes an image either by using a scale factor (keeps aspect ratio) or to a strict image size (original aspect ratio may not be kept)
+```python
+# Resizes the image to half its original dimensions
+half_img = caer.resize(image, scale_factor=.5)
+# Resizes the image to a fixed size of (500, 500)
+img_500 = caer.resize(image, dimensions=(500,500))
+```
 ## Edge Cascades (v1.7.6 onwards)
 `caer.edges` computes the edges in an image either using 2 threshold values or the median of the image (if `use_median` = True). 
 
@@ -49,7 +57,6 @@ hsv = caer.to_hsv(image)
 # BGR to LAB
 lab = caer.to_lab(image)
 ```
-
 
 ## Image from URL
 `caer.url_from_image` reads in an image from a URL and returns it as an RGB image (if `swapRB = True`) or BGR (if `swapRB=False`)
