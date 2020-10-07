@@ -56,11 +56,23 @@ def rotate(image, angle, rotPoint=None):
 #     return cv.warpAffine(img, transMat, (nW, nH))
 
 
-def canny(img, threshold1, threshold2, use_median=True, sigma=None):
-    if use_median and sigma is None:
-        sigma = .3
+def canny(img, threshold1=None, threshold2=None, use_median=True, sigma=None):
+    if not isinstance(use_median, bool):
+        raise ValueError('use_median must be a boolean')
+
+    if not isinstance(threshold1, int) or not isinstance(threshold2, int):
+        raise ValueError('Threshold values must be integers')
+
+    if img is None:
+        raise ValueError('Image is of NoneType()')
+    
+    if not use_median and (threshold1 is None or threshold2 is None):
+        raise ValueError('Specify valid threshold values')
     
     if use_median:
+        if sigma is None:
+            sigma = .3
+
         # computes the median of the single channel pixel intensities
         med = np.median(img)
 
