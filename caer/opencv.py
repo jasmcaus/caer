@@ -21,39 +21,39 @@ def translate(image, x, y):
     return cv.warpAffine(image, transMat, (image.shape[1], image.shape[0]))
 
 
-# def rotate(image, angle, rotPoint=None):
-#     """
-#         Rotates an given image by an angle around a particular rotation point (if provided) or centre otherwise.
-#     """
-#     height, width = image.shape[:2]
+def rotate(image, angle, rotPoint=None):
+    """
+        Rotates an given image by an angle around a particular rotation point (if provided) or centre otherwise.
+    """
+    height, width = image.shape[:2]
 
-#     # If no rotPoint is specified, we assume the rotation point to be around the centre
-#     if rotPoint is None:
-#         centre = (width//2, height//2)
+    # If no rotPoint is specified, we assume the rotation point to be around the centre
+    if rotPoint is None:
+        centre = (width//2, height//2)
 
-#     rotMat = cv.getRotationMatrix2D(centre, angle, scale=1.0)
-#     return cv.warpAffine(image, rotMat, (width, height))
+    rotMat = cv.getRotationMatrix2D(centre, angle, scale=1.0)
+    return cv.warpAffine(image, rotMat, (width, height))
 
 
-def rotate(img, angle):
-    h, w = img.shape[:2]
-    (cX, cY) = (w/2, h/2)
+# def rotate(img, angle):
+#     h, w = img.shape[:2]
+#     (cX, cY) = (w/2, h/2)
 
-    # Computing the sine and cosine (rotation components of the matrix)
-    transMat = cv.getRotationMatrix2D((cX, cY), angle, scale=1.0)
-    cos = np.abs(transMat[0, 0])
-    sin = np.abs(transMat[0, 1])
+#     # Computing the sine and cosine (rotation components of the matrix)
+#     transMat = cv.getRotationMatrix2D((cX, cY), angle, scale=1.0)
+#     cos = np.abs(transMat[0, 0])
+#     sin = np.abs(transMat[0, 1])
 
-    # compute the new bounding dimensions of the image
-    nW = int((h*sin) + (w*cos))
-    nH = int((h*cos) + (w*sin))
+#     # compute the new bounding dimensions of the image
+#     nW = int((h*sin) + (w*cos))
+#     nH = int((h*cos) + (w*sin))
 
-    # Adjusts the rotation matrix to take into account translation
-    transMat[0, 2] += (nW/2) - cX
-    transMat[1, 2] += (nH/2) - cY
+#     # Adjusts the rotation matrix to take into account translation
+#     transMat[0, 2] += (nW/2) - cX
+#     transMat[1, 2] += (nH/2) - cY
 
-    # Performs the actual rotation and returns the image
-    return cv.warpAffine(img, transMat, (nW, nH))
+#     # Performs the actual rotation and returns the image
+#     return cv.warpAffine(img, transMat, (nW, nH))
 
 
 def canny(img, threshold1, threshold2, use_median=True, sigma=None):
