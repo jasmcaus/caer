@@ -33,6 +33,7 @@ half_img = caer.resize(image, scale_factor=.5)
 # Resizes the image to a fixed size of (500, 500)
 img_500 = caer.resize(image, dimensions=(500,500))
 ```
+
 ## Edge Cascades (v1.7.6 onwards)
 `caer.edges` computes the edges in an image either using 2 threshold values or the median of the image (if `use_median` = True). 
 
