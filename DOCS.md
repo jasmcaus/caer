@@ -25,6 +25,7 @@ image = caer.load_img(path, target_size=None, channels=3, swapRB=False)
 # RGB Image
 image = caer.load_img(path, target_size=None, channels=3, swapRB=True)
 ```
+
 ## Translation
 Image translation can be performed by simply calling `caer.translate` 
 ```python
@@ -83,3 +84,9 @@ img_from_url_rgb = caer.url_from_image(url, swapRB=True)
 img_from_url_bgr = caer.url_from_image(url, swapRB=False)
 ```
 
+## Save Python lists to Numpy arrays
+`caer.saveNumpy` saves Python lists or Numpy arrays as .npy or .npz files (extension inferred from the `base_name`)
+```python
+py_list = [1,2,3,4]
+caer.saveNumpy(base_name='py_list.npy', data=py_list)
+```

@@ -62,7 +62,9 @@ def saveNumpy(base_name, data):
     Saves an array to a .npy file
     Converts to Numpy (if not already)
     """
-
+    if not (isinstance(data, list) or isinstance(data, np.ndarray)):
+        raise ValueError('data needs to be a Python list or a Numpy array')
+    
     data = np.array(data)
     if '.npy' in base_name:
         np.save(base_name, data)
