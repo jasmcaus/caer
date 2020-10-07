@@ -68,8 +68,10 @@ def saveNumpy(base_name, data):
     data = np.array(data)
     if '.npy' in base_name:
         np.save(base_name, data)
+        print(f'[INFO] {base_name} saved!')
     elif '.npz' in base_name:
         np.savez_compressed(base_name, data)
+        print(f'[INFO] {base_name} saved!')
 
 
 def train_val_split(X, y, val_ratio=.2):
