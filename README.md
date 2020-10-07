@@ -37,7 +37,7 @@ print(f'Caer version {caer.__version__}')
 
 - **Homepage:** <https://github.com/jasmcaus/caer/>
 - **PyPi:** <https://pypi.org/project/caer/>
-- **Docs:** <https://github.com/jasmcaus/caer/blob/master/DOCS.md>
+- **Documentation:** <https://github.com/jasmcaus/caer/blob/master/DOCS.md>
 - **Issue tracking:** <https://github.com/jasmcaus/caer/issues>
 
 ## Contribution Guidelines
