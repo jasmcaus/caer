@@ -41,16 +41,20 @@ from .opencv import to_rgb
 from .opencv import url_to_image 
 from .opencv import translate
 from .opencv import rotate 
-from .opencv import canny 
+from .opencv import edges 
 
 from .visualizations import hex_to_rgb
 from .visualizations import draw_rectangle
 
 from .io_disk import _read_image
 
+def get_caer_version():
+    return __version__
+
+def get_caer_functions():
+    return __all__
 
 #pylint:disable=undefined-all-variable
-
 __all__ = (
     'preprocess_from_dir',
     'sep_train',
@@ -76,7 +80,7 @@ __all__ = (
     'url_to_image',
     'translate',
     'rotate',
-    'canny',
+    'edges',
     'hex_to_rgb',
     'draw_rectangle',
     'extract_frames',
