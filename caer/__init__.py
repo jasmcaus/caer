@@ -54,6 +54,9 @@ def get_caer_version():
 def get_caer_functions():
     return __all__
 
+def get_caer_methods():
+    return __all__
+
 #pylint:disable=undefined-all-variable
 __all__ = (
     'preprocess_from_dir',
@@ -73,6 +76,9 @@ __all__ = (
     'list_videos',
     'listdir',
     'get_opencv_version',
+    'get_caer_version',
+    'get_caer_functions',
+    'get_caer_methods',
     'to_gray',
     'to_rgb',
     'to_lab',
