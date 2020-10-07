@@ -3,9 +3,8 @@ Caer is a set of utility functions based off OpenCV, designed to help speed up y
 
 ## Get Caer Version
 Get the current version number of your `caer` installation.
-
-For versions 1.7.6 above, use either `caer.get_caer_version()` or `caer.get_version()`
-For versions below 1.7.6, use `caer.__version__`
+For versions 1.7.6 above, use either `caer.get_caer_version()` or `caer.get_version()`.
+For versions below 1.7.6, use `caer.__version__`.
 
 ## Get all Caer functions
 `caer.get_caer_methods()` or `caer.get_caer_functions()` will return a tuple of all the available functions in your current installation of `caer`. 
