@@ -11,7 +11,8 @@ For versions below 1.7.6, use `caer.__version__`.
 `caer.get_caer_methods()` or `caer.get_caer_functions()` will return a tuple of all the available functions in your current installation of `caer`. 
 
 ## Load Images
-`caer.load_img` reads in an image from a specified filepath
+`caer.load_img` reads in an image from a specified filepath. 
+
 **Arguments**
 - `image_path`: Path to an image
 - `target_size`: Final destination size of the image. Tuple of size 2 (width, height) Specify `None` to retain original image dimensions. 
