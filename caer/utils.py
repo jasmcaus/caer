@@ -13,7 +13,7 @@ from .opencv import to_rgb
 from ._checks import _check_size
 
 
-def load_img(image_path, target_size=None, channels=1, swapRB=True):
+def load_img(image_path, target_size=None, channels=3, swapRB=True):
     """
         Loads in an image from `image_path`
         Arguments
