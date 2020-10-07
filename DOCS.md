@@ -15,3 +15,13 @@ If rotation point `rotPoint` is not specified, the image will be rotated around 
 # Rotates an image around the centre counter-clockwise by 45 degrees
 rotated = caer.rotate(image, 45, rotPoint=None)
 ```
+
+## Edge Cascades
+`caer.edges` computes the edges in an image either using 2 threshold values or the median of the image (if `use_median` = True). Note: Median is given priority is 2 threshold values are passed and `use_median` is True
+```python
+# Creating an edge cascade using the computed median 
+median_edges = caer.edges(image, use_median=True, sigma=0.4)
+
+# Creating an edge cascade using 2 threshold values
+threshold_edges = caer.edges(image, 125, 180)
+```
