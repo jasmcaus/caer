@@ -50,9 +50,11 @@ lab = caer.to_lab(image)
 
 
 ## Image from URL
-`caer.url_from_image` reads in an image from a URL and returns it as an RGB image (if `swapRB = True`)
+`caer.url_from_image` reads in an image from a URL and returns it as an RGB image (if `swapRB = True`) or BGR (if `swapRB=False`)
 ```python
-img_from_url_rgb = caer.url_from_image(image, swapRB=True)
-img_from_url_bgr = caer.url_from_image(image, swapRB=False)
+# Returns an RGB image
+img_from_url_rgb = caer.url_from_image(url, swapRB=True)
+# Returns a BGR image
+img_from_url_bgr = caer.url_from_image(url, swapRB=False)
 ```
 
