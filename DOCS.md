@@ -17,6 +17,7 @@ rotated = caer.rotate(image, 45, rotPoint=None)
 ```
 
 ## Edge Cascades
+**Available** in version 1.7.6 onwards
 `caer.edges` computes the edges in an image either using 2 threshold values or the median of the image (if `use_median` = True). 
 Note: Median is given priority is 2 threshold values are passed and `use_median` is True
 ```python
@@ -41,4 +42,9 @@ lab = caer.to_lab(image)
 ```
 
 
-## `caer.url_to_image(url)`
+## Image from URL
+`caer.url_from_image` reads in an image from a URL and returns it as an RGB image (if `swapRB = True`)
+```python
+img_from_url_rgb = caer.url_from_image(image, swapRB=True)
+img_from_url_bgr = caer.url_from_image(image, swapRB=False)
+```
