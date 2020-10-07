@@ -36,8 +36,8 @@ print(f'Caer version {caer.__version__}')
 
 ## Resources
 
-- **Homepage:** <https://github.com/jasmcaus/caer/>
-- **PyPi:** <https://pypi.org/project/caer/>
+- **Homepage:** <https://github.com/jasmcaus/caer>
+- **PyPi:** <https://pypi.org/project/caer>
 - **Documentation:** <https://github.com/jasmcaus/caer/blob/master/DOCS.md>
 - **Issue tracking:** <https://github.com/jasmcaus/caer/issues>
 
