@@ -1,6 +1,12 @@
 # Caer Documentation
 Caer is a set of utility functions based off OpenCV, designed to help speed up your Computer Vision workflow. Functions inside `caer` will help reduce the number of lines of code you add, while still maintaining the overall purpose. 
 
+## Get Caer Version (v1.7.6 onwards)
+`caer.get_caer_version()` or `caer.get_version()` will return the current version of your `caer` installation. 
+
+## Get all Caer functions
+`caer.get_caer_methods()` or `caer.get_caer_functions()` will return a tuple of all the available functions in your current installation of `caer`. 
+
 ## Translation
 Image translation can be performed by simply calling `caer.translate` 
 ```python
@@ -16,8 +22,7 @@ If rotation point `rotPoint` is not specified, the image will be rotated around 
 rotated = caer.rotate(image, 45, rotPoint=None)
 ```
 
-## Edge Cascades
-**Available** in version 1.7.6 onwards
+## Edge Cascades (v1.7.6 onwards)
 `caer.edges` computes the edges in an image either using 2 threshold values or the median of the image (if `use_median` = True). 
 Note: Median is given priority is 2 threshold values are passed and `use_median` is True
 ```python
@@ -48,3 +53,4 @@ lab = caer.to_lab(image)
 img_from_url_rgb = caer.url_from_image(image, swapRB=True)
 img_from_url_bgr = caer.url_from_image(image, swapRB=False)
 ```
+
