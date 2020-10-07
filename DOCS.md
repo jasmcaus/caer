@@ -17,11 +17,25 @@ rotated = caer.rotate(image, 45, rotPoint=None)
 ```
 
 ## Edge Cascades
-`caer.edges` computes the edges in an image either using 2 threshold values or the median of the image (if `use_median` = True). Note: Median is given priority is 2 threshold values are passed and `use_median` is True
+`caer.edges` computes the edges in an image either using 2 threshold values or the median of the image (if `use_median` = True). 
+Note: Median is given priority is 2 threshold values are passed and `use_median` is True
 ```python
 # Creating an edge cascade using the computed median 
 median_edges = caer.edges(image, use_median=True, sigma=0.4)
 
 # Creating an edge cascade using 2 threshold values
 threshold_edges = caer.edges(image, 125, 180)
+```
+
+## BGR to Other Colour Spaces
+Currently, `caer` supports converting an image from BGR to the RGB, Grayscale, HSV and LAB colour spaces. More colour spaces will be supported in future updates. 
+```python
+# BGR to RGB (Useful if you use Matplotlib to display images)
+rgb = caer.to_rgb(image)
+# BGR to Grayscale
+gray = caer.to_gray(image)
+# BGR to HSV
+hsv = caer.to_hsv(image)
+# BGR to LAB
+lab = caer.to_lab(image)
 ```
