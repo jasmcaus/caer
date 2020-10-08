@@ -15,8 +15,8 @@ from ._checks import _check_size, _check_mean_sub_values
 
 def preprocess_from_dir(DIR, 
                         classes=None, 
-                        channels=1, 
                         IMG_SIZE=(224,224), 
+                        channels=1, 
                         per_class_size=None, 
                         normalize_train=False, 
                         mean_subtraction=None, 
