@@ -100,9 +100,9 @@ def preprocess_from_dir(DIR,
     else:
         since_preprocess = time.time()
         if destination_filename is not None:
-            print(f'[INFO] Could not find {destination_filename}. Generating the Image Files')
+            print(f'[INFO] Could not find {destination_filename}. Generating the training data')
         else:
-            print('[INFO] Could not find a file to load from. Generating Image Files')
+            print('[INFO] Could not find a file to load from. Generating the training data')
         print('----------------------------------------------')
 
         if classes is None:
