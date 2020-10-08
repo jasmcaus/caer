@@ -71,7 +71,7 @@ def preprocess_from_dir(DIR,
     if classes is None:
         return_classes_flag = True
 
-    if classes is not None and type(classes) is not list:
+    if classes is not None and not isinstance(classes, list):
         raise ValueError('"classes" must be a list')
 
     if save_data:
