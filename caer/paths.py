@@ -11,9 +11,10 @@ _acceptable_image_formats = ('.jpg', '.jpeg', '.png', '.bmp', '.tif', '.tiff')
 def list_images(DIR, include_subdirs=True, use_fullpath=False, get_size=False):
     """
         Lists all image files within a specific directory (and sub-directories if `include_subdirs=True`)
-        DIR -> Directory to search for image files
-        :paraminclude_subdirs: --> Boolean to indicate whether to search all subdirectories as well
-        use_fullpath --> Boolean that specifies whether to include full filepaths in the returned list
+        :param DIR: Directory to search for image files
+        :param include_subdirs: Boolean to indicate whether to search all subdirectories as well
+        :param use_fullpath: Boolean that specifies whether to include full filepaths in the returned list
+        :param get_size: Returns size of the listed videos
         :return image_files: --> List of names (or full filepaths if `use_fullpath=True`) of the image files
     """
     images = _get_media_from_dir(DIR=DIR, include_subdirs=include_subdirs, use_fullpath=use_fullpath, get_size=get_size, list_image_files=True)
@@ -36,9 +37,10 @@ def list_videos(DIR, include_subdirs=True, use_fullpath=False, get_size=False):
 def list_media(DIR, include_subdirs=True, use_fullpath=False, get_size=True):
     """
         Lists all media files within a specific directory (and sub-directories if `include_subdirs=True`)
-        DIR -> Directory to search for media files
-        :paraminclude_subdirs: --> Boolean to indicate whether to search all subdirectories as well
-        use_fullpath --> Boolean that specifies whether to include full filepaths in the returned list
+        :param DIR: Directory to search for media files
+        :param include_subdirs: Boolean to indicate whether to search all subdirectories as well
+        :param use_fullpath: Boolean that specifies whether to include full filepaths in the returned list
+        :param get_size: Returns size of the listed media
         :return media_files: --> List of names (or full filepaths if `use_fullpath=True`) of the media files
     """
     media = _get_media_from_dir(DIR=DIR, include_subdirs=include_subdirs, use_fullpath=use_fullpath, get_size=get_size, list_image_files=True, list_video_files=True)
