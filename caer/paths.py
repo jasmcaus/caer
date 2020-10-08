@@ -24,9 +24,10 @@ def list_videos(DIR, include_subdirs=True, use_fullpath=False, get_size=False):
     """
         Lists all video files within a specific directory (and sub-directories if `include_subdirs=True`)
         DIR -> Directory to search for video files
-        :paraminclude_subdirs: --> Boolean to indicate whether to search all subdirectories as well
-        use_fullpath --> Boolean that specifies whether to include full filepaths in the returned list
-        :return video_files: --> List of names (or full filepaths if `use_fullpath=True`) of the video files
+        :param include_subdirs: Boolean to indicate whether to search all subdirectories as well
+        :param use_fullpath: Boolean that specifies whether to include full filepaths in the returned list
+        :param get_size: Returns size of the listed videos
+        :return video_files: List of names (or full filepaths if `use_fullpath=True`) of the video files
     """
     videos = _get_media_from_dir(DIR=DIR, include_subdirs=include_subdirs, use_fullpath=use_fullpath, get_size=get_size, list_video_files=True)
     return videos # videos is a list
