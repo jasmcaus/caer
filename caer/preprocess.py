@@ -16,7 +16,7 @@ from ._checks import _check_size, _check_mean_sub_values
 def preprocess_from_dir(DIR, 
                         classes=None, 
                         IMG_SIZE=(224,224), 
-                        channels=1, 
+                        channels=3, 
                         per_class_size=None, 
                         normalize_train=False, 
                         mean_subtraction=None, 
@@ -30,7 +30,7 @@ def preprocess_from_dir(DIR,
         :param DIR: Base directory 
         :param classes: A list of folder names within `DIR`. Automatically inferred from DIR if not provided
         :param IMG_SIZE: Image Size tuple of size 2 (width, height)
-        :param channels: Number of channels each image will be processed to (default: 1)
+        :param channels: Number of channels each image will be processed to (default: 3)
         :param per_class_size: Intended size of the each class to be preprocessed
         :param normalize_train: Whether to normalize each image to between [0,1]
         :param mean_subtraction: Whether mean subtraction should be applied (Tuple)
