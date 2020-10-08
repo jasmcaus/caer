@@ -40,6 +40,13 @@ For versions below 1.7.6, use `caer.__version__`.
 >> print(video_list)
 ```
 
+# List Media Files from Directory
+`caer.list_media()` lists all media files (images and videos) in the immediate directory (if `include_subdirs = False`)  or all sub-directories, otherwise. 
+```python
+>> media_list = caer.list_media(DIR='Media', include_subdirs=True, use_fullpath=False, get_size=False)
+>> print(media_list)
+```
+
 ## Translation
 Image translation can be performed by simply calling `caer.translate` 
 ```python
