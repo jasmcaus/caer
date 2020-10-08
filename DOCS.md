@@ -48,7 +48,7 @@ For versions below 1.7.6, use `caer.__version__`.
 ```
 
 ## Translation
-Image translation can be performed by simply calling `caer.translate` 
+Image translation can be performed by simply calling `caer.translate()` 
 ```python
 # Shifts an image 50 pixels to the right and 100 pixels up
 >> translated = caer.translate(image, 50, -100)
