@@ -72,7 +72,7 @@ If rotation point `rotPoint` is not specified, the image will be rotated around 
 ```
 
 ## Edge Cascades (v1.7.6 onwards)
-`caer.edges` computes the edges in an image either using 2 threshold values or the median of the image (if `use_median` = True). 
+`caer.edges()` computes the edges in an image either using 2 threshold values or the median of the image (if `use_median` = True). 
 
 Note: Median is given priority if 2 threshold values are passed and `use_median` is True
 ```python
@@ -97,7 +97,7 @@ Currently, `caer` supports converting an image from BGR to the RGB, Grayscale, H
 ```
 
 ## Image from URL
-`caer.url_from_image` reads in an image from a URL and returns it as an RGB image (if `swapRB = True`) or BGR (if `swapRB=False`)
+`caer.url_from_image()` reads in an image from a URL and returns it as an RGB image (if `swapRB = True`) or BGR (if `swapRB=False`)
 ```python
 # Returns an RGB image
 >> img_from_url_rgb = caer.url_from_image(url, swapRB=True)
