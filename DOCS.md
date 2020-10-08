@@ -33,6 +33,13 @@ image_list = caer.list_images(DIR='Photos', include_subdirs=True, use_fullpath=F
 print(image_list)
 ```
 
+# List all Videos in a Directory
+`caer.list_videos()` lists all image files in the immediate directory (if `include_subdirs = False`)  or all sub-directories, otherwise. 
+```python
+image_list = caer.list_videos(DIR='Videos', include_subdirs=True, use_fullpath=False, get_size=False)
+print(image_list)
+```
+
 ## Translation
 Image translation can be performed by simply calling `caer.translate` 
 ```python
