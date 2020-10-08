@@ -113,7 +113,7 @@ Currently, `caer` supports converting an image from BGR to the RGB, Grayscale, H
 ```
 
 ## Train and Validation Split
-`caer.train_val_split` splits the training set (features, labels) into actual training and validation sets
+`caer.train_val_split()` splits the training set (features, labels) into actual training and validation sets
 ```python
 >> X_train, y_train, X_val, y_val = caer.train_val_split(features, labels, val_ratio=.2)
 ```
