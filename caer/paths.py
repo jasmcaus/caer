@@ -19,7 +19,8 @@ def list_images(DIR, include_subdirs=True, use_fullpath=False, get_size=False):
     images = _get_media_from_dir(DIR=DIR, include_subdirs=include_subdirs, use_fullpath=use_fullpath, get_size=get_size, list_image_files=True)
     return images # images is a list
 
-def list_videos(DIR, include_subdirs=True, use_fullpath=False, get_size=True):
+
+def list_videos(DIR, include_subdirs=True, use_fullpath=False, get_size=False):
     """
         Lists all video files within a specific directory (and sub-directories if `include_subdirs=True`)
         DIR -> Directory to search for video files
