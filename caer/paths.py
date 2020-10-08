@@ -48,10 +48,10 @@ def list_media(DIR, include_subdirs=True, use_fullpath=False, get_size=True):
 def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, get_size=True,  list_image_files=False, list_video_files=False):
     """
         Lists all video files within a specific directory (and sub-directories if `include_subdirs=True`)
-        DIR -> Directory to search for video files
-        :paraminclude_subdirs: --> Boolean to indicate whether to search all subdirectories as well
-        use_fullpath --> Boolean that specifies whether to include full filepaths in the returned list
-        :return video_list: --> List of names (or full filepaths if `use_fullpath=True`) of the video files
+        :param DIR:  Directory to search for video files
+        :param include_subdirs: Boolean to indicate whether to search all subdirectories as well
+        :param use_fullpath: Boolean that specifies whether to include full filepaths in the returned list
+        :return video_list: List of names (or full filepaths if `use_fullpath=True`) of the video files
     """
     if not os.path.exists(DIR):
         raise ValueError('Specified directory does not exist')
