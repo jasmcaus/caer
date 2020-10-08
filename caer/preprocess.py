@@ -213,7 +213,7 @@ def sep_train(data, IMG_SIZE, channels=1):
         y = [i[1] for i in data]
 
         # Without reshaping, X.shape --> (no. of images, IMG_SIZE, IMG_SIZE)
-        # On reshaping, X.shape --> (no. of images, IMG_SIZE, IMG_SIZE,channels)
+        # On reshaping, X.shape --> (no. of images, IMG_SIZE, IMG_SIZE, channels)
 
         # Converting to Numpy + Reshaping X
         x = reshape(x, IMG_SIZE, channels)
