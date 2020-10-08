@@ -8,7 +8,7 @@ _acceptable_video_formats = ('.mp4', '.avi', '.mov', '.mkv', '.webm')
 _acceptable_image_formats = ('.jpg', '.jpeg', '.png', '.bmp', '.tif', '.tiff')
 
 
-def list_images(DIR, include_subdirs=True, use_fullpath=False, get_size=True):
+def list_images(DIR, include_subdirs=True, use_fullpath=False, get_size=False):
     """
         Lists all image files within a specific directory (and sub-directories if `include_subdirs=True`)
         DIR -> Directory to search for image files
