@@ -29,6 +29,7 @@ def preprocess_from_dir(DIR,
     Arguments:
         :param DIR: Base directory 
         :param classes: A list of folder names within `DIR`. Automatically inferred from DIR if not provided
+        :param IMG_SIZE: Image Size tuple of size 2 (width, height)
         :param channels: Number of channels each image will be processed to (default: 1)
         :param per_class_size: Intended size of the each class to be preprocessed
         :param normalize_train: Whether to normalize each image to between [0,1]
