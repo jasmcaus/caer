@@ -55,7 +55,7 @@ Image translation can be performed by simply calling `caer.translate()`
 ```
 
 ## Rotation
-Image rotate can be performed by calling `caer.rotate`. 
+Image rotate can be performed by calling `caer.rotate()`. 
 If rotation point `rotPoint` is not specified, the image will be rotated around the centre. 
 ```python
 # Rotates an image around the centre counter-clockwise by 45 degrees
