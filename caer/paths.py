@@ -71,7 +71,7 @@ def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, get_size=
         for root, _, files in os.walk(DIR):
             for file in files:
                 fullpath = os.path.join(root,file)
-                decider = is_extension_acceptable(file)
+                decider = _is_extension_acceptable(file)
 
                 if decider == -1:
                     continue
@@ -94,7 +94,7 @@ def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, get_size=
     else:
         for file in os.listdir(DIR):
             fullpath = os.path.join(DIR,file)
-            decider = is_extension_acceptable(file)
+            decider = _is_extension_acceptable(file)
                 
             if decider == -1:
                 continue
@@ -138,7 +138,7 @@ def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, get_size=
         return video_files
 
 
-def is_extension_acceptable(file):
+def _is_extension_acceptable(file):
     """
         0 --> Image
         1 --> Video
@@ -157,6 +157,7 @@ def is_extension_acceptable(file):
         return 1
     else:
         return -1
+
 
 def listdir(DIR, include_subdirs=False):
     if not os.path.exists(DIR):
