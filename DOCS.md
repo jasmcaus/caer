@@ -26,6 +26,9 @@ For versions below 1.7.6, use `caer.__version__`.
 >> image = caer.load_img(path, target_size=None, channels=3, swapRB=True)
 ```
 
+# List all Images in a Directory
+`caer.list_images()` lists all image files in the immediate directory (if `include_subdirs = False`)  or all sub-directories, otherwise. 
+
 ## Translation
 Image translation can be performed by simply calling `caer.translate` 
 ```python
