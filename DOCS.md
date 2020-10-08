@@ -63,7 +63,7 @@ If rotation point `rotPoint` is not specified, the image will be rotated around 
 ```
 
 ## Resizing
-`caer.resize` resizes an image either by using a scale factor (keeps aspect ratio) or to a strict image size (original aspect ratio may not be kept)
+`caer.resize()` resizes an image either by using a scale factor (keeps aspect ratio) or to a strict image size (original aspect ratio may not be kept)
 ```python
 # Resizes the image to half its original dimensions
 >> half_img = caer.resize(image, scale_factor=.5)
