@@ -109,7 +109,10 @@ Currently, `caer` supports converting an image from BGR to the RGB, Grayscale, H
 `caer.saveNumpy()` saves Python lists or Numpy arrays as .npy or .npz files (extension inferred from the `base_name`)
 ```python
 >> py_list = [1,2,3,4]
+# Saving as a .npy file
 >> caer.saveNumpy(base_name='py_list.npy', data=py_list)
+# Saving as a .npz file
+>> caer.saveNumpy(base_name='py_list_compressed.npz', data=py_list)
 ```
 
 ## Train and Validation Split
