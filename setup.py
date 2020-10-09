@@ -19,7 +19,7 @@ KEYWORDS = [
 REQUIREMENTS = [
     'numpy', 'opencv-contrib-python', 'h5py'
 ]
-EXTRAS_REQUIRE={
+EXTRAS={
         # 'deep': [
         #     'canaro>=1.0.0'
         # ]
@@ -102,7 +102,7 @@ def setup_package():
         packages=PACKAGES,
         license=LICENSE,
         install_requires=REQUIREMENTS,
-        extras_require=EXTRAS_REQUIRE,
+        extras_require=EXTRAS,
         keywords=KEYWORDS,
         classifiers= [x for x in CLASSIFIERS if x]
     )
