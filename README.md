@@ -42,16 +42,13 @@ print(f'Caer version {caer.__version__}')
 - **Documentation:** <https://github.com/jasmcaus/caer/blob/master/DOCS.md>
 - **Issue tracking:** <https://github.com/jasmcaus/caer/issues>
 
-## Contribution Guidelines
+## Contributing
 
-We appreciate all contributions. If you plan to contribute new features, utility functions, or extensions to the core, please first open an issue and discuss the feature with us. Sending a PR without discussion might end up resulting in a rejected PR because we might be taking the core in a different direction than you might be aware of.
+We appreciate all contributions. If you plan to contribute new features, utility functions, or extensions to the core, first open an issue and discuss the feature with us. Sending a PR without discussion might end up resulting in a rejected PR because we might be taking the core in a different direction than you might be aware of.
 
-To learn more about making a contribution to Caer, please see our Contribution page.
+To learn more about making a contribution to Caer, please go through our [Contribution Guidelines][contributing].
 
-If you have improvements to `caer`, send us your pull requests! We'd love to accept your patches! We strongly encourage you to go through the [Contribution Guidelines][contributing].
-
-If you want to contribute, start working through the `caer` codebase, read the [Documentation][docs], navigate to the
-[Issues](https://github.com/jasmcaus/caer/issues) tab and start looking through interesting issues. 
+If you want to contribute, start working through the `caer` codebase, read the [Documentation][docs], navigate to the [Issues][issues] tab and start looking through interesting issues. 
 
 Current contributors can be viewed either from the [Contributors][contributors] file or by using the `caer.__contributors__` command.
 
@@ -63,3 +60,4 @@ Caer is released under the [MIT License](https://github.com/jasmcaus/caer/blob/m
 [contributing]: https://github.com/jasmcaus/caer/blob/master/.github/CONTRIBUTING.md
 [docs]: https://github.com/jasmcaus/caer/blob/master/DOCS.md
 [contributors]: https://github.com/jasmcaus/caer/blob/master/CONTRIBUTORS
+[issues]: https://github.com/jasmcaus/caer/issues
