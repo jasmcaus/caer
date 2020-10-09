@@ -1,44 +1,59 @@
 from setuptools import setup, find_packages
+from configparser import ConfigParser
 import io 
 
 VERSION = '1.7.5'
 
-NAME = 'caer'
-AUTHOR = 'Jason Dsouza'
-AUTHOR_EMAIL = 'jasmcaus@gmail.com'
+# All settings are in settings.ini
+config = ConfigParser(delimiters=['='])
+config.read('settings.ini')
+cfg = config['DEFAULT']
+
+cfg_keys = 'description keywords author author_email contributors'.split()
+expected = cfg_keys + "library_name user git_branch license status min_python audience language".split()
+for i in expected: assert i in cfg, f'Missing expected setting: {i}'
+setup_cfg = {i:cfg[i] for i in cfg_keys}
+
+NAME = cfg['library_name']
+AUTHOR = cfg['author']
+AUTHOR_EMAIL = cfg['author_email']
 AUTHOR_LONG = AUTHOR + ' <' + AUTHOR_EMAIL + '>'
-LICENSE = 'MIT'
-URL = 'https://github.com/jasmcaus/caer'
-DOWNLOAD_URL = 'https://pypi.org/project/caer/'
+LICENSE = cfg['license']
+URL = cfg['git_url']
+DOWNLOAD_URL = cfg['download_url']
 PACKAGES = find_packages()
-DESCRIPTION = """ A Computer Vision library in Python, built for Humans."""
+DESCRIPTION = cfg['description']
 LONG_DESCRIPTION = io.open('LONG_DESCRIPTION.md', encoding='utf-8').read()
-KEYWORDS = [
-    'computer vision', 'toolkit', 'opencv', 'deep learning', 'image processing', 'video processing', 'matplotlib'
-]
-REQUIREMENTS = [
-    'numpy', 'opencv-contrib-python', 'h5py'
-]
+KEYWORDS = cfg['keywords']
+REQUIREMENTS = cfg['pip_requirements']
 EXTRAS={
         # 'deep': [
         #     'canaro>=1.0.0'
         # ]
-        'canaro': 'canaro>=1.0.0'
+        'canaro': 'canaro>=1.0.3'
 }
 CLASSIFIERS = [
-    'Development Status :: 3 - Alpha',
+    'Development Status :: 4 - Beta',
     'Intended Audience :: Developers',
     'Intended Audience :: Education',
     'Intended Audience :: Science/Research',
     'Programming Language :: Python :: 3',
     'Programming Language :: Python :: 3 :: Only',
-    'Programming Language :: Python :: 3.5',
     'Programming Language :: Python :: 3.6',
     'Programming Language :: Python :: 3.7',
     'Programming Language :: Python :: 3.8',
     'Operating System :: MacOS :: MacOS X',
     'Operating System :: Microsoft :: Windows',
     'License :: OSI Approved :: MIT License',
+]
+STATUSES = [ 
+    '1 - Planning', 
+    '2 - Pre-Alpha', 
+    '3 - Alpha',
+    '4 - Beta', 
+    '5 - Production/Stable', 
+    '6 - Mature', 
+    '7 - Inactive' 
 ]
 
 VERSION_PY_TEXT =\
@@ -61,8 +76,8 @@ def get_contributors_list(filename='CONTRIBUTORS'):
             contr.append(line)
     return contr
 
-def write_version(filename='caer/_meta.py'):
-    print('[INFO] Writing version.py')
+def write_meta(filename='caer/_meta.py'):
+    print('[INFO] Writing _meta.py')
     TEXT = VERSION_PY_TEXT
     FULL_VERSION = VERSION
     ISRELEASED = True
@@ -80,8 +95,8 @@ def write_version(filename='caer/_meta.py'):
 
 
 def setup_package():
-    # Rewrite the version file everytime
-    write_version()
+    # Rewrite the meta file everytime
+    write_meta()
 
     setup(
         name=NAME,
