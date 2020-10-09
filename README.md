@@ -9,6 +9,7 @@ Caer is a set of utility functions based off OpenCV, designed to help speed up y
 [![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/jasmcaus/caer/blob/master/LICENSE)
 
 ## Installation
+Currently, `caer` supports Python 3; Python is not supported (nor recommended). 
 To install the current release:
 
 ```shell
