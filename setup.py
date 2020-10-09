@@ -16,7 +16,7 @@ LONG_DESCRIPTION = io.open('LONG_DESCRIPTION.md', encoding='utf-8').read()
 KEYWORDS = [
     'computer vision', 'toolkit', 'opencv', 'deep learning', 'image processing', 'video processing', 'matplotlib'
 ]
-INSTALL_REQUIRES = [
+REQUIREMENTS = [
     'numpy', 'opencv-contrib-python', 'h5py'
 ]
 EXTRAS_REQUIRE={
@@ -101,7 +101,7 @@ def setup_package():
         },
         packages=PACKAGES,
         license=LICENSE,
-        install_requires=INSTALL_REQUIRES,
+        install_requires=REQUIREMENTS,
         extras_require=EXTRAS_REQUIRE,
         keywords=KEYWORDS,
         classifiers= [x for x in CLASSIFIERS if x]
