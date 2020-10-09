@@ -6,7 +6,6 @@
 # refactoring this file!
 
 # PyPi 
-.github/ISSUE_TEMPLATE/*
 dist/*
 caer.egg-info/*
 pythonenv3.8/*
@@ -19,6 +18,7 @@ oldsetup.py
 test.py
 speeds.py
 oldREADME.md
+/.github/ISSUE_TEMPLATE/*
 
 ## General
 
