@@ -2,9 +2,6 @@
 # Protected under the MIT License (see LICENSE)
 
 # Importing the necessary packages
-import sys
-sys.path.append('..')
-
 import os
 import random
 import time
