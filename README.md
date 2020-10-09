@@ -18,7 +18,7 @@ $ pip install caer
 Optionally, Caer can also install [canaro](https://github.com/jasmcaus/canaro) if you install it with `pip install caer[canaro]`
 
 ### Installing from Source
-First, clone the repo on your machine and then install with `pip`:
+If you plan to develop `caer` yourself, or want to be on the cutting edge, you can use an editable install:
 
 ```shell
 git clone https://github.com/jasmcaus/caer.git
