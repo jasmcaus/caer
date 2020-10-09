@@ -2,11 +2,11 @@
 A Computer Vision library in Python with powerful image and video processing operations.
 Caer is a set of utility functions based off OpenCV, designed to help speed up your Computer Vision workflow. Functions inside `caer` will help reduce the number of calculation calls your code makes, ultimately making it neat, concise and readable.
 
-[![Python](https://img.shields.io/pypi/pyversions/caer.svg?style=plastic)](https://pypi.org/project/caer/)
-[![PyPI](https://badge.fury.io/py/caer.svg)](https://pypi.org/project/caer/)
+[![Python](https://img.shields.io/pypi/pyversions/caer.svg?style=plastic)][py-versions]
+[![PyPI](https://badge.fury.io/py/caer.svg)][pypi-latest-version]
 
-[![Downloads](https://pepy.tech/badge/caer)](https://pepy.tech/project/caer)
-[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)](https://github.com/jasmcaus/caer/blob/master/LICENSE)
+[![Downloads](https://pepy.tech/badge/caer)][downloads]
+[![license](https://img.shields.io/github/license/mashape/apistatus.svg?maxAge=2592000)][license]
 
 ## Installation
 Currently, `caer` supports Python 3; Python is not supported (nor recommended). 
@@ -61,3 +61,8 @@ Caer is released under the [MIT License](https://github.com/jasmcaus/caer/blob/m
 [docs]: https://github.com/jasmcaus/caer/blob/master/DOCS.md
 [contributors]: https://github.com/jasmcaus/caer/blob/master/CONTRIBUTORS
 [issues]: https://github.com/jasmcaus/caer/issues
+
+[downloads]: https://pepy.tech/project/caer
+[py-versions]: https://pypi.org/project/caer/
+[pypi-latest-version]: https://pypi.org/project/caer/
+[license]: https://github.com/jasmcaus/caer/blob/master/LICENSE
