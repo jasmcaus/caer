@@ -4,6 +4,7 @@ caer.egg-info/*
 pythonenv3.8/*
 build/*
 __pycache__/*
+.github/ISSUE_TEMPLATE/*
 *.pyc
 .vscode/*
 oldsetup.py
