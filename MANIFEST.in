@@ -1,6 +1,0 @@
-include configs.ini
-include CONTRIBUTING.md
-include LICENSE
-include README.md
-
-recursive-exclude * __pycache__
