@@ -26,6 +26,7 @@ DESCRIPTION = cfg['description']
 LONG_DESCRIPTION = io.open('LONG_DESCRIPTION.md', encoding='utf-8').read()
 KEYWORDS = cfg['keywords']
 REQUIREMENTS = cfg['pip_requirements']
+PYTHON_REQUIRES = '>=' + cfg['min_python']
 EXTRAS={
         # 'deep': [
         #     'canaro>=1.0.0'
@@ -118,6 +119,7 @@ def setup_package():
         license=LICENSE,
         install_requires=REQUIREMENTS,
         extras_require=EXTRAS,
+        python_requires=PYTHON_REQUIRES,
         keywords=KEYWORDS,
         classifiers= [x for x in CLASSIFIERS if x]
     )
