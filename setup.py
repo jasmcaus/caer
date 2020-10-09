@@ -4,9 +4,9 @@ import io
 
 VERSION = '1.7.5'
 
-# All settings are in settings.ini
+# All settings are in configs.ini
 config = ConfigParser(delimiters=['='])
-config.read('settings.ini')
+config.read('configs.ini')
 cfg = config['DEFAULT']
 
 cfg_keys = 'description keywords author author_email contributors'.split()
