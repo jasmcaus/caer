@@ -72,3 +72,7 @@ oldREADME.md
 
 # GDB history
 .gdb_history
+
+# Visual Studio Code files
+.vscode
+.vs
