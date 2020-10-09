@@ -1,4 +1,11 @@
-# Removing PyPi-specific packages
+  
+# READ THIS BEFORE YOU REFACTOR ME
+#
+# setup.py uses the list of patterns in this file to decide
+# what to delete, but it's not 100% sound. Be careful when
+# refactoring this file!
+
+# PyPi 
 .github/ISSUE_TEMPLATE/*
 dist/*
 caer.egg-info/*
@@ -6,7 +13,8 @@ pythonenv3.8/*
 build/*
 __pycache__/*
 *.pyc
-.vscode/*
+
+# Caer
 oldsetup.py
 test.py
 speeds.py
