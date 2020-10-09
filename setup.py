@@ -1,8 +1,34 @@
 from setuptools import setup, find_packages
 from configparser import ConfigParser
 import io 
+import sys 
+import platform
 
 VERSION = '1.7.5'
+
+################################################################################
+# Is right Python version?
+################################################################################
+
+min_version = (3, 6, 1)
+max_version = (3, 9, 0)
+
+def is_right_py_version(min_py_version, max_py_version):
+    python_min_version_str = '.'.join((str(num) for num in min_py_version))
+    python_max_version_str = '.'.join((str(num) for num in max_py_version))
+    if sys.version_info < min_py_version or sys.version_info >= max_py_version:
+        no_go = f'You are using Python {platform.python_version()}. Python >={python_min_version_str},<{python_max_version_str} is required.'
+        sys.stderr.write(no_go)
+        return False
+    return True
+
+if not is_right_py_version(min_version, max_version):
+    sys.exit(-1)
+
+
+################################################################################
+# Configurations
+################################################################################
 
 # All settings are in configs.ini
 config = ConfigParser(delimiters=['='])
@@ -13,6 +39,10 @@ cfg_keys = 'description keywords author author_email contributors'.split()
 expected = cfg_keys + "library_name user git_branch license status min_python audience language".split()
 for i in expected: assert i in cfg, f'Missing expected setting: {i}'
 setup_cfg = {i:cfg[i] for i in cfg_keys}
+
+################################################################################
+# Setup Variables
+#################################################################################
 
 NAME = cfg['library_name']
 AUTHOR = cfg['author']
