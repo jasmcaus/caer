@@ -1,0 +1,86 @@
+  
+# READ THIS BEFORE YOU REFACTOR ME
+#
+# setup.py uses the list of patterns in this file to decide
+# what to delete, but it's not 100% sound. Be careful when
+# refactoring this file!
+
+# PyPi 
+dist/*
+caer.egg-info/*
+pythonenv3.8/*
+build/*
+__pycache__/*
+*.pyc
+
+# Caer
+oldsetup.py
+test.py
+speeds.py
+oldREADME.md
+/.github/ISSUE_TEMPLATE/*
+
+## General
+
+# Compiled Object files
+*.slo
+*.lo
+*.o
+*.cuo
+*.obj
+
+# Compiled Dynamic libraries
+*.so
+*.dylib
+*.dll
+
+# Compiled Static libraries
+*.lai
+*.la
+*.a
+*.lib
+
+# Compiled protocol buffers
+*.pb.h
+*.pb.cc
+*_pb2.py
+
+# Compiled python
+*.pyc
+*.pyd
+
+# Compiled MATLAB
+*.mex*
+
+# IPython notebook checkpoints
+.ipynb_checkpoints
+
+# Editor temporaries
+*.swn
+*.swo
+*.swp
+*~
+
+# Sublime Text settings
+*.sublime-workspace
+*.sublime-project
+
+# Eclipse Project settings
+*.*project
+.settings
+
+# QtCreator files
+*.user
+
+# PyCharm files
+.idea
+
+# OSX dir files
+.DS_Store
+
+# GDB history
+.gdb_history
+
+# Visual Studio Code files
+.vscode
+.vs
