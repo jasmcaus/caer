@@ -6,7 +6,7 @@ import platform
 
 VERSION = '1.7.5'
 
-##################### Is right Python version?
+# Checking if right Python version is used
 
 min_version = (3, 6, 1)
 max_version = (3, 9, 0)
@@ -24,9 +24,7 @@ if not is_right_py_version(min_version, max_version):
     sys.exit(-1)
 
 
-################################################################################
 # Configurations
-################################################################################
 
 # All settings are in configs.ini
 config = ConfigParser(delimiters=['='])
@@ -38,9 +36,8 @@ expected = cfg_keys + "library_name user git_branch license status min_python au
 for i in expected: assert i in cfg, f'Missing expected setting: {i}'
 setup_cfg = {i:cfg[i] for i in cfg_keys}
 
-################################################################################
-# Setup Variables
-#################################################################################
+
+# Defining Setup Variables
 
 NAME = cfg['library_name']
 AUTHOR = cfg['author']
