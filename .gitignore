@@ -1,10 +1,10 @@
 # Removing PyPi-specific packages
+.github/ISSUE_TEMPLATE/*
 dist/*
 caer.egg-info/*
 pythonenv3.8/*
 build/*
 __pycache__/*
-.github/ISSUE_TEMPLATE/*
 *.pyc
 .vscode/*
 oldsetup.py
