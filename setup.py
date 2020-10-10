@@ -34,7 +34,7 @@ cfg = config['DEFAULT']
 cfg_keys = 'description keywords author author_email contributors'.split()
 expected = cfg_keys + "library_name user git_branch license status min_python audience language".split()
 for i in expected: assert i in cfg, f'Missing expected setting: {i}'
-setup_cfg = {i:cfg[i] for i in cfg_keys}
+# setup_cfg = {i:cfg[i] for i in cfg_keys}
 
 
 # Defining Setup Variables
@@ -49,13 +49,10 @@ DOWNLOAD_URL = cfg['download_url']
 PACKAGES = find_packages()
 DESCRIPTION = cfg['description']
 LONG_DESCRIPTION = io.open('LONG_DESCRIPTION.md', encoding='utf-8').read()
-KEYWORDS = cfg['keywords']
-REQUIREMENTS = cfg['pip_requirements']
+KEYWORDS = [i for i in cfg['keywords'].split(', ')]
+REQUIREMENTS = [i for i in cfg['pip_requirements'].split(', ')]
 PYTHON_REQUIRES = '>=' + cfg['min_python']
 EXTRAS={
-        # 'deep': [
-        #     'canaro>=1.0.0'
-        # ]
         'canaro': 'canaro>=1.0.3'
 }
 CLASSIFIERS = [
