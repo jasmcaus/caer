@@ -32,7 +32,7 @@ You can run the following to verify things installed correctly:
 ```python
 import caer
 
-print(f'Caer version {caer.__version__}')
+print(f'Caer version: {caer.__version__}')
 ```
 
 ## Resources
