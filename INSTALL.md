@@ -48,16 +48,16 @@ your Python is older, pip will find the most recent compatible version.
 
 ```shell
 # Update pip
->> pip install --upgrade pip
+$ pip install --upgrade pip
 # Install caer (Upgrading if you already have an older version)
->> pip install --upgrade caer
+$ pip install --upgrade caer
 ```
 
 To include a selection of other Python packages that expand
 ``caer``'s capabilities to include, e.g., for Deep Learning, you can install `canaro` as well: 
 
 ```shell
->> pip install -upgrade caer[canaro]
+$ pip install --upgrade caer[canaro]
 ```
 
 #### Warning
@@ -80,7 +80,7 @@ Once you have your conda environment set up, you can install `caer`
 with the command:
 
 ```shell
->> conda install caer
+$ conda install caer
 ```
 
 ## System package managers
