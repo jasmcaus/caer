@@ -24,7 +24,7 @@ If you plan to develop `caer` yourself, or want to be on the cutting edge, you c
 ```shell
 git clone https://github.com/jasmcaus/caer.git
 cd caer
-pip install -e .
+pip install -e . # Do this once to add 
 ```
 
 You can run the following to verify things installed correctly:
