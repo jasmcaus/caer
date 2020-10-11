@@ -47,9 +47,6 @@ To install the current `caer` you'll need at least Python 3.6. If
 your Python is older, pip will find the most recent compatible version.
 
 ```shell
-# Update pip
-$ pip install --upgrade pip
-# Install caer (Upgrading if you already have an older version)
 $ pip install --upgrade caer
 ```
 
