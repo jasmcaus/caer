@@ -33,9 +33,8 @@ pip install -e . # Do this once to add the package to the Python Path
 You can run the following to verify things installed correctly:
 
 ```python
-import caer
-
-print(f'Caer version: {caer.__version__}')
+>> import caer
+>> print(f'Caer version: {caer.__version__}')
 ```
 
 ## Resources
