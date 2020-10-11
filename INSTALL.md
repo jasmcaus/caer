@@ -24,7 +24,7 @@ python -c "import caer; print(caer.__version__)"
 You'll see the version number if `caer` is installed and
 an error message otherwise.
 
-## Installation via pip and conda
+## Installation
 
 These install only `caer` and its dependencies; pip has an option to
 include related packages.
@@ -77,6 +77,15 @@ with the command:
 
 ```shell
 $ conda install caer
+```
+
+### From Source
+If you plan to develop `caer` yourself, or want to be on the cutting edge, you can use an editable install:
+
+```shell
+git clone https://github.com/jasmcaus/caer.git
+cd caer
+pip install -e . # Do this once to add the package to the Python Path
 ```
 
 ## System package managers
