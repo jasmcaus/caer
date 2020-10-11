@@ -10,6 +10,8 @@ Caer is a set of utility functions based off OpenCV, designed to help speed up y
 
 ## Installation
 See [Installation][install] for detailed installation instructions. 
+
+
 Currently, `caer` supports releases of Python 3.6 onwards; Python 2 is not supported (nor recommended). 
 To install the current release:
 
