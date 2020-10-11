@@ -25,7 +25,6 @@ You'll see the version number if `caer` is installed and
 an error message otherwise.
 
 ## Installation via pip and conda
-------------------------------------------------------------------------------
 
 These install only `caer` and its dependencies; pip has an option to
 include related packages.
