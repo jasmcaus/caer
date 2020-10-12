@@ -3,3 +3,8 @@
 
 from .io import HDF5Dataset
 from .io import load_dataset
+
+__all_init__ = (
+    'HDF5Dataset',
+    'load_dataset'
+)
