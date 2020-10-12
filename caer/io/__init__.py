@@ -5,7 +5,7 @@ from .io import HDF5Dataset
 from .io import load_dataset
 
 
-all_files = (
+__all_io__ = (
     'HDF5Dataset',
     'load_dataset'
 )
