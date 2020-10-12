@@ -92,5 +92,4 @@ __all__ = (
     'edges',
     'hex_to_rgb',
     'draw_rectangle',
-    'extract_frames'
 ) + __all_preprocessing__ + __all_video__ + __all_io__ 
