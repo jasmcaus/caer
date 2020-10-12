@@ -61,23 +61,7 @@ $ pip install --upgrade caer[canaro]
     Do not use the commands `sudo` and `pip` together as `pip` may
     overwrite critical system libraries which may require you to reinstall your
     operating system.
-
-
-### conda
-
-Miniconda is a bare-essentials version of the Anaconda package; you'll need to
-install packages like `caer` yourself. Like Anaconda, it installs
-Python and provides virtual environments.
-
-- [conda documentation](https://docs.conda.io)
-- [Miniconda](https://docs.conda.io/en/latest/miniconda.html)
-
-Once you have your conda environment set up, you can install `caer`
-with the command:
-
-```shell
-$ conda install caer
-```
+    
 
 ### From Source
 If you plan to develop `caer` yourself, or want to be on the cutting edge, you can use an editable install:
