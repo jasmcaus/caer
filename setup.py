@@ -32,7 +32,7 @@ config.read('setup.cfg')
 cfg = config['metadata']
 
 cfg_keys = 'description keywords author author_email contributors'.split()
-expected = cfg_keys + "library_name user git_branch license status min_python audience language dev_language".split()
+expected = cfg_keys + "name user git_branch license status min_python audience language dev_language".split()
 for i in expected: assert i in cfg, f'Missing expected setting: {i}'
 # setup_cfg = {i:cfg[i] for i in cfg_keys}
 
