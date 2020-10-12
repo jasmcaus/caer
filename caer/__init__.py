@@ -1,5 +1,6 @@
 # Copyright (c) 2020 Jason Dsouza <jasmcaus@gmail.com>
 # Protected under the MIT License (see LICENSE)
+#pylint:disable=undefined-all-variable
 
 from ._meta import version as v
 from ._meta import author as __author__
@@ -12,7 +13,6 @@ __copyright__ = 'Copyright (c) 2020 Jason Dsouza'
 version = v
 release = r
 contributors = c
-
 
 from .preprocess import preprocess_from_dir
 from .preprocess import sep_train
@@ -57,7 +57,10 @@ def get_caer_functions():
 def get_caer_methods():
     return __all__
 
-#pylint:disable=undefined-all-variable
+from .io import __all_io__
+from .video import __all_video__
+from .preprocessing import __all_preprocessing__
+
 __all__ = (
     'preprocess_from_dir',
     'sep_train',
@@ -89,17 +92,5 @@ __all__ = (
     'edges',
     'hex_to_rgb',
     'draw_rectangle',
-    'extract_frames',
-    'LiveVideoStream',
-    'VideoStream',
-    'count_frames',
-    'get_fps',
-    'MeanProcess',
-    'compute_mean',
-    'compute_mean_from_dir',
-    'subtract_mean',
-    '_check_mean_sub_values',
-    'PatchPreProcess',
-    'HDF5Dataset',
-    'load_dataset'
-)
+    'extract_frames'
+) + __all_preprocessing__ + __all_video__ + __all_io__ 

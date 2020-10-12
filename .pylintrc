@@ -1,2 +1,2 @@
 [MESSAGES CONTROL]
-disable=R,C,no-member,too-many-function-args,invalid-name
+disable=R,C,no-member,too-many-function-args,invalid-name,undefined-all-variable
