@@ -28,7 +28,7 @@ if not is_right_py_version(min_version, max_version):
 
 # All settings are in configs.ini
 config = ConfigParser(delimiters=['='])
-config.read('configs.ini')
+config.read('setup.cfg')
 cfg = config['DEFAULT']
 
 cfg_keys = 'description keywords author author_email contributors'.split()
@@ -39,7 +39,7 @@ for i in expected: assert i in cfg, f'Missing expected setting: {i}'
 
 # Defining Setup Variables
 
-NAME = cfg['library_name']
+NAME = cfg['name']
 AUTHOR = cfg['author']
 AUTHOR_EMAIL = cfg['author_email']
 AUTHOR_LONG = AUTHOR + ' <' + AUTHOR_EMAIL + '>'
