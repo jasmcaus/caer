@@ -60,6 +60,6 @@ def _compute_centre_crop(image, target_size):
     diff_h = org_height - new_h
     diff_w = org_width - new_w 
     
-    cropped = image[diff_h:diff_h+new_h, diff_w:diff_w+new_w]
+    cropped = image[diff_h:diff_h + new_h, diff_w:diff_w + new_w]
 
     return cropped 
