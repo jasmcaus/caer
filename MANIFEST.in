@@ -1,4 +1,4 @@
-include configs.ini
+include settup.cfg
 include CONTRIBUTING.md
 include LICENSE
 include README.md
