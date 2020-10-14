@@ -51,24 +51,11 @@ DESCRIPTION = cfg['description']
 LONG_DESCRIPTION = io.open('LONG_DESCRIPTION.md', encoding='utf-8').read()
 KEYWORDS = [i for i in cfg['keywords'].split(', ')]
 REQUIREMENTS = [i for i in cfg['pip_requirements'].split(', ')]
+CLASSIFIERS = [i for i in cfg['classifiers'].split('\n')][1:]
 PYTHON_REQUIRES = '>=' + cfg['min_python']
 EXTRAS={
         'canaro': 'canaro>=1.0.3'
 }
-CLASSIFIERS = [
-    'Development Status :: 4 - Beta',
-    'Intended Audience :: Developers',
-    'Intended Audience :: Education',
-    'Intended Audience :: Science/Research',
-    'Programming Language :: Python :: 3',
-    'Programming Language :: Python :: 3 :: Only',
-    'Programming Language :: Python :: 3.6',
-    'Programming Language :: Python :: 3.7',
-    'Programming Language :: Python :: 3.8',
-    'Operating System :: MacOS :: MacOS X',
-    'Operating System :: Microsoft :: Windows',
-    'License :: OSI Approved :: MIT License',
-]
 STATUSES = [ 
     '1 - Planning', 
     '2 - Pre-Alpha', 
@@ -143,7 +130,7 @@ def setup_package():
         extras_require=EXTRAS,
         python_requires=PYTHON_REQUIRES,
         keywords=KEYWORDS,
-        classifiers= [x for x in CLASSIFIERS if x]
+        classifiers= CLASSIFIERS
     )
 
 
