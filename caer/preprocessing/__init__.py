@@ -9,7 +9,7 @@ from .mean_subtraction import _check_mean_sub_values
 
 from .patch_preprocess import PatchPreprocess
 
-__all_preprocessing__ = (
+__all__ = (
     'MeanProcess',
     'compute_mean',
     'compute_mean_from_dir',
