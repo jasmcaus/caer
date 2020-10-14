@@ -39,12 +39,14 @@ def resize(image, target_size, keep_aspect_ratio=False):
         image = cv.resize(image, dsize=(image.shape[1]//w_factor, image.shape[0]//h_factor))
         return image
 
+
 def _compute_minimal_resize(org_dim,dim):
     for i in range(10):
         i += 1
         d = dim*i
         if org_dim >= d and org_dim < dim*(i+1):
             return d, i
+
 
 def _compute_centre_crop(image, target_size):
     _ = _check_size(target_size)
