@@ -13,14 +13,14 @@ from .opencv import to_rgb
 from ._checks import _check_size
 
 
-def load_img(image_path, target_size=None, channels=3, swapRB=True):
+def load_img(image_path, target_size=None, channels=3, rgb=True):
     """
         Loads in an image from `image_path`
         Arguments
             image_path: Filepath to read the image from
             target_size: Target image size
             channels: 1 (grayscale) or 3 (RGB/BGR). Default: 1
-            swapRB: Boolean to keep RGB ordering. Default: True
+            rgb: Boolean to keep RGB ordering. Default: True
     """
     if not os.path.exists(image_path):
         raise ValueError('Specified filepath does not exist')
@@ -31,8 +31,8 @@ def load_img(image_path, target_size=None, channels=3, swapRB=True):
     if isinstance(channels, int) or channels not in [1,3]:
         raise ValueError('channels must be an integer - 1 (Grayscale) or 3 (RGB)')
 
-    if isinstance(swapRB, bool):
-        raise ValueError('swapRB must be a boolean')
+    if isinstance(rgb, bool):
+        raise ValueError('rgb must be a boolean')
 
     image_array = _read_image(image_path)
 
@@ -43,7 +43,7 @@ def load_img(image_path, target_size=None, channels=3, swapRB=True):
         image_array = cv.cvtColor(image_array, cv.COLOR_BGR2GRAY)
     if target_size is not None and _check_size(target_size):
         image_array = cv.resize(image_array, target_size)
-    if swapRB:
+    if rgb:
         image_array = to_rgb(image_array)
 
     return image_array

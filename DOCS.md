@@ -17,13 +17,13 @@ For versions below 1.7.6, use `caer.__version__`.
 - `image_path`: Path to an image
 - `target_size`: Final destination size of the image. Tuple of size 2 (width, height). Specify `None` to retain original image dimensions. 
 - `channels`: 1 (convert to grayscale) or 3 (BGR/RGB). Default: 3
-- `swapRB`: Boolean to decide if keep RGB (True) or BGR (False) formatting. Default: True
+- `rgb`: Boolean to decide if keep RGB (True) or BGR (False) formatting. Default: True
 ```python
 # BGR Image
->> image = caer.load_img(path, target_size=None, channels=3, swapRB=False)
+>> image = caer.load_img(path, target_size=None, channels=3, rgb=False)
 
 # RGB Image
->> image = caer.load_img(path, target_size=None, channels=3, swapRB=True)
+>> image = caer.load_img(path, target_size=None, channels=3, rgb=True)
 ```
 
 ## List Image Files from Directory
@@ -97,12 +97,12 @@ Currently, `caer` supports converting an image from BGR to the RGB, Grayscale, H
 ```
 
 ## Image from URL
-`caer.url_from_image()` reads in an image from a URL and returns it as an RGB image (if `swapRB = True`) or BGR (if `swapRB=False`)
+`caer.url_from_image()` reads in an image from a URL and returns it as an RGB image (if `rgb = True`) or BGR (if `rgb=False`)
 ```python
 # Returns an RGB image
->> img_from_url_rgb = caer.url_from_image(url, swapRB=True)
+>> img_from_url_rgb = caer.url_from_image(url, rgb=True)
 # Returns a BGR image
->> img_from_url_bgr = caer.url_from_image(url, swapRB=False)
+>> img_from_url_bgr = caer.url_from_image(url, rgb=False)
 ```
 
 ## Save Python lists to disk
