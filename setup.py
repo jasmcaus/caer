@@ -26,7 +26,7 @@ if not is_right_py_version(min_version, max_version):
 
 # Configurations
 
-# All settings are in configs.ini
+# All settings are in setup.cfg
 config = ConfigParser(delimiters=['='])
 config.read('setup.cfg')
 cfg = config['metadata']
