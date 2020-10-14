@@ -46,7 +46,8 @@ from .opencv import edges
 from .visualizations import hex_to_rgb
 from .visualizations import draw_rectangle
 
-from .io_disk import _read_image
+from .images import resize 
+from .images import center_crop 
 
 def get_caer_version():
     return __version__
@@ -65,6 +66,8 @@ __all__ = (
     'preprocess_from_dir',
     'sep_train',
     'shuffle',
+    'resize',
+    'center_crop'
     'reshape',
     'normalize',
     '_printTotal',
