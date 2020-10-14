@@ -15,7 +15,7 @@ def is_right_py_version(min_py_version, max_py_version):
     python_min_version_str = '.'.join((str(num) for num in min_py_version))
     python_max_version_str = '.'.join((str(num) for num in max_py_version))
     if sys.version_info < min_py_version or sys.version_info >= max_py_version:
-        no_go = 'You are using Python {platform.python_version()}. Python >={},<{} is required.'.format(python_min_version_str, python_max_version_str)
+        no_go = 'You are using Python {}. Python >={},<{} is required.'.format(platform.python_version(), python_min_version_str, python_max_version_str)
         sys.stderr.write(no_go)
         return False
     return True
