@@ -10,7 +10,7 @@ from .videostream import VideoStream
 from .frames_and_fps import count_frames
 from .frames_and_fps import get_fps
 
-__all_video__ = (
+__all__ = (
     'extract_frames',
     'LiveVideoStream',
     'VideoStream',
