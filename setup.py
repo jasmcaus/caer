@@ -130,7 +130,10 @@ def setup_package():
         extras_require=EXTRAS,
         python_requires=PYTHON_REQUIRES,
         keywords=KEYWORDS,
-        classifiers= CLASSIFIERS
+# Include_package_data is required for setup.py to recognize the MAINFEST.in
+#   https://python-packaging.readthedocs.io/en/latest/non-code-files.html
+        classifiers= CLASSIFIERS,
+        include_package_data=True
     )
 
 
