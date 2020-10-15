@@ -58,7 +58,7 @@ def get_caer_functions():
 def get_caer_methods():
     return __all__
 
-from .io import __all__ as __all_io__
+# from .io import __all__ as __all_io__
 from .video import __all__ as __all_video__
 from .preprocessing import __all__ as __all_preprocessing__
 
@@ -95,4 +95,5 @@ __all__ = (
     'edges',
     'hex_to_rgb',
     'draw_rectangle',
-) + __all_preprocessing__ + __all_video__ + __all_io__ 
+) + __all_preprocessing__ + __all_video__
+# ) + __all_preprocessing__ + __all_video__ + __all_io__ 
