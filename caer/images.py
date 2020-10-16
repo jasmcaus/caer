@@ -103,8 +103,11 @@ def _compute_minimal_resize(org_dim,dim):
     for i in range(10):
         i += 1
         d = dim*i
-        if org_dim >= d and org_dim < dim*(i+1):
-            return d, i
+        if org_dim >= d and dim < dim*(i+1):
+            if (org_dim - dim*(i+1)) > dim:
+                continue
+            else:
+                return d, i
 
 
 def _compute_centre_crop(image, target_size):
