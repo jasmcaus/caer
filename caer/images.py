@@ -1,6 +1,7 @@
 # Copyright (c) 2020 Jason Dsouza <jasmcaus@gmail.com>
 # Protected under the MIT License (see LICENSE)
 
+import math 
 import cv2 as cv
 from ._checks import _check_size
 
@@ -76,30 +77,27 @@ def resize_with_ratio(image, target_size, keep_aspect_ratio=False):
     if not isinstance(keep_aspect_ratio, bool):
         raise ValueError('keep_aspect_ratio must be a boolean')
 
+    org_h, org_w = image.shape[:2]
     new_w, new_h = target_size
 
-    org_height, org_width = image.shape[:2]
     # Computing minimal resize
-    min_width, w_factor = _compute_minimal_resize(org_width, new_w)
-    min_height, h_factor = _compute_minimal_resize(org_height, new_h)
+    # min_width, w_factor = _compute_minimal_resize(org_w, new_w)
+    # min_height, h_factor = _compute_minimal_resize(org_h, new_h)
+    
+    minimal_resize_factor = _compute_minimal_resize((org_w, org_h), (new_w, new_h))
 
-    # Computing centre crop 
+    # Resizing minimally
+    image = cv.resize(image, dsize=(image.shape[1]//minimal_resize_factor, image.shape[0]//minimal_resize_factor))
+
+    # Computing centre crop (to avoid extra crop, we resize minimally first)
     image = _compute_centre_crop(image, (min_width, min_height))
     
-    # Resizing minimally
-    image = cv.resize(image, dsize=(min_width,min_height))
-
     # Resizing to new dimensions
-    image = cv.resize(image, dsize=(image.shape[1]//w_factor, image.shape[0]//h_factor))
+    image = cv.resize(image, dsize=(image.shape[1]//minimal_resize_factor, image.shape[0]//minimal_resize_factor))
     return image
-
-def center_crop(image, target_size=None):
-    """
-        Computes the centre crop of an image using `target_size`
-    """
-    return _compute_centre_crop(image, target_size)
     
-def _compute_minimal_resize(org_dim,dim):
+
+def _compute_minimal_resize(org_size, target_dim):
     # for i in range(10):
     #     i += 1
     #     d = dim*i
@@ -108,23 +106,53 @@ def _compute_minimal_resize(org_dim,dim):
     #             continue
     #         else:
     #             return d, i
-    import math 
-    mi = math.floor(org_dim/dim)
-    d = dim * mi 
-    return d, mi
+
+    ## Finding the minimum possible resizing factor to maintain aspect ratio
+    ## 
+
+    if not isinstance(org_size, tuple) or not isinstance(target_dim, tuple):
+        raise ValueError('org_size and target_dim must be a tuple')
+
+    if len(org_size) != 2 or len(target_dim) != 2:
+        raise ValueError('Size of tuple must be = 2')
+
+    org_h, org_w = org_size[:2]
+    targ_h, targ_w = target_dim[:2]
+
+    h_factor = math.floor(org_h//targ_h)
+    w_factor = math.floor(org_w//targ_w)
+
+    if h_factor <= w_factor:
+        resize_factor =  h_factor 
+    else:
+        resize_factor =  w_factor
+
+    org_h = org_h //resize_factor
+    org_w = org_w //resize_factor
+    
+    diff_h = org_h - targ_h 
+    diff_w = org_w - targ_w 
+    return resize_factor
+
+
+def center_crop(image, target_size=None):
+    """
+        Computes the centre crop of an image using `target_size`
+    """
+    return _compute_centre_crop(image, target_size)
 
 
 def _compute_centre_crop(image, target_size):
     _ = _check_size(target_size)
     # Getting org height and target
-    org_height, org_width = image.shape[:2]
+    org_h, org_w = image.shape[:2]
     new_w, new_h = target_size
 
-    if new_h > org_height or new_w > org_width:
+    if new_h > org_h or new_w > org_w:
         raise ValueError('To compute centre crop, target size dimensions must be <= image dimensions')
 
-    diff_h = org_height - new_h
-    diff_w = org_width - new_w 
+    diff_h = org_h - new_h
+    diff_w = org_w - new_w 
     
     cropped = image[diff_h:diff_h + new_h, diff_w:diff_w + new_w]
 
