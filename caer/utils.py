@@ -24,10 +24,11 @@ def load_img(image_path, target_size=None, channels=3, rgb=True):
     """
     if not os.path.exists(image_path):
         raise ValueError('Specified filepath does not exist')
-
-    if isinstance(target_size, tuple) or len(target_size) != 2:
-        raise ValueError('target_size must be a tuple of size 2 (width, height')
     
+    if target_size is not None:
+        if isinstance(target_size, tuple) or len(target_size) != 2:
+            raise ValueError('target_size must be a tuple of size 2 (width, height')
+        
     if isinstance(channels, int) or channels not in [1,3]:
         raise ValueError('channels must be an integer - 1 (Grayscale) or 3 (RGB)')
 
