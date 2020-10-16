@@ -4,6 +4,7 @@
 from .._checks import _check_size
 from ..utils import load_img 
 
+
 def bird(target_size=None):
     return load_img('bird.jpg', target_size=target_size)
 
