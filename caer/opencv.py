@@ -103,8 +103,11 @@ def to_gray(img):
     """
     if len(img.shape) != 3:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}')
-
-    return cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+    
+    try:
+        return cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+    except Exception:
+        return cv.cvtColor(img, cv.COLOR_RGB2GRAY)
 
 
 def to_hsv(img):
@@ -113,8 +116,11 @@ def to_hsv(img):
     """
     if len(img.shape) != 3:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}')
-
-    return cv.cvtColor(img, cv.COLOR_BGR2HSV)
+    
+    try:
+        return cv.cvtColor(img, cv.COLOR_BGR2HSV)
+    except Exception:
+        return cv.cvtColor(img, cv.COLOR_RGB2HSV)
 
 
 def to_lab(img):
@@ -124,7 +130,10 @@ def to_lab(img):
     if len(img.shape) != 3:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}')
 
-    return cv.cvtColor(img, cv.COLOR_BGR2LAB)
+    try:
+        return cv.cvtColor(img, cv.COLOR_BGR2LAB)
+    except Exception:
+        return cv.cvtColor(img, cv.COLOR_RGB2LAB)
 
 
 def url_to_image(url, rgb=True):
