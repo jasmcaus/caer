@@ -101,8 +101,8 @@ def to_gray(img):
     """
         Converts an image from the BGR image format to its Grayscale version
     """
-    if img.shape != 3:
-        raise ValueError(f'Image of shape 3 expected. Found shape {img.shape}')
+    if len(img.shape) != 3:
+        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}')
 
     return cv.cvtColor(img, cv.COLOR_BGR2GRAY)
 
@@ -111,8 +111,8 @@ def to_hsv(img):
     """
         Converts an image from the BGR image format to its HSV version
     """
-    if img.shape != 3:
-        raise ValueError(f'Image of shape 3 expected. Found shape {img.shape}')
+    if len(img.shape) != 3:
+        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}')
 
     return cv.cvtColor(img, cv.COLOR_BGR2HSV)
 
@@ -121,8 +121,8 @@ def to_lab(img):
     """
         Converts an image from the BGR image format to its HSV version
     """
-    if img.shape != 3:
-        raise ValueError(f'Image of shape 3 expected. Found shape {img.shape}')
+    if len(img.shape) != 3:
+        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}')
 
     return cv.cvtColor(img, cv.COLOR_BGR2LAB)
 
