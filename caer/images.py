@@ -100,14 +100,18 @@ def center_crop(image, target_size=None):
     return _compute_centre_crop(image, target_size)
     
 def _compute_minimal_resize(org_dim,dim):
-    for i in range(10):
-        i += 1
-        d = dim*i
-        if org_dim >= d and dim < dim*(i+1):
-            if (org_dim - dim*(i+1)) > dim:
-                continue
-            else:
-                return d, i
+    # for i in range(10):
+    #     i += 1
+    #     d = dim*i
+    #     if org_dim >= d and dim < dim*(i+1):
+    #         if (org_dim - dim*(i+1)) > dim:
+    #             continue
+    #         else:
+    #             return d, i
+    import math 
+    mi = math.floor(org_dim/dim)
+    d = dim * mi 
+    return d, mi
 
 
 def _compute_centre_crop(image, target_size):
