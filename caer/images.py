@@ -78,19 +78,21 @@ def resize_with_ratio(image, target_size, keep_aspect_ratio=False):
         raise ValueError('keep_aspect_ratio must be a boolean')
 
     org_h, org_w = image.shape[:2]
-    new_w, new_h = target_size
+    target_w, target_h = target_size
 
     # Computing minimal resize
-    # min_width, w_factor = _compute_minimal_resize(org_w, new_w)
-    # min_height, h_factor = _compute_minimal_resize(org_h, new_h)
-    
-    minimal_resize_factor = _compute_minimal_resize((org_w, org_h), (new_w, new_h))
+    # min_width, w_factor = _compute_minimal_resize(org_w, target_w)
+    # min_height, h_factor = _compute_minimal_resize(org_h, target_h)
+    minimal_resize_factor = _compute_minimal_resize((org_w, org_h), (target_w, target_h))
 
     # Resizing minimally
     image = cv.resize(image, dsize=(image.shape[1]//minimal_resize_factor, image.shape[0]//minimal_resize_factor))
 
     # Computing centre crop (to avoid extra crop, we resize minimally first)
-    image = _compute_centre_crop(image, (new_w, new_w))
+    image = _compute_centre_crop(image, (target_w, target_w))
+
+    if image.shape[:2] != target_size[:2]:
+        image = cv.resize(image, (target_h, target_w))
     
     return image
     
@@ -141,14 +143,14 @@ def _compute_centre_crop(image, target_size):
     _ = _check_size(target_size)
     # Getting org height and target
     org_h, org_w = image.shape[:2]
-    new_w, new_h = target_size
+    target_w, target_h = target_size
 
-    if new_h > org_h or new_w > org_w:
+    if target_h > org_h or target_w > org_w:
         raise ValueError('To compute centre crop, target size dimensions must be <= image dimensions')
 
-    diff_h = org_h - new_h
-    diff_w = org_w - new_w 
+    diff_h = org_h - target_h
+    diff_w = org_w - target_w 
     
-    cropped = image[diff_h:diff_h + new_h, diff_w:diff_w + new_w]
+    cropped = image[diff_h:diff_h + target_h, diff_w:diff_w + target_w]
 
     return cropped 
