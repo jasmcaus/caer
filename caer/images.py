@@ -90,10 +90,8 @@ def resize_with_ratio(image, target_size, keep_aspect_ratio=False):
     image = cv.resize(image, dsize=(image.shape[1]//minimal_resize_factor, image.shape[0]//minimal_resize_factor))
 
     # Computing centre crop (to avoid extra crop, we resize minimally first)
-    image = _compute_centre_crop(image, (min_width, min_height))
+    image = _compute_centre_crop(image, (new_w, new_w))
     
-    # Resizing to new dimensions
-    image = cv.resize(image, dsize=(image.shape[1]//minimal_resize_factor, image.shape[0]//minimal_resize_factor))
     return image
     
 
@@ -106,6 +104,10 @@ def _compute_minimal_resize(org_size, target_dim):
     #             continue
     #         else:
     #             return d, i
+    # import math 
+    # mi = math.floor(org_dim/dim)
+    # d = dim * mi 
+    # return d, mi
 
     ## Finding the minimum possible resizing factor to maintain aspect ratio
     ## 
@@ -119,20 +121,13 @@ def _compute_minimal_resize(org_size, target_dim):
     org_h, org_w = org_size[:2]
     targ_h, targ_w = target_dim[:2]
 
-    h_factor = math.floor(org_h//targ_h)
-    w_factor = math.floor(org_w//targ_w)
+    h_factor = math.floor(org_h/targ_h)
+    w_factor = math.floor(org_w/targ_w)
 
     if h_factor <= w_factor:
-        resize_factor =  h_factor 
+        return h_factor 
     else:
-        resize_factor =  w_factor
-
-    org_h = org_h //resize_factor
-    org_w = org_w //resize_factor
-    
-    diff_h = org_h - targ_h 
-    diff_w = org_w - targ_w 
-    return resize_factor
+        return w_factor
 
 
 def center_crop(image, target_size=None):
