@@ -115,3 +115,34 @@ def venice(target_size=None):
 
 def whale(target_size=None):
     return load_img('whale.jpg', target_size=target_size)
+
+__all__ = (
+    'bird',
+    'blue_siamese',
+    'camera',
+    'candles',
+    'coast',
+    'controller',
+    'cycle',
+    'fish',
+    'gold_fish',
+    'jellyfish',
+    'keyboard',
+    'lantern',
+    'laptop',
+    'lighthouse',
+    'lights',
+    'maple',
+    'mountain',
+    'night_tent',
+    'night',
+    'phone',
+    'red_fish',
+    'sea',
+    'snow',
+    'squirrel',
+    'statue',
+    'tent',
+    'venice',
+    'whale'
+)
