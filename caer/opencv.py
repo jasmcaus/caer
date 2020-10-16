@@ -91,8 +91,8 @@ def to_rgb(img):
     """
         Converts an image from the BGR image format to its RGB version
     """
-    if img.shape != 3:
-        raise ValueError(f'Image of shape 3 expected. Found shape {img.shape}')
+    if len(img.shape) != 3:
+        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}')
 
     return cv.cvtColor(img, cv.COLOR_BGR2RGB)
 
