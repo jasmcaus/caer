@@ -4,7 +4,7 @@ import io
 import sys 
 import platform
 
-VERSION = '1.7.6'
+VERSION = '1.7.2'
 
 # Checking if right Python version is used
 
