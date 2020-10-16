@@ -14,6 +14,7 @@ version = v
 release = r
 contributors = c
 
+
 from .preprocess import preprocess_from_dir
 from .preprocess import sep_train
 from .preprocess import shuffle
@@ -49,14 +50,18 @@ from .visualizations import draw_rectangle
 from .images import resize 
 from .images import center_crop 
 
+
 def get_caer_version():
     return __version__
+
 
 def get_caer_functions():
     return __all__
 
+
 def get_caer_methods():
     return __all__
+
 
 # from .io import __all__ as __all_io__
 from .video import __all__ as __all_video__
