@@ -52,16 +52,21 @@ def resize(image, target_size=None, resize_factor=None, keep_aspect_ratio=False,
         return resize_with_ratio(image, target_size=target_size, keep_aspect_ratio=keep_aspect_ratio)
     else:
         width, height = new_shape[:2]
-        return _cv2_resize(image, width, height, interpolation=interpolation_methods[interpolation])
+        return _cv2_resize(image, (width, height), interpolation=interpolation_methods[interpolation])
 
 
-def _cv2_resize(image, width, height, interpolation=None):
+def _cv2_resize(image, target_size, interpolation=None):
     """
     ONLY TO BE USED INTERNALLY. NOT AVAILABLE FOR EXTERNAL USAGE. 
     Resizes the image ignoring the aspect ratio of the original image
     """
+    _ = _check_size(target_size)
+
+    height, width = target_size[:2]
+
     if interpolation is None:
         interpolation = cv.INTER_AREA
+
     dimensions = (height, width)
     return cv.resize(image, dimensions, interpolation=interpolation)
 
@@ -86,13 +91,13 @@ def resize_with_ratio(image, target_size, keep_aspect_ratio=False):
     minimal_resize_factor = _compute_minimal_resize((org_w, org_h), (target_w, target_h))
 
     # Resizing minimally
-    image = cv.resize(image, dsize=(image.shape[1]//minimal_resize_factor, image.shape[0]//minimal_resize_factor))
+    image = _cv2_resize(image, (image.shape[1]//minimal_resize_factor, image.shape[0]//minimal_resize_factor))
 
     # Computing centre crop (to avoid extra crop, we resize minimally first)
     image = _compute_centre_crop(image, (target_w, target_w))
 
     if image.shape[:2] != target_size[:2]:
-        image = cv.resize(image, (target_h, target_w))
+        image = _cv2_resize(image, (target_h, target_w))
     
     return image
     
@@ -110,9 +115,6 @@ def _compute_minimal_resize(org_size, target_dim):
     # mi = math.floor(org_dim/dim)
     # d = dim * mi 
     # return d, mi
-
-    ## Finding the minimum possible resizing factor to maintain aspect ratio
-    ## 
 
     if not isinstance(org_size, tuple) or not isinstance(target_dim, tuple):
         raise ValueError('org_size and target_dim must be a tuple')
@@ -148,9 +150,7 @@ def _compute_centre_crop(image, target_size):
     if target_h > org_h or target_w > org_w:
         raise ValueError('To compute centre crop, target size dimensions must be <= image dimensions')
 
-    diff_h = org_h - target_h
-    diff_w = org_w - target_w 
+    diff_h = (org_h - target_h) // 2
+    diff_w = (org_w - target_w ) // 2
     
-    cropped = image[diff_h:diff_h + target_h, diff_w:diff_w + target_w]
-
-    return cropped 
+    return image[diff_h:diff_h + target_h, diff_w:diff_w + target_w]
