@@ -22,12 +22,12 @@ from .preprocess import reshape
 from .preprocess import normalize
 from .preprocess import _printTotal
 
-from .utils import load_img
-from .utils import saveNumpy
-from .utils import train_val_split
-from .utils import get_classes_from_dir
-from .utils import sort_dict
-from .utils import plotAcc
+from .utilities import load_img
+from .utilities import saveNumpy
+from .utilities import train_val_split
+from .utilities import get_classes_from_dir
+from .utilities import sort_dict
+from .utilities import plotAcc
 
 from .paths import list_media
 from .paths import list_images
