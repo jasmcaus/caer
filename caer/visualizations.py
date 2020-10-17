@@ -1,7 +1,9 @@
 # Copyright (c) 2020 Jason Dsouza <jasmcaus@gmail.com>
 # Protected under the MIT License (see LICENSE)
 
-""" Provides visualization-specific functions """
+""" 
+Provides visualization-specific functions 
+"""
 
 def hex_to_rgb(x):
     """
