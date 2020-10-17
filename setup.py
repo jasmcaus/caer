@@ -31,6 +31,7 @@ if not is_right_py_version(min_version, max_version):
 config = ConfigParser(delimiters=['='])
 config.read('setup.cfg')
 cfg = config['metadata']
+opt = config['options']
 
 cfg_keys = 'description keywords author author_email contributors'.split()
 expected = cfg_keys + "name user git_branch license status min_python audience language dev_language".split()
@@ -51,9 +52,9 @@ PACKAGES = find_packages()
 DESCRIPTION = cfg['description']
 LONG_DESCRIPTION = io.open('LONG_DESCRIPTION.md', encoding='utf-8').read()
 KEYWORDS = [i for i in cfg['keywords'].split(', ')]
-REQUIREMENTS = [i for i in cfg['pip_requirements'].split(', ')]
+REQUIREMENTS = [i for i in opt['pip_requirements'].split(', ')]
 CLASSIFIERS = [i for i in cfg['classifiers'].split('\n')][1:]
-PYTHON_REQUIRES = '>=' + cfg['min_python']
+PYTHON_REQUIRES = '>=' + opt['min_python']
 EXTRAS={
         'canaro': 'canaro>=1.0.3'
 }
