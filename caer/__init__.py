@@ -22,7 +22,6 @@ from .preprocess import reshape
 from .preprocess import normalize
 from .preprocess import _printTotal
 
-from .utilities import load_img
 from .utilities import saveNumpy
 from .utilities import train_val_split
 from .utilities import get_classes_from_dir
@@ -49,6 +48,7 @@ from .visualizations import draw_rectangle
 
 from .images import resize 
 from .images import center_crop 
+from .images import load_img 
 
 
 def get_caer_version():
