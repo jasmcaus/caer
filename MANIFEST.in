@@ -2,5 +2,7 @@ include setup.cfg
 include .github/CONTRIBUTING.md
 include LICENSE
 include README.md
+include INSTALL.md 
+include CONTRIBUTORS 
 
 recursive-exclude * __pycache__
