@@ -4,7 +4,19 @@
 from .validators import URLValidator
 from .validators import validate_ipv6_address
 
+from .timezone import get_fixed_timezone
+from .timezone import activate
+from .timezone import deactivate
+from .timezone import override
+from .timezone import now
+
+
 __all__ = (
     'URLValidator',
-    'validate_ipv6_address'
+    'validate_ipv6_address',
+    'get_fixed_timezone',
+    'activate', 
+    'deactivate', 
+    'override',
+    'now',
 )
