@@ -4,7 +4,8 @@ import io
 import sys 
 import platform
 
-VERSION = '1.5.0'
+VERSION = '1.7.5'
+# v1.7.6 cannot be used (previously deleted)
 
 # Checking if right Python version is used
 
