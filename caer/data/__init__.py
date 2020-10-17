@@ -2,7 +2,7 @@
 # Protected under the MIT License (see LICENSE)
 
 from .._checks import _check_size
-from ..utils import load_img 
+from ..images import load_img 
 
 
 def bird(target_size=None):
