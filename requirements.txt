@@ -1,2 +1,4 @@
 numpy
 opencv-contrib-python
+requests
+asgiref
