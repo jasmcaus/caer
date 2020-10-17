@@ -6,7 +6,7 @@ from ..utils import load_img
 
 
 def bird(target_size=None):
-    return load_img('bird.jpg', target_size=target_size)
+    return load_img('.bird.jpg', target_size=target_size)
 
 
 def blue_siamese(target_size=None):
