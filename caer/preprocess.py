@@ -6,7 +6,8 @@ import os
 import random
 import time
 import numpy as np
-from .utilities import load_img, saveNumpy, get_classes_from_dir
+from .utilities import saveNumpy, get_classes_from_dir
+from .images import load_img
 from .preprocessing import MeanProcess
 from ._checks import _check_size, _check_mean_sub_values
 
