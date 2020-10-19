@@ -89,7 +89,7 @@ def edges(img, threshold1=None, threshold2=None, use_median=True, sigma=None):
 
 def to_rgb(img):
     """
-        Converts an image from the BGR image format to its RGB version
+        Converts an image from any image format to its RGB version
     """
     if len(img.shape) != 3:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}')
@@ -99,7 +99,7 @@ def to_rgb(img):
 
 def to_gray(img):
     """
-        Converts an image from the BGR image format to its Grayscale version
+        Converts an image from any image format to its Grayscale version
     """
     if len(img.shape) != 3:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}')
@@ -112,7 +112,7 @@ def to_gray(img):
 
 def to_hsv(img):
     """
-        Converts an image from the BGR image format to its HSV version
+        Converts an image from any image format to its HSV version
     """
     if len(img.shape) != 3:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}')
@@ -125,7 +125,7 @@ def to_hsv(img):
 
 def to_lab(img):
     """
-        Converts an image from the BGR image format to its HSV version
+        Converts an image from any image format to its HSV version
     """
     if len(img.shape) != 3:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}')
