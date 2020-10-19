@@ -34,7 +34,6 @@ def load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=N
 
     if is_valid_url(image_path):
         image_array = url_to_image(image_path, rgb=False)
-    
     else:
         if not os.path.exists(image_path):  
             raise ValueError('Specified filepath does not exist')
@@ -95,6 +94,7 @@ def resize(image, target_size=None, resize_factor=None, keep_aspect_ratio=False,
         'bicubic': cv.INTER_CUBIC,
         'bilinear': cv.INTER_LINEAR
     }
+
     if interpolation not in interpolation_methods:
         raise ValueError('Specify a valid interpolation type - area/nearest/bicubic/bilinear')
 
@@ -118,6 +118,7 @@ def _cv2_resize(image, target_size, interpolation=None):
         interpolation = cv.INTER_AREA
 
     dimensions = (height, width)
+
     return cv.resize(image, dimensions, interpolation=interpolation)
 
 
