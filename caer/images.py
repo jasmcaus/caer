@@ -34,11 +34,11 @@ def load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=N
 
     if is_valid_url(image_path):
         image_array = url_to_image(image_path, rgb=False)
+    elif os.path.exists(image_path):  
+        image_array = _read_image(image_path)
     else:
-        if not os.path.exists(image_path):  
-            raise ValueError('Specified filepath does not exist')
-        else:
-            image_array = _read_image(image_path)
+        raise ValueError('Specify either a valid URL or valid filepath')
+            
 
     # [INFO] Using the following piece of code results in a 'None' in the training set
     # if image_array == None:
