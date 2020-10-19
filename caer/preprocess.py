@@ -9,7 +9,7 @@ import numpy as np
 from .utilities import saveNumpy, get_classes_from_dir
 from .images import load_img
 from .preprocessing import MeanProcess
-from ._checks import _check_size, _check_mean_sub_values
+from ._checks import _check_target_size, _check_mean_sub_values
 
 def preprocess_from_dir(DIR, 
                         classes=None, 
@@ -224,7 +224,7 @@ def reshape(x, IMG_SIZE, channels):
     if IMG_SIZE is None:
         raise ValueError('IMG_SIZE not defined')
 
-    if _check_size(IMG_SIZE):
+    if _check_target_size(IMG_SIZE):
         width, height = IMG_SIZE[:2]
         return np.array(x).reshape(-1, width, height, channels)
 

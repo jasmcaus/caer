@@ -1,7 +1,7 @@
 # Copyright (c) 2020 Jason Dsouza <jasmcaus@gmail.com>
 # Protected under the MIT License (see LICENSE)
 
-def _check_size(size):
+def _check_target_size(size):
     """
     Common check to enforce type and sanity check on size tuples
     :param size: Should be a tuple of size 2 (width, height)

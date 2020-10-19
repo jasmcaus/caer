@@ -5,7 +5,7 @@ import math
 import os 
 import cv2 as cv
 
-from ._checks import _check_size
+from ._checks import _check_target_size
 from .io_disk import _read_image
 from .opencv import to_rgb, url_to_image
 from .utils.validators import is_valid_url
@@ -24,7 +24,7 @@ def load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=N
     """
     
     if target_size is not None:
-        _ = _check_size(target_size)
+        _ = _check_target_size(target_size)
         
     if not isinstance(channels, int) or channels not in [1,3]:
         raise ValueError('channels must be an integer - 1 (Grayscale) or 3 (RGB)')
@@ -110,7 +110,7 @@ def _cv2_resize(image, target_size, interpolation=None):
     ONLY TO BE USED INTERNALLY. NOT AVAILABLE FOR EXTERNAL USAGE. 
     Resizes the image ignoring the aspect ratio of the original image
     """
-    _ = _check_size(target_size)
+    _ = _check_target_size(target_size)
 
     height, width = target_size[:2]
 
@@ -128,7 +128,7 @@ def resize_with_ratio(image, target_size, keep_aspect_ratio=False):
         :param target_size: Tuple of size 2 in the format (width,height)
         :param keep_aspect_ratio: Boolean to keep/ignore aspect ratio when resizing
     """
-    _ = _check_size(target_size)
+    _ = _check_target_size(target_size)
     
     if not isinstance(keep_aspect_ratio, bool):
         raise ValueError('keep_aspect_ratio must be a boolean')
@@ -193,7 +193,7 @@ def center_crop(image, target_size=None):
 
 
 def _compute_centre_crop(image, target_size):
-    _ = _check_size(target_size)
+    _ = _check_target_size(target_size)
     # Getting org height and target
     org_h, org_w = image.shape[:2]
     target_w, target_h = target_size

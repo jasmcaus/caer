@@ -1,7 +1,7 @@
 # Copyright (c) 2020 Jason Dsouza <jasmcaus@gmail.com>
 # Protected under the MIT License (see LICENSE)
 
-from .._checks import _check_size
+from .._checks import _check_target_size
 from ..images import load_img 
 
 
