@@ -20,7 +20,7 @@ def load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=N
             channels: 1 (grayscale) or 3 (RGB/BGR). Default: 3
             rgb: Boolean to keep RGB ordering. Default: True
             resize_factor: Resizes the image using `resize_factor`. Default: None
-            keep_aspect_ratio: Resized image to `target_size` keeping aspect ratio. Some parts of the image may be redacted. Default: False
+            keep_aspect_ratio: Resized image to `target_size` keeping aspect ratio. Some parts of the image may not be included. Default: False
     """
     
     if target_size is not None:
