@@ -21,8 +21,7 @@ python -c "import caer; print(caer.__version__)"
 
 (Try ``python3`` if ``python`` is unsuccessful.)
 
-You'll see the version number if `caer` is installed and
-an error message otherwise.
+You'll see the version number if `caer` is installed and an error message otherwise.
 
 ## Installation
 
@@ -31,17 +30,12 @@ include related packages.
 
 ### pip
 
-Prerequisites to a pip install: You're able to use your system's command line to
-install packages and are using a
-[virtual environment](https://towardsdatascience.com/virtual-environments-104c62d48c54?gi=2532aa12906#ee81) (any of [several](https://stackoverflow.com/questions/41573587/what-is-the-difference-between-venv-pyvenv-pyenv-virtualenv-virtualenvwrappe)).
+Prerequisites to a pip install: You are able to use your system's command line to
+install packages and are using a [virtual environment](https://towardsdatascience.com/virtual-environments-104c62d48c54?gi=2532aa12906#ee81) (any of [several](https://stackoverflow.com/questions/41573587/what-is-the-difference-between-venv-pyvenv-pyenv-virtualenv-virtualenvwrappe)).
 
-While it is possible to use pip without a virtual environment, it is not advised: 
-virtual environments create a clean Python environment that does not interfere 
-with any existing system installation, can be easily removed, and contain only
-the package versions your application needs. They help avoid a common
-challenge known as [dependency hell](ttps://en.wikipedia.org/wiki/Dependency_hell)
+While it is possible to use pip without a virtual environment, it is not advised: virtual environments create a clean Python environment that does not interfere with any existing system installation, can be easily removed, and contain only the package versions your application needs. They help avoid a common challenge known as [dependency hell](ttps://en.wikipedia.org/wiki/Dependency_hell)
 
-To install the current `caer` you'll need at least Python 3.6. If you have an older version of Python, you will not be able to use `caer`.
+To install the current `caer` you'll need at least Python 3.6.1. If you have an older version of Python, you will not be able to use `caer`.
 
 ```shell
 $ pip install --upgrade caer
@@ -55,9 +49,7 @@ $ pip install --upgrade caer[canaro]
 
 #### Warning
 
-    Do not use the commands `sudo` and `pip` together as `pip` may
-    overwrite critical system libraries which may require you to reinstall your
-    operating system.
+Do not use the commands `sudo` and `pip` together as `pip` may overwrite critical system libraries which may require you to reinstall your operating system.
     
 
 ### From Source
