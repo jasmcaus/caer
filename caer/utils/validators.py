@@ -5,14 +5,33 @@ import ipaddress
 import re
 import copy 
 import operator 
+import requests
 from urllib.parse import urlsplit, urlunsplit
 from importlib import import_module
 
 from .exceptions import ValidationError
 from .version import get_docs_version 
+from ..configs import INVALID_URL_STRING, VALID_URL_NO_EXIST
 
 # These values, if given to validate(), will trigger the self.required check.
 EMPTY_VALUES = (None, '', [], (), {})
+
+
+def is_valid_url(url):
+    if not isinstance(url, str):
+        raise ValueError('URL needs to be a string')
+    validate = URLValidator()
+    try:
+        validate(url)
+        #pylint:disable=unused-variable
+        response = requests.get(url)
+        return True 
+    
+    except ValidationError:
+        return INVALID_URL_STRING
+    
+    except requests.ConnectionError:
+        return VALID_URL_NO_EXIST
 
 
 def punycode(domain):
