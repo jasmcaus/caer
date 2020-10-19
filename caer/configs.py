@@ -1,0 +1,9 @@
+# Configurtion Variables used in Caer
+CROP_CENTRE = 1
+CROP_TOP = 2
+CROP_LEFT = 3
+CROP_RIGHT = 4
+CROP_BOTTOM = 5
+
+VALID_URL_NO_EXIST = 0
+INVALID_URL_STRING = -1
