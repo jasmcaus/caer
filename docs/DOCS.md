@@ -14,10 +14,12 @@ For versions below 1.7.6, use `caer.__version__`.
 `caer.load_img` reads in an image from a specified filepath. 
 
 **Arguments**
-- `image_path`: Path to an image
+- `image_path`: Path to an image (filepath or URL)
 - `target_size`: Final destination size of the image. Tuple of size 2 (width, height). Specify `None` to retain original image dimensions. 
 - `channels`: 1 (convert to grayscale) or 3 (BGR/RGB). Default: 3
 - `rgb`: Boolean to decide if keep RGB (True) or BGR (False) formatting. Default: True
+- `resize_factor`: Resizes image using a specific integer/float. Default: None
+- `keep_aspect_ratio`: Resizes an image to `target_size` keeping the aspect ratio. Some parts of the image may not be included (such as margins of the image)
 ```python
 # BGR Image
 >> image = caer.load_img(path, target_size=None, channels=3, rgb=False)
