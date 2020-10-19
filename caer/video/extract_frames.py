@@ -6,7 +6,7 @@ import os
 import math
 import time
 import cv2 as cv
-from .._checks import _check_size
+from .._checks import _check_target_size
 
 _acceptable_video_formats = ('.mp4', '.avi', '.mov', '.mkv', '.webm')
 
@@ -41,7 +41,7 @@ def extract_frames(input_folder,
         raise ValueError('Input folder does not exist', input_folder)
     
     if IMG_SIZE is not None:
-        _ = _check_size(IMG_SIZE)
+        _ = _check_target_size(IMG_SIZE)
 
     if label_counter is None:
         label_counter = 0
