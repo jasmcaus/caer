@@ -40,7 +40,7 @@ def load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=N
         raise ValueError('Specify either a valid URL or valid filepath')
             
 
-    # [INFO] Using the following piece of code results in a 'None' in the training set
+    # [INFO] Using the following piece of code results in a 'None'
     # if image_array == None:
     #     pass
     if channels == 1:
