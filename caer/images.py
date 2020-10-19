@@ -7,19 +7,21 @@ import cv2 as cv
 
 from ._checks import _check_size
 from .io_disk import _read_image
-from .opencv import to_rgb
+from .opencv import to_rgb, url_to_image
+from .utils.validators import is_valid_url
 
-def load_img(image_path, target_size=None, channels=3, rgb=True):
+
+def load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=None, keep_aspect_ratio=False):
     """
         Loads in an image from `image_path`
         Arguments
-            image_path: Filepath to read the image from
+            image_path: Filepath/URL to read the image from
             target_size: Target image size
-            channels: 1 (grayscale) or 3 (RGB/BGR). Default: 1
+            channels: 1 (grayscale) or 3 (RGB/BGR). Default: 3
             rgb: Boolean to keep RGB ordering. Default: True
+            resize_factor: Resizes the image using `resize_factor`. Default: None
+            keep_aspect_ratio: Resized image to `target_size` keeping aspect ratio. Some parts of the image may be redacted. Default: False
     """
-    if not os.path.exists(image_path):
-        raise ValueError('Specified filepath does not exist')
     
     if target_size is not None:
         _ = _check_size(target_size)
@@ -30,15 +32,24 @@ def load_img(image_path, target_size=None, channels=3, rgb=True):
     if not isinstance(rgb, bool):
         raise ValueError('rgb must be a boolean')
 
-    image_array = _read_image(image_path)
+    if is_valid_url(image_path):
+        image_array = url_to_image(image_path, rgb=False)
+    
+    else:
+        if not os.path.exists(image_path):  
+            raise ValueError('Specified filepath does not exist')
+        else:
+            image_array = _read_image(image_path)
 
     # [INFO] Using the following piece of code results in a 'None' in the training set
     # if image_array == None:
     #     pass
     if channels == 1:
         image_array = cv.cvtColor(image_array, cv.COLOR_BGR2GRAY)
-    if target_size is not None and _check_size(target_size):
-        image_array = cv.resize(image_array, target_size)
+
+    if target_size is not None:
+        image_array = resize(image_array, target_size, resize_factor=resize_factor, keep_aspect_ratio=keep_aspect_ratio)
+
     if rgb:
         image_array = to_rgb(image_array)
 
@@ -79,10 +90,10 @@ def resize(image, target_size=None, resize_factor=None, keep_aspect_ratio=False,
         new_shape = (int(resize_factor * image.shape[0]), int(resize_factor * image.shape[1]))
             
     interpolation_methods = {
-        "area": cv.INTER_AREA,
-        "nearest": cv.INTER_NEAREST,
-        "bicubic": cv.INTER_CUBIC,
-        "bilinear": cv.INTER_LINEAR
+        'area': cv.INTER_AREA,
+        'nearest': cv.INTER_NEAREST,
+        'bicubic': cv.INTER_CUBIC,
+        'bilinear': cv.INTER_LINEAR
     }
     if interpolation not in interpolation_methods:
         raise ValueError('Specify a valid interpolation type - area/nearest/bicubic/bilinear')
