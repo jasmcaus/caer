@@ -50,6 +50,15 @@ from .images import resize
 from .images import center_crop 
 from .images import load_img 
 
+# Bringing in configuration variables from configs.py
+from .configs import CROP_CENTRE
+from .configs import CROP_TOP
+from .configs import CROP_LEFT
+from .configs import CROP_RIGHT 
+from .configs import CROP_BOTTOM
+from .configs import VALID_URL_NO_EXIST
+from .configs import INVALID_URL_STRING
+
 
 def get_caer_version():
     return __version__
