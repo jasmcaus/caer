@@ -5,7 +5,7 @@ import sys
 import platform
 
 # v1.7.6 cannot be used (previously deleted)
-VERSION = '1.7.5'
+VERSION = '1.7.7'
 
 # Checking if right Python version is used
 
@@ -34,7 +34,7 @@ cfg = config['metadata']
 opt = config['options']
 
 cfg_keys = 'description keywords author author_email contributors'.split()
-expected = cfg_keys + "name user git_branch license status min_python audience language dev_language".split()
+expected = cfg_keys + "name user git_branch license status audience language dev_language".split()
 for i in expected: assert i in cfg, f'Missing expected setting: {i}'
 # setup_cfg = {i:cfg[i] for i in cfg_keys}
 
