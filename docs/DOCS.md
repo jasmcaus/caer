@@ -4,8 +4,8 @@ Caer is a set of utility functions designed to help speed up your Computer Visio
 ## Get Caer Version
 Get the current version number of your `caer` installation.
 
-For versions 1.7.6 above, use either `caer.get_caer_version()` or `caer.get_version()`.
-For versions below 1.7.6, use `caer.__version__`.
+For versions 1.7.7 above, use either `caer.get_caer_version()` or `caer.get_version()`.
+For versions below 1.7.7, use `caer.__version__`.
 
 ## Get all Caer functions
 `caer.get_caer_methods()` or `caer.get_caer_functions()` will return a tuple of all the available functions in your current installation of `caer`. 
@@ -73,7 +73,7 @@ If rotation point `rotPoint` is not specified, the image will be rotated around 
 >> img_500 = caer.resize(image, dimensions=(500,500))
 ```
 
-## Edge Cascades (v1.7.6 onwards)
+## Edge Cascades (v1.7.7 onwards)
 `caer.edges()` computes the edges in an image either using 2 threshold values or the median of the image (if `use_median` = True). 
 
 Note: Median is given priority if 2 threshold values are passed and `use_median` is True
