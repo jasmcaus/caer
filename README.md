@@ -6,7 +6,7 @@ Caer is a set of utility functions designed to help speed up your Computer Visio
 [![PyPI](https://img.shields.io/pypi/v/caer?label=pypi%20package)][pypi-latest-version]
 
 [![Downloads](https://pepy.tech/badge/caer)][downloads]
-[![license](https://img.shields.io/github/license/jasmcaus/caer?color=%23db3236&label=license)][license]
+[![license](https://img.shields.io/github/license/jasmcaus/caer?label=license)][license]
 
 
 ## Installation
