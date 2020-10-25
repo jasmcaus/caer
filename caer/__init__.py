@@ -20,7 +20,6 @@ from .preprocess import sep_train
 from .preprocess import shuffle
 from .preprocess import reshape
 from .preprocess import normalize
-from .preprocess import _printTotal
 
 from .utilities import saveNumpy
 from .utilities import train_val_split
@@ -87,7 +86,6 @@ __all__ = (
     'center_crop'
     'reshape',
     'normalize',
-    '_printTotal',
     'load_img',
     'train_val_split',
     'get_classes_from_dir',
