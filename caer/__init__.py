@@ -94,7 +94,6 @@ __all__ = (
     'sort_dict',
     'plotAcc',
     'list_media',
-    '_read_image',
     'list_images',
     'list_videos',
     'listdir',
