@@ -6,12 +6,15 @@ import os
 import cv2 as cv
 
 from ._checks import _check_target_size
-from .io_disk import _read_image
 from .opencv import to_rgb, url_to_image
 from .utils.validators import is_valid_url
 
 
 def load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=None, keep_aspect_ratio=False):
+    return _load_img(image_path, target_size=target_size, channels=channels, rgb=rgb, resize_factor=resize_factor, keep_aspect_ratio=keep_aspect_ratio)
+
+
+def _load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=None, keep_aspect_ratio=False):
     """
         Loads in an image from `image_path`
         Arguments
@@ -53,6 +56,19 @@ def load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=N
         image_array = to_rgb(image_array)
 
     return image_array
+
+
+def _read_image(image_path):
+    """Reads an image located at `path` into an array.
+    Arguments:
+        path (str): Path to a valid image file in the filesystem.
+    Returns:
+        `numpy.ndarray` of size `(height, width, channels)`.
+    """
+    if not os.path.exists(image_path):
+        raise FileNotFoundError('The image file was not found')
+    
+    return cv.imread(image_path)
 
 
 def resize(image, target_size=None, resize_factor=None, keep_aspect_ratio=False, interpolation='area'):
