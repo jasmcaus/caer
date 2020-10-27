@@ -1,6 +1,21 @@
 # Caer Documentation
 Caer is a set of utility functions designed to help speed up your Computer Vision workflow. Functions inside `caer` will help reduce the number of calculation calls your code makes, ultimately making it neat, concise and readable.
 
+## Contents
+- [Caer Version](#get-caer-version)
+- [Get Caer Functions](#get-caer-functions)
+- [Load Images](#load-images)
+- [List Images in Directory](#list-image-files-from-directory)
+- [List Videos in Directory](#list-video-files-from-directory)
+- [List Media in Directory](#list-media-files-from-directory)
+- [Translation](#translation)
+- [Rotation](#rotation)
+- [Resizing](#resizing)
+- [Edge Cascades](#edge-cascades)
+- [Switch between Colour Spaces](#switch-between-colour-spaces)
+
+
+
 ## Get Caer Version
 Get the current version number of your `caer` installation.
 
