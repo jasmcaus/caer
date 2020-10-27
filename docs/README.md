@@ -1,6 +1,24 @@
 # Caer Documentation
 Caer is a set of utility functions designed to help speed up your Computer Vision workflow. Functions inside `caer` will help reduce the number of calculation calls your code makes, ultimately making it neat, concise and readable.
 
+## Overview
+- [Caer Version](#get-caer-version)
+- [Get Caer Functions](#get-all-caer-functions)
+- [Load Images](#load-images)
+- [List Images in Directory](#list-image-files-from-directory)
+- [List Videos in Directory](#list-video-files-from-directory)
+- [List Media in Directory](#list-media-files-from-directory)
+- [Translation](#translation)
+- [Rotation](#rotation)
+- [Resizing](#resizing)
+- [Edge Cascades](#edge-cascades)
+- [Switch between Colour Spaces](#switch-between-colour-spaces)
+- [Image From URL](#image-from-url)
+- [Save Lists to disk](#save-lists-to-disk)
+- [Train & Validation Split](#train-and-validation-split)
+
+
+
 ## Get Caer Version
 Get the current version number of your `caer` installation.
 
@@ -73,8 +91,8 @@ If rotation point `rotPoint` is not specified, the image will be rotated around 
 >> img_500 = caer.resize(image, dimensions=(500,500))
 ```
 
-## Edge Cascades (v1.7.7 onwards)
-`caer.edges()` computes the edges in an image either using 2 threshold values or the median of the image (if `use_median` = True). 
+## Edge Cascades
+Available v1.7.7 onwards, `caer.edges()` computes the edges in an image either using 2 threshold values or the median of the image (if `use_median` = True). 
 
 Note: Median is given priority if 2 threshold values are passed and `use_median` is True
 ```python
@@ -85,7 +103,7 @@ Note: Median is given priority if 2 threshold values are passed and `use_median`
 >> threshold_edges = caer.edges(image, 125, 180)
 ```
 
-## BGR to Other Colour Spaces
+## Switch between Colour Spaces
 Currently, `caer` supports converting an image from BGR to the RGB, Grayscale, HSV and LAB colour spaces. More colour spaces will be supported in future updates. 
 ```python
 # BGR to RGB (Useful if you use Matplotlib to display images)
@@ -99,6 +117,8 @@ Currently, `caer` supports converting an image from BGR to the RGB, Grayscale, H
 ```
 
 ## Image from URL
+***Note: `caer.load_img()` can read in images from URLs as well. This is the recommended method.***
+
 `caer.url_from_image()` reads in an image from a URL and returns it as an RGB image (if `rgb = True`) or BGR (if `rgb=False`)
 ```python
 # Returns an RGB image
@@ -107,7 +127,7 @@ Currently, `caer` supports converting an image from BGR to the RGB, Grayscale, H
 >> img_from_url_bgr = caer.url_from_image(url, rgb=False)
 ```
 
-## Save Python lists to disk
+## Save lists to disk
 `caer.saveNumpy()` saves Python lists or Numpy arrays as .npy or .npz files (extension inferred from the `base_name`)
 ```python
 >> py_list = [1,2,3,4]
