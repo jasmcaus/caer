@@ -1,7 +1,6 @@
 # Copyright (c) 2020 Jason Dsouza <jasmcaus@gmail.com>
 # Protected under the MIT License (see LICENSE)
 
-# Importing the necessary packages
 import os
 import random
 import time
