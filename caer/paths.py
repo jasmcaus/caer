@@ -1,6 +1,8 @@
 # Copyright (c) 2020 Jason Dsouza <jasmcaus@gmail.com>
 # Protected under the MIT License (see LICENSE)
 
+#pylint:disable=redefined-outer-name
+
 # Importing the necessary packages
 import os
 
@@ -186,3 +188,45 @@ def listdir(DIR, include_subdirs=False):
         else:
             print(f'[INFO] {count} files found')
 
+
+def osname():
+    return os.name
+
+
+def cwd():
+    return os.getcwd()
+
+
+def abspath(file_name):
+    return os.path.abspath(file_name)
+
+
+def chdir(path):
+    if not isinstance(path, str):
+        raise ValueError('Specify a valid path')
+    return os.chdir(path)
+
+
+def get_size(file, disp_format='bytes'):
+    if not isinstance(disp_format, str):
+        raise ValueError('display format must be a string')
+
+    if disp_format not in ['bytes', 'kb', 'mb', 'gb', 'tb', 'BYTES', 'KB', 'MB', 'GB', 'TB', 'kB', 'mB', 'tB', 'Mb', 'Kb', 'Tb', 'Gb']:
+        raise ValueError('display format needs to be either bytes/kb/mb/gb/tb')
+
+    size = os.path.getsize(file)
+
+    if disp_format == 'bytes':
+        return size 
+
+    if disp_format == 'kb':
+        return size * 1e-3
+
+    if disp_format == 'mb':
+        return size * 1e-6
+
+    if disp_format == 'gb':
+        return size * 1e-9
+
+    if disp_format == 'tb':
+        return size * 1e-12
