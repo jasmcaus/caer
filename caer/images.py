@@ -35,7 +35,7 @@ def _load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=
     if not isinstance(rgb, bool):
         raise ValueError('rgb must be a boolean')
 
-    if is_valid_url(image_path):
+    if is_valid_url(image_path) is True:
         image_array = url_to_image(image_path, rgb=False)
     elif os.path.exists(image_path):  
         image_array = _read_image(image_path)
@@ -49,7 +49,7 @@ def _load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=
     if channels == 1:
         image_array = cv.cvtColor(image_array, cv.COLOR_BGR2GRAY)
 
-    if target_size is not None:
+    if target_size is not None or resize_factor is not None:
         image_array = resize(image_array, target_size, resize_factor=resize_factor, keep_aspect_ratio=keep_aspect_ratio)
 
     if rgb:
@@ -102,13 +102,13 @@ def resize(image, target_size=None, resize_factor=None, keep_aspect_ratio=False,
         if resize_factor > 1:
             interpolation = 'bicubic'
 
-        new_shape = (int(resize_factor * image.shape[0]), int(resize_factor * image.shape[1]))
+        new_shape = (int(resize_factor * image.shape[1]), int(resize_factor * image.shape[0]))
             
     interpolation_methods = {
-        'area': cv.INTER_AREA,
-        'nearest': cv.INTER_NEAREST,
-        'bicubic': cv.INTER_CUBIC,
-        'bilinear': cv.INTER_LINEAR
+        'nearest': cv.INTER_NEAREST, # 0
+        'bilinear': cv.INTER_LINEAR, # 1
+        'bicubic': cv.INTER_CUBIC, # 2
+        'area': cv.INTER_AREA, # 3
     }
 
     if interpolation not in interpolation_methods:
