@@ -142,23 +142,50 @@ def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, get_size=
         return video_files
 
 
-def _is_extension_acceptable(file):
+def is_image(path):
+    if not isinstance(path, str):
+        raise ValueError('path must be a string')
+
+    if path.endswith(_acceptable_image_formats):
+        return True 
+
+    return False
+
+
+def is_video(path):
+    if not isinstance(path, str):
+        raise ValueError('path must be a string')
+
+    if path.endswith(_acceptable_video_formats):
+        return True 
+
+    return False
+
+
+def _is_extension_acceptable(path):
     """
         0 --> Image
         1 --> Video
     """
-    char_total = len(file)
-    # Finding the last index of '.' to grab the extension
-    try:
-        idx = file.rindex('.')
-    except ValueError:
-        return -1
-    file_ext = file[idx:char_total]
+    # char_total = len(file)
+    # # Finding the last index of '.' to grab the extension
+    # try:
+    #     idx = file.rindex('.')
+    # except ValueError:
+    #     return -1
+    # file_ext = file[idx:char_total]
 
-    if file_ext in _acceptable_image_formats:
-        return 0 
-    elif file_ext in _acceptable_video_formats:
-        return 1
+    # if file_ext in _acceptable_image_formats:
+    #     return 0 
+    # elif file_ext in _acceptable_video_formats:
+    #     return 1
+    # else:
+    #     return -1
+
+    if is_image(path):
+        return 0
+    elif is_video(path):
+        return 1 
     else:
         return -1
 
