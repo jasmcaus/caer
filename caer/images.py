@@ -164,7 +164,7 @@ def resize_with_ratio(image, target_size, keep_aspect_ratio=False):
     image = _compute_centre_crop(image, (target_w, target_w))
 
     if image.shape[:2] != target_size[:2]:
-        image = _cv2_resize(image, (target_h, target_w))
+        image = _cv2_resize(image, (target_w, target_h))
     
     return image
     
