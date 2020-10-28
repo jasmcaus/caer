@@ -1,9 +1,13 @@
-# Copyright (c) 2020 Jason Dsouza <jasmcaus@gmail.com>
-# Protected under the MIT License (see LICENSE)
+# Copyright 2020 The Caer Authors. All Rights Reserved.
+#
+# Licensed under the MIT License (see LICENSE);
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at <https://opensource.org/licenses/MIT>
+#
+# ==============================================================================
 
 #pylint:disable=pointless-string-statement
 
-# Importing the necessary packages
 import cv2 as cv
 import os 
 from .._checks import _check_mean_sub_values
