@@ -230,3 +230,7 @@ def get_size(file, disp_format='bytes'):
 
     if disp_format == 'tb':
         return size * 1e-12
+
+
+def minijoin(file1, file2):
+    return os.path.join(file1, file2)
