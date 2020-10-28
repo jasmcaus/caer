@@ -31,6 +31,8 @@ from .paths import list_media
 from .paths import list_images
 from .paths import list_videos
 from .paths import listdir
+from .paths import is_image
+from .paths import is_video
 from .paths import cwd
 from .paths import get_size
 from .paths import abspath
@@ -100,6 +102,8 @@ __all__ = (
     'list_media',
     'list_images',
     'list_videos',
+    'is_image',
+    'is_video'
     'listdir',
     'cwd',
     'minijoin',
