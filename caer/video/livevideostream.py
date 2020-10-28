@@ -3,7 +3,6 @@
 
 #pylint:disable=no-member,pointless-string-statement
 
-# Importing the necessary packages
 from threading import Thread
 import math
 import cv2 as cv
