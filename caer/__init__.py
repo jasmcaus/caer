@@ -36,6 +36,7 @@ from .paths import get_size
 from .paths import abspath
 from .paths import osname
 from .paths import chdir
+from .paths import minijoin
 
 from .opencv import get_opencv_version
 from .opencv import to_gray
@@ -101,6 +102,7 @@ __all__ = (
     'list_videos',
     'listdir',
     'cwd',
+    'minijoin',
     'get_size',
     'chdir',
     'osname',
