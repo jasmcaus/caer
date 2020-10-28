@@ -6,12 +6,15 @@ import os
 import cv2 as cv
 
 from ._checks import _check_target_size
-from .io_disk import _read_image
 from .opencv import to_rgb, url_to_image
 from .utils.validators import is_valid_url
 
 
 def load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=None, keep_aspect_ratio=False):
+    return _load_img(image_path, target_size=target_size, channels=channels, rgb=rgb, resize_factor=resize_factor, keep_aspect_ratio=keep_aspect_ratio)
+
+
+def _load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=None, keep_aspect_ratio=False):
     """
         Loads in an image from `image_path`
         Arguments
@@ -32,7 +35,7 @@ def load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=N
     if not isinstance(rgb, bool):
         raise ValueError('rgb must be a boolean')
 
-    if is_valid_url(image_path):
+    if is_valid_url(image_path) is True:
         image_array = url_to_image(image_path, rgb=False)
     elif os.path.exists(image_path):  
         image_array = _read_image(image_path)
@@ -46,13 +49,26 @@ def load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=N
     if channels == 1:
         image_array = cv.cvtColor(image_array, cv.COLOR_BGR2GRAY)
 
-    if target_size is not None:
+    if target_size is not None or resize_factor is not None:
         image_array = resize(image_array, target_size, resize_factor=resize_factor, keep_aspect_ratio=keep_aspect_ratio)
 
     if rgb:
         image_array = to_rgb(image_array)
 
     return image_array
+
+
+def _read_image(image_path):
+    """Reads an image located at `path` into an array.
+    Arguments:
+        path (str): Path to a valid image file in the filesystem.
+    Returns:
+        `numpy.ndarray` of size `(height, width, channels)`.
+    """
+    if not os.path.exists(image_path):
+        raise FileNotFoundError('The image file was not found')
+    
+    return cv.imread(image_path)
 
 
 def resize(image, target_size=None, resize_factor=None, keep_aspect_ratio=False, interpolation='area'):
@@ -86,13 +102,13 @@ def resize(image, target_size=None, resize_factor=None, keep_aspect_ratio=False,
         if resize_factor > 1:
             interpolation = 'bicubic'
 
-        new_shape = (int(resize_factor * image.shape[0]), int(resize_factor * image.shape[1]))
+        new_shape = (int(resize_factor * image.shape[1]), int(resize_factor * image.shape[0]))
             
     interpolation_methods = {
-        'area': cv.INTER_AREA,
-        'nearest': cv.INTER_NEAREST,
-        'bicubic': cv.INTER_CUBIC,
-        'bilinear': cv.INTER_LINEAR
+        'nearest': cv.INTER_NEAREST, # 0
+        'bilinear': cv.INTER_LINEAR, # 1
+        'bicubic': cv.INTER_CUBIC, # 2
+        'area': cv.INTER_AREA, # 3
     }
 
     if interpolation not in interpolation_methods:
@@ -112,12 +128,12 @@ def _cv2_resize(image, target_size, interpolation=None):
     """
     _ = _check_target_size(target_size)
 
-    height, width = target_size[:2]
+    width, height = target_size[:2]
 
     if interpolation is None:
         interpolation = cv.INTER_AREA
 
-    dimensions = (height, width)
+    dimensions = (width, height)
 
     return cv.resize(image, dimensions, interpolation=interpolation)
 
@@ -136,6 +152,9 @@ def resize_with_ratio(image, target_size, keep_aspect_ratio=False):
     org_h, org_w = image.shape[:2]
     target_w, target_h = target_size
 
+    if target_h > org_h or target_w > org_w:
+        raise ValueError('To compute resizing keeping the aspect ratio, the target size dimensions must be <= actual image dimensions')
+
     # Computing minimal resize
     # min_width, w_factor = _compute_minimal_resize(org_w, target_w)
     # min_height, h_factor = _compute_minimal_resize(org_h, target_h)
@@ -145,10 +164,10 @@ def resize_with_ratio(image, target_size, keep_aspect_ratio=False):
     image = _cv2_resize(image, (image.shape[1]//minimal_resize_factor, image.shape[0]//minimal_resize_factor))
 
     # Computing centre crop (to avoid extra crop, we resize minimally first)
-    image = _compute_centre_crop(image, (target_w, target_w))
+    image = _compute_centre_crop(image, (target_w, target_h))
 
     if image.shape[:2] != target_size[:2]:
-        image = _cv2_resize(image, (target_h, target_w))
+        image = _cv2_resize(image, (target_w, target_h))
     
     return image
     
@@ -174,7 +193,7 @@ def _compute_minimal_resize(org_size, target_dim):
         raise ValueError('Size of tuple must be = 2')
 
     org_h, org_w = org_size[:2]
-    targ_h, targ_w = target_dim[:2]
+    targ_w, targ_h = target_dim[:2]
 
     h_factor = math.floor(org_h/targ_h)
     w_factor = math.floor(org_w/targ_w)
@@ -194,9 +213,14 @@ def center_crop(image, target_size=None):
 
 def _compute_centre_crop(image, target_size):
     _ = _check_target_size(target_size)
+
     # Getting org height and target
-    org_h, org_w = image.shape[:2]
+    org_w, org_h = image.shape[:2]
     target_w, target_h = target_size
+
+    # The following line is actually the right way of accessing height and width of an opencv-specific image (height, width). However for some reason, while the code runs, this is flipped (it now becomes (width,height)). Testing needs to be done to catch this little bug
+    # org_h, org_w = image.shape[:2]
+
 
     if target_h > org_h or target_w > org_w:
         raise ValueError('To compute centre crop, target size dimensions must be <= image dimensions')

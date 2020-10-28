@@ -1,6 +1,8 @@
 # Copyright (c) 2020 Jason Dsouza <jasmcaus@gmail.com>
 # Protected under the MIT License (see LICENSE)
 
+#pylint:disable=redefined-outer-name
+
 # Importing the necessary packages
 import os
 
@@ -140,23 +142,50 @@ def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, get_size=
         return video_files
 
 
-def _is_extension_acceptable(file):
+def is_image(path):
+    if not isinstance(path, str):
+        raise ValueError('path must be a string')
+
+    if path.endswith(_acceptable_image_formats):
+        return True 
+
+    return False
+
+
+def is_video(path):
+    if not isinstance(path, str):
+        raise ValueError('path must be a string')
+
+    if path.endswith(_acceptable_video_formats):
+        return True 
+
+    return False
+
+
+def _is_extension_acceptable(path):
     """
         0 --> Image
         1 --> Video
     """
-    char_total = len(file)
-    # Finding the last index of '.' to grab the extension
-    try:
-        idx = file.rindex('.')
-    except ValueError:
-        return -1
-    file_ext = file[idx:char_total]
+    # char_total = len(file)
+    # # Finding the last index of '.' to grab the extension
+    # try:
+    #     idx = file.rindex('.')
+    # except ValueError:
+    #     return -1
+    # file_ext = file[idx:char_total]
 
-    if file_ext in _acceptable_image_formats:
-        return 0 
-    elif file_ext in _acceptable_video_formats:
-        return 1
+    # if file_ext in _acceptable_image_formats:
+    #     return 0 
+    # elif file_ext in _acceptable_video_formats:
+    #     return 1
+    # else:
+    #     return -1
+
+    if is_image(path):
+        return 0
+    elif is_video(path):
+        return 1 
     else:
         return -1
 
@@ -186,3 +215,49 @@ def listdir(DIR, include_subdirs=False):
         else:
             print(f'[INFO] {count} files found')
 
+
+def osname():
+    return os.name
+
+
+def cwd():
+    return os.getcwd()
+
+
+def abspath(file_name):
+    return os.path.abspath(file_name)
+
+
+def chdir(path):
+    if not isinstance(path, str):
+        raise ValueError('Specify a valid path')
+    return os.chdir(path)
+
+
+def get_size(file, disp_format='bytes'):
+    if not isinstance(disp_format, str):
+        raise ValueError('display format must be a string')
+
+    if disp_format not in ['bytes', 'kb', 'mb', 'gb', 'tb', 'BYTES', 'KB', 'MB', 'GB', 'TB', 'kB', 'mB', 'tB', 'Mb', 'Kb', 'Tb', 'Gb']:
+        raise ValueError('display format needs to be either bytes/kb/mb/gb/tb')
+
+    size = os.path.getsize(file)
+
+    if disp_format == 'bytes':
+        return size 
+
+    if disp_format == 'kb':
+        return size * 1e-3
+
+    if disp_format == 'mb':
+        return size * 1e-6
+
+    if disp_format == 'gb':
+        return size * 1e-9
+
+    if disp_format == 'tb':
+        return size * 1e-12
+
+
+def minijoin(file1, file2):
+    return os.path.join(file1, file2)

@@ -1,148 +1,144 @@
 # Copyright (c) 2020 Jason Dsouza <jasmcaus@gmail.com>
 # Protected under the MIT License (see LICENSE)
 
-from .._checks import _check_target_size
 from ..images import load_img 
+from ..paths import abspath, minijoin
+from .._base import __curr__ 
+
+here = minijoin(__curr__, 'data').replace('\\', "/") + "/"
 
 
-def bird(target_size=None):
-    return load_img('.bird.jpg', target_size=target_size)
+def audio_mixer(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
+    return load_img(here+'audio_mixer.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
 
-def blue_siamese(target_size=None):
-    return load_img('blue_siamese.jpg', target_size=target_size)
+def bear(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
+    return load_img(here+'bear.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
 
-def camera(target_size=None):
-    return load_img('camera.jpg', target_size=target_size)
+def beverages(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
+    return load_img(here+'beverages.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
 
-def candles(target_size=None):
-    return load_img('candles.jpg', target_size=target_size)
+def black_cat(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
+    return load_img(here+'black_cat.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
 
-def coast(target_size=None):
-    return load_img('coast.jpg', target_size=target_size)
+def blue_tang(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
+    return load_img(here+'blue_tang.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
 
-def controller(target_size=None):
-    return load_img('controller.jpg', target_size=target_size)
+def camera(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
+    return load_img(here+'camera.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
 
-def cycle(target_size=None):
-    return load_img('cycle.jpg', target_size=target_size)
+def controller(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
+    return load_img(here+'controller.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
 
-def fish(target_size=None):
-    return load_img('fish.jpg', target_size=target_size)
+def drone(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
+    return load_img(here+'drone.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
 
-def gold_fish(target_size=None):
-    return load_img('gold_fish.jpg', target_size=target_size)
+def fighter_fish(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
+    return load_img(here+'fighter_fish.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
 
-def jellyfish(target_size=None):
-    return load_img('jellyfish.jpg', target_size=target_size)
+def gold_fish(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
+    return load_img(here+'gold_fish.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
 
-def keyboard(target_size=None):
-    return load_img('keyboard.jpg', target_size=target_size)
+def green_controller(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
+    return load_img(here+'green_controller.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
 
-def lantern(target_size=None):
-    return load_img('lantern.jpg', target_size=target_size)
+def green_fish(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
+    return load_img(here+'green_fish.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
 
-def laptop(target_size=None):
-    return load_img('laptop.jpg', target_size=target_size)
+def guitar(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
+    return load_img(here+'guitar.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
 
-def lighthouse(target_size=None):
-    return load_img('lighthouse.jpg', target_size=target_size)
+def island(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
+    return load_img(here+'island.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
 
-def lights(target_size=None):
-    return load_img('lights.jpg', target_size=target_size)
+def jellyfish(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
+    return load_img(here+'jellyfish.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
 
-def maple(target_size=None):
-    return load_img('maple.jpg', target_size=target_size)
+def laptop(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
+    return load_img(here+'laptop.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
 
-def mountain(target_size=None):
-    return load_img('mountain.jpg', target_size=target_size)
+def mountain(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
+    return load_img(here+'mountain.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
 
-def night_tent(target_size=None):
-    return load_img('night_tent.jpg', target_size=target_size)
+def puppies(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
+    return load_img(here+'puppies.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
 
-def night(target_size=None):
-    return load_img('night.jpg', target_size=target_size)
+def puppy(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
+    return load_img(here+'puppy.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
 
-def phone(target_size=None):
-    return load_img('phone.jpg', target_size=target_size)
+def red_fish(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
+    return load_img(here+'red_fish.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
 
-def red_fish(target_size=None):
-    return load_img('red_fish.jpg', target_size=target_size)
+def phone(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
+    return load_img(here+'rotary_phone.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
 
-def sea(target_size=None):
-    return load_img('sea.jpg', target_size=target_size)
+def sea_turtle(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
+    return load_img(here+'sea_turtle.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
 
-def snow(target_size=None):
-    return load_img('snow.jpg', target_size=target_size)
+def snow(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
+    return load_img(here+'snow.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
+
+def snowflake(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
+    return load_img(here+'snowflake.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
 
-def squirrel(target_size=None):
-    return load_img('snow.jpg', target_size=target_size)
+def sunrise(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
+    return load_img(here+'sunrise.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
 
-def statue(target_size=None):
-    return load_img('statue.jpg', target_size=target_size)
+def tent(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
+    return load_img(here+'tent.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
 
-def tent(target_size=None):
-    return load_img('tent.jpg', target_size=target_size)
-
-
-def venice(target_size=None):
-    return load_img('venice.jpg', target_size=target_size)
-
-
-def whale(target_size=None):
-    return load_img('whale.jpg', target_size=target_size)
 
 __all__ = (
-    'bird',
-    'blue_siamese',
+    'audio_mixer',
+    'bear',
+    'beverages',
+    'black_cat',
+    'blue_tang',
     'camera',
-    'candles',
-    'coast',
     'controller',
-    'cycle',
-    'fish',
+    'drone',
+    'dusk',
+    'fighter_fish',
     'gold_fish',
+    'green_controller',
+    'green_fish',
+    'guitar',
+    'island',
     'jellyfish',
-    'keyboard',
-    'lantern',
     'laptop',
-    'lighthouse',
-    'lights',
-    'maple',
     'mountain',
-    'night_tent',
     'night',
-    'phone',
+    'puppies',
+    'puppy',
     'red_fish',
-    'sea',
+    'phone',
+    'sea_turtle',
     'snow',
-    'squirrel',
-    'statue',
-    'tent',
-    'venice',
-    'whale'
+    'snow_turtle',
+    'sunrise',
+    'tent'
 )
