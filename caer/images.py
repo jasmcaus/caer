@@ -128,12 +128,12 @@ def _cv2_resize(image, target_size, interpolation=None):
     """
     _ = _check_target_size(target_size)
 
-    height, width = target_size[:2]
+    width, height = target_size[:2]
 
     if interpolation is None:
         interpolation = cv.INTER_AREA
 
-    dimensions = (height, width)
+    dimensions = (width, height)
 
     return cv.resize(image, dimensions, interpolation=interpolation)
 
@@ -190,7 +190,7 @@ def _compute_minimal_resize(org_size, target_dim):
         raise ValueError('Size of tuple must be = 2')
 
     org_h, org_w = org_size[:2]
-    targ_h, targ_w = target_dim[:2]
+    targ_w, targ_h = target_dim[:2]
 
     h_factor = math.floor(org_h/targ_h)
     w_factor = math.floor(org_w/targ_w)
@@ -210,6 +210,7 @@ def center_crop(image, target_size=None):
 
 def _compute_centre_crop(image, target_size):
     _ = _check_target_size(target_size)
+    
     # Getting org height and target
     org_h, org_w = image.shape[:2]
     target_w, target_h = target_size
