@@ -11,18 +11,22 @@ VERSION = '1.7.7'
 # Checking if right Python version is used
 
 min_version = (3, 6, 1)
-max_version = (3, 9, 0)
+# max_version = (3, 9, 0)
 
-def is_right_py_version(min_py_version, max_py_version):
+# def is_right_py_version(min_py_version, max_py_version):
+def is_right_py_version(min_py_version):
     python_min_version_str = '.'.join((str(num) for num in min_py_version))
-    python_max_version_str = '.'.join((str(num) for num in max_py_version))
-    if sys.version_info < min_py_version or sys.version_info >= max_py_version:
-        no_go = 'You are using Python {}. Python >={},<{} is required.'.format(platform.python_version(), python_min_version_str, python_max_version_str)
+    # python_max_version_str = '.'.join((str(num) for num in max_py_version))
+    # if sys.version_info < min_py_version or sys.version_info >= max_py_version:
+    if sys.version_info < min_py_version:
+        # no_go = 'You are using Python {}. Python >={},<{} is required.'.format(platform.python_version(), python_min_version_str, python_max_version_str)
+        no_go = 'You are using Python {}. Python >={} is required.'.format(platform.python_version(), python_min_version_str)
         sys.stderr.write(no_go)
         return False
     return True
 
-if not is_right_py_version(min_version, max_version):
+# if not is_right_py_version(min_version, max_version):
+if not is_right_py_version(min_version):
     sys.exit(-1)
 
 
