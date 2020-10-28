@@ -7,7 +7,6 @@ import platform
 # v1.7.6 cannot be used (previously deleted)
 VERSION = '1.7.8'
 
-
 # Checking if right Python version is used
 
 min_version = (3, 6, 1)
