@@ -10,7 +10,6 @@ from urllib.parse import urlsplit, urlunsplit
 from importlib import import_module
 
 from .exceptions import ValidationError
-from .version import get_docs_version 
 from ..configs import INVALID_URL_STRING, VALID_URL_NO_EXIST
 
 # These values, if given to validate(), will trigger the self.required check.
@@ -269,9 +268,7 @@ def deconstructible(*args, path=None):
                     "Please note that you cannot serialize things like inner "
                     "classes. Please move the object into the main module "
                     "body to use migrations.\n"
-                    "For more information, see "
-                    "https://docs.djangoproject.com/en/%s/topics/migrations/#serializing-values"
-                    % (name, module_name, get_docs_version()))
+                    % (name, module_name))
             return (
                 path or '%s.%s' % (obj.__class__.__module__, name),
                 obj._constructor_args[0],

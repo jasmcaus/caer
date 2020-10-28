@@ -20,7 +20,6 @@ from .preprocess import sep_train
 from .preprocess import shuffle
 from .preprocess import reshape
 from .preprocess import normalize
-from .preprocess import _printTotal
 
 from .utilities import saveNumpy
 from .utilities import train_val_split
@@ -32,6 +31,14 @@ from .paths import list_media
 from .paths import list_images
 from .paths import list_videos
 from .paths import listdir
+from .paths import is_image
+from .paths import is_video
+from .paths import cwd
+from .paths import get_size
+from .paths import abspath
+from .paths import osname
+from .paths import chdir
+from .paths import minijoin
 
 from .opencv import get_opencv_version
 from .opencv import to_gray
@@ -87,17 +94,23 @@ __all__ = (
     'center_crop'
     'reshape',
     'normalize',
-    '_printTotal',
     'load_img',
     'train_val_split',
     'get_classes_from_dir',
     'sort_dict',
     'plotAcc',
     'list_media',
-    '_read_image',
     'list_images',
     'list_videos',
+    'is_image',
+    'is_video'
     'listdir',
+    'cwd',
+    'minijoin',
+    'get_size',
+    'chdir',
+    'osname',
+    'abspath',
     'get_opencv_version',
     'get_caer_version',
     'get_caer_functions',
