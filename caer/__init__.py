@@ -31,6 +31,11 @@ from .paths import list_media
 from .paths import list_images
 from .paths import list_videos
 from .paths import listdir
+from .paths import cwd
+from .paths import get_size
+from .paths import abspath
+from .paths import osname
+from .paths import chdir
 
 from .opencv import get_opencv_version
 from .opencv import to_gray
