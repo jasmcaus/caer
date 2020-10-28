@@ -1,12 +1,15 @@
 # Copyright (c) 2020 Jason Dsouza <jasmcaus@gmail.com>
 # Protected under the MIT License (see LICENSE)
 
-from .._checks import _check_target_size
 from ..images import load_img 
+from ..paths import abspath, minijoin
+from .._base import __curr__ 
+
+here = minijoin(__curr__, 'data').replace('\\', "/") + "/"
 
 
 def bird(target_size=None):
-    return load_img('.bird.jpg', target_size=target_size)
+    return load_img(here+'bird.jpg', target_size=target_size)
 
 
 def blue_siamese(target_size=None):
