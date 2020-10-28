@@ -3,7 +3,6 @@
 
 #pylint:disable=redefined-outer-name
 
-# Importing the necessary packages
 import os
 
 _acceptable_video_formats = ('.mp4', '.avi', '.mov', '.mkv', '.webm')
