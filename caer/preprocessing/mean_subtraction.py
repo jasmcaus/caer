@@ -3,7 +3,6 @@
 
 #pylint:disable=pointless-string-statement
 
-# Importing the necessary packages
 import cv2 as cv
 import os 
 from .._checks import _check_mean_sub_values
