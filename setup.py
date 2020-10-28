@@ -7,7 +7,6 @@ import platform
 # v1.7.6 cannot be used (previously deleted)
 VERSION = '1.7.8'
 
-
 # Checking if right Python version is used
 
 min_version = (3, 6, 1)
@@ -61,7 +60,7 @@ REQUIREMENTS = [i for i in opt['pip_requirements'].split(', ')]
 CLASSIFIERS = [i for i in cfg['classifiers'].split('\n')][1:]
 PYTHON_REQUIRES = '>=' + opt['min_python']
 EXTRAS={
-        'canaro': 'canaro>=1.0.3'
+        'canaro': 'canaro>=1.0.6'
 }
 STATUSES = [ 
     '1 - Planning', 
