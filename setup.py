@@ -61,7 +61,7 @@ REQUIREMENTS = [i for i in opt['pip_requirements'].split(', ')]
 CLASSIFIERS = [i for i in cfg['classifiers'].split('\n')][1:]
 PYTHON_REQUIRES = '>=' + opt['min_python']
 EXTRAS={
-        'canaro': 'canaro>=1.0.3'
+        'canaro': 'canaro>=1.0.6'
 }
 STATUSES = [ 
     '1 - Planning', 
