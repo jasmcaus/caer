@@ -40,10 +40,10 @@ You can run the following to verify things installed correctly:
 
 ## Resources
 
-- **Homepage:** <https://github.com/jasmcaus/caer>
-- **PyPi:** <https://pypi.org/project/caer>
-- **Documentation:** <https://github.com/jasmcaus/caer/blob/master/docs/DOCS.md>
-- **Issue tracking:** <https://github.com/jasmcaus/caer/issues>
+- [**Homepage**](https://github.com/jasmcaus/caer)
+- [**PyPi**](https://pypi.org/project/caer)
+- [**Documentation**](https://github.com/jasmcaus/caer/blob/master/docs/README.md)
+- [**Issue tracking**](https://github.com/jasmcaus/caer/issues)
 
 ## Contributing
 
@@ -61,7 +61,7 @@ Current contributors can be viewed either from the [Contributors][contributors] 
 Caer is released under the [MIT License](https://github.com/jasmcaus/caer/blob/master/LICENSE).
 
 [contributing]: https://github.com/jasmcaus/caer/blob/master/.github/CONTRIBUTING.md
-[docs]: https://github.com/jasmcaus/caer/blob/master'docs/DOCS.md
+[docs]: https://github.com/jasmcaus/caer/blob/master/docs/README.md
 [contributors]: https://github.com/jasmcaus/caer/blob/master/CONTRIBUTORS
 [issues]: https://github.com/jasmcaus/caer/issues
 [install]: https://github.com/jasmcaus/caer/blob/master/INSTALL.md
