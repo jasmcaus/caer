@@ -40,10 +40,10 @@ You can run the following to verify things installed correctly:
 
 ## Resources
 
-- [**Homepage:**](https://github.com/jasmcaus/caer)
-- [**PyPi:**](https://pypi.org/project/caer)
-- [**Documentation:**](https://github.com/jasmcaus/caer/blob/master/docs/README.md)
-- [**Issue tracking:**](https://github.com/jasmcaus/caer/issues)
+- [**Homepage**](https://github.com/jasmcaus/caer)
+- [**PyPi**](https://pypi.org/project/caer)
+- [**Documentation**](https://github.com/jasmcaus/caer/blob/master/docs/README.md)
+- [**Issue tracking**](https://github.com/jasmcaus/caer/issues)
 
 ## Contributing
 
