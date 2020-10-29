@@ -46,6 +46,8 @@ from .opencv import edges
 from .visualizations import hex_to_rgb
 from .visualizations import draw_rectangle
 
+from .time import now
+
 from .images import resize 
 from .images import center_crop 
 from .images import load_img 
