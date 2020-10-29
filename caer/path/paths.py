@@ -15,7 +15,7 @@ _acceptable_image_formats = ('.jpg', '.jpeg', '.png', '.bmp', '.tif', '.tiff')
 
 
 
-def list_images(DIR, include_subdirs=True, use_fullpath=False, show_size=False):
+def list_images(DIR, include_subdirs=True, use_fullpath=False, show_size=False, verbose=1):
     """
         Lists all image files within a specific directory (and sub-directories if `include_subdirs=True`)
         :param DIR: Directory to search for image files
@@ -24,12 +24,12 @@ def list_images(DIR, include_subdirs=True, use_fullpath=False, show_size=False):
         :param show_size: Returns size of the listed videos
         :return image_files: --> List of names (or full filepaths if `use_fullpath=True`) of the image files
     """
-    images = _get_media_from_dir(DIR=DIR, include_subdirs=include_subdirs, use_fullpath=use_fullpath, show_size=show_size, list_image_files=True)
+    images = _get_media_from_dir(DIR=DIR, include_subdirs=include_subdirs, use_fullpath=use_fullpath, show_size=show_size, list_image_files=True, verbose=verbose)
     if images is not None:   
         return images # images is a list
 
 
-def list_videos(DIR, include_subdirs=True, use_fullpath=False, show_size=False):
+def list_videos(DIR, include_subdirs=True, use_fullpath=False, show_size=False, verbose=1):
     """
         Lists all video files within a specific directory (and sub-directories if `include_subdirs=True`)
         DIR -> Directory to search for video files
@@ -38,12 +38,12 @@ def list_videos(DIR, include_subdirs=True, use_fullpath=False, show_size=False):
         :param show_size: Returns size of the listed videos
         :return video_files: List of names (or full filepaths if `use_fullpath=True`) of the video files
     """
-    videos = _get_media_from_dir(DIR=DIR, include_subdirs=include_subdirs, use_fullpath=use_fullpath, show_size=show_size, list_video_files=True)
+    videos = _get_media_from_dir(DIR=DIR, include_subdirs=include_subdirs, use_fullpath=use_fullpath, show_size=show_size, list_video_files=True, verbose=verbose)
     if videos is not None:   
         return videos # videos is a list
 
 
-def list_media(DIR, include_subdirs=True, use_fullpath=False, show_size=True):
+def list_media(DIR, include_subdirs=True, use_fullpath=False, show_size=True, verbose=1):
     """
         Lists all media files within a specific directory (and sub-directories if `include_subdirs=True`)
         :param DIR: Directory to search for media files
@@ -52,12 +52,12 @@ def list_media(DIR, include_subdirs=True, use_fullpath=False, show_size=True):
         :param show_size: Returns size of the listed media
         :return media_files: --> List of names (or full filepaths if `use_fullpath=True`) of the media files
     """
-    media = _get_media_from_dir(DIR=DIR, include_subdirs=include_subdirs, use_fullpath=use_fullpath, show_size=show_size, list_image_files=True, list_video_files=True)
+    media = _get_media_from_dir(DIR=DIR, include_subdirs=include_subdirs, use_fullpath=use_fullpath, show_size=show_size, list_image_files=True, list_video_files=True, verbose=verbose)
     if media is not None:   
         return media # media is a list
 
 
-def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, show_size=True,  list_image_files=False, list_video_files=False):
+def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, show_size=True,  list_image_files=False, list_video_files=False, verbose=1):
     """
         Lists all video files within a specific directory (and sub-directories if `include_subdirs=True`)
         :param DIR:  Directory to search for video files
@@ -102,7 +102,7 @@ def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, show_size
 
     else:
         for file in os.listdir(DIR):
-            fullpath = minijoin(root, file).replace('\\', '/')
+            fullpath = minijoin(DIR, file).replace('\\', '/')
             decider = _is_extension_acceptable(file)
                 
             if decider == -1:
@@ -126,33 +126,36 @@ def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, show_size
     count_image_list = len(image_files)
     count_video_list = len(video_files)
 
-    if count_image_list == 0 and count_video_list == 0:
+    if count_image_list != 0 and count_video_list != 0:
         if list_media_files:
-            tot_count = count_image_list + count_video_list
-            print(f'[INFO] {tot_count} files found')
-            if show_size:
-                tot_size = size_image_list + size_video_list
-                print('[INFO] Total disk size of media files were {:.2f}Mb '.format(tot_size))
+            if verbose != 0:
+                tot_count = count_image_list + count_video_list
+                print(f'[INFO] {tot_count} files found')
+                if show_size:
+                    tot_size = size_image_list + size_video_list
+                    print('[INFO] Total disk size of media files were {:.2f}Mb '.format(tot_size))
             media_files = image_files + video_files
             return media_files
 
         elif list_image_files:
-            print(f'[INFO] {count_image_list} images found')
-            if show_size:
-                print('[INFO] Total disk size of media files were {:.2f}Mb '.format(size_image_list))
+            if verbose != 0:
+                print(f'[INFO] {count_image_list} images found')
+                if show_size:
+                    print('[INFO] Total disk size of media files were {:.2f}Mb '.format(size_image_list))
             return image_files
 
         elif list_video_files:
-            print(f'[INFO] {count_video_list} videos found')
-            if show_size:
-                print('[INFO] Total disk size of videos were {:.2f}Mb '.format(size_video_list))
+            if verbose != 0:
+                print(f'[INFO] {count_video_list} videos found')
+                if show_size:
+                    print('[INFO] Total disk size of videos were {:.2f}Mb '.format(size_video_list))
             return video_files
     
     else:
-        print('[INFO] No media files were found')
+        print('[ERROR] No media files were found')
 
 
-def listdir(DIR, include_subdirs=True, use_fullpath=False, show_size=True):
+def listdir(DIR, include_subdirs=True, use_fullpath=False, show_size=True, verbose=1):
     """
         Lists all video files within a specific directory (and sub-directories if `include_subdirs=True`)
         :param DIR:  Directory to search for video files
@@ -194,14 +197,15 @@ def listdir(DIR, include_subdirs=True, use_fullpath=False, show_size=True):
             else:
                 dirs.append(file)
 
-    count_files = len(dirs)
-    if count_files == 1:
-        print(f'[INFO] {count_files} file found')
-    else:
-        print(f'[INFO] {count_files} files found')
+    if verbose != 0:
+        count_files = len(dirs)
+        if count_files == 1:
+            print(f'[INFO] {count_files} file found')
+        else:
+            print(f'[INFO] {count_files} files found')
 
-    if show_size:
-        print('[INFO] Total disk size of files were {:.2f}Mb '.format(size_dirs_list))
+        if show_size:
+            print('[INFO] Total disk size of files were {:.2f}Mb '.format(size_dirs_list))
 
     return dirs
 
