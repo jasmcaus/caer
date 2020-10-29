@@ -1,3 +1,0 @@
-numpy
-opencv-contrib-python
-requests
