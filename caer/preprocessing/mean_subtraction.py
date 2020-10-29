@@ -10,7 +10,9 @@
 
 import cv2 as cv
 import os 
+
 from .._checks import _check_mean_sub_values
+from ..path import exists
 
 """
     Important notes:
@@ -56,7 +58,7 @@ def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True):
         Computes mean per channel
         Mean must be computed ONLY on the train set
     """
-    if os.path.exists(DIR) is False:
+    if exists(DIR) is False:
         raise ValueError('The specified directory does not exist', DIR)
 
     if channels == 3:

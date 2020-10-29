@@ -7,13 +7,12 @@
 # ==============================================================================
 
 import math 
-import os 
 import cv2 as cv
 
 from ._checks import _check_target_size
 from .opencv import to_rgb, url_to_image
 from .utils.validators import is_valid_url
-
+from .path import exists
 
 def load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=None, keep_aspect_ratio=False):
     return _load_img(image_path, target_size=target_size, channels=channels, rgb=rgb, resize_factor=resize_factor, keep_aspect_ratio=keep_aspect_ratio)
@@ -42,7 +41,7 @@ def _load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=
 
     if is_valid_url(image_path) is True:
         image_array = url_to_image(image_path, rgb=False)
-    elif os.path.exists(image_path):  
+    elif exists(image_path):  
         image_array = _read_image(image_path)
     else:
         raise ValueError('Specify either a valid URL or valid filepath')
@@ -70,7 +69,7 @@ def _read_image(image_path):
     Returns:
         `numpy.ndarray` of size `(height, width, channels)`.
     """
-    if not os.path.exists(image_path):
+    if not exists(image_path):
         raise FileNotFoundError('The image file was not found')
     
     return cv.imread(image_path)
