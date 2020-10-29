@@ -21,7 +21,7 @@ def list_images(DIR, include_subdirs=True, use_fullpath=False, show_size=False, 
         :param DIR: Directory to search for image files
         :param include_subdirs: Boolean to indicate whether to search all subdirectories as well
         :param use_fullpath: Boolean that specifies whether to include full filepaths in the returned list
-        :param show_size: Returns size of the listed videos
+        :param show_size: Boolean that specifies whether to print the disk size of the image files
         :return image_files: --> List of names (or full filepaths if `use_fullpath=True`) of the image files
     """
     images = _get_media_from_dir(DIR=DIR, include_subdirs=include_subdirs, use_fullpath=use_fullpath, show_size=show_size, list_image_files=True, verbose=verbose)
@@ -35,7 +35,7 @@ def list_videos(DIR, include_subdirs=True, use_fullpath=False, show_size=False, 
         DIR -> Directory to search for video files
         :param include_subdirs: Boolean to indicate whether to search all subdirectories as well
         :param use_fullpath: Boolean that specifies whether to include full filepaths in the returned list
-        :param show_size: Returns size of the listed videos
+        :param show_size: Boolean that specifies whether to print the disk size of the video files
         :return video_files: List of names (or full filepaths if `use_fullpath=True`) of the video files
     """
     videos = _get_media_from_dir(DIR=DIR, include_subdirs=include_subdirs, use_fullpath=use_fullpath, show_size=show_size, list_video_files=True, verbose=verbose)
@@ -49,7 +49,7 @@ def list_media(DIR, include_subdirs=True, use_fullpath=False, show_size=True, ve
         :param DIR: Directory to search for media files
         :param include_subdirs: Boolean to indicate whether to search all subdirectories as well
         :param use_fullpath: Boolean that specifies whether to include full filepaths in the returned list
-        :param show_size: Returns size of the listed media
+        :param show_size: Boolean that specifies whether to print the disk size of the media files
         :return media_files: --> List of names (or full filepaths if `use_fullpath=True`) of the media files
     """
     media = _get_media_from_dir(DIR=DIR, include_subdirs=include_subdirs, use_fullpath=use_fullpath, show_size=show_size, list_image_files=True, list_video_files=True, verbose=verbose)
@@ -59,11 +59,12 @@ def list_media(DIR, include_subdirs=True, use_fullpath=False, show_size=True, ve
 
 def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, show_size=True,  list_image_files=False, list_video_files=False, verbose=1):
     """
-        Lists all video files within a specific directory (and sub-directories if `include_subdirs=True`)
-        :param DIR:  Directory to search for video files
+        Lists all media files within a specific directory (and sub-directories if `include_subdirs=True`)
+        :param DIR:  Directory to search for media files
         :param include_subdirs: Boolean to indicate whether to search all subdirectories as well
         :param use_fullpath: Boolean that specifies whether to include full filepaths in the returned list
-        :return video_list: List of names (or full filepaths if `use_fullpath=True`) of the video files
+        :param show_size: Boolean that specifies whether to print the disk size of the files
+        :return media_list: List of names (or full filepaths if `use_fullpath=True`) of the media files
     """
     if not exists(DIR):
         raise ValueError('Specified directory does not exist')
@@ -157,10 +158,11 @@ def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, show_size
 
 def listdir(DIR, include_subdirs=True, use_fullpath=False, show_size=True, verbose=1):
     """
-        Lists all video files within a specific directory (and sub-directories if `include_subdirs=True`)
-        :param DIR:  Directory to search for video files
+        Lists all files within a specific directory (and sub-directories if `include_subdirs=True`)
+        :param DIR:  Directory to search for files
         :param include_subdirs: Boolean to indicate whether to search all subdirectories as well
         :param use_fullpath: Boolean that specifies whether to include full filepaths in the returned list
+        :param show_size: Boolean that specifies whether to print the disk size of the files
     """
     if not exists(DIR):
         raise ValueError('Specified directory does not exist')
