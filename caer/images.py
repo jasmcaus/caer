@@ -14,6 +14,7 @@ from .opencv import to_rgb, url_to_image
 from .utils.validators import is_valid_url
 from .path import exists
 
+
 def load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=None, keep_aspect_ratio=False):
     return _load_img(image_path, target_size=target_size, channels=channels, rgb=rgb, resize_factor=resize_factor, keep_aspect_ratio=keep_aspect_ratio)
 
@@ -119,7 +120,7 @@ def resize(image, target_size=None, resize_factor=None, keep_aspect_ratio=False,
         raise ValueError('Specify a valid interpolation type - area/nearest/bicubic/bilinear')
 
     if keep_aspect_ratio:
-        return resize_with_ratio(image, target_size=target_size, keep_aspect_ratio=keep_aspect_ratio)
+        return _resize_with_ratio(image, target_size=target_size, keep_aspect_ratio=keep_aspect_ratio)
     else:
         width, height = new_shape[:2]
         return _cv2_resize(image, (width, height), interpolation=interpolation_methods[interpolation])
@@ -142,7 +143,7 @@ def _cv2_resize(image, target_size, interpolation=None):
     return cv.resize(image, dimensions, interpolation=interpolation)
 
 
-def resize_with_ratio(image, target_size, keep_aspect_ratio=False):
+def _resize_with_ratio(image, target_size, keep_aspect_ratio=False):
     """
         Resizes an image using advanced algorithms
         :param target_size: Tuple of size 2 in the format (width,height)
