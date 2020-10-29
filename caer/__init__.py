@@ -109,5 +109,6 @@ __all__ = (
     'edges',
     'hex_to_rgb',
     'draw_rectangle',
+    'now'
 ) + __all_preprocessing__ + __all_video__ + __all_data__ + __all_utils__ + __all_path__
 # ) + __all_preprocessing__ + __all_video__ + __all_io__ 
