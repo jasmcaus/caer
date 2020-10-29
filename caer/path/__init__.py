@@ -15,6 +15,7 @@ from .paths import listdir
 from .paths import is_image
 from .paths import is_video
 from .paths import cwd
+from .paths import exists
 from .paths import get_size
 from .paths import abspath
 from .paths import osname
@@ -33,6 +34,7 @@ __all__ = (
     'is_image',
     'is_video'
     'cwd',
+    'exists',
     'minijoin',
     'get_size',
     'chdir',
