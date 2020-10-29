@@ -21,6 +21,10 @@ from .paths import osname
 from .paths import chdir
 from .paths import minijoin
 
+# Variables
+from .paths import _acceptable_video_formats
+from .paths import _acceptable_image_formats
+
 __all__ = (
     'list_media',
     'list_images',
