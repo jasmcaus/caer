@@ -25,8 +25,10 @@ Get the current version number of your `caer` installation.
 For versions 1.7.7 above, use either `caer.get_caer_version()` or `caer.get_version()`.
 For versions below 1.7.7, use `caer.__version__`.
 
+
 ## Get all Caer functions
 `caer.get_caer_methods()` or `caer.get_caer_functions()` will return a tuple of all the available functions in your current installation of `caer`. 
+
 
 ## Load Images
 `caer.load_img` reads in an image from a specified filepath. 
@@ -44,28 +46,41 @@ For versions below 1.7.7, use `caer.__version__`.
 
 # RGB Image
 >> image = caer.load_img(path, target_size=None, channels=3, rgb=True)
+
+# Image shrunk by a factor of 5
+>> image = caer.load_img(path, resize_ratio = .2, channels=3, rgb=True)
+
+# Image resized to (500,500) ignoring aspect ratio
+>> image = caer.load_img(path, target_size=(500,500), keep_aspect_ratio=False)
+
+# Image resized to (500,500) keeping aspect ratio
+>> image = caer.load_img(path, target_size=(500,500), keep_aspect_ratio=True)
 ```
+
 
 ## List Image Files from Directory
-`caer.list_images()` lists all image files in the immediate directory (if `include_subdirs = False`)  or all sub-directories, otherwise. 
+`caer.path.list_images()` lists all image files in the immediate directory (if `include_subdirs = False`)  or all sub-directories, otherwise. 
 ```python
->> image_list = caer.list_images(DIR='Photos', include_subdirs=True, use_fullpath=False, get_size=False)
->> print(image_list)
+>> image_list = caer.path.list_images(DIR='Photos', include_subdirs=True, use_fullpath=False, show_size=False)
+>> image_list
 ```
+
 
 ## List Video Files from Directory
-`caer.list_videos()` lists all image files in the immediate directory (if `include_subdirs = False`)  or all sub-directories, otherwise. 
+`caer.path.list_videos()` lists all image files in the immediate directory (if `include_subdirs = False`)  or all sub-directories, otherwise. 
 ```python
->> video_list = caer.list_videos(DIR='Videos', include_subdirs=True, use_fullpath=False, get_size=False)
->> print(video_list)
+>> video_list = caer.path.list_videos(DIR='Videos', include_subdirs=True, use_fullpath=False, show_size=False)
+>> video_list
 ```
 
+
 ## List Media Files from Directory
-`caer.list_media()` lists all media files (images and videos) in the immediate directory (if `include_subdirs = False`)  or all sub-directories, otherwise. 
+`caer.path.list_media()` lists all media files (images and videos) in the immediate directory (if `include_subdirs = False`)  or all sub-directories, otherwise. 
 ```python
->> media_list = caer.list_media(DIR='Media', include_subdirs=True, use_fullpath=False, get_size=False)
->> print(media_list)
+>> media_list = caer.path.list_media(DIR='Media', include_subdirs=True, use_fullpath=False, show_size=False)
+>> media_list
 ```
+
 
 ## Translation
 Image translation can be performed by simply calling `caer.translate()` 
@@ -73,6 +88,7 @@ Image translation can be performed by simply calling `caer.translate()`
 # Shifts an image 50 pixels to the right and 100 pixels up
 >> translated = caer.translate(image, 50, -100)
 ```
+
 
 ## Rotation
 Image rotate can be performed by calling `caer.rotate()`. 
@@ -82,14 +98,21 @@ If rotation point `rotPoint` is not specified, the image will be rotated around 
 >> rotated = caer.rotate(image, 45, rotPoint=None)
 ```
 
+
 ## Resizing
 `caer.resize()` resizes an image either by using a scale factor (keeps aspect ratio) or to a strict image size (original aspect ratio may not be kept)
+
 ```python
 # Resizes the image to half its original dimensions
->> half_img = caer.resize(image, scale_factor=.5)
-# Resizes the image to a fixed size of (500, 500)
->> img_500 = caer.resize(image, dimensions=(500,500))
+>> image = caer.resize(image, resize_factor=.5)
+
+# Image resized to (500,500) ignoring aspect ratio
+>> image = caer.resize(image, target_size=(500,500), keep_aspect_ratio=False)
+
+# Image resized to (500,500) keeping aspect ratio
+>> image = caer.resize(image, target_size=(500,500), keep_aspect_ratio=True)
 ```
+
 
 ## Edge Cascades
 Available v1.7.7 onwards, `caer.edges()` computes the edges in an image either using 2 threshold values or the median of the image (if `use_median` = True). 
@@ -102,6 +125,7 @@ Note: Median is given priority if 2 threshold values are passed and `use_median`
 # Creating an edge cascade using 2 threshold values
 >> threshold_edges = caer.edges(image, 125, 180)
 ```
+
 
 ## Switch between Colour Spaces
 Currently, `caer` supports converting an image from BGR to the RGB, Grayscale, HSV and LAB colour spaces. More colour spaces will be supported in future updates. 
@@ -116,6 +140,7 @@ Currently, `caer` supports converting an image from BGR to the RGB, Grayscale, H
 >> lab = caer.to_lab(image)
 ```
 
+
 ## Image from URL
 ***Note: `caer.load_img()` can read in images from URLs as well. This is the recommended method.***
 
@@ -127,6 +152,7 @@ Currently, `caer` supports converting an image from BGR to the RGB, Grayscale, H
 >> img_from_url_bgr = caer.url_from_image(url, rgb=False)
 ```
 
+
 ## Save lists to disk
 `caer.saveNumpy()` saves Python lists or Numpy arrays as .npy or .npz files (extension inferred from the `base_name`)
 ```python
@@ -136,6 +162,7 @@ Currently, `caer` supports converting an image from BGR to the RGB, Grayscale, H
 # Saving as a .npz file
 >> caer.saveNumpy(base_name='py_list_compressed.npz', data=py_list)
 ```
+
 
 ## Train and Validation Split
 `caer.train_val_split()` splits the training set (features, labels) into actual training and validation sets

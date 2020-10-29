@@ -33,19 +33,6 @@ from .utilities import get_classes_from_dir
 from .utilities import sort_dict
 from .utilities import plotAcc
 
-from .paths import list_media
-from .paths import list_images
-from .paths import list_videos
-from .paths import listdir
-from .paths import is_image
-from .paths import is_video
-from .paths import cwd
-from .paths import get_size
-from .paths import abspath
-from .paths import osname
-from .paths import chdir
-from .paths import minijoin
-
 from .opencv import get_opencv_version
 from .opencv import to_gray
 from .opencv import to_hsv
@@ -58,6 +45,8 @@ from .opencv import edges
 
 from .visualizations import hex_to_rgb
 from .visualizations import draw_rectangle
+
+from .time import now
 
 from .images import resize 
 from .images import center_crop 
@@ -90,6 +79,7 @@ from .video import __all__ as __all_video__
 from .preprocessing import __all__ as __all_preprocessing__
 from .data import __all__ as __all_data__
 from .utils import __all__ as __all_utils__
+from .path import __all__ as __all_path__
 
 
 __all__ = (
@@ -105,18 +95,6 @@ __all__ = (
     'get_classes_from_dir',
     'sort_dict',
     'plotAcc',
-    'list_media',
-    'list_images',
-    'list_videos',
-    'is_image',
-    'is_video'
-    'listdir',
-    'cwd',
-    'minijoin',
-    'get_size',
-    'chdir',
-    'osname',
-    'abspath',
     'get_opencv_version',
     'get_caer_version',
     'get_caer_functions',
@@ -131,5 +109,6 @@ __all__ = (
     'edges',
     'hex_to_rgb',
     'draw_rectangle',
-) + __all_preprocessing__ + __all_video__ + __all_data__ + __all_utils__
+    'now'
+) + __all_preprocessing__ + __all_video__ + __all_data__ + __all_utils__ + __all_path__
 # ) + __all_preprocessing__ + __all_video__ + __all_io__ 

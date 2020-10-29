@@ -8,17 +8,17 @@
 
 #pylint: disable=bare-except
 
-import os
 import numpy as np
 
 from ._split import train_test_split
+from .path import listdir
 
 
 def get_classes_from_dir(DIR):
-    if len(os.listdir(DIR)) == 0:
+    if len(listdir(DIR)) == 0:
         raise ValueError('The specified directory does not seem to have any folders in it')
     else:
-        classes = [i for i in os.listdir(DIR)]
+        classes = [i for i in listdir(DIR)]
         return classes
         
 

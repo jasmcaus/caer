@@ -6,14 +6,16 @@
 #
 # ==============================================================================
 
-import os
 import random
 import time
 import numpy as np
+
 from .utilities import saveNumpy, get_classes_from_dir
 from .images import load_img
 from .preprocessing import MeanProcess
 from ._checks import _check_target_size, _check_mean_sub_values
+from .path import listdir, minijoin, exists, list_images
+
 
 def preprocess_from_dir(DIR, 
                         classes=None, 
@@ -49,13 +51,13 @@ def preprocess_from_dir(DIR,
     return_classes_flag = False
     data = [] 
 
-    if not os.path.exists(DIR):
+    if not exists(DIR):
         raise ValueError('The specified directory does not exist')
 
     if IMG_SIZE is None:
         raise ValueError('IMG_SIZE must be specified')
 
-    if isinstance(IMG_SIZE, tuple) or len(IMG_SIZE) != 2:
+    if not isinstance(IMG_SIZE, tuple) or len(IMG_SIZE) != 2:
         raise ValueError('IMG_SIZE must be a tuple of size 2 (width,height)')
 
     if verbose in [0,1]:
@@ -64,17 +66,18 @@ def preprocess_from_dir(DIR,
         else:
             display_count = True
     
-    if verbose not in [0,1]:
+    else:
         raise ValueError('verbose flag must be either 1 (display progress to terminal) or 0 otherwise')
 
-    if isinstance(save_data, bool):
-        raise ValueError('save_data is a boolean (True/False)')
+    if not isinstance(save_data, bool):
+        raise ValueError('save_data must be a boolean (True/False)')
 
     if classes is None:
         return_classes_flag = True
 
-    if classes is not None and not isinstance(classes, list):
-        raise ValueError('"classes" must be a list')
+    else:
+        if not isinstance(classes, list):
+            raise ValueError('"classes" must be a list')
 
     if save_data:
         if destination_filename is None:
@@ -88,9 +91,9 @@ def preprocess_from_dir(DIR,
     
 
     # Loading from Numpy Files
-    if destination_filename is not None and os.path.exists(destination_filename):
-        since = time.time()
+    if destination_filename is not None and exists(destination_filename):
         print('[INFO] Loading from Numpy Files')
+        since = time.time()
         data = np.load(destination_filename, allow_pickle=True)
         end = time.time()
         print('----------------------------------------------')
@@ -100,32 +103,35 @@ def preprocess_from_dir(DIR,
 
     # Extracting image data and adding to `data`
     else:
-        since_preprocess = time.time()
         if destination_filename is not None:
             print(f'[INFO] Could not find {destination_filename}. Generating the training data')
         else:
             print('[INFO] Could not find a file to load from. Generating the training data')
         print('----------------------------------------------')
 
+        # Starting timer
+        since_preprocess = time.time()
+
         if classes is None:
             classes = get_classes_from_dir(DIR)
 
         if per_class_size is None:
-            per_class_size = len(os.listdir(os.path.join(DIR, classes[0])))
+            per_class_size = len(listdir(minijoin(DIR, classes[0])))
 
         if mean_subtraction is not None:
             # Checking if 'mean_subtraction' values are valid. Returns boolean value
             subtract_mean = _check_mean_sub_values(mean_subtraction, channels)
 
         for item in classes:
-            class_path = os.path.join(DIR, item)
+            class_path = minijoin(DIR, item)
             class_label = classes.index(item)
             count = 0 
-            for image in os.listdir(class_path):
-                if count != per_class_size:
-                    image_path = os.path.join(class_path, image)
 
-                    # Returns the resized image
+            for image_path in list_images(class_path, use_fullpath=True, verbose=0):
+                if count != per_class_size:
+                    # image_path = minijoin(class_path, image)
+
+                    # Returns the resized image (ignoring aspect ratio since it isn't relevant for Deep Computer Vision models)
                     img = load_img(image_path, target_size=IMG_SIZE, channels=channels)
                     if img is None:
                         continue
@@ -164,8 +170,8 @@ def preprocess_from_dir(DIR,
             elif destination_filename.endswith('.npz'):
                 print('[INFO] Saving as .npz file')
             
-            since = time.time()
             # Saving
+            since = time.time()
             saveNumpy(destination_filename, data)
             end = time.time()
             
@@ -175,7 +181,7 @@ def preprocess_from_dir(DIR,
 
         #Returns Training Set
         end_preprocess = time.time()
-        time_elapsed_preprocess = end_preprocess-since_preprocess
+        time_elapsed_preprocess = end_preprocess - since_preprocess
         print('----------------------------------------------')
         print('[INFO] {} files preprocessed! Took {:.0f}m {:.0f}s'.format(len(data), time_elapsed_preprocess // 60, time_elapsed_preprocess % 60))
 
@@ -204,33 +210,26 @@ def sep_train(data, IMG_SIZE, channels=1):
     #     x.append(feature)
     #     y.append(label)
     
-    if IMG_SIZE is None:
-        raise ValueError('IMG_SIZE not defined')
+    _ = _check_target_size(IMG_SIZE)
 
-    if isinstance(IMG_SIZE, tuple) or len(IMG_SIZE) != 2:
-        raise ValueError('IMG_SIZE must be a tuple of size 2')
+    x = [i[0] for i in data]
+    y = [i[1] for i in data]
 
-    else:
-        x = [i[0] for i in data]
-        y = [i[1] for i in data]
+    # Without reshaping, X.shape --> (no. of images, IMG_SIZE, IMG_SIZE)
+    # On reshaping, X.shape --> (no. of images, IMG_SIZE, IMG_SIZE, channels)
 
-        # Without reshaping, X.shape --> (no. of images, IMG_SIZE, IMG_SIZE)
-        # On reshaping, X.shape --> (no. of images, IMG_SIZE, IMG_SIZE, channels)
+    # Converting to Numpy + Reshaping X
+    x = reshape(x, IMG_SIZE, channels)
+    y = np.array(y)
 
-        # Converting to Numpy + Reshaping X
-        x = reshape(x, IMG_SIZE, channels)
-        y = np.array(y)
-
-        return x, y
+    return x, y
 
 
 def reshape(x, IMG_SIZE, channels):
-    if IMG_SIZE is None:
-        raise ValueError('IMG_SIZE not defined')
+    _ = _check_target_size(IMG_SIZE)
 
-    if _check_target_size(IMG_SIZE):
-        width, height = IMG_SIZE[:2]
-        return np.array(x).reshape(-1, width, height, channels)
+    width, height = IMG_SIZE[:2]
+    return np.array(x).reshape(-1, width, height, channels)
 
 
 def normalize(x, dtype='float32'):

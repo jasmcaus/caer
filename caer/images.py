@@ -7,12 +7,12 @@
 # ==============================================================================
 
 import math 
-import os 
 import cv2 as cv
 
 from ._checks import _check_target_size
 from .opencv import to_rgb, url_to_image
 from .utils.validators import is_valid_url
+from .path import exists
 
 
 def load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=None, keep_aspect_ratio=False):
@@ -42,7 +42,7 @@ def _load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=
 
     if is_valid_url(image_path) is True:
         image_array = url_to_image(image_path, rgb=False)
-    elif os.path.exists(image_path):  
+    elif exists(image_path):  
         image_array = _read_image(image_path)
     else:
         raise ValueError('Specify either a valid URL or valid filepath')
@@ -70,7 +70,7 @@ def _read_image(image_path):
     Returns:
         `numpy.ndarray` of size `(height, width, channels)`.
     """
-    if not os.path.exists(image_path):
+    if not exists(image_path):
         raise FileNotFoundError('The image file was not found')
     
     return cv.imread(image_path)
@@ -120,7 +120,7 @@ def resize(image, target_size=None, resize_factor=None, keep_aspect_ratio=False,
         raise ValueError('Specify a valid interpolation type - area/nearest/bicubic/bilinear')
 
     if keep_aspect_ratio:
-        return resize_with_ratio(image, target_size=target_size, keep_aspect_ratio=keep_aspect_ratio)
+        return _resize_with_ratio(image, target_size=target_size, keep_aspect_ratio=keep_aspect_ratio)
     else:
         width, height = new_shape[:2]
         return _cv2_resize(image, (width, height), interpolation=interpolation_methods[interpolation])
@@ -143,7 +143,7 @@ def _cv2_resize(image, target_size, interpolation=None):
     return cv.resize(image, dimensions, interpolation=interpolation)
 
 
-def resize_with_ratio(image, target_size, keep_aspect_ratio=False):
+def _resize_with_ratio(image, target_size, keep_aspect_ratio=False):
     """
         Resizes an image using advanced algorithms
         :param target_size: Tuple of size 2 in the format (width,height)
