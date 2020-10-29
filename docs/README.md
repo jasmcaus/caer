@@ -46,6 +46,15 @@ For versions below 1.7.7, use `caer.__version__`.
 
 # RGB Image
 >> image = caer.load_img(path, target_size=None, channels=3, rgb=True)
+
+# Image resized to (500,500) ignoring aspect ratio
+>> image = caer.load_img(path, target_size=(500,500), keep_aspect_ratio=False)
+
+# Image resized to (500,500) keeping aspect ratio
+>> image = caer.load_img(path, target_size=(500,500), keep_aspect_ratio=True)
+
+# Image shrunk by a factor of 5
+>> image = caer.load_img(path, resize_ratio = .2, channels=3, rgb=True)
 ```
 
 
