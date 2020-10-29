@@ -123,11 +123,13 @@ def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, show_size
                 else:
                     video_files.append(file)
 
-
     count_image_list = len(image_files)
     count_video_list = len(video_files)
+    
+    if count_image_list == 0 and count_video_list == 0:
+        print('[ERROR] No media files were found')
 
-    if count_image_list != 0 and count_video_list != 0:
+    else:
         if list_media_files:
             if verbose != 0:
                 tot_count = count_image_list + count_video_list
@@ -151,9 +153,7 @@ def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, show_size
                 if show_size:
                     print('[INFO] Total disk size of videos were {:.2f}Mb '.format(size_video_list))
             return video_files
-    
-    else:
-        print('[ERROR] No media files were found')
+        
 
 
 def listdir(DIR, include_subdirs=True, use_fullpath=False, show_size=True, verbose=1):
