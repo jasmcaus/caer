@@ -65,6 +65,7 @@ For versions below 1.7.7, use `caer.__version__`.
 >> image_list
 ```
 
+
 ## List Video Files from Directory
 `caer.path.list_videos()` lists all image files in the immediate directory (if `include_subdirs = False`)  or all sub-directories, otherwise. 
 ```python
@@ -100,11 +101,16 @@ If rotation point `rotPoint` is not specified, the image will be rotated around 
 
 ## Resizing
 `caer.resize()` resizes an image either by using a scale factor (keeps aspect ratio) or to a strict image size (original aspect ratio may not be kept)
+
 ```python
 # Resizes the image to half its original dimensions
->> half_img = caer.resize(image, scale_factor=.5)
-# Resizes the image to a fixed size of (500, 500)
->> img_500 = caer.resize(image, dimensions=(500,500))
+>> image = caer.resize(image, resize_factor=.5)
+
+# Image resized to (500,500) ignoring aspect ratio
+>> image = caer.resize(image, target_size=(500,500), keep_aspect_ratio=False)
+
+# Image resized to (500,500) keeping aspect ratio
+>> image = caer.resize(image, target_size=(500,500), keep_aspect_ratio=True)
 ```
 
 
