@@ -78,7 +78,7 @@ def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, get_size=
     if include_subdirs:
         for root, _, files in os.walk(DIR):
             for file in files:
-                fullpath = os.path.join(root,file)
+                fullpath = minijoin(root,file)
                 decider = _is_extension_acceptable(file)
 
                 if decider == -1:
@@ -101,7 +101,7 @@ def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, get_size=
                     count_video_list += 1
     else:
         for file in os.listdir(DIR):
-            fullpath = os.path.join(DIR,file)
+            fullpath = minijoin(DIR,file)
             decider = _is_extension_acceptable(file)
                 
             if decider == -1:
