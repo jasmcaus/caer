@@ -6,6 +6,6 @@ include INSTALL.md
 include CONTRIBUTORS 
 
 recursive-include caer/data *
-recursive-include caer *.pyx *.pxd *.pxi *.py *.c *.h *.ini *.npy *.txt *.in *.cpp *.md
+recursive-include caer *.pyx *.pxd *.pxi *.py *.c *.h *.ini *.txt *.in *.cpp *.md
 
-recursive-exclude * __pycache__
+recursive-exclude * __pycache__ *.npy *.npz
