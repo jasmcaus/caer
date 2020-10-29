@@ -14,7 +14,7 @@ from .utilities import saveNumpy, get_classes_from_dir
 from .images import load_img
 from .preprocessing import MeanProcess
 from ._checks import _check_target_size, _check_mean_sub_values
-from .path import listdir 
+from .path import listdir, minijoin
 
 def preprocess_from_dir(DIR, 
                         classes=None, 
@@ -112,19 +112,19 @@ def preprocess_from_dir(DIR,
             classes = get_classes_from_dir(DIR)
 
         if per_class_size is None:
-            per_class_size = len(listdir(os.path.join(DIR, classes[0])))
+            per_class_size = len(listdir(minijoin(DIR, classes[0])))
 
         if mean_subtraction is not None:
             # Checking if 'mean_subtraction' values are valid. Returns boolean value
             subtract_mean = _check_mean_sub_values(mean_subtraction, channels)
 
         for item in classes:
-            class_path = os.path.join(DIR, item)
+            class_path = minijoin(DIR, item)
             class_label = classes.index(item)
             count = 0 
             for image in listdir(class_path):
                 if count != per_class_size:
-                    image_path = os.path.join(class_path, image)
+                    image_path = minijoin(class_path, image)
 
                     # Returns the resized image
                     img = load_img(image_path, target_size=IMG_SIZE, channels=channels)
