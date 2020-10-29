@@ -65,7 +65,7 @@ def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, show_size
         :param use_fullpath: Boolean that specifies whether to include full filepaths in the returned list
         :return video_list: List of names (or full filepaths if `use_fullpath=True`) of the video files
     """
-    if not os.path.exists(DIR):
+    if not exists(DIR):
         raise ValueError('Specified directory does not exist')
 
     list_media_files = False
@@ -159,7 +159,7 @@ def listdir(DIR, include_subdirs=True, use_fullpath=False, show_size=True):
         :param include_subdirs: Boolean to indicate whether to search all subdirectories as well
         :param use_fullpath: Boolean that specifies whether to include full filepaths in the returned list
     """
-    if not os.path.exists(DIR):
+    if not exists(DIR):
         raise ValueError('Specified directory does not exist')
     
     if not isinstance(include_subdirs, bool):
@@ -263,10 +263,13 @@ def cwd():
 
 
 def exists(path):
+    if not isinstance(path, str):
+        raise ValueError('Filepath must be a string')
+
     if os.path.exists(path):
         return True 
     return False
-    
+
 
 def abspath(file_name):
     return os.path.abspath(file_name)

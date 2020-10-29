@@ -10,11 +10,13 @@ import os
 import random
 import time
 import numpy as np
+
 from .utilities import saveNumpy, get_classes_from_dir
 from .images import load_img
 from .preprocessing import MeanProcess
 from ._checks import _check_target_size, _check_mean_sub_values
-from .path import listdir, minijoin
+from .path import listdir, minijoin, exists
+
 
 def preprocess_from_dir(DIR, 
                         classes=None, 
@@ -50,7 +52,7 @@ def preprocess_from_dir(DIR,
     return_classes_flag = False
     data = [] 
 
-    if not os.path.exists(DIR):
+    if not exists(DIR):
         raise ValueError('The specified directory does not exist')
 
     if IMG_SIZE is None:
@@ -89,7 +91,7 @@ def preprocess_from_dir(DIR,
     
 
     # Loading from Numpy Files
-    if destination_filename is not None and os.path.exists(destination_filename):
+    if destination_filename is not None and exists(destination_filename):
         since = time.time()
         print('[INFO] Loading from Numpy Files')
         data = np.load(destination_filename, allow_pickle=True)

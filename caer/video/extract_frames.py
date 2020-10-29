@@ -10,8 +10,9 @@ import os
 import math
 import time
 import cv2 as cv
+
 from .._checks import _check_target_size
-from ..path import listdir, _acceptable_video_formats
+from ..path import listdir, _acceptable_video_formats, exists
 
 
 def extract_frames(input_folder, 
@@ -41,7 +42,7 @@ def extract_frames(input_folder,
     processed_videos = 0
     vid_count = 0 # to check if < video_count
 
-    if os.path.exists(input_folder) is False:
+    if exists(input_folder) is False:
         raise ValueError('Input folder does not exist', input_folder)
     
     if IMG_SIZE is not None:
@@ -53,7 +54,7 @@ def extract_frames(input_folder,
     if video_count is None:
         video_count = len(listdir(input_folder))
 
-    if not os.path.exists(output_folder):
+    if not exists(output_folder):
         os.mkdir(output_folder)
 
     # Begin Timer
