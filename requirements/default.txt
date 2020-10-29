@@ -1,0 +1,3 @@
+numpy<=1.16.5
+opencv-contrib-python>=4.2.0
+requests>=2.23.0
