@@ -62,14 +62,14 @@ For versions below 1.7.7, use `caer.__version__`.
 `caer.path.list_images()` lists all image files in the immediate directory (if `include_subdirs = False`)  or all sub-directories, otherwise. 
 ```python
 >> image_list = caer.path.list_images(DIR='Photos', include_subdirs=True, use_fullpath=False, show_size=False)
->> print(image_list)
+>> image_list
 ```
 
 ## List Video Files from Directory
 `caer.path.list_videos()` lists all image files in the immediate directory (if `include_subdirs = False`)  or all sub-directories, otherwise. 
 ```python
 >> video_list = caer.path.list_videos(DIR='Videos', include_subdirs=True, use_fullpath=False, show_size=False)
->> print(video_list)
+>> video_list
 ```
 
 
@@ -77,7 +77,7 @@ For versions below 1.7.7, use `caer.__version__`.
 `caer.path.list_media()` lists all media files (images and videos) in the immediate directory (if `include_subdirs = False`)  or all sub-directories, otherwise. 
 ```python
 >> media_list = caer.path.list_media(DIR='Media', include_subdirs=True, use_fullpath=False, show_size=False)
->> print(media_list)
+>> media_list
 ```
 
 
