@@ -11,8 +11,8 @@ import math
 import time
 import cv2 as cv
 from .._checks import _check_target_size
+from ..path import listdir, _acceptable_video_formats
 
-_acceptable_video_formats = ('.mp4', '.avi', '.mov', '.mkv', '.webm')
 
 def extract_frames(input_folder, 
                    output_folder, 
@@ -51,7 +51,7 @@ def extract_frames(input_folder,
         label_counter = 0
 
     if video_count is None:
-        video_count = len(os.listdir(input_folder))
+        video_count = len(listdir(input_folder))
 
     if not os.path.exists(output_folder):
         os.mkdir(output_folder)
