@@ -14,15 +14,6 @@ from ._split import train_test_split
 from .path import listdir
 
 
-__all__ = [
-    'get_classes_from_dir',
-    'saveNumpy',
-    'train_val_split',
-    'sort_dict',
-    'plotAcc'
-]
-
-
 def get_classes_from_dir(DIR):
     if len(listdir(DIR)) == 0:
         raise ValueError('The specified directory does not seem to have any folders in it')
@@ -70,24 +61,34 @@ def plotAcc(histories):
     """
     Plots the model accuracies as 2 graphs
     """
-    import matplotlib.pyplot as plt 
-    acc = histories.history['acc']
-    val_acc = histories.history['val_acc']
-    loss = histories.history['loss']
-    val_loss = histories.history['val_loss']
+    pass
+    # import matplotlib.pyplot as plt 
+    # acc = histories.history['acc']
+    # val_acc = histories.history['val_acc']
+    # loss = histories.history['loss']
+    # val_loss = histories.history['val_loss']
 
-    epochs = range(1, len(acc)+1)
+    # epochs = range(1, len(acc)+1)
 
-    # Plotting Accuracy
-    plt.plot(epochs, acc, 'b', label='Training Accuracy')
-    plt.plot(epochs, val_acc, 'r', label='Validation Accuracy')
-    plt.title('Training and Validation Accuracy')
-    plt.legend()
+    # # Plotting Accuracy
+    # plt.plot(epochs, acc, 'b', label='Training Accuracy')
+    # plt.plot(epochs, val_acc, 'r', label='Validation Accuracy')
+    # plt.title('Training and Validation Accuracy')
+    # plt.legend()
 
-    # Plotting Loss
-    plt.plot(epochs, loss, 'b', label='Training Loss')
-    plt.plot(epochs, val_loss, 'r', label='Validation Loss')
-    plt.title('Training and Validation Loss')
-    plt.legend()
+    # # Plotting Loss
+    # plt.plot(epochs, loss, 'b', label='Training Loss')
+    # plt.plot(epochs, val_loss, 'r', label='Validation Loss')
+    # plt.title('Training and Validation Loss')
+    # plt.legend()
 
-    plt.show()
+    # plt.show()
+
+
+__all__ = [
+    'get_classes_from_dir',
+    'saveNumpy',
+    'train_val_split',
+    'sort_dict',
+    'plotAcc'
+]
