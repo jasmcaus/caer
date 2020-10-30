@@ -17,7 +17,7 @@ VALID_URL_NO_EXIST = 0
 INVALID_URL_STRING = -1
 
 
-__all__ = (
+__all__ = [
     'CROP_CENTRE',
     'CROP_TOP',
     'CROP_LEFT',
@@ -25,4 +25,4 @@ __all__ = (
     'CROP_BOTTOM',
     'VALID_URL_NO_EXIST',
     'INVALID_URL_STRING',
-)
+]
