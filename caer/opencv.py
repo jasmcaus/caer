@@ -11,19 +11,6 @@ import numpy as np
 from urllib.request import urlopen
 
 
-__all__ = [
-    'get_opencv_version',
-    'to_gray',
-    'to_hsv',
-    'to_lab',
-    'to_rgb',
-    'url_to_image',
-    'translate',
-    'rotate',
-    'edges'
-]
-
-
 def get_opencv_version():
     return cv.__version__[0]
 
@@ -161,3 +148,16 @@ def url_to_image(url, rgb=True):
     if rgb:
         image = to_rgb(image)
     return image
+
+
+__all__ = [
+    'get_opencv_version',
+    'to_gray',
+    'to_hsv',
+    'to_lab',
+    'to_rgb',
+    'url_to_image',
+    'translate',
+    'rotate',
+    'edges'
+]
