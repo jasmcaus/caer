@@ -57,11 +57,11 @@ def sort_dict(unsorted_dict, descending=False):
     return sorted(unsorted_dict.items(), key=lambda x:x[1], reverse=descending)
 
 
-def plotAcc(histories):
-    """
-    Plots the model accuracies as 2 graphs
-    """
-    pass
+# def plotAcc(histories):
+#     """
+#     Plots the model accuracies as 2 graphs
+#     """
+#     pass
     # import matplotlib.pyplot as plt 
     # acc = histories.history['acc']
     # val_acc = histories.history['val_acc']
@@ -89,6 +89,6 @@ __all__ = [
     'get_classes_from_dir',
     'saveNumpy',
     'train_val_split',
-    'sort_dict',
-    'plotAcc'
+    'sort_dict'
+    # 'plotAcc'
 ]
