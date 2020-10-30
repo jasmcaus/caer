@@ -13,6 +13,10 @@ from queue import Queue
 import cv2 as cv
 from ..opencv import get_opencv_version
 
+__all__ = (
+    'FileVideoStream'
+)
+
 #pylint:disable=no-member
 
 # ret, jpeg = cv2.imencode('.jpg', image)

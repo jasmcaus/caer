@@ -15,6 +15,11 @@ from .._checks import _check_target_size
 from ..path import list_videos, exists
 
 
+__all__ = (
+    'extract_frames'
+)
+
+
 def extract_frames(input_folder, 
                    output_folder, 
                    IMG_SIZE=None, 
