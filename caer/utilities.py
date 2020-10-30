@@ -14,13 +14,13 @@ from ._split import train_test_split
 from .path import listdir
 
 
-__all__ = (
+__all__ = [
     'get_classes_from_dir',
     'saveNumpy',
     'train_val_split',
     'sort_dict',
     'plotAcc'
-)
+]
 
 
 def get_classes_from_dir(DIR):
