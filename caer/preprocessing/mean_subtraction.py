@@ -14,6 +14,13 @@ import os
 from .._checks import _check_mean_sub_values
 from ..path import exists
 
+__all__ = (
+    'MeanProcess',
+    'compute_mean',
+    'compute_mean_from_dir',
+    'subtract_mean',
+)
+
 """
     Important notes:
     Mean subtract must be computed ONLY on the training set and then later applied on the validation/test set

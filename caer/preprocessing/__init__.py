@@ -14,9 +14,8 @@ from .mean_subtraction import _check_mean_sub_values
 
 from .patch_preprocess import PatchPreprocess
 
-__all__ = (
-    'MeanProcess',
-    'compute_mean',
-    'compute_mean_from_dir',
-    'subtract_mean',
-)
+# __all__ configs 
+from .mean_subtraction import __all__ as __all_mean__ 
+from .patch_preprocess import __all__ as __all_patch__ 
+
+__all__ = __all_mean__ + __all_patch__
