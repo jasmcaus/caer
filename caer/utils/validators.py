@@ -18,11 +18,11 @@ from .exceptions import ValidationError
 from ..configs import INVALID_URL_STRING, VALID_URL_NO_EXIST
 
 
-__all__ = (
+__all__ = [
     'URLValidator',
     'validate_ipv6_address',
     'is_valid_url'
-)
+]
 
 # These values, if given to validate(), will trigger the self.required check.
 EMPTY_VALUES = (None, '', [], (), {})
