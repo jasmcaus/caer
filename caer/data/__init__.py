@@ -112,6 +112,7 @@ def sea_turtle(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
 def snow(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
     return load_img(here+'snow.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
+
 def snowflake(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
     return load_img(here+'snowflake.jpg', target_size=target_size, resize_factor=resize_factor,  keep_aspect_ratio=keep_aspect_ratio)
 
@@ -151,7 +152,7 @@ __all__ = (
     'phone',
     'sea_turtle',
     'snow',
-    'snow_turtle',
+    'sea_turtle',
     'sunrise',
     'tent'
 )
