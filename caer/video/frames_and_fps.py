@@ -9,12 +9,6 @@
 from .videostream import VideoStream
 
 
-__all__ = [
-    'count_frames',
-    'get_fps'
-]
-
-
 def count_frames(video_path=None):
     if video_path is None:
         raise ValueError('Specify a valid video path')
@@ -33,3 +27,9 @@ def get_fps(video_path=None):
     fps_count = stream.get_fps()
     stream.release()
     return fps_count
+
+
+__all__ = [
+    'count_frames',
+    'get_fps'
+]
