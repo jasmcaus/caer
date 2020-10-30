@@ -11,12 +11,6 @@ Provides visualization-specific functions
 """
 
 
-__all__ = [
-    'hex_to_rgb',
-    'draw_rectangle'
-]
-
-
 def hex_to_rgb(x):
     """
     Turns a color hex representation into a tuple representation.
@@ -46,3 +40,9 @@ def draw_rectangle(draw, coordinates, color, width=1, fill=30):
             draw.rectangle(coords, fill=fill, outline=outline)
         else:
             draw.rectangle(coords, outline=outline)
+
+
+__all__ = [
+    'hex_to_rgb',
+    'draw_rectangle'
+]
