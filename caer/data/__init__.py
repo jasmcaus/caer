@@ -126,7 +126,7 @@ def tent(target_size=None, resize_factor=None,  keep_aspect_ratio=False):
 
 
 
-__all__ = (
+__all__ = [
     'audio_mixer',
     'bear',
     'beverages',
@@ -155,4 +155,4 @@ __all__ = (
     'sea_turtle',
     'sunrise',
     'tent'
-)
+]
