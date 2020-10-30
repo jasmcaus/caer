@@ -17,6 +17,15 @@ from ._checks import _check_target_size, _check_mean_sub_values
 from .path import listdir, minijoin, exists, list_images
 
 
+__all__ = (
+    'preprocess_from_dir',
+    'sep_train',
+    'shuffle',
+    'reshape',
+    'normalize'
+)
+
+
 def preprocess_from_dir(DIR, 
                         classes=None, 
                         IMG_SIZE=(224,224), 

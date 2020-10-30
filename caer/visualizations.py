@@ -10,6 +10,13 @@
 Provides visualization-specific functions 
 """
 
+
+__all__ = (
+    'hex_to_rgb',
+    'draw_rectangle'
+)
+
+
 def hex_to_rgb(x):
     """
     Turns a color hex representation into a tuple representation.

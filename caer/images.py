@@ -15,6 +15,13 @@ from .utils.validators import is_valid_url
 from .path import exists
 
 
+__all__ = (
+    'load_img',
+    'center_crop',
+    'resize'
+)
+
+
 def load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=None, keep_aspect_ratio=False):
     return _load_img(image_path, target_size=target_size, channels=channels, rgb=rgb, resize_factor=resize_factor, keep_aspect_ratio=keep_aspect_ratio)
 

@@ -8,5 +8,11 @@
 
 import time 
 
+
+__all__ = (
+    'now'
+)
+
+
 def now():
     return time.time() 

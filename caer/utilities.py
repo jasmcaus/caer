@@ -14,6 +14,15 @@ from ._split import train_test_split
 from .path import listdir
 
 
+__all__ = (
+    'get_classes_from_dir',
+    'saveNumpy',
+    'train_val_split',
+    'sort_dict',
+    'plotAcc'
+)
+
+
 def get_classes_from_dir(DIR):
     if len(listdir(DIR)) == 0:
         raise ValueError('The specified directory does not seem to have any folders in it')

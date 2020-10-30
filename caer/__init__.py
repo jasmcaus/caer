@@ -74,6 +74,15 @@ def get_caer_methods():
     return __all__
 
 
+# __all__ configs
+from .configs import __all__ as __all_configs__
+from .images import __all__ as __all_images__
+from .opencv import __all__ as __all_opencv__
+from .preprocess import __all__ as __all_preprocess__
+from .time import __all__ as __all_time__
+from .utilities import __all__ as __all_utilities__
+from .visualizations import __all__ as __all_visualizations__
+
 # from .io import __all__ as __all_io__
 from .video import __all__ as __all_video__
 from .preprocessing import __all__ as __all_preprocessing__
@@ -82,33 +91,10 @@ from .utils import __all__ as __all_utils__
 from .path import __all__ as __all_path__
 
 
-__all__ = (
-    'preprocess_from_dir',
-    'sep_train',
-    'shuffle',
-    'resize',
-    'center_crop'
-    'reshape',
-    'normalize',
-    'load_img',
-    'train_val_split',
-    'get_classes_from_dir',
-    'sort_dict',
-    'plotAcc',
-    'get_opencv_version',
-    'get_caer_version',
-    'get_caer_functions',
-    'get_caer_methods',
-    'to_gray',
-    'to_rgb',
-    'to_lab',
-    'to_hsv',
-    'url_to_image',
-    'translate',
-    'rotate',
-    'edges',
-    'hex_to_rgb',
-    'draw_rectangle',
-    'now'
-) + __all_preprocessing__ + __all_video__ + __all_data__ + __all_utils__ + __all_path__
-# ) + __all_preprocessing__ + __all_video__ + __all_io__ 
+__all__ = __all_configs__ + __all_images__ + __all_opencv__ + __all_preprocess__ + __all_time__ + __all_utilities__ + __all_visualizations__
+
+__all__ += __all_preprocessing__ 
+__all__ += __all_video__ 
+__all__ += __all_data__ 
+__all__ += __all_utils__ 
+__all__ += __all_path__
