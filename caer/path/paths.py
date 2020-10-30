@@ -14,6 +14,21 @@ _acceptable_video_formats = ('.mp4', '.avi', '.mov', '.mkv', '.webm')
 _acceptable_image_formats = ('.jpg', '.jpeg', '.png', '.bmp', '.tif', '.tiff')
 
 
+__all__ = (
+    'list_media',
+    'list_images',
+    'list_videos',
+    'listdir',
+    'is_image',
+    'is_video'
+    'cwd',
+    'exists',
+    'minijoin',
+    'get_size',
+    'chdir',
+    'osname',
+    'abspath',
+)
 
 def list_images(DIR, include_subdirs=True, use_fullpath=False, show_size=False, verbose=1):
     """
