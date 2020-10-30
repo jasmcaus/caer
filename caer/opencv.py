@@ -11,7 +11,7 @@ import numpy as np
 from urllib.request import urlopen
 
 
-__all__ = (
+__all__ = [
     'get_opencv_version',
     'to_gray',
     'to_hsv',
@@ -21,7 +21,7 @@ __all__ = (
     'translate',
     'rotate',
     'edges'
-)
+]
 
 
 def get_opencv_version():
