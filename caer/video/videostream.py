@@ -10,9 +10,9 @@
 from .filevideostream import FileVideoStream
 
 
-__all__ = (
+__all__ = [
     'VideoStream'
-)
+]
 
 
 # Using the FileVideoStream class as it can handle both live as well as pre-existing videos
