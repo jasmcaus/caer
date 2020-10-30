@@ -6,13 +6,13 @@
 #
 # ==============================================================================
 
-import time 
+import time
+
+
+def now():
+    return time.time() 
 
 
 __all__ = [
     'now'
 ]
-
-
-def now():
-    return time.time() 
