@@ -10,11 +10,6 @@
 from .filevideostream import FileVideoStream
 
 
-__all__ = [
-    'VideoStream'
-]
-
-
 # Using the FileVideoStream class as it can handle both live as well as pre-existing videos
 
 class VideoStream():
@@ -41,3 +36,8 @@ class VideoStream():
         
     def release(self):
         self.video_stream.release()
+
+
+__all__ = [
+    'VideoStream'
+]
