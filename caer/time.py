@@ -9,9 +9,9 @@
 import time 
 
 
-__all__ = (
+__all__ = [
     'now'
-)
+]
 
 
 def now():
