@@ -13,9 +13,6 @@ from queue import Queue
 import cv2 as cv
 from ..opencv import get_opencv_version
 
-__all__ = [
-    'FileVideoStream'
-]
 
 #pylint:disable=no-member
 
@@ -113,3 +110,8 @@ class FileVideoStream:
                 return math.ceil(self.stream.get(cv.cv.CAP_PROP_FPS))
             else:
                 return math.ceil(self.stream.get(cv.CAP_PROP_FPS))
+
+
+__all__ = [
+    'FileVideoStream'
+]
