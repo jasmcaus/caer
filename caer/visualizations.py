@@ -11,10 +11,10 @@ Provides visualization-specific functions
 """
 
 
-__all__ = (
+__all__ = [
     'hex_to_rgb',
     'draw_rectangle'
-)
+]
 
 
 def hex_to_rgb(x):
