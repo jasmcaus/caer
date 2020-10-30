@@ -31,7 +31,7 @@ from .utilities import saveNumpy
 from .utilities import train_val_split
 from .utilities import get_classes_from_dir
 from .utilities import sort_dict
-from .utilities import plotAcc
+# from .utilities import plotAcc
 
 from .opencv import get_opencv_version
 from .opencv import to_gray
