@@ -9,10 +9,10 @@
 from .videostream import VideoStream
 
 
-__all__ = (
+__all__ = [
     'count_frames',
     'get_fps'
-)
+]
 
 
 def count_frames(video_path=None):
