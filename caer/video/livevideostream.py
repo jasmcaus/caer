@@ -14,9 +14,9 @@ import cv2 as cv
 from ..opencv import get_opencv_version
 
 
-__all__ = (
+__all__ = [
     'LiveVideoStream'
-)
+]
 
 
 """
