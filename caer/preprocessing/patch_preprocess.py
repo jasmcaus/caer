@@ -8,9 +8,9 @@
 
 from ._patches import extract_patches_2d
 
-__all__ = (
+__all__ = [
     'PatchPreprocess'
-)
+]
 
 class PatchPreprocess:
     def __init__(self, width, height):
