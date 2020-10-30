@@ -14,23 +14,6 @@ _acceptable_video_formats = ('.mp4', '.avi', '.mov', '.mkv', '.webm')
 _acceptable_image_formats = ('.jpg', '.jpeg', '.png', '.bmp', '.tif', '.tiff')
 
 
-__all__ = [
-    'list_media',
-    'list_images',
-    'list_videos',
-    'listdir',
-    'is_image',
-    'is_video'
-    'cwd',
-    'exists',
-    'minijoin',
-    'get_size',
-    'chdir',
-    'osname',
-    'abspath',
-]
-
-
 def list_images(DIR, include_subdirs=True, use_fullpath=False, show_size=False, verbose=1):
     """
         Lists all image files within a specific directory (and sub-directories if `include_subdirs=True`)
@@ -330,3 +313,20 @@ def get_size(file, disp_format='bytes'):
 
 def minijoin(file1, file2):
     return os.path.join(file1, file2)
+
+
+__all__ = [
+    'list_media',
+    'list_images',
+    'list_videos',
+    'listdir',
+    'is_image',
+    'is_video'
+    'cwd',
+    'exists',
+    'minijoin',
+    'get_size',
+    'chdir',
+    'osname',
+    'abspath',
+]
