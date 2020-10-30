@@ -14,12 +14,6 @@ import os
 from .._checks import _check_mean_sub_values
 from ..path import exists
 
-__all__ = [
-    'MeanProcess',
-    'compute_mean',
-    'compute_mean_from_dir',
-    'subtract_mean',
-]
 
 """
     Important notes:
@@ -164,3 +158,11 @@ def subtract_mean(data, channels, mean_sub_values):
     data = [mean_process.mean_preprocess(img, channels) for img in data]
     
     return data
+
+
+__all__ = [
+    'MeanProcess',
+    'compute_mean',
+    'compute_mean_from_dir',
+    'subtract_mean',
+]
