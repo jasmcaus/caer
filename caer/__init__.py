@@ -15,19 +15,21 @@ from ._meta import contributors as __contributors__
 __license__ = 'MIT License'
 __copyright__ = 'Copyright (c) 2020 Jason Dsouza'
 
-
+# Preprocessing
 from .preprocess import preprocess_from_dir
 from .preprocess import sep_train
 from .preprocess import shuffle
 from .preprocess import reshape
 from .preprocess import normalize
 
+# General utilities
 from .utilities import saveNumpy
 from .utilities import train_val_split
 from .utilities import get_classes_from_dir
 from .utilities import sort_dict
 # from .utilities import plotAcc
 
+# Opencv-specific methods
 from .opencv import get_opencv_version
 from .opencv import to_gray
 from .opencv import to_hsv
@@ -38,11 +40,14 @@ from .opencv import translate
 from .opencv import rotate 
 from .opencv import edges 
 
+# General visualizations
 from .visualizations import hex_to_rgb
 from .visualizations import draw_rectangle
 
+# Time
 from .time import now
 
+# Image-related
 from .images import resize 
 from .images import center_crop 
 from .images import load_img 
