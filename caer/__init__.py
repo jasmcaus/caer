@@ -16,7 +16,6 @@ __license__ = 'MIT License'
 __copyright__ = 'Copyright (c) 2020 Jason Dsouza'
 
 
-
 from .preprocess import preprocess_from_dir
 from .preprocess import sep_train
 from .preprocess import shuffle
@@ -79,7 +78,6 @@ from .time import __all__ as __all_time__
 from .utilities import __all__ as __all_utilities__
 from .visualizations import __all__ as __all_visualizations__
 
-# from .io import __all__ as __all_io__
 from .video import __all__ as __all_video__
 from .preprocessing import __all__ as __all_preprocessing__
 from .data import __all__ as __all_data__
