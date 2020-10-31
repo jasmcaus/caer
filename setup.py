@@ -1,32 +1,31 @@
-from setuptools import setup, find_packages
-from configparser import ConfigParser
-import io 
 import sys 
 import platform
 
-# v1.7.6 cannot be used (previously deleted)
 VERSION = '1.7.8'
 
-# Checking if right Python version is used
-
 min_version = (3, 6, 1)
-# max_version = (3, 9, 0)
 
-# def is_right_py_version(min_py_version, max_py_version):
 def is_right_py_version(min_py_version):
-    python_min_version_str = '.'.join((str(num) for num in min_py_version))
-    # python_max_version_str = '.'.join((str(num) for num in max_py_version))
-    # if sys.version_info < min_py_version or sys.version_info >= max_py_version:
+    if sys.version_info < (3,):
+        sys.stderr.write('Python 2 has reached end-of-life and is no longer supported by Caer.')
+        return False
+
     if sys.version_info < min_py_version:
-        # no_go = 'You are using Python {}. Python >={},<{} is required.'.format(platform.python_version(), python_min_version_str, python_max_version_str)
+        python_min_version_str = '.'.join((str(num) for num in min_py_version))
+        # .format() used since Caer supports Python 3.6 as well
         no_go = 'You are using Python {}. Python >={} is required.'.format(platform.python_version(), python_min_version_str)
         sys.stderr.write(no_go)
         return False
+
     return True
 
-# if not is_right_py_version(min_version, max_version):
 if not is_right_py_version(min_version):
     sys.exit(-1)
+
+
+from setuptools import setup, find_packages
+from configparser import ConfigParser
+import io 
 
 
 # Configurations
@@ -40,7 +39,6 @@ opt = config['options']
 cfg_keys = 'description keywords author author_email contributors'.split()
 expected = cfg_keys + "name user git_branch license status audience language dev_language".split()
 for i in expected: assert i in cfg, f'Missing expected setting: {i}'
-# setup_cfg = {i:cfg[i] for i in cfg_keys}
 
 
 # Defining Setup Variables
