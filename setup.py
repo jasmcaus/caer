@@ -12,8 +12,7 @@ def is_right_py_version(min_py_version):
 
     if sys.version_info < min_py_version:
         python_min_version_str = '.'.join((str(num) for num in min_py_version))
-        # .format() used since Caer supports Python 3.6 as well
-        no_go = 'You are using Python {}. Python >={} is required.'.format(platform.python_version(), python_min_version_str)
+        no_go = f'You are using Python {platform.python_version()}. Python >={python_min_version_str} is required.'
         sys.stderr.write(no_go)
         return False
 
