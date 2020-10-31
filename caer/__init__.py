@@ -8,17 +8,13 @@
 
 #pylint:disable=undefined-all-variable
 
-from ._meta import version as v
+from ._meta import version as __version__
 from ._meta import author as __author__
-from ._meta import release as r
-from ._meta import contributors as c
-__version__ = v
-__contributors__ = c
+from ._meta import release as __release__
+from ._meta import contributors as __contributors__
 __license__ = 'MIT License'
 __copyright__ = 'Copyright (c) 2020 Jason Dsouza'
-version = v
-release = r
-contributors = c
+
 
 
 from .preprocess import preprocess_from_dir
