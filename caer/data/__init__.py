@@ -31,7 +31,7 @@ def black_cat(target_size=None, rgb=True):
 
 
 def blue_tang(target_size=None, rgb=True):
-    return load_img(here + 'blue_tang.jpg', target_size=target_size, rgb=rgb)
+    return load_img(here+'blue_tang.jpg', target_size=target_size, rgb=rgb)
 
 
 def camera(target_size=None, rgb=True):
