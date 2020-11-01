@@ -15,7 +15,7 @@ here = minijoin(__curr__, 'data').replace('\\', "/") + "/"
 
 
 def audio_mixer(target_size=None, rgb=True):
-    return load_img(here+'audio_mixer.jpg', target_size=target_size, rgb=rgb)
+    return load_img(here + 'audio_mixer.jpg', target_size=target_size, rgb=rgb)
 
 
 def bear(target_size=None, rgb=True):
