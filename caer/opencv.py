@@ -10,6 +10,10 @@ import cv2 as cv
 import numpy as np
 from urllib.request import urlopen
 
+from .configs import (
+    BGR2GRAY, BGR2RGB, BGR2HSV, BGR2LAB, RGB2GRAY, RGB2HSV, RGB2LAB, IMREAD_COLOR
+)
+
 
 def get_opencv_version():
     return cv.__version__[0]
