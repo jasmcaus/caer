@@ -51,7 +51,7 @@ def _load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=
     # if image_array == None:
     #     pass
     if channels == 1:
-        image_array = cv.cvtColor(image_array, cv.COLOR_BGR2GRAY)
+        image_array = cv.cvtColor(image_array, BGR2GRAY)
 
     if target_size is not None or resize_factor is not None:
         image_array = resize(image_array, target_size, resize_factor=resize_factor, keep_aspect_ratio=keep_aspect_ratio)
