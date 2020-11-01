@@ -52,7 +52,7 @@ def extract_frames(input_folder,
     video_list = list_videos(input_folder, include_subdirs=include_subdirs, use_fullpath=True, verbose=0)
 
     if len(video_list) == 0:
-        raise ValueError(f'[ERROR] No videos found at {input_folder}')
+        raise ValueError(f'No videos found at {input_folder}')
 
     if label_counter is None:
         label_counter = 0
