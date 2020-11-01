@@ -110,7 +110,7 @@ def resize(image, target_size=None, resize_factor=None, keep_aspect_ratio=False,
             
     interpolation_methods = {
         'nearest': INTER_NEAREST, # 0
-        'bilinear': cv.INTER_LINEAR, # 1
+        'bilinear': INTER_LINEAR, # 1
         'bicubic': cv.INTER_CUBIC, # 2
         'area': cv.INTER_AREA, # 3
     }
