@@ -25,8 +25,6 @@ You'll see the version number if `caer` is installed and an error message otherw
 
 ## Installation
 
-These install only `caer` and its dependencies
-
 ### pip
 
 Prerequisites to a pip install: You are able to use your system's command line to install packages and are using a [virtual environment](https://towardsdatascience.com/virtual-environments-104c62d48c54?gi=2532aa12906#ee81) (any of [several](https://stackoverflow.com/questions/41573587/what-is-the-difference-between-venv-pyvenv-pyenv-virtualenv-virtualenvwrappe)).
