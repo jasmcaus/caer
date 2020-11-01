@@ -13,6 +13,9 @@ import numpy as np
 from ._split import train_test_split
 from .path import listdir
 
+def median(arr, axis=None):
+    return np.median(arr, axis=axis)
+
 
 def get_classes_from_dir(DIR):
     if len(listdir(DIR)) == 0:
@@ -87,6 +90,7 @@ def sort_dict(unsorted_dict, descending=False):
 
 __all__ = [
     'get_classes_from_dir',
+    'median'
     'saveNumpy',
     'train_val_split',
     'sort_dict'
