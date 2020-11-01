@@ -18,12 +18,16 @@ def median(arr, axis=None):
     return np.median(arr, axis=axis)
 
 
-def array(obj, dtype=None):
-    return np.array(obj, dtype=dtype)
+def array(obj, dtype=None, order='K'):
+    return np.array(obj, dtype=dtype, order=order)
 
 
-def to_array(obj, dtype=None):
-    return np.array(obj, dtype=dtype)
+def to_array(obj, dtype=None, order='K'):
+    return np.array(obj, dtype=dtype, order=order)
+
+
+def asarray(obj, dtype=None, order=None):
+    return np.asarray(obj, dtype=dtype, order=order)
 
 
 def load(filename, allow_pickle=False):
