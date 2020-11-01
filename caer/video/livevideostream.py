@@ -13,7 +13,7 @@ import math
 import cv2 as cv
 
 from ..opencv import get_opencv_version
-from ..configs import FRAME_COUNT, FPS
+from ..configs import FRAME_COUNT, FPS, FPS_DEPR
 
 
 """
