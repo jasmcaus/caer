@@ -8,6 +8,7 @@
 
 import math 
 import cv2 as cv
+import numpy as np 
 
 from ._checks import _check_target_size
 from .opencv import to_rgb, to_gray, url_to_image
@@ -246,8 +247,8 @@ def mean(image, mask=None):
 
 
 def merge(matrix_vector):
-    if not isinstance(matrix_vector, list):
-        raise ValueError('matrix_vector must be a list of (ideally) shape = 3)')
+    if not isinstance(matrix_vector, (list, np.ndarray)):
+        raise ValueError('matrix_vector must be a list or numpy.ndarray of (ideally) shape = 3)')
 
     return cv.merge(matrix_vector)
 
