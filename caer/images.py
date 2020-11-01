@@ -8,7 +8,7 @@
 
 import math 
 import cv2 as cv
-import numpy as np 
+# import numpy as np 
 
 from ._checks import _check_target_size
 from .opencv import to_rgb, to_gray, url_to_image
@@ -247,8 +247,8 @@ def mean(image, mask=None):
 
 
 def merge(img):
-    if not isinstance(img, (list, np.ndarray)):
-        raise ValueError('img must be a list or numpy.ndarray of (ideally) shape = 3)')
+    # if not isinstance(img, (list, np.ndarray)):
+    #     raise ValueError('img must be a list or numpy.ndarray of (ideally) shape = 3)')
 
     return cv.merge(img)
 
