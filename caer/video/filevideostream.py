@@ -13,7 +13,7 @@ from queue import Queue
 import cv2 as cv
 
 from ..opencv import get_opencv_version
-from ..configs import FRAME_COUNT, FRAME_COUNT_DEPR, FPS, FPS_DEPR
+from ..configs import FRAME_COUNT, FPS
 
 
 #pylint:disable=no-member
@@ -96,10 +96,12 @@ class FileVideoStream:
     # Gets frame count
     def count_frames(self):
         if not self.kill_stream and not self.live_video:
-            if get_opencv_version() == '2':
-                return int(self.stream.get(FRAME_COUNT_DEPR))
-            else:
-                return int(self.stream.get(FRAME_COUNT))
+            return int(self.stream.get(FRAME_COUNT))
+            # if get_opencv_version() == '2':
+            #     return int(self.stream.get(FRAME_COUNT_DEPR))
+            # else:
+            #     return int(self.stream.get(FRAME_COUNT))
+            
 
         if self.live_video:
             print('[WARNING] Frames cannot be computed on live streams')
