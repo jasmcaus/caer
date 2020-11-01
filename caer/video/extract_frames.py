@@ -14,6 +14,7 @@ import cv2 as cv
 from .._checks import _check_target_size
 from ..path import list_videos, exists
 from ..images import resize
+from ..configs import FRAME_COUNT, FPS
 
 
 def extract_frames(input_folder, 
