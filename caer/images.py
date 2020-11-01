@@ -138,7 +138,7 @@ def _cv2_resize(image, target_size, interpolation=None):
     width, height = target_size[:2]
 
     if interpolation is None:
-        interpolation = cv.INTER_AREA
+        interpolation = INTER_AREA
 
     dimensions = (width, height)
 
