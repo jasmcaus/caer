@@ -13,6 +13,7 @@ import os
 
 from .._checks import _check_mean_sub_values
 from ..path import exists
+from ..images import mean
 
 
 """
@@ -65,7 +66,7 @@ def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True):
     if channels == 3:
         rMean, gMean, bMean = 0,0,0
     if channels == 1:
-        mean = 0
+        bgrmean = 0
     count = 0
 
     for root, _, files in os.walk(DIR):
@@ -75,12 +76,12 @@ def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True):
                 filepath = root + os.sep + file
                 img = cv.imread(filepath)
                 if channels == 3:
-                    b,g,r = cv.mean(img.astype('float32'))[:3]
+                    b,g,r = mean(img.astype('float32'))[:3]
                     rMean += r
                     bMean += b
                     gMean += g
                 if channels == 1:
-                    mean += cv.mean(img.astype('float32'))[0]
+                    bgrmean += mean(img.astype('float32'))[0]
 
     # Computing average mean
     if channels == 3:
@@ -94,8 +95,8 @@ def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True):
             return mean_of_means, mean_of_means, mean_of_means
 
     if channels == 1:
-        mean /= count
-        return tuple([mean])
+        bgrmean /= count
+        return tuple([bgrmean])
 
 
 def compute_mean(data, channels, per_channel_subtraction=True):
@@ -112,18 +113,18 @@ def compute_mean(data, channels, per_channel_subtraction=True):
     if channels == 3:
         rMean, gMean, bMean = 0,0,0
     if channels == 1:
-        mean = 0
+        bgrmean = 0
     count = 0
 
     for img in data:
         count += 1
         if channels == 3:
-            b,g,r = cv.mean(img.astype('float32'))[:3]
+            b,g,r = mean(img.astype('float32'))[:3]
             rMean += r
             bMean += b
             gMean += g
         if channels == 1:
-            mean += cv.mean(img.astype('float32'))[0]
+            bgrmean += mean(img.astype('float32'))[0]
 
     # Computing average mean
     if channels == 3:
@@ -137,8 +138,8 @@ def compute_mean(data, channels, per_channel_subtraction=True):
             return mean_of_means, mean_of_means, mean_of_means
 
     if channels == 1:
-        mean /= count
-        return tuple([mean])
+        bgrmean /= count
+        return tuple([bgrmean])
 
 
 def subtract_mean(data, channels, mean_sub_values):
