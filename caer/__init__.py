@@ -53,6 +53,7 @@ from .images import center_crop
 from .images import load_img 
 from .images import mean 
 from .images import merge 
+from .images import split 
 
 # Bringing in configuration variables from configs.py
 from .configs import CROP_CENTRE
