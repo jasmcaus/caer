@@ -112,7 +112,7 @@ def setup_package():
     write_meta()
 
     setup(
-        name=NAME,
+        name = NAME,
         version=VERSION,
         author=AUTHOR,
         author_email=AUTHOR_EMAIL,
