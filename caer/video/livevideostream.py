@@ -78,7 +78,7 @@ class LiveVideoStream:
             if get_opencv_version() == '2':
                 return math.ceil(self.stream.get(FPS_DEPR))
             else:
-                return math.ceil(self.stream.get(cv.CAP_PROP_FPS))
+                return math.ceil(self.stream.get(FPS))
 
 
 __all__ = [
