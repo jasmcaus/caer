@@ -97,9 +97,9 @@ class FileVideoStream:
     def count_frames(self):
         if not self.kill_stream and not self.live_video:
             if get_opencv_version() == '2':
-                return int(self.stream.get(cv.FRAME_COUNT))
+                return int(self.stream.get(FRAME_COUNT_DEPR))
             else:
-                return int(self.stream.get(cv.CAP_PROP_FRAME_COUNT))
+                return int(self.stream.get(FRAME_COUNT))
 
         if self.live_video:
             print('[WARNING] Frames cannot be computed on live streams')
