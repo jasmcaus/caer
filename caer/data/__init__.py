@@ -14,7 +14,7 @@ from .._base import __curr__
 here = minijoin(__curr__, 'data').replace('\\', "/") + "/"
 
 
-def audio_mixer(target_size=None, rgb=True):
+def audio_mixer(target_size = None, rgb=True):
     return load_img(here + 'audio_mixer.jpg', target_size=target_size, rgb=rgb)
 
 
