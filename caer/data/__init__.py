@@ -71,7 +71,7 @@ def guitar(target_size=None, rgb=True):
 
 
 def island(target_size=None, rgb=True):
-    return load_img(here+'island.jpg', target_size=target_size, rgb=rgb)
+    return load_img(here + 'island.jpg', target_size=target_size, rgb=rgb)
 
 
 def jellyfish(target_size=None, rgb=True):
