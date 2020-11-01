@@ -10,7 +10,7 @@ import cv2 as cv
 import numpy as np
 from urllib.request import urlopen
 
-from .utilities import median
+from .utilities import median, asarray
 from .configs import (
     BGR2GRAY, BGR2RGB, BGR2HSV, BGR2LAB, RGB2GRAY, RGB2HSV, RGB2LAB, IMREAD_COLOR
 )
@@ -152,7 +152,7 @@ def to_lab(img):
 def url_to_image(url, rgb=True):
     # Converts the image to a Numpy array and reads it in OpenCV
     response = urlopen(url)
-    image = np.asarray(bytearray(response.read()), dtype='uint8')
+    image = asarray(bytearray(response.read()), dtype='uint8')
     image = cv.imdecode(image, IMREAD_COLOR)
     if rgb:
         image = to_rgb(image)
