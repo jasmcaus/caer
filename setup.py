@@ -134,7 +134,7 @@ def setup_package():
         python_requires = PYTHON_REQUIRES,
         include_package_data = True,
         zip_safe = False,
-        keywords=KEYWORDS,
+        keywords = KEYWORDS,
         classifiers= CLASSIFIERS,
 # Include_package_data is required for setup.py to recognize the MAINFEST.in file
 # https://python-packaging.readthedocs.io/en/latest/non-code-files.html
