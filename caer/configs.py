@@ -6,7 +6,6 @@
 #
 # ==============================================================================
 
-import cv2 as cv 
 
 # Configuration Variables used in Caer
 CROP_CENTRE = 1
@@ -39,11 +38,9 @@ BGR2LAB = 44  # cv.COLOR_BGR2LAB
 RGB2LAB = 45  # cv.COLOR_RGB2LAB
 
 # Video
-#pylint:disable=c-extension-no-member
 FPS = 5  # cv.CAP_PROP_FPS
 FRAME_COUNT = 7  # cv.CAP_PROP_FRAME_COUNT
-FRAME_COUNT_DEPR = cv.cv2.CAP_PROP_FRAME_COUNT
-FPS_DEPR = cv.cv2.CAP_PROP_FPS
+
 
 
 __all__ = [
