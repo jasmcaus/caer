@@ -8,9 +8,8 @@
 
 import random
 import time
-import numpy as np
 
-from .utilities import saveNumpy, get_classes_from_dir
+from .utilities import saveNumpy, get_classes_from_dir, to_array, load
 from .images import load_img
 from .preprocessing import MeanProcess
 from ._checks import _check_target_size, _check_mean_sub_values
@@ -94,7 +93,7 @@ def preprocess_from_dir(DIR,
     if destination_filename is not None and exists(destination_filename):
         print('[INFO] Loading from Numpy Files')
         since = time.time()
-        data = np.load(destination_filename, allow_pickle=True)
+        data = load(destination_filename, allow_pickle=True)
         end = time.time()
         print('----------------------------------------------')
         print('[INFO] Loaded in {:.0f}s from Numpy Files'.format(end-since))
@@ -160,7 +159,7 @@ def preprocess_from_dir(DIR,
             data = shuffle(data)
 
         # Converting to Numpy
-        data = np.array(data)
+        data = to_array(data)
 
         # Saves the Data set as a .npy file
         if save_data:
@@ -220,7 +219,7 @@ def sep_train(data, IMG_SIZE, channels=1):
 
     # Converting to Numpy + Reshaping X
     x = reshape(x, IMG_SIZE, channels)
-    y = np.array(y)
+    y = to_array(y)
 
     return x, y
 
@@ -229,7 +228,7 @@ def reshape(x, IMG_SIZE, channels):
     _ = _check_target_size(IMG_SIZE)
 
     width, height = IMG_SIZE[:2]
-    return np.array(x).reshape(-1, width, height, channels)
+    return to_array(x).reshape(-1, width, height, channels)
 
 
 def normalize(x, dtype='float32'):
