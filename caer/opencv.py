@@ -124,7 +124,7 @@ def to_hsv(img):
     try:
         return cv.cvtColor(img, BGR2HSV)
     except Exception:
-        return cv.cvtColor(img, cv.COLOR_RGB2HSV)
+        return cv.cvtColor(img, RGB2HSV)
 
 
 def to_lab(img):
@@ -135,7 +135,7 @@ def to_lab(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}')
 
     try:
-        return cv.cvtColor(img, cv.COLOR_BGR2LAB)
+        return cv.cvtColor(img, BGR2LAB)
     except Exception:
         return cv.cvtColor(img, cv.COLOR_RGB2LAB)
 
