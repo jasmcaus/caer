@@ -311,8 +311,8 @@ def get_size(file, disp_format='bytes'):
         return size * 1e-12
 
 
-def minijoin(file1, file2):
-    return os.path.join(file1, file2)
+def minijoin(*paths):
+    return os.path.join(*paths)
 
 
 def dirname(file):
