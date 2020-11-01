@@ -13,7 +13,7 @@ from queue import Queue
 import cv2 as cv
 
 from ..opencv import get_opencv_version
-from ..configs import FRAME_COUNT, FPS
+from ..configs import FRAME_COUNT, FPS, FRAME_COUNT_DEPR
 
 
 #pylint:disable=no-member
@@ -109,7 +109,7 @@ class FileVideoStream:
     def get_fps(self):
         if not self.kill_stream:
             if get_opencv_version() == '2':
-                return math.ceil(self.stream.get(cv.cv.CAP_PROP_FPS))
+                return math.ceil(self.stream.get(FPS_DEPR))
             else:
                 return math.ceil(self.stream.get(cv.CAP_PROP_FPS))
 
