@@ -127,7 +127,7 @@ def setup_package():
             'Documentation': URL + '/blob/master/docs/README.md',
             'Source Code': URL,
         },
-        packages=PACKAGES,
+        packages = PACKAGES,
         license=LICENSE,
         install_requires=REQUIREMENTS,
         extras_require=EXTRAS,
