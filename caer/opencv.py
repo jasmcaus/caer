@@ -10,6 +10,7 @@ import cv2 as cv
 import numpy as np
 from urllib.request import urlopen
 
+from .utilities import median
 from .configs import (
     BGR2GRAY, BGR2RGB, BGR2HSV, BGR2LAB, RGB2GRAY, RGB2HSV, RGB2LAB, IMREAD_COLOR
 )
@@ -82,7 +83,7 @@ def edges(img, threshold1=None, threshold2=None, use_median=True, sigma=None):
             sigma = .3
 
         # computes the median of the single channel pixel intensities
-        med = np.median(img)
+        med = median(img)
 
         # Canny edge detection using the computed mean
         low = int(max(0, (1.0-sigma) * med))
