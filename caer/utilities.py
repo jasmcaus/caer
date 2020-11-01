@@ -13,8 +13,13 @@ import numpy as np
 from ._split import train_test_split
 from .path import listdir
 
+
 def median(arr, axis=None):
     return np.median(arr, axis=axis)
+
+
+def array(obj, dtype=None):
+    return np.array(obj, dtype=dtype)
 
 
 def get_classes_from_dir(DIR):
@@ -90,7 +95,8 @@ def sort_dict(unsorted_dict, descending=False):
 
 __all__ = [
     'get_classes_from_dir',
-    'median'
+    'median',
+    'array',
     'saveNumpy',
     'train_val_split',
     'sort_dict'
