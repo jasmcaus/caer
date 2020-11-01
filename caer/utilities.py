@@ -22,6 +22,14 @@ def array(obj, dtype=None):
     return np.array(obj, dtype=dtype)
 
 
+def to_array(obj, dtype=None):
+    return np.array(obj, dtype=dtype)
+
+
+def load(filename, allow_pickle=False):
+    return np.load(filename, allow_pickle=allow_pickle)
+
+
 def get_classes_from_dir(DIR):
     if len(listdir(DIR)) == 0:
         raise ValueError('The specified directory does not seem to have any folders in it')
