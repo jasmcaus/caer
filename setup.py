@@ -131,7 +131,7 @@ def setup_package():
         license = LICENSE,
         install_requires = REQUIREMENTS,
         extras_require = EXTRAS,
-        python_requires=PYTHON_REQUIRES,
+        python_requires = PYTHON_REQUIRES,
         include_package_data=True,
         zip_safe=False,
         keywords=KEYWORDS,
