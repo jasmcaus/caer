@@ -20,8 +20,9 @@ print(f'Caer version {caer.__version__}')
 
 ## Resources
 
-- **Homepage:** <https://github.com/jasmcaus/caer/>
-- **Docs:** <https://github.com/jasmcaus/caer/blob/master/DOCS.md>
-- **Issue tracking:** <https://github.com/jasmcaus/caer/issues>
+- [**Homepage**](https://github.com/jasmcaus/caer)
+- [**PyPi**](https://pypi.org/project/caer)
+- [**Documentation**](https://github.com/jasmcaus/caer/blob/master/docs/README.md)
+- [**Issue tracking**](https://github.com/jasmcaus/caer/issues)
 
 All Caer wheels on PyPi are MIT-licensed
