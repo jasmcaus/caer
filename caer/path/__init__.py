@@ -21,6 +21,7 @@ from .paths import abspath
 from .paths import osname
 from .paths import chdir
 from .paths import minijoin
+from .paths import dirname
 
 # Variables
 from .paths import _acceptable_video_formats

@@ -6,6 +6,6 @@
 #
 # ==============================================================================
 
-import os 
+from .path import dirname
 
-__curr__ = os.path.dirname(__file__).replace("\\", "/")
+__curr__ = dirname(__file__).replace("\\", "/")
