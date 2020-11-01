@@ -124,7 +124,7 @@ def setup_package():
         download_url=DOWNLOAD_URL,
         project_urls={
             'Bug Tracker': URL + '/issues',
-            'Documentation': URL + '/blob/master/docs/DOCS.md',
+            'Documentation': URL + '/blob/master/docs/README.md',
             'Source Code': URL,
         },
         packages=PACKAGES,
