@@ -52,6 +52,7 @@ from .images import resize
 from .images import center_crop 
 from .images import load_img 
 from .images import mean 
+from .images import merge 
 
 # Bringing in configuration variables from configs.py
 from .configs import CROP_CENTRE

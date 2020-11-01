@@ -243,9 +243,16 @@ def mean(image, mask=None):
         raise ValueError('mean() expects an image')
 
 
+def merge(matrix_vector):
+    if not isinstance(matrix_vector, list):
+        raise ValueError('matrix_vector must be a list of (ideally) shape = 3)')
+
+    return cv.merge(matrix_vector)
+
 __all__ = [
     'load_img',
     'center_crop',
     'resize',
-    'mean'
+    'mean',
+    'merge'
 ]
