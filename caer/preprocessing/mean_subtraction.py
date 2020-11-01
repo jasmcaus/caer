@@ -124,10 +124,10 @@ def compute_mean(data, channels, per_channel_subtraction=True):
     for img in data:
         count += 1
         if channels == 3:
-            b,g,r = mean(img.astype('float32'))[:3]
+            b, g, r = mean(img.astype('float32'))[:3]
             rMean += r
-            bMean += b
             gMean += g
+            bMean += b
         if channels == 1:
             bgrMean += npmean(img.astype('float32'))
 
