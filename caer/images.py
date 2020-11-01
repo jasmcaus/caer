@@ -16,10 +16,6 @@ from .path import exists
 
 
 def load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=None, keep_aspect_ratio=False):
-    return _load_img(image_path, target_size=target_size, channels=channels, rgb=rgb, resize_factor=resize_factor, keep_aspect_ratio=keep_aspect_ratio)
-
-
-def _load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=None, keep_aspect_ratio=False):
     """
         Loads in an image from `image_path`
         Arguments
@@ -30,7 +26,10 @@ def _load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=
             resize_factor: Resizes the image using `resize_factor`. Default: None
             keep_aspect_ratio: Resized image to `target_size` keeping aspect ratio. Some parts of the image may not be included. Default: False
     """
-    
+    return _load_img(image_path, target_size=target_size, channels=channels, rgb=rgb, resize_factor=resize_factor, keep_aspect_ratio=keep_aspect_ratio)
+
+
+def _load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=None, keep_aspect_ratio=False):   
     if target_size is not None:
         _ = _check_target_size(target_size)
         
