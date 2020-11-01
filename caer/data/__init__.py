@@ -55,7 +55,7 @@ def fighter_fish(target_size=None, rgb=True):
 
 
 def gold_fish(target_size=None, rgb=True):
-    return load_img(here + 'gold_fish.jpg', target_size=target_size, rgb=rgb)
+    return load_img(here+'gold_fish.jpg', target_size=target_size, rgb=rgb)
 
 
 def green_controller(target_size=None, rgb=True):
