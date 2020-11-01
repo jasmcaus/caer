@@ -10,7 +10,7 @@ import math
 import cv2 as cv
 
 from ._checks import _check_target_size
-from .opencv import to_rgb, url_to_image
+from .opencv import to_rgb, to_gray, url_to_image
 from .utils.validators import is_valid_url
 from .path import exists
 
@@ -51,7 +51,7 @@ def _load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=
     # if image_array == None:
     #     pass
     if channels == 1:
-        image_array = cv.cvtColor(image_array, BGR2GRAY)
+        image_array = to_gray(image_array)
 
     if target_size is not None or resize_factor is not None:
         image_array = resize(image_array, target_size, resize_factor=resize_factor, keep_aspect_ratio=keep_aspect_ratio)
@@ -94,7 +94,7 @@ def resize(image, target_size=None, resize_factor=None, keep_aspect_ratio=False,
             if len(target_size) == 2:
                 new_shape = target_size
             else:
-                raise ValueError('Tuple shape must be equal to 2 (width, height)')
+                raise ValueError('Tuple shape must be = 2 (width, height)')
 
     if resize_factor is not None:
         target_size = None
@@ -109,7 +109,7 @@ def resize(image, target_size=None, resize_factor=None, keep_aspect_ratio=False,
         new_shape = (int(resize_factor * image.shape[1]), int(resize_factor * image.shape[0]))
             
     interpolation_methods = {
-        'nearest': cv.INTER_NEAREST, # 0
+        'nearest': INTER_NEAREST, # 0
         'bilinear': cv.INTER_LINEAR, # 1
         'bicubic': cv.INTER_CUBIC, # 2
         'area': cv.INTER_AREA, # 3
