@@ -118,7 +118,7 @@ def setup_package():
         author_email = AUTHOR_EMAIL,
         maintainer = AUTHOR,
         description = DESCRIPTION,
-        long_description=LONG_DESCRIPTION,
+        long_description = LONG_DESCRIPTION,
         long_description_content_type='text/markdown',
         url=URL,
         download_url=DOWNLOAD_URL,
