@@ -111,7 +111,7 @@ def to_gray(img):
     try:
         return cv.cvtColor(img, BGR2GRAY)
     except Exception:
-        return cv.cvtColor(img, cv.COLOR_RGB2GRAY)
+        return cv.cvtColor(img, RGB2GRAY)
 
 
 def to_hsv(img):
