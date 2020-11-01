@@ -6,6 +6,8 @@
 #
 # ==============================================================================
 
+import cv2 as cv 
+
 # Configuration Variables used in Caer
 CROP_CENTRE = 1
 CROP_TOP = 2
@@ -16,6 +18,17 @@ CROP_BOTTOM = 5
 VALID_URL_NO_EXIST = 0
 INVALID_URL_STRING = -1
 
+# OpenCV
+BGR2GRAY = cv.COLOR_BGR2GRAY
+BGR2RGB = cv.COLOR_BGR2RGB
+BGR2HSV = cv.COLOR_BGR2HSV
+BGR2LAB = cv.COLOR_BGR2LAB
+RGB2LAB = cv.COLOR_RGB2LAB
+IMREAD_COLOR = cv.IMREAD_COLOR
+
+FRAME_COUNT = cv.CAP_PROP_FRAME_COUNT
+FPS = cv.CAP_PROP_FPS
+BGR2RGB = cv.COLOR_BGR2RGB
 
 __all__ = [
     'CROP_CENTRE',
