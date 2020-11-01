@@ -137,7 +137,7 @@ def to_lab(img):
     try:
         return cv.cvtColor(img, BGR2LAB)
     except Exception:
-        return cv.cvtColor(img, cv.COLOR_RGB2LAB)
+        return cv.cvtColor(img, RGB2LAB)
 
 
 def url_to_image(url, rgb=True):
