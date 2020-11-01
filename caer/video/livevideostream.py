@@ -12,7 +12,6 @@ from threading import Thread
 import math
 import cv2 as cv
 
-from ..opencv import get_opencv_version
 from ..configs import FPS
 
 
