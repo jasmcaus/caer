@@ -12,7 +12,6 @@ import math
 from queue import Queue
 import cv2 as cv
 
-from ..opencv import get_opencv_version
 from ..configs import FRAME_COUNT, FPS
 
 
@@ -110,10 +109,11 @@ class FileVideoStream:
     # Gets FPS count
     def get_fps(self):
         if not self.kill_stream:
-            if get_opencv_version() == '2':
-                return math.ceil(self.stream.get(FPS_DEPR))
-            else:
-                return math.ceil(self.stream.get(FPS))
+            return math.ceil(self.stream.get(FPS))
+            # if get_opencv_version() == '2':
+            #     return math.ceil(self.stream.get(FPS_DEPR))
+            # else:
+            #     return math.ceil(self.stream.get(FPS))
 
 
 __all__ = [
