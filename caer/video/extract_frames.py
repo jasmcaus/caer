@@ -75,7 +75,7 @@ def extract_frames(input_folder,
 
             # Find the number of frames and FPS
             video_frame_count = int(capture.get(FRAME_COUNT)) - 1
-            video_fps = math.ceil(capture.get(cv.CAP_PROP_FPS))
+            video_fps = math.ceil(capture.get(cv.FPS))
             file = vid_filepath[vid_filepath.rindex('/')+1:]
 
             print(f'{vid_count+1}. Reading \'{file}\'. Number of frames: {video_frame_count}. FPS: {video_fps}')
