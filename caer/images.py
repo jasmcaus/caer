@@ -13,6 +13,9 @@ from ._checks import _check_target_size
 from .opencv import to_rgb, to_gray, url_to_image
 from .utils.validators import is_valid_url
 from .path import exists
+from .configs import (
+    INTER_AREA, INTER_CUBIC, INTER_NEAREST, INTER_LINEAR
+)
 
 
 def load_img(image_path, target_size=None, channels=3, rgb=True, resize_factor=None, keep_aspect_ratio=False):
