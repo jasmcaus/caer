@@ -18,7 +18,8 @@ CROP_BOTTOM = 5
 VALID_URL_NO_EXIST = 0
 INVALID_URL_STRING = -1
 
-# OpenCV
+
+# OpenCVp
 BGR2GRAY = 6 # cv.COLOR_BGR2GRAY
 BGR2RGB = 4 # cv.COLOR_BGR2RGB
 BGR2HSV = 40 # cv.COLOR_BGR2HSV
@@ -33,11 +34,13 @@ INTER_LINEAR = 1 # cv.INTER_LINEAR
 INTER_CUBIC = 2 # cv.INTER_CUBIC
 INTER_AREA = 3 # cv.INTER_AREA
 
+
 #pylint:disable=c-extension-no-member
 FRAME_COUNT = 7 # cv.CAP_PROP_FRAME_COUNT
 FRAME_COUNT_DEPR = cv.cv2.CAP_PROP_FRAME_COUNT
 FPS = 5 # cv.CAP_PROP_FPS
 FPS_DEPR = cv.cv2.CAP_PROP_FPS
+
 
 __all__ = [
     'CROP_CENTRE',
@@ -47,4 +50,18 @@ __all__ = [
     'CROP_BOTTOM',
     'VALID_URL_NO_EXIST',
     'INVALID_URL_STRING',
+    'BGR2GRAY',
+    'BGR2RGB',
+    'BGR2HSV',
+    'BGR2LAB',
+    'RGB2GRAY',
+    'RGB2HSV',
+    'RGB2LAB',
+    'IMREAD_COLOR',
+    'INTER_NEAREST',
+    'INTER_LINEAR',
+    'INTER_AREA',
+    'INTER_CUBIC',
+    'FRAME_COUNT',
+    'FPS'
 ]
