@@ -113,7 +113,7 @@ def setup_package():
 
     setup(
         name = NAME,
-        version=VERSION,
+        version = VERSION,
         author=AUTHOR,
         author_email=AUTHOR_EMAIL,
         maintainer=AUTHOR,
