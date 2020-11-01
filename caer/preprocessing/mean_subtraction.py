@@ -9,11 +9,10 @@
 #pylint:disable=pointless-string-statement
 
 import cv2 as cv
-import os 
 
 from .._checks import _check_mean_sub_values
-from ..path import exists
-from ..images import mean
+from ..path import exists, list_images
+from ..images import mean, load_img
 
 
 """
@@ -67,21 +66,22 @@ def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True):
         rMean, gMean, bMean = 0,0,0
     if channels == 1:
         bgrMean = 0
-    count = 0
 
-    for root, _, files in os.walk(DIR):
-        for file in files:
-            if file.endswith('.png') or file.endswith('.jpg'):
-                count += 1
-                filepath = root + os.sep + file
-                img = cv.imread(filepath)
-                if channels == 3:
-                    b,g,r = mean(img.astype('float32'))[:3]
-                    rMean += r
-                    bMean += b
-                    gMean += g
-                if channels == 1:
-                    bgrMean += mean(img.astype('float32'))[0]
+    count = 0
+    
+    image_list = list_images(DIR, include_subdirs=True, use_fullpath=True, verbose=0)
+    for img_filepath in image_list:
+        count += 1
+        img = load_img(img_filepath, rgb=False)
+
+        if channels == 3:
+            b, g, r = mean(img.astype('float32'))[:3]
+            rMean += r
+            bMean += b
+            gMean += g
+
+        if channels == 1:
+            bgrMean += mean(img.astype('float32'))[0]
 
     # Computing average mean
     if channels == 3:
