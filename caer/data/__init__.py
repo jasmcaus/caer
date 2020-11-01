@@ -115,7 +115,7 @@ def snow(target_size=None, rgb=True):
 
 
 def snowflake(target_size=None, rgb=True):
-    return load_img(here+'snowflake.jpg', target_size=target_size, rgb=rgb)
+    return load_img(here + 'snowflake.jpg', target_size=target_size, rgb=rgb)
 
 
 def sunrise(target_size=None, rgb=True):
