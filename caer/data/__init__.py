@@ -111,7 +111,7 @@ def sea_turtle(target_size=None, rgb=True):
 
 
 def snow(target_size=None, rgb=True):
-    return load_img(here+'snow.jpg', target_size=target_size, rgb=rgb)
+    return load_img(here + 'snow.jpg', target_size=target_size, rgb=rgb)
 
 
 def snowflake(target_size=None, rgb=True):
