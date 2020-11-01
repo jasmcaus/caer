@@ -18,6 +18,10 @@ def median(arr, axis=None):
     return np.median(arr, axis=axis)
 
 
+def npmean(arr):
+    return np.mean(arr)
+
+
 def array(obj, dtype=None, order='K'):
     return np.array(obj, dtype=dtype, order=order)
 
@@ -108,6 +112,9 @@ def sort_dict(unsorted_dict, descending=False):
 __all__ = [
     'get_classes_from_dir',
     'median',
+    'npmean',
+    'asarray',
+    'to_array',
     'array',
     'saveNumpy',
     'train_val_split',
