@@ -99,7 +99,7 @@ def puppy(target_size=None, rgb=True):
 
 
 def red_fish(target_size=None, rgb=True):
-    return load_img(here + 'red_fish.jpg', target_size=target_size, rgb=rgb)
+    return load_img(here+'red_fish.jpg', target_size=target_size, rgb=rgb)
 
 
 def phone(target_size=None, rgb=True):
