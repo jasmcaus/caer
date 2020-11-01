@@ -109,7 +109,7 @@ def to_gray(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}')
     
     try:
-        return cv.cvtColor(img, cv.COLOR_BGR2GRAY)
+        return cv.cvtColor(img, BGR2GRAY)
     except Exception:
         return cv.cvtColor(img, cv.COLOR_RGB2GRAY)
 
