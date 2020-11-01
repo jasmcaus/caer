@@ -25,6 +25,7 @@ from .preprocess import normalize
 # General utilities
 from .utilities import saveNumpy
 from .utilities import median
+from .utilities import npmean
 from .utilities import to_array
 from .utilities import array
 from .utilities import asarray

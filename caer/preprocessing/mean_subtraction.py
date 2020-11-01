@@ -11,6 +11,7 @@
 from .._checks import _check_mean_sub_values
 from ..path import exists, list_images
 from ..images import mean, merge, split, load_img
+from ..utilities import npmean
 
 
 """
@@ -41,8 +42,8 @@ class MeanProcess:
 
             # Subtracting the mean
             r -= self.rMean
-            b -= self.bMean
             g -= self.gMean
+            b -= self.bMean
 
             # Merging 
             return merge([b,g,r])
@@ -83,7 +84,7 @@ def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True):
             gMean += g
 
         if channels == 1:
-            bgrMean += mean(img.astype('float32'))[0]
+            bgrMean += npmean(img.astype('float32'))
 
     # Computing average mean
     if channels == 3:
