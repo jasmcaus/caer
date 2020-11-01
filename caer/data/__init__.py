@@ -75,7 +75,7 @@ def island(target_size=None, rgb=True):
 
 
 def jellyfish(target_size=None, rgb=True):
-    return load_img(here + 'jellyfish.jpg', target_size=target_size, rgb=rgb)
+    return load_img(here+'jellyfish.jpg', target_size=target_size, rgb=rgb)
 
 
 def laptop(target_size=None, rgb=True):
