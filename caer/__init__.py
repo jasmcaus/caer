@@ -51,6 +51,7 @@ from .time import now
 from .images import resize 
 from .images import center_crop 
 from .images import load_img 
+from .images import mean 
 
 # Bringing in configuration variables from configs.py
 from .configs import CROP_CENTRE
