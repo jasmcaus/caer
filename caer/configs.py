@@ -17,17 +17,15 @@ CROP_BOTTOM = 5
 VALID_URL_NO_EXIST = 0
 INVALID_URL_STRING = -1
 
-############################################################
-#   OpenCV 
-############################################################
+#  OpenCV 
 
-# Interpolations
+## Interpolations
 INTER_NEAREST = 0  # cv.INTER_NEAREST
 INTER_LINEAR = 1  # cv.INTER_LINEAR
 INTER_CUBIC = 2  # cv.INTER_CUBIC
 INTER_AREA = 3  # cv.INTER_AREA
 
-# Color Spaces
+## Color Spaces
 IMREAD_COLOR = 1 # cv.IMREAD_COLOR
 BGR2RGB = 4  # cv.COLOR_BGR2RGB
 BGR2GRAY = 6  # cv.COLOR_BGR2GRAY
@@ -37,7 +35,7 @@ RGB2HSV = 41  # cv.COLOR_RGB2HSV
 BGR2LAB = 44  # cv.COLOR_BGR2LAB
 RGB2LAB = 45  # cv.COLOR_RGB2LAB
 
-# Video
+## Video
 FPS = 5  # cv.CAP_PROP_FPS
 FRAME_COUNT = 7  # cv.CAP_PROP_FRAME_COUNT
 
