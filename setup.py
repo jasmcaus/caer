@@ -115,7 +115,7 @@ def setup_package():
         name = NAME,
         version = VERSION,
         author = AUTHOR,
-        author_email=AUTHOR_EMAIL,
+        author_email = AUTHOR_EMAIL,
         maintainer=AUTHOR,
         description=DESCRIPTION,
         long_description=LONG_DESCRIPTION,
