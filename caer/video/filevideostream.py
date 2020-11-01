@@ -11,7 +11,9 @@ import time
 import math
 from queue import Queue
 import cv2 as cv
+
 from ..opencv import get_opencv_version
+from ..configs import FRAME_COUNT, FPS
 
 
 #pylint:disable=no-member
