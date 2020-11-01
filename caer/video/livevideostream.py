@@ -68,9 +68,9 @@ class LiveVideoStream:
     # def count_frames(self):
     #     if not self.kill_stream:
     #         if get_opencv_version() == '2':
-    #             return int(self.stream.get(cv.cv.CAP_PROP_FRAME_COUNT))
+    #             return int(self.stream.get(FRAME_COUNT_DEPR))
     #         else:
-    #             return int(self.stream.get(cv.CAP_PROP_FRAME_COUNT))
+    #             return int(self.stream.get(FRAME_COUNT))
 
     # Gets FPS count
     def get_fps(self):
