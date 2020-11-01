@@ -119,7 +119,7 @@ def setup_package():
         maintainer = AUTHOR,
         description = DESCRIPTION,
         long_description = LONG_DESCRIPTION,
-        long_description_content_type='text/markdown',
+        long_description_content_type = 'text/markdown',
         url=URL,
         download_url=DOWNLOAD_URL,
         project_urls={
