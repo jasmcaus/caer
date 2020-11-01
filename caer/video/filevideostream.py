@@ -97,7 +97,7 @@ class FileVideoStream:
     def count_frames(self):
         if not self.kill_stream and not self.live_video:
             if get_opencv_version() == '2':
-                return int(self.stream.get(cv.cv.CAP_PROP_FRAME_COUNT))
+                return int(self.stream.get(cv.FRAME_COUNT))
             else:
                 return int(self.stream.get(cv.CAP_PROP_FRAME_COUNT))
 
