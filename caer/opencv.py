@@ -160,6 +160,7 @@ def url_to_image(url, rgb=True):
 
 __all__ = [
     'get_opencv_version',
+    'imwrite'
     'to_gray',
     'to_hsv',
     'to_lab',

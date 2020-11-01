@@ -31,6 +31,7 @@ from .utilities import sort_dict
 
 # Opencv-specific methods
 from .opencv import get_opencv_version
+from .opencv import imwrite
 from .opencv import to_gray
 from .opencv import to_hsv
 from .opencv import to_lab
