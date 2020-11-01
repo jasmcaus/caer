@@ -120,7 +120,7 @@ def setup_package():
         description = DESCRIPTION,
         long_description = LONG_DESCRIPTION,
         long_description_content_type = 'text/markdown',
-        url=URL,
+        url = URL,
         download_url=DOWNLOAD_URL,
         project_urls={
             'Bug Tracker': URL + '/issues',
