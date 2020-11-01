@@ -236,8 +236,16 @@ def _compute_centre_crop(image, target_size):
     return image[diff_h:diff_h + target_h, diff_w:diff_w + target_w]
 
 
+def mean(image, mask=None):
+    try:
+        return cv.mean(image, mask=mask)
+    except:
+        raise ValueError('mean() expects an image')
+
+
 __all__ = [
     'load_img',
     'center_crop',
-    'resize'
+    'resize',
+    'mean'
 ]
