@@ -248,10 +248,19 @@ def merge(matrix_vector):
 
     return cv.merge(matrix_vector)
 
+
+def split(img):
+    try:
+        return cv.split(img)
+    except:
+        raise ValueError('mean() expects an image')
+
+
 __all__ = [
     'load_img',
     'center_crop',
     'resize',
     'mean',
-    'merge'
+    'merge',
+    'split'
 ]
