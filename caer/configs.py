@@ -32,7 +32,7 @@ IMREAD_COLOR = 1 # cv.IMREAD_COLOR
 INTER_NEAREST = 0  # cv.INTER_NEAREST
 INTER_LINEAR = 1  # cv.INTER_LINEAR
 INTER_CUBIC = 2  # cv.INTER_CUBIC
-INTER_AREA = 3 # cv.INTER_AREA
+INTER_AREA = 3  # cv.INTER_AREA
 
 
 #pylint:disable=c-extension-no-member
