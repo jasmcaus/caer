@@ -67,7 +67,7 @@ def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True):
         raise ValueError(f'No images found at {DIR}')
 
     if channels == 3:
-        rMean, gMean, bMean = 0,0,0
+        rMean, gMean, bMean = 0, 0, 0
     if channels == 1:
         bgrMean = 0
 
@@ -91,6 +91,7 @@ def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True):
         rMean /= count
         bMean /= count 
         gMean /= count
+
         if per_channel_subtraction:
             return rMean, bMean, gMean
         else:
@@ -110,13 +111,14 @@ def compute_mean(data, channels, per_channel_subtraction=True):
     if len(data) == 0:
         raise ValueError('Dataset is empty')
     
-    if isinstance(data, list):
+    if not isinstance(data, list):
         raise ValueError('Dataset must be a list of size=number of images and shape=image shape')
 
     if channels == 3:
         rMean, gMean, bMean = 0,0,0
     if channels == 1:
         bgrMean = 0
+
     count = 0
 
     for img in data:
@@ -127,7 +129,7 @@ def compute_mean(data, channels, per_channel_subtraction=True):
             bMean += b
             gMean += g
         if channels == 1:
-            bgrMean += mean(img.astype('float32'))[0]
+            bgrMean += npmean(img.astype('float32'))
 
     # Computing average mean
     if channels == 3:
