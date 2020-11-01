@@ -13,11 +13,12 @@ import cv2 as cv
 
 from .._checks import _check_target_size
 from ..path import list_videos, exists
+from ..images import resize
 
 
 def extract_frames(input_folder, 
                    output_folder, 
-                   IMG_SIZE=None, 
+                   target_size=None, 
                    include_subdirs=False,
                    label_counter = None, 
                    max_video_count=None, 
@@ -29,7 +30,7 @@ def extract_frames(input_folder,
     Args:
         input_folder: Input video directory.
         output_folder: Output directory to save the frames.
-        IMG_SIZE: Destination Image Size (tuple of size 2)
+        target_size: Destination Image Size (tuple of size 2)
         label_counter: Starting label counter
         max_video_count: Number of videos to process.
         frames_per_sec: Number of frames to process per second. 
@@ -46,8 +47,8 @@ def extract_frames(input_folder,
     if not exists(input_folder):
         raise ValueError('Input folder does not exist', input_folder)
     
-    if IMG_SIZE is not None:
-        _ = _check_target_size(IMG_SIZE)
+    if target_size is not None:
+        _ = _check_target_size(target_size)
     
     video_list = list_videos(input_folder, include_subdirs=include_subdirs, use_fullpath=True, verbose=0)
 
@@ -93,8 +94,8 @@ def extract_frames(input_folder,
             while capture.isOpened():
                 _, frame = capture.read()
 
-                if IMG_SIZE is not None:                    
-                    frame = cv.resize(frame, IMG_SIZE)
+                if target_size is not None:                    
+                    frame = resize(frame, target_size=target_size)
                 
                 # Write the results back to output location as per specified frames per second
                 if video_frame_counter % interval == 0:
