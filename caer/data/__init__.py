@@ -19,7 +19,7 @@ def audio_mixer(target_size=None, rgb=True):
 
 
 def bear(target_size=None, rgb=True):
-    return load_img(here+'bear.jpg', target_size=target_size, rgb=rgb)
+    return load_img(here + 'bear.jpg', target_size=target_size, rgb=rgb)
 
 
 def beverages(target_size=None, rgb=True):
