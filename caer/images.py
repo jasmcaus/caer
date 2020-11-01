@@ -246,11 +246,11 @@ def mean(image, mask=None):
         raise ValueError('mean() expects an image')
 
 
-def merge(matrix_vector):
-    if not isinstance(matrix_vector, (list, np.ndarray)):
-        raise ValueError('matrix_vector must be a list or numpy.ndarray of (ideally) shape = 3)')
+def merge(img):
+    if not isinstance(img, (list, np.ndarray)):
+        raise ValueError('img must be a list or numpy.ndarray of (ideally) shape = 3)')
 
-    return cv.merge(matrix_vector)
+    return cv.merge(img)
 
 
 def split(img):
