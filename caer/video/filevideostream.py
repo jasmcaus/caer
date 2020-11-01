@@ -13,7 +13,7 @@ from queue import Queue
 import cv2 as cv
 
 from ..opencv import get_opencv_version
-from ..configs import FRAME_COUNT, FPS, FRAME_COUNT_DEPR, FPS_DEPR
+from ..configs import FRAME_COUNT, FRAME_COUNT_DEPR, FPS, FPS_DEPR
 
 
 #pylint:disable=no-member
