@@ -123,7 +123,7 @@ def sunrise(target_size=None, rgb=True):
 
 
 def tent(target_size=None, rgb=True):
-    return load_img(here + 'tent.jpg', target_size=target_size, rgb=rgb)
+    return load_img(here+'tent.jpg', target_size=target_size, rgb=rgb)
 
 
 
