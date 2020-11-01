@@ -128,7 +128,7 @@ def setup_package():
             'Source Code': URL,
         },
         packages = PACKAGES,
-        license=LICENSE,
+        license = LICENSE,
         install_requires=REQUIREMENTS,
         extras_require=EXTRAS,
         python_requires=PYTHON_REQUIRES,
