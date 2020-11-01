@@ -95,6 +95,10 @@ def edges(img, threshold1=None, threshold2=None, use_median=True, sigma=None):
     return canny_edges
 
 
+def imwrite(filename, img):
+    cv.imwrite(filename, img)
+
+    
 def to_rgb(img):
     """
         Converts an image from any image format to its RGB version
