@@ -8,11 +8,9 @@
 
 #pylint:disable=pointless-string-statement
 
-import cv2 as cv
-
 from .._checks import _check_mean_sub_values
 from ..path import exists, list_images
-from ..images import mean, load_img
+from ..images import mean, merge, split, load_img
 
 
 """
@@ -39,7 +37,7 @@ class MeanProcess:
         """
 
         if channels == 3:
-            b, g, r = cv.split(image.astype('float32'))[:3]
+            b, g, r = split(image.astype('float32'))[:3]
 
             # Subtracting the mean
             r -= self.rMean
@@ -47,7 +45,7 @@ class MeanProcess:
             g -= self.gMean
 
             # Merging 
-            return cv.merge([b,g,r])
+            return merge([b,g,r])
         
         if channels == 1:
             image -= self.bgrMean
