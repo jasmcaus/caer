@@ -315,6 +315,10 @@ def minijoin(file1, file2):
     return os.path.join(file1, file2)
 
 
+def dirname(file):
+    return os.path.dirname(file)
+
+
 __all__ = [
     'list_media',
     'list_images',
@@ -329,4 +333,5 @@ __all__ = [
     'chdir',
     'osname',
     'abspath',
+    'dirname'
 ]
