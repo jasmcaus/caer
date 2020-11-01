@@ -76,7 +76,7 @@ class LiveVideoStream:
     def get_fps(self):
         if not self.kill_stream:
             if get_opencv_version() == '2':
-                return math.ceil(self.stream.get(cv.cv.CAP_PROP_FPS))
+                return math.ceil(self.stream.get(FPS_DEPR))
             else:
                 return math.ceil(self.stream.get(cv.CAP_PROP_FPS))
 
