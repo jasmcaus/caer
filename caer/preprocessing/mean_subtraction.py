@@ -60,7 +60,12 @@ def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True):
         Mean must be computed ONLY on the train set
     """
     if exists(DIR) is False:
-        raise ValueError('The specified directory does not exist', DIR)
+        raise ValueError('The specified directory does not exist')
+    
+    image_list = list_images(DIR, include_subdirs=True, use_fullpath=True, verbose=0)
+
+    if len(image_list) == 0:
+        raise ValueError(f'No images found at {DIR}')
 
     if channels == 3:
         rMean, gMean, bMean = 0,0,0
@@ -68,8 +73,7 @@ def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True):
         bgrMean = 0
 
     count = 0
-    
-    image_list = list_images(DIR, include_subdirs=True, use_fullpath=True, verbose=0)
+
     for img_filepath in image_list:
         count += 1
         img = load_img(img_filepath, rgb=False)
