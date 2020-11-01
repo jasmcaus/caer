@@ -122,7 +122,7 @@ def setup_package():
         long_description_content_type = 'text/markdown',
         url = URL,
         download_url = DOWNLOAD_URL,
-        project_urls={
+        project_urls = {
             'Bug Tracker': URL + '/issues',
             'Documentation': URL + '/blob/master/docs/README.md',
             'Source Code': URL,
