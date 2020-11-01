@@ -133,7 +133,7 @@ def setup_package():
         extras_require = EXTRAS,
         python_requires = PYTHON_REQUIRES,
         include_package_data = True,
-        zip_safe=False,
+        zip_safe = False,
         keywords=KEYWORDS,
         classifiers= CLASSIFIERS,
 # Include_package_data is required for setup.py to recognize the MAINFEST.in file
