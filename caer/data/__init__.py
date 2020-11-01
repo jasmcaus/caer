@@ -95,7 +95,7 @@ def puppies(target_size=None, rgb=True):
 
 
 def puppy(target_size=None, rgb=True):
-    return load_img(here + 'puppy.jpg', target_size=target_size, rgb=rgb)
+    return load_img(here+'puppy.jpg', target_size=target_size, rgb=rgb)
 
 
 def red_fish(target_size=None, rgb=True):
