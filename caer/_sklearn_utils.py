@@ -263,10 +263,10 @@ def check_array(array, *,
             # If input is scalar raise error
             if array.ndim == 0:
                 raise ValueError(
-                    "Expected 2D array, got scalar array instead:\narray={}.\n"
+                    "Expected 2D array, got scalar array instead:\narray={array}.\n"
                     "Reshape your data either using array.reshape(-1, 1) if "
                     "your data has a single feature or array.reshape(1, -1) "
-                    "if it contains a single sample.".format(array))
+                    "if it contains a single sample."
             # If input is 1D raise error
             if array.ndim == 1:
                 raise ValueError(
