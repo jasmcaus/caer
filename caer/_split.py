@@ -258,7 +258,7 @@ def _safe_indexing(X, indices, *, axis=0):
         raise ValueError(
             "'X' should be a 2D NumPy array, 2D sparse matrix or pandas "
             "dataframe when indexing the columns (i.e. 'axis=1'). "
-            "Got {} instead with {} dimension(s).".format(type(X), X.ndim)
+            f"Got {type(X)} instead with {X.ndim} dimension(s)."
         )
 
     if axis == 1 and indices_dtype == 'str' and not hasattr(X, 'loc'):
