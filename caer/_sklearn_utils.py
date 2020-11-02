@@ -47,8 +47,7 @@ def _deprecate_positional_args(f):
             return f(*args, **kwargs)
 
         # extra_args > 0
-        args_msg = ['{}={}'.format(name, arg)
-                    for name, arg in zip(kwonly_args[:extra_args],
+        args_msg = ['{name}={arg}' for name, arg in zip(kwonly_args[:extra_args],
                                          args[-extra_args:])]
         warnings.warn("Pass {} as keyword args. From version 0.25 "
                       "passing these as positional arguments will "
