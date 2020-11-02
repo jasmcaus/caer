@@ -288,9 +288,9 @@ def _validate_shuffle_split(n_samples, test_size, train_size,
 
     if (test_size_type == 'i' and (test_size >= n_samples or test_size <= 0)
        or test_size_type == 'f' and (test_size <= 0 or test_size >= 1)):
-        raise ValueError('test_size={0} should be either positive and smaller'
-                         ' than the number of samples {1} or a float in the '
-                         '(0, 1) range'.format(test_size, n_samples))
+        raise ValueError(f'test_size={test_size} should be either positive and smaller'
+                         f' than the number of samples {n_samples} or a float in the '
+                         '(0, 1) range')
 
     if (train_size_type == 'i' and (train_size >= n_samples or train_size <= 0)
        or train_size_type == 'f' and (train_size <= 0 or train_size >= 1)):
