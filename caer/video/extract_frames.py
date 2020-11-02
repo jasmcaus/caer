@@ -6,13 +6,12 @@
 #
 # ==============================================================================
 
-import os
 import math
 import time
 import cv2 as cv
 
 from .._checks import _check_target_size
-from ..path import list_videos, exists
+from ..path import list_videos, exists, mkdir
 from ..images import resize
 from ..configs import FRAME_COUNT, FPS
 from ..opencv import imwrite
@@ -64,7 +63,7 @@ def extract_frames(input_folder,
         max_video_count = len(video_list)
 
     if not exists(output_folder):
-        os.mkdir(output_folder)
+        mkdir(output_folder)
 
     # Begin Timer
     start = time.time()

@@ -18,6 +18,7 @@ from .paths import cwd
 from .paths import exists
 from .paths import get_size
 from .paths import abspath
+from .paths import mkdir
 from .paths import osname
 from .paths import chdir
 from .paths import minijoin

@@ -276,6 +276,10 @@ def exists(path):
     return False
 
 
+def mkdir(path):
+    os.mkdir(path)
+
+
 def abspath(file_name):
     return os.path.abspath(file_name)
 
@@ -323,6 +327,7 @@ __all__ = [
     'list_media',
     'list_images',
     'list_videos',
+    'mkdir',
     'listdir',
     'is_image',
     'is_video'
