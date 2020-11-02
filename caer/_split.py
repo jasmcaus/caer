@@ -335,10 +335,9 @@ def _validate_shuffle_split(n_samples, test_size, train_size,
 
     if n_train == 0:
         raise ValueError(
-            'With n_samples={}, test_size={} and train_size={}, the '
+            f'With n_samples={n_samples}, test_size={test_size} and train_size={train_size}, the '
             'resulting train set will be empty. Adjust any of the '
-            'aforementioned parameters.'.format(n_samples, test_size,
-                                                train_size)
+            'aforementioned parameters.'
         )
 
     return n_train, n_test
