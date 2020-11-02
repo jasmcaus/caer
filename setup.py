@@ -107,6 +107,18 @@ def write_meta(filename='caer/_meta.py'):
         a.close()
 
 
+# def generate_cython():
+#     cwd = os.path.abspath(os.path.dirname(__file__))
+#     print("Cythonizing sources")
+#     for d in ('random',):
+#         p = subprocess.call([sys.executable,
+#                              os.path.join(cwd, 'tools', 'cythonize.py'),
+#                              'caer/{0}'.format(d)],
+#                             cwd=cwd)
+#         if p != 0:
+#             raise RuntimeError("Running cythonize failed!")
+
+
 def setup_package():
     # Rewrite the meta file everytime
     write_meta()
