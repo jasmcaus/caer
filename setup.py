@@ -6,7 +6,7 @@ MAJOR = 1
 MINOR = 7
 MICRO = 8
 ISRELEASED = True
-VERSION = '%d.%d.%d' % (MAJOR, MINOR, MICRO)
+VERSION = f'{MAJOR}.{MINOR}.{MICRO}'
 
 min_version = (3, 6, 1)
 
