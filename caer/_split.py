@@ -306,9 +306,9 @@ def _validate_shuffle_split(n_samples, test_size, train_size,
     if (train_size_type == 'f' and test_size_type == 'f' and
             train_size + test_size > 1):
         raise ValueError(
-            'The sum of test_size and train_size = {}, should be in the (0, 1)'
+            f'The sum of test_size and train_size = {train_size + test_size}, should be in the (0, 1)'
             ' range. Reduce test_size and/or train_size.'
-            .format(train_size + test_size))
+            )
 
     if test_size_type == 'f':
         n_test = ceil(test_size * n_samples)
