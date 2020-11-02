@@ -98,7 +98,6 @@ def write_meta(filename='caer/_meta.py'):
     print('[INFO] Writing _meta.py')
     TEXT = VERSION_PY_TEXT
     FULL_VERSION = VERSION
-    ISRELEASED = True
     CONTRIBUTORS = get_contributors_list()
 
     a = open(filename, 'w')
