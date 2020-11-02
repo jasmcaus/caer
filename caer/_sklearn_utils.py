@@ -195,8 +195,7 @@ def check_array(array, *,
     #     array = array.astype(dtype)
 
     if force_all_finite not in (True, False, 'allow-nan'):
-        raise ValueError('force_all_finite should be a bool or "allow-nan"'
-                         '. Got {force_all_finite} instead'
+        raise ValueError(f"force_all_finite should be a bool or 'allow-nan'. Got {force_all_finite} instead")
 
     if estimator is not None:
         if isinstance(estimator, str):
@@ -263,17 +262,17 @@ def check_array(array, *,
             # If input is scalar raise error
             if array.ndim == 0:
                 raise ValueError(
-                    "Expected 2D array, got scalar array instead:\narray={array}.\n"
+                    f"Expected 2D array, got scalar array instead:\narray={array}.\n"
                     "Reshape your data either using array.reshape(-1, 1) if "
                     "your data has a single feature or array.reshape(1, -1) "
-                    "if it contains a single sample."
+                    "if it contains a single sample.")
             # If input is 1D raise error
             if array.ndim == 1:
                 raise ValueError(
-                    "Expected 2D array, got 1D array instead:\narray={}.\n"
+                    f"Expected 2D array, got 1D array instead:\narray={array}.\n"
                     "Reshape your data either using array.reshape(-1, 1) if "
                     "your data has a single feature or array.reshape(1, -1) "
-                    "if it contains a single sample.".format(array))
+                    "if it contains a single sample.")
 
         # in the future np.flexible dtypes will be handled like object dtypes
         if dtype_numeric and np.issubdtype(array.dtype, np.flexible):
