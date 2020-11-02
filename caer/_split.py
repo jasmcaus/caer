@@ -301,7 +301,7 @@ def _validate_shuffle_split(n_samples, test_size, train_size,
     if train_size is not None and train_size_type not in ('i', 'f'):
         raise ValueError(f"Invalid value for train_size: {train_size}")
     if test_size is not None and test_size_type not in ('i', 'f'):
-        raise ValueError("Invalid value for test_size: {}".format(test_size))
+        raise ValueError(f"Invalid value for test_size: {test_size}")
 
     if (train_size_type == 'f' and test_size_type == 'f' and
             train_size + test_size > 1):
