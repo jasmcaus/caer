@@ -30,6 +30,8 @@ HASH_FILE = 'cythonize.dat'
 DEFAULT_ROOT = 'caer'
 VENDOR = 'caer'
 
+CYTHON_SOURCES = []
+
 # WindowsError is not defined on unix systems
 try:
     WindowsError
@@ -39,7 +41,18 @@ except NameError:
 #
 # Rules
 #
-def process_pyx(fromfile, tofile):
+def find_files(*ext):
+    if not isinstance(ext, str):
+        raise ValueError('ext must be a string')
+
+    for root, _, files in os.walk('..'):
+        if 'caer' in root:
+            for file in files:
+                if file.endswith(ext):
+                    fi = root + '\\' + file
+                    CYTHON_SOURCES.append(fi[3:])
+
+def process_pyx():
     flags = ['-3', '--inplace']
 
     try:
@@ -48,19 +61,21 @@ def process_pyx(fromfile, tofile):
     except ImportError:
         raise OSError('Cython needs to be installed')
 
-    else:
-        # Cython 0.29.21 is required for Python 3.9 and there are
-        # other fixes in the 0.29 series that are needed even for earlier
-        # Python versions.
-        # Note: keep in sync with that in buildproject.toml
-        required_version = '0.29.21'
+    # Cython 0.29.21 is required for Python 3.9 and there are
+    # other fixes in the 0.29 series that are needed even for earlier
+    # Python versions.
+    # Note: keep in sync with that in buildproject.toml
+    required_cython_version = '0.29.21'
 
-        if cython_version < required_version:
-            raise RuntimeError(f'Building Caer requires Cython >= {required_version}')
-        # subprocess.check_call(
-        #     [sys.executable, '-m', 'cython'] + flags + ["-o", tofile, fromfile])
-        subprocess.check_call(
-            [sys.executable, '-m', 'cythonize'] + flags + ["-o", tofile, fromfile])
+    if cython_version < required_cython_version:
+        raise RuntimeError(f'Building Caer requires Cython >= {required_cython_version}')
+    # subprocess.check_call(
+    #     [sys.executable, '-m', 'cython'] + flags + ["-o", tofile, fromfile])
+
+    # Can only concatenate lists
+    subprocess.check_call(
+        [sys.executable, '-m', 'cythonize'] + flags + CYTHON_SOURCES)
+
 
 
 # def process_tempita_pyx(fromfile, tofile):
@@ -117,6 +132,7 @@ def process_pyx(fromfile, tofile):
 #     '.pxd.in' : (process_tempita_pxd, '.pxd'),
 #     '.pyd.in' : (process_tempita_pyd, '.pyd'),
 #     }
+
 rules = {
     # fromext : function, toext
     '.pyx' : (process_pyx, '.c')
