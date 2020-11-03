@@ -1,7 +1,5 @@
 import sys 
 import platform
-import warnings
-import textwrap
 
 
 MAJOR = 1 
@@ -175,6 +173,7 @@ def parse_setuppy_commands():
         if command in args:
             return True
 
+    import textwrap
     # The following commands are supported, but we need to show more
     # useful messages to the user
     if 'install' in args:
@@ -262,6 +261,7 @@ def parse_setuppy_commands():
             return False
 
     # If we got here, we didn't detect what setup.py command was given
+    import warnings
     warnings.warn("Unrecognized setuptools command, proceeding with "
                   "generating Cython sources and expanding templates",
                   stacklevel=2)
