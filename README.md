@@ -2,7 +2,8 @@
 A Computer Vision library in Python with powerful image and video processing operations.
 Caer is a set of utility functions designed to help speed up your Computer Vision workflow. Functions inside `caer` will help reduce the number of calculation calls your code makes, ultimately making it neat, concise and readable.
 
-[![Python](https://img.shields.io/pypi/pyversions/caer.svg)][py-versions]
+[![Python](https://img.shields.io/pypi/pyversions/caer.svg)][![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fjasmcaus%2Fcaer.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fjasmcaus%2Fcaer?ref=badge_shield)
+[py-versions]
 [![PyPI](https://badge.fury.io/py/caer.svg)][pypi-latest-version]
 
 [![Downloads](https://pepy.tech/badge/caer)][downloads]
@@ -70,3 +71,5 @@ Caer is released under the [MIT License](https://github.com/jasmcaus/caer/blob/m
 [py-versions]: https://pypi.org/project/caer/
 [pypi-latest-version]: https://pypi.org/project/caer/
 [license]: https://github.com/jasmcaus/caer/blob/master/LICENSE
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fjasmcaus%2Fcaer.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fjasmcaus%2Fcaer?ref=badge_large)
