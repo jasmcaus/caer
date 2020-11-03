@@ -15,7 +15,7 @@ import cv2 as cv
 from ..configs import FRAME_COUNT, FPS
 
 
-class UMatFileVideoStream:
+class GPUFileVideoStream:
 
     def __init__(self, source, queueSize=128):
         """
@@ -112,3 +112,7 @@ class UMatFileVideoStream:
     def get_fps(self):
         if not self.kill_stream:
             return math.ceil(self.stream.get(FPS))
+
+__all__ = [
+    'GPUFileVideoStream'
+]
