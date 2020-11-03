@@ -43,11 +43,11 @@ except NameError:
 #
 def find_files(*ext):
     for root, _, files in os.walk('..'):
-        if 'caer' in root:
+        if 'caer' in root and not '.git' in root:
             for file in files:
                 if file.endswith(ext):
                     fi = root + '\\' + file
-                    CYTHON_SOURCES.append(fi[3:])
+                    CYTHON_SOURCES.append(fi.replace('\\', '/')[3:])
 
 def process_pyx():
     flags = ['-3', '--inplace']
