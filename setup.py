@@ -128,13 +128,11 @@ def generate_cython():
     import subprocess
     cwd = os.path.abspath(os.path.dirname(__file__))
     print("Cythonizing sources")
-    for src in CYTHON_SOURCES:
-        p = subprocess.call([sys.executable,
-                             os.path.join(cwd, 'tools', 'cythonize.py'),
-                             f'caer/{src}'],
-                            cwd=cwd)
-        if p != 0:
-            raise RuntimeError("Running cythonize failed!")
+    p = subprocess.call([sys.executable,
+                            os.path.join(cwd, 'tools', 'cythonize.py')],
+                        cwd=cwd)
+    if p != 0:
+        raise RuntimeError("Running cythonize failed!")
 
 
 def parse_setuppy_commands():
