@@ -37,7 +37,7 @@ try:
 except NameError:
     WindowsError = None
 
-
+# This is a bit hackish. We are auto-generating a python file that will allow for Cython to build the required extensions.
 SETUP_TEXT =\
 """
 # DO NOT EDIT!
