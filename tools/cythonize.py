@@ -16,22 +16,51 @@ except NameError:
     WindowsError = None
 
 
+SETUP_TEXT =\
+"""
+# DO NOT EDIT!
+# THIS FILE WAS AUTOMATICALLY GENERATED AT %(time)s DURING THE CYTHON BUILD CYCLE OF ALL .PYX FILES
+# Copyright 2020, Caer
+
+from setuptools import setup
+from Cython.Build import cythonize
+
+setup(
+    ext_modules=cythonize(%(source)s),
+    zip_safe=False,
+)
+"""
+
+# a = open(filename, 'w')
+# try:
+#     a.write(TEXT % {'author': AUTHOR_LONG,
+#                     'version': VERSION,
+#                     'full_version': FULL_VERSION,
+#                     'isrelease': str(ISRELEASED),
+#                     'contributors': CONTRIBUTORS })
+# finally:
+#     a.close()
+
+
 #
 # Rules
 #
-def find_files(*ext):
-    for root, _, files in os.walk('..'):
+def find_files(path, *ext):
+    for root, _, files in os.walk(path):
         if 'caer' in root and not '.git' in root:
             for file in files:
                 if file.endswith(ext):
-                    fi = root + '\\' + file
-                    CYTHON_SOURCES.append(fi.replace('\\', '/')[3:])
+                    base = os.path.join(root,file).replace('\\', '/')
+                    abspath = os.path.abspath(base)
+                    CYTHON_SOURCES.append(abspath)
 
 
 def normpath(path):
     path = path.replace(os.sep, '/')
     if path.startswith('./'):
         path = path[2:]
+    elif path.startswith('../'):
+        path = path[3:]
     return path
 
 
