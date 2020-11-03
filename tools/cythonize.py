@@ -17,6 +17,28 @@
     The above script compares pyx files to see if they have been changed relative to their corresponding C files by comparing hashes stored in a database file. It calls `cython [file.pyx]` which merely converts the .pyx files to .c files. This cannot be imported into a Python file (an extension needs to be built for that). 
 
     This current script uses a command which converts the .pyx --> .c which then builds the required extensions (.pyd on Windows).
+
+    To manually build the required extensions from .c files, use the following code:
+    
+    # from distutils.core import setup, Extension
+
+    # module1 = Extension('demo',
+    #                     include_dirs = ['/usr/local/include'],
+    #                     libraries = ['tcl83'],
+    #                     library_dirs = ['/usr/local/lib'],
+    #                     sources = ['demo.c'])
+
+    # setup (
+        # # name = 'PackageName',
+        # # version = '1.0',
+        # # description = 'This is a demo package',
+        # # author = 'Martin v. Loewis',
+        # # author_email = 'martin@v.loewis.de',
+        # # url = 'https://docs.python.org/extending/building',
+        # # long_description = '''
+        # #       This is really just a demo package.
+        # #       ''',
+    #     ext_modules = [module1])
 """
 
 
