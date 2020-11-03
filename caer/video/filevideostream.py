@@ -62,7 +62,8 @@ class FileVideoStream:
 
                 # If at the end of the video stream
                 if not ret:
-                    self.kill_stream = True
+                    self.release()
+                    return 
 
                 # add the frame to the queue
                 self.Q.put(frame)
@@ -71,27 +72,28 @@ class FileVideoStream:
 
         self.video_stream.release()
 
+
     def read(self):
         # return next frame in the queue
         return self.Q.get()
 
-    def __running(self):
-        return self.__more() or not self.kill_stream
 
-    def __more(self):
-        # returns True if there are still frames in the queue
-        tries = 0
-        while self.Q.qsize() == 0 and not self.kill_stream and tries < 5:
-            time.sleep(0.1)
-            tries += 1
+    def more(self):
+        # # returns True if there are still frames in the queue
+        # tries = 0
+        # while self.Q.qsize() == 0 and not self.kill_stream and tries < 5:
+        #     time.sleep(0.1)
+        #     tries += 1
 
-        return self.Q.qsize() > 0
+        return self.Q.qsize() > 0 or not self.kill_stream
+
 
     def release(self):
         self.kill_stream = True
         # wait until stream resources are released
         self.thread.join()
     
+
     # Gets frame count
     def count_frames(self):
         if not self.kill_stream and not self.live_video:
@@ -105,6 +107,7 @@ class FileVideoStream:
         if self.live_video:
             print('[WARNING] Frames cannot be computed on live streams')
             return -1
+
 
     # Gets FPS count
     def get_fps(self):
