@@ -110,6 +110,16 @@ def write_meta(filename='caer/_meta.py'):
     finally:
         a.close()
 
+def get_docs_url():
+    # if not ISRELEASED:
+    #     return "https://caer.com/devdocs"
+    # else:
+    #     # For releaeses, this URL ends up on pypi.
+    #     # By pinning the version, users looking at old PyPI releases can get
+    #     # to the associated docs easily.
+    #     return "https://caer.com/doc/{}.{}".format(MAJOR, MINOR)
+    return URL + '/blob/master/docs/README.md'
+
 
 # def generate_cython():
 #     cwd = os.path.abspath(os.path.dirname(__file__))
@@ -140,7 +150,7 @@ def setup_package():
         download_url = DOWNLOAD_URL,
         project_urls = {
             'Bug Tracker': URL + '/issues',
-            'Documentation': URL + '/blob/master/docs/README.md',
+            'Documentation': get_docs_url(),
             'Source Code': URL,
         },
         packages = PACKAGES,
