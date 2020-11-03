@@ -40,9 +40,7 @@ except NameError:
 # Rules
 #
 def process_pyx(fromfile, tofile):
-    flags = ['-3', '--fast-fail']
-    if tofile.endswith('.cxx'):
-        flags.append('--cplus')
+    flags = ['-3', '--inplace']
 
     try:
         # try the cython in the installed python first (somewhat related to scipy/scipy#2397)
@@ -51,21 +49,21 @@ def process_pyx(fromfile, tofile):
         # The `cython` command need not point to the version installed in the
         # Python running this script, so raise an error to avoid the chance of
         # using the wrong version of Cython.
-        raise OSError('Cython needs to be installed in Python as a module')
-    else:
-        # check the version, and invoke through python
-        from distutils.version import LooseVersion
+        raise OSError('Cython needs to be installed')
 
+    else:
         # Cython 0.29.21 is required for Python 3.9 and there are
         # other fixes in the 0.29 series that are needed even for earlier
         # Python versions.
-        # Note: keep in sync with that in pyproject.toml
-        required_version = LooseVersion('0.29.21')
+        # Note: keep in sync with that in buildproject.toml
+        required_version = '0.29.21'
 
-        if LooseVersion(cython_version) < required_version:
-            raise RuntimeError(f'Building {VENDOR} requires Cython >= {required_version}')
+        if cython_version < required_version:
+            raise RuntimeError(f'Building Caer requires Cython >= {required_version}')
+        # subprocess.check_call(
+        #     [sys.executable, '-m', 'cython'] + flags + ["-o", tofile, fromfile])
         subprocess.check_call(
-            [sys.executable, '-m', 'cython'] + flags + ["-o", tofile, fromfile])
+            [sys.executable, '-m', 'cythonize'] + flags + ["-o", tofile, fromfile])
 
 
 # def process_tempita_pyx(fromfile, tofile):
@@ -197,12 +195,12 @@ def process(path, fromfile, tofile, processor_function, hash_db):
 def find_process_files(root_dir):
     hash_db = load_hashes(HASH_FILE)
     files  = [x for x in os.listdir(root_dir) if not os.path.isdir(x)]
-    # .pxi or .pxi.in files are most likely dependencies for
-    # .pyx files, so we need to process them first
-    files.sort(key=lambda name: (name.endswith('.pxi') or
-                                 name.endswith('.pxi.in') or
-                                 name.endswith('.pxd.in')),
-               reverse=True)
+    # # .pxi or .pxi.in files are most likely dependencies for
+    # # .pyx files, so we need to process them first
+    # files.sort(key=lambda name: (name.endswith('.pxi') or
+    #                              name.endswith('.pxi.in') or
+    #                              name.endswith('.pxd.in')),
+    #            reverse=True)
 
     for filename in files:
         # in_file = os.path.join(root_dir, filename + ".in")
