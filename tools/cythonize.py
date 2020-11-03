@@ -1,8 +1,9 @@
 import os 
 import sys 
+import datetime
 import subprocess 
 
-#pylint:disable=redefined-builtin
+#pylint:disable=redefined-builtin, bare-except
 
 DEFAULT_ROOT = 'caer'
 VENDOR = 'caer'
@@ -31,16 +32,6 @@ setup(
 )
 """
 
-# a = open(filename, 'w')
-# try:
-#     a.write(TEXT % {'author': AUTHOR_LONG,
-#                     'version': VERSION,
-#                     'full_version': FULL_VERSION,
-#                     'isrelease': str(ISRELEASED),
-#                     'contributors': CONTRIBUTORS })
-# finally:
-#     a.close()
-
 
 #
 # Rules
@@ -68,27 +59,46 @@ def process_pyx():
     flags = ['-3', '--inplace']
 
     try:
-        # try the cython in the installed python first (somewhat related to scipy/scipy#2397)
         from Cython.Compiler.Version import version as cython_version
     except ImportError:
         raise OSError('Cython needs to be installed')
 
-    # Cython 0.29.21 is required for Python 3.9 and there are
-    # other fixes in the 0.29 series that are needed even for earlier
-    # Python versions.
-    # Note: keep in sync with that in buildproject.toml
+    # Cython 0.29.21 is required for Python 3.9 and there are other fixes in the 0.29 series that are needed for earlier Python versions.
+    # Note: keep in sync with that in pyproject.toml
     required_cython_version = '0.29.21'
 
     if cython_version < required_cython_version:
         raise RuntimeError(f'Building Caer requires Cython >= {required_cython_version}')
-    # subprocess.check_call(
-    #     [sys.executable, '-m', 'cython'] + flags + ["-o", tofile, fromfile])
 
+    # Populating CYTHON_SOURCES
     find_files('.py')
-    # Can only concatenate lists
-    subprocess.check_call(
-        [sys.executable, '-m', 'cythonize'] + flags + CYTHON_SOURCES)
 
+    # Writing to build_cython.py (temp)
+    a = open('build_cython.py', 'w')
+    try:
+        a.write(SETUP_TEXT % {'time': datetime.date.today().strftime("%B %d, %Y") ,
+                              'source': CYTHON_SOURCES } )
+    finally:
+        a.close()
+
+    # Can only concatenate lists
+    try:
+        subprocess.check_call(['python' + 'build_cython.py' + 'build_ext'] + flags)
+    except:
+        subprocess.check_call([sys.executable, '-m', 'build_cython.py'] + flags)
+
+
+
+def main():
+    try:
+        ROOT_DIR = sys.argv[1]
+    except IndexError:
+        ROOT_DIR = DEFAULT_ROOT
+    process_pyx()
+
+
+if __name__ == '__main__':
+    main()
 
 
 
