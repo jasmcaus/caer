@@ -17,7 +17,7 @@ def is_right_py_version(min_py_version):
 
     if sys.version_info < min_py_version:
         python_min_version_str = '.'.join((str(num) for num in min_py_version))
-        no_go = f'You are using Python {platform.python_version()}. Python >={python_min_version_str} is required.'
+        no_go = f'You are using Python {platform.python_version()}. Python >={python_min_version_str} is  required.'
         sys.stderr.write(no_go)
         return False
 
