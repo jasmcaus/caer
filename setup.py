@@ -8,6 +8,8 @@ MICRO = 8
 ISRELEASED = True
 VERSION = f'{MAJOR}.{MINOR}.{MICRO}'
 
+RUN_CYTHON_BUILD = True
+
 min_version = (3, 6, 1)
 
 def is_right_py_version(min_py_version):
@@ -129,7 +131,7 @@ def generate_cython():
     cwd = os.path.abspath(os.path.dirname(__file__))
     print("Cythonizing sources")
     p = subprocess.call([sys.executable,
-                            os.path.join(cwd, 'tools', 'cythonize.py')],
+                        os.path.join(cwd, 'tools', 'cythonize.py')],
                         cwd=cwd)
     if p != 0:
         raise RuntimeError("Running cythonize failed!")
@@ -300,7 +302,7 @@ def setup_package():
     )
 
     if "--force" in sys.argv:
-        run_build = True
+        run_build = RUN_CYTHON_BUILD
         sys.argv.remove('--force')
     else:
         # Raise errors for unsupported commands, improve help output, etc.
