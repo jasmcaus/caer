@@ -46,9 +46,6 @@ def process_pyx(fromfile, tofile):
         # try the cython in the installed python first (somewhat related to scipy/scipy#2397)
         from Cython.Compiler.Version import version as cython_version
     except ImportError:
-        # The `cython` command need not point to the version installed in the
-        # Python running this script, so raise an error to avoid the chance of
-        # using the wrong version of Cython.
         raise OSError('Cython needs to be installed')
 
     else:
