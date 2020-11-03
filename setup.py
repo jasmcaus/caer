@@ -272,7 +272,7 @@ def setup_package():
     # Rewrite the meta file everytime
     write_meta()
 
-    setup(
+    metadata = dict(
         name = NAME,
         version = VERSION,
         author = AUTHOR,
@@ -300,6 +300,20 @@ def setup_package():
 # Include_package_data is required for setup.py to recognize the MAINFEST.in file
 # https://python-packaging.readthedocs.io/en/latest/non-code-files.html
     )
+
+    if "--force" in sys.argv:
+        run_build = True
+        sys.argv.remove('--force')
+    else:
+        # Raise errors for unsupported commands, improve help output, etc.
+        run_build = parse_setuppy_commands()
+
+    if run_build:
+        if 'sdist' not in sys.argv:
+            # Generate Cython sources, unless we're generating an sdist
+            generate_cython()
+
+    setup(**metadata)
 
 
 if __name__ == '__main__':
