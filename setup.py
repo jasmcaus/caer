@@ -123,16 +123,20 @@ def get_docs_url():
     return URL + '/blob/master/docs/README.md'
 
 
-# def generate_cython():
-#     cwd = os.path.abspath(os.path.dirname(__file__))
-#     print("Cythonizing sources")
-#     for d in ('random',):
-#         p = subprocess.call([sys.executable,
-#                              os.path.join(cwd, 'tools', 'cythonize.py'),
-#                              'caer/{0}'.format(d)],
-#                             cwd=cwd)
-#         if p != 0:
-#             raise RuntimeError("Running cythonize failed!")
+CYTHON_SOURCES = ('',)
+
+def generate_cython():
+    import os 
+    import subprocess
+    cwd = os.path.abspath(os.path.dirname(__file__))
+    print("Cythonizing sources")
+    for src in CYTHON_SOURCES:
+        p = subprocess.call([sys.executable,
+                             os.path.join(cwd, 'tools', 'cythonize.py'),
+                             f'caer/{src}'],
+                            cwd=cwd)
+        if p != 0:
+            raise RuntimeError("Running cythonize failed!")
 
 
 def parse_setuppy_commands():
@@ -140,11 +144,13 @@ def parse_setuppy_commands():
 
     Return a boolean value for whether or not to run the build or not (avoid
     parsing Cython and template files if False).
+
+    Parsed from caer
     """
     args = sys.argv[1:]
 
     if not args:
-        # User forgot to give an argument probably, let setuptools handle that.
+        # User probably forgot to give an argument, let setuptools handle that.
         return True
 
     info_commands = ['--help-commands', '--name', '--version', '-V',
@@ -178,23 +184,22 @@ def parse_setuppy_commands():
 
               - `pip install .`       (from a git repo or downloaded source
                                        release)
-              - `pip install numpy`   (last NumPy release on PyPi)
+              - `pip install caer`   (last caer release on PyPi)
 
             """))
         return True
 
     if '--help' in args or '-h' in sys.argv[1]:
         print(textwrap.dedent("""
-            NumPy-specific help
+            caer-specific help
             -------------------
 
-            To install NumPy from here with reliable uninstall, we recommend
-            that you use `pip install .`. To install the latest NumPy release
-            from PyPi, use `pip install numpy`.
+            To install caer from here with reliable uninstall, we recommend
+            that you use `pip install .`. To install the latest caer release
+            from PyPi, use `pip install caer`.
 
-            For help with build/installation issues, please ask on the
-            numpy-discussion mailing list.  If you are sure that you have run
-            into a bug, please report it at https://github.com/numpy/numpy/issues.
+            If you are sure that you have run
+            into a bug, please report it at https://github.com/caer/caer/issues.
 
             Setuptools commands help
             ------------------------
@@ -204,15 +209,15 @@ def parse_setuppy_commands():
     # The following commands aren't supported.  They can only be executed when
     # the user explicitly adds a --force command-line argument.
     bad_commands = dict(
-        test="""
-            `setup.py test` is not supported.  Use one of the following
-            instead:
+        # test="""
+        #     `setup.py test` is not supported.  Use one of the following
+        #     instead:
 
-              - `python runtests.py`              (to build and test)
-              - `python runtests.py --no-build`   (to test installed numpy)
-              - `>>> numpy.test()`           (run tests for installed numpy
-                                              from within an interpreter)
-            """,
+        #       - `python runtests.py`              (to build and test)
+        #       - `python runtests.py --no-build`   (to test installed caer)
+        #       - `>>> caer.test()`           (run tests for installed caer
+        #                                       from within an interpreter)
+        #     """,
         upload="""
             `setup.py upload` is not supported, because it's insecure.
             Instead, build what you want to upload and upload those files
@@ -231,12 +236,12 @@ def parse_setuppy_commands():
         register="`setup.py register` is not supported",
         bdist_dumb="`setup.py bdist_dumb` is not supported",
         bdist="`setup.py bdist` is not supported",
-        build_sphinx="""
-            `setup.py build_sphinx` is not supported, use the
-            Makefile under doc/""",
+        # build_sphinx="""
+        #     `setup.py build_sphinx` is not supported, use the
+        #     Makefile under doc/""",
         flake8="`setup.py flake8` is not supported, use flake8 standalone",
         )
-    bad_commands['nosetests'] = bad_commands['test']
+    # bad_commands['nosetests'] = bad_commands['test']
     for command in ('upload_docs', 'easy_install', 'bdist', 'bdist_dumb',
                     'register', 'check', 'install_data', 'install_headers',
                     'install_lib', 'install_scripts', ):
