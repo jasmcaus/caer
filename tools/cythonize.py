@@ -1,3 +1,25 @@
+""" cythonize
+    Cythonize pyx files into C files as needed.
+    Usage: cythonize [root_dir]
+    Default [root_dir] is '../caer'.
+    
+    Simple script to invoke Cython on all .pyx files; while waiting for a proper build system. 
+
+    For now, this script should be run by developers when changing Cython files
+    only, and the resulting C files checked in, so that end-users (and Python-only
+    developers) do not get the Cython dependencies.
+    
+    Inspired by the script originally written by Dag Sverre Seljebotn, and copied here from:
+    https://raw.github.com/dagss/private-scipy-refactor/cythonize/cythonize.py
+    Note: this script does not check any of the dependent C libraries; it only
+    operates on the Cython .pyx files.
+
+    The above script compares pyx files to see if they have been changed relative to their corresponding C files by comparing hashes stored in a database file. It calls `cython [file.pyx]` which merely converts the .pyx files to .c files. This cannot be imported into a Python file (an extension needs to be built for that). 
+
+    This current script uses a command which converts the .pyx --> .c which then builds the required extensions (.pyd on Windows).
+"""
+
+
 import os 
 import sys 
 import datetime
@@ -84,6 +106,8 @@ def process_pyx():
 
 
     # Can only concatenate lists
+    # build_cython.py is an auto-generated Python script by cythonize.py
+    # Do not run cythonize.py directly unless the .c files need to be re-compiled
     try:
         subprocess.check_call(['python' + 'build_cython.py' + 'build_ext'] + flags)
     except:
