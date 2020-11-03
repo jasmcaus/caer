@@ -5,8 +5,7 @@ import subprocess
 
 #pylint:disable=redefined-builtin, bare-except
 
-DEFAULT_ROOT = 'caer'
-VENDOR = 'caer'
+ROOT_DIR = '../caer'
 
 CYTHON_SOURCES = []
 
@@ -70,8 +69,10 @@ def process_pyx():
     if cython_version < required_cython_version:
         raise RuntimeError(f'Building Caer requires Cython >= {required_cython_version}')
 
+
     # Populating CYTHON_SOURCES
-    find_files('.py')
+    find_files(ROOT_DIR, '.py')
+
 
     # Writing to build_cython.py (temp)
     a = open('build_cython.py', 'w')
@@ -80,6 +81,7 @@ def process_pyx():
                               'source': CYTHON_SOURCES } )
     finally:
         a.close()
+
 
     # Can only concatenate lists
     try:
@@ -90,10 +92,10 @@ def process_pyx():
 
 
 def main():
-    try:
-        ROOT_DIR = sys.argv[1]
-    except IndexError:
-        ROOT_DIR = DEFAULT_ROOT
+    # try:
+    #     ROOT_DIR = sys.argv[1]
+    # except IndexError:
+    #     ROOT_DIR = ROOT_DIR
     process_pyx()
 
 
@@ -131,7 +133,7 @@ if __name__ == '__main__':
 # import subprocess
 
 # HASH_FILE = 'cythonize.dat'
-# DEFAULT_ROOT = 'caer'
+# ROOT_DIR = 'caer'
 # VENDOR = 'caer'
 
 # CYTHON_SOURCES = []
@@ -340,7 +342,7 @@ if __name__ == '__main__':
 #     try:
 #         root_dir = sys.argv[1]
 #     except IndexError:
-#         root_dir = DEFAULT_ROOT
+#         root_dir = ROOT_DIR
 #     find_process_files(root_dir)
 
 
