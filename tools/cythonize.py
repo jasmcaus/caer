@@ -42,9 +42,6 @@ except NameError:
 # Rules
 #
 def find_files(*ext):
-    if not isinstance(ext, str):
-        raise ValueError('ext must be a string')
-
     for root, _, files in os.walk('..'):
         if 'caer' in root:
             for file in files:
@@ -72,6 +69,7 @@ def process_pyx():
     # subprocess.check_call(
     #     [sys.executable, '-m', 'cython'] + flags + ["-o", tofile, fromfile])
 
+    find_files('.py')
     # Can only concatenate lists
     subprocess.check_call(
         [sys.executable, '-m', 'cythonize'] + flags + CYTHON_SOURCES)
