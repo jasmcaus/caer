@@ -113,9 +113,12 @@ def process_pyx():
     if cython_version < required_cython_version:
         raise RuntimeError(f'Building Caer requires Cython >= {required_cython_version}')
 
-
     # Populating CYTHON_SOURCES
-    find_files(ROOT_DIR, '.py')
+    find_files(ROOT_DIR, '.pyx')
+
+    if CYTHON_SOURCES is None:
+        sys.stderr.write('No files found matching the required extensions')
+        sys.exit(-1)
 
 
     # Writing to build_cython.py (temp)
