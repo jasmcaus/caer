@@ -34,11 +34,11 @@ wheels/
 *.egg
 MANIFEST
 
+
 ## General
 
 *.bak
 token
-.idea/
 docs/
 conda/
 tmp/
@@ -49,12 +49,35 @@ tags
 *.swp
 .gitconfig
 
+# Packages 
+# it's better to unpack these files and commit the raw source
+# git has its own built-in compression methods
+*.7z
+*.bz2
+*.bzip2
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.tbz2
+*.tgz
+*.zip
+
 # Compiled Object files
 *.slo
 *.lo
 *.o
+*.o.d
 *.cuo
 *.obj
+
+# Compiled source 
+*.a
+*.com
+*.class
+*.exe
 
 # C extensions
 *.so
@@ -78,6 +101,8 @@ tags
 # Compiled python
 *.pyc
 *.pyd
+*.pyo
+# *.py[ocd]
 
 # Compiled MATLAB
 *.mex*
@@ -103,7 +128,7 @@ tags
 *.user
 
 # PyCharm files
-.idea
+.idea/
 
 # Django files:
 *.log
@@ -166,6 +191,36 @@ venv.bak/
 # Visual Studio Code files
 .vscode
 .vs
+
+# Editor temporary/working/backup files
+.#*
+[#]*#
+*~
+*$
+*.bak
+*.diff
+*.iml
+*.ipr
+*.iws
+*.org
+.project
+pmip
+*.rej
+.settings/
+.*.sw[nop]
+.sw[nop]
+*.tmp
+*.vim
+tags
+cscope.out
+
+# gnu global
+GPATH
+GRTAGS
+GSYMS
+GTAGS
+.cache
+.mypy_cache/
 
 
 # PyInstaller
