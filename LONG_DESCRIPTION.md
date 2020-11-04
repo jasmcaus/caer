@@ -1,4 +1,6 @@
-A Computer Vision library in Python with powerful image processing operations, including support for Deep Learning models built using the Keras framework
+# Caer: Computer Vision on the Fly
+A Computer Vision library in Python with powerful image and video processing operations.
+Caer is a set of utility functions designed to help speed up your Computer Vision workflow. Functions inside `caer` will help reduce the number of calculation calls your code makes, ultimately making it neat, concise and readable.
 
 [![Downloads](https://pepy.tech/badge/caer)](https://pepy.tech/project/caer)
 [![license](https://img.shields.io/github/license/jasmcaus/caer?label=license)][license]
