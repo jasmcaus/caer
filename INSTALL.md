@@ -46,6 +46,13 @@ $ pip install --upgrade caer[canaro]
 #### Warning
 
 Do not use the commands `sudo` and `pip` together as `pip` may overwrite critical system libraries which may require you to reinstall your operating system.
+
+
+### Bleeding Edge 
+If a bug fix was made in the repo and you can't wait till a new release is made, you can install the bleeding edge version of `caer` using:
+```python
+pip install git+https://github.com/jasmcaus/caer.git
+```
     
 
 ### From Source
