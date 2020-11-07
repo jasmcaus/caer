@@ -1,3 +1,31 @@
+"""
+Caer
+=====
+A Computer Vision library in Python with powerful image and video processing operations.
+Caer is a set of utility functions designed to help speed up your Computer Vision workflow. Functions inside `caer` will help reduce the number of calculation calls your code makes, ultimately making it neat, concise and readable.
+
+Available subpackages
+---------------------
+data
+    Standard high-quality test images
+filters
+    Advanced Image Filters
+path
+    OS-specific Path Manipulations
+preprocessing
+    Image preprocessing utilities
+utils
+    General utilities
+video
+    Video processing utilities
+
+Utilities
+---------
+__version__
+    Caer version string
+
+"""
+
 import sys 
 import platform
 
