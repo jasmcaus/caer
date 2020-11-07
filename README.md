@@ -14,14 +14,14 @@ Caer is a Python library that consists of the following components:
 
 | Component | Description |
 | ---- | --- |
-| [**caer**](https://caer.org/docs/stable/caer.html) | a Tensor library like NumPy, with strong GPU support |
+| [**caer**](https://caer.org/docs/stable/caer.html) | a powerful Computer Vision library like OpenCV |
 | [**caer.data**](https://caer.org/docs/stable/autograd.html) | a tape-based automatic differentiation library that supports all differentiable Tensor operations in caer |
 | [**caer.utils**](https://caer.org/docs/stable/jit.html) | a compilation stack (caerScript) to create serializable and optimizable models from caer code  |
 | [**caer.path**](https://caer.org/docs/stable/nn.html) | a neural networks library deeply integrated with autograd designed for maximum flexibility |
 | [**caer.preprocessing**](https://caer.org/docs/stable/multiprocessing.html) | Python multiprocessing, but with magical memory sharing of caer Tensors across processes. Useful for data loading and Hogwild training |
 | [**caer.video**](https://caer.org/docs/stable/data.html) | DataLoader and other utility functions for convenience |
 
-Usually, caer is used either as:
+Usually, Caer is used either as:
 
 - a replacement for OpenCV to use the power of GPUs.
 - a Computer Vision research platform that provides maximum flexibility and speed.
