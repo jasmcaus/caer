@@ -8,23 +8,23 @@ A Computer Vision library in Python with powerful image and video processing ope
 Caer is a set of utility functions designed to help speed up your Computer Vision workflow. Functions inside `caer` will help reduce the number of calculation calls your code makes, ultimately making it neat, concise and readable.
 
 
-## More About caer
+# More About caer
 
-At a granular level, caer is a library that consists of the following components:
+Caer is a Python library that consists of the following components:
 
 | Component | Description |
 | ---- | --- |
-| [**torch**](https://caer.org/docs/stable/torch.html) | a Tensor library like NumPy, with strong GPU support |
-| [**torch.autograd**](https://caer.org/docs/stable/autograd.html) | a tape-based automatic differentiation library that supports all differentiable Tensor operations in torch |
-| [**torch.jit**](https://caer.org/docs/stable/jit.html) | a compilation stack (TorchScript) to create serializable and optimizable models from caer code  |
-| [**torch.nn**](https://caer.org/docs/stable/nn.html) | a neural networks library deeply integrated with autograd designed for maximum flexibility |
-| [**torch.multiprocessing**](https://caer.org/docs/stable/multiprocessing.html) | Python multiprocessing, but with magical memory sharing of torch Tensors across processes. Useful for data loading and Hogwild training |
-| [**torch.utils**](https://caer.org/docs/stable/data.html) | DataLoader and other utility functions for convenience |
+| [**caer**](https://caer.org/docs/stable/caer.html) | a Tensor library like NumPy, with strong GPU support |
+| [**caer.video**](https://caer.org/docs/stable/autograd.html) | a tape-based automatic differentiation library that supports all differentiable Tensor operations in caer |
+| [**caer.data**](https://caer.org/docs/stable/jit.html) | a compilation stack (caerScript) to create serializable and optimizable models from caer code  |
+| [**caer.path**](https://caer.org/docs/stable/nn.html) | a neural networks library deeply integrated with autograd designed for maximum flexibility |
+| [**caer.preprocessing**](https://caer.org/docs/stable/multiprocessing.html) | Python multiprocessing, but with magical memory sharing of caer Tensors across processes. Useful for data loading and Hogwild training |
+| [**caer.utils**](https://caer.org/docs/stable/data.html) | DataLoader and other utility functions for convenience |
 
 Usually, caer is used either as:
 
-- a replacement for NumPy to use the power of GPUs.
-- a deep learning research platform that provides maximum flexibility and speed.
+- a replacement for OpenCV to use the power of GPUs.
+- a Computer Vision research platform that provides maximum flexibility and speed.
 
 
 ## Installation
@@ -56,6 +56,8 @@ You can run the following to verify things installed correctly:
 >> print(f'Caer version: {caer.__version__}')
 ```
 
+
+# Getting Started
 
 ## Resources
 
