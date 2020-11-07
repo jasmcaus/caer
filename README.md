@@ -14,12 +14,12 @@ Caer is a Python library that consists of the following components:
 
 | Component | Description |
 | ---- | --- |
-| [**caer**](https://caer.org/docs/stable/caer.html) | a powerful Computer Vision library like OpenCV |
-| [**caer.data**](https://caer.org/docs/stable/autograd.html) | Standard high-quality images for testing purposes |
-| [**caer.utils**](https://caer.org/docs/stable/jit.html) | General utilities  |
-| [**caer.path**](https://caer.org/docs/stable/nn.html) | OS-specific path manipulations |
-| [**caer.preprocessing**](https://caer.org/docs/stable/multiprocessing.html) | Image preprocessing utilities. |
-| [**caer.video**](https://caer.org/docs/stable/data.html) | Video processing utilities |
+| [**caer**](https://github.com/jasmcaus/caer/) | a powerful Computer Vision library like OpenCV |
+| [**caer.data**](https://github.com/jasmcaus/caer/tree/master/caer/data) | Standard high-quality images for testing purposes |
+| [**caer.utils**](https://github.com/jasmcaus/caer/tree/master/caer/utils) | General utilities  |
+| [**caer.path**](https://github.com/jasmcaus/caer/tree/master/caer/path) | OS-specific path manipulations |
+| [**caer.preprocessing**](https://github.com/jasmcaus/caer/tree/master/caer/preprocessing) | Image preprocessing utilities. |
+| [**caer.video**](https://github.com/jasmcaus/caer/tree/master/caer/video) | Video processing utilities |
 
 Usually, Caer is used either as:
 
