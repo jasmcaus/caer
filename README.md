@@ -15,11 +15,11 @@ Caer is a Python library that consists of the following components:
 | Component | Description |
 | ---- | --- |
 | [**caer**](https://caer.org/docs/stable/caer.html) | a powerful Computer Vision library like OpenCV |
-| [**caer.data**](https://caer.org/docs/stable/autograd.html) | a tape-based automatic differentiation library that supports all differentiable Tensor operations in caer |
-| [**caer.utils**](https://caer.org/docs/stable/jit.html) | a compilation stack (caerScript) to create serializable and optimizable models from caer code  |
-| [**caer.path**](https://caer.org/docs/stable/nn.html) | a neural networks library deeply integrated with autograd designed for maximum flexibility |
-| [**caer.preprocessing**](https://caer.org/docs/stable/multiprocessing.html) | Python multiprocessing, but with magical memory sharing of caer Tensors across processes. Useful for data loading and Hogwild training |
-| [**caer.video**](https://caer.org/docs/stable/data.html) | DataLoader and other utility functions for convenience |
+| [**caer.data**](https://caer.org/docs/stable/autograd.html) | Standard high-quality images for testing purposes |
+| [**caer.utils**](https://caer.org/docs/stable/jit.html) | General utilities  |
+| [**caer.path**](https://caer.org/docs/stable/nn.html) | OS-specific path manipulations |
+| [**caer.preprocessing**](https://caer.org/docs/stable/multiprocessing.html) | Image preprocessing utilities. |
+| [**caer.video**](https://caer.org/docs/stable/data.html) | Video processing utilities |
 
 Usually, Caer is used either as:
 
