@@ -28,7 +28,7 @@ Usually, Caer is used either as:
 
 
 ## Installation
-See [Installation][install] for detailed installation instructions. 
+See **[Installation][install]** for detailed installation instructions. 
 
 
 Currently, `caer` supports releases of Python 3.6 onwards; Python 2 is not supported (nor recommended). 
