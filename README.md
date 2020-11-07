@@ -14,7 +14,7 @@ Caer is a Python library that consists of the following components:
 
 | Component | Description |
 | ---- | --- |
-| [**caer**](https://github.com/jasmcaus/caer/) | A powerful Computer Vision library like OpenCV |
+| [**caer**](https://github.com/jasmcaus/caer/) | A powerful Computer Vision library |
 | [**caer.data**](https://github.com/jasmcaus/caer/tree/master/caer/data) | Standard high-quality test images |
 | [**caer.filters**](https://github.com/jasmcaus/caer/tree/master/caer/filters) | Advanced Image Filters |
 | [**caer.utils**](https://github.com/jasmcaus/caer/tree/master/caer/utils) | General utilities  |
