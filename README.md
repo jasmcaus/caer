@@ -8,14 +8,14 @@ A Computer Vision library in Python with powerful image and video processing ope
 Caer is a set of utility functions designed to help speed up your Computer Vision workflow. Functions inside `caer` will help reduce the number of calculation calls your code makes, ultimately making it neat, concise and readable.
 
 
-# More About caer
+# About Caer
 
 Caer is a Python library that consists of the following components:
 
 | Component | Description |
 | ---- | --- |
-| [**caer**](https://github.com/jasmcaus/caer/) | a powerful Computer Vision library like OpenCV |
-| [**caer.data**](https://github.com/jasmcaus/caer/tree/master/caer/data) | Standard high-quality images for testing purposes |
+| [**caer**](https://github.com/jasmcaus/caer/) | A powerful Computer Vision library like OpenCV |
+| [**caer.data**](https://github.com/jasmcaus/caer/tree/master/caer/data) | Standard high-quality test images |
 | [**caer.utils**](https://github.com/jasmcaus/caer/tree/master/caer/utils) | General utilities  |
 | [**caer.path**](https://github.com/jasmcaus/caer/tree/master/caer/path) | OS-specific path manipulations |
 | [**caer.preprocessing**](https://github.com/jasmcaus/caer/tree/master/caer/preprocessing) | Image preprocessing utilities. |
