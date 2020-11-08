@@ -108,7 +108,21 @@ def process_pyx():
 
     # Cython 0.29.21 is required for Python 3.9 and there are other fixes in the 0.29 series that are needed for earlier Python versions.
     # Note: keep in sync with that in pyproject.toml
+    pyproject_toml = os.path.join(os.path.dirname(__file__), '..', 'pyproject.toml')
+    if not os.path.exists(pyproject_toml):
+        raise RuntimeError('pyproject.toml was not found. Ensure it was not deleted')
+
+    # Try to find the minimum version from pyproject.toml
     required_cython_version = '0.29.21'
+    with open(pyproject_toml) as f:
+        for line in f:
+            if 'Cython' not in line.lower():
+                continue
+            _, line = line.split('=')
+            required_cython_version, _ = line.split("'")
+            break
+        else:
+            raise RuntimeError('An appropriate version for Cython could not be found from pyproject.toml')
 
     if cython_version < required_cython_version:
         raise RuntimeError(f'Building Caer requires Cython >= {required_cython_version}')
