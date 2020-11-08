@@ -47,7 +47,7 @@ def drone(target_size=None, rgb=True):
 
 
 def dusk(target_size=None, rgb=True):
-    return load_img(here+'dusk.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'dusk.jpg', target_size=target_size, rgb=rgb)
 
 
 def fighter_fish(target_size=None, rgb=True):
