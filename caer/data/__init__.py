@@ -23,7 +23,7 @@ def bear(target_size=None, rgb=True):
 
 
 def beverages(target_size=None, rgb=True):
-    return load_img(here+'beverages.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'beverages.jpg', target_size=target_size, rgb=rgb)
 
 
 def black_cat(target_size=None, rgb=True):
