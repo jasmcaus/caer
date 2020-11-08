@@ -37,7 +37,9 @@ from .utilities import sort_dict
 
 # Opencv-specific methods
 from .opencv import get_opencv_version
-from .opencv import imwrite
+from .opencv import mean 
+from .opencv import merge 
+from .opencv import split 
 from .opencv import to_gray
 from .opencv import to_hsv
 from .opencv import to_lab
@@ -54,13 +56,14 @@ from .visualizations import draw_rectangle
 # Time
 from .time import now
 
+# Resize
+from .resize import resize 
+from .resize import center_crop 
+
 # Image-related
-from .images import resize 
-from .images import center_crop 
-from .images import load_img 
-from .images import mean 
-from .images import merge 
-from .images import split 
+from .io import imread 
+from .io import imsave 
+
 
 # Bringing in configuration variables from configs.py
 from .configs import CROP_CENTRE
@@ -86,7 +89,8 @@ def get_caer_methods():
 
 # __all__ configs
 from .configs import __all__ as __all_configs__
-from .images import __all__ as __all_images__
+from .io import __all__ as __all_io__
+from .resize import __all__ as __all_resize__
 from .opencv import __all__ as __all_opencv__
 from .preprocess import __all__ as __all_preprocess__
 from .time import __all__ as __all_time__
@@ -100,7 +104,7 @@ from .utils import __all__ as __all_utils__
 from .path import __all__ as __all_path__
 
 
-__all__ = __all_configs__ + __all_images__ + __all_opencv__ + __all_preprocess__ + __all_time__ + __all_utilities__ + __all_visualizations__
+__all__ = __all_configs__ + __all_io__ + __all_resize__ + __all_opencv__ + __all_preprocess__ + __all_time__ + __all_utilities__ + __all_visualizations__
 
 __all__ += __all_preprocessing__ 
 __all__ += __all_video__ 
