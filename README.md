@@ -69,11 +69,9 @@ You can run the following to verify things installed correctly:
 
 ## Contributing
 
-We appreciate all contributions. If you plan to contribute new features, utility functions, or extensions to the core, first open an issue and discuss the feature with us. Sending a PR without discussion might end up resulting in a rejected PR because we might be taking the core in a different direction than you might be aware of.
+We appreciate all contributions. If you plan to contribute new features, utility functions, or extensions to the core, please go through our [Contribution Guidelines][contributing]. By participating, you are expected to uphold the [Code of Conduct](https://github.com/jasmcaus/caer/blob/master/CODE_OF_CONDUCT.md)
 
-To learn more about making a contribution to Caer, please go through our [Contribution Guidelines][contributing].
-
-If you want to contribute, start working through the `caer` codebase, read the [Documentation][docs], navigate to the [Issues][issues] tab and start looking through interesting issues. 
+To contribute, start working through the `caer` codebase, read the [Documentation][docs], navigate to the [Issues][issues] tab and start looking through interesting issues. 
 
 Current contributors can be viewed either from the [Contributors][contributors] file or by using the `caer.__contributors__` command.
 
