@@ -10,7 +10,7 @@ import random
 import time
 
 from .utilities import saveNumpy, get_classes_from_dir, to_array, load
-from .images import load_img
+from .io import imread
 from .preprocessing import MeanProcess
 from ._checks import _check_target_size, _check_mean_sub_values
 from .path import listdir, minijoin, exists, list_images
@@ -131,7 +131,7 @@ def preprocess_from_dir(DIR,
                     # image_path = minijoin(class_path, image)
 
                     # Returns the resized image (ignoring aspect ratio since it isn't relevant for Deep Computer Vision models)
-                    img = load_img(image_path, target_size=IMG_SIZE, channels=channels)
+                    img = imread(image_path, target_size=IMG_SIZE, channels=channels)
                     if img is None:
                         continue
 
