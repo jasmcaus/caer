@@ -107,7 +107,7 @@ def phone(target_size=None, rgb=True):
 
 
 def sea_turtle(target_size=None, rgb=True):
-    return load_img(here+'sea_turtle.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'sea_turtle.jpg', target_size=target_size, rgb=rgb)
 
 
 def snow(target_size=None, rgb=True):
