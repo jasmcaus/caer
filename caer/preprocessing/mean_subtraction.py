@@ -10,7 +10,8 @@
 
 from .._checks import _check_mean_sub_values
 from ..path import exists, list_images
-from ..images import mean, merge, split, load_img
+from ..io import imread 
+from ..opencv import mean, merge, split
 from ..utilities import npmean
 
 
@@ -75,7 +76,7 @@ def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True):
 
     for img_filepath in image_list:
         count += 1
-        img = load_img(img_filepath, rgb=False)
+        img = imread(img_filepath, rgb=False)
 
         if channels == 3:
             b, g, r = mean(img.astype('float32'))[:3]
