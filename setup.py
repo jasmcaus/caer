@@ -83,6 +83,7 @@ AUTHOR = cfg['author']
 AUTHOR_EMAIL = cfg['author_email']
 AUTHOR_LONG = AUTHOR + ' <' + AUTHOR_EMAIL + '>'
 LICENSE = cfg['license']
+PLATFORMS = ['Any']
 URL = cfg['git_url']
 DOWNLOAD_URL = cfg['download_url']
 PACKAGES = find_packages()
@@ -327,6 +328,7 @@ def setup_package():
         },
         packages = PACKAGES,
         license = LICENSE,
+        platforms = PLATFORMS,
         install_requires = REQUIREMENTS,
         extras_require = EXTRAS,
         python_requires = PYTHON_REQUIRES,
