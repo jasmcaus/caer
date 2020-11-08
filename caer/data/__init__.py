@@ -119,7 +119,7 @@ def snowflake(target_size=None, rgb=True):
 
 
 def sunrise(target_size=None, rgb=True):
-    return load_img(here+'sunrise.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'sunrise.jpg', target_size=target_size, rgb=rgb)
 
 
 def tent(target_size=None, rgb=True):
