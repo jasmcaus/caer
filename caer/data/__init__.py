@@ -91,7 +91,7 @@ def night(target_size=None, rgb=True):
 
 
 def puppies(target_size=None, rgb=True):
-    return load_img(here+'puppies.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'puppies.jpg', target_size=target_size, rgb=rgb)
 
 
 def puppy(target_size=None, rgb=True):
