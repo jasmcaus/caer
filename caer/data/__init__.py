@@ -51,7 +51,7 @@ def dusk(target_size=None, rgb=True):
 
 
 def fighter_fish(target_size=None, rgb=True):
-    return load_img(here+'fighter_fish.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'fighter_fish.jpg', target_size=target_size, rgb=rgb)
 
 
 def gold_fish(target_size=None, rgb=True):
