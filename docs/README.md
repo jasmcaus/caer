@@ -31,7 +31,7 @@ For versions below 1.7.7, use `caer.__version__`.
 
 
 ## Load Images
-`caer.load_img` reads in an image from a specified filepath. 
+`caer.imread` reads in an image from a specified filepath. 
 
 **Arguments**
 - `image_path`: Path to an image (filepath or URL)
@@ -42,19 +42,19 @@ For versions below 1.7.7, use `caer.__version__`.
 - `keep_aspect_ratio`: Resizes an image to `target_size` keeping the aspect ratio. Some parts of the image may not be included (such as margins of the image). Default: False
 ```python
 # BGR Image
->> image = caer.load_img(path, target_size=None, channels=3, rgb=False)
+>> image = caer.imread(path, target_size=None, channels=3, rgb=False)
 
 # RGB Image
->> image = caer.load_img(path, target_size=None, channels=3, rgb=True)
+>> image = caer.imread(path, target_size=None, channels=3, rgb=True)
 
 # Image shrunk by a factor of 5
->> image = caer.load_img(path, resize_ratio = .2, channels=3, rgb=True)
+>> image = caer.imread(path, resize_ratio = .2, channels=3, rgb=True)
 
 # Image resized to (500,500) ignoring aspect ratio
->> image = caer.load_img(path, target_size=(500,500), keep_aspect_ratio=False)
+>> image = caer.imread(path, target_size=(500,500), keep_aspect_ratio=False)
 
 # Image resized to (500,500) keeping aspect ratio
->> image = caer.load_img(path, target_size=(500,500), keep_aspect_ratio=True)
+>> image = caer.imread(path, target_size=(500,500), keep_aspect_ratio=True)
 ```
 
 
@@ -142,7 +142,7 @@ Currently, `caer` supports converting an image from BGR to the RGB, Grayscale, H
 
 
 ## Image from URL
-***Note: `caer.load_img()` can read in images from URLs as well. This is the recommended method.***
+***Note: `caer.imread()` can read in images from URLs as well. This is the recommended method.***
 
 `caer.url_from_image()` reads in an image from a URL and returns it as an RGB image (if `rgb = True`) or BGR (if `rgb=False`)
 ```python
