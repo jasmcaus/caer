@@ -103,7 +103,7 @@ def red_fish(target_size=None, rgb=True):
 
 
 def phone(target_size=None, rgb=True):
-    return load_img(here+'rotary_phone.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'rotary_phone.jpg', target_size=target_size, rgb=rgb)
 
 
 def sea_turtle(target_size=None, rgb=True):
