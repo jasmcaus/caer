@@ -100,6 +100,7 @@ def normpath(path):
 
 def process_pyx():
     flags = ['-3', '--inplace']
+    build_cython = True
 
     try:
         from Cython.Compiler.Version import version as cython_version
@@ -113,7 +114,7 @@ def process_pyx():
         raise RuntimeError('pyproject.toml was not found. Ensure it was not deleted')
 
     # Try to find the minimum version from pyproject.toml
-    required_cython_version = '0.29.21'
+    # required_cython_version = '0.29.21'
     with open(pyproject_toml) as f:
         for line in f:
             if 'Cython' not in line.lower():
@@ -131,26 +132,26 @@ def process_pyx():
     find_files(ROOT_DIR, '.pyx')
 
     if CYTHON_SOURCES is None:
-        sys.stderr.write('No files found matching the required extensions')
-        sys.exit(-1)
+        sys.stderr.write('No Cython files found matching the required extensions. Cython build escaping')
+        build_cython = False
+
+    if build_cython:
+        # Writing to build_cython.py (temp)
+        a = open('build_cython.py', 'w')
+        try:
+            a.write(SETUP_TEXT % {'time': datetime.date.today().strftime("%B %d, %Y") ,
+                                'source': CYTHON_SOURCES } )
+        finally:
+            a.close()
 
 
-    # Writing to build_cython.py (temp)
-    a = open('build_cython.py', 'w')
-    try:
-        a.write(SETUP_TEXT % {'time': datetime.date.today().strftime("%B %d, %Y") ,
-                              'source': CYTHON_SOURCES } )
-    finally:
-        a.close()
-
-
-    # Can only concatenate lists
-    # build_cython.py is an auto-generated Python script by cythonize.py
-    # Do not run cythonize.py directly unless the .c files need to be re-compiled
-    try:
-        subprocess.check_call(['python' + 'build_cython.py' + 'build_ext'] + flags)
-    except:
-        subprocess.check_call([sys.executable, '-m', 'build_cython.py'] + flags)
+        # Can only concatenate lists
+        # build_cython.py is an auto-generated Python script by cythonize.py
+        # Do not run cythonize.py directly unless the .c files need to be re-compiled
+        try:
+            subprocess.check_call(['python' + 'build_cython.py' + 'build_ext'] + flags)
+        except:
+            subprocess.check_call([sys.executable, '-m', 'build_cython.py'] + flags)
 
 
 
