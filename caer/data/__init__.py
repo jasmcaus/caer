@@ -27,7 +27,7 @@ def beverages(target_size=None, rgb=True):
 
 
 def black_cat(target_size=None, rgb=True):
-    return load_img(here+'black_cat.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'black_cat.jpg', target_size=target_size, rgb=rgb)
 
 
 def blue_tang(target_size=None, rgb=True):
