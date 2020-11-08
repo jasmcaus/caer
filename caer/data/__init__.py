@@ -87,7 +87,7 @@ def mountain(target_size=None, rgb=True):
 
 
 def night(target_size=None, rgb=True):
-    return load_img(here+'night.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'night.jpg', target_size=target_size, rgb=rgb)
 
 
 def puppies(target_size=None, rgb=True):
