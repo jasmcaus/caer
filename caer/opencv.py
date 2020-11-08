@@ -96,8 +96,25 @@ def edges(img, threshold1=None, threshold2=None, use_median=True, sigma=None):
     return canny_edges
 
 
-def imwrite(filename, img):
-    cv.imwrite(filename, img)
+def mean(image, mask=None):
+    try:
+        return cv.mean(image, mask=mask)
+    except:
+        raise ValueError('mean() expects an image')
+
+
+def merge(img):
+    # if not isinstance(img, (list, np.ndarray)):
+    #     raise ValueError('img must be a list or numpy.ndarray of (ideally) shape = 3)')
+
+    return cv.merge(img)
+
+
+def split(img):
+    try:
+        return cv.split(img)
+    except:
+        raise ValueError('mean() expects an image')
 
     
 def to_rgb(img):
@@ -161,7 +178,9 @@ def url_to_image(url, rgb=True):
 
 __all__ = [
     'get_opencv_version',
-    'imwrite'
+    'mean',
+    'merge',
+    'split',
     'to_gray',
     'to_hsv',
     'to_lab',
