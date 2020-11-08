@@ -79,7 +79,7 @@ def jellyfish(target_size=None, rgb=True):
 
 
 def laptop(target_size=None, rgb=True):
-    return load_img(here+'laptop.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'laptop.jpg', target_size=target_size, rgb=rgb)
 
 
 def mountain(target_size=None, rgb=True):
