@@ -43,7 +43,7 @@ def controller(target_size=None, rgb=True):
 
 
 def drone(target_size=None, rgb=True):
-    return load_img(here+'drone.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'drone.jpg', target_size=target_size, rgb=rgb)
 
 
 def dusk(target_size=None, rgb=True):
