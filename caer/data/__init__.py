@@ -6,7 +6,7 @@
 #
 # ==============================================================================
 
-from ..images import load_img 
+from ..io import imread 
 from ..path import abspath, minijoin
 from .._base import __curr__ 
 
