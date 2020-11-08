@@ -35,7 +35,7 @@ def blue_tang(target_size=None, rgb=True):
 
 
 def camera(target_size=None, rgb=True):
-    return load_img(here+'camera.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'camera.jpg', target_size=target_size, rgb=rgb)
 
 
 def controller(target_size=None, rgb=True):
