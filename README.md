@@ -8,7 +8,7 @@ A Computer Vision library in Python with powerful image and video processing ope
 Caer is a set of utility functions designed to help speed up your Computer Vision workflow. Functions inside `caer` will help reduce the number of calculation calls your code makes, ultimately making it neat, concise and readable.
 
 
-# About Caer
+# More About Caer
 
 Caer is a Python library that consists of the following components:
 
