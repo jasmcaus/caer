@@ -63,7 +63,7 @@ def green_controller(target_size=None, rgb=True):
 
 
 def green_fish(target_size=None, rgb=True):
-    return load_img(here+'green_fish.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'green_fish.jpg', target_size=target_size, rgb=rgb)
 
 
 def guitar(target_size=None, rgb=True):
