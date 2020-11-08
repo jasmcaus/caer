@@ -140,7 +140,7 @@ def process_pyx():
         a = open('build_cython.py', 'w')
         try:
             a.write(SETUP_TEXT % {'time': datetime.date.today().strftime("%B %d, %Y") ,
-                                'source': CYTHON_SOURCES } )
+                                  'source': CYTHON_SOURCES } )
         finally:
             a.close()
 
@@ -149,9 +149,16 @@ def process_pyx():
         # build_cython.py is an auto-generated Python script by cythonize.py
         # Do not run cythonize.py directly unless the .c files need to be re-compiled
         try:
-            subprocess.check_call(['python' + 'build_cython.py' + 'build_ext'] + flags)
+            r = subprocess.check_call(['python' + 'build_cython.py' + 'build_ext'] + flags)
+
+            if r != 0:
+                p = subprocess.check_call([sys.executable, '-m', 'build_cython.py'] + flags)
+
+                if p != 0:
+                    raise Exception()
+
         except:
-            subprocess.check_call([sys.executable, '-m', 'build_cython.py'] + flags)
+            raise RuntimeError('Building cython failed')
 
 
 
