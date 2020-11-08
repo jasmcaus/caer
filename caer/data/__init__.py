@@ -39,7 +39,7 @@ def camera(target_size=None, rgb=True):
 
 
 def controller(target_size=None, rgb=True):
-    return load_img(here+'controller.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'controller.jpg', target_size=target_size, rgb=rgb)
 
 
 def drone(target_size=None, rgb=True):
