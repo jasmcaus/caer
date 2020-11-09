@@ -6,17 +6,15 @@
 #
 # ==============================================================================
 
-from . import cdistance
-from . import cmorph
+#pylint:disable=no-name-in-module
+
+from .cdistance import dt 
+from .cmorph import distance_multi
 import numpy as np
 
-__all__ = [
-    'distance',
-    ]
 
 def distance(bw, metric='euclidean2'):
-    '''
-    dmap = distance(bw, metric='euclidean2')
+    """
     Computes the distance transform of image `bw`::
         dmap[i,j] = min_{i', j'} { (i-i')**2 + (j-j')**2 | !bw[i', j'] }
     That is, at each point, compute the distance to the background.
@@ -42,17 +40,28 @@ def distance(bw, metric='euclidean2'):
     Available at:
     http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.88.1647&rep=rep1&type=pdf.
     For n-D images (with n > 2), a slower hand-craft method is used.
-    '''
+    """
+
+    if metric.lower() not in ['euclidean2', 'euclidean']:
+        raise ValueError('`metric` must be either "euclidean2" or "euclidean"')
+
     if bw.dtype != np.bool_:
         bw = (bw != 0)
+
     f = np.zeros(bw.shape, np.double)
+
     if bw.ndim == 2:
         f[bw] = len(f.shape)*max(f.shape)**2+1
-        _distance.dt(f, None)
+        dt(f, None)
     else:
         f.fill(f.size*2)
         Bc = np.ones([3 for _ in bw.shape], bool)
-        _morph.distance_multi(f, bw, Bc)
+        distance_multi(f, bw, Bc)
     if metric == 'euclidean':
         np.sqrt(f,f)
     return f
+
+
+__all__ = [
+    'distance',
+    ]
