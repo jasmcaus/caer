@@ -15,64 +15,75 @@ from ._meta import contributors as __contributors__
 __license__ = 'MIT License'
 __copyright__ = 'Copyright (c) 2020 Jason Dsouza'
 
-# Preprocessing
-from .preprocess import preprocess_from_dir
-from .preprocess import sep_train
-from .preprocess import shuffle
-from .preprocess import reshape
-from .preprocess import normalize
 
-# General utilities
-from .utilities import saveNumpy
-from .utilities import median
-from .utilities import npmean
-from .utilities import to_array
-from .utilities import array
-from .utilities import asarray
-from .utilities import load
-from .utilities import train_val_split
-from .utilities import get_classes_from_dir
-from .utilities import sort_dict
-# from .utilities import plotAcc
+try:
+    # Preprocessing
+    from .preprocess import preprocess_from_dir
+    from .preprocess import sep_train
+    from .preprocess import shuffle
+    from .preprocess import reshape
+    from .preprocess import normalize
 
-# Opencv-specific methods
-from .opencv import get_opencv_version
-from .opencv import mean 
-from .opencv import merge 
-from .opencv import split 
-from .opencv import to_gray
-from .opencv import to_hsv
-from .opencv import to_lab
-from .opencv import to_rgb
-from .opencv import url_to_image 
-from .opencv import translate
-from .opencv import rotate 
-from .opencv import edges 
+    # General utilities
+    from .utilities import saveNumpy
+    from .utilities import median
+    from .utilities import npmean
+    from .utilities import to_array
+    from .utilities import array
+    from .utilities import asarray
+    from .utilities import load
+    from .utilities import train_val_split
+    from .utilities import get_classes_from_dir
+    from .utilities import sort_dict
+    # from .utilities import plotAcc
 
-# General visualizations
-from .visualizations import hex_to_rgb
-from .visualizations import draw_rectangle
+    # Opencv-specific methods
+    from .opencv import get_opencv_version
+    from .opencv import mean 
+    from .opencv import merge 
+    from .opencv import split 
+    from .opencv import to_gray
+    from .opencv import to_hsv
+    from .opencv import to_lab
+    from .opencv import to_rgb
+    from .opencv import url_to_image 
+    from .opencv import translate
+    from .opencv import rotate 
+    from .opencv import edges 
 
-# Time
-from .time import now
+    # General visualizations
+    from .visualizations import hex_to_rgb
+    from .visualizations import draw_rectangle
 
-# Resize
-from .resize import resize 
-from .resize import center_crop 
+    # Time
+    from .time import now
 
-# Image-related
-from .io import imread 
-from .io import imsave 
+    # Resize
+    from .resize import resize 
+    from .resize import center_crop 
+
+    # Image-related
+    from .io import imread 
+    from .io import imsave 
 
 
-# Bringing in configuration variables from configs.py
-from .configs import CROP_CENTRE
-from .configs import CROP_TOP
-from .configs import CROP_LEFT
-from .configs import CROP_RIGHT 
-from .configs import CROP_BOTTOM
-from .configs import VALID_URL_NO_EXIST
-from .configs import INVALID_URL_STRING
+    # Bringing in configuration variables from configs.py
+    from .configs import CROP_CENTRE
+    from .configs import CROP_TOP
+    from .configs import CROP_LEFT
+    from .configs import CROP_RIGHT 
+    from .configs import CROP_BOTTOM
+    from .configs import VALID_URL_NO_EXIST
+    from .configs import INVALID_URL_STRING
+
+except ImportError:
+    import sys 
+    _, e, _ = sys.exc_info()
+    sys.stderr.write(f"""\
+        Could not import submodules (exact error was: {e}).
+        There are many reasons for this error the most common one is that you have either not built the packages, built (using `python setup.py build`) or installed them (using `python setup.py install`) and then proceeded to test caer **without changing the current directory**.
+        Try installing and then changing to another directory before importing caer.
+        """)
 
 
 def get_caer_version():
