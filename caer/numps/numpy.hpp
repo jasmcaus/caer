@@ -12,6 +12,8 @@
 #include <complex>
 
 #include <Python.h>
+
+// To fix errors, the source path needs to be included. The source file has been added to the `includePath` //// on my machine. You may manually navigate to the include source files (in the numpy Python package) or use /// numpy.get_include() to get the includePath
 #include <numpy/ndarrayobject.h>
 
 namespace numpy {
