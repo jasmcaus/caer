@@ -8,6 +8,7 @@
 
 import numpy as np
 
+
 def _get_output(array, out, fname, dtype=None, output=None):
     '''
     output = _get_output(array, out, fname, dtype=None, output=None)
