@@ -42,11 +42,9 @@ namespace{
             if (centre >= N1) break;
             const T* base0 = array.data(y);
             // The two loops (over x & x_) are almost the same.
-            // However, combining them, whilst leading to better code,
-            // made the result much slower (probably because there was a need to
+            // However, combining them, whilst leading to better code, made the result much slower (probably /// because there was a need to
             // test the value of x in the inner loop).
-            //
-            // This was true in a 2013 MacBook Air. Maybe re-check in the future
+
             T* out = result.data(y,centre);
             for (npy_intp x = centre; x != (N1 - centre); ++x) {
                 double cur = 0;
@@ -243,7 +241,9 @@ namespace{
     }
 
     inline
-    bool _is_even(npy_intp x) { return (x & 1) == 0; }
+    bool _is_even(npy_intp x) { 
+        return (x & 1) == 0; 
+    }
 
     template <typename T>
     void iwavelet(numpy::aligned_array<T> array, const float coeffs[], const int ncoeffs) {
@@ -299,9 +299,9 @@ namespace{
         return PyArray_Return(array);
     }
 
-    // These are the Daubechie coefficients
+    // Daubechie coefficients: 
     // This is the scaling function, the wavelet is multiplication with (-1)^k
-    // These values were copy&pasted from wikipedia
+    // These values were copy & pasted from wikipedia
     const float D2[] = { 1.,  1. };
     const float D4[] = { 0.6830127,  1.1830127,  0.3169873, -0.1830127 };
     const float D6[] = { 0.47046721,  1.14111692,  0.650365  , -0.19093442, -0.12083221,
