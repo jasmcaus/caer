@@ -1,13 +1,18 @@
+// Copyright 2020 The Caer Authors. All Rights Reserved.
+//
+// Licensed under the MIT License (see LICENSE);
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at <https://opensource.org/licenses/MIT>
+//
+// ==============================================================================
+
 #ifndef CAER_FILTER_H_INCLUDE_GUARD_
 #define CAER_FILTER_H_INCLUDE_GUARD_
-// Copyright (C) 2003-2005 Peter J. Verveer
-// Copyright (C) 2010-2013 Luis Pedro Coelho
-// LICENSE: MIT
 
 #include <vector>
 #include <cassert>
 #include <limits>
-#include "numpypp/array.hpp"
+#include "numps/array.hpp"
 
 
 /* The different boundary conditions. The mirror condition is not used
