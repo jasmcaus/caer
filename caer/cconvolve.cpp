@@ -601,59 +601,6 @@ namespace{
     }
 
     template <typename T>
-    void template_match(numpy::aligned_array<T> res, const numpy::aligned_array<T> f, const numpy::aligned_array<T> t, int mode, bool just_equality) {
-        gil_release nogil;
-        const npy_intp N = res.size();
-        typename numpy::aligned_array<T>::const_iterator iter = f.begin();
-        filter_iterator<T> fiter(f.raw_array(), t.raw_array(), ExtendMode(mode), false);
-        const npy_intp N2 = fiter.size();
-        assert(res.is_carray());
-        // T* is a fine iterator type.
-        T* rpos = res.data();
-
-        for (npy_intp i = 0; i != N; ++i, ++rpos, fiter.iterate_both(iter)) {
-            T diff2 = T(0);
-            for (npy_intp j = 0; j != N2; ++j) {
-                T val;
-                if (fiter.retrieve(iter, j, val)) {
-                    const T tj = fiter[j];
-                    const T delta = (val > tj ? val - tj : tj - val);
-                    if (just_equality && delta) {
-                        diff2 = 1;
-                        break;
-                    }
-                    diff2 += delta*delta;
-                }
-            }
-            *rpos = diff2;
-        }
-    }
-
-    PyObject* py_template_match(PyObject* self, PyObject* args) {
-        PyArrayObject* array;
-        PyArrayObject* template_;
-        int mode;
-        int just_equality;
-        PyArrayObject* output;
-        if (!PyArg_ParseTuple(args, "OOOii", &array, &template_, &output, &mode, &just_equality)) return NULL;
-        if (!numpy::are_arrays(array, template_, output) ||
-            !numpy::equiv_typenums(array, template_, output) ||
-            !PyArray_ISCARRAY(output)) {
-            PyErr_SetString(PyExc_RuntimeError,TypeErrorMsg);
-            return NULL;
-        }
-        holdref r(output);
-
-    #define HANDLE(type) \
-            template_match<type>(numpy::aligned_array<type>(output), numpy::aligned_array<type>(array), numpy::aligned_array<type>(template_), mode, just_equality);
-        SAFE_SWITCH_ON_TYPES_OF(array);
-    #undef HANDLE
-
-        Py_INCREF(output);
-        return PyArray_Return(output);
-    }
-
-    template <typename T>
     void find2d(const numpy::aligned_array<T> array, const numpy::aligned_array<T> target, numpy::aligned_array<bool> out) {
         gil_release nogil;
         const npy_intp N0 = array.dim(0);
@@ -710,15 +657,15 @@ namespace{
     PyMethodDef methods[] = {
     {"convolve",(PyCFunction)py_convolve, METH_VARARGS, NULL},
     {"convolve1d",(PyCFunction)py_convolve1d, METH_VARARGS, NULL},
-    {"wavelet",(PyCFunction)py_wavelet, METH_VARARGS, NULL},
-    {"iwavelet",(PyCFunction)py_iwavelet, METH_VARARGS, NULL},
+    // {"wavelet",(PyCFunction)py_wavelet, METH_VARARGS, NULL},
+    // {"iwavelet",(PyCFunction)py_iwavelet, METH_VARARGS, NULL},
     {"daubechies",(PyCFunction)py_daubechies, METH_VARARGS, NULL},
     {"idaubechies",(PyCFunction)py_idaubechies, METH_VARARGS, NULL},
     {"haar",(PyCFunction)py_haar, METH_VARARGS, NULL},
     {"ihaar",(PyCFunction)py_ihaar, METH_VARARGS, NULL},
     {"rank_filter",(PyCFunction)py_rank_filter, METH_VARARGS, NULL},
     {"mean_filter",(PyCFunction)py_mean_filter, METH_VARARGS, NULL},
-    {"template_match",(PyCFunction)py_template_match, METH_VARARGS, NULL},
+    // {"template_match",(PyCFunction)py_template_match, METH_VARARGS, NULL},
     {"find2d",(PyCFunction)py_find2d, METH_VARARGS, NULL},
     {NULL, NULL,0,NULL},
     };
