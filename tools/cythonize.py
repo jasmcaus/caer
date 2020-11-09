@@ -117,7 +117,7 @@ def process_pyx():
     # required_cython_version = '0.29.21'
     with open(pyproject_toml) as f:
         for line in f:
-            if 'Cython' not in line.lower():
+            if 'cython' not in line.lower():
                 continue
             _, line = line.split('=')
             required_cython_version, _ = line.split("'")
@@ -131,13 +131,13 @@ def process_pyx():
     # Populating CYTHON_SOURCES
     find_files(ROOT_DIR, '.pyx')
 
-    if CYTHON_SOURCES is None:
-        sys.stderr.write('No Cython files found matching the required extensions. Cython build escaping')
+    if len(CYTHON_SOURCES) == 0:
+        sys.stderr.write('No Cython files found matching the required extensions. Cython build escaping\n')
         build_cython = False
 
     if build_cython:
         # Writing to build_cython.py (temp)
-        a = open('build_cython.py', 'w')
+        a = open('tools/build_cython.py', 'w')
         try:
             a.write(SETUP_TEXT % {'time': datetime.date.today().strftime("%B %d, %Y") ,
                                   'source': CYTHON_SOURCES } )
