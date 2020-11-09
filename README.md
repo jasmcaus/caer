@@ -68,7 +68,7 @@ You can run the following to verify things installed correctly:
 
 ## Contributing
 
-We appreciate all contributions. If you plan to contribute new features, utility functions, or extensions to the core, please go through our [Contribution Guidelines][contributing]. By participating, you are expected to uphold the [Code of Conduct](https://github.com/jasmcaus/caer/blob/master/CODE_OF_CONDUCT.md)
+We appreciate all contributions. If you plan to contribute new features, utility functions, or extensions to the core, please go through our [Contribution Guidelines][contributing]. By participating, you are expected to uphold the [Code of Conduct][coc].
 
 To contribute, start working through the `caer` codebase, read the [Documentation][docs], navigate to the [Issues][issues] tab and start looking through interesting issues. 
 
@@ -82,6 +82,7 @@ Caer is released under the [MIT License](https://github.com/jasmcaus/caer/blob/m
 [contributing]: https://github.com/jasmcaus/caer/blob/master/.github/CONTRIBUTING.md
 [docs]: https://github.com/jasmcaus/caer/blob/master/docs/README.md
 [contributors]: https://github.com/jasmcaus/caer/blob/master/CONTRIBUTORS
+[coc]: https://github.com/jasmcaus/caer/blob/master/CODE_OF_CONDUCT.md
 [issues]: https://github.com/jasmcaus/caer/issues
 [install]: https://github.com/jasmcaus/caer/blob/master/INSTALL.md
 
