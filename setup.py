@@ -378,12 +378,15 @@ def setup_package():
 
     run_build = RUN_CYTHON_BUILD
     if run_build:
-        if 'sdist' not in sys.argv:
-            # Generate Cython sources, unless we're generating an sdist
-            generate_cython()
+        # if 'sdist' not in sys.argv:
+        #     # Generate Cython sources, unless we're generating an sdist
+        generate_cython()
 
     setup(**metadata)
 
 
 if __name__ == '__main__':
+    # Running the build is as simple as: 
+    # python setup.py sdist bdist_wheel
+    # This command includes building the required Python extensions (Cython included)
     setup_package()
