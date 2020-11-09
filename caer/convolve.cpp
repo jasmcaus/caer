@@ -725,4 +725,4 @@ namespace{
 
 } // namespace
 
-DECLARE_MODULE(_convolve)
+DECLARE_MODULE(convolve)

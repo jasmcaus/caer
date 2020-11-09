@@ -111,4 +111,4 @@ PyMethodDef methods[] = {
   {NULL, NULL,0,NULL},
 };
 
-DECLARE_MODULE(_convex)
+DECLARE_MODULE(convex)
