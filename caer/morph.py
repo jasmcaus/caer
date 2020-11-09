@@ -89,7 +89,7 @@ def disk(radius, dim=2):
     '''
     import numpy as np
     if dim <= 0:
-        raise ValueError('mahotas.morph.disk: dimension must be positive')
+        raise ValueError('caer.morph.disk: dimension must be positive')
     shape = [(radius*2+1) for _ in range(dim)]
     if dim == 2:
         return _morph.disk_2d(np.zeros(shape, bool), radius)
@@ -319,12 +319,12 @@ def hitmiss(input, Bc, out=None, output=None):
         out = np.empty_like(input)
     else:
         if out.shape != input.shape:
-            raise ValueError('mahotas.hitmiss: out must be of same shape as input')
+            raise ValueError('caer.hitmiss: out must be of same shape as input')
         if out.dtype != input.dtype:
             if out.dtype == np.bool_ and input.dtype == np.uint8:
                 out = out.view(np.uint8)
             else:
-                raise TypeError('mahotas.hitmiss: out must be of same type as input')
+                raise TypeError('caer.hitmiss: out must be of same type as input')
     return _morph.hitmiss(input, Bc, out)
 
 
@@ -444,10 +444,10 @@ def majority_filter(img, N=3, out=None, output=None):
     img = np.asanyarray(img, dtype=np.bool_)
     output = _get_output(img, out, 'majority_filter', np.bool_, output=output)
     if N <= 1:
-        raise ValueError('mahotas.majority_filter: filter size must be positive')
+        raise ValueError('caer.majority_filter: filter size must be positive')
     if not N&1:
         import warnings
-        warnings.warn('mahotas.majority_filter: size argument must be odd. Adding 1.')
+        warnings.warn('caer.majority_filter: size argument must be odd. Adding 1.')
         N += 1
     return _morph.majority_filter(img, N, output)
 
@@ -617,7 +617,7 @@ def subm(a, b, out=None):
         Result of subtraction
     '''
     if a.dtype != b.dtype:
-        raise ValueError('mahotas.subm: This is only well-defined if both arguments are of the same type')
+        raise ValueError('caer.subm: This is only well-defined if both arguments are of the same type')
     out = _get_output(a, out, 'subm')
     if out is not a:
         out[:] = a
@@ -694,7 +694,7 @@ def circle_se(radius):
     circle : boolean ndarray
     '''
     if not (radius > 0):
-        raise ValueError('mahotas.morph.circle: radius must be positive')
+        raise ValueError('caer.morph.circle: radius must be positive')
     X = np.arange(-radius, +radius+1)
     X,Y = np.meshgrid(X,X)
     return (X**2 + Y**2) < radius**2
