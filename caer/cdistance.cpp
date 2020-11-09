@@ -23,7 +23,6 @@ namespace {
         "This is caused by either a direct call to _distance (which is dangerous: types are not checked!) or a bug in distance.py.\n";
 
 
-
     template<typename BaseType>
     inline BaseType square(BaseType x) { 
         return x * x; 
