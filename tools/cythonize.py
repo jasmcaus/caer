@@ -105,13 +105,13 @@ def process_pyx():
     try:
         from Cython.Compiler.Version import version as cython_version
     except ImportError:
-        raise OSError('Cython needs to be installed')
+        raise OSError('[ERROR] Cython needs to be installed')
 
     # Cython 0.29.21 is required for Python 3.9 and there are other fixes in the 0.29 series that are needed for earlier Python versions.
     # Note: keep in sync with that in pyproject.toml
     pyproject_toml = os.path.join(os.path.dirname(__file__), '..', 'pyproject.toml')
     if not os.path.exists(pyproject_toml):
-        raise RuntimeError('pyproject.toml was not found. Ensure it was not deleted')
+        raise RuntimeError('[ERROR] pyproject.toml was not found. Ensure it was not deleted')
 
     # Try to find the minimum version from pyproject.toml
     # required_cython_version = '0.29.21'
@@ -123,16 +123,16 @@ def process_pyx():
             required_cython_version, _ = line.split("'")
             break
         else:
-            raise RuntimeError('An appropriate version for Cython could not be found from pyproject.toml')
+            raise RuntimeError('[ERROR] An appropriate version for Cython could not be found from pyproject.toml')
 
     if cython_version < required_cython_version:
-        raise RuntimeError(f'Building Caer requires Cython >= {required_cython_version}')
+        raise RuntimeError(f'[ERROR] Building Caer requires Cython >= {required_cython_version}')
 
     # Populating CYTHON_SOURCES
     find_files(ROOT_DIR, '.pyx')
 
     if len(CYTHON_SOURCES) == 0:
-        sys.stderr.write('No Cython files found matching the required extensions. Cython build escaping\n')
+        sys.stderr.write('[ERROR] No Cython files found matching the required extensions. Cython build escaping\n')
         build_cython = False
 
     if build_cython:
@@ -158,7 +158,7 @@ def process_pyx():
                     raise Exception()
 
         except:
-            raise RuntimeError('Building cython failed')
+            sys.stderr.write('[ERROR] Building cython failed')
 
 
 
