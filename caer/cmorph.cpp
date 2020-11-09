@@ -22,55 +22,6 @@ namespace {
     template <typename T>
     inline T t_abs(T val) { return (val >= 0 ? val : -val); }
 
-    template<typename T>
-    void subm(numpy::aligned_array<T> a, const numpy::aligned_array<T> b) {
-        gil_release nogil;
-        const numpy::index_type N = a.size();
-        typename numpy::aligned_array<T>::iterator ita = a.begin();
-        typename numpy::aligned_array<T>::const_iterator itb = b.begin();
-        for (numpy::index_type i = 0; i != N; ++i, ++ita, ++itb) {
-            if (std::numeric_limits<T>::is_signed) {
-                T val = *ita - *itb;
-                if (*itb >= 0 && (val <= *ita)) *ita = val; // subtracted a positive number, no underflow
-                else if (*itb < 0 && val > *ita) *ita = val; // subtracted a negative number, no overlow
-                else if (*itb >= 0) *ita = std::numeric_limits<T>::min(); // this is the underflow case
-                else *ita = std::numeric_limits<T>::max(); // this is the overflow case
-            } else {
-                if (*itb > *ita) *ita = T();
-                else *ita -= *itb;
-            }
-        }
-    }
-
-
-    PyObject* py_subm(PyObject* self, PyObject* args) {
-        PyArrayObject* a;
-        PyArrayObject* b;
-        if (!PyArg_ParseTuple(args, "OO", &a, &b)) return NULL;
-        if (!numpy::are_arrays(a,b) ||
-            !numpy::same_shape(a, b) ||
-            !numpy::equiv_typenums(a,b)) {
-            PyErr_SetString(PyExc_RuntimeError, TypeErrorMsg);
-            return NULL;
-        }
-
-    #define HANDLE(type) \
-        subm<type>(numpy::aligned_array<type>(a), numpy::aligned_array<type>(b));
-        SAFE_SWITCH_ON_INTEGER_TYPES_OF(a);
-    #undef HANDLE
-
-        Py_XINCREF(a);
-        return PyArray_Return(a);
-    }
-
-
-    template <typename T>
-    numpy::position central_position(const numpy::array_base<T>& array) {
-        numpy::position res(array.raw_dims(), array.ndims());
-        for (numpy::index_type i = 0, nd = array.ndims(); i != nd; ++i) res.position_[i] /= 2;
-        return res;
-    }
-
     template <typename T>
     std::vector<numpy::position> neighbours(const numpy::aligned_array<T>& Bc, bool include_centre = false) {
         numpy::position centre = central_position(Bc);
@@ -106,7 +57,7 @@ namespace {
             if (position[d] < margin) margin = position[d];
             const numpy::index_type rmargin = ref.dim(d) - position[d] - 1;
             if (rmargin < margin) margin = rmargin;
-    }
+        }
     return margin;
     }
 
@@ -228,7 +179,6 @@ namespace {
     }
 
 
-
     PyObject* py_erode(PyObject* self, PyObject* args) {
         PyArrayObject* array;
         PyArrayObject* Bc;
@@ -255,132 +205,6 @@ namespace {
         Py_XINCREF(output);
         return PyArray_Return(output);
     }
-
-    template<typename T>
-    void locmin_max(numpy::aligned_array<bool> res, const numpy::aligned_array<T> array, const numpy::aligned_array<T> Bc, bool is_min) {
-        gil_release nogil;
-        const numpy::index_type N = res.size();
-        typename numpy::aligned_array<T>::const_iterator iter = array.begin();
-        filter_iterator<T> filter(res.raw_array(), Bc.raw_array(), ExtendNearest, true);
-        const numpy::index_type N2 = filter.size();
-        bool* rpos = res.data();
-
-        for (numpy::index_type i = 0; i != N; ++i, ++rpos, filter.iterate_both(iter)) {
-            T cur = *iter;
-            for (numpy::index_type j = 0; j != N2; ++j) {
-                T arr_val = T();
-                filter.retrieve(iter, j, arr_val);
-                if (( is_min && (arr_val < cur)) ||
-                    (!is_min && (arr_val > cur))) {
-                        goto skip_to_next;
-                }
-            }
-            *rpos = true;
-            skip_to_next:
-                ;
-        }
-    }
-
-    PyObject* py_locminmax(PyObject* self, PyObject* args) {
-        PyArrayObject* array;
-        PyArrayObject* Bc;
-        PyArrayObject* output;
-        int is_min;
-        if (!PyArg_ParseTuple(args, "OOOi", &array, &Bc, &output, &is_min)) return NULL;
-        if (!numpy::are_arrays(array, Bc, output) ||
-            !numpy::same_shape(array, output) ||
-            !numpy::equiv_typenums(array, Bc) ||
-            !numpy::check_type<bool>(output) ||
-            PyArray_NDIM(array) != PyArray_NDIM(Bc) ||
-            !PyArray_ISCARRAY(output)
-        ) {
-            PyErr_SetString(PyExc_RuntimeError, TypeErrorMsg);
-            return NULL;
-        }
-        holdref r_o(output);
-        PyArray_FILLWBYTE(output, 0);
-
-    #define HANDLE(type) \
-        locmin_max<type>(numpy::aligned_array<bool>(output), numpy::aligned_array<type>(array), numpy::aligned_array<type>(Bc), bool(is_min));
-        SAFE_SWITCH_ON_TYPES_OF(array);
-    #undef HANDLE
-
-        Py_XINCREF(output);
-        return PyArray_Return(output);
-    }
-
-    template <typename T>
-    void remove_fake_regmin_max(numpy::aligned_array<bool> regmin, const numpy::aligned_array<T> f, const numpy::aligned_array<T> Bc, bool is_min) {
-        const numpy::index_type N = f.size();
-        numpy::aligned_array<bool>::iterator riter = regmin.begin();
-        const std::vector<numpy::position> Bc_neighbours = neighbours(Bc);
-        typedef std::vector<numpy::position>::const_iterator Bc_iter;
-        const numpy::index_type N2 = Bc_neighbours.size();
-
-        for (numpy::index_type i = 0; i != N; ++i, ++riter) {
-            if (!*riter) continue;
-            const numpy::position pos = riter.position();
-            const T val = f.at(pos);
-            for (numpy::index_type j = 0; j != N2; ++j) {
-                numpy::position npos = pos + Bc_neighbours[j];
-                if (f.validposition(npos) &&
-                        !regmin.at(npos) &&
-                                (   (is_min && f.at(npos) <= val) ||
-                                    (!is_min && f.at(npos) >= val)
-                                )) {
-                    numpy::position_stack stack(f.ndims());
-                    assert(regmin.at(pos));
-                    regmin.at(pos) = false;
-                    stack.push(pos);
-                    while (!stack.empty()) {
-                        numpy::position p = stack.top_pop();
-                        for (Bc_iter first = Bc_neighbours.begin(), past = Bc_neighbours.end();
-                                    first != past;
-                                    ++first) {
-                            numpy::position npos = p + *first;
-                            if (regmin.validposition(npos) && regmin.at(npos)) {
-                                regmin.at(npos) = false;
-                                assert(!regmin.at(npos));
-                                stack.push(npos);
-                            }
-                        }
-                    }
-                    // we are done with this position
-                    break;
-                }
-            }
-        }
-    }
-
-    PyObject* py_regminmax(PyObject* self, PyObject* args) {
-        PyArrayObject* array;
-        PyArrayObject* Bc;
-        PyArrayObject* output;
-        int is_min;
-        if (!PyArg_ParseTuple(args, "OOOi", &array, &Bc, &output, &is_min)) return NULL;
-        if (!numpy::are_arrays(array, Bc, output) || !numpy::same_shape(array, output) ||
-            !PyArray_EquivTypenums(PyArray_TYPE(array), PyArray_TYPE(Bc)) ||
-            !PyArray_EquivTypenums(NPY_BOOL, PyArray_TYPE(output)) ||
-            PyArray_NDIM(array) != PyArray_NDIM(Bc) ||
-            !PyArray_ISCARRAY(output)
-        ) {
-            PyErr_SetString(PyExc_RuntimeError, TypeErrorMsg);
-            return NULL;
-        }
-        holdref r_o(output);
-        PyArray_FILLWBYTE(output, 0);
-
-    #define HANDLE(type) \
-        locmin_max<type>(numpy::aligned_array<bool>(output), numpy::aligned_array<type>(array), numpy::aligned_array<type>(Bc), bool(is_min)); \
-        remove_fake_regmin_max<type>(numpy::aligned_array<bool>(output), numpy::aligned_array<type>(array), numpy::aligned_array<type>(Bc), bool(is_min));
-
-        SAFE_SWITCH_ON_TYPES_OF(array);
-    #undef HANDLE
-
-        Py_XINCREF(output);
-        return PyArray_Return(output);
-    }
-
 
 
     template <typename T>
@@ -448,116 +272,6 @@ namespace {
 
         Py_XINCREF(output);
         return PyArray_Return(output);
-    }
-
-    PyObject* py_disk_2d(PyObject* self, PyObject* args) {
-        PyArrayObject* array;
-        int radius;
-        if (!PyArg_ParseTuple(args,"Oi", &array, &radius)) return NULL;
-        if (!numpy::are_arrays(array) ||
-            PyArray_NDIM(array) != 2 ||
-            !PyArray_ISCARRAY(array) ||
-            !numpy::check_type<bool>(array) ||
-            radius < 0
-        ) {
-            PyErr_SetString(PyExc_RuntimeError, TypeErrorMsg);
-            return NULL;
-        }
-        Py_XINCREF(array);
-        bool* iter = numpy::ndarray_cast<bool*>(array);
-        const int radius2 = radius * radius;
-        const numpy::index_type N0 = PyArray_DIM(array, 0);
-        const numpy::index_type N1 = PyArray_DIM(array, 1);
-        const numpy::index_type c0 = N0/2;
-        const numpy::index_type c1 = N1/2;
-        for (numpy::index_type x0 = 0; x0 != N0; ++x0) {
-            for (numpy::index_type x1 = 0; x1 != N1; ++x1, ++iter) {
-                if ((x0-c0)*(x0-c0) + (x1-c1)*(x1-c1) < radius2) {
-                    *iter = true;
-                }
-            }
-        }
-        return PyArray_Return(array);
-    }
-
-    void close_holes(const numpy::aligned_array<bool> ref, numpy::aligned_array<bool> f, const numpy::aligned_array<bool> Bc) {
-        std::fill_n(f.data(), f.size(), false);
-
-        numpy::position_stack stack(ref.ndim());
-        const numpy::index_type N = ref.size();
-        const std::vector<numpy::position> Bc_neighbours = neighbours(Bc);
-        const numpy::index_type N2 = Bc_neighbours.size();
-        for (numpy::index_type d = 0; d != ref.ndims(); ++d) {
-            if (ref.dim(d) == 0) continue;
-            numpy::position pos;
-            pos.nd_ = ref.ndims();
-            for (numpy::index_type di = 0; di != ref.ndims(); ++di) pos.position_[di] = 0;
-
-            for (numpy::index_type i = 0; i != N/ref.dim(d); ++i) {
-                pos.position_[d] = 0;
-                if (!ref.at(pos) && !f.at(pos)) {
-                    f.at(pos) = true;
-                    stack.push(pos);
-                }
-                pos.position_[d] = ref.dim(d) - 1;
-                if (!ref.at(pos) && !f.at(pos)) {
-                    f.at(pos) = true;
-                    stack.push(pos);
-                }
-
-                for (numpy::index_type j = 0; j != ref.ndims() - 1; ++j) {
-                    if (j == d) ++j;
-                    if (pos.position_[j] < numpy::index_type(ref.dim(j))) {
-                        ++pos.position_[j];
-                        break;
-                    }
-                    pos.position_[j] = 0;
-                }
-            }
-        }
-        while (!stack.empty()) {
-            numpy::position pos = stack.top_pop();
-            std::vector<numpy::position>::const_iterator startc = Bc_neighbours.begin();
-            for (numpy::index_type j = 0; j != N2; ++j, ++startc) {
-                numpy::position npos = pos + *startc;
-                if (ref.validposition(npos) && !ref.at(npos) && !f.at(npos)) {
-                    f.at(npos) = true;
-                    stack.push(npos);
-                }
-            }
-        }
-        for (bool* start = f.data(), *past = f.data() + f.size(); start != past; ++ start) {
-            *start = !*start;
-        }
-    }
-
-    PyObject* py_close_holes(PyObject* self, PyObject* args) {
-        PyArrayObject* ref;
-        PyArrayObject* Bc;
-        if (!PyArg_ParseTuple(args,"OO", &ref, &Bc)) return NULL;
-        if (!numpy::are_arrays(ref, Bc) ||
-            !numpy::equiv_typenums(ref, Bc) ||
-            !numpy::check_type<bool>(ref)
-            ) {
-            PyErr_SetString(PyExc_RuntimeError,TypeErrorMsg);
-            return NULL;
-        }
-        PyArrayObject* res_a = (PyArrayObject*)PyArray_SimpleNew(PyArray_NDIM(ref),
-                                                PyArray_DIMS(ref),
-                                                PyArray_TYPE(ref));
-        if (!res_a) return NULL;
-
-        // We own the only reference.
-        // If an exception happens, we want r_a to delete the object.
-        // So we do call it with incref=false:
-        holdref r_a(res_a, false);
-        try {
-            close_holes(numpy::aligned_array<bool>(ref), numpy::aligned_array<bool>(res_a), numpy::aligned_array<bool>(Bc));
-        }
-        CATCH_PYTHON_EXCEPTIONS
-
-        Py_INCREF(res_a);
-        return PyArray_Return(res_a);
     }
 
     template <typename CostType>
@@ -916,45 +630,6 @@ namespace {
         return PyArray_Return(res_a);
     }
 
-    PyObject* py_majority_filter(PyObject* self, PyObject* args) {
-        PyArrayObject* array;
-        PyArrayObject* res_a;
-        long long N;
-        if (!PyArg_ParseTuple(args, "OLO", &array, &N, &res_a) ||
-            !PyArray_Check(array) || !PyArray_Check(res_a) ||
-            PyArray_TYPE(array) != NPY_BOOL || PyArray_TYPE(res_a) != NPY_BOOL ||
-            !PyArray_ISCARRAY(res_a)) {
-            PyErr_SetString(PyExc_RuntimeError,TypeErrorMsg);
-            return NULL;
-        }
-        Py_INCREF(res_a);
-        PyArray_FILLWBYTE(res_a, 0);
-        numpy::aligned_array<bool> input(array);
-        numpy::aligned_array<bool> output(res_a);
-        const numpy::index_type rows = input.dim(0);
-        const numpy::index_type cols = input.dim(1);
-        const numpy::index_type T = N*N/2;
-        if (rows < N || cols < N) {
-            return PyArray_Return(res_a);
-        }
-        for (numpy::index_type y = 0; y != rows-N; ++y) {
-            bool* output_iter = output.data() + (y+numpy::index_type(N/2)) * output.stride(0) + numpy::index_type(N/2);
-            for (numpy::index_type x = 0; x != cols-N; ++x) {
-                numpy::index_type count = 0;
-                for (numpy::index_type dy = 0; dy != N; ++dy) {
-                    for (numpy::index_type dx = 0; dx != N; ++dx) {
-                        if (input.at(y+dy,x+dx)) ++count;
-                    }
-                }
-                if (count >= T) {
-                    *output_iter = true;
-                }
-                ++output_iter;
-            }
-        }
-        return PyArray_Return(res_a);
-    }
-
 
     PyMethodDef methods[] = {
     {"subm",(PyCFunction)py_subm, METH_VARARGS, NULL},
@@ -967,7 +642,6 @@ namespace {
     {"locmin_max",(PyCFunction)py_locminmax, METH_VARARGS, NULL},
     {"regmin_max",(PyCFunction)py_regminmax, METH_VARARGS, NULL},
     {"hitmiss",(PyCFunction)py_hitmiss, METH_VARARGS, NULL},
-    {"majority_filter",(PyCFunction)py_majority_filter, METH_VARARGS, NULL},
     {NULL, NULL,0,NULL},
     };
 
