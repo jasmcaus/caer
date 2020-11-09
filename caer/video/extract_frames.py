@@ -12,9 +12,9 @@ import cv2 as cv
 
 from .._checks import _check_target_size
 from ..path import list_videos, exists, mkdir
-from ..images import resize
+from ..resize import resize
 from ..configs import FRAME_COUNT, FPS
-from ..opencv import imwrite
+from ..io import imsave
 
 
 def extract_frames(input_folder, 
@@ -100,7 +100,7 @@ def extract_frames(input_folder,
                 
                 # Write the results back to output location as per specified frames per second
                 if video_frame_counter % interval == 0:
-                    imwrite(f'{output_folder}/{label_counter}.{dest_filetype}', frame)
+                    imsave(f'{output_folder}/{label_counter}.{dest_filetype}', frame)
                     video_frame_counter += 1
                     label_counter += 1
                     # print('Frame counter: ', video_frame_counter)
