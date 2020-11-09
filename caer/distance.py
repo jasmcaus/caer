@@ -32,6 +32,7 @@ def distance(bw, metric='euclidean2'):
     -------
         dmap : ndarray
             distance map
+            
     References
     ----------
     For 2-D images, the following algorithm is used:
@@ -64,4 +65,4 @@ def distance(bw, metric='euclidean2'):
 
 __all__ = [
     'distance',
-    ]
+]
