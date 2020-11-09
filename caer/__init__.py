@@ -1,10 +1,33 @@
-# Copyright 2020 The Caer Authors. All Rights Reserved.
-#
-# Licensed under the MIT License (see LICENSE);
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at <https://opensource.org/licenses/MIT>
-#
-# ==============================================================================
+""" \
+Caer
+=====
+A Computer Vision library in Python with powerful image and video processing operations.
+Caer is a set of utility functions designed to help speed up your Computer Vision workflow. Functions inside `caer` will help reduce the number of calculation calls your code makes, ultimately making it neat, concise and readable.
+
+Documentation: https://github.com/jasmcaus/caer/tree/dev/docs
+
+Available subpackages
+---------------------
+data
+    Standard high-quality test images
+filters
+    Advanced Image Filters
+path
+    OS-specific Path Manipulations
+preprocessing
+    Image preprocessing utilities
+utils
+    General utilities
+video
+    Video processing utilities
+
+
+Utilities
+---------
+__version__
+    Caer version string
+
+"""
 
 #pylint:disable=undefined-all-variable
 
