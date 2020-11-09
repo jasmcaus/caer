@@ -973,4 +973,4 @@ namespace {
 
 } // namespace
 
-DECLARE_MODULE(morph)
+DECLARE_MODULE(cmorph)

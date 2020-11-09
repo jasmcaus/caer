@@ -101,7 +101,7 @@ EXTRAS={
 EXTENSIONS = {
     'caer.cconvex': ['caer/cconvex.cpp'],
     'caer.cconvolve': ['caer/cconvolve.cpp', 'caer/cfilters.cpp'],
-    'caer.cdistance': ['caer/cdistance.cpp'],
+    # 'caer.cdistance': ['caer/cdistance.cpp'],
     'caer.cmorph': ['caer/cmorph.cpp', 'caer/cfilters.cpp'],
 }
 EXT_MODULES = [Extension(key, sources=sources, include_dirs=[np.get_include()]) for key, sources in EXTENSIONS.items()]
@@ -175,12 +175,12 @@ def generate_cython():
     import os 
     import subprocess
     cwd = os.path.abspath(os.path.dirname(__file__))
-    print("Cythonizing sources")
+    print('[INFO] Cythonizing sources')
     p = subprocess.call([sys.executable,
                         os.path.join(cwd, 'tools', 'cythonize.py')],
                         cwd=cwd)
     if p != 0:
-        raise RuntimeError("Running cythonize failed!")
+        raise RuntimeError('[ERROR] Running cythonize failed!')
 
 
 copt={
@@ -189,7 +189,9 @@ copt={
 }
 
 class build_extension_class(build_ext):
+    print('How about now')
     def build_extensions(self):
+        print('UEs, im here')
         c = self.compiler.compiler_type
         if c in copt:
             for e in self.extensions:
@@ -354,6 +356,7 @@ def setup_package():
             'Source Code': URL,
         },
         packages = PACKAGES,
+        ext_modules = EXT_MODULES,
         license = LICENSE,
         platforms = PLATFORMS,
         install_requires = REQUIREMENTS,
