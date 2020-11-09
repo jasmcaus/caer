@@ -9,7 +9,7 @@
 #include "numps/array.hpp"
 #include "numps/dispatch.hpp"
 #include "utils.hpp"
-#include "_filters.h"
+#include "filters.h"
 
 #include <iostream>
 
