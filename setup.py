@@ -58,9 +58,11 @@ if not is_right_py_version(min_version):
     sys.exit(-1)
 
 
-from setuptools import setup, find_packages
+from setuptools import setup, find_packages, Extension
+from distutils.command.build_ext import build_ext
 from configparser import ConfigParser
 import io 
+import numpy as np 
 
 
 # Configurations
@@ -96,6 +98,14 @@ PYTHON_REQUIRES = '>=' + opt['min_python']
 EXTRAS={
         'canaro': 'canaro>=1.0.6'
 }
+EXTENSIONS = {
+    'caer.cconvex': ['caer/cconvex.cpp'],
+    'caer.cconvolve': ['caer/cconvolve.cpp', 'caer/cfilters.cpp'],
+    'caer.cdistance': ['caer/cdistance.cpp'],
+    'caer.cmorph': ['caer/cmorph.cpp', 'caer/cfilters.cpp'],
+}
+EXT_MODULES = [Extension(key, sources=sources, include_dirs=[np.get_include()]) for key, sources in EXTENSIONS.items()]
+
 STATUSES = [ 
     '1 - Planning', 
     '2 - Pre-Alpha', 
@@ -161,8 +171,6 @@ def get_docs_url():
 
 
 CYTHON_SOURCES = ('',)
-
-
 def generate_cython():
     import os 
     import subprocess
@@ -175,135 +183,154 @@ def generate_cython():
         raise RuntimeError("Running cythonize failed!")
 
 
-def parse_setuppy_commands():
-    """Check the commands and respond appropriately.  Disable broken commands.
+copt={
+    'msvc': ['/EHsc'], 
+    'intelw': ['/EHsc']  
+}
 
-    Return a boolean value for whether or not to run the build or not (avoid
-    parsing Cython and template files if False).
+class build_extension_class(build_ext):
+    def build_extensions(self):
+        c = self.compiler.compiler_type
+        if c in copt:
+            for e in self.extensions:
+                e.extra_compile_args = copt[c]
+        build_ext.build_extensions(self)
 
-    Parsed from caer
-    """
-    args = sys.argv[1:]
+CMDCLASS = {
+    'build_ext': build_extension_class
+}
 
-    if not args:
-        # User probably forgot to give an argument, let setuptools handle that.
-        return True
+### Will use the following in a future update: 
 
-    info_commands = ['--help-commands', '--name', '--version', '-V',
-                     '--fullname', '--author', '--author-email',
-                     '--maintainer', '--maintainer-email', '--contact',
-                     '--contact-email', '--url', '--license', '--description',
-                     '--long-description', '--platforms', '--classifiers',
-                     '--keywords', '--provides', '--requires', '--obsoletes']
+# def parse_setuppy_commands():
+#     """Check the commands and respond appropriately.  Disable broken commands.
 
-    for command in info_commands:
-        if command in args:
-            return False
+#     Return a boolean value for whether or not to run the build or not (avoid
+#     parsing Cython and template files if False).
 
-    # Note that 'alias', 'saveopts' and 'setopt' commands also seem to work
-    # fine as they are, but are usually used together with one of the commands
-    # below and not standalone.  Hence they're not added to good_commands.
-    good_commands = ('develop', 'sdist', 'build', 'build_ext', 'build_py',
-                     'build_clib', 'build_scripts', 'bdist_wheel', 'bdist_rpm',
-                     'bdist_wininst', 'bdist_msi', 'bdist_mpkg', 'build_src')
+#     Parsed from caer
+#     """
+#     args = sys.argv[1:]
 
-    for command in good_commands:
-        if command in args:
-            return True
+#     if not args:
+#         # User probably forgot to give an argument, let setuptools handle that.
+#         return True
 
-    import textwrap
-    # The following commands are supported, but we need to show more
-    # useful messages to the user
-    if 'install' in args:
-        print(textwrap.dedent("""
-            Note: if you need reliable uninstall behavior, then install
-            with pip instead of using `setup.py install`:
+#     info_commands = ['--help-commands', '--name', '--version', '-V',
+#                      '--fullname', '--author', '--author-email',
+#                      '--maintainer', '--maintainer-email', '--contact',
+#                      '--contact-email', '--url', '--license', '--description',
+#                      '--long-description', '--platforms', '--classifiers',
+#                      '--keywords', '--provides', '--requires', '--obsoletes']
 
-              - `pip install .`       (from a git repo or downloaded source
-                                       release)
-              - `pip install caer`   (last caer release on PyPi)
+#     for command in info_commands:
+#         if command in args:
+#             return False
 
-            """))
-        return True
+#     # Note that 'alias', 'saveopts' and 'setopt' commands also seem to work
+#     # fine as they are, but are usually used together with one of the commands
+#     # below and not standalone.  Hence they're not added to good_commands.
+#     good_commands = ('develop', 'sdist', 'build', 'build_ext', 'build_py',
+#                      'build_clib', 'build_scripts', 'bdist_wheel', 'bdist_rpm',
+#                      'bdist_wininst', 'bdist_msi', 'bdist_mpkg', 'build_src')
 
-    if '--help' in args or '-h' in sys.argv[1]:
-        print(textwrap.dedent("""
-            caer-specific help
-            -------------------
+#     for command in good_commands:
+#         if command in args:
+#             return True
 
-            To install caer from here with reliable uninstall, we recommend
-            that you use `pip install .`. To install the latest caer release
-            from PyPi, use `pip install caer`.
+#     import textwrap
+#     # The following commands are supported, but we need to show more
+#     # useful messages to the user
+#     if 'install' in args:
+#         print(textwrap.dedent("""
+#             Note: if you need reliable uninstall behavior, then install
+#             with pip instead of using `setup.py install`:
 
-            If you are sure that you have run
-            into a bug, please report it at https://github.com/caer/caer/issues.
+#               - `pip install .`       (from a git repo or downloaded source
+#                                        release)
+#               - `pip install caer`   (last caer release on PyPi)
 
-            Setuptools commands help
-            ------------------------
-            """))
-        return False
+#             """))
+#         return True
 
-    # The following commands aren't supported.  They can only be executed when
-    # the user explicitly adds a --force command-line argument.
-    bad_commands = dict(
-        # test="""
-        #     `setup.py test` is not supported.  Use one of the following
-        #     instead:
+#     if '--help' in args or '-h' in sys.argv[1]:
+#         print(textwrap.dedent("""
+#             caer-specific help
+#             -------------------
 
-        #       - `python runtests.py`              (to build and test)
-        #       - `python runtests.py --no-build`   (to test installed caer)
-        #       - `>>> caer.test()`           (run tests for installed caer
-        #                                       from within an interpreter)
-        #     """,
-        upload="""
-            `setup.py upload` is not supported, because it's insecure.
-            Instead, build what you want to upload and upload those files
-            with `twine upload -s <filenames>` instead.
-            """,
-        upload_docs="`setup.py upload_docs` is not supported",
-        easy_install="`setup.py easy_install` is not supported",
-        clean="""
-            `setup.py clean` is not supported, use one of the following instead:
+#             To install caer from here with reliable uninstall, we recommend
+#             that you use `pip install .`. To install the latest caer release
+#             from PyPi, use `pip install caer`.
 
-              - `git clean -xdf` (cleans all files)
-              - `git clean -Xdf` (cleans all versioned files, doesn't touch
-                                  files that aren't checked into the git repo)
-            """,
-        check="`setup.py check` is not supported",
-        register="`setup.py register` is not supported",
-        bdist_dumb="`setup.py bdist_dumb` is not supported",
-        bdist="`setup.py bdist` is not supported",
-        # build_sphinx="""
-        #     `setup.py build_sphinx` is not supported, use the
-        #     Makefile under doc/""",
-        flake8="`setup.py flake8` is not supported, use flake8 standalone",
-        )
-    # bad_commands['nosetests'] = bad_commands['test']
-    for command in ('upload_docs', 'easy_install', 'bdist', 'bdist_dumb',
-                    'register', 'check', 'install_data', 'install_headers',
-                    'install_lib', 'install_scripts', ):
-        bad_commands[command] = "`setup.py %s` is not supported" % command
+#             If you are sure that you have run
+#             into a bug, please report it at https://github.com/caer/caer/issues.
 
-    for command in bad_commands.keys():
-        if command in args:
-            print(textwrap.dedent(bad_commands[command]) +
-                  "\nAdd `--force` to your command to use it anyway if you "
-                  "must (unsupported).\n")
-            sys.exit(1)
+#             Setuptools commands help
+#             ------------------------
+#             """))
+#         return False
 
-    # Commands that do more than print info, but also don't need Cython and
-    # template parsing.
-    other_commands = ['egg_info', 'install_egg_info', 'rotate']
-    for command in other_commands:
-        if command in args:
-            return False
+#     # The following commands aren't supported.  They can only be executed when
+#     # the user explicitly adds a --force command-line argument.
+#     bad_commands = dict(
+#         # test="""
+#         #     `setup.py test` is not supported.  Use one of the following
+#         #     instead:
 
-    # If we got here, we didn't detect what setup.py command was given
-    import warnings
-    warnings.warn("Unrecognized setuptools command, proceeding with "
-                  "generating Cython sources and expanding templates",
-                  stacklevel=2)
-    return True
+#         #       - `python runtests.py`              (to build and test)
+#         #       - `python runtests.py --no-build`   (to test installed caer)
+#         #       - `>>> caer.test()`           (run tests for installed caer
+#         #                                       from within an interpreter)
+#         #     """,
+#         upload="""
+#             `setup.py upload` is not supported, because it's insecure.
+#             Instead, build what you want to upload and upload those files
+#             with `twine upload -s <filenames>` instead.
+#             """,
+#         upload_docs="`setup.py upload_docs` is not supported",
+#         easy_install="`setup.py easy_install` is not supported",
+#         clean="""
+#             `setup.py clean` is not supported, use one of the following instead:
+
+#               - `git clean -xdf` (cleans all files)
+#               - `git clean -Xdf` (cleans all versioned files, doesn't touch
+#                                   files that aren't checked into the git repo)
+#             """,
+#         check="`setup.py check` is not supported",
+#         register="`setup.py register` is not supported",
+#         bdist_dumb="`setup.py bdist_dumb` is not supported",
+#         bdist="`setup.py bdist` is not supported",
+#         # build_sphinx="""
+#         #     `setup.py build_sphinx` is not supported, use the
+#         #     Makefile under doc/""",
+#         flake8="`setup.py flake8` is not supported, use flake8 standalone",
+#         )
+#     # bad_commands['nosetests'] = bad_commands['test']
+#     for command in ('upload_docs', 'easy_install', 'bdist', 'bdist_dumb',
+#                     'register', 'check', 'install_data', 'install_headers',
+#                     'install_lib', 'install_scripts', ):
+#         bad_commands[command] = "`setup.py %s` is not supported" % command
+
+#     for command in bad_commands.keys():
+#         if command in args:
+#             print(textwrap.dedent(bad_commands[command]) +
+#                   "\nAdd `--force` to your command to use it anyway if you "
+#                   "must (unsupported).\n")
+#             sys.exit(1)
+
+#     # Commands that do more than print info, but also don't need Cython and
+#     # template parsing.
+#     other_commands = ['egg_info', 'install_egg_info', 'rotate']
+#     for command in other_commands:
+#         if command in args:
+#             return False
+
+#     # If we got here, we didn't detect what setup.py command was given
+#     import warnings
+#     warnings.warn("Unrecognized setuptools command, proceeding with "
+#                   "generating Cython sources and expanding templates",
+#                   stacklevel=2)
+#     return True
 
 
 def setup_package():
@@ -332,6 +359,7 @@ def setup_package():
         install_requires = REQUIREMENTS,
         extras_require = EXTRAS,
         python_requires = PYTHON_REQUIRES,
+        cmdclass = CMDCLASS,
         include_package_data = True,
         zip_safe = False,
         keywords = KEYWORDS,
@@ -340,13 +368,14 @@ def setup_package():
 # https://python-packaging.readthedocs.io/en/latest/non-code-files.html
     )
 
-    if "--force" in sys.argv:
-        run_build = RUN_CYTHON_BUILD
-        sys.argv.remove('--force')
-    else:
-        # Raise errors for unsupported commands, improve help output, etc.
-        run_build = parse_setuppy_commands()
+    # if "--force" in sys.argv:
+    #     run_build = RUN_CYTHON_BUILD
+    #     sys.argv.remove('--force')
+    # else:
+    #     # Raise errors for unsupported commands, improve help output, etc.
+    #     run_build = parse_setuppy_commands()
 
+    run_build = RUN_CYTHON_BUILD
     if run_build:
         if 'sdist' not in sys.argv:
             # Generate Cython sources, unless we're generating an sdist
