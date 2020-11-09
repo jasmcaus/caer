@@ -15,7 +15,6 @@
 #include <numpy/ndarrayobject.h>
 
 namespace numpy {
-
     template <typename T>
     inline
     npy_intp dtype_code();
@@ -92,7 +91,7 @@ namespace numpy {
         void* as_voidp = PyArray_DATA(a);
         return const_cast<T>(static_cast<T>(as_voidp));
     }
-    
+
     template<typename T>
     T ndarray_cast(PyObject* pa) {
         assert(PyArray_Check(pa));
