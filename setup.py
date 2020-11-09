@@ -101,7 +101,7 @@ EXTRAS={
 EXTENSIONS = {
     'caer.cconvex': ['caer/cconvex.cpp'],
     'caer.cconvolve': ['caer/cconvolve.cpp', 'caer/cfilters.cpp'],
-    # 'caer.cdistance': ['caer/cdistance.cpp'],
+    'caer.cdistance': ['caer/cdistance.cpp'],
     'caer.cmorph': ['caer/cmorph.cpp', 'caer/cfilters.cpp'],
 }
 EXT_MODULES = [Extension(key, sources=sources, include_dirs=[np.get_include()]) for key, sources in EXTENSIONS.items()]
