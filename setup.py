@@ -189,9 +189,7 @@ copt={
 }
 
 class build_extension_class(build_ext):
-    print('How about now')
     def build_extensions(self):
-        print('UEs, im here')
         c = self.compiler.compiler_type
         if c in copt:
             for e in self.extensions:
