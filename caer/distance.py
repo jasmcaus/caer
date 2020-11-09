@@ -8,8 +8,8 @@
 
 #pylint:disable=no-name-in-module
 
-from .cdistance import dt 
-from .cmorph import distance_multi
+from cdistance import dt 
+from cmorph import distance_multi
 import numpy as np
 
 
@@ -22,16 +22,16 @@ def distance(bw, metric='euclidean2'):
     pixels (this is a sort of infinity).
     Parameters
     ----------
-    bw : ndarray
-        If boolean, ``False`` will denote the background and ``True`` the
-        foreground. If not boolean, this will be interpreted as ``bw != 0``
-        (this way you can use labeled images without any problems).
-    metric : str, optional
-        one of 'euclidean2' (default) or 'euclidean'
+        bw : ndarray
+            If boolean, ``False`` will denote the background and ``True`` the
+            foreground. If not boolean, this will be interpreted as ``bw != 0``
+            (this way you can use labeled images without any problems).
+        metric : str, optional
+            one of 'euclidean2' (default) or 'euclidean'
     Returns
     -------
-    dmap : ndarray
-        distance map
+        dmap : ndarray
+            distance map
     References
     ----------
     For 2-D images, the following algorithm is used:
