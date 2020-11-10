@@ -47,7 +47,6 @@ __version__
 import sys 
 import platform
 
-
 MAJOR = 1 
 MINOR = 7
 MICRO = 9
@@ -55,7 +54,6 @@ ISRELEASED = True
 VERSION = f'{MAJOR}.{MINOR}.{MICRO}'
 
 RUN_CYTHON_BUILD = True
-
 
 min_version = (3, 6, 1)
 
