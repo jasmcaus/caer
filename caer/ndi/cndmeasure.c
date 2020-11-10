@@ -29,8 +29,8 @@
  * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
-#include "ni_support.h"
-#include "ni_measure.h"
+#include "cndsupport.h"
+#include "cndmeasure.h"
 #include <stdlib.h>
 #include <math.h>
 #include <float.h>
