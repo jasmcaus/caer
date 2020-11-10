@@ -31,8 +31,7 @@ def _invalid_origin(origin, lenw):
 
 
 
-def correlate1d(inp, weights, axis=-1, output=None, mode="reflect",
-                cval=0.0, origin=0):
+def correlate1d(inp, weights, axis=-1, output=None, mode="reflect", cval=0.0, origin=0):
     """Calculate a 1-D correlation along the given axis.
 
     The lines of the array along the given axis are correlated with the
