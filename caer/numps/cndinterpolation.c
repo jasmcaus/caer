@@ -1,8 +1,8 @@
 
 
-#include "ni_support.h"
-#include "ni_interpolation.h"
-#include "ni_splines.h"
+#include "cndsupport.h"
+#include "cndinterpolation.h"
+#include "cndsplines.h"
 #include <stdlib.h>
 #include <math.h>
 

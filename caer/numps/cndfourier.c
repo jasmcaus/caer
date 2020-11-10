@@ -1,7 +1,7 @@
 
 
-#include "ni_support.h"
-#include "ni_fourier.h"
+#include "cndsupport.h"
+#include "cndfourier.h"
 #include <stdlib.h>
 #include <math.h>
 #include <assert.h>

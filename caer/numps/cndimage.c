@@ -3,14 +3,14 @@
  * The order of these first two imports should not be changed, see the note
  * in ni_support.h for details.
  */
-#include "nd_image.h"
-#include "ni_support.h"
+#include "cndimage.h"
+#include "cndsupport.h"
 
-#include "ni_filters.h"
-#include "ni_fourier.h"
-#include "ni_morphology.h"
-#include "ni_interpolation.h"
-#include "ni_measure.h"
+#include "cndfilters.h"
+#include "cndfourier.h"
+#include "cndmorphology.h"
+#include "cndinterpolation.h"
+#include "cndmeasure.h"
 
 #include "ccallback.h"
 
@@ -1090,35 +1090,35 @@ exit:
 }
 
 static PyMethodDef methods[] = {
-    {"correlate1d",           (PyCFunction)Py_Correlate1D,
+    {"correlate1d",          (PyCFunction)Py_Correlate1D,
      METH_VARARGS, NULL},
-    {"correlate",             (PyCFunction)Py_Correlate,
+    {"correlate",            (PyCFunction)Py_Correlate,
      METH_VARARGS, NULL},
-    {"uniform_filter1d",      (PyCFunction)Py_UniformFilter1D,
+    // {"uniform_filter1d",     (PyCFunction)Py_UniformFilter1D,
+    //  METH_VARARGS, NULL},
+    // {"min_or_max_filter1d",  (PyCFunction)Py_MinOrMaxFilter1D,
+    //     METH_VARARGS, NULL},
+    // {"min_or_max_filter",    (PyCFunction)Py_MinOrMaxFilter,
+    //     METH_VARARGS, NULL},
+    {"rank_filter", (PyCFunction)Py_RankFilter,
      METH_VARARGS, NULL},
-    {"min_or_max_filter1d",   (PyCFunction)Py_MinOrMaxFilter1D,
+    {"generic_filter", (PyCFunction)Py_GenericFilter,
+     METH_VARARGS, NULL},
+    {"generic_filter1d", (PyCFunction)Py_GenericFilter1D,
+     METH_VARARGS, NULL},
+    {"fourier_filter", (PyCFunction)Py_FourierFilter,
+     METH_VARARGS, NULL},
+    {"fourier_shift", (PyCFunction)Py_FourierShift,
+     METH_VARARGS, NULL},
+    {"spline_filter1d", (PyCFunction)Py_SplineFilter1D,
+     METH_VARARGS, NULL},
+    {"geometric_transform", (PyCFunction)Py_GeometricTransform,
         METH_VARARGS, NULL},
-    {"min_or_max_filter",     (PyCFunction)Py_MinOrMaxFilter,
-        METH_VARARGS, NULL},
-    {"rank_filter",           (PyCFunction)Py_RankFilter,
+    {"zoom_shift", (PyCFunction)Py_ZoomShift,
      METH_VARARGS, NULL},
-    {"generic_filter",        (PyCFunction)Py_GenericFilter,
+    {"find_objects", (PyCFunction)Py_FindObjects,
      METH_VARARGS, NULL},
-    {"generic_filter1d",      (PyCFunction)Py_GenericFilter1D,
-     METH_VARARGS, NULL},
-    {"fourier_filter",        (PyCFunction)Py_FourierFilter,
-     METH_VARARGS, NULL},
-    {"fourier_shift",         (PyCFunction)Py_FourierShift,
-     METH_VARARGS, NULL},
-    {"spline_filter1d",       (PyCFunction)Py_SplineFilter1D,
-     METH_VARARGS, NULL},
-    {"geometric_transform",   (PyCFunction)Py_GeometricTransform,
-        METH_VARARGS, NULL},
-    {"zoom_shift",            (PyCFunction)Py_ZoomShift,
-     METH_VARARGS, NULL},
-    {"find_objects",          (PyCFunction)Py_FindObjects,
-     METH_VARARGS, NULL},
-    {"watershed_ift",         (PyCFunction)Py_WatershedIFT,
+    {"watershed_ift", (PyCFunction)Py_WatershedIFT,
      METH_VARARGS, NULL},
     {"distance_transform_bf", (PyCFunction)Py_DistanceTransformBruteForce,
      METH_VARARGS, NULL},
@@ -1127,16 +1127,16 @@ static PyMethodDef methods[] = {
     {"euclidean_feature_transform",
      (PyCFunction)Py_EuclideanFeatureTransform,
      METH_VARARGS, NULL},
-    {"binary_erosion",        (PyCFunction)Py_BinaryErosion,
+    {"binary_erosion", (PyCFunction)Py_BinaryErosion,
      METH_VARARGS, NULL},
-    {"binary_erosion2",       (PyCFunction)Py_BinaryErosion2,
+    {"binary_erosion2", (PyCFunction)Py_BinaryErosion2,
      METH_VARARGS, NULL},
     {NULL, NULL, 0, NULL}
 };
 
 static struct PyModuleDef moduledef = {
     PyModuleDef_HEAD_INIT,
-    "_nd_image",
+    "cndimage",
     NULL,
     -1,
     methods,
@@ -1146,7 +1146,7 @@ static struct PyModuleDef moduledef = {
     NULL
 };
 
-PyObject *PyInit__nd_image(void)
+PyObject *PyInit_cndimage(void)
 {
     PyObject *m;
 

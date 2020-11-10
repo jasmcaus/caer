@@ -10,7 +10,7 @@
  * must bypass this by explicitly including nd_image.h before ni_support.h.
  */
 #define NO_IMPORT_ARRAY
-#include "nd_image.h"
+#include "cndimage.h"
 #undef NO_IMPORT_ARRAY
 
 #include <stdlib.h>
