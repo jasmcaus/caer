@@ -1,23 +1,41 @@
 """
-Caer
+Caer - Computer Vision on the Fly
 =====
+
 A Computer Vision library in Python with powerful image and video processing operations.
 Caer is a set of utility functions designed to help speed up your Computer Vision workflow. Functions inside `caer` will help reduce the number of calculation calls your code makes, ultimately making it neat, concise and readable.
 
 Available subpackages
----------------------
+-----------
 data
-    Standard high-quality test images
+    Test images and example data.
+distance
+    Distance-computing algorithms
+exposure
+    Image intensity adjustment, e.g., histogram equalization, etc.
+features
+    Feature detection and extraction, e.g., texture analysis corners, etc.
 filters
-    Advanced Image Filters
+    Sharpening, edge finding, rank filters, thresholding, etc.
+io
+    Reading, saving, and displaying images and video.
+morph
+    Morphological operations, e.g., opening or skeletonization.
 path
     OS-specific Path Manipulations
 preprocessing
     Image preprocessing utilities
-utils
-    General utilities
+restoration
+    Restoration algorithms, e.g., deconvolution algorithms, denoising, etc.
+segmentation
+    Partitioning an image into multiple regions.
+transform
+    Geometric and other transforms, e.g., rotation or the Radon transform.    
+util
+    Generic utilities.
 video
     Video processing utilities
+
 
 Utilities
 ---------
