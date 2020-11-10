@@ -540,6 +540,12 @@ namespace {
 
         Py_RETURN_NONE;
     }
+    template <typename T>
+    numpy::position central_position(const numpy::array_base<T>& array) {
+        numpy::position res(array.raw_dims(), array.ndims());
+        for (numpy::index_type i = 0, nd = array.ndims(); i != nd; ++i) res.position_[i] /= 2;
+        return res;
+    }
 
     struct HitMissNeighbour {
         HitMissNeighbour(numpy::index_type delta, int value)
@@ -632,15 +638,15 @@ namespace {
 
 
     PyMethodDef methods[] = {
-    {"subm",(PyCFunction)py_subm, METH_VARARGS, NULL},
+    // {"subm",(PyCFunction)py_subm, METH_VARARGS, NULL},
     {"dilate",(PyCFunction)py_dilate, METH_VARARGS, NULL},
-    {"disk_2d",(PyCFunction)py_disk_2d, METH_VARARGS, NULL},
+    // {"disk_2d",(PyCFunction)py_disk_2d, METH_VARARGS, NULL},
     {"erode",(PyCFunction)py_erode, METH_VARARGS, NULL},
-    {"close_holes",(PyCFunction)py_close_holes, METH_VARARGS, NULL},
+    // {"close_holes",(PyCFunction)py_close_holes, METH_VARARGS, NULL},
     {"cwatershed",(PyCFunction)py_cwatershed, METH_VARARGS, NULL},
     {"distance_multi",(PyCFunction)py_distance_multi, METH_VARARGS, NULL},
-    {"locmin_max",(PyCFunction)py_locminmax, METH_VARARGS, NULL},
-    {"regmin_max",(PyCFunction)py_regminmax, METH_VARARGS, NULL},
+    // {"locmin_max",(PyCFunction)py_locminmax, METH_VARARGS, NULL},
+    // {"regmin_max",(PyCFunction)py_regminmax, METH_VARARGS, NULL},
     {"hitmiss",(PyCFunction)py_hitmiss, METH_VARARGS, NULL},
     {NULL, NULL,0,NULL},
     };
