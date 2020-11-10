@@ -14,6 +14,7 @@ from .dtype import (
     img_as_float32, 
     img_as_float64, 
     img_as_float,
+    convert_to_float,
     img_as_int, 
     img_as_uint, 
     img_as_ubyte,
