@@ -117,6 +117,9 @@ from .morph import hitmiss
 from .pillow import cv_to_pill
 from .pillow import pill_to_cv
 
+from .edges import sobel, dog
+from .segmentation import gvoronoi, slic
+
 
 # Bringing in configuration variables from configs.py
 from .configs import CROP_CENTRE
@@ -162,6 +165,7 @@ from .distance import __all__ as __all_distance__
 from .convolve import __all__ as __all_convolve__
 from .morph import __all__ as __all_morph__
 from .edges import __all__ as __all_edges__ 
+from .segmentation import __all__ as __all_segmentation__ 
 
 from .video import __all__ as __all_video__
 from .preprocessing import __all__ as __all_preprocessing__
@@ -171,7 +175,7 @@ from .path import __all__ as __all_path__
 from .filters import __all__ as __all_filters__
 
 
-__all__ = __all_configs__ + __all_io__ + __all_resize__ + __all_opencv__ + __all_preprocess__ + __all_time__ + __all_utilities__ + __all_visualizations__ + __all_distance__ + __all_convolve__ + __all_morph__ + __all_filters__ + __all_edges__
+__all__ = __all_configs__ + __all_io__ + __all_resize__ + __all_opencv__ + __all_preprocess__ + __all_time__ + __all_utilities__ + __all_visualizations__ + __all_distance__ + __all_convolve__ + __all_morph__ + __all_filters__ + __all_edges__ + __all_segmentation__
 
 __all__ += __all_preprocessing__ 
 __all__ += __all_video__ 
