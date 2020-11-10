@@ -89,6 +89,32 @@ try:
     from .io import imread 
     from .io import imsave 
 
+    # Distance
+    from .distance import distance
+
+    # Convolve
+    from .convolve import daubechies
+    from .convolve import idaubechies
+    from .convolve import find
+    from .convolve import haar
+    from .convolve import ihaar
+    from .convolve import rank_filter
+    from .convolve import mean_filter
+    from .convolve import convolve
+    from .convolve import convolve1d
+    from .convolve import gaussian_filter
+    from .convolve import gaussian_filter1d
+    from .convolve import laplacian_2D
+
+    # Morphology
+    from .morph import cwatershed
+    from .morph import cerode
+    from .morph import erode
+    from .morph import cdilate
+    from .morph import dilate
+    from .morph import get_structuring_elem
+    from .morph import hitmiss
+
 
     # Bringing in configuration variables from configs.py
     from .configs import CROP_CENTRE
@@ -130,6 +156,9 @@ from .preprocess import __all__ as __all_preprocess__
 from .time import __all__ as __all_time__
 from .utilities import __all__ as __all_utilities__
 from .visualizations import __all__ as __all_visualizations__
+from .distance import __all__ as __all_distance__
+from .convolve import __all__ as __all_convolve__
+from .morph import __all__ as __all_morph__
 
 from .video import __all__ as __all_video__
 from .preprocessing import __all__ as __all_preprocessing__
@@ -138,7 +167,7 @@ from .utils import __all__ as __all_utils__
 from .path import __all__ as __all_path__
 
 
-__all__ = __all_configs__ + __all_io__ + __all_resize__ + __all_opencv__ + __all_preprocess__ + __all_time__ + __all_utilities__ + __all_visualizations__
+__all__ = __all_configs__ + __all_io__ + __all_resize__ + __all_opencv__ + __all_preprocess__ + __all_time__ + __all_utilities__ + __all_visualizations__ + __all_distance__ + __all_convolve__ + __all_morph__
 
 __all__ += __all_preprocessing__ 
 __all__ += __all_video__ 
