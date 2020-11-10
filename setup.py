@@ -103,6 +103,15 @@ EXTENSIONS = {
     'caer.cconvolve': ['caer/cconvolve.cpp', 'caer/cfilters.cpp'],
     'caer.cdistance': ['caer/cdistance.cpp'],
     'caer.cmorph': ['caer/cmorph.cpp', 'caer/cfilters.cpp'],
+    'caer.cndi' : ['caer/numps/cndimage.c', 
+                   'caer/numps/cndfilters.c',
+                   'caer/numps/cndfourier.c',
+                   'caer/numps/cndinterpolation.c',
+                   'caer/numps/cndmeasure.c',
+                   'caer/numps/cndmorphology.c',
+                   'caer/numps/cndsplines.c',
+                   'caer/numps/cndsupport.c'
+                ]
 }
 EXT_MODULES = [Extension(key, sources=sources, include_dirs=[np.get_include()]) for key, sources in EXTENSIONS.items()]
 
