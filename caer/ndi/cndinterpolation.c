@@ -1,37 +1,8 @@
-/* Copyright (C) 2003-2005 Peter J. Verveer
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- * 1. Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *
- * 2. Redistributions in binary form must reproduce the above
- *    copyright notice, this list of conditions and the following
- *    disclaimer in the documentation and/or other materials provided
- *    with the distribution.
- *
- * 3. The name of the author may not be used to endorse or promote
- *    products derived from this software without specific prior
- *    written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS
- * OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
- * WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
- * ARE DISCLAIMED. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY
- * DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
- * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
- * GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- * NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
- * SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
+
 
 #include "cndsupport.h"
 #include "cndinterpolation.h"
-// #include "cndsplines.h"
+#include "cndsplines.h"
 #include <stdlib.h>
 #include <math.h>
 
@@ -124,6 +95,70 @@ map_coordinate(double in, npy_intp len, int mode)
 #define BUFFER_SIZE 256000
 #define TOLERANCE 1e-15
 
+
+/* one-dimensional spline filter: */
+int NI_SplineFilter1D(PyArrayObject *input, int order, int axis,
+                      NI_ExtendMode mode, PyArrayObject *output)
+{
+    int npoles = 0, more;
+    npy_intp kk, lines, len;
+    double *buffer = NULL, poles[MAX_SPLINE_FILTER_POLES];
+    NI_LineBuffer iline_buffer, oline_buffer;
+    NPY_BEGIN_THREADS_DEF;
+
+    len = PyArray_NDIM(input) > 0 ? PyArray_DIM(input, axis) : 1;
+    if (len < 1)
+        goto exit;
+
+    /* these are used in the spline filter calculation below: */
+    if (get_filter_poles(order, &npoles, poles)) {
+        goto exit;
+    }
+
+    /* allocate an initialize the line buffer, only a single one is used,
+         because the calculation is in-place: */
+    lines = -1;
+    if (!NI_AllocateLineBuffer(input, axis, 0, 0, &lines, BUFFER_SIZE,
+                               &buffer)) {
+        goto exit;
+    }
+    if (!NI_InitLineBuffer(input, axis, 0, 0, lines, buffer,
+                           NI_EXTEND_DEFAULT, 0.0, &iline_buffer)) {
+        goto exit;
+    }
+    if (!NI_InitLineBuffer(output, axis, 0, 0, lines, buffer,
+                           NI_EXTEND_DEFAULT, 0.0, &oline_buffer)) {
+        goto exit;
+    }
+    NPY_BEGIN_THREADS;
+
+    /* iterate over all the array lines: */
+    do {
+        /* copy lines from array to buffer: */
+        if (!NI_ArrayToLineBuffer(&iline_buffer, &lines, &more)) {
+            goto exit;
+        }
+        /* iterate over the lines in the buffer: */
+        for(kk = 0; kk < lines; kk++) {
+            /* get line: */
+            double *ln = NI_GET_LINE(iline_buffer, kk);
+            /* spline filter: */
+            if (len > 1) {
+                apply_filter(ln, len, poles, npoles, mode);
+            }
+        }
+
+        /* copy lines from buffer to array: */
+        if (!NI_LineBufferToArray(&oline_buffer)) {
+            goto exit;
+        }
+    } while(more);
+
+ exit:
+    NPY_END_THREADS;
+    free(buffer);
+    return PyErr_Occurred() ? 0 : 1;
+}
 
 /* copy row of coordinate array from location at _p to _coor */
 #define CASE_MAP_COORDINATES(_TYPE, _type, _p, _coor, _rank, _stride) \

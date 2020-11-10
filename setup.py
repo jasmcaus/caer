@@ -125,6 +125,8 @@ EXTENSIONS = {
                    'caer/ndi/cndinterpolation.c',
                    'caer/ndi/cndmeasure.c',
                    'caer/ndi/cndmorphology.c',
+                   'caer/ndi/cndsplines.c',
+
                    'caer/ndi/cndsupport.c'
                 ]
 }

@@ -1,5 +1,4 @@
 
-
 #include "cndsupport.h"
 #include "cndfourier.h"
 #include <stdlib.h>
