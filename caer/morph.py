@@ -11,7 +11,7 @@
 import numpy as np
 
 from .internal import _get_output, _verify_is_integer_type
-import cmorph
+from . import cmorph
 
 
 def get_structuring_elem(A,Bc):

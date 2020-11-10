@@ -9,8 +9,8 @@
 #pylint:disable=c-extension-no-member
 
 import numpy as np
-import cconvolve
-import cmorph 
+from . import cconvolve
+from . import cmorph 
 
 from .internal import _get_output, _normalize_sequence, _verify_is_floatingpoint_type, _as_floating_point_array
 from .filter import mode2int, _check_mode

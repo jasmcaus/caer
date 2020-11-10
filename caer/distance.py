@@ -8,8 +8,8 @@
 
 #pylint:disable=no-name-in-module, c-extension-no-member
 
-from cdistance import dt 
-from cmorph import distance_multi
+from .cdistance import dt 
+from .cmorph import distance_multi
 import numpy as np
 
 
