@@ -1,6 +1,6 @@
 
 
-#include "ni_support.h"
+#include "cndsupport.h"
 
 /* initialize iterations over single array elements: */
 int NI_InitPointIterator(PyArrayObject *array, NI_Iterator *iterator)

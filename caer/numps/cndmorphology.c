@@ -1,7 +1,7 @@
 
 
-#include "ni_support.h"
-#include "ni_morphology.h"
+#include "cndsupport.h"
+#include "cndmorphology.h"
 #include <stdlib.h>
 #include <math.h>
 #include <limits.h>

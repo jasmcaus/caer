@@ -1,7 +1,7 @@
 
 
-#include "ni_support.h"
-#include "ni_filters.h"
+#include "cndsupport.h"
+#include "cndfilters.h"
 #include <math.h>
 
 #define BUFFER_SIZE 256000

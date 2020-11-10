@@ -1,5 +1,5 @@
-#include "ni_support.h"
-#include "ni_splines.h"
+#include "cndsupport.h"
+#include "cndsplines.h"
 #include <math.h>
 
 
