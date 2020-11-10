@@ -10,7 +10,19 @@ from .validators import URLValidator
 from .validators import validate_ipv6_address
 from .validators import is_valid_url
 
+from .dtype import (
+    img_as_float32, 
+    img_as_float64, 
+    img_as_float,
+    img_as_int, 
+    img_as_uint, 
+    img_as_ubyte,
+    img_as_bool, 
+    dtype_limits
+)
+
 # __all__ configs 
 from .validators import __all__ as __all_validators__ 
+from .dtype import __all__ as __all_dtype__
 
-__all__ = __all_validators__
+__all__ = __all_validators__ + __all_dtype__
