@@ -6,8 +6,6 @@
 #
 # ==============================================================================
 
-#pylint:disable=c-extension-no-member
-
 import numpy as np
 
 from .internal import _get_output, _verify_is_integer_type
