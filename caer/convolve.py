@@ -6,8 +6,6 @@
 #
 # ==============================================================================
 
-#pylint:disable=c-extension-no-member
-
 import numpy as np
 from . import cconvolve
 from . import cmorph 
