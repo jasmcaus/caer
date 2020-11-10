@@ -2,6 +2,7 @@ from collections.abc import Iterable
 import warnings
 import numpy as np
 from numpy.core.multiarray import normalize_axis_index
+
 from . import cndsupport
 from . import cndi
 
@@ -446,8 +447,10 @@ def _correlate_or_convolve(inp, weights, output, mode, cval, origin,
     origins = cndsupport._normalize_sequence(origin, inp.ndim)
     weights = np.asarray(weights, dtype=np.float64)
     wshape = [ii for ii in weights.shape if ii > 0]
+
     if len(wshape) != inp.ndim:
         raise RuntimeError('filter weights array has incorrect shape.')
+
     if convolution:
         weights = weights[tuple([slice(None, None, -1)] * weights.ndim)]
         for ii in range(len(origins)):

@@ -1,5 +1,7 @@
 import numpy as np
+
 from ..ndi import convolve
+from ..opencv import to_gray
 
 __all__ = [
     'gabor_kernel', 
@@ -126,6 +128,9 @@ def gabor(image, frequency, theta=0, bandwidth=1, sigma_x=None,
     .. [1] https://en.wikipedia.org/wiki/Gabor_filter
     .. [2] https://web.archive.org/web/20180127125930/http://mplab.ucsd.edu/tutorials/gabor.pdf
     """
+    if image.ndim > 2:
+        image = to_gray(image)
+        
     g = gabor_kernel(frequency, theta, bandwidth, sigma_x, sigma_y, n_stds,
                      offset)
 
