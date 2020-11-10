@@ -3,7 +3,7 @@ from distutils.command.build_ext import build_ext
 import numpy as np 
 
 EXTENSIONS = {
-    'caer.cndi' : ['numps/cndimage.c', 
+    'cndi' : ['numps/cndimage.c', 
                    'numps/cndfilters.c',
                    'numps/cndfourier.c',
                    'numps/cndinterpolation.c',
