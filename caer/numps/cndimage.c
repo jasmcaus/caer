@@ -1146,7 +1146,7 @@ static struct PyModuleDef moduledef = {
     NULL
 };
 
-PyObject *PyInit_cndimage(void)
+PyObject *PyInit_cndi(void)
 {
     PyObject *m;
 
