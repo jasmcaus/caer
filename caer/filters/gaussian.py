@@ -1,9 +1,8 @@
 from collections.abc import Iterable
 import numpy as np
-from scipy import ndimage as ndi
 
 from ..ndi import gaussian_filter
-from ..utils import img_as_float, convert_to_float
+from ..utils import img_as_float, convert_to_float, warn
 
 
 __all__ = [
