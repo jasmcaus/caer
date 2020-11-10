@@ -146,7 +146,6 @@ def write_meta(filename='caer/_meta.py'):
     CONTRIBUTORS = get_contributors_list()
     
     a = open(filename, 'w')
-    b = open('version.txt', 'w')
 
     try:
         a.write(TEXT % {'author': AUTHOR_LONG,
@@ -154,7 +153,6 @@ def write_meta(filename='caer/_meta.py'):
                        'full_version': FULL_VERSION,
                        'isrelease': str(ISRELEASED),
                        'contributors': CONTRIBUTORS })
-        b.write(f'__version__ = {VERSION}')
     finally:
         a.close()
 
