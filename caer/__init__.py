@@ -39,100 +39,99 @@ __license__ = 'MIT License'
 __copyright__ = 'Copyright (c) 2020 Jason Dsouza'
 
 
-try:
-    # Preprocessing
-    from .preprocess import preprocess_from_dir
-    from .preprocess import sep_train
-    from .preprocess import shuffle
-    from .preprocess import reshape
-    from .preprocess import normalize
+# Preprocessing
+from .preprocess import preprocess_from_dir
+from .preprocess import sep_train
+from .preprocess import shuffle
+from .preprocess import reshape
+from .preprocess import normalize
 
-    # General utilities
-    from .utilities import saveNumpy
-    from .utilities import median
-    from .utilities import npmean
-    from .utilities import to_array
-    from .utilities import array
-    from .utilities import asarray
-    from .utilities import load
-    from .utilities import train_val_split
-    from .utilities import get_classes_from_dir
-    from .utilities import sort_dict
-    # from .utilities import plotAcc
+# General utilities
+from .utilities import saveNumpy
+from .utilities import median
+from .utilities import npmean
+from .utilities import to_array
+from .utilities import array
+from .utilities import asarray
+from .utilities import load
+from .utilities import train_val_split
+from .utilities import get_classes_from_dir
+from .utilities import sort_dict
+# from .utilities import plotAcc
 
-    # Opencv-specific methods
-    from .opencv import get_opencv_version
-    from .opencv import mean 
-    from .opencv import merge 
-    from .opencv import split 
-    from .opencv import to_gray
-    from .opencv import to_hsv
-    from .opencv import to_lab
-    from .opencv import to_rgb
-    from .opencv import url_to_image 
-    from .opencv import translate
-    from .opencv import rotate 
-    from .opencv import edges 
+# Opencv-specific methods
+from .opencv import get_opencv_version
+from .opencv import mean 
+from .opencv import merge 
+from .opencv import split 
+from .opencv import to_gray
+from .opencv import to_hsv
+from .opencv import to_lab
+from .opencv import to_rgb
+from .opencv import url_to_image 
+from .opencv import translate
+from .opencv import rotate 
+from .opencv import edges 
 
-    # General visualizations
-    from .visualizations import hex_to_rgb
-    from .visualizations import draw_rectangle
+# General visualizations
+from .visualizations import hex_to_rgb
+from .visualizations import draw_rectangle
 
-    # Time
-    from .time import now
+# Time
+from .time import now
 
-    # Resize
-    from .resize import resize 
-    from .resize import center_crop 
+# Resize
+from .resize import resize 
+from .resize import center_crop 
 
-    # Image-related
-    from .io import imread 
-    from .io import imsave 
+# Image-related
+from .io import imread 
+from .io import imsave 
 
-    # Distance
-    from .distance import distance
+# Distance
+from .distance import distance
 
-    # Convolve
-    from .convolve import daubechies
-    from .convolve import idaubechies
-    from .convolve import find
-    from .convolve import haar
-    from .convolve import ihaar
-    from .convolve import rank_filter
-    from .convolve import mean_filter
-    from .convolve import convolve
-    from .convolve import convolve1d
-    from .convolve import gaussian_filter
-    from .convolve import gaussian_filter1d
-    from .convolve import laplacian_2D
+# Convolve
+from .convolve import daubechies
+from .convolve import idaubechies
+from .convolve import find
+from .convolve import haar
+from .convolve import ihaar
+from .convolve import rank_filter
+from .convolve import mean_filter
+from .convolve import convolve
+from .convolve import convolve1d
+from .convolve import gaussian_filter
+from .convolve import gaussian_filter1d
+from .convolve import laplacian_2D
 
-    # Morphology
-    from .morph import cwatershed
-    from .morph import cerode
-    from .morph import erode
-    from .morph import cdilate
-    from .morph import dilate
-    from .morph import get_structuring_elem
-    from .morph import hitmiss
+# Morphology
+from .morph import cwatershed
+from .morph import cerode
+from .morph import erode
+from .morph import cdilate
+from .morph import dilate
+from .morph import get_structuring_elem
+from .morph import hitmiss
 
 
-    # Bringing in configuration variables from configs.py
-    from .configs import CROP_CENTRE
-    from .configs import CROP_TOP
-    from .configs import CROP_LEFT
-    from .configs import CROP_RIGHT 
-    from .configs import CROP_BOTTOM
-    from .configs import VALID_URL_NO_EXIST
-    from .configs import INVALID_URL_STRING
+# Bringing in configuration variables from configs.py
+from .configs import CROP_CENTRE
+from .configs import CROP_TOP
+from .configs import CROP_LEFT
+from .configs import CROP_RIGHT 
+from .configs import CROP_BOTTOM
+from .configs import VALID_URL_NO_EXIST
+from .configs import INVALID_URL_STRING
 
-except ImportError:
-    import sys 
-    _, e, _ = sys.exc_info()
-    sys.stderr.write(f"""\
-        Could not import submodules (exact error was: {e}).
-        There are many reasons for this error the most common one is that you have either not built the packages, built (using `python setup.py build`) or installed them (using `python setup.py install`) and then proceeded to test caer **without changing the current directory**.
-        Try installing and then changing to another directory before importing caer.
-        """)
+# except ImportError:
+#     import sys 
+#     _, e, _ = sys.exc_info()
+#     sys.stderr.write(f"""\
+#         Could not import submodules (exact error was: {e}).
+#         There are many reasons for this error the most common one is that you have either not built the packages, built (using `python setup.py build`) or installed them (using `python setup.py install`) and then proceeded to test caer **without changing the current directory**.
+#         Try installing and then changing to another directory before importing caer.
+#         """)
 
 
 def get_caer_version():
