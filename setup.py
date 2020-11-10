@@ -122,6 +122,9 @@ EXTENSIONS = {
     'caer.ndi.cndi' : ['caer/ndi/cndimage.c', 
                    'caer/ndi/cndfilters.c',
                    'caer/ndi/cndfourier.c',
+                   'caer/ndi/cndinterpolation.c',
+                   'caer/ndi/cndmeasure.c',
+                   'caer/ndi/cndmorphology.c',
                    'caer/ndi/cndsupport.c'
                 ]
 }
