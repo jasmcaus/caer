@@ -7,4 +7,8 @@
 # ==============================================================================
 
 
-__all__ = [d for d in dir() if not d.startswith('_')]
+from .gabor import gabor, gabor_kernel, __all__ as __all_gab__
+
+from .gaussian import gaussian, gaussian_filter, difference_of_gaussians, __all__ as __all_gauss__
+
+__all__ = __all_gab__ + __all_gauss__
