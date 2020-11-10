@@ -114,6 +114,9 @@ from .morph import dilate
 from .morph import get_structuring_elem
 from .morph import hitmiss
 
+from .pillow import cv_to_pill
+from .pillow import pill_to_cv
+
 
 # Bringing in configuration variables from configs.py
 from .configs import CROP_CENTRE
