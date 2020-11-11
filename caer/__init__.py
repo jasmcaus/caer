@@ -117,9 +117,6 @@ from .io import imsave
 # from .morph import get_structuring_elem
 # from .morph import hitmiss
 
-# from .pillow import cv_to_pill
-# from .pillow import pill_to_cv
-
 
 # Bringing in configuration variables from globals.py
 from .globals import CROP_CENTRE
