@@ -8,7 +8,7 @@
 
 #pylint:disable=pointless-string-statement
 
-from .._checks import _check_mean_sub_values
+from .._internal import _check_mean_sub_values
 from ..path import exists, list_images
 from ..io import imread 
 from ..opencv import mean, merge, split

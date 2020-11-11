@@ -10,7 +10,7 @@
 import cv2 as cv
 # import numpy as np 
 
-from .._checks import _check_target_size
+from .._internal import _check_target_size
 from ..opencv import bgr_to_rgb, bgr_to_gray, url_to_image
 from ..utils.validators import is_valid_url
 from ..path import exists

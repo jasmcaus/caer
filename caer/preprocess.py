@@ -12,7 +12,7 @@ import time
 from .utilities import saveNumpy, get_classes_from_dir, to_array, load
 from .io import imread
 from .preprocessing import MeanProcess
-from ._checks import _check_target_size, _check_mean_sub_values
+from ._internal import _check_target_size, _check_mean_sub_values
 from .path import listdir, minijoin, exists, list_images
 
 
