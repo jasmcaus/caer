@@ -18,7 +18,7 @@
 #include <vector>
 #include <cassert>
 
-#include "numpy.hpp"
+#include "numps.hpp"
 
 #ifndef __GNUC__
 #define __PRETTY_FUNCTION__ ""
