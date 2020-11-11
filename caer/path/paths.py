@@ -126,7 +126,8 @@ def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, show_size
     count_video_list = len(video_files)
     
     if count_image_list == 0 and count_video_list == 0:
-        print('[ERROR] No media files were found')
+        if verbose != 0:
+            print('[ERROR] No media files were found')
 
     else:
         if list_media_files:
@@ -191,7 +192,7 @@ def listdir(DIR, include_subdirs=True, use_fullpath=False, show_size=True, verbo
 
     else:
         for file in os.listdir(DIR):
-            fullpath = minijoin(root, file).replace('\\', '/')
+            fullpath = minijoin(DIR, file).replace('\\', '/')
             size_dirs_list += get_size(fullpath, disp_format='mb')
             if use_fullpath:
                 dirs.append(fullpath)
@@ -274,6 +275,10 @@ def exists(path):
     if os.path.exists(path):
         return True 
     return False
+
+
+def isdir(DIR):
+    return os.path.isdir(DIR)
 
 
 def mkdir(path):

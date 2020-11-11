@@ -107,15 +107,17 @@ def preprocess_from_dir(DIR,
         else:
             print('[INFO] Could not find a file to load from. Generating the training data')
         print('----------------------------------------------')
-
         # Starting timer
         since_preprocess = time.time()
 
         if classes is None:
             classes = get_classes_from_dir(DIR)
+            # Removing false folders
+            classes = _check_for_false_folders(DIR, classes)
+
 
         if per_class_size is None:
-            per_class_size = len(listdir(minijoin(DIR, classes[0])))
+            per_class_size = len(listdir(minijoin(DIR, classes[0]), verbose=0))
 
         if mean_subtraction is not None:
             # Checking if 'mean_subtraction' values are valid. Returns boolean value
@@ -125,8 +127,9 @@ def preprocess_from_dir(DIR,
             class_path = minijoin(DIR, item)
             class_label = classes.index(item)
             count = 0 
+            img_list = list_images(class_path, use_fullpath=True, verbose=0)
 
-            for image_path in list_images(class_path, use_fullpath=True, verbose=0):
+            for image_path in img_list:
                 if count != per_class_size:
                     # image_path = minijoin(class_path, image)
 
@@ -192,6 +195,19 @@ def preprocess_from_dir(DIR,
 
 def _printTotal(count, category):
     print(f'{count} - {category}')
+
+
+def _check_for_false_folders(base_dir, classes):
+    if len(classes) == 0:
+        return []
+    else:
+        g = []
+        for i in classes:
+            path = minijoin(base_dir, i)
+            if list_images(path, include_subdirs=False, verbose=0) is not None:
+                g.append(i)
+    
+    return g
 
 
 def shuffle(data):
