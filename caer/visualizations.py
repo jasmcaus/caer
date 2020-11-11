@@ -19,13 +19,13 @@ def hex_to_rgb(x):
 
 
 def draw_rectangle(draw, coordinates, color, width=1, fill=30):
-    """Draw a rectangle with an optional width."""
+    """
+        Draw a rectangle with an optional width.
+    """
     # Add alphas to the color so we have a small overlay over the object.
     fill = color + (fill,)
     outline = color + (255,)
 
-    # Pillow doesn't support width in rectangles, so we must emulate it with a
-    # loop.
     for i in range(width):
         coords = [
             coordinates[0] - i,
