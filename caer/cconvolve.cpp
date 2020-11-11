@@ -6,9 +6,9 @@
 //
 // ==============================================================================
 
-#include "numps/array.hpp"
-#include "numps/dispatch.hpp"
-#include "utils.hpp"
+#include "src/array.hpp"
+#include "src/disp.hpp"
+#include "cutils.hpp"
 #include "filters.h"
 
 #include <iostream>

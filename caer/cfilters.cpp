@@ -12,7 +12,7 @@
 #include <memory>
 
 #include "filters.h"
-#include "utils.hpp"
+#include "cutils.hpp"
 
 // Calculate the offsets to the filter points, for all border regions and the interior of the array:
 int init_filter_offsets(PyArrayObject *array, bool *footprint,

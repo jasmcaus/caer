@@ -10,8 +10,8 @@
 #include <vector>
 #include <Python.h>
 
-#include "numps/array.hpp"
-#include "utils.hpp"
+#include "src/array.hpp"
+#include "cutils.hpp"
 
 namespace {
 	struct Point {
