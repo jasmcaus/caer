@@ -28,7 +28,7 @@ from .warnings import (
     warn
 )
 
-# __all__ configs 
+# __all__ globals 
 from .validators import __all__ as __all_validators__ 
 from .dtype import __all__ as __all_dtype__
 

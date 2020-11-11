@@ -12,7 +12,7 @@ import math
 from queue import Queue
 import cv2 as cv
 
-from ..configs import FRAME_COUNT, FPS
+from ..globals import FRAME_COUNT, FPS
 
 
 class GPUFileVideoStream:

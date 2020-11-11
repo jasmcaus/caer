@@ -15,7 +15,7 @@ from urllib.parse import urlsplit, urlunsplit
 from importlib import import_module
 
 from .exceptions import ValidationError
-from ..configs import INVALID_URL_STRING, VALID_URL_NO_EXIST
+from ..globals import INVALID_URL_STRING, VALID_URL_NO_EXIST
 
 
 # These values, if given to validate(), will trigger the self.required check.

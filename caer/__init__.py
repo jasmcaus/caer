@@ -121,14 +121,14 @@ from .io import imsave
 # from .pillow import pill_to_cv
 
 
-# Bringing in configuration variables from configs.py
-from .configs import CROP_CENTRE
-from .configs import CROP_TOP
-from .configs import CROP_LEFT
-from .configs import CROP_RIGHT 
-from .configs import CROP_BOTTOM
-from .configs import VALID_URL_NO_EXIST
-from .configs import INVALID_URL_STRING
+# Bringing in configuration variables from globals.py
+from .globals import CROP_CENTRE
+from .globals import CROP_TOP
+from .globals import CROP_LEFT
+from .globals import CROP_RIGHT 
+from .globals import CROP_BOTTOM
+from .globals import VALID_URL_NO_EXIST
+from .globals import INVALID_URL_STRING
 
 # except ImportError:
 #     import sys 
@@ -153,7 +153,7 @@ def get_caer_methods():
 
 
 # __all__ configs
-from .configs import __all__ as __all_configs__
+from .globals import __all__ as __all_globals__
 from .io import __all__ as __all_io__
 from .resize import __all__ as __all_resize__
 from .opencv import __all__ as __all_opencv__
@@ -173,8 +173,8 @@ from .path import __all__ as __all_path__
 # from .filters import __all__ as __all_filters__
 
 
-# __all__ = __all_configs__ + __all_io__ + __all_resize__ + __all_opencv__ + __all_preprocess__ + __all_time__ + __all_utilities__ + __all_visualizations__ + __all_distance__ + __all_convolve__ + __all_morph__ + __all_filters__
-__all__ = __all_configs__ + __all_io__ + __all_resize__ + __all_opencv__ + __all_preprocess__ + __all_time__ + __all_utilities__ + __all_visualizations__
+# __all__ = __all_globals__ + __all_io__ + __all_resize__ + __all_opencv__ + __all_preprocess__ + __all_time__ + __all_utilities__ + __all_visualizations__ + __all_distance__ + __all_convolve__ + __all_morph__ + __all_filters__
+__all__ = __all_globals__ + __all_io__ + __all_resize__ + __all_opencv__ + __all_preprocess__ + __all_time__ + __all_utilities__ + __all_visualizations__
 
 __all__ += __all_preprocessing__ 
 __all__ += __all_video__ 

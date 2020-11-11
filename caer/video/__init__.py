@@ -18,7 +18,7 @@ from .frames_and_fps import count_frames
 from .frames_and_fps import get_fps
 
 
-# __all__ configs 
+# __all__ globals 
 from .extract_frames import __all__ as __all_extract__ 
 from .livevideostream import __all__ as __all_livevs__
 from .gpufilevideostream import __all__ as __all_gpufilevs__

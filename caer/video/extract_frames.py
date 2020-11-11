@@ -13,7 +13,7 @@ import cv2 as cv
 from .._checks import _check_target_size
 from ..path import list_videos, exists, mkdir
 from ..resize import resize
-from ..configs import FRAME_COUNT, FPS
+from ..globals import FRAME_COUNT, FPS
 from ..io import imsave
 
 
