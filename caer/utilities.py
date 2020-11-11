@@ -11,7 +11,7 @@
 import numpy as np
 
 from ._split import train_test_split
-from .path import listdir
+from .path import listdir, minijoin
 
 
 def median(arr, axis=None):
@@ -38,11 +38,12 @@ def load(filename, allow_pickle=False):
     return np.load(filename, allow_pickle=allow_pickle)
 
 
-def get_classes_from_dir(DIR):
-    if len(listdir(DIR)) == 0:
+def get_classes_from_dir(DIR, verbose=0):
+    if len(listdir(DIR, verbose=0)) == 0:
         raise ValueError('The specified directory does not seem to have any folders in it')
     else:
-        classes = [i for i in listdir(DIR)]
+        import os 
+        classes = [i for i in listdir(DIR, include_subdirs=False, verbose=verbose) if os.path.isdir(minijoin(DIR, i))]
         return classes
         
 
