@@ -8,8 +8,8 @@
 
 #pylint:disable=no-name-in-module, c-extension-no-member
 
-from .cdistance import dt 
-from .cmorph import distance_multi
+from .cdistance import dist
+from ..morph.cmorph import distance_multi
 import numpy as np
 
 
@@ -20,6 +20,7 @@ def distance(bw, metric='euclidean2'):
     That is, at each point, compute the distance to the background.
     If there is no background, then a very high value will be returned in all
     pixels (this is a sort of infinity).
+    
     Parameters
     ----------
         bw : ndarray
@@ -45,18 +46,19 @@ def distance(bw, metric='euclidean2'):
     if metric.lower() not in ['euclidean2', 'euclidean']:
         raise ValueError('`metric` must be either "euclidean2" or "euclidean"')
 
-    if bw.dtype != np.bool_:
+    if bw.distype != np.bool_:
         bw = (bw != 0)
 
     f = np.zeros(bw.shape, np.double)
 
     if bw.ndim == 2:
         f[bw] = len(f.shape)*max(f.shape)**2+1
-        dt(f, None)
+        dist(f, None)
     else:
         f.fill(f.size*2)
         Bc = np.ones([3 for _ in bw.shape], bool)
         distance_multi(f, bw, Bc)
+
     if metric == 'euclidean':
         np.sqrt(f,f)
     return f

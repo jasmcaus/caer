@@ -11,9 +11,9 @@
 #include <iostream>
 #include <assert.h>
 
-#include "src/array.hpp"
-#include "src/disp.hpp"
-#include "cutils.hpp"
+#include "../src/array.hpp"
+#include "../src/disp.hpp"
+#include "../cutils.hpp"
 
 namespace {
     using numpy::ndarray_cast;
@@ -62,7 +62,7 @@ namespace {
     }
 
 
-    PyObject* py_dt(PyObject* self, PyObject* args) {
+    PyObject* py_dist(PyObject* self, PyObject* args) {
         PyArrayObject* f;
         PyArrayObject* orig;
         if (!PyArg_ParseTuple(args, "OO", &f, &orig) ||
@@ -143,7 +143,7 @@ namespace {
     }
 
     PyMethodDef methods[] = {
-    {"dt", (PyCFunction)py_dt, METH_VARARGS, "Internal function. DO NOT CALL DIRECTLY!"},
+    {"dist", (PyCFunction)py_dist, METH_VARARGS, "Internal function. DO NOT CALL DIRECTLY!"},
     {NULL, NULL,0,NULL},
     };
 
