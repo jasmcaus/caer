@@ -17,7 +17,7 @@ from .path import exists
 from .resize import resize
 
 
-def imread(image_path, target_size=None, channels=3, rgb=True, resize_factor=None, keep_aspect_ratio=False):
+def imread(image_path, target_size=None, channels=3, rgb=False, resize_factor=None, keep_aspect_ratio=False):
     """
         Loads in an image from `image_path`
         Arguments
@@ -31,7 +31,7 @@ def imread(image_path, target_size=None, channels=3, rgb=True, resize_factor=Non
     return _imread(image_path, target_size=target_size, channels=channels, rgb=rgb, resize_factor=resize_factor, keep_aspect_ratio=keep_aspect_ratio)
 
 
-def _imread(image_path, target_size=None, channels=3, rgb=True, resize_factor=None, keep_aspect_ratio=False):   
+def _imread(image_path, target_size=None, channels=3, rgb=False, resize_factor=None, keep_aspect_ratio=False):   
     if target_size is not None:
         _ = _check_target_size(target_size)
         
