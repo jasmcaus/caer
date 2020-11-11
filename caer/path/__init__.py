@@ -29,7 +29,7 @@ from .paths import dirname
 from .paths import _acceptable_video_formats
 from .paths import _acceptable_image_formats
 
-# __all__ configs 
+# __all__ globals 
 from .paths import __all__ as __all_paths__
 
 __all__ = __all_paths__ 

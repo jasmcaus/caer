@@ -11,7 +11,7 @@ import numpy as np
 from urllib.request import urlopen
 
 from .utilities import median, asarray
-from .configs import (
+from .globals import (
     BGR2GRAY, BGR2RGB, BGR2HSV, BGR2LAB, RGB2BGR, RGB2GRAY, RGB2HSV, RGB2LAB, IMREAD_COLOR
 )
 
