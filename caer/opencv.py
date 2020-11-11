@@ -12,7 +12,7 @@ from urllib.request import urlopen
 
 from .utilities import median, asarray
 from .configs import (
-    BGR2GRAY, BGR2RGB, BGR2HSV, BGR2LAB, RGB2GRAY, RGB2HSV, RGB2LAB, IMREAD_COLOR
+    BGR2GRAY, BGR2RGB, BGR2HSV, BGR2LAB, RGB2BGR, RGB2GRAY, RGB2HSV, RGB2LAB, IMREAD_COLOR
 )
 
 
@@ -117,53 +117,84 @@ def split(img):
         raise ValueError('mean() expects an image')
 
     
-def to_rgb(img):
+def bgr_to_rgb(img):
     """
-        Converts an image from any image format to its RGB version
+        Converts a BGR image to its RGB version
     """
     if len(img.shape) != 3:
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}')
+        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a BGR image to its RGB counterpart')
 
     return cv.cvtColor(img, BGR2RGB)
 
 
-def to_gray(img):
+def rgb_to_bgr(img):
     """
-        Converts an image from any image format to its Grayscale version
+        Converts an RGB image to its BGR version
     """
     if len(img.shape) != 3:
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}')
+        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts an RGB image to its BGR counterpart')
+
+    return cv.cvtColor(img, RGB2BGR)
+
+
+def bgr_to_gray(img):
+    """
+        Converts a BGR image to its Grayscale version
+    """
+    if len(img.shape) != 3:
+        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a BGR image to its Grayscale counterpart')
     
-    try:
-        return cv.cvtColor(img, BGR2GRAY)
-    except Exception:
-        return cv.cvtColor(img, RGB2GRAY)
+    return cv.cvtColor(img, BGR2GRAY)
 
 
-def to_hsv(img):
+def rgb_to_gray(img):
     """
-        Converts an image from any image format to its HSV version
+        Converts an RGB image to its Grayscale version
     """
     if len(img.shape) != 3:
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}')
+        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts an RGB image to its Grayscale counterpart')
     
-    try:
-        return cv.cvtColor(img, BGR2HSV)
-    except Exception:
-        return cv.cvtColor(img, RGB2HSV)
+    return cv.cvtColor(img, RGB2GRAY)
 
 
-def to_lab(img):
+def bgr_to_hsv(img):
     """
-        Converts an image from any image format to its HSV version
+        Converts a BGR image to its HSV counterpart
     """
     if len(img.shape) != 3:
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}')
+        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a BGR image to its HSV counterpart')
+    
+    return cv.cvtColor(img, BGR2HSV)
 
-    try:
-        return cv.cvtColor(img, BGR2LAB)
-    except Exception:
-        return cv.cvtColor(img, RGB2LAB)
+
+def rgb_to_hsv(img):
+    """
+        Converts an RGB image to its HSV counterpart
+    """
+    if len(img.shape) != 3:
+        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts an RGB image to its HSV counterpart')
+    
+    return cv.cvtColor(img, RGB2HSV)
+
+
+def bgr_to_lab(img):
+    """
+        Converts a BGR image to its LAB counterpart
+    """
+    if len(img.shape) != 3:
+        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a BGR image to its LAB counterpart')
+
+    return cv.cvtColor(img, BGR2LAB)
+
+
+def rgb_to_lab(img):
+    """
+        Converts an RGB image to its LAB counterpart
+    """
+    if len(img.shape) != 3:
+        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts an RGB image to its LAB counterpart')
+
+    return cv.cvtColor(img, RGB2LAB)
 
 
 def url_to_image(url, rgb=False):
@@ -172,7 +203,7 @@ def url_to_image(url, rgb=False):
     image = asarray(bytearray(response.read()), dtype='uint8')
     image = cv.imdecode(image, IMREAD_COLOR)
     if rgb:
-        image = to_rgb(image)
+        image = bgr_to_rgb(image)
     return image
 
 
@@ -181,10 +212,14 @@ __all__ = [
     'mean',
     'merge',
     'split',
-    'to_gray',
-    'to_hsv',
-    'to_lab',
-    'to_rgb',
+    'bgr_to_gray',
+    'bgr_to_hsv',
+    'bgr_to_lab',
+    'bgr_to_rgb',
+    'rgb_to_gray',
+    'rgb_to_hsv',
+    'rgb_to_lab',
+    'rgb_to_bgr',
     'url_to_image',
     'translate',
     'rotate',
