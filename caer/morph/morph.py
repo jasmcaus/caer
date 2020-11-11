@@ -8,9 +8,19 @@
 
 import numpy as np
 
-from ._internal import _get_output, _verify_is_integer_type
+from .._internal import _get_output, _verify_is_integer_type
 from . import cmorph
 
+
+__all__ = [
+    'cwatershed',
+    'cerode',
+    'erode',
+    'dilate',
+    'cdilate',
+    'get_structuring_elem',
+    'hitmiss'
+]
 
 def get_structuring_elem(A,Bc):
     """
@@ -44,16 +54,21 @@ def get_structuring_elem(A,Bc):
             (2, 8) : 2,
             (3, 6) : 1,
     }
+
     if Bc is None:
         Bc = 1
+
     elif type(Bc) == int and (len(A.shape), Bc) in translate_sizes:
         Bc = translate_sizes[len(A.shape),Bc]
+
     elif type(Bc) != int:
         if A.ndim != Bc.ndim:
             raise ValueError('morph.get_structuring_elem: Bc does not have the correct number of dimensions. [array has {} coordinates; Bc has {}.]'.format(A.ndim, Bc.ndim))
         Bc = np.asanyarray(Bc, A.dtype)
+
         if not Bc.flags.contiguous:
             return Bc.copy()
+
         return Bc
 
     # Special case typical case:
@@ -62,15 +77,18 @@ def get_structuring_elem(A,Bc):
                 [0,1,0],
                 [1,1,1],
                 [0,1,0]], dtype=A.dtype)
+
     max1 = Bc
     Bc = np.zeros((3,)*len(A.shape), dtype=A.dtype)
     centre = np.ones(len(A.shape))
-    # This is pretty slow, but this should be a tiny array, so who cares
+
+    # This is pretty slow, but this should be a tiny array, so it shouldn't really matter
     for i in range(Bc.size):
         pos = np.unravel_index(i, Bc.shape)
         pos -= centre
         if np.sum(np.abs(pos)) <= max1:
             Bc.flat[i] = 1
+
     return Bc
 
 
@@ -132,6 +150,7 @@ def erode(A, Bc=None, out=None, output=None):
     dilate
     """
     _verify_is_integer_type(A,'erode')
+
     Bc = get_structuring_elem(A,Bc)
     output = _get_output(A, out, 'erode', output=output)
 
@@ -169,6 +188,7 @@ def cerode(f, g, Bc=None, out=None, output=None):
     Bc = get_structuring_elem(f, Bc)
     out = _get_output(f, out, 'cerode', output=output)
     f = cmorph.erode(f, Bc, out)
+
     return np.maximum(f, g, out=f)
 
 
@@ -191,6 +211,7 @@ def cdilate(f, g, Bc=None, n=1):
     _verify_is_integer_type(f, 'cdilate')
     Bc = get_structuring_elem(f, Bc)
     f = np.minimum(f, g)
+
     #pylint:disable=unused-variable
     for i in range(n):
         prev = f
@@ -198,6 +219,7 @@ def cdilate(f, g, Bc=None, n=1):
         f = np.minimum(f, g)
         if np.all(f == prev):
             break
+
     return f
 
 
@@ -230,34 +252,21 @@ def cwatershed(surface, markers, Bc=None, return_lines=False):
     _verify_is_integer_type(markers, 'cwatershed')
     if surface.shape != markers.shape:
         raise ValueError('morph.cwatershed: Markers array should have the same shape as value array.')
+
     markers = np.asanyarray(markers, np.int64)
     Bc = get_structuring_elem(surface, Bc)
+
     return cmorph.cwatershed(surface, markers, Bc, bool(return_lines))
 
 
 def hitmiss(inp, Bc, out=None, output=None):
     """
-    filtered = hitmiss(inp, Bc, out=np.zeros_like(inp))
     Hit & Miss transform
     For a given pixel position, the hit&miss is `True` if, when `Bc` is
     overlaid on `inp`, centered at that position, the `1` values line up
     with `1`s, while the `0`s line up with `0`s (`2`s correspond to
     *don't care*).
-    Examples
-    --------
-    ::
-        print(hitmiss(np.array([
-                    [0,0,0,0,0],
-                    [0,1,1,1,1],
-                    [0,0,1,1,1]]),
-                np.array([
-                    [0,0,0],
-                    [2,1,1],
-                    [2,1,1]])))
-        prints::
-            [[0 0 0 0 0]
-             [0 0 1 1 0]
-             [0 0 0 0 0]]
+
     Parameters
     ----------
         inp : inp ndarray
@@ -272,13 +281,16 @@ def hitmiss(inp, Bc, out=None, output=None):
     """
     _verify_is_integer_type(inp, 'hitmiss')
     _verify_is_integer_type(Bc, 'hitmiss')
+
     if inp.dtype != Bc.dtype:
         if inp.dtype == np.bool_:
             inp = inp.view(np.uint8)
+
             if Bc.dtype == np.bool_:
                 Bc = Bc.view(np.uint8)
             else:
                 Bc = Bc.astype(np.uint8)
+
         else:
             Bc = Bc.astype(inp.dtype)
 
@@ -290,6 +302,7 @@ def hitmiss(inp, Bc, out=None, output=None):
 
     if out is None:
         out = np.empty_like(inp)
+
     else:
         if out.shape != inp.shape:
             raise ValueError('caer.hitmiss: out must be of same shape as inp')
@@ -298,15 +311,16 @@ def hitmiss(inp, Bc, out=None, output=None):
                 out = out.view(np.uint8)
             else:
                 raise TypeError('caer.hitmiss: out must be of same type as inp')
+
     return cmorph.hitmiss(inp, Bc, out)
 
 
 def majority_filter(img, N=3, out=None, output=None):
     """
-    filtered = majority_filter(img, N=3, out={np.empty(img.shape, np.bool)})
     Majority filter
     filtered[y,x] is positive if the majority of pixels in the squared of size
     `N` centred on (y,x) are positive.
+
     Parameters
     ----------
     img : ndarray
@@ -317,6 +331,7 @@ def majority_filter(img, N=3, out=None, output=None):
         Used for output. Must be Boolean ndarray of same size as `img`
     output : deprecated
         Do not use
+
     Returns
     -------
     filtered : ndarray
@@ -331,14 +346,3 @@ def majority_filter(img, N=3, out=None, output=None):
         warnings.warn('caer.majority_filter: size argument must be odd. Adding 1.')
         N += 1
     return cmorph.majority_filter(img, N, output)
-
-
-__all__ = [
-        'cwatershed',
-        'cerode',
-        'erode',
-        'dilate',
-        'cdilate',
-        'get_structuring_elem',
-        'hitmiss'
-]
