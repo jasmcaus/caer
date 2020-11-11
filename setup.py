@@ -117,7 +117,7 @@ EXTRAS={
 EXTENSIONS = {
     'caer.cconvex': ['caer/cconvex.cpp'],
     'caer.cconvolve': ['caer/cconvolve.cpp', 'caer/cfilters.cpp'],
-    'caer.cdistance': ['caer/cdistance.cpp'],
+    'caer.distance.cdistance': ['caer/distance/cdistance.cpp'],
     'caer.morph.cmorph': ['caer/morph/cmorph.cpp', 'caer/cfilters.cpp'],
     'caer.ndi.cndi' : ['caer/ndi/cndimage.c', 
                    'caer/ndi/cndfilters.c',
