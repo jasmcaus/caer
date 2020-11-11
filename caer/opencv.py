@@ -166,7 +166,7 @@ def to_lab(img):
         return cv.cvtColor(img, RGB2LAB)
 
 
-def url_to_image(url, rgb=True):
+def url_to_image(url, rgb=False):
     # Converts the image to a Numpy array and reads it in OpenCV
     response = urlopen(url)
     image = asarray(bytearray(response.read()), dtype='uint8')
