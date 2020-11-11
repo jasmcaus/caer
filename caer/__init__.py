@@ -88,10 +88,9 @@ from .time import now
 from .resize import resize 
 from .resize import center_crop 
 
-# Image-related
-from .io import imread 
-from .io import imsave 
-
+# Image 
+from .io import imread
+from .io import imsave
 # # Distance
 # from .distance import distance
 
