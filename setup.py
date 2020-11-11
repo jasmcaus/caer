@@ -114,22 +114,22 @@ PYTHON_REQUIRES = '>=' + opt['min_python']
 EXTRAS={
         'canaro': 'canaro>=1.0.6'
 }
-# EXTENSIONS = {
-#     'caer.cconvex': ['caer/cconvex.cpp'],
-#     'caer.cconvolve': ['caer/cconvolve.cpp', 'caer/cfilters.cpp'],
-#     'caer.cdistance': ['caer/cdistance.cpp'],
-#     'caer.cmorph': ['caer/cmorph.cpp', 'caer/cfilters.cpp'],
-#     'caer.ndi.cndi' : ['caer/ndi/cndimage.c', 
-#                    'caer/ndi/cndfilters.c',
-#                    'caer/ndi/cndfourier.c',
-#                    'caer/ndi/cndinterpolation.c',
-#                    'caer/ndi/cndmeasure.c',
-#                    'caer/ndi/cndmorphology.c',
-#                    'caer/ndi/cndsplines.c',
-#                    'caer/ndi/cndsupport.c'
-#                 ]
-# }
-# EXT_MODULES = [Extension(key, sources=sources, include_dirs=[np.get_include()]) for key, sources in EXTENSIONS.items()]
+EXTENSIONS = {
+    'caer.cconvex': ['caer/cconvex.cpp'],
+    'caer.cconvolve': ['caer/cconvolve.cpp', 'caer/cfilters.cpp'],
+    'caer.cdistance': ['caer/cdistance.cpp'],
+    'caer.cmorph': ['caer/cmorph.cpp', 'caer/cfilters.cpp'],
+    'caer.ndi.cndi' : ['caer/ndi/cndimage.c', 
+                   'caer/ndi/cndfilters.c',
+                   'caer/ndi/cndfourier.c',
+                   'caer/ndi/cndinterpolation.c',
+                   'caer/ndi/cndmeasure.c',
+                   'caer/ndi/cndmorphology.c',
+                   'caer/ndi/cndsplines.c',
+                   'caer/ndi/cndsupport.c'
+                ]
+}
+EXT_MODULES = [Extension(key, sources=sources, include_dirs=[np.get_include()]) for key, sources in EXTENSIONS.items()]
 
 STATUSES = [ 
     '1 - Planning', 
@@ -211,17 +211,17 @@ copt={
     'intelw': ['/EHsc']  
 }
 
-# class build_extension_class(build_ext):
-#     def build_extensions(self):
-#         c = self.compiler.compiler_type
-#         if c in copt:
-#             for e in self.extensions:
-#                 e.extra_compile_args = copt[c]
-#         build_ext.build_extensions(self)
+class build_extension_class(build_ext):
+    def build_extensions(self):
+        c = self.compiler.compiler_type
+        if c in copt:
+            for e in self.extensions:
+                e.extra_compile_args = copt[c]
+        build_ext.build_extensions(self)
 
-# CMDCLASS = {
-#     'build_ext': build_extension_class
-# }
+CMDCLASS = {
+    'build_ext': build_extension_class
+}
 
 
 def setup_package():
@@ -245,13 +245,13 @@ def setup_package():
             'Source Code': URL,
         },
         packages = PACKAGES,
-        # ext_modules = EXT_MODULES,
+        ext_modules = EXT_MODULES,
         license = LICENSE,
         platforms = PLATFORMS,
         install_requires = REQUIREMENTS,
         extras_require = EXTRAS,
         python_requires = PYTHON_REQUIRES,
-        # cmdclass = CMDCLASS,
+        cmdclass = CMDCLASS,
         include_package_data = True,
         zip_safe = False,
         keywords = KEYWORDS,
