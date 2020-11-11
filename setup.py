@@ -48,8 +48,8 @@ import sys
 import platform
 
 MAJOR = 1 
-MINOR = 3
-MICRO = 3
+MINOR = 7
+MICRO = 9
 ISRELEASED = True
 VERSION = f'{MAJOR}.{MINOR}.{MICRO}'
 
