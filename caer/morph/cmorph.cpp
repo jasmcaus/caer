@@ -5,11 +5,11 @@
 #include <limits>
 #include <iostream>
 
-#include "src/array.hpp"
-#include "src/disp.hpp"
+#include "../src/array.hpp"
+#include "../src/disp.hpp"
 
-#include "cutils.hpp"
-#include "filters.h"
+#include "../cutils.hpp"
+#include "../filters.h"
 
 
 namespace {
