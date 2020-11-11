@@ -118,7 +118,7 @@ EXTENSIONS = {
     'caer.cconvex': ['caer/cconvex.cpp'],
     'caer.cconvolve': ['caer/cconvolve.cpp', 'caer/cfilters.cpp'],
     'caer.cdistance': ['caer/cdistance.cpp'],
-    'caer.cmorph': ['caer/cmorph.cpp', 'caer/cfilters.cpp'],
+    'caer.morph.cmorph': ['caer/morph/cmorph.cpp', 'caer/cfilters.cpp'],
     'caer.ndi.cndi' : ['caer/ndi/cndimage.c', 
                    'caer/ndi/cndfilters.c',
                    'caer/ndi/cndfourier.c',

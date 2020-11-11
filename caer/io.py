@@ -10,11 +10,11 @@
 import cv2 as cv
 # import numpy as np 
 
-from .._internal import _check_target_size
-from ..opencv import bgr_to_rgb, bgr_to_gray, url_to_image
-from ..utils.validators import is_valid_url
-from ..path import exists
-from ..resize import resize
+from ._internal import _check_target_size
+from .opencv import bgr_to_rgb, bgr_to_gray, url_to_image
+from .utils.validators import is_valid_url
+from .path import exists
+from .resize import resize
 
 
 def imread(image_path, target_size=None, channels=3, rgb=False, resize_factor=None, keep_aspect_ratio=False):
