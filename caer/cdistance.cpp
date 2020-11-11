@@ -11,9 +11,9 @@
 #include <iostream>
 #include <assert.h>
 
-#include "numps/array.hpp"
-#include "numps/dispatch.hpp"
-#include "utils.hpp"
+#include "src/array.hpp"
+#include "src/disp.hpp"
+#include "cutils.hpp"
 
 namespace {
     using numpy::ndarray_cast;

@@ -8,7 +8,7 @@
 
 import numpy as np
 
-from .internal import _get_output, _verify_is_integer_type
+from ._internal import _get_output, _verify_is_integer_type
 from . import cmorph
 
 

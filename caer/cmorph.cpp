@@ -5,10 +5,10 @@
 #include <limits>
 #include <iostream>
 
-#include "numps/array.hpp"
-#include "numps/dispatch.hpp"
+#include "src/array.hpp"
+#include "src/disp.hpp"
 
-#include "utils.hpp"
+#include "cutils.hpp"
 #include "filters.h"
 
 
