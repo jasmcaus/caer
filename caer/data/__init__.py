@@ -1,5 +1,5 @@
 #
-# ______ _____ _____ ____
+#  _____ _____ _____ ____
 # |     | ___ | ___  | __|  Caer - Modern Computer Vision
 # |     |     |      | \    version 3.9.1
 # |_____|     | ____ |  \   http://github.com/jasmcaus/caer
