@@ -29,14 +29,23 @@ __version__
 
 """
 
-#pylint:disable=undefined-all-variable
+#pylint:disable=undefined-all-variable, redefined-builtin
 
 from ._meta import version as __version__
 from ._meta import author as __author__
 from ._meta import release as __release__
 from ._meta import contributors as __contributors__
 __license__ = 'MIT License'
-__copyright__ = 'Copyright (c) 2020 Jason Dsouza'
+__copyright__ = """
+Copyright (c) 2020 Jason Dsouza <jasmcaus>
+All Rights Reserved.
+"""
+
+def license():
+    return __license__ 
+
+def copyright():
+    return __copyright__
 
 
 # Preprocessing
