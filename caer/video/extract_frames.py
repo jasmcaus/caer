@@ -20,6 +20,11 @@ from ..globals import FRAME_COUNT, FPS
 from ..io import imsave
 
 
+__all__ = [
+    'extract_frames'
+]
+
+
 def extract_frames(input_folder, 
                    output_folder, 
                    target_size=None, 
@@ -137,8 +142,3 @@ def _determine_interval(x):
         return math.floor(x)
     else:
         return math.ceil(x)
-
-
-__all__ = [
-    'extract_frames'
-]
