@@ -14,6 +14,25 @@ _acceptable_video_formats = ('.mp4', '.avi', '.mov', '.mkv', '.webm')
 _acceptable_image_formats = ('.jpg', '.jpeg', '.png', '.bmp', '.tif', '.tiff')
 
 
+__all__ = [
+    'list_media',
+    'list_images',
+    'list_videos',
+    'mkdir',
+    'listdir',
+    'is_image',
+    'is_video'
+    'cwd',
+    'exists',
+    'minijoin',
+    'get_size',
+    'chdir',
+    'osname',
+    'abspath',
+    'dirname'
+]
+
+
 def list_images(DIR, include_subdirs=True, use_fullpath=False, show_size=False, verbose=1):
     """
         Lists all image files within a specific directory (and sub-directories if `include_subdirs=True`)
@@ -480,24 +499,5 @@ def dirname(file):
     """
         Returns the base directory name of `file`
     """
-    
+
     return os.path.dirname(file)
-
-
-__all__ = [
-    'list_media',
-    'list_images',
-    'list_videos',
-    'mkdir',
-    'listdir',
-    'is_image',
-    'is_video'
-    'cwd',
-    'exists',
-    'minijoin',
-    'get_size',
-    'chdir',
-    'osname',
-    'abspath',
-    'dirname'
-]
