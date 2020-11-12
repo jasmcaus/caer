@@ -11,7 +11,7 @@
 
 import numpy as np
 from . import cconvolve
-from . import cmorph 
+from .morph import cmorph 
 
 from ._internal import _get_output, _normalize_sequence, _verify_is_floatingpoint_type, _as_floating_point_array
 from .filter import mode2int, _check_mode
