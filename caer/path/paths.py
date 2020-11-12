@@ -428,6 +428,22 @@ def chdir(path):
 
 
 def get_size(file, disp_format='bytes'):
+    """
+        Returns the size of `file` in bytes/kb/mb/gb/tb
+            
+    Parameters
+    ----------
+        file : str
+            Filepath to check
+        disp_format : str
+            Size format (bytes/kb/mb/gb/tb)
+    
+    Returns
+    ----------
+        size : str
+            File size in bytes/kb/mb/gb/tb
+    """
+    
     if not isinstance(disp_format, str):
         raise ValueError('display format must be a string')
 
