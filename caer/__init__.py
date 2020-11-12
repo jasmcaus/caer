@@ -57,7 +57,6 @@ from .utilities import load
 from .utilities import train_val_split
 from .utilities import get_classes_from_dir
 from .utilities import sort_dict
-# from .utilities import plotAcc
 
 # Opencv-specific methods
 from .opencv import get_opencv_version

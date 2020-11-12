@@ -38,6 +38,9 @@ def asarray(obj, dtype=None, order=None):
 
 
 def load(filename, allow_pickle=False):
+    """
+        Loads numpy file
+    """
     return np.load(filename, allow_pickle=allow_pickle)
 
 
@@ -52,8 +55,8 @@ def get_classes_from_dir(DIR, verbose=0):
 
 def saveNumpy(base_name, data):
     """
-    Saves an array to a .npy file
-    Converts to Numpy (if not already)
+        Saves an array to a .npy file
+        Converts to Numpy (if not already)
     """
     if not (isinstance(data, list) or isinstance(data, np.ndarray)):
         raise ValueError('data needs to be a Python list or a Numpy array')
@@ -69,8 +72,8 @@ def saveNumpy(base_name, data):
 
 def train_val_split(X, y, val_ratio=.2):
     """
-    Do not use if mean subtraction is being employed
-    Returns X_train, X_val, y_train, y_val
+        Do not use if mean subtraction is being employed
+        Returns X_train, X_val, y_train, y_val
     """
     X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=val_ratio)
     return X_train, y_train, X_val, y_val
@@ -78,10 +81,11 @@ def train_val_split(X, y, val_ratio=.2):
 
 def sort_dict(unsorted_dict, descending=False):
     """ 
-    Sorts a dictionary in ascending order (if descending = False) or descending order (if descending = True)
+        Sorts a dictionary in ascending order (if descending = False) or descending order (if descending = True)
     """
-    if isinstance(descending, bool):
+    if not isinstance(descending, bool):
         raise ValueError('`descending` must be a boolean')
+
     return sorted(unsorted_dict.items(), key=lambda x:x[1], reverse=descending)
 
 
@@ -123,5 +127,4 @@ __all__ = [
     'saveNumpy',
     'train_val_split',
     'sort_dict'
-    # 'plotAcc'
 ]
