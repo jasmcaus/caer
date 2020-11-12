@@ -1,4 +1,4 @@
-# Caer: Computer Vision on the Fly
+# Caer: Modern Computer Vision on the Fly
 [![Python](https://img.shields.io/pypi/pyversions/caer.svg)][py-versions]
 [![PyPI](https://badge.fury.io/py/caer.svg)][pypi-latest-version]
 [![Downloads](https://pepy.tech/badge/caer)][downloads]
