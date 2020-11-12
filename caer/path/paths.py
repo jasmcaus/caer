@@ -411,6 +411,9 @@ def mkdir(path):
 
 
 def abspath(file_name):
+    """
+        Returns the absolute path of `file_name`
+    """
     return os.path.abspath(file_name)
 
 
