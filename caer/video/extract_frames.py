@@ -1,13 +1,10 @@
+# Copyright 2020 The Caer Authors. All Rights Reserved.
 #
-#  _____ _____ _____ _____
-# |     |     | ___  | __|  Caer - Modern Computer Vision
-# |     | ___ |      | \    Languages: Python, C, C++
-# |_____|     | ____ |  \   http://github.com/jasmcaus/caer
-
-# Licensed under the MIT License <http://opensource.org/licenses/MIT>
-# SPDX-License-Identifier: MIT
-# Copyright (c) 2020 The Caer Authors <http://github.com/jasmcaus>
-
+# Licensed under the MIT License (see LICENSE);
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at <https://opensource.org/licenses/MIT>
+#
+# ==============================================================================
 
 import math
 import time
@@ -18,11 +15,6 @@ from ..path import list_videos, exists, mkdir
 from ..resize import resize
 from ..globals import FRAME_COUNT, FPS
 from ..io import imsave
-
-
-__all__ = [
-    'extract_frames'
-]
 
 
 def extract_frames(input_folder, 
@@ -80,24 +72,25 @@ def extract_frames(input_folder,
         if vid_count < max_video_count:
             capture = cv.VideoCapture(vid_filepath)
             video_frame_counter = 0
+            vid_count += 1
 
             # Find the number of frames and FPS
             video_frame_count = int(capture.get(FRAME_COUNT)) - 1
             video_fps = math.ceil(capture.get(FPS))
             file = vid_filepath[vid_filepath.rindex('/')+1:]
-
-            print(f'{vid_count+1}. Reading \'{file}\'. Number of frames: {video_frame_count}. FPS: {video_fps}')
-
-            if frames_per_sec is not None and frame_interval is None:
-                interval= _determine_interval(video_fps/frames_per_sec) # eg: 30//15
-                # print('Interval: ', interval)
             
-            elif frame_interval is not None:
-                interval = frame_interval
+            if frames_per_sec is not None:
+                if frame_interval is None:
+                    interval = _determine_interval(video_fps/frames_per_sec) # eg: 30//15
+            
+                else:
+                    interval = frame_interval
 
             # if frames_per_sec and frame_interval are both None, we assume that each frame should be processed
             else:
                 interval = 1
+
+            print(f'{vid_count}. Reading \'{file}\'. Frame Count: {video_frame_count}. FPS: {video_fps}. Processed frames: {video_frame_count//interval}')
             
             # Start converting the video
             while capture.isOpened():
@@ -108,7 +101,7 @@ def extract_frames(input_folder,
                 
                 # Write the results back to output location as per specified frames per second
                 if video_frame_counter % interval == 0:
-                    imsave(f'{output_folder}/{label_counter}.{dest_filetype}', frame)
+                    imsave(f'{output_folder}/{file}_{label_counter}.{dest_filetype}', frame)
                     video_frame_counter += 1
                     label_counter += 1
                     # print('Frame counter: ', video_frame_counter)
@@ -142,3 +135,8 @@ def _determine_interval(x):
         return math.floor(x)
     else:
         return math.ceil(x)
+
+
+__all__ = [
+    'extract_frames'
+]
