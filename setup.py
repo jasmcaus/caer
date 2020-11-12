@@ -1,5 +1,5 @@
 """
-Caer - Computer Vision on the Fly
+Caer - Modern Computer Vision on the Fly
 =====
 
 A Computer Vision library in Python with powerful image and video processing operations.
