@@ -37,7 +37,7 @@ def asarray(obj, dtype=None, order=None):
     return np.asarray(obj, dtype=dtype, order=order)
 
 
-def load(filename, allow_pickle=False):
+def npload(filename, allow_pickle=False):
     """
         Loads numpy file
     """
@@ -125,6 +125,7 @@ __all__ = [
     'to_array',
     'array',
     'saveNumpy',
+    'npload'
     'train_val_split',
     'sort_dict'
 ]

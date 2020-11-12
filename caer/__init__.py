@@ -53,7 +53,7 @@ from .utilities import npmean
 from .utilities import to_array
 from .utilities import array
 from .utilities import asarray
-from .utilities import load
+from .utilities import npload
 from .utilities import train_val_split
 from .utilities import get_classes_from_dir
 from .utilities import sort_dict
