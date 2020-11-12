@@ -9,6 +9,30 @@
 # Copyright (c) 2020 The Caer Authors <http://github.com/jasmcaus>
 
 
+__all__ = [
+    'CROP_CENTRE',
+    'CROP_TOP',
+    'CROP_LEFT',
+    'CROP_RIGHT',
+    'CROP_BOTTOM',
+    'VALID_URL_NO_EXIST',
+    'INVALID_URL_STRING',
+    'BGR2GRAY',
+    'BGR2RGB',
+    'BGR2HSV',
+    'BGR2LAB',
+    'RGB2GRAY',
+    'RGB2HSV',
+    'RGB2LAB',
+    'IMREAD_COLOR',
+    'INTER_NEAREST',
+    'INTER_LINEAR',
+    'INTER_AREA',
+    'INTER_CUBIC',
+    'FRAME_COUNT',
+    'FPS'
+]
+
 
 # Configuration Variables used in Caer
 CROP_CENTRE = 1
@@ -42,29 +66,3 @@ RGB2LAB = 45  # cv.COLOR_RGB2LAB
 ## Video
 FPS = 5  # cv.CAP_PROP_FPS
 FRAME_COUNT = 7  # cv.CAP_PROP_FRAME_COUNT
-
-
-
-__all__ = [
-    'CROP_CENTRE',
-    'CROP_TOP',
-    'CROP_LEFT',
-    'CROP_RIGHT',
-    'CROP_BOTTOM',
-    'VALID_URL_NO_EXIST',
-    'INVALID_URL_STRING',
-    'BGR2GRAY',
-    'BGR2RGB',
-    'BGR2HSV',
-    'BGR2LAB',
-    'RGB2GRAY',
-    'RGB2HSV',
-    'RGB2LAB',
-    'IMREAD_COLOR',
-    'INTER_NEAREST',
-    'INTER_LINEAR',
-    'INTER_AREA',
-    'INTER_CUBIC',
-    'FRAME_COUNT',
-    'FPS'
-]
