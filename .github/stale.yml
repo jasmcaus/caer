@@ -14,6 +14,9 @@
    - bounty
    - feature request
 
+# Label to use when marking an issue as stale
+staleLabel: "state: stale"
+
  # Set to true to ignore issues in a project (defaults to false)
  exemptProjects: false
 
