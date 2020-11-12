@@ -273,8 +273,6 @@ def setup_package():
         #     # Generate Cython sources, unless we're generating an sdist
         generate_cython()
 
-    replace_version(PREV_VERSION, VERSION)
-
     setup(**metadata)
 
 
