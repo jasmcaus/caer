@@ -418,9 +418,13 @@ def abspath(file_name):
 
 
 def chdir(path):
+    """
+        Checks into directory `path`
+    """
     if not isinstance(path, str):
         raise ValueError('Specify a valid path')
-    return os.chdir(path)
+
+    os.chdir(path)
 
 
 def get_size(file, disp_format='bytes'):
