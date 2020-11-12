@@ -46,7 +46,7 @@ def get_structuring_elem(A, B):
         B_out : ndarray
             Structuring element. This array will be of the same type as A, C-contiguous.
     """
-    
+
     translate_sizes = {
             (2, 4) : 1,
             (2, 8) : 2,
@@ -305,36 +305,3 @@ def hitmiss(inp, B, out=None, output=None):
                 raise TypeError('caer.morph.hitmiss: out must be of same type as inp')
 
     return cmorph.hitmiss(inp, B, out)
-
-
-def majority_filter(img, N=3, out=None, output=None):
-    """
-    Majority filter
-    filtered[y,x] is positive if the majority of pixels in the squared of size
-    `N` centred on (y,x) are positive.
-
-    Parameters
-    ----------
-    img : ndarray
-        inp img (currently only 2-D images accepted)
-    N : int, optional
-        size of filter (must be odd integer), defaults to 3.
-    out : ndarray, optional
-        Used for output. Must be Boolean ndarray of same size as `img`
-    output : deprecated
-        Do not use
-
-    Returns
-    -------
-    filtered : ndarray
-        boolean image of same size as img.
-    """
-    img = np.asanyarray(img, dtype=np.bool_)
-    output = _get_output(img, out, 'majority_filter', np.bool_, output=output)
-    if N <= 1:
-        raise ValueError('caer.majority_filter: filter size must be positive')
-    if not N&1:
-        import warnings
-        warnings.warn('caer.majority_filter: size argument must be odd. Adding 1.')
-        N += 1
-    return cmorph.majority_filter(img, N, output)
