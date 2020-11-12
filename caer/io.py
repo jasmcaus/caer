@@ -20,6 +20,12 @@ from .path import exists
 from .resize import resize
 
 
+__all__ = [
+    'imread',
+    'imsave'
+]
+
+
 def imread(image_path, target_size=None, channels=3, rgb=False, resize_factor=None, keep_aspect_ratio=False):
     """
         Loads in an image from `image_path`
@@ -87,9 +93,3 @@ def _read_image(image_path):
 
 def imsave(filename, img):
     cv.imwrite(filename, img)
-
-
-__all__ = [
-    'imread',
-    'imsave'
-]
