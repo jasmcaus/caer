@@ -20,6 +20,13 @@ from ..utilities import npmean
     Mean subtract must be computed ONLY on the training set and then later applied on the validation/test set
 """
 
+__all__ = [
+    'MeanProcess',
+    'compute_mean',
+    'compute_mean_from_dir',
+    'subtract_mean',
+]
+
 class MeanProcess:
     def __init__(self, mean_sub_values, channels):
         # mean_sub_values is a tuple
@@ -165,11 +172,3 @@ def subtract_mean(data, channels, mean_sub_values):
     data = [mean_process.mean_preprocess(img, channels) for img in data]
     
     return data
-
-
-__all__ = [
-    'MeanProcess',
-    'compute_mean',
-    'compute_mean_from_dir',
-    'subtract_mean',
-]
