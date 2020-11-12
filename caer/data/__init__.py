@@ -1,5 +1,5 @@
 #
-#  _____ _____ _____ ____
+#  _____ _____ _____ _____
 # |     |     | ___  | __|  Caer - Modern Computer Vision
 # |     | ___ |      | \    Languages: Python, C, C++
 # |_____|     | ____ |  \   http://github.com/jasmcaus/caer
