@@ -1,8 +1,8 @@
 #
-#  _____ _____ _____ ____
+#  _____ _____ _____ _____
 # |     |     | ___  | __|  Caer - Modern Computer Vision
-# |     | ___ |      | \    version 3.9.1
-# |_____| ___ | ____ |  \   http://github.com/jasmcaus/caer
+# |     | ___ |      | \    Languages: Python, C, C++
+# |_____|     | ____ |  \   http://github.com/jasmcaus/caer
 
 # Licensed under the MIT License <http://opensource.org/licenses/MIT>
 # SPDX-License-Identifier: MIT
