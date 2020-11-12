@@ -13,6 +13,11 @@ from ..morph.cmorph import distance_multi
 import numpy as np
 
 
+__all__ = [
+    'distance'
+]
+
+
 def distance(bw, metric='euclidean2'):
     """
     Computes the distance transform of image `bw`::
@@ -62,8 +67,3 @@ def distance(bw, metric='euclidean2'):
     if metric == 'euclidean':
         np.sqrt(f,f)
     return f
-
-
-__all__ = [
-    'distance',
-]
