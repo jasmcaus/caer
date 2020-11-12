@@ -23,33 +23,37 @@ _integer_types = (np.byte, np.ubyte,          # 8 bits
                   np.intc, np.uintc,          # 16 or 32 or 64 bits
                   np.int_, np.uint,           # 32 or 64 bits
                   np.longlong, np.ulonglong)  # 64 bits
+
 _integer_ranges = {t: (np.iinfo(t).min, np.iinfo(t).max)
                    for t in _integer_types}
+
 dtype_range = {np.bool_: (False, True),
                np.bool8: (False, True),
                np.float16: (-1, 1),
                np.float32: (-1, 1),
                np.float64: (-1, 1)}
+
 dtype_range.update(_integer_ranges)
 
 _supported_types = list(dtype_range.keys())
 
 
 def dtype_limits(image, clip_negative=False):
-    """Return intensity limits, i.e. (min, max) tuple, of the image's dtype.
+    """
+        Return intensity limits, i.e. (min, max) tuple, of the image's dtype.
 
     Parameters
     ----------
-    image : ndarray
-        Input image.
-    clip_negative : bool, optional
-        If True, clip the negative range (i.e. return 0 for min intensity)
-        even if the image dtype allows negative values.
+        image : ndarray
+            Input image.
+        clip_negative : bool, optional
+            If True, clip the negative range (i.e. return 0 for min intensity)
+            even if the image dtype allows negative values.
 
-    Returns
-    -------
-    imin, imax : tuple
-        Lower and upper intensity limits.
+        Returns
+        -------
+        imin, imax : tuple
+            Lower and upper intensity limits.
     """
     imin, imax = dtype_range[image.dtype.type]
 
