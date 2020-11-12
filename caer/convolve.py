@@ -17,6 +17,22 @@ from ._internal import _get_output, _normalize_sequence, _verify_is_floatingpoin
 from .filter import mode2int, _check_mode
 
 
+__all__ = [
+    'daubechies',
+    'idaubechies',
+    'find',
+    'haar',
+    'ihaar',
+    'median_filter',
+    'rank_filter',
+    'convolve',
+    'convolve1d',
+    'gaussian_filter',
+    'gaussian_filter1d',
+    'laplacian_2D'
+]
+
+
 def convolve(f, weights, mode='reflect', cval=0.0, out=None, output=None):
     """
     convolved = convolve(f, weights, mode='reflect', cval=0.0, out={new array})
@@ -504,19 +520,3 @@ def laplacian_2D(array, alpha = 0.2):
     output = convolve(array, weights, mode='nearest')
 
     return output
-
-
-__all__ = [
-    'daubechies',
-    'idaubechies',
-    'find',
-    'haar',
-    'ihaar',
-    'median_filter',
-    'rank_filter',
-    'convolve',
-    'convolve1d',
-    'gaussian_filter',
-    'gaussian_filter1d',
-    'laplacian_2D'
-]
