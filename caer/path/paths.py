@@ -443,11 +443,11 @@ def get_size(file, disp_format='bytes'):
         size : str
             File size in bytes/kb/mb/gb/tb
     """
-    
+
     if not isinstance(disp_format, str):
         raise ValueError('display format must be a string')
 
-    if disp_format not in ['bytes', 'kb', 'mb', 'gb', 'tb', 'BYTES', 'KB', 'MB', 'GB', 'TB', 'kB', 'mB', 'tB', 'Mb', 'Kb', 'Tb', 'Gb']:
+    if disp_format.lower() not in ['bytes', 'kb', 'mb', 'gb', 'tb']:
         raise ValueError('display format needs to be either bytes/kb/mb/gb/tb')
 
     size = os.path.getsize(file)
