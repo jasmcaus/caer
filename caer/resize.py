@@ -18,6 +18,12 @@ from .globals import (
 )
 
 
+__all__ = [
+    'center_crop',
+    'resize'
+]
+
+
 def resize(image, target_size=None, resize_factor=None, keep_aspect_ratio=False, interpolation='area'):
     """
         Resizes an image with a specified resizing factor, this factor can also be
@@ -176,10 +182,3 @@ def _compute_centre_crop(image, target_size):
     diff_w = (org_w - target_w ) // 2
     
     return image[diff_h:diff_h + target_h, diff_w:diff_w + target_w]
-
-
-
-__all__ = [
-    'center_crop',
-    'resize'
-]
