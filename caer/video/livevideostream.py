@@ -17,6 +17,9 @@ import cv2 as cv
 
 from ..globals import FPS
 
+__all__ = [
+    'LiveVideoStream'
+]
 
 """
     Python threading has a specific meaning for daemon. A daemon thread will shut down immediately when the program exits. One way to think about these definitions is to consider the daemon thread a thread that runs in the background without worrying about shutting it down.
@@ -82,8 +85,3 @@ class LiveVideoStream:
             #     return math.ceil(self.stream.get(FPS_DEPR))
             # else:
             #     return math.ceil(self.stream.get(FPS))
-
-
-__all__ = [
-    'LiveVideoStream'
-]
