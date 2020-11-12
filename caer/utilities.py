@@ -16,6 +16,19 @@ import numpy as np
 from ._split import train_test_split
 from .path import listdir, minijoin
 
+__all__ = [
+    'get_classes_from_dir',
+    'median',
+    'npmean',
+    'asarray',
+    'to_array',
+    'array',
+    'saveNumpy',
+    'npload'
+    'train_val_split',
+    'sort_dict'
+]
+
 
 def median(arr, axis=None):
     return np.median(arr, axis=axis)
@@ -115,17 +128,3 @@ def sort_dict(unsorted_dict, descending=False):
     # plt.legend()
 
     # plt.show()
-
-
-__all__ = [
-    'get_classes_from_dir',
-    'median',
-    'npmean',
-    'asarray',
-    'to_array',
-    'array',
-    'saveNumpy',
-    'npload'
-    'train_val_split',
-    'sort_dict'
-]
