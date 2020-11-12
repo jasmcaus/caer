@@ -472,11 +472,15 @@ def minijoin(*paths):
     """
         Join multiple filepaths together
     """
-    
+
     return os.path.join(*paths)
 
 
 def dirname(file):
+    """
+        Returns the base directory name of `file`
+    """
+    
     return os.path.dirname(file)
 
 
