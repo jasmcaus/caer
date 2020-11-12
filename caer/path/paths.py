@@ -404,6 +404,9 @@ def isdir(DIR):
 
 
 def mkdir(path):
+    """
+        Creates a directory at `path`
+    """
     os.mkdir(path)
 
 
