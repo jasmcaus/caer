@@ -278,6 +278,11 @@ def setup_package():
 
 if __name__ == '__main__':
     # Running the build is as simple as: 
-    # python setup.py sdist bdist_wheel
+    # >> python setup.py sdist bdist_wheel
     # This command includes building the required Python extensions (Cython included)
+
+    # It's recommended, however, to use:
+    # >> python setup.py build_ext
+    # and then
+    # >> python setup.py sdist bdist_wheel
     setup_package()
