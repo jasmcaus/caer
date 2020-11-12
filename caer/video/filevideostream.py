@@ -18,6 +18,11 @@ import cv2 as cv
 from ..globals import FRAME_COUNT, FPS
 
 
+__all__ = [
+    'FileVideoStream'
+]
+
+
 #pylint:disable=no-member
 
 # ret, jpeg = cv2.imencode('.jpg', image)
@@ -120,8 +125,3 @@ class FileVideoStream:
             #     return math.ceil(self.stream.get(FPS_DEPR))
             # else:
             #     return math.ceil(self.stream.get(FPS))
-
-
-__all__ = [
-    'FileVideoStream'
-]
