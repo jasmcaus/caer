@@ -1,10 +1,13 @@
-# Copyright 2020 The Caer Authors. All Rights Reserved.
 #
-# Licensed under the MIT License (see LICENSE);
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at <https://opensource.org/licenses/MIT>
-#
-# ==============================================================================
+#  _____ _____ _____ ____
+# |     | ___ | ___  | __|  Caer - Modern Computer Vision
+# |     |     |      | \    version 3.9.1
+# |_____|     | ____ |  \   http://github.com/jasmcaus/caer
+
+# Licensed under the MIT License <http://opensource.org/licenses/MIT>.
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2020 The Caer Authors <http://github.com/jasmcaus>.
+# 
 
 mode2int = {
     'nearest' : 0,
