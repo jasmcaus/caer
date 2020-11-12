@@ -9,9 +9,11 @@
 # Copyright (c) 2020 The Caer Authors <http://github.com/jasmcaus>
 
 
-
 from .filevideostream import FileVideoStream
 
+__all__ = [
+    'VideoStream'
+]
 
 # Using the FileVideoStream class as it can handle both live as well as pre-existing videos
 
@@ -39,8 +41,3 @@ class VideoStream():
         
     def release(self):
         self.video_stream.release()
-
-
-__all__ = [
-    'VideoStream'
-]
