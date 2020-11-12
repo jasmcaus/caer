@@ -469,6 +469,10 @@ def get_size(file, disp_format='bytes'):
 
 
 def minijoin(*paths):
+    """
+        Join multiple filepaths together
+    """
+    
     return os.path.join(*paths)
 
 
