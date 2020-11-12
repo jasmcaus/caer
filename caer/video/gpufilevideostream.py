@@ -17,6 +17,10 @@ import cv2 as cv
 
 from ..globals import FRAME_COUNT, FPS
 
+__all__ = [
+    'GPUFileVideoStream'
+]
+
 
 class GPUFileVideoStream:
 
@@ -115,7 +119,3 @@ class GPUFileVideoStream:
     def get_fps(self):
         if not self.kill_stream:
             return math.ceil(self.stream.get(FPS))
-
-__all__ = [
-    'GPUFileVideoStream'
-]
