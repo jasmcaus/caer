@@ -21,6 +21,13 @@ from .exceptions import ValidationError
 from ..globals import INVALID_URL_STRING, VALID_URL_NO_EXIST
 
 
+__all__ = [
+    'URLValidator',
+    'validate_ipv6_address',
+    'is_valid_url'
+]
+
+
 # These values, if given to validate(), will trigger the self.required check.
 EMPTY_VALUES = (None, '', [], (), {})
 
@@ -417,10 +424,3 @@ class URLValidator(RegexValidator):
         # that's used to indicate absolute names in DNS.
         if len(urlsplit(value).netloc) > 253:
             raise ValidationError(self.message, code=self.code, params={'value': value})
-
-
-__all__ = [
-    'URLValidator',
-    'validate_ipv6_address',
-    'is_valid_url'
-]
