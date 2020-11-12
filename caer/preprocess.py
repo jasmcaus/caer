@@ -12,7 +12,7 @@
 import random
 import time
 
-from .utilities import saveNumpy, get_classes_from_dir, to_array, load
+from .utilities import saveNumpy, get_classes_from_dir, to_array, npload
 from .io import imread
 from .preprocessing import MeanProcess
 from ._internal import _check_target_size, _check_mean_sub_values
@@ -96,7 +96,7 @@ def preprocess_from_dir(DIR,
     if destination_filename is not None and exists(destination_filename):
         print('[INFO] Loading from Numpy Files')
         since = time.time()
-        data = load(destination_filename, allow_pickle=True)
+        data = npload(destination_filename, allow_pickle=True)
         end = time.time()
         print('----------------------------------------------')
         print('[INFO] Loaded in {:.0f}s from Numpy Files'.format(end-since))
