@@ -31,4 +31,4 @@ Place between these lines with triple backticks:
 **Additional context**
 Add any other context about the problem here.
 
-[documentation]: https://github.com/jasmcaus/caer/blob/master/DOCS.md
+[documentation]: https://github.com/jasmcaus/caer/blob/master/docs/
