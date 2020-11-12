@@ -1,14 +1,15 @@
-# Caer: Modern Computer Vision on the Fly
+# Caer - Modern Computer Vision on the Fly
 [![Python](https://img.shields.io/pypi/pyversions/caer.svg)][py-versions]
 [![PyPI](https://badge.fury.io/py/caer.svg)][pypi-latest-version]
 [![Downloads](https://pepy.tech/badge/caer)][downloads]
 [![license](https://img.shields.io/github/license/jasmcaus/caer?label=license)][license]
 
+## Overview
 A Computer Vision library in Python with powerful image and video processing operations.
 Caer is a set of utility functions designed to help speed up your Computer Vision workflow. Functions inside `caer` will help reduce the number of calculation calls your code makes, ultimately making it neat, concise and readable.
 
 
-# More About Caer
+## More About Caer
 
 Caer is a Python library that consists of the following components:
 
@@ -58,9 +59,9 @@ You can run the following to verify things installed correctly:
 ```
 
 
-# Getting Started
+## Getting Started
 
-## Resources
+### Resources
 
 - [**PyPi**](https://pypi.org/project/caer)
 - [**Documentation**](https://github.com/jasmcaus/caer/blob/master/docs/README.md)
