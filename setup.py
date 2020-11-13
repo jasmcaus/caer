@@ -110,9 +110,6 @@ KEYWORDS = [i for i in cfg['keywords'].split(', ')]
 REQUIREMENTS = [i for i in opt['pip_requirements'].split(', ')]
 CLASSIFIERS = [i for i in cfg['classifiers'].split('\n')][1:]
 PYTHON_REQUIRES = '>=' + opt['min_python']
-EXTRAS={
-        'canaro': 'canaro>=1.0.6'
-}
 EXTENSIONS = {
     'caer.filters.cconvex': ['caer/filters/cconvex.cpp'],
     'caer.filters.cconvolve': ['caer/filters/cconvolve.cpp', 'caer/src/cfilters.cpp'],
@@ -248,7 +245,6 @@ def setup_package():
         license = LICENSE,
         platforms = PLATFORMS,
         install_requires = REQUIREMENTS,
-        extras_require = EXTRAS,
         python_requires = PYTHON_REQUIRES,
         cmdclass = CMDCLASS,
 # Include_package_data is required for setup.py to recognize the MAINFEST.in file
