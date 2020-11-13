@@ -66,15 +66,10 @@ pip install -e . # Do this once to add the package to the Python Path
 
 ## System package managers
 
-Using a package manager (`yum`, `apt-get`, etc.) to install `caer`
-or other Python packages is not your best option:
+Using a package manager (`yum`, `apt-get`, etc.) to install `caer` or other Python packages is not your best option:
 
 - You're likely to get an older version.
 
-- You'll probably want to make updates and add new packages outside of
-  the package manager, leaving you with the same kind of
-  dependency conflicts you see when using pip without a virtual environment.
+- You'll probably want to make updates and add new packages outside of the package manager, leaving you with the same kind ofdependency conflicts you see when using pip without a virtual environment.
 
-- There's an added risk because operating systems use Python, so if you
-  make system-wide Python changes (installing as root or using sudo),
-  you can break the operating system.
+- There's an added risk because operating systems use Python, so if you make system-wide Python changes (installing as root or using sudo), you can break the operating system.
