@@ -22,8 +22,8 @@ Copyright (c) 2020 The Caer Authors <http://github.com/jasmcaus>
 #include "../src/array.hpp"
 #include "../src/disp.hpp"
 
-#include "../cutils.hpp"
-#include "../filters.h"
+#include "../src/cutils.hpp"
+#include "../src/filters.h"
 
 
 namespace {
