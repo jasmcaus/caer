@@ -115,18 +115,18 @@ EXTRAS={
         'canaro': 'canaro>=1.0.6'
 }
 EXTENSIONS = {
-    'caer.cconvex': ['caer/cconvex.cpp'],
-    'caer.filters.cconvolve': ['caer/filters/cconvolve.cpp', 'caer/cfilters.cpp'],
+    'caer.filters.cconvex': ['caer/filters/cconvex.cpp'],
+    'caer.filters.cconvolve': ['caer/filters/cconvolve.cpp', 'caer/src/cfilters.cpp'],
     'caer.distance.cdistance': ['caer/distance/cdistance.cpp'],
-    'caer.morph.cmorph': ['caer/morph/cmorph.cpp', 'caer/cfilters.cpp'],
+    'caer.morph.cmorph': ['caer/morph/cmorph.cpp', 'caer/src/cfilters.cpp'],
     'caer.ndi.cndi' : ['caer/ndi/cndimage.c', 
-                   'caer/ndi/cndfilters.c',
-                   'caer/ndi/cndfourier.c',
-                   'caer/ndi/cndinterpolation.c',
-                   'caer/ndi/cndmeasure.c',
-                   'caer/ndi/cndmorphology.c',
-                   'caer/ndi/cndsplines.c',
-                   'caer/ndi/cndsupport.c'
+                       'caer/ndi/cndfilters.c',
+                       'caer/ndi/cndfourier.c',
+                       'caer/ndi/cndinterpolation.c',
+                       'caer/ndi/cndmeasure.c',
+                       'caer/ndi/cndmorphology.c',
+                       'caer/ndi/cndsplines.c',
+                       'caer/ndi/cndsupport.c'
                 ]
 }
 EXT_MODULES = [Extension(key, sources=sources, include_dirs=[np.get_include()]) for key, sources in EXTENSIONS.items()]
