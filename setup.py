@@ -119,14 +119,14 @@ EXTENSIONS = {
     'caer.filters.cconvolve': ['caer/filters/cconvolve.cpp', 'caer/src/cfilters.cpp'],
     'caer.distance.cdistance': ['caer/distance/cdistance.cpp'],
     'caer.morph.cmorph': ['caer/morph/cmorph.cpp', 'caer/src/cfilters.cpp'],
-    'caer.ndi.cndi' : ['caer/ndi/cndimage.c', 
-                       'caer/ndi/cndfilters.c',
-                       'caer/ndi/cndfourier.c',
-                       'caer/ndi/cndinterpolation.c',
-                       'caer/ndi/cndmeasure.c',
-                       'caer/ndi/cndmorphology.c',
-                       'caer/ndi/cndsplines.c',
-                       'caer/ndi/cndsupport.c'
+    'caer.ndi.cndi' : ['caer/ndi/includes/cndimage.c', 
+                       'caer/ndi/includes/cndfilters.c',
+                       'caer/ndi/includes/cndfourier.c',
+                       'caer/ndi/includes/cndinterpolation.c',
+                       'caer/ndi/includes/cndmeasure.c',
+                       'caer/ndi/includes/cndmorphology.c',
+                       'caer/ndi/includes/cndsplines.c',
+                       'caer/ndi/includes/cndsupport.c'
                 ]
 }
 EXT_MODULES = [Extension(key, sources=sources, include_dirs=[np.get_include()]) for key, sources in EXTENSIONS.items()]
