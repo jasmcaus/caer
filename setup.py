@@ -282,7 +282,7 @@ if __name__ == '__main__':
     # This command includes building the required Python extensions (Cython included)
 
     # It's recommended, however, to use:
-    # >> python setup.py build_ext
-    # and then
+    # >> python setup.py build_ext 
+    # first, and then
     # >> python setup.py sdist bdist_wheel
     setup_package()
