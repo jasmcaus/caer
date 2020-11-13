@@ -29,9 +29,8 @@ Usually, Caer is used either as:
 - a Computer Vision research platform that provides maximum flexibility and speed.
 
 
-## Installation
-See **[Installation][install]** for detailed installation instructions. 
-
+## Install
+See the Caer **[Installation][install]** guide for detailed installation instructions including building from source.
 
 Currently, `caer` supports releases of Python 3.6 onwards; Python 2 is not supported (nor recommended). 
 To install the current release:
@@ -40,24 +39,21 @@ To install the current release:
 $ pip install caer
 ```
 
-### From Source
-If you plan to develop `caer` yourself, or want to be on the cutting edge, you can use an editable install:
-
-```shell
-git clone https://github.com/jasmcaus/caer.git
-cd caer
-pip install -e . # Do this once to add the package to the Python Path
-```
-
-You can run the following to verify things installed correctly:
-
-```python
->> import caer
->> print(f'Caer version: {caer.__version__}')
-```
-
 
 ## Getting Started
+
+### Example
+```python
+>> import caer
+
+# Load a standard 640x427 test image that ships out-of-the-box with caer
+>> sunrise = caer.data.sunrise(rgb=True)
+
+# Resize the image to 500x500 while MAINTAING aspect ratio
+>> resized = caer.resize(sunrise, target_size=(500,500))
+```
+
+For more examples, see the [Caer demos](demos).
 
 ### Resources
 
@@ -84,6 +80,7 @@ Caer is released under the [MIT License](https://github.com/jasmcaus/caer/blob/m
 [coc]: https://github.com/jasmcaus/caer/blob/master/CODE_OF_CONDUCT.md
 [issues]: https://github.com/jasmcaus/caer/issues
 [install]: https://github.com/jasmcaus/caer/blob/master/INSTALL.md
+[demos]: https://github.com/jasmcaus/caer/blob/master/demos/
 
 [downloads]: https://pepy.tech/project/caer
 [py-versions]: https://pypi.org/project/caer/
