@@ -49,7 +49,7 @@ $ pip install caer
 # Load a standard 640x427 test image that ships out-of-the-box with caer
 >> sunrise = caer.data.sunrise(rgb=True)
 
-# Resize the image to 500x500 while MAINTAING aspect ratio
+# Resize the image to 500x500 while MAINTAINING aspect ratio
 >> resized = caer.resize(sunrise, target_size=(500,500))
 ```
 
