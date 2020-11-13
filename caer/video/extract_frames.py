@@ -1,10 +1,13 @@
-# Copyright 2020 The Caer Authors. All Rights Reserved.
-#
-# Licensed under the MIT License (see LICENSE);
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at <https://opensource.org/licenses/MIT>
-#
-# ==============================================================================
+#    _____           ______  _____ 
+#  / ____/    /\    |  ____ |  __ \
+# | |        /  \   | |__   | |__) | Caer - Modern Computer Vision
+# | |       / /\ \  |  __|  |  _  /  Languages: Python, C, C++
+# | |___   / ____ \ | |____ | | \ \  http://github.com/jasmcaus/caer
+#  \_____\/_/    \_ \______ |_|__\_
+
+# Licensed under the MIT License <http://opensource.org/licenses/MIT>
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2020 The Caer Authors <http://github.com/jasmcaus>
 
 import math
 import time
