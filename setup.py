@@ -77,7 +77,6 @@ if not is_right_py_version(min_version):
 from setuptools import setup, find_packages, Extension
 from distutils.command.build_ext import build_ext
 from configparser import ConfigParser
-import io 
 import numpy as np 
 
 
@@ -106,7 +105,7 @@ URL = cfg['git_url']
 DOWNLOAD_URL = cfg['download_url']
 PACKAGES = find_packages()
 DESCRIPTION = cfg['description']
-LONG_DESCRIPTION = io.open('LONG_DESCRIPTION.md', encoding='utf-8').read()
+LONG_DESCRIPTION = open('LONG_DESCRIPTION.md', encoding='utf-8').read()
 KEYWORDS = [i for i in cfg['keywords'].split(', ')]
 REQUIREMENTS = [i for i in opt['pip_requirements'].split(', ')]
 CLASSIFIERS = [i for i in cfg['classifiers'].split('\n')][1:]
