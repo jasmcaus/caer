@@ -81,6 +81,8 @@ from .opencv import rgb_to_hsv
 from .opencv import rgb_to_lab
 from .opencv import rgb_to_bgr
 from .opencv import url_to_image 
+from .opencv import energy_map 
+from .opencv import color_map 
 from .opencv import translate
 from .opencv import rotate 
 from .opencv import edges 

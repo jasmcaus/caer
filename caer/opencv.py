@@ -33,6 +33,8 @@ __all__ = [
     'rgb_to_lab',
     'rgb_to_bgr',
     'url_to_image',
+    'color_map',
+    'energy_map',
     'translate',
     'rotate',
     'edges'
@@ -218,6 +220,27 @@ def rgb_to_lab(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts an RGB image to its LAB counterpart')
 
     return cv.cvtColor(img, RGB2LAB)
+
+
+def energy_map(img):
+    img = bgr_to_gray(img.astype(np.uint8))
+
+    dx = cv.Sobel(img, cv.CV_16S, 1, 0, ksize=3)
+    abs_x = cv.convertScaleAbs(dx)
+    dy = cv.Sobel(img, cv.CV_16S, 0, 1, ksize=3)
+    abs_y = cv.convertScaleAbs(dy)
+    output = cv.addWeighted(abs_x, 0.5, abs_y, 0.5, 0)
+
+    return output
+
+
+def color_map(img):
+    gray_img = bgr_to_gray(img) 
+
+    heatmap = cv.applyColorMap(gray_img, 11)
+    superimpose = cv.addWeighted(heatmap, 0.7, img, 0.3, 0)
+
+    return superimpose
 
 
 def url_to_image(url, rgb=False):
