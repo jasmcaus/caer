@@ -37,11 +37,11 @@ To install the current `caer` you'll need at least Python 3.6.1. If you have an 
 $ pip install --upgrade caer
 ```
 
-To include a selection of other Python packages that expand `caer`'s capabilities, e.g., for Deep Learning, you can install `canaro` as well: 
+<!-- To include a selection of other Python packages that expand `caer`'s capabilities, e.g., for Deep Learning, you can install `canaro` as well: 
 
 ```shell
 $ pip install --upgrade caer[canaro]
-```
+``` -->
 
 #### Warning
 
