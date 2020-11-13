@@ -40,8 +40,6 @@ To install the current release:
 $ pip install caer
 ```
 
-Optionally, Caer can also install [canaro](https://github.com/jasmcaus/canaro) if you install it with `pip install caer[canaro]`
-
 ### From Source
 If you plan to develop `caer` yourself, or want to be on the cutting edge, you can use an editable install:
 
