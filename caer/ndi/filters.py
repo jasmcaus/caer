@@ -43,6 +43,26 @@ def _invalid_origin(origin, lenw):
     return (origin < -(lenw // 2)) or (origin > (lenw - 1) // 2)
 
 
+def _complex_via_real_components(func, inp, weights, output, **kwargs):
+    """Complex convolution via a linear combination of real convolutions."""
+    complex_inp = inp.dtype.kind == 'c'
+    complex_weights = weights.dtype.kind == 'c'
+    if complex_inp and complex_weights:
+        # real component of the output
+        func(inp.real, weights.real, output=output.real, **kwargs)
+        output.real -= func(inp.imag, weights.imag, output=None, **kwargs)
+        # imaginary component of the output
+        func(inp.real, weights.imag, output=output.imag, **kwargs)
+        output.imag += func(inp.imag, weights.real, output=None, **kwargs)
+    elif complex_inp:
+        func(inp.real, weights, output=output.real, **kwargs)
+        func(inp.imag, weights, output=output.imag, **kwargs)
+    else:
+        func(inp, weights.real, output=output.real, **kwargs)
+        func(inp, weights.imag, output=output.imag, **kwargs)
+    return output
+
+
 
 def correlate1d(inp, weights, axis=-1, output=None, mode="reflect", cval=0.0, origin=0):
     """Calculate a 1-D correlation along the given axis.
@@ -62,8 +82,19 @@ def correlate1d(inp, weights, axis=-1, output=None, mode="reflect", cval=0.0, or
     %(origin)s
     """
     inp = np.asarray(inp)
-    if np.iscomplexobj(inp):
-        raise TypeError('Complex type not supported')
+    weights = np.asarray(weights)
+
+    complex_input = input.dtype.kind == 'c'
+    complex_weights = weights.dtype.kind == 'c'
+    if complex_input or complex_weights:
+        if complex_weights:
+            weights = weights.conj()
+            weights = weights.astype(np.complex128, copy=False)
+        kwargs = dict(axis=axis, mode=mode, cval=cval, origin=origin)
+        output = cndsupport._get_output(output, input, complex_output=True)
+        return _complex_via_real_components(correlate1d, input, weights,
+                                            output, **kwargs)
+
     output = cndsupport._get_output(output, inp)
     weights = np.asarray(weights, dtype=np.float64)
     if weights.ndim != 1 or weights.shape[0] < 1:
@@ -109,6 +140,10 @@ def convolve1d(inp, weights, axis=-1, output=None, mode="reflect",
     origin = -origin
     if not len(weights) & 1:
         origin -= 1
+    weights = np.asarray(weights)
+    if weights.dtype.kind == 'c':
+        # pre-conjugate here to counteract the conjugation in correlate1d
+        weights = weights.conj()
     return correlate1d(inp, weights, axis, output, mode, cval, origin)
 
 
@@ -454,8 +489,21 @@ def gaussian_gradient_magnitude(inp, sigma, output=None,
 def _correlate_or_convolve(inp, weights, output, mode, cval, origin,
                            convolution):
     inp = np.asarray(inp)
-    if np.iscomplexobj(inp):
-        raise TypeError('Complex type not supported')
+    weights = np.asarray(weights)
+    complex_input = input.dtype.kind == 'c'
+    complex_weights = weights.dtype.kind == 'c'
+    if complex_input or complex_weights:
+        if complex_weights and not convolution:
+            # As for numpy.correlate, conjugate weights rather than input.
+            weights = weights.conj()
+        kwargs = dict(
+            mode=mode, cval=cval, origin=origin, convolution=convolution
+        )
+        output = cndsupport._get_output(output, input, complex_output=True)
+
+        return _complex_via_real_components(_correlate_or_convolve, input,
+                                            weights, output, **kwargs)
+
     origins = cndsupport._normalize_sequence(origin, inp.ndim)
     weights = np.asarray(weights, dtype=np.float64)
     wshape = [ii for ii in weights.shape if ii > 0]
