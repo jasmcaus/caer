@@ -47,17 +47,32 @@ def _normalize_sequence(inp, rank):
     return normalized
 
 
-def _get_output(output, inp, shape=None):
+def _get_output(output, inp, shape=None, complex_output=False):
     if shape is None:
         shape = inp.shape
     if output is None:
-        output = np.zeros(shape, dtype=inp.dtype.name)
+        if not complex_output:
+            output = np.zeros(shape, dtype=input.dtype.name)
+        else:
+            complex_type = np.promote_types(input.dtype, np.complex64)
+            output = np.zeros(shape, dtype=complex_type)
+
     elif isinstance(output, (type, np.dtype)):
         # Classes (like `np.float32`) and dtypes are interpreted as dtype
+        if complex_output and np.dtype(output).kind != 'c':
+            raise RuntimeError("output must have complex dtype")
+
         output = np.zeros(shape, dtype=output)
+
     elif isinstance(output, str):
         output = np.typeDict[output]
+        if complex_output and np.dtype(output).kind != 'c':
+            raise RuntimeError("output must have complex dtype")
         output = np.zeros(shape, dtype=output)
+
     elif output.shape != shape:
         raise RuntimeError("output shape not correct")
+    
+    elif complex_output and output.dtype.kind != 'c':
+        raise RuntimeError("output must have complex dtype")
     return output
