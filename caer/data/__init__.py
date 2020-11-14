@@ -17,6 +17,9 @@ from .._base import __curr__
 
 here = minijoin(__curr__, 'data').replace('\\', "/") + "/"
 
+def get_path_to_data(name):
+    return minijoin(here, name)
+
 
 def audio_mixer(target_size=None, rgb=False):
     return imread(here+'audio_mixer.jpg', target_size=target_size, rgb=rgb)
