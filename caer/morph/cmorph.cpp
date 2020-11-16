@@ -323,7 +323,7 @@ namespace {
     };
 
     template<typename BaseType>
-    void cwatershed(numpy::aligned_array<npy_int64> res,
+    void watershed(numpy::aligned_array<npy_int64> res,
                             numpy::aligned_array<bool>* lines,
                             const numpy::aligned_array<BaseType> array,
                             const numpy::aligned_array<npy_int64> markers,
@@ -414,7 +414,7 @@ namespace {
         }
     }
 
-    PyObject* py_cwatershed(PyObject* self, PyObject* args) {
+    PyObject* py_watershed(PyObject* self, PyObject* args) {
         PyArrayObject* array;
         PyArrayObject* markers;
         PyArrayObject* Bc;
@@ -424,7 +424,7 @@ namespace {
         }
         if (!numpy::are_arrays(array, markers, Bc) ||
             !numpy::check_type<npy_int64>(markers)) {
-            PyErr_SetString(PyExc_RuntimeError, "caer._cwatershed: markers should be an int32 array.");
+            PyErr_SetString(PyExc_RuntimeError, "caer._watershed: markers should be an int32 array.");
             return NULL;
         }
         PyArrayObject* res_a = (PyArrayObject*)PyArray_SimpleNew(
@@ -440,7 +440,7 @@ namespace {
             lines_a = new numpy::aligned_array<bool>(lines);
         }
     #define HANDLE(type) \
-        cwatershed<type>(numpy::aligned_array<npy_int64>(res_a),lines_a,numpy::aligned_array<type>(array),numpy::aligned_array<npy_int64>(markers),numpy::aligned_array<type>(Bc));
+        watershed<type>(numpy::aligned_array<npy_int64>(res_a),lines_a,numpy::aligned_array<type>(array),numpy::aligned_array<npy_int64>(markers),numpy::aligned_array<type>(Bc));
         SAFE_SWITCH_ON_TYPES_OF(array);
     #undef HANDLE
         if (return_lines) {
@@ -654,14 +654,9 @@ namespace {
     PyMethodDef methods[] = {
     {"dilate",   (PyCFunction)py_dilate, METH_VARARGS, NULL},
     {"erode",   (PyCFunction)py_erode, METH_VARARGS, NULL},
-    {"cwatershed",   (PyCFunction)py_cwatershed, METH_VARARGS, NULL},
+    {"watershed",   (PyCFunction)py_watershed, METH_VARARGS, NULL},
     {"distance_multi",   (PyCFunction)py_distance_multi, METH_VARARGS, NULL},
     {"hitmiss",   (PyCFunction)py_hitmiss, METH_VARARGS, NULL},
-    // {"subm",   (PyCFunction)py_subm, METH_VARARGS, NULL},
-    // {"disk_2d",   (PyCFunction)py_disk_2d, METH_VARARGS, NULL},
-    // {"close_holes",   (PyCFunction)py_close_holes, METH_VARARGS, NULL},
-    // {"locmin_max",   (PyCFunction)py_locminmax, METH_VARARGS, NULL},
-    // {"regmin_max",   (PyCFunction)py_regminmax, METH_VARARGS, NULL},
     {NULL, NULL,0,NULL},
     };
 
