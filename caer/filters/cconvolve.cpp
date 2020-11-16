@@ -250,41 +250,6 @@ namespace{
         return (x & 1) == 0; 
     }
 
-    template <typename T>
-    void iwavelet(numpy::aligned_array<T> array, const float coeffs[], const int ncoeffs) {
-        gil_release nogil;
-        const npy_intp N0 = array.dim(0);
-        const npy_intp N1 = array.dim(1);
-        const npy_intp step = array.stride(1);
-
-        std::vector<T> bufdata;
-        bufdata.resize(N1);
-        T* buffer = &bufdata[0];
-        for (npy_intp y = 0; y != N0; ++y) {
-            T* data = array.data(y);
-            T* low = data;
-            T* high = data + step*N1/2;
-            for (npy_intp x = 0; x < N1; ++x) {
-                T l = T();
-                T h = T();
-                for (npy_intp ci = 0; ci != ncoeffs; ++ci) {
-                    const int xmap2 = x+ci-ncoeffs+2;
-                    if (!_is_even(xmap2)) {
-                        const int xmap = xmap2 / 2;
-                        const float cl = coeffs[ci];
-                        const float ch = (_is_even(ci) ? +1 : -1) * coeffs[ncoeffs-ci-1];
-                        l += cl*_access( low, N1/2, xmap, step);
-                        h += ch*_access(high, N1/2, xmap, step);
-                    }
-                }
-                buffer[x] = (l+h)/2.;
-            }
-
-            for (int x = 0; x != N1; ++x) {
-                data[step*x] = buffer[x];
-            }
-        }
-    }
 
     PyObject* py_haar(PyObject* self, PyObject* args) {
         PyArrayObject* array;
@@ -368,28 +333,6 @@ namespace{
         return PyArray_Return(array);
     }
 
-    PyObject* py_iwavelet(PyObject* self, PyObject* args) {
-        PyArrayObject* array;
-        PyArrayObject* coeffs;
-        if (!PyArg_ParseTuple(args, "OO", &array, &coeffs) ||
-            !numpy::are_arrays(array, coeffs) ||
-            PyArray_NDIM(array) != 2 ||
-            PyArray_TYPE(coeffs) != NPY_FLOAT ||
-            !PyArray_ISCARRAY(coeffs)) {
-            PyErr_SetString(PyExc_RuntimeError,TypeErrorMsg);
-            return NULL;
-        }
-        numpy::aligned_array<float> acoeffs(coeffs);
-
-    #define HANDLE(type) \
-            iwavelet<type>(numpy::aligned_array<type>(array), acoeffs.data(), acoeffs.dim(0));
-
-        SAFE_SWITCH_ON_FLOAT_TYPES_OF(array);
-    #undef HANDLE
-
-        Py_INCREF(array);
-        return PyArray_Return(array);
-    }
 
     const float* dcoeffs(const int code) {
         switch (code) {
@@ -431,133 +374,6 @@ namespace{
         return PyArray_Return(array);
     }
 
-    PyObject* py_idaubechies(PyObject* self, PyObject* args) {
-        PyArrayObject* array;
-        int code;
-        if (!PyArg_ParseTuple(args, "Oi", &array, &code) ||
-            !numpy::are_arrays(array) ||
-            PyArray_NDIM(array) != 2) {
-            PyErr_SetString(PyExc_RuntimeError,TypeErrorMsg);
-            return NULL;
-        }
-        const float* coeffs = dcoeffs(code);
-        int ncoeffs = 2*(code + 1);
-        if (!coeffs) return NULL;
-
-        Py_INCREF(array);
-    #define HANDLE(type) \
-            iwavelet<type>(numpy::aligned_array<type>(array), coeffs, ncoeffs);
-
-        SAFE_SWITCH_ON_FLOAT_TYPES_OF(array);
-    #undef HANDLE
-
-        return PyArray_Return(array);
-    }
-
-    template <typename T>
-    void ihaar(numpy::aligned_array<T> array) {
-        gil_release nogil;
-        const int N0 = array.dim(0);
-        const int N1 = array.dim(1);
-        const int step = array.stride(1);
-
-        std::vector<T> bufdata;
-        bufdata.resize(N1);
-        T* buffer = &bufdata[0];
-
-        for (int y = 0; y != N0; ++y) {
-            T* data = array.data(y);
-            T* low = data;
-            T* high = data + step*N1/2;
-            for (int x = 0; x != (N1/2); ++x) {
-                const T h = high[x*step];
-                const T l = low[x*step];
-                buffer[2*x]   = (l-h)/2;
-                buffer[2*x+1] = (l+h)/2;
-            }
-            for (int x = 0; x != N1; ++x) {
-                data[step*x] = buffer[x];
-            }
-        }
-    }
-
-
-    PyObject* py_ihaar(PyObject* self, PyObject* args) {
-        PyArrayObject* array;
-        if (!PyArg_ParseTuple(args, "O", &array) ||
-            !PyArray_Check(array) || PyArray_NDIM(array) != 2) {
-            PyErr_SetString(PyExc_RuntimeError,TypeErrorMsg);
-            return NULL;
-        }
-
-    #define HANDLE(type) \
-            ihaar<type>(numpy::aligned_array<type>(array));
-
-        SAFE_SWITCH_ON_FLOAT_TYPES_OF(array);
-    #undef HANDLE
-
-        Py_INCREF(array);
-        return PyArray_Return(array);
-    }
-
-    template<typename T>
-    void rank_filter(numpy::aligned_array<T> res, const numpy::aligned_array<T> array, const numpy::aligned_array<T> Bc, const int rank, const int mode, const T cval = T()) {
-        gil_release nogil;
-        const npy_intp N = res.size();
-        typename numpy::aligned_array<T>::const_iterator iter = array.begin();
-        filter_iterator<T> fiter(array.raw_array(), Bc.raw_array(), ExtendMode(mode), true);
-        const npy_intp N2 = fiter.size();
-        if (rank < 0 || rank >= N2) {
-            return;
-        }
-        std::vector<T> n_data;
-        n_data.resize(N2);
-        // T* is a fine iterator type.
-        T* rpos = res.data();
-
-        // This is generally a T*, except in debug builds, so we get checking there
-        typename std::vector<T>::iterator neighbours = n_data.begin();
-
-        for (npy_intp i = 0; i != N; ++i, ++rpos, fiter.iterate_both(iter)) {
-            npy_intp n = 0;
-            for (npy_intp j = 0; j != N2; ++j) {
-                T val;
-                if (fiter.retrieve(iter, j, val)) neighbours[n++] = val;
-                else if (mode == ExtendConstant) neighbours[n++] = cval;
-            }
-            npy_intp currank = rank;
-            if (n != N2) {
-                currank = npy_intp(n * rank/double(N2));
-            }
-            std::nth_element(neighbours, neighbours + currank, neighbours + n);
-            *rpos = neighbours[currank];
-        }
-    }
-    PyObject* py_rank_filter(PyObject* self, PyObject* args) {
-        PyArrayObject* array;
-        PyArrayObject* Bc;
-        int rank;
-        int mode;
-        PyArrayObject* output;
-        if (!PyArg_ParseTuple(args, "OOOii", &array, &Bc, &output, &rank, &mode) ||
-            !PyArray_Check(array) || !PyArray_Check(Bc) || !PyArray_Check(output) ||
-            !PyArray_EquivTypenums(PyArray_TYPE(array), PyArray_TYPE(Bc)) ||
-            PyArray_NDIM(array) != PyArray_NDIM(Bc) ||
-            !PyArray_EquivTypenums(PyArray_TYPE(array), PyArray_TYPE(output)) ||
-            !PyArray_ISCARRAY(output)) {
-            PyErr_SetString(PyExc_RuntimeError,TypeErrorMsg);
-            return NULL;
-        }
-        holdref r(output);
-
-    #define HANDLE(type) \
-            rank_filter<type>(numpy::aligned_array<type>(output), numpy::aligned_array<type>(array), numpy::aligned_array<type>(Bc), rank, mode);
-        SAFE_SWITCH_ON_TYPES_OF(array);
-    #undef HANDLE
-
-        Py_INCREF(output);
-        return PyArray_Return(output);
-    }
 
     template<typename T>
     void mean_filter(numpy::aligned_array<double> res, const numpy::aligned_array<T> array, const numpy::aligned_array<T> Bc, const int mode, const double cval) {
@@ -605,73 +421,14 @@ namespace{
         return PyArray_Return(output);
     }
 
-    template <typename T>
-    void find2d(const numpy::aligned_array<T> array, const numpy::aligned_array<T> target, numpy::aligned_array<bool> out) {
-        gil_release nogil;
-        const npy_intp N0 = array.dim(0);
-        const npy_intp N1 = array.dim(1);
-
-        const npy_intp Nt0 = target.dim(0);
-        const npy_intp Nt1 = target.dim(1);
-        assert(out.is_carray());
-        bool* rpos = out.data();
-        std::fill(rpos, rpos + N0*N1, false);
-
-        for (npy_intp y = 0; y < N0 - Nt0; ++y) {
-            for (npy_intp x = 0; x < N1 - Nt1; ++x) {
-                for (npy_intp sy = 0; sy < Nt0; ++sy) {
-                    for (npy_intp sx = 0; sx < Nt1; ++sx) {
-                        if (array.at(y + sy,x + sx) != target.at(sy,sx)) {
-                            goto next_pos;
-                        }
-                    }
-                }
-                out.at(y, x) = true;
-                next_pos:
-                    ;
-            }
-        }
-    }
-
-    PyObject* py_find2d(PyObject* self, PyObject* args) {
-        PyArrayObject* array;
-        PyArrayObject* target;
-        PyArrayObject* output;
-        if (!PyArg_ParseTuple(args,"OOO", &array, &target, &output)) return NULL;
-        if (!numpy::are_arrays(array, target, output) ||
-                !numpy::same_shape(output, array) ||
-                !numpy::equiv_typenums(array, target) ||
-                !numpy::check_type<bool>(output) ||
-                !PyArray_ISCARRAY(output)) {
-                PyErr_SetString(PyExc_RuntimeError, OutputErrorMsg);
-                return NULL;
-        }
-        holdref outref(output);
-
-    #define HANDLE(type) \
-        find2d<type>(numpy::aligned_array<type>(array), numpy::aligned_array<type>(target), numpy::aligned_array<bool>(output));
-
-        SAFE_SWITCH_ON_TYPES_OF(array);
-    #undef HANDLE
-
-        Py_INCREF(output);
-        return PyArray_Return(output);
-    }
-
 
     PyMethodDef methods[] = {
     {"convolve",(PyCFunction)py_convolve, METH_VARARGS, NULL},
     {"convolve1d",(PyCFunction)py_convolve1d, METH_VARARGS, NULL},
-    // {"wavelet",(PyCFunction)py_wavelet, METH_VARARGS, NULL},
-    // {"iwavelet",(PyCFunction)py_iwavelet, METH_VARARGS, NULL},
+    {"wavelet",(PyCFunction)py_wavelet, METH_VARARGS, NULL},
     {"daubechies",(PyCFunction)py_daubechies, METH_VARARGS, NULL},
-    {"idaubechies",(PyCFunction)py_idaubechies, METH_VARARGS, NULL},
     {"haar",(PyCFunction)py_haar, METH_VARARGS, NULL},
-    {"ihaar",(PyCFunction)py_ihaar, METH_VARARGS, NULL},
-    {"rank_filter",(PyCFunction)py_rank_filter, METH_VARARGS, NULL},
     {"mean_filter",(PyCFunction)py_mean_filter, METH_VARARGS, NULL},
-    // {"template_match",(PyCFunction)py_template_match, METH_VARARGS, NULL},
-    {"find2d",(PyCFunction)py_find2d, METH_VARARGS, NULL},
     {NULL, NULL,0,NULL},
     };
 
