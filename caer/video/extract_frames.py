@@ -92,6 +92,8 @@ def extract_frames(input_folder,
             # if frames_per_sec and frame_interval are both None, we assume that each frame should be processed
             else:
                 interval = 1
+            
+            # processed_frames = (video_frame_count//video_fps) * frames_per_sec
 
             print(f'{vid_count}. Reading \'{file}\'. Frame Count: {video_frame_count}. FPS: {video_fps}. Processed frames: {video_frame_count//interval}')
             
