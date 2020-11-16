@@ -12,20 +12,16 @@
 
 import numpy as np
 from . import cconvolve
-from .morph import cmorph 
+from ..morph import cmorph 
 
-from ._internal import _get_output, _normalize_sequence, _verify_is_floatingpoint_type, _as_floating_point_array
+from .._internal import _get_output, _normalize_sequence, _verify_is_floatingpoint_type, _as_floating_point_array
 from .filter import mode2int, _check_mode
 
 
 __all__ = [
     'daubechies',
-    'idaubechies',
-    'find',
     'haar',
-    'ihaar',
     'median_filter',
-    'rank_filter',
     'convolve',
     'convolve1d',
     'gaussian_filter',
@@ -127,7 +123,6 @@ def convolve1d(f, weights, axis, mode='reflect', cval=0., out=None):
 
 def median_filter(f, Bc=None, mode='reflect', cval=0.0, out=None, output=None):
     """
-    median = median_filter(f, Bc={square}, mode='reflect', cval=0.0, out={np.empty(f.shape, f.dtype})
     Median filter
     Parameters
     ----------
@@ -188,64 +183,6 @@ def mean_filter(f, Bc, mode='ignore', cval=0.0, out=None):
     out = _get_output(f, out, 'mean_filter', dtype=np.float64)
     _check_mode(mode, cval, 'mean_filter')
     return cconvolve.mean_filter(f, Bc, out, mode2int[mode], cval)
-
-
-def rank_filter(f, Bc, rank, mode='reflect', cval=0.0, out=None, output=None):
-    r""" 
-    Rank filter. The value at `ranked[i,j]` will be the `rank`th largest in
-    the neighbourhood defined by `Bc`.
-    Parameters
-    ----------
-        f : ndarray
-            input. Any dimension is supported
-        Bc : ndarray
-            Defines the neighbourhood. Must be explicitly passed, no default.
-        rank : integer
-        mode : {'reflect' [default], 'nearest', 'wrap', 'mirror', 'constant', 'ignore'}
-            How to handle borders
-        cval : double, optional
-            If `mode` is constant, which constant to use (default: 0.0)
-        out : ndarray, optional
-            Output array. Must have same shape and dtype as `f` as well as be
-            C-contiguous.
-    Returns
-    -------
-        ranked : ndarray of same type and shape as `f`
-            ranked[i,j] is the `rank`th value of the points in f close to (i,j)
-    See Also
-    --------
-    median_filter : A special case of rank_filter
-    """
-    Bc = cmorph.get_structuring_elem(f, Bc)
-    output = _get_output(f, out, 'rank_filter', output=output)
-    _check_mode(mode, cval, 'rank_filter')
-    return cconvolve.rank_filter(f, Bc, output, rank, mode2int[mode])
-
-
-def find(f, template):
-    """
-    Match template to image exactly
-    coordinates = find(f, template)
-    The output is in the same format as the ``np.where`` function.
-    Parameters
-    ----------
-        f : ndarray
-            input. Currently, only 2-dimensional images are supported.
-        template : ndarray
-            Template to match. Must be explicitly passed, no default.
-    Returns
-    -------
-        match : np.array
-        coordinates : np.array
-            These are the coordinates of the match. The format is similar to the
-            output of ``np.where``, but in an ndarray.
-    """
-
-    if f.ndim != 2:
-        raise ValueError('caer.find: Cannot handle multi-dimensional images')
-    template = template.astype(f.dtype)
-    out = np.empty(f.shape, bool)
-    return cconvolve.find2d(f, template, out)
 
 
 def gaussian_filter1d(array, sigma, axis=-1, order=0, mode='reflect', cval=0., output=None):
@@ -392,41 +329,6 @@ def haar(f, preserve_energy=True, inline=False):
     return f
 
 
-def ihaar(f, preserve_energy=True, inline=False):
-    """
-    Reverse Haar transform
-    ``ihaar(haar(f))`` is more or less equal to ``f`` (equal, except for
-    possible rounding issues).
-    Parameters
-    ----------
-        f : 2-D ndarray
-            Input image. If it is an integer image, it is converted to floating
-            point (double).
-        preserve_energy : bool, optional
-            Whether to normalise the result so that energy is preserved (the
-            default).
-        inline : bool, optional
-            Whether to write the results to the input image. By default, a new
-            image is returned. Integer images are always converted to floating
-            point and copied.
-    Returns
-    -------
-        f : ndarray
-    See Also
-    --------
-    haar : function
-        Forward Haar transform
-    """
-    f = _wavelet_array(f, inline, 'ihaar')
-    cconvolve.ihaar(f)
-    cconvolve.ihaar(f.T)
-
-    if preserve_energy:
-        f *= 2.0
-
-    return f
-
-
 _daubechies_codes = [('D%s' % ci) for ci in range(2,21,2)]
 def _daubechies_code(c):
     try:
@@ -459,32 +361,6 @@ def daubechies(f, code, inline=False):
     code = _daubechies_code(code)
     cconvolve.daubechies(f, code)
     cconvolve.daubechies(f.T, code)
-    return f
-
-
-def idaubechies(f, code, inline=False):
-    """
-    rfiltered = idaubechies(f, code, inline=False)
-    Daubechies wavelet inverse transform
-    Parameters
-    ----------
-        f : ndarray
-            2-D image
-        code : str
-            One of 'D2', 'D4', ... 'D20'
-        inline : bool, optional
-            Whether to write the results to the input image. By default, a new
-            image is returned. Integer images are always converted to floating
-            point and copied.
-    See Also
-    --------
-        haar : function
-            Haar transform (equivalent to D2)
-    """
-    f = _wavelet_array(f, inline, 'idaubechies')
-    code = _daubechies_code(code)
-    cconvolve.idaubechies(f.T, code)
-    cconvolve.idaubechies(f, code)
     return f
 
 
