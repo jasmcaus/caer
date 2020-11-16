@@ -374,6 +374,64 @@ namespace{
         return PyArray_Return(array);
     }
 
+    template<typename T>
+    void rank_filter(numpy::aligned_array<T> res, const numpy::aligned_array<T> array, const numpy::aligned_array<T> Bc, const int rank, const int mode, const T cval = T()) {
+        gil_release nogil;
+        const npy_intp N = res.size();
+        typename numpy::aligned_array<T>::const_iterator iter = array.begin();
+        filter_iterator<T> fiter(array.raw_array(), Bc.raw_array(), ExtendMode(mode), true);
+        const npy_intp N2 = fiter.size();
+        if (rank < 0 || rank >= N2) {
+            return;
+        }
+        std::vector<T> n_data;
+        n_data.resize(N2);
+        // T* is a fine iterator type.
+        T* rpos = res.data();
+
+        // This is generally a T*, except in debug builds, so we get checking there
+        typename std::vector<T>::iterator neighbours = n_data.begin();
+
+        for (npy_intp i = 0; i != N; ++i, ++rpos, fiter.iterate_both(iter)) {
+            npy_intp n = 0;
+            for (npy_intp j = 0; j != N2; ++j) {
+                T val;
+                if (fiter.retrieve(iter, j, val)) neighbours[n++] = val;
+                else if (mode == ExtendConstant) neighbours[n++] = cval;
+            }
+            npy_intp currank = rank;
+            if (n != N2) {
+                currank = npy_intp(n * rank/double(N2));
+            }
+            std::nth_element(neighbours, neighbours + currank, neighbours + n);
+            *rpos = neighbours[currank];
+        }
+    }
+    PyObject* py_rank_filter(PyObject* self, PyObject* args) {
+        PyArrayObject* array;
+        PyArrayObject* Bc;
+        int rank;
+        int mode;
+        PyArrayObject* output;
+        if (!PyArg_ParseTuple(args, "OOOii", &array, &Bc, &output, &rank, &mode) ||
+            !PyArray_Check(array) || !PyArray_Check(Bc) || !PyArray_Check(output) ||
+            !PyArray_EquivTypenums(PyArray_TYPE(array), PyArray_TYPE(Bc)) ||
+            PyArray_NDIM(array) != PyArray_NDIM(Bc) ||
+            !PyArray_EquivTypenums(PyArray_TYPE(array), PyArray_TYPE(output)) ||
+            !PyArray_ISCARRAY(output)) {
+            PyErr_SetString(PyExc_RuntimeError,TypeErrorMsg);
+            return NULL;
+        }
+        holdref r(output);
+
+    #define HANDLE(type) \
+            rank_filter<type>(numpy::aligned_array<type>(output), numpy::aligned_array<type>(array), numpy::aligned_array<type>(Bc), rank, mode);
+        SAFE_SWITCH_ON_TYPES_OF(array);
+    #undef HANDLE
+
+        Py_INCREF(output);
+        return PyArray_Return(output);
+    }
 
     template<typename T>
     void mean_filter(numpy::aligned_array<double> res, const numpy::aligned_array<T> array, const numpy::aligned_array<T> Bc, const int mode, const double cval) {
@@ -396,6 +454,7 @@ namespace{
             *rpos = sum/n;
         }
     }
+
     PyObject* py_mean_filter(PyObject* self, PyObject* args) {
         PyArrayObject* array;
         PyArrayObject* Bc;
@@ -429,6 +488,7 @@ namespace{
     {"daubechies",(PyCFunction)py_daubechies, METH_VARARGS, NULL},
     {"haar",(PyCFunction)py_haar, METH_VARARGS, NULL},
     {"mean_filter",(PyCFunction)py_mean_filter, METH_VARARGS, NULL},
+    {"rank_filter",(PyCFunction)py_rank_filter, METH_VARARGS, NULL},
     {NULL, NULL,0,NULL},
     };
 
