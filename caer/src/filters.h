@@ -18,7 +18,7 @@ Copyright (c) 2020 The Caer Authors <http://github.com/jasmcaus>
 #include <vector>
 #include <cassert>
 #include <limits>
-#include "src/array.hpp"
+#include "array.hpp"
 
 
 /* The different boundary conditions. The mirror condition is not used
