@@ -47,6 +47,7 @@ def _complex_via_real_components(func, inp, weights, output, **kwargs):
     """Complex convolution via a linear combination of real convolutions."""
     complex_inp = inp.dtype.kind == 'c'
     complex_weights = weights.dtype.kind == 'c'
+
     if complex_inp and complex_weights:
         # real component of the output
         func(inp.real, weights.real, output=output.real, **kwargs)
@@ -54,14 +55,16 @@ def _complex_via_real_components(func, inp, weights, output, **kwargs):
         # imaginary component of the output
         func(inp.real, weights.imag, output=output.imag, **kwargs)
         output.imag += func(inp.imag, weights.real, output=None, **kwargs)
+
     elif complex_inp:
         func(inp.real, weights, output=output.real, **kwargs)
         func(inp.imag, weights, output=output.imag, **kwargs)
+
     else:
         func(inp, weights.real, output=output.real, **kwargs)
         func(inp, weights.imag, output=output.imag, **kwargs)
-    return output
 
+    return output
 
 
 def correlate1d(inp, weights, axis=-1, output=None, mode="reflect", cval=0.0, origin=0):
@@ -86,26 +89,33 @@ def correlate1d(inp, weights, axis=-1, output=None, mode="reflect", cval=0.0, or
 
     complex_input = input.dtype.kind == 'c'
     complex_weights = weights.dtype.kind == 'c'
+
     if complex_input or complex_weights:
         if complex_weights:
             weights = weights.conj()
             weights = weights.astype(np.complex128, copy=False)
         kwargs = dict(axis=axis, mode=mode, cval=cval, origin=origin)
         output = cndsupport._get_output(output, input, complex_output=True)
+
         return _complex_via_real_components(correlate1d, input, weights,
                                             output, **kwargs)
 
     output = cndsupport._get_output(output, inp)
     weights = np.asarray(weights, dtype=np.float64)
+
     if weights.ndim != 1 or weights.shape[0] < 1:
         raise RuntimeError('no filter weights given')
+
     if not weights.flags.contiguous:
         weights = weights.copy()
+
     axis = normalize_axis_index(axis, inp.ndim)
+
     if _invalid_origin(origin, len(weights)):
         raise ValueError('Invalid origin; origin must satisfy '
                          '-(len(weights) // 2) <= origin <= '
                          '(len(weights)-1) // 2')
+
     mode = cndsupport._extend_mode_to_code(mode)
     cndi.correlate1d(inp, weights, axis, output, mode, cval,
                           origin)
@@ -138,12 +148,16 @@ def convolve1d(inp, weights, axis=-1, output=None, mode="reflect",
     """
     weights = weights[::-1]
     origin = -origin
+
     if not len(weights) & 1:
         origin -= 1
+
     weights = np.asarray(weights)
+
     if weights.dtype.kind == 'c':
         # pre-conjugate here to counteract the conjugation in correlate1d
         weights = weights.conj()
+
     return correlate1d(inp, weights, axis, output, mode, cval, origin)
 
 
@@ -154,6 +168,7 @@ def _gaussian_kernel1d(sigma, order, radius):
     """
     if order < 0:
         raise ValueError('order must be non-negative')
+
     exponent_range = np.arange(order + 1)
     sigma2 = sigma * sigma
     x = np.arange(-radius, radius+1)
@@ -162,20 +177,18 @@ def _gaussian_kernel1d(sigma, order, radius):
 
     if order == 0:
         return phi_x
+
     else:
-        # f(x) = q(x) * phi(x) = q(x) * exp(p(x))
-        # f'(x) = (q'(x) + q(x) * p'(x)) * phi(x)
-        # p'(x) = -1 / sigma ** 2
-        # Implement q'(x) + q(x) * p'(x) as a matrix operator and apply to the
-        # coefficients of q(x)
         q = np.zeros(order + 1)
         q[0] = 1
         D = np.diag(exponent_range[1:], 1)  # D @ q(x) = q'(x)
         P = np.diag(np.ones(order)/-sigma2, -1)  # P @ q(x) = q(x) * p'(x)
         Q_deriv = D + P
+
         for _ in range(order):
             q = Q_deriv.dot(q)
         q = (x[:, None] ** exponent_range).dot(q)
+        
         return q * phi_x
 
 
@@ -210,6 +223,7 @@ def gaussian_filter1d(inp, sigma, axis=-1, order=0, output=None,
     lw = int(truncate * sd + 0.5)
     # Since we are calling correlate, not convolve, revert the kernel
     weights = _gaussian_kernel1d(sigma, order, lw)[::-1]
+
     return correlate1d(inp, weights, axis, output, mode, cval, 0)
 
 
@@ -260,13 +274,16 @@ def gaussian_filter(inp, sigma, order=0, output=None,
     axes = list(range(inp.ndim))
     axes = [(axes[ii], sigmas[ii], orders[ii], modes[ii])
             for ii in range(len(axes)) if sigmas[ii] > 1e-15]
+
     if len(axes) > 0:
         for axis, sigma, order, mode in axes:
             gaussian_filter1d(inp, sigma, axis, order, output,
                               mode, cval, truncate)
             inp = output
+
     else:
         output[...] = inp[...]
+
     return output
 
 
@@ -288,8 +305,10 @@ def prewitt(inp, axis=-1, output=None, mode="reflect", cval=0.0):
     modes = cndsupport._normalize_sequence(mode, inp.ndim)
     correlate1d(inp, [-1, 0, 1], axis, output, modes[axis], cval, 0)
     axes = [ii for ii in range(inp.ndim) if ii != axis]
+
     for ii in axes:
         correlate1d(output, [1, 1, 1], ii, output, modes[ii], cval, 0,)
+
     return output
 
 
@@ -311,8 +330,10 @@ def sobel(inp, axis=-1, output=None, mode="reflect", cval=0.0):
     modes = cndsupport._normalize_sequence(mode, inp.ndim)
     correlate1d(inp, [-1, 0, 1], axis, output, modes[axis], cval, 0)
     axes = [ii for ii in range(inp.ndim) if ii != axis]
+
     for ii in axes:
         correlate1d(output, [1, 2, 1], ii, output, modes[ii], cval, 0)
+
     return output
 
 
@@ -342,19 +363,24 @@ def generic_laplace(inp, derivative2, output=None, mode="reflect",
     """
     if extra_keywords is None:
         extra_keywords = {}
+
     inp = np.asarray(inp)
     output = cndsupport._get_output(output, inp)
     axes = list(range(inp.ndim))
+
     if len(axes) > 0:
         modes = cndsupport._normalize_sequence(mode, len(axes))
         derivative2(inp, axes[0], output, modes[0], cval,
                     *extra_arguments, **extra_keywords)
+
         for ii in range(1, len(axes)):
             tmp = derivative2(inp, axes[ii], output.dtype, modes[ii], cval,
                               *extra_arguments, **extra_keywords)
             output += tmp
+
     else:
         output[...] = inp[...]
+
     return output
 
 
@@ -371,6 +397,7 @@ def laplace(inp, output=None, mode="reflect", cval=0.0):
     """
     def derivative2(inp, axis, output, mode, cval):
         return correlate1d(inp, [1, -2, 1], axis, output, mode, cval, 0)
+
     return generic_laplace(inp, derivative2, output, mode, cval)
 
 
@@ -431,14 +458,17 @@ def generic_gradient_magnitude(inp, derivative, output=None,
     """
     if extra_keywords is None:
         extra_keywords = {}
+
     inp = np.asarray(inp)
     output = cndsupport._get_output(output, inp)
     axes = list(range(inp.ndim))
+
     if len(axes) > 0:
         modes = cndsupport._normalize_sequence(mode, len(axes))
         derivative(inp, axes[0], output, modes[0], cval,
                    *extra_arguments, **extra_keywords)
         np.multiply(output, output, output)
+
         for ii in range(1, len(axes)):
             tmp = derivative(inp, axes[ii], output.dtype, modes[ii], cval,
                              *extra_arguments, **extra_keywords)
@@ -446,8 +476,10 @@ def generic_gradient_magnitude(inp, derivative, output=None,
             output += tmp
         # This allows the sqrt to work with a different default casting
         np.sqrt(output, output, casting='unsafe')
+
     else:
         output[...] = inp[...]
+
     return output
 
 
@@ -492,6 +524,7 @@ def _correlate_or_convolve(inp, weights, output, mode, cval, origin,
     weights = np.asarray(weights)
     complex_input = input.dtype.kind == 'c'
     complex_weights = weights.dtype.kind == 'c'
+
     if complex_input or complex_weights:
         if complex_weights and not convolution:
             # As for numpy.correlate, conjugate weights rather than input.
@@ -517,6 +550,7 @@ def _correlate_or_convolve(inp, weights, output, mode, cval, origin,
             origins[ii] = -origins[ii]
             if not weights.shape[ii] & 1:
                 origins[ii] -= 1
+
     for origin, lenw in zip(origins, wshape):
         if _invalid_origin(origin, lenw):
             raise ValueError('Invalid origin; origin must satisfy '
@@ -525,19 +559,25 @@ def _correlate_or_convolve(inp, weights, output, mode, cval, origin,
 
     if not weights.flags.contiguous:
         weights = weights.copy()
+
     output = cndsupport._get_output(output, inp)
     temp_needed = np.may_share_memory(inp, output)
+
     if temp_needed:
         # inp and output arrays cannot share memory
         temp = output
         output = cndsupport._get_output(output.dtype, inp)
+
     if not isinstance(mode, str) and isinstance(mode, Iterable):
         raise RuntimeError("A sequence of modes is not supported")
+
     mode = cndsupport._extend_mode_to_code(mode)
     cndi.correlate(inp, weights, output, mode, cval, origins)
+
     if temp_needed:
         temp[...] = output
         output = temp
+
     return output
 
 
@@ -563,10 +603,6 @@ def correlate(inp, weights, output=None, mode='reflect', cval=0.0,
     -------
     result : ndarray
         The result of correlation of `inp` with `weights`.
-
-    See Also
-    --------
-    convolve : Convolve an image with a kernel.
     """
     return _correlate_or_convolve(inp, weights, output, mode, cval,
                                   origin, False)
@@ -662,14 +698,19 @@ def minimum_filter1d(inp, size, axis=-1, output=None,
     .. [2] http://www.richardhartersworld.com/cri/2001/slidingmin.html
     """
     inp = np.asarray(inp)
+
     if np.iscomplexobj(inp):
         raise TypeError('Complex type not supported')
+
     axis = normalize_axis_index(axis, inp.ndim)
+
     if size < 1:
         raise RuntimeError('incorrect filter size')
+
     output = cndsupport._get_output(output, inp)
     if (size // 2 + origin < 0) or (size // 2 + origin >= size):
         raise ValueError('invalid origin')
+
     mode = cndsupport._extend_mode_to_code(mode)
     cndi.min_or_max_filter1d(inp, size, axis, output, mode, cval,
                                   origin, 1)
@@ -703,14 +744,20 @@ def maximum_filter1d(inp, size, axis=-1, output=None,
     the `inp` length, regardless of filter size.
     """
     inp = np.asarray(inp)
+
     if np.iscomplexobj(inp):
         raise TypeError('Complex type not supported')
+
     axis = normalize_axis_index(axis, inp.ndim)
+
     if size < 1:
         raise RuntimeError('incorrect filter size')
+
     output = cndsupport._get_output(output, inp)
+
     if (size // 2 + origin < 0) or (size // 2 + origin >= size):
         raise ValueError('invalid origin')
+
     mode = cndsupport._extend_mode_to_code(mode)
     cndi.min_or_max_filter1d(inp, size, axis, output, mode, cval,
                                   origin, 0)
@@ -721,11 +768,13 @@ def _min_or_max_filter(inp, size, footprint, structure, output, mode,
                        cval, origin, minimum):
     if (size is not None) and (footprint is not None):
         warnings.warn("ignoring size because footprint is set", UserWarning, stacklevel=3)
+
     if structure is None:
         if footprint is None:
             if size is None:
                 raise RuntimeError("no footprint provided")
             separable = True
+
         else:
             footprint = np.asarray(footprint, dtype=bool)
             if not footprint.any():
@@ -736,6 +785,7 @@ def _min_or_max_filter(inp, size, footprint, structure, output, mode,
                 separable = True
             else:
                 separable = False
+
     else:
         structure = np.asarray(structure, dtype=np.float64)
         separable = False
@@ -743,56 +793,72 @@ def _min_or_max_filter(inp, size, footprint, structure, output, mode,
             footprint = np.ones(structure.shape, bool)
         else:
             footprint = np.asarray(footprint, dtype=bool)
+
     inp = np.asarray(inp)
+
     if np.iscomplexobj(inp):
         raise TypeError('Complex type not supported')
+
     output = cndsupport._get_output(output, inp)
     temp_needed = np.may_share_memory(inp, output)
+
     if temp_needed:
         # inp and output arrays cannot share memory
         temp = output
         output = cndsupport._get_output(output.dtype, inp)
     origins = cndsupport._normalize_sequence(origin, inp.ndim)
+
     if separable:
         sizes = cndsupport._normalize_sequence(size, inp.ndim)
         modes = cndsupport._normalize_sequence(mode, inp.ndim)
         axes = list(range(inp.ndim))
         axes = [(axes[ii], sizes[ii], origins[ii], modes[ii])
                 for ii in range(len(axes)) if sizes[ii] > 1]
+
         if minimum:
             filter_ = minimum_filter1d
         else:
             filter_ = maximum_filter1d
+
         if len(axes) > 0:
             for axis, size, origin, mode in axes:
                 filter_(inp, int(size), axis, output, mode, cval, origin)
                 inp = output
         else:
             output[...] = inp[...]
+
     else:
         fshape = [ii for ii in footprint.shape if ii > 0]
+
         if len(fshape) != inp.ndim:
             raise RuntimeError('footprint array has incorrect shape.')
+
         for origin, lenf in zip(origins, fshape):
             if (lenf // 2 + origin < 0) or (lenf // 2 + origin >= lenf):
                 raise ValueError('invalid origin')
+
         if not footprint.flags.contiguous:
             footprint = footprint.copy()
+
         if structure is not None:
             if len(structure.shape) != inp.ndim:
                 raise RuntimeError('structure array has incorrect shape')
+
             if not structure.flags.contiguous:
                 structure = structure.copy()
+
         if not isinstance(mode, str) and isinstance(mode, Iterable):
             raise RuntimeError(
                 "A sequence of modes is not supported for non-separable "
                 "footprints")
+
         mode = cndsupport._extend_mode_to_code(mode)
-        cndi.min_or_max_filter(inp, footprint, structure, output,
-                                    mode, cval, origins, minimum)
+        cndi.min_or_max_filter(inp, footprint, structure, output, mode, cval, origins, minimum)
+
     if temp_needed:
         temp[...] = output
         output = temp
+
     return output
 
 
@@ -813,8 +879,7 @@ def minimum_filter(inp, size=None, footprint=None, output=None,
     minimum_filter : ndarray
         Filtered array. Has the same shape as `inp`.
     """
-    return _min_or_max_filter(inp, size, footprint, None, output, mode,
-                              cval, origin, 1)
+    return _min_or_max_filter(inp, size, footprint, None, output, mode, cval, origin, 1)
 
 
 
@@ -834,73 +899,93 @@ def maximum_filter(inp, size=None, footprint=None, output=None,
     maximum_filter : ndarray
         Filtered array. Has the same shape as `inp`.
     """
-    return _min_or_max_filter(inp, size, footprint, None, output, mode,
-                              cval, origin, 0)
+    return _min_or_max_filter(inp, size, footprint, None, output, mode, cval, origin, 0)
 
 
 def _rank_filter(inp, rank, size=None, footprint=None, output=None,
                  mode="reflect", cval=0.0, origin=0, operation='rank'):
     if (size is not None) and (footprint is not None):
         warnings.warn("ignoring size because footprint is set", UserWarning, stacklevel=3)
+
     inp = np.asarray(inp)
+
     if np.iscomplexobj(inp):
         raise TypeError('Complex type not supported')
+
     origins = cndsupport._normalize_sequence(origin, inp.ndim)
+
     if footprint is None:
         if size is None:
             raise RuntimeError("no footprint or filter size provided")
+
         sizes = cndsupport._normalize_sequence(size, inp.ndim)
         footprint = np.ones(sizes, dtype=bool)
+
     else:
         footprint = np.asarray(footprint, dtype=bool)
+
     fshape = [ii for ii in footprint.shape if ii > 0]
+
     if len(fshape) != inp.ndim:
         raise RuntimeError('filter footprint array has incorrect shape.')
+
     for origin, lenf in zip(origins, fshape):
         if (lenf // 2 + origin < 0) or (lenf // 2 + origin >= lenf):
             raise ValueError('invalid origin')
+
     if not footprint.flags.contiguous:
         footprint = footprint.copy()
+
     filter_size = np.where(footprint, 1, 0).sum()
+
     if operation == 'median':
         rank = filter_size // 2
+
     elif operation == 'percentile':
         percentile = rank
         if percentile < 0.0:
             percentile += 100.0
+
         if percentile < 0 or percentile > 100:
             raise RuntimeError('invalid percentile')
+
         if percentile == 100.0:
             rank = filter_size - 1
         else:
             rank = int(float(filter_size) * percentile / 100.0)
+
     if rank < 0:
         rank += filter_size
+
     if rank < 0 or rank >= filter_size:
         raise RuntimeError('rank not within filter footprint size')
+
     if rank == 0:
-        return minimum_filter(inp, None, footprint, output, mode, cval,
-                              origins)
+        return minimum_filter(inp, None, footprint, output, mode, cval, origins)
+
     elif rank == filter_size - 1:
-        return maximum_filter(inp, None, footprint, output, mode, cval,
-                              origins)
+        return maximum_filter(inp, None, footprint, output, mode, cval, origins)
+
     else:
         output = cndsupport._get_output(output, inp)
         temp_needed = np.may_share_memory(inp, output)
+
         if temp_needed:
             # inp and output arrays cannot share memory
             temp = output
             output = cndsupport._get_output(output.dtype, inp)
+
         if not isinstance(mode, str) and isinstance(mode, Iterable):
-            raise RuntimeError(
-                "A sequence of modes is not supported by non-separable rank "
-                "filters")
+            raise RuntimeError( "A sequence of modes is not supported by non-separable rank filters")
+
         mode = cndsupport._extend_mode_to_code(mode)
         cndi.rank_filter(inp, rank, footprint, output, mode, cval,
                               origins)
+
         if temp_needed:
             temp[...] = output
             output = temp
+
         return output
 
 def generic_filter1d(inp, function, filter_size, axis=-1,
@@ -932,16 +1017,23 @@ def generic_filter1d(inp, function, filter_size, axis=-1,
     """
     if extra_keywords is None:
         extra_keywords = {}
+
     inp = np.asarray(inp)
+
     if np.iscomplexobj(inp):
         raise TypeError('Complex type not supported')
+
     output = cndsupport._get_output(output, inp)
+
     if filter_size < 1:
         raise RuntimeError('invalid filter size')
+
     axis = normalize_axis_index(axis, inp.ndim)
+
     if (filter_size // 2 + origin < 0) or (filter_size // 2 + origin >=
                                            filter_size):
         raise ValueError('invalid origin')
+
     mode = cndsupport._extend_mode_to_code(mode)
     cndi.generic_filter1d(inp, function, filter_size, axis, output,
                                mode, cval, origin, extra_arguments,
@@ -974,29 +1066,41 @@ def generic_filter(inp, function, size=None, footprint=None,
     """
     if (size is not None) and (footprint is not None):
         warnings.warn("ignoring size because footprint is set", UserWarning, stacklevel=2)
+
     if extra_keywords is None:
         extra_keywords = {}
+
     inp = np.asarray(inp)
+
     if np.iscomplexobj(inp):
         raise TypeError('Complex type not supported')
+
     origins = cndsupport._normalize_sequence(origin, inp.ndim)
+
     if footprint is None:
         if size is None:
             raise RuntimeError("no footprint or filter size provided")
         sizes = cndsupport._normalize_sequence(size, inp.ndim)
         footprint = np.ones(sizes, dtype=bool)
+
     else:
         footprint = np.asarray(footprint, dtype=bool)
+
     fshape = [ii for ii in footprint.shape if ii > 0]
+
     if len(fshape) != inp.ndim:
         raise RuntimeError('filter footprint array has incorrect shape.')
+
     for origin, lenf in zip(origins, fshape):
         if (lenf // 2 + origin < 0) or (lenf // 2 + origin >= lenf):
             raise ValueError('invalid origin')
+
     if not footprint.flags.contiguous:
         footprint = footprint.copy()
+
     output = cndsupport._get_output(output, inp)
     mode = cndsupport._extend_mode_to_code(mode)
     cndi.generic_filter(inp, function, footprint, output, mode,
                              cval, origins, extra_arguments, extra_keywords)
+                             
     return output
