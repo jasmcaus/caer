@@ -18,6 +18,7 @@ from .morph import (
     cdilate,
     get_structuring_elem,
     hitmiss, 
+    regmax,
     __all__ as __all_morph__
 )
 
