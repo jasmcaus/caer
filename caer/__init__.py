@@ -174,12 +174,12 @@ from .preprocessing import __all__ as __all_preprocessing__
 from .data import __all__ as __all_data__
 from .utils import __all__ as __all_utils__
 from .path import __all__ as __all_path__
-# from .filters import __all__ as __all_filters__
+from .filters import __all__ as __all_filters__
 from .distance import __all__ as __all_distance__
 from .morph import __all__ as __all_morph__
 
 
-__all__ = __all_globals__ + __all_io__ + __all_resize__ + __all_opencv__ + __all_preprocess__ + __all_time__ + __all_utilities__ + __all_visualizations__ + __all_distance__ + __all_morph__
+__all__ = __all_globals__ + __all_io__ + __all_resize__ + __all_opencv__ + __all_preprocess__ + __all_time__ + __all_utilities__ + __all_visualizations__ + __all_filters__ + __all_distance__ + __all_morph__
 
 __all__ += __all_preprocessing__ 
 __all__ += __all_video__ 
@@ -202,5 +202,5 @@ del __all_video__
 del __all_data__ 
 del __all_utils__ 
 del __all_distance__
-# del __all_filters__
+del __all_filters__
 del __all_morph__
