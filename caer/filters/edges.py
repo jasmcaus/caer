@@ -13,9 +13,10 @@
 import numpy as np
 # import caer as mh
 
-from . import convolve
-from .convolve import gaussian_filter
+from .convolve import gaussian_filter, convolve
+
 from ..opencv import bgr_to_gray
+from ..morph import regmax
 
 _hsobel_filter = np.array([
     [-1, 0, 1],
@@ -75,7 +76,7 @@ def sobel(img, just_filter=False):
     if just_filter:
         return filtered
     thresh = 2*np.sqrt(filtered.mean())
-    return mh.regmax(filtered) * (np.sqrt(filtered) > thresh)
+    return regmax(filtered) * (np.sqrt(filtered) > thresh)
 
 
 def dog(img, sigma1 = 2, multiplier = 1.001, just_filter = False):
