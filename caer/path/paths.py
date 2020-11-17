@@ -225,7 +225,7 @@ def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, show_size
             if verbose != 0:
                 print(f'[INFO] {count_video_list} videos found')
                 if show_size:
-                    print('[INFO] Total disk size of videos were {:.2f}Mb '.format(size_video_list))
+                    print(f'[INFO] Total disk size of videos were {size_video_list:.2f}Mb ')
 
             return video_files
         
