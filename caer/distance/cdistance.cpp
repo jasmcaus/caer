@@ -18,7 +18,7 @@ Copyright (c) 2020 The Caer Authors <http://github.com/jasmcaus>
 
 #include "../src/array.hpp"
 #include "../src/disp.hpp"
-#include "../cutils.hpp"
+#include "../src/cutils.hpp"
 
 namespace {
     using numpy::ndarray_cast;
