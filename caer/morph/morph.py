@@ -309,3 +309,43 @@ def hitmiss(inp, B, out=None, output=None):
                 raise TypeError('caer.morph.hitmiss: out must be of same type as inp')
 
     return cmorph.hitmiss(inp, B, out)
+
+
+def _remove_centre(Bc):
+    index = [s//2 for s in Bc.shape]
+    Bc[tuple(index)] = False
+    return Bc
+
+
+def regmax(f, Bc=None, out=None, output=None):
+    '''
+    filtered = regmax(f, Bc={3x3 cross}, out={np.empty(f.shape, bool)})
+    Regional maxima. This is a stricter criterion than the local maxima as
+    it takes the whole object into account and not just the neighbourhood
+    defined by ``Bc``::
+        0 0 0 0 0
+        0 0 2 0 0
+        0 0 2 0 0
+        0 0 3 0 0
+        0 0 3 0 0
+        0 0 0 0 0
+    The top 2 is a local maximum because it has the maximal value in its
+    neighbourhood, but it is not a regional maximum.
+    Parameters
+    ----------
+    f : ndarray
+    Bc : ndarray, optional
+        structuring element
+    out : ndarray, optional
+        Used for output. Must be Boolean ndarray of same size as `f`
+    output : deprecated
+        Do not use
+    Returns
+    -------
+    filtered : ndarray
+        boolean image of same size as f.
+    '''
+    Bc = get_structuring_elem(f, Bc)
+    Bc = _remove_centre(Bc.copy())
+    output = _get_output(f, out, 'regmax', np.bool_, output=output)
+    return cmorph.regmin_max(f, Bc, output, False)
