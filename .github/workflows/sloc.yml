@@ -1,0 +1,18 @@
+name: SLOC
+
+on: [push, pull_request]
+
+jobs:
+  lines:
+    name: Count Lines, eh?
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v2
+
+    - name: Install SLOCCount
+      run: sudo apt-get install sloccount
+
+    - name: Check <25000 lines
+      run: sloccount caer test demos; if [ $(sloccount caer | sed -n 's/.*Total Physical Source Lines of Code (SLOC)[ ]*= \([^ ]*\).*/\1/p' | tr -d ',') -gt 25000 ]; then exit 1; fi
