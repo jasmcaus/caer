@@ -191,15 +191,16 @@ def preprocess_from_dir(DIR,
             end = time.time()
             
             time_elapsed = end-since
-
-            print('[INFO] {} saved! Took {:.0f}m {:.0f}s'.format(destination_filename, time_elapsed // 60, time_elapsed % 60))
+            minu_elapsed = time_elapsed // 60
+            sec_elapsed = time_elapsed % 60
+            print(f'[INFO] {destination_filename} saved! Took {minu_elapsed:.0f}m {sec_elapsed:.0f}s')
 
         #Returns Training Set
         end_preprocess = time.time()
         time_elapsed_preprocess = end_preprocess - since_preprocess
         minu = time_elapsed_preprocess // 60
         sec = time_elapsed_preprocess % 60
-        
+
         print('----------------------------------------------')
         print(f'[INFO] {len(data)} files preprocessed! Took {minu:.0f}m {sec:.0f}s')
 
