@@ -23,7 +23,8 @@ __all__ = [
     'dilate',
     'cdilate',
     'get_structuring_elem',
-    'hitmiss'
+    'hitmiss',
+    'regmax'
 ]
 
 def get_structuring_elem(A, B):
