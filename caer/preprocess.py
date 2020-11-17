@@ -108,8 +108,9 @@ def preprocess_from_dir(DIR,
         since = time.time()
         data = npload(destination_filename, allow_pickle=True)
         end = time.time()
+        took = end - since
         print('----------------------------------------------')
-        print('[INFO] Loaded in {:.0f}s from Numpy Files'.format(end-since))
+        print(f'[INFO] Loaded in {took:.0f}s from Numpy Files')
 
         return data
 

@@ -208,7 +208,7 @@ def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, show_size
                 print(f'[INFO] {tot_count} files found')
                 if show_size:
                     tot_size = size_image_list + size_video_list
-                    print('[INFO] Total disk size of media files were {:.2f}Mb '.format(tot_size))
+                    print(f'[INFO] Total disk size of media files were {tot_size:.2f}Mb ')
 
             media_files = image_files + video_files
             return media_files
