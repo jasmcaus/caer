@@ -295,7 +295,7 @@ def listdir(DIR, include_subdirs=True, use_fullpath=False, show_size=True, verbo
             print(f'[INFO] {count_files} files found')
 
         if show_size:
-            print('[INFO] Total disk size of files were {:.2f}Mb '.format(size_dirs_list))
+            print(f'[INFO] Total disk size of files were {size_dirs_list:.2f}Mb ')
 
     return dirs
 
