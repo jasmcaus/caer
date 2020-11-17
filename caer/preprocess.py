@@ -197,8 +197,11 @@ def preprocess_from_dir(DIR,
         #Returns Training Set
         end_preprocess = time.time()
         time_elapsed_preprocess = end_preprocess - since_preprocess
+        minu = time_elapsed_preprocess // 60
+        sec = time_elapsed_preprocess % 60
+        
         print('----------------------------------------------')
-        print('[INFO] {} files preprocessed! Took {:.0f}m {:.0f}s'.format(len(data), time_elapsed_preprocess // 60, time_elapsed_preprocess % 60))
+        print(f'[INFO] {len(data)} files preprocessed! Took {minu:.0f}m {sec:.0f}s')
 
         if return_classes_flag:
             return data, classes
