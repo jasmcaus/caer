@@ -134,7 +134,7 @@ def extract_frames(input_folder,
 
 
 def _determine_interval(x):
-    y = '{:.1f}'.format(x)
+    y = '{x:.1f}'
     inde = y.find('.') + 1
     if inde == -1: # if no '.' (if an integer)
         return x
