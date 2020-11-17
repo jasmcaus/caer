@@ -13,8 +13,9 @@
 import numpy as np
 # import caer as mh
 
-from . import convolve, gaussian_filter
-from .opencv import to_gray
+from . import convolve
+from .convolve import gaussian_filter
+from ..opencv import bgr_to_gray
 
 _hsobel_filter = np.array([
     [-1, 0, 1],
@@ -56,7 +57,7 @@ def sobel(img, just_filter=False):
     img = np.array(img, dtype=np.float)
     if img.ndim > 2:
         try:
-            img = to_gray(img)
+            img = bgr_to_gray(img)
         except Exception:
             raise ValueError('caer.sobel: Only available for 2-dimensional images')
     img -= img.min()
@@ -75,6 +76,7 @@ def sobel(img, just_filter=False):
         return filtered
     thresh = 2*np.sqrt(filtered.mean())
     return mh.regmax(filtered) * (np.sqrt(filtered) > thresh)
+
 
 def dog(img, sigma1 = 2, multiplier = 1.001, just_filter = False):
     '''

@@ -174,7 +174,7 @@ from .preprocessing import __all__ as __all_preprocessing__
 from .data import __all__ as __all_data__
 from .utils import __all__ as __all_utils__
 from .path import __all__ as __all_path__
-from .filters import __all__ as __all_filters__
+# from .filters import __all__ as __all_filters__
 from .distance import __all__ as __all_distance__
 from .morph import __all__ as __all_morph__
 
