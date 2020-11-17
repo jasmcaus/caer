@@ -49,7 +49,7 @@ import platform
 
 MAJOR = 1 
 MINOR = 8
-MICRO = 2
+MICRO = 3
 ISRELEASED = True
 VERSION = f'{MAJOR}.{MINOR}.{MICRO}'
 
@@ -115,14 +115,14 @@ EXTENSIONS = {
     'caer.filters.cconvolve': ['caer/filters/cconvolve.cpp', 'caer/src/cfilters.cpp'],
     'caer.distance.cdistance': ['caer/distance/cdistance.cpp'],
     'caer.morph.cmorph': ['caer/morph/cmorph.cpp', 'caer/src/cfilters.cpp'],
-    'caer.ndi.cndi' : ['caer/ndi/includes/cndimage.c', 
-                       'caer/ndi/includes/cndfilters.c',
-                       'caer/ndi/includes/cndfourier.c',
-                       'caer/ndi/includes/cndinterpolation.c',
-                       'caer/ndi/includes/cndmeasure.c',
-                       'caer/ndi/includes/cndmorphology.c',
-                       'caer/ndi/includes/cndsplines.c',
-                       'caer/ndi/includes/cndsupport.c'
+    'caer.ndi.cndi' : ['caer/ndi/include/cndimage.c', 
+                       'caer/ndi/include/cndfilters.c',
+                       'caer/ndi/include/cndfourier.c',
+                       'caer/ndi/include/cndinterpolation.c',
+                       'caer/ndi/include/cndmeasure.c',
+                       'caer/ndi/include/cndmorphology.c',
+                       'caer/ndi/include/cndsplines.c',
+                       'caer/ndi/include/cndsupport.c'
                 ]
 }
 EXT_MODULES = [Extension(key, sources=sources, include_dirs=[np.get_include()]) for key, sources in EXTENSIONS.items()]
