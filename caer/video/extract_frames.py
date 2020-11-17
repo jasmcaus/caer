@@ -123,14 +123,12 @@ def extract_frames(input_folder,
     
     # Printing stats
     taken = end-start
+    minu = taken // 60
+    sec = taken % 60
     if processed_videos > 1:
-        print('[INFO] {} videos extracted in {:.0f}m {:.0f}s'.format(processed_videos, 
-                                                                    taken // 60,
-                                                                    taken % 60 ))
+        print(f'[INFO] {processed_videos} videos extracted in {minu:.0f}m {sec:.0f}s')
     else:
-        print('[INFO] {} video extracted in {:.0f}m {:.0f}s'.format(processed_videos, 
-                                                                    taken // 60,
-                                                                    taken % 60 ))
+        print(f'[INFO] {processed_videos} video extracted in {minu:.0f}m {sec:.0f}s')
 
     return label_counter
 
