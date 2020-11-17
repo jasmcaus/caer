@@ -90,7 +90,7 @@ def train_val_split(X, y, val_ratio=.2):
         Returns X_train, X_val, y_train, y_val
     """
     X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=val_ratio)
-    return X_train, y_train, X_val, y_val
+    return X_train, X_val, y_train, y_val
 
 
 def sort_dict(unsorted_dict, descending=False):
