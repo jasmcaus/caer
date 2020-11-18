@@ -8,7 +8,7 @@ python:
 before_install:
   - sudo apt-get update
   - sudo apt-get install python3-numpy python3-pytest
-  - sudo apt-get install python3-opencv
+  # - sudo apt-get install python3-opencv
 
 install: "pip install -r requirements/test.txt"
 
