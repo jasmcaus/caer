@@ -14,11 +14,10 @@ def test_imread():
 
     assert np.all(img == test_against)
 
-    
+
 def test_gray():
     test_img = os.path.join(here, 'caer', 'data', 'blue_tang.jpg')
 
     img = caer.imread(test_img, channels=1)
 
     assert len(img.shape) == 2
-
