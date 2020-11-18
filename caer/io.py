@@ -3,16 +3,14 @@
 # | |        /  \   | |__   | |__) | Caer - Modern Computer Vision
 # | |       / /\ \  |  __|  |  _  /  Languages: Python, C, C++
 # | |___   / ____ \ | |____ | | \ \  http://github.com/jasmcaus/caer
-#  \_____\/_/    \_ \______ |_|__\_
+#  \_____\/_/    \_ \______ |_|  \_
 
 # Licensed under the MIT License <http://opensource.org/licenses/MIT>
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2020 The Caer Authors <http://github.com/jasmcaus>
 
 
-
 import cv2 as cv
-# import numpy as np 
 
 from ._internal import _check_target_size
 from .opencv import bgr_to_rgb, bgr_to_gray, url_to_image
