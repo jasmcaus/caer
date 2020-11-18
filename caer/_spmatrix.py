@@ -1,3 +1,15 @@
+#    _____           ______  _____ 
+#  / ____/    /\    |  ____ |  __ \
+# | |        /  \   | |__   | |__) | Caer - Modern Computer Vision
+# | |       / /\ \  |  __|  |  _  /  Languages: Python, C, C++
+# | |___   / ____ \ | |____ | | \ \  http://github.com/jasmcaus/caer
+#  \_____\/_/    \_ \______ |_|  \_
+
+# Licensed under the MIT License <http://opensource.org/licenses/MIT>
+# SPDX-License-Identifier: MIT
+# Copyright (c) 2020 The Caer Authors <http://github.com/jasmcaus>
+
+
 # Pulled from Scikit-Learn's official Github Repo (18 Sep 2020) to speed up 'caer' package import speeds (since this was the only method referenced from sklearn)
 
 MAXPRINT = 50
