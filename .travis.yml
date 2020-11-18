@@ -12,8 +12,8 @@ before_install:
 
 install: "pip install -r requirements/test.txt"
 
-virtualenv:
-  system_site_packages: true
+# virtualenv:
+#   system_site_packages: true
 
 script:
 - cd tests
