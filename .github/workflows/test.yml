@@ -1,26 +1,26 @@
-name: Test 
+# name: Test 
 
-on: [push, pull_request]
+# on: [push, pull_request]
 
-jobs:
-  test:
-      name: Test
-      runs-on: ubuntu-latest
+# jobs:
+#   test:
+#       name: Test
+#       runs-on: ubuntu-latest
 
-      steps:
-      - name: Checkout Code
-        uses: actions/checkout@v2
+#       steps:
+#       - name: Checkout Code
+#         uses: actions/checkout@v2
 
-      - name: Install OpenCL
-        run: sudo apt-get install pocl-opencl-icd
+#       - name: Install OpenCL
+#         run: sudo apt-get install pocl-opencl-icd
 
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
+#       - name: Set up Python 3.8
+#         uses: actions/setup-python@v2
+#         with:
+#           python-version: 3.8
 
-      - name: Install Dependencies
-        run: pip install -r requirements/test.txt
+#       - name: Install Dependencies
+#         run: pip install -r requirements/test.txt
         
-      - name: Run Pytest
-        run: python -m pytest -s -v
+#       - name: Run Pytest
+#         run: python -m pytest -s -v
