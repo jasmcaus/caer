@@ -179,13 +179,6 @@ def write_meta(filename='caer/_meta.py'):
 
 
 def get_docs_url():
-    # if not ISRELEASED:
-    #     return "https://caer.com/devdocs"
-    # else:
-    #     # For releaeses, this URL ends up on pypi.
-    #     # By pinning the version, users looking at old PyPI releases can get
-    #     # to the associated docs easily.
-    #     return "https://caer.com/doc/{}.{}".format(MAJOR, MINOR)
     return URL + '/blob/master/docs/README.md'
 
 
@@ -255,17 +248,8 @@ def setup_package():
         classifiers = CLASSIFIERS,
     )
 
-    # if "--force" in sys.argv:
-    #     run_build = RUN_CYTHON_BUILD
-    #     sys.argv.remove('--force')
-    # else:
-    #     # Raise errors for unsupported commands, improve help output, etc.
-    #     run_build = parse_setuppy_commands()
-
     run_build = RUN_CYTHON_BUILD
     if run_build:
-        # if 'sdist' not in sys.argv:
-        #     # Generate Cython sources, unless we're generating an sdist
         generate_cython()
 
     setup(**metadata)
