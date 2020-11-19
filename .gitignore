@@ -39,7 +39,6 @@ MANIFEST
 
 *.bak
 token
-docs/
 conda/
 tmp/
 
