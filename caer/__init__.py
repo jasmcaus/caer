@@ -91,8 +91,6 @@ from .opencv import edges
 from .visualizations import hex_to_rgb
 from .visualizations import draw_rectangle
 
-# Time
-from .time import now
 
 # Resize
 from .resize import resize 
@@ -165,7 +163,6 @@ from .io import __all__ as __all_io__
 from .resize import __all__ as __all_resize__
 from .opencv import __all__ as __all_opencv__
 from .preprocess import __all__ as __all_preprocess__
-from .time import __all__ as __all_time__
 from .utilities import __all__ as __all_utilities__
 from .visualizations import __all__ as __all_visualizations__
 
@@ -179,7 +176,7 @@ from .distance import __all__ as __all_distance__
 from .morph import __all__ as __all_morph__
 
 
-__all__ = __all_globals__ + __all_io__ + __all_resize__ + __all_opencv__ + __all_preprocess__ + __all_time__ + __all_utilities__ + __all_visualizations__ + __all_filters__ + __all_distance__ + __all_morph__
+__all__ = __all_globals__ + __all_io__ + __all_resize__ + __all_opencv__ + __all_preprocess__ + __all_utilities__ + __all_visualizations__ + __all_filters__ + __all_distance__ + __all_morph__
 
 __all__ += __all_preprocessing__ 
 __all__ += __all_video__ 
@@ -193,7 +190,6 @@ del __all_io__
 del __all_resize__ 
 del __all_opencv__ 
 del __all_preprocess__ 
-del __all_time__ 
 del __all_utilities__ 
 del __all_visualizations__
 
