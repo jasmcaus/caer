@@ -117,7 +117,7 @@ def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True):
 
 def compute_mean(data, channels, per_channel_subtraction=True):
     """
-        Computes mean oer channel over the train set and returns a tuple of dimensions=channels
+        Computes mean per channel over the train set and returns a tuple of dimensions=channels
         Train should not be normalized
     """
     if len(data) == 0:
