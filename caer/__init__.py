@@ -99,32 +99,6 @@ from .resize import center_crop
 # Image 
 from .io import imread
 from .io import imsave
-# # Distance
-# from .distance import distance
-
-# # Convolve
-# from .convolve import daubechies
-# from .convolve import idaubechies
-# from .convolve import find
-# from .convolve import haar
-# from .convolve import ihaar
-# from .convolve import rank_filter
-# from .convolve import mean_filter
-# from .convolve import convolve
-# from .convolve import convolve1d
-# from .convolve import gaussian_filter
-# from .convolve import gaussian_filter1d
-# from .convolve import laplacian_2D
-
-# # Morphology
-# from .morph import cwatershed
-# from .morph import cerode
-# from .morph import erode
-# from .morph import cdilate
-# from .morph import dilate
-# from .morph import get_structuring_elem
-# from .morph import hitmiss
-
 
 # Bringing in configuration variables from globals.py
 from .globals import CROP_CENTRE
@@ -134,15 +108,6 @@ from .globals import CROP_RIGHT
 from .globals import CROP_BOTTOM
 from .globals import VALID_URL_NO_EXIST
 from .globals import INVALID_URL_STRING
-
-# except ImportError:
-#     import sys 
-#     _, e, _ = sys.exc_info()
-#     sys.stderr.write(f"""\
-#         Could not import submodules (exact error was: {e}).
-#         There are many reasons for this error the most common one is that you have either not built the packages, built (using `python setup.py build`) or installed them (using `python setup.py install`) and then proceeded to test caer **without changing the current directory**.
-#         Try installing and then changing to another directory before importing caer.
-#         """)
 
 
 def get_caer_version():
