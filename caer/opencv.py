@@ -60,6 +60,25 @@ def rotate(image, angle, rotPoint=None):
     """
         Rotates an given image by an angle around a particular rotation point (if provided) or centre otherwise.
     """
+    # h, w = image.shape[:2]
+    # (cX, cY) = (w/2, h/2)
+
+    # # Computing the sine and cosine (rotation components of the matrix)
+    # transMat = cv.getRotationMatrix2D((cX, cY), angle, scale=1.0)
+    # cos = np.abs(transMat[0, 0])
+    # sin = np.abs(transMat[0, 1])
+
+    # # compute the new bounding dimensions of the image
+    # nW = int((h*sin) + (w*cos))
+    # nH = int((h*cos) + (w*sin))
+
+    # # Adjusts the rotation matrix to take into account translation
+    # transMat[0, 2] += (nW/2) - cX
+    # transMat[1, 2] += (nH/2) - cY
+
+    # # Performs the actual rotation and returns the image
+    # return cv.warpAffine(image, transMat, (nW, nH))
+
     height, width = image.shape[:2]
 
     # If no rotPoint is specified, we assume the rotation point to be around the centre
