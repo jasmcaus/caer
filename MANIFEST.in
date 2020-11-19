@@ -5,6 +5,7 @@ include README.md
 include LONG_DESCRIPTION.md
 include INSTALL.md 
 include CONTRIBUTORS 
+include tools/cythonize.py
 
 recursive-include caer/data *
 recursive-include caer *.pyx *.pyd *.pxd *.pxi *.py *.c *.h *.ini *.txt *.in *.cpp *.md
