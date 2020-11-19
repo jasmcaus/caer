@@ -20,10 +20,7 @@ Caer is a set of utility functions designed to help speed up your Computer Visio
 
 
 ## Get Caer Version
-Get the current version number of your `caer` installation.
-
-For versions 1.7.7 above, use either `caer.get_caer_version()` or `caer.get_version()`.
-For versions below 1.7.7, use `caer.__version__`.
+Use `caer.__version__` to get the current version number of your `caer` installation.
 
 
 ## Get all Caer functions
