@@ -77,8 +77,6 @@ if not is_right_py_version(min_version):
 from setuptools import setup, find_packages, Extension
 from distutils.command.build_ext import build_ext
 from configparser import ConfigParser
-import numpy as np 
-
 
 # Configurations
 
@@ -91,6 +89,16 @@ opt = config['options']
 cfg_keys = 'description keywords author author_email contributors'.split()
 expected = cfg_keys + "name user git_branch license status audience language dev_language".split()
 for i in expected: assert i in cfg, f'Missing expected setting: {i}'
+
+# Prevent numpy from thinking it is still in its setup process:
+set_builtin('__NUMPY_SETUP__', False)
+import numpy as np 
+
+def set_builtin(name, value):
+    if isinstance(__builtins__, dict):
+        __builtins__[name] = value
+    else:
+        setattr(__builtins__, name, value)
 
 
 # Defining Setup Variables
