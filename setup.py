@@ -111,6 +111,7 @@ LICENSE = cfg['license']
 PLATFORMS = ['Any']
 URL = cfg['git_url']
 DOWNLOAD_URL = cfg['download_url']
+# PACKAGES = find_packages()
 PACKAGES = ['caer', 'caer.data', 'caer.path', 'caer.preprocessing', 'caer.utils', 'caer.video']
 DESCRIPTION = cfg['description']
 LONG_DESCRIPTION = open('LONG_DESCRIPTION.md', encoding='utf-8').read()
