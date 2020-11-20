@@ -53,7 +53,7 @@ MICRO = 1
 ISRELEASED = True
 VERSION = f'{MAJOR}.{MINOR}.{MICRO}'
 
-RUN_CYTHON_BUILD = True
+RUN_CYTHON_BUILD = False
 
 min_version = (3, 6, 1)
 
@@ -95,7 +95,7 @@ def set_builtin(name, value):
         __builtins__[name] = value
     else:
         setattr(__builtins__, name, value)
-        
+
 # Prevent numpy from thinking it is still in its setup process:
 set_builtin('__NUMPY_SETUP__', False)
 import numpy as np 
@@ -111,7 +111,7 @@ LICENSE = cfg['license']
 PLATFORMS = ['Any']
 URL = cfg['git_url']
 DOWNLOAD_URL = cfg['download_url']
-PACKAGES = find_packages()
+PACKAGES = ['caer', 'caer.data', 'caer.path', 'caer.preprocessing', 'caer.utils', 'caer.video']
 DESCRIPTION = cfg['description']
 LONG_DESCRIPTION = open('LONG_DESCRIPTION.md', encoding='utf-8').read()
 KEYWORDS = [i for i in cfg['keywords'].split(', ')]
