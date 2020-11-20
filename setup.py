@@ -101,7 +101,6 @@ for i in expected: assert i in cfg, f'Missing expected setting: {i}'
 # set_builtin('__NUMPY_SETUP__', False)
 import numpy as np 
 
-
 # Defining Setup Variables
 
 NAME = cfg['name']
