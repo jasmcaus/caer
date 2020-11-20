@@ -74,7 +74,8 @@ if not is_right_py_version(min_version):
     sys.exit(-1)
 
 
-from setuptools import setup, find_packages, Extension
+from setuptools import setup, Extension
+# from setuptools import find_packages
 from distutils.command.build_ext import build_ext
 from configparser import ConfigParser
 
