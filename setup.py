@@ -49,7 +49,7 @@ import platform
 
 MAJOR = 1 
 MINOR = 9
-MICRO = 1
+MICRO = 2
 ISRELEASED = True
 VERSION = f'{MAJOR}.{MINOR}.{MICRO}'
 
@@ -91,14 +91,14 @@ cfg_keys = 'description keywords author author_email contributors'.split()
 expected = cfg_keys + "name user git_branch license status audience language dev_language".split()
 for i in expected: assert i in cfg, f'Missing expected setting: {i}'
 
-def set_builtin(name, value):
-    if isinstance(__builtins__, dict):
-        __builtins__[name] = value
-    else:
-        setattr(__builtins__, name, value)
+# def set_builtin(name, value):
+#     if isinstance(__builtins__, dict):
+#         __builtins__[name] = value
+#     else:
+#         setattr(__builtins__, name, value)
 
-# Prevent numpy from thinking it is still in its setup process:
-set_builtin('__NUMPY_SETUP__', False)
+# # Prevent numpy from thinking it is still in its setup process:
+# set_builtin('__NUMPY_SETUP__', False)
 import numpy as np 
 
 
@@ -244,12 +244,12 @@ def setup_package():
             'Source Code': URL,
         },
         packages = PACKAGES,
-        ext_modules = EXT_MODULES,
+        # ext_modules = EXT_MODULES,
         license = LICENSE,
         platforms = PLATFORMS,
         install_requires = REQUIREMENTS,
         python_requires = PYTHON_REQUIRES,
-        cmdclass = CMDCLASS,
+        # cmdclass = CMDCLASS,
 # Include_package_data is required for setup.py to recognize the MAINFEST.in file
 # https://python-packaging.readthedocs.io/en/latest/non-code-files.html
         include_package_data = True,
@@ -258,9 +258,9 @@ def setup_package():
         classifiers = CLASSIFIERS,
     )
 
-    run_build = RUN_CYTHON_BUILD
-    if run_build:
-        generate_cython()
+    # run_build = RUN_CYTHON_BUILD
+    # if run_build:
+    #     generate_cython()
 
     setup(**metadata)
 
