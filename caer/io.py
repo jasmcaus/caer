@@ -14,7 +14,6 @@ import cv2 as cv
 
 from ._internal import _check_target_size
 from .opencv import bgr_to_rgb, bgr_to_gray, url_to_image
-from .utils.validators import is_valid_url
 from .path import exists
 from .resize import resize
 
@@ -53,12 +52,13 @@ def _imread(image_path, target_size=None, channels=3, rgb=False, resize_factor=N
         # Preference goes to Grayscale
         rgb = False
 
-    if is_valid_url(image_path) is True:
+    try:
         image_array = url_to_image(image_path, rgb=False)
-    elif exists(image_path):  
-        image_array = _read_image(image_path)
-    else:
-        raise ValueError('Specify either a valid URL or valid filepath')
+    except Exception:
+        if exists(image_path):
+            image_array = _read_image(image_path)
+        else:
+            raise ValueError('Specify either a valid URL or valid filepath')
             
 
     # [INFO] Using the following piece of code results in a 'None'
