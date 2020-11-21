@@ -18,6 +18,7 @@ from ..io import imread
 from ..opencv import mean, merge, split
 from ..utilities import npmean
 
+import numpy as np 
 
 """
     Important notes:
@@ -123,7 +124,7 @@ def compute_mean(data, channels, per_channel_subtraction=True):
     if len(data) == 0:
         raise ValueError('Dataset is empty')
     
-    if not isinstance(data, list):
+    if not isinstance(data, (list, np.ndarray)):
         raise ValueError('Dataset must be a list of size=number of images and shape=image shape')
 
     if channels == 3:
@@ -170,7 +171,7 @@ def subtract_mean(data, channels, mean_sub_values):
     if len(data) == 0:
         raise ValueError('Dataset is empty')
     
-    if not isinstance(data, list):
+    if not isinstance(data, (list, np.ndarray)):
         raise ValueError('Dataset must be a list of size = number of images and shape = image shape')
 
     data = [mean_process.mean_preprocess(img, channels) for img in data]
