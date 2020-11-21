@@ -1,6 +1,14 @@
 name: SLOC
 
-on: push
+on: 
+  push:
+    branches:
+      - master
+  pull-request:
+    branches:
+      - master
+      - dev
+
 
 jobs:
   lines:
