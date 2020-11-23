@@ -5,7 +5,9 @@
 [![license](https://img.shields.io/github/license/jasmcaus/caer?label=license)][license]
 
 ## Overview
-A lightweight Computer library for high-performance AI research. Caer contains powerful image and video processing operations. 
+A lightweight Computer library for high-performance AI research. Caer contains powerful image and video processing operations.
+
+# Introduction
 
 Caer simplifies your approach towards Computer Vision. It abstracts away unnecessary boilerplate code enabling maximum flexibility. By offering powerful image and video processing algorithms, Caer provides both casual and advanced users with an elegant interface for Machine vision operations.
 
