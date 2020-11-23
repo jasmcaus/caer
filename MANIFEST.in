@@ -2,7 +2,6 @@ include setup.cfg
 include .github/CONTRIBUTING.md
 include LICENSE
 include README.md
-include LONG_DESCRIPTION.md
 include INSTALL.md 
 include CONTRIBUTORS 
 include tools/cythonize.py
