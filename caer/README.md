@@ -1,6 +1,8 @@
 # Available subpackages
 
-`caer` 
+`caer` contains functions to simplify common tasks used when developing and evaluating computer vision systems. A short description of the sub-modules is provided below. For more details about what functions are available and how to use them, please review the doc-strings provided with the code.
+
+# 
 data
     Test images and example data.
 distance
