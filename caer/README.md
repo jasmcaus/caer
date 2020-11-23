@@ -1,5 +1,6 @@
-Available subpackages
------------
+# Available subpackages
+
+
 data
     Test images and example data.
 distance
