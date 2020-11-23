@@ -74,9 +74,9 @@ from configparser import ConfigParser
 
 # Configurations
 
-# All settings are in setup.cfg
+# All settings are in configs.ini
 config = ConfigParser(delimiters=['='])
-config.read('setup.cfg')
+config.read('configs.ini')
 cfg = config['metadata']
 opt = config['options']
 
