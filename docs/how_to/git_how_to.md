@@ -25,13 +25,12 @@ First rebase to most recent master
 
 ```shell
 # The first two steps can be skipped after you do it once.
-git remote add upstream https://github.com/dmlc/gluon-cv
+git remote add upstream https://github.com/jasmcaus/caer
 git fetch upstream
 git rebase upstream/master
 ```
 
-
-The git may show some conflicts it cannot merge, say `conflicted.py`.
+Git may show some conflicts it cannot merge, say `conflicted.py`.
 
 -   Manually modify the file to resolve the conflict.
 -   After you resolved the conflict, mark it as resolved by
