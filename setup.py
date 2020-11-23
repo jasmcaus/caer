@@ -74,8 +74,7 @@ if not is_right_py_version(min_version):
     sys.exit(-1)
 
 
-from setuptools import setup, Extension
-# from setuptools import find_packages
+from setuptools import setup, Extension, find_packages
 from distutils.command.build_ext import build_ext
 from configparser import ConfigParser
 
@@ -112,8 +111,7 @@ LICENSE = cfg['license']
 PLATFORMS = ['Any']
 URL = cfg['git_url']
 DOWNLOAD_URL = cfg['download_url']
-# PACKAGES = find_packages()
-PACKAGES = ['caer', 'caer.data', 'caer.path', 'caer.preprocessing', 'caer.utils', 'caer.video']
+PACKAGES = find_packages()
 DESCRIPTION = cfg['description']
 LONG_DESCRIPTION = open('README.md', encoding='utf-8').read()
 KEYWORDS = [i for i in cfg['keywords'].split(', ')]
