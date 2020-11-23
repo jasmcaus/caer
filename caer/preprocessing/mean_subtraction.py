@@ -3,7 +3,7 @@
 # | |        /  \   | |__   | |__) | Caer - Modern Computer Vision
 # | |       / /\ \  |  __|  |  _  /  Languages: Python, C, C++
 # | |___   / ____ \ | |____ | | \ \  http://github.com/jasmcaus/caer
-#  \_____\/_/    \_ \______ |_|  \_
+#  \_____\/_/    \_ \______ |_|  \_\
 
 # Licensed under the MIT License <http://opensource.org/licenses/MIT>
 # SPDX-License-Identifier: MIT
@@ -18,6 +18,7 @@ from ..io import imread
 from ..opencv import mean, merge, split
 from ..utilities import npmean
 
+import numpy as np 
 
 """
     Important notes:
@@ -41,7 +42,7 @@ class MeanProcess:
                 self.gMean = mean_sub_values[1]
                 self.bMean = mean_sub_values[2]
             else:
-                self.bgrMean = mean_sub_values
+                self.bgrMean = mean_sub_values[0]
 
     def mean_preprocess(self, image, channels):
         """
@@ -65,15 +66,15 @@ class MeanProcess:
             return image
             
 
-def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True):
+def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True, include_subdirs=True):
     """
         Computes mean per channel
         Mean must be computed ONLY on the train set
     """
-    if exists(DIR) is False:
+    if not exists(DIR):
         raise ValueError('The specified directory does not exist')
     
-    image_list = list_images(DIR, include_subdirs=True, use_fullpath=True, verbose=0)
+    image_list = list_images(DIR, include_subdirs=include_subdirs, use_fullpath=True, verbose=0)
 
     if len(image_list) == 0:
         raise ValueError(f'No images found at {DIR}')
@@ -123,7 +124,7 @@ def compute_mean(data, channels, per_channel_subtraction=True):
     if len(data) == 0:
         raise ValueError('Dataset is empty')
     
-    if not isinstance(data, list):
+    if not isinstance(data, (list, np.ndarray)):
         raise ValueError('Dataset must be a list of size=number of images and shape=image shape')
 
     if channels == 3:
@@ -170,7 +171,7 @@ def subtract_mean(data, channels, mean_sub_values):
     if len(data) == 0:
         raise ValueError('Dataset is empty')
     
-    if not isinstance(data, list):
+    if not isinstance(data, (list, np.ndarray)):
         raise ValueError('Dataset must be a list of size = number of images and shape = image shape')
 
     data = [mean_process.mean_preprocess(img, channels) for img in data]

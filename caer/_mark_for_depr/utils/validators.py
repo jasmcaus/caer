@@ -36,6 +36,7 @@ EMPTY_VALUES = (None, '', [], (), {})
 def is_valid_url(url):
     if not isinstance(url, str):
         raise ValueError('URL needs to be a string')
+    
     validate = URLValidator()
     try:
         validate(url)

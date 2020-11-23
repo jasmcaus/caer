@@ -9,6 +9,8 @@ test.py
 speeds.py
 gitacp.bat
 dashsymbols.py 
+Samples/*
+commit-at-large.py
 
 # PyPi 
 dist/*
