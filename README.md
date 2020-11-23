@@ -35,7 +35,7 @@ Usually, Caer is used either as:
 - a Computer Vision research platform that provides maximum flexibility and speed.
 
 
-# Installation
+## Install
 See the Caer **[Installation][install]** guide for detailed installation instructions including building from source.
 
 Currently, `caer` supports releases of Python 3.6 onwards; Python 2 is not supported (nor recommended). 
