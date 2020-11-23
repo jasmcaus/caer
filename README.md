@@ -48,7 +48,7 @@ $ pip install caer
 
 # Getting Started
 
-### Example
+## Examples
 ```python
 >> import caer
 
