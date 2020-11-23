@@ -22,13 +22,13 @@
 ### [morph](morph)
     Morphological operations, e.g., skeletonization.
 
-### [path]()
+### [path](path)
     OS-specific Path Manipulations
 
-### [preprocessing]()
+### [preprocessing](preprocessing)
     Image preprocessing utilities
 
-### [segmentation]()
+### [segmentation](segmentation)
     Partitioning an image into multiple regions.  
 
 ### [util]()
