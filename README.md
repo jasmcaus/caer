@@ -15,7 +15,7 @@ It leverages the power of libraries like OpenCV and Pillow to speed up your Comp
 This design philosophy makes Caer ideal for students, researchers, hobbyists and even experts in the fields of Deep Learning and Computer Vision to quickly prototype deep learning models or research ideas.
 
 
-## More About Caer
+## Overview
 
 Caer is a Python library that consists of the following components:
 
