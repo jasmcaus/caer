@@ -28,14 +28,8 @@
 ### [preprocessing]()
     Image preprocessing utilities
 
-### [restoration]()
-    Restoration algorithms, e.g., deconvolution algorithms, denoising, etc.
-
 ### [segmentation]()
-    Partitioning an image into multiple regions.
-
-### [transform]()
-    Geometric and other transforms, e.g., rotation or the Radon transform.    
+    Partitioning an image into multiple regions.  
 
 ### [util]()
     Generic utilities.
