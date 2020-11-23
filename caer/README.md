@@ -4,7 +4,7 @@
 
 ## Sub-modules
 
-### [data]
+### [data]()
     Test images and example data.
 distance
     Distance-computing algorithms
