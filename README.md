@@ -35,6 +35,7 @@ Usually, Caer is used either as:
 - a Computer Vision research platform that provides maximum flexibility and speed.
 
 
+# Getting Starte
 ## Install
 See the Caer **[Installation][install]** guide for detailed installation instructions including building from source.
 
