@@ -17,8 +17,6 @@ features
     Feature detection and extraction, e.g., texture analysis corners, etc.
 filters
     Sharpening, edge finding, rank filters, thresholding, etc.
-io
-    Reading, saving, and displaying images and video.
 morph
     Morphological operations, e.g., opening or skeletonization.
 path
