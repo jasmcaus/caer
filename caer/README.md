@@ -10,17 +10,14 @@
 ### [distance](distance)
     Distance-computing algorithms
 
-### [exposure]()
+### [exposure](exposure)
     Image intensity adjustment, e.g., histogram equalization, etc.
 
-### [features]()
+### [features](features)
     Feature detection and extraction, e.g., texture analysis corners, etc.
 
-### [filters]()
+### [filters](filters)
     Sharpening, edge finding, rank filters, thresholding, etc.
-
-### [io]()
-    Reading, saving, and displaying images and video.
 
 ### [morph]()
     Morphological operations, e.g., opening or skeletonization.
