@@ -5,34 +5,34 @@
 ## Sub-modules
 
 ### [data](data)
-    Test images and example data.
+Test images and example data.
 
 ### [distance](distance)
-    Distance-computing algorithms
+Distance-computing algorithms
 
 ### [exposure](exposure)
-    Image intensity adjustment, e.g., histogram equalization, etc.
+Image intensity adjustment, e.g., histogram equalization, etc.
 
 ### [features](features)
-    Feature detection and extraction, e.g., texture analysis corners, etc.
+Feature detection and extraction, e.g., texture analysis corners, etc.
 
 ### [filters](filters)
-    Sharpening, edge finding, rank filters, thresholding, etc.
+Sharpening, edge finding, rank filters, thresholding, etc.
 
 ### [morph](morph)
-    Morphological operations, e.g., skeletonization.
+Morphological operations, e.g., skeletonization.
 
 ### [path](path)
-    OS-specific Path Manipulations
+OS-specific Path Manipulations
 
 ### [preprocessing](preprocessing)
-    Image preprocessing utilities
+Image preprocessing utilities
 
 ### [segmentation](segmentation)
-    Partitioning an image into multiple regions.  
+Partitioning an image into multiple regions.  
 
 ### [utils](utils)
-    Generic utilities.
+Generic utilities.
 
 ### [video](video)
-    Video processing utilities
+Video processing utilities
