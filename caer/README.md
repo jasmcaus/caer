@@ -19,7 +19,7 @@
 ### [filters](filters)
     Sharpening, edge finding, rank filters, thresholding, etc.
 
-### [morph]()
+### [morph](morph)
     Morphological operations, e.g., skeletonization.
 
 ### [path]()
