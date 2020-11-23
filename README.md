@@ -86,7 +86,7 @@ Caer is released under the [MIT License](https://github.com/jasmcaus/caer/blob/m
 [coc]: https://github.com/jasmcaus/caer/blob/master/CODE_OF_CONDUCT.md
 [issues]: https://github.com/jasmcaus/caer/issues
 [install]: https://github.com/jasmcaus/caer/blob/master/INSTALL.md
-[demos]: https://github.com/jasmcaus/caer/blob/master/demos/
+[demos]: https://github.com/jasmcaus/caer/blob/master/examples/
 
 [downloads]: https://pepy.tech/project/caer
 [py-versions]: https://pypi.org/project/caer/
