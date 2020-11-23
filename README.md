@@ -4,7 +4,6 @@
 [![Downloads](https://pepy.tech/badge/caer)][downloads]
 [![license](https://img.shields.io/github/license/jasmcaus/caer?label=license)][license]
 
-## Overview
 A lightweight Computer library for high-performance AI research. Caer contains powerful image and video processing operations.
 
 # Introduction
