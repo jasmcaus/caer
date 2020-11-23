@@ -24,10 +24,8 @@ path
 preprocessing
     Image preprocessing utilities
 segmentation
-    Partitioning an image into multiple regions.
-transform
-    Geometric and other transforms, e.g., rotation or the Radon transform.    
-util
+    Partitioning an image into multiple regions.   
+utils
     Generic utilities.
 video
     Video processing utilities
