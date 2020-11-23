@@ -31,8 +31,8 @@
 ### [segmentation](segmentation)
     Partitioning an image into multiple regions.  
 
-### [util]()
+### [util](util)
     Generic utilities.
 
-### [video]()
+### [video](video)
     Video processing utilities
