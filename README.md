@@ -5,8 +5,13 @@
 [![license](https://img.shields.io/github/license/jasmcaus/caer?label=license)][license]
 
 ## Overview
-A Computer Vision library in Python with powerful image and video processing operations.
-Caer is a set of utility functions designed to help speed up your Computer Vision workflow. Functions inside `caer` will help reduce the number of calculation calls your code makes, ultimately making it neat, concise and readable.
+A lightweight Computer library for high-performance AI research. Caer contains powerful image and video processing operations. 
+
+Caer simplifies your approach towards Computer Vision. It abstracts away unnecessary boilerplate code enabling maximum flexibility. By offering powerful image and video processing algorithms, Caer provides both casual and advanced users with an elegant interface for Machine vision operations.
+
+It leverages the power of libraries like OpenCV and Pillow to speed up your Computer Vision workflow — making it ideal if you want to quickly test out something.
+
+This design philosophy makes Caer ideal for students, researchers, hobbyists and even experts in the fields of Deep Learning and Computer Vision to quickly prototype deep learning models or research ideas.
 
 
 ## More About Caer
