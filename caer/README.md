@@ -20,7 +20,7 @@
     Sharpening, edge finding, rank filters, thresholding, etc.
 
 ### [morph]()
-    Morphological operations, e.g., opening or skeletonization.
+    Morphological operations, e.g., skeletonization.
 
 ### [path]()
     OS-specific Path Manipulations
