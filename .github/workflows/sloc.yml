@@ -7,7 +7,6 @@ on:
   pull-request:
     branches:
       - master
-      - dev
 
 
 jobs:
