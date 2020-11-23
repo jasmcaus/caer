@@ -18,13 +18,11 @@ features
 filters
     Sharpening, edge finding, rank filters, thresholding, etc.
 morph
-    Morphological operations, e.g., opening or skeletonization.
+    Morphological operations, e.g., skeletonization.
 path
     OS-specific Path Manipulations
 preprocessing
     Image preprocessing utilities
-restoration
-    Restoration algorithms, e.g., deconvolution algorithms, denoising, etc.
 segmentation
     Partitioning an image into multiple regions.
 transform
