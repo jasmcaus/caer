@@ -115,7 +115,7 @@ DOWNLOAD_URL = cfg['download_url']
 # PACKAGES = find_packages()
 PACKAGES = ['caer', 'caer.data', 'caer.path', 'caer.preprocessing', 'caer.utils', 'caer.video']
 DESCRIPTION = cfg['description']
-LONG_DESCRIPTION = open('LONG_DESCRIPTION.md', encoding='utf-8').read()
+LONG_DESCRIPTION = open('README.md', encoding='utf-8').read()
 KEYWORDS = [i for i in cfg['keywords'].split(', ')]
 REQUIREMENTS = [i for i in opt['pip_requirements'].split(', ')]
 CLASSIFIERS = [i for i in cfg['classifiers'].split('\n')][1:]
