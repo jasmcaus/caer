@@ -61,7 +61,7 @@ $ pip install caer
 
 For more examples, see the [Caer demos](demos).
 
-### Resources
+## Resources
 
 - [**PyPi**](https://pypi.org/project/caer)
 - [**Documentation**](https://github.com/jasmcaus/caer/blob/master/docs/README.md)
