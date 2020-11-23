@@ -5,3 +5,6 @@ requires = [
     'wheel<=0.35.1',
     'Cython>=0.29.21',
 ]
+
+[tool.black]
+line-length = 79
