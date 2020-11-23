@@ -6,29 +6,29 @@
 
 ### [data]()
     Test images and example data.
-### distance
+### [distance]()
     Distance-computing algorithms
-### exposure
+### [exposure]()
     Image intensity adjustment, e.g., histogram equalization, etc.
-### features
+### [features]()
     Feature detection and extraction, e.g., texture analysis corners, etc.
-### filters
+### [filters]()
     Sharpening, edge finding, rank filters, thresholding, etc.
-### io
+### [io]()
     Reading, saving, and displaying images and video.
-### morph
+### [morph]()
     Morphological operations, e.g., opening or skeletonization.
-### path
+### [path]()
     OS-specific Path Manipulations
-### preprocessing
+### [preprocessing]()
     Image preprocessing utilities
-### restoration
+### [restoration]()
     Restoration algorithms, e.g., deconvolution algorithms, denoising, etc.
-### segmentation
+### [segmentation]()
     Partitioning an image into multiple regions.
-### transform
+### [transform]()
     Geometric and other transforms, e.g., rotation or the Radon transform.    
-### util
+### [util]()
     Generic utilities.
-### video
+### [video]()
     Video processing utilities
