@@ -12,6 +12,9 @@
 # F821  undefined name 'get_ipython' --> from generated python files using nbconvert
 # W605  invalid escape sequence '\W'
 
+filename =
+    *.py,
+
 exclude =
     .git,
     __pycache__,
