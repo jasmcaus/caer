@@ -42,7 +42,7 @@ Currently, `caer` supports releases of Python 3.6 onwards; Python 2 is not suppo
 To install the current release:
 
 ```shell
-$ pip install caer
+$ pip install --upgrade caer
 ```
 
 
