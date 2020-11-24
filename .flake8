@@ -32,7 +32,9 @@ select =
 	E501, # line length
 	E225 # whitespace around operators
 max_complexity = 70
-max_line_length = 120
 show_source = True
 statistics = True
 count = True
+
+# TBH I prefer 120 as opposed to 79/88
+max_line_length = 120
