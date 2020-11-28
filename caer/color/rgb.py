@@ -20,6 +20,7 @@ __all__ = [
     'rgb_to_bgr'
 ]
 
+
 def rgb_to_bgr(img):
     """
         Converts an RGB image to its BGR version
