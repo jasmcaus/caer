@@ -15,7 +15,7 @@ import numpy as np
 from urllib.request import urlopen
 
 from .utilities import median, asarray
-from .color import bgr_to_gray, bgr_to_rgb, IMREAD_COLOR
+from .color import bgr_to_rgb, IMREAD_COLOR
 
 
 __all__ = [
