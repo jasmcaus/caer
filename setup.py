@@ -71,6 +71,18 @@ if not is_right_py_version(min_version):
 from setuptools import setup, Extension, find_packages
 from distutils.command.build_ext import build_ext
 from configparser import ConfigParser
+import subprocess
+import os 
+
+# Git version stuff
+sha = 'Unknown'
+here = os.path.dirname(os.path.abspath(__file__))
+
+try:
+    sha = subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=here).decode('ascii').strip()
+except Exception:
+    pass
+
 
 # Configurations
 
@@ -102,6 +114,7 @@ AUTHOR = cfg['author']
 AUTHOR_EMAIL = cfg['author_email']
 AUTHOR_LONG = AUTHOR + ' <' + AUTHOR_EMAIL + '>'
 LICENSE = cfg['license']
+GIT_VERSION = repr(sha)
 PLATFORMS = ['Any']
 URL = cfg['git_url']
 DOWNLOAD_URL = cfg['download_url']
@@ -147,6 +160,7 @@ META_PY_TEXT =\
 author = '%(author)s'
 version = '%(version)s'
 full_version = '%(full_version)s'
+git_version = '%(git_version)s'
 release = %(isrelease)s
 contributors = %(contributors)s
 """
@@ -174,6 +188,7 @@ def write_meta(filename='caer/_meta.py'):
         a.write(TEXT % {'author': AUTHOR_LONG,
                         'version': VERSION,
                        'full_version': FULL_VERSION,
+                       'git_version': GIT_VERSION,
                        'isrelease': str(ISRELEASED),
                        'contributors': CONTRIBUTORS })
     finally:
@@ -186,8 +201,6 @@ def get_docs_url():
 
 CYTHON_SOURCES = ('',)
 def generate_cython():
-    import os 
-    import subprocess
     cwd = os.path.abspath(os.path.dirname(__file__))
     print('[INFO] Cythonizing sources')
     p = subprocess.call([sys.executable,
