@@ -11,9 +11,11 @@
 
 
 import cv2 as cv
+from urllib.request import urlopen
 
+from .utilities import asarray
+from .color import bgr_to_rgb, bgr_to_gray, IMREAD_COLOR
 from ._internal import _check_target_size
-from .opencv import bgr_to_rgb, bgr_to_gray, url_to_image
 from .path import exists
 from .resize import resize
 
@@ -38,6 +40,10 @@ def imread(image_path, target_size=None, channels=3, rgb=False, resize_factor=No
     return _imread(image_path, target_size=target_size, channels=channels, rgb=rgb, resize_factor=resize_factor, keep_aspect_ratio=keep_aspect_ratio)
 
 
+def imsave(filename, img):
+    cv.imwrite(filename, img)
+
+
 def _imread(image_path, target_size=None, channels=3, rgb=False, resize_factor=None, keep_aspect_ratio=False):   
     if target_size is not None:
         _ = _check_target_size(target_size)
@@ -53,7 +59,7 @@ def _imread(image_path, target_size=None, channels=3, rgb=False, resize_factor=N
         rgb = False
 
     try:
-        image_array = url_to_image(image_path, rgb=False)
+        image_array = _url_to_image(image_path, rgb=False)
     except Exception:
         if exists(image_path):
             image_array = _read_image(image_path)
@@ -88,7 +94,13 @@ def _read_image(image_path):
         raise FileNotFoundError('The image file was not found')
     
     return cv.imread(image_path)
-    
 
-def imsave(filename, img):
-    cv.imwrite(filename, img)
+
+def _url_to_image(url, rgb=False):
+    # Converts the image to a Numpy array and reads it in OpenCV
+    response = urlopen(url)
+    image = asarray(bytearray(response.read()), dtype='uint8')
+    image = cv.imdecode(image, IMREAD_COLOR)
+    if rgb:
+        image = bgr_to_rgb(image)
+    return image

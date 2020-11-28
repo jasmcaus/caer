@@ -12,10 +12,8 @@
 
 import cv2 as cv
 import numpy as np
-from urllib.request import urlopen
 
-from .utilities import median, asarray
-from .color import bgr_to_rgb, IMREAD_COLOR
+from .utilities import median
 
 
 __all__ = [
@@ -171,13 +169,3 @@ def split(img):
 #     superimpose = cv.addWeighted(heatmap, 0.7, img, 0.3, 0)
 
 #     return superimpose
-
-
-def url_to_image(url, rgb=False):
-    # Converts the image to a Numpy array and reads it in OpenCV
-    response = urlopen(url)
-    image = asarray(bytearray(response.read()), dtype='uint8')
-    image = cv.imdecode(image, IMREAD_COLOR)
-    if rgb:
-        image = bgr_to_rgb(image)
-    return image
