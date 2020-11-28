@@ -49,44 +49,56 @@ def copyright():
 
 
 # Preprocessing
-from .preprocess import preprocess_from_dir
-from .preprocess import sep_train
-from .preprocess import shuffle
-from .preprocess import reshape
-from .preprocess import normalize
+from .preprocess import (
+    preprocess_from_dir,
+    sep_train,
+    shuffle,
+    reshape,
+    normalize
+)
 
 # General utilities
-from .utilities import median
-from .utilities import npmean
-from .utilities import to_array
-from .utilities import array
-from .utilities import asarray
-from .utilities import train_val_split
-from .utilities import get_classes_from_dir
-from .utilities import sort_dict
+from .utilities import (
+    median,
+    npmean,
+    to_array,
+    array,
+    asarray,
+    train_val_split,
+    get_classes_from_dir,
+    sort_dict
+)
 
 # Opencv-specific methods
-from .opencv import get_opencv_version
-from .opencv import mean 
-from .opencv import merge 
-from .opencv import split 
-# from .opencv import energy_map 
-# from .opencv import color_map 
-from .opencv import translate
-from .opencv import rotate 
-from .opencv import edges 
+from .opencv import (
+    get_opencv_version,
+    mean,
+    merge,
+    split,
+    # energy_map,
+    # color_map,
+    translate,
+    rotate,
+    edges,
+)
 
 # General visualizations
-from .visualizations import hex_to_rgb
-from .visualizations import draw_rectangle
+from .visualizations import (
+    hex_to_rgb,
+    draw_rectangle
+)
 
 # Resize
-from .resize import resize 
-from .resize import center_crop 
+from .resize import (
+    resize,
+    center_crop
+)
 
 # Image 
-from .io import imread
-from .io import imsave
+from .io import (
+    imread,
+    imsave
+)
 
 # Color Space
 from .color import (
@@ -98,6 +110,14 @@ from .color import (
     rgb_to_hsv,
     rgb_to_lab,
     rgb_to_bgr,
+    hsv_to_bgr,
+    hsv_to_gray,
+    hsv_to_lab,
+    hsv_to_rgb,
+    lab_to_bgr,
+    lab_to_gray,
+    lab_to_hsv,
+    lab_to_rgb
 )
 
 # Bringing in configuration variables from globals.py
