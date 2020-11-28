@@ -15,9 +15,6 @@ import numpy as np
 from urllib.request import urlopen
 
 from .utilities import median, asarray
-from .globals import (
-    BGR2GRAY, BGR2RGB, BGR2HSV, BGR2LAB, RGB2BGR, RGB2GRAY, RGB2HSV, RGB2LAB, IMREAD_COLOR
-)
 
 
 __all__ = [
@@ -29,10 +26,6 @@ __all__ = [
     'bgr_to_hsv',
     'bgr_to_lab',
     'bgr_to_rgb',
-    'rgb_to_gray',
-    'rgb_to_hsv',
-    'rgb_to_lab',
-    'rgb_to_bgr',
     'url_to_image',
     'color_map',
     'energy_map',
