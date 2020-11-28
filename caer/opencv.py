@@ -22,10 +22,6 @@ __all__ = [
     'mean',
     'merge',
     'split',
-    'bgr_to_gray',
-    'bgr_to_hsv',
-    'bgr_to_lab',
-    'bgr_to_rgb',
     'url_to_image',
     'color_map',
     'energy_map',
@@ -154,65 +150,26 @@ def split(img):
     except:
         raise ValueError('mean() expects an image')
 
-    
-def bgr_to_rgb(img):
-    """
-        Converts a BGR image to its RGB version
-    """
-    if len(img.shape) != 3:
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a BGR image to its RGB counterpart')
 
-    return cv.cvtColor(img, BGR2RGB)
+# def energy_map(img):
+#     img = bgr_to_gray(img.astype(np.uint8))
 
-def bgr_to_gray(img):
-    """
-        Converts a BGR image to its Grayscale version
-    """
-    if len(img.shape) != 3:
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a BGR image to its Grayscale counterpart')
-    
-    return cv.cvtColor(img, BGR2GRAY)
+#     dx = cv.Sobel(img, cv.CV_16S, 1, 0, ksize=3)
+#     abs_x = cv.convertScaleAbs(dx)
+#     dy = cv.Sobel(img, cv.CV_16S, 0, 1, ksize=3)
+#     abs_y = cv.convertScaleAbs(dy)
+#     output = cv.addWeighted(abs_x, 0.5, abs_y, 0.5, 0)
+
+#     return output
 
 
-def bgr_to_hsv(img):
-    """
-        Converts a BGR image to its HSV counterpart
-    """
-    if len(img.shape) != 3:
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a BGR image to its HSV counterpart')
-    
-    return cv.cvtColor(img, BGR2HSV)
+# def color_map(img):
+#     gray_img = bgr_to_gray(img) 
 
+#     heatmap = cv.applyColorMap(gray_img, 11)
+#     superimpose = cv.addWeighted(heatmap, 0.7, img, 0.3, 0)
 
-def bgr_to_lab(img):
-    """
-        Converts a BGR image to its LAB counterpart
-    """
-    if len(img.shape) != 3:
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a BGR image to its LAB counterpart')
-
-    return cv.cvtColor(img, BGR2LAB)
-
-
-def energy_map(img):
-    img = bgr_to_gray(img.astype(np.uint8))
-
-    dx = cv.Sobel(img, cv.CV_16S, 1, 0, ksize=3)
-    abs_x = cv.convertScaleAbs(dx)
-    dy = cv.Sobel(img, cv.CV_16S, 0, 1, ksize=3)
-    abs_y = cv.convertScaleAbs(dy)
-    output = cv.addWeighted(abs_x, 0.5, abs_y, 0.5, 0)
-
-    return output
-
-
-def color_map(img):
-    gray_img = bgr_to_gray(img) 
-
-    heatmap = cv.applyColorMap(gray_img, 11)
-    superimpose = cv.addWeighted(heatmap, 0.7, img, 0.3, 0)
-
-    return superimpose
+#     return superimpose
 
 
 def url_to_image(url, rgb=False):
