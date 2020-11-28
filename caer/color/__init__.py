@@ -26,6 +26,14 @@ from .rgb import (
     __all__ as __all_rgb__
 )
 
+from .gray import (
+    gray_to_lab,
+    gray_to_rgb,
+    gray_to_hsv,
+    gray_to_bgr,
+    __all__ as __all_gray__
+)
+
 from .hsv import (
     hsv_to_gray,
     hsv_to_rgb,
@@ -56,7 +64,9 @@ from .constants import (
     HSV2RGB,
     LAB2BGR,
     LAB2RGB,
+    GRAY2BGR,
+    GRAY2RGB,
     __all__ as __all_const__
 )
 
-__all__ = __all_const__ + __all_rgb__ + __all_bgr__ + __all_hsv__ + __all_lab__
+__all__ = __all_const__ + __all_rgb__ + __all_gray__ + __all_bgr__ + __all_hsv__ + __all_lab__
