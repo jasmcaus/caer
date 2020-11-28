@@ -72,17 +72,9 @@ from .opencv import get_opencv_version
 from .opencv import mean 
 from .opencv import merge 
 from .opencv import split 
-from .opencv import bgr_to_gray
-from .opencv import bgr_to_hsv
-from .opencv import bgr_to_lab
-from .opencv import bgr_to_rgb
-from .opencv import rgb_to_gray
-from .opencv import rgb_to_hsv
-from .opencv import rgb_to_lab
-from .opencv import rgb_to_bgr
 from .opencv import url_to_image 
-from .opencv import energy_map 
-from .opencv import color_map 
+# from .opencv import energy_map 
+# from .opencv import color_map 
 from .opencv import translate
 from .opencv import rotate 
 from .opencv import edges 
@@ -99,6 +91,18 @@ from .resize import center_crop
 # Image 
 from .io import imread
 from .io import imsave
+
+# Color Space
+from .color import (
+    bgr_to_gray,
+    bgr_to_hsv,
+    bgr_to_lab,
+    bgr_to_rgb,
+    rgb_to_gray,
+    rgb_to_hsv,
+    rgb_to_lab,
+    rgb_to_bgr,
+)
 
 # Bringing in configuration variables from globals.py
 from .globals import *
@@ -130,12 +134,13 @@ from .preprocessing import __all__ as __all_preprocessing__
 from .data import __all__ as __all_data__
 from .utils import __all__ as __all_utils__
 from .path import __all__ as __all_path__
+from .color import __all__ as __all_color__
 # from .filters import __all__ as __all_filters__
 # from .distance import __all__ as __all_distance__
 # from .morph import __all__ as __all_morph__
 
 
-__all__ = __all_globals__ + __all_io__ + __all_resize__ + __all_opencv__ + __all_preprocess__ + __all_utilities__ + __all_visualizations__ 
+__all__ = __all_globals__ + __all_io__ + __all_resize__ + __all_opencv__ + __all_preprocess__ + __all_utilities__ + __all_visualizations__
 # + __all_filters__ + __all_distance__ + __all_morph__
 
 __all__ += __all_preprocessing__ 
@@ -143,6 +148,7 @@ __all__ += __all_video__
 __all__ += __all_data__ 
 __all__ += __all_utils__ 
 __all__ += __all_path__
+__all__ += __all_color__
 
 # Stop polluting the namespace
 del __all_globals__ 
@@ -157,6 +163,7 @@ del __all_preprocessing__
 del __all_video__ 
 del __all_data__ 
 del __all_utils__ 
+del __all_color__ 
 # del __all_distance__
 # del __all_filters__
 # del __all_morph__
