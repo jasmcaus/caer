@@ -13,7 +13,7 @@
 import cv2 as cv 
 
 from .constants import HSV2BGR, HSV2RGB
-from .rgb import rgb_to_gray, rgb_to_lab
+from .bgr import bgr_to_gray, bgr_to_lab
 
 __all__ = (
     'hsv_to_rgb',
@@ -52,7 +52,7 @@ def hsv_to_gray(img):
 
     bgr = hsv_to_bgr(img)
 
-    return rgb_to_gray(bgr)
+    return bgr_to_gray(bgr)
 
 
 def hsv_to_lab(img):
@@ -62,7 +62,7 @@ def hsv_to_lab(img):
     if len(img.shape) != 3:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a HSV image to its LAB counterpart')
 
-    lab = hsv_to_bgr(img)
+    bgr = hsv_to_bgr(img)
 
-    return rgb_to_lab(lab)
+    return bgr_to_lab(bgr)
 
