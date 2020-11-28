@@ -171,17 +171,6 @@ def bgr_to_rgb(img):
 
     return cv.cvtColor(img, BGR2RGB)
 
-
-def rgb_to_bgr(img):
-    """
-        Converts an RGB image to its BGR version
-    """
-    if len(img.shape) != 3:
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts an RGB image to its BGR counterpart')
-
-    return cv.cvtColor(img, RGB2BGR)
-
-
 def bgr_to_gray(img):
     """
         Converts a BGR image to its Grayscale version
@@ -190,16 +179,6 @@ def bgr_to_gray(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a BGR image to its Grayscale counterpart')
     
     return cv.cvtColor(img, BGR2GRAY)
-
-
-def rgb_to_gray(img):
-    """
-        Converts an RGB image to its Grayscale version
-    """
-    if len(img.shape) != 3:
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts an RGB image to its Grayscale counterpart')
-    
-    return cv.cvtColor(img, RGB2GRAY)
 
 
 def bgr_to_hsv(img):
@@ -212,16 +191,6 @@ def bgr_to_hsv(img):
     return cv.cvtColor(img, BGR2HSV)
 
 
-def rgb_to_hsv(img):
-    """
-        Converts an RGB image to its HSV counterpart
-    """
-    if len(img.shape) != 3:
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts an RGB image to its HSV counterpart')
-    
-    return cv.cvtColor(img, RGB2HSV)
-
-
 def bgr_to_lab(img):
     """
         Converts a BGR image to its LAB counterpart
@@ -230,16 +199,6 @@ def bgr_to_lab(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a BGR image to its LAB counterpart')
 
     return cv.cvtColor(img, BGR2LAB)
-
-
-def rgb_to_lab(img):
-    """
-        Converts an RGB image to its LAB counterpart
-    """
-    if len(img.shape) != 3:
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts an RGB image to its LAB counterpart')
-
-    return cv.cvtColor(img, RGB2LAB)
 
 
 def energy_map(img):
