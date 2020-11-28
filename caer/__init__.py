@@ -70,7 +70,6 @@ from .opencv import get_opencv_version
 from .opencv import mean 
 from .opencv import merge 
 from .opencv import split 
-from .opencv import url_to_image 
 # from .opencv import energy_map 
 # from .opencv import color_map 
 from .opencv import translate
