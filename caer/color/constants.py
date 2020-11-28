@@ -20,3 +20,6 @@ RGB2BGR = BGR2RGB # cv.COLOR_RGB2BGR
 RGB2HSV = 41  # cv.COLOR_RGB2HSV
 BGR2LAB = 44  # cv.COLOR_BGR2LAB
 RGB2LAB = 45  # cv.COLOR_RGB2LAB
+
+
+__all__ = [d for d in dir() if not d.startswith('_')]
