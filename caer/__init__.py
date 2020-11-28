@@ -100,7 +100,7 @@ from .io import (
     imsave
 )
 
-# Color Space
+# Color Spaces
 from .color import (
     bgr_to_gray,
     bgr_to_hsv,
