@@ -56,13 +56,11 @@ from .preprocess import reshape
 from .preprocess import normalize
 
 # General utilities
-from .utilities import saveNumpy
 from .utilities import median
 from .utilities import npmean
 from .utilities import to_array
 from .utilities import array
 from .utilities import asarray
-from .utilities import npload
 from .utilities import train_val_split
 from .utilities import get_classes_from_dir
 from .utilities import sort_dict
@@ -82,7 +80,6 @@ from .opencv import edges
 # General visualizations
 from .visualizations import hex_to_rgb
 from .visualizations import draw_rectangle
-
 
 # Resize
 from .resize import resize 
