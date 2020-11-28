@@ -15,6 +15,7 @@ import numpy as np
 from urllib.request import urlopen
 
 from .utilities import median, asarray
+from .color import bgr_to_gray, bgr_to_rgb, IMREAD_COLOR
 
 
 __all__ = [
@@ -23,8 +24,8 @@ __all__ = [
     'merge',
     'split',
     'url_to_image',
-    'color_map',
-    'energy_map',
+    # 'color_map',
+    # 'energy_map',
     'translate',
     'rotate',
     'edges'
