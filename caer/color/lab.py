@@ -11,6 +11,7 @@
 
 
 import cv2 as cv 
+import numpy as np
 
 from .constants import LAB2BGR, LAB2RGB
 from .bgr import bgr_to_gray, bgr_to_hsv
@@ -23,7 +24,7 @@ __all__ = [
 ]
 
 
-def lab_to_rgb(img):
+def lab_to_rgb(img) -> np.ndarray:
     """
         Converts an LAB image to its RGB version
     """
@@ -33,7 +34,7 @@ def lab_to_rgb(img):
     return cv.cvtColor(img, LAB2RGB)
 
 
-def lab_to_bgr(img):
+def lab_to_bgr(img) -> np.ndarray:
     """
         Converts am LAB image to its BGR version
     """
@@ -43,7 +44,7 @@ def lab_to_bgr(img):
     return cv.cvtColor(img, LAB2BGR)
 
 
-def lab_to_gray(img):
+def lab_to_gray(img) -> np.ndarray:
     """
         Converts an LAB image to its Grayscale version
     """
@@ -55,7 +56,7 @@ def lab_to_gray(img):
     return bgr_to_gray(bgr)
 
 
-def lab_to_hsv(img):
+def lab_to_hsv(img) -> np.ndarray:
     """
         Converts an LAB image to its LAB version
     """
