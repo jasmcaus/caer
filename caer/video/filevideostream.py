@@ -15,9 +15,10 @@ import time
 import math
 from queue import Queue
 import cv2 as cv
+import numpy as np 
 
 from .constants import FRAME_COUNT, FPS
-
+from ..jit.annotations import Tuple
 
 __all__ = [
     'FileVideoStream'
@@ -31,7 +32,7 @@ __all__ = [
 
 # This class can handle both live as well as pre-existing videos. 
 class FileVideoStream:
-    def __init__(self, source = 0, queue_size=128):
+    def __init__(self, source = 0, queue_size=128) -> None:
         """
             Source must either be an integer (0,1,2 etc) or a path to a video file
         """
@@ -61,12 +62,13 @@ class FileVideoStream:
         self.thread = Thread(target=self.update, args=())
         self.thread.daemon = True
 
-    def begin_stream(self):
+
+    def begin_stream(self) -> None:
         # start a thread to read frames from the video stream
         self.thread.start()
         return self
 
-    def update(self):
+    def update(self) -> np.ndarray:
         while True:
             if self.kill_stream:
                 break
@@ -89,12 +91,12 @@ class FileVideoStream:
         self.video_stream.release()
 
 
-    def read(self):
+    def read(self) -> np.ndarray:
         # return next frame in the queue
         return self.Q.get()
 
 
-    def more(self):
+    def more(self) -> bool:
         # # returns True if there are still frames in the queue
         # tries = 0
         # while self.Q.qsize() == 0 and not self.kill_stream and tries < 5:
@@ -104,14 +106,14 @@ class FileVideoStream:
         return self.Q.qsize() > 0 or not self.kill_stream
 
 
-    def release(self):
+    def release(self) -> None:
         self.kill_stream = True
         # wait until stream resources are released
         self.thread.join()
     
 
     # Gets frame count
-    def count_frames(self):
+    def count_frames(self) -> int:
         if not self.kill_stream and not self.live_video:
             return self.frames
             # if get_opencv_version() == '2':
@@ -126,7 +128,7 @@ class FileVideoStream:
 
 
     # Gets FPS count
-    def get_fps(self):
+    def get_fps(self) -> (float, int):
         if not self.kill_stream:
             return self.fps
             # if get_opencv_version() == '2':
@@ -136,5 +138,5 @@ class FileVideoStream:
     
     
     # Get frame dimensions
-    def get_res(self):
+    def get_res(self) -> Tuple[int]:
         return self.res
