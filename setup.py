@@ -90,7 +90,6 @@ except Exception:
 config = ConfigParser(delimiters=['='])
 config.read('configs.ini')
 cfg = config['metadata']
-opt = config['options']
 
 cfg_keys = 'description keywords author author_email contributors'.split()
 expected = cfg_keys + "name user git_branch license status audience language dev_language".split()
@@ -122,9 +121,9 @@ PACKAGES = [i for i in find_packages() if 'tests' not in i]
 DESCRIPTION = cfg['description']
 LONG_DESCRIPTION = open('README.md', encoding='utf-8').read()
 KEYWORDS = [i for i in cfg['keywords'].split(', ')]
-REQUIREMENTS = [i for i in opt['pip_requirements'].split(', ')]
+REQUIREMENTS = [i for i in cfg['pip_requirements'].split(', ')]
 CLASSIFIERS = [i for i in cfg['classifiers'].split('\n')][1:]
-PYTHON_REQUIRES = '>=' + opt['min_python']
+PYTHON_REQUIRES = '>=' + cfg['min_python']
 EXTENSIONS = {
     'caer.filters.cconvex': ['caer/filters/cconvex.cpp'],
     'caer.filters.cconvolve': ['caer/filters/cconvolve.cpp', 'caer/src/cfilters.cpp'],
