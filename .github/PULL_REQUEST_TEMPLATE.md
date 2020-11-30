@@ -1,6 +1,13 @@
 ### Description
 <!--- Describe your changes in detail -->
 
+### Types of changes
+<!--- Put an `x` in all the boxes that apply, and remove the not applicable items -->
+- [x] Bug fix (non-breaking change which fixes an issue)
+- [ ] Breaking change (fix or new feature that would cause existing functionality to change)
+- [ ] New tests added to cover the changes
+- [ ] Docstrings/Documentation updated
+
 
 ### Related Issues
 <!--- If it fixes an open issue, please link to the issue here. -->
