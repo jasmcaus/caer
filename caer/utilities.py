@@ -81,13 +81,9 @@ def train_val_split(X, y, val_ratio=.2):
     # random.shuffle(data)
 
     split = int(len(X) - (len(X) * val_ratio)) - 1
-    print(split)
 
     data_train = data[0:split]
     data_test = data[split:]
-
-    print(data_train)
-    print(data_test)
 
     X_train, y_train = _sep(data_train)
     X_val, y_val = _sep(data_test)
