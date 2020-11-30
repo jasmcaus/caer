@@ -51,7 +51,7 @@ def gray_to_lab(img) -> np.ndarray:
     if len(img.shape) != 3:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a Grayscale image to its LAB counterpart')
 
-    bgr = gray_to_bgr(img) -> np.ndarray
+    bgr = gray_to_bgr(img)
 
     return bgr_to_lab(bgr)
 
@@ -63,7 +63,7 @@ def gray_to_hsv(img) -> np.ndarray:
     if len(img.shape) != 1:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a LAB image to its HSV counterpart')
 
-    bgr = gray_to_bgr(img) -> np.ndarray
+    bgr = gray_to_bgr(img)
 
     return bgr_to_hsv(bgr)
 
