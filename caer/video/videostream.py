@@ -36,9 +36,14 @@ class VideoStream():
     
     def count_frames(self):
         return self.video_stream.count_frames()
-    
-    def get_fps(self):
-        return self.video_stream.get_fps()
         
     def release(self):
         self.video_stream.release()
+
+     # Get FPS
+    def get_fps(self):
+        return self.video_stream.get_fps()
+
+    # Get frame dimensions
+    def get_res(self):
+        return self.video_stream.get_res()
