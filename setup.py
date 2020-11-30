@@ -159,7 +159,7 @@ META_PY_TEXT =\
 author = '%(author)s'
 version = '%(version)s'
 full_version = '%(full_version)s'
-git_version = '%(git_version)s'
+git_version = %(git_version)s
 release = %(isrelease)s
 contributors = %(contributors)s
 """
