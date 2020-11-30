@@ -11,6 +11,7 @@
 
 
 import cv2 as cv 
+import numpy as np 
 
 from .constants import HSV2BGR, HSV2RGB
 from .bgr import bgr_to_gray, bgr_to_lab
@@ -23,7 +24,7 @@ __all__ = [
 ]
 
 
-def hsv_to_rgb(img):
+def hsv_to_rgb(img) -> np.ndarray:
     """
         Converts an HSV image to its RGB version
     """
@@ -33,7 +34,7 @@ def hsv_to_rgb(img):
     return cv.cvtColor(img, HSV2RGB)
 
 
-def hsv_to_bgr(img):
+def hsv_to_bgr(img) -> np.ndarray:
     """
         Converts am HSV image to its BGR version
     """
@@ -43,7 +44,7 @@ def hsv_to_bgr(img):
     return cv.cvtColor(img, HSV2BGR)
 
 
-def hsv_to_gray(img):
+def hsv_to_gray(img) -> np.ndarray:
     """
         Converts an HSV image to its Grayscale version
     """
@@ -55,7 +56,7 @@ def hsv_to_gray(img):
     return bgr_to_gray(bgr)
 
 
-def hsv_to_lab(img):
+def hsv_to_lab(img) -> np.ndarray:
     """
         Converts an HSV image to its LAB version
     """
