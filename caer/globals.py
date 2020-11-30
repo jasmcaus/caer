@@ -16,22 +16,10 @@ __all__ = [
     'CROP_LEFT',
     'CROP_RIGHT',
     'CROP_BOTTOM',
-    'VALID_URL_NO_EXIST',
-    'INVALID_URL_STRING',
-    'BGR2GRAY',
-    'BGR2RGB',
-    'BGR2HSV',
-    'BGR2LAB',
-    'RGB2GRAY',
-    'RGB2HSV',
-    'RGB2LAB',
-    'IMREAD_COLOR',
     'INTER_NEAREST',
     'INTER_LINEAR',
     'INTER_AREA',
     'INTER_CUBIC',
-    'FRAME_COUNT',
-    'FPS'
 ]
 
 
@@ -52,7 +40,3 @@ INTER_NEAREST = 0  # cv.INTER_NEAREST
 INTER_LINEAR = 1  # cv.INTER_LINEAR
 INTER_CUBIC = 2  # cv.INTER_CUBIC
 INTER_AREA = 3  # cv.INTER_AREA
-
-## Video
-FPS = 5  # cv.CAP_PROP_FPS
-FRAME_COUNT = 7  # cv.CAP_PROP_FRAME_COUNT
