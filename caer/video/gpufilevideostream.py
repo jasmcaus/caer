@@ -124,3 +124,7 @@ class GPUFileVideoStream:
     def get_fps(self):
         if not self.kill_stream:
             return self.fps
+
+    # Get frame dimensions
+    def get_res(self):
+        return self.res
