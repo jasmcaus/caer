@@ -14,7 +14,6 @@
 
 import numpy as np
 
-from ._split import train_test_split
 from .path import listdir, minijoin
 
 __all__ = [
