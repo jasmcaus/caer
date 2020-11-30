@@ -29,7 +29,7 @@ def extract_frames(input_folder,
                    max_video_count=None, 
                    frames_per_sec=None, 
                    frame_interval=None,
-                   dest_filetype='jpg'):
+                   dest_filetype='jpg') -> int:
     """ Function to extract frames from videos within a directory
     and save them as separate frames in an output directory.
     Args:
@@ -134,7 +134,7 @@ def extract_frames(input_folder,
     return label_counter
 
 
-def _determine_interval(x):
+def _determine_interval(x) -> int:
     y = '{x:.1f}'
     inde = y.find('.') + 1
     if inde == -1: # if no '.' (if an integer)
