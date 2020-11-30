@@ -16,7 +16,7 @@ import math
 from queue import Queue
 import cv2 as cv
 
-from ..globals import FRAME_COUNT, FPS
+from .constants import FRAME_COUNT, FPS
 
 __all__ = [
     'GPUFileVideoStream'
@@ -45,12 +45,15 @@ class GPUFileVideoStream:
 
         self.width = int(self.stream.get(cv.CAP_PROP_FRAME_WIDTH))
         self.height = int(self.stream.get(cv.CAP_PROP_FRAME_HEIGHT))
+
+        self.fps = math.ceil(self.stream.get(FPS))
+        self.frames = int(self.stream.get(FRAME_COUNT))
         
         # since we use UMat to store the images to
         # we need to initialize them beforehand
-        self.frames = [0] * queueSize
+        self.qframes = [0] * queueSize
         for ii in range(queueSize):
-            self.frames[ii] = cv.UMat(self.height, self.width, cv.CV_8UC3)
+            self.qframes[ii] = cv.UMat(self.height, self.width, cv.CV_8UC3)
 
 
     def begin_stream(self):
@@ -77,7 +80,7 @@ class GPUFileVideoStream:
                     self.release()
                     return 
 
-                self.stream.retrieve(self.frames[target])
+                self.stream.retrieve(self.qframes[target])
 
                 # add the frame to the queue
                 self.Q.put(target)
@@ -87,7 +90,7 @@ class GPUFileVideoStream:
         while (not self.more() and self.kill_stream):
             time.sleep(0.1)
         # return next frame in the queue
-        return self.frames[self.Q.get()]
+        return self.qframes[self.Q.get()]
 
 
     def more(self):
@@ -104,7 +107,7 @@ class GPUFileVideoStream:
     # Gets frame count
     def count_frames(self):
         if not self.kill_stream and not self.live_video:
-            return int(self.stream.get(FRAME_COUNT))
+            return self.frames
             # if get_opencv_version() == '2':
             #     return int(self.stream.get(FRAME_COUNT_DEPR))
             # else:
@@ -119,4 +122,4 @@ class GPUFileVideoStream:
     # Gets FPS count
     def get_fps(self):
         if not self.kill_stream:
-            return math.ceil(self.stream.get(FPS))
+            return self.fps
