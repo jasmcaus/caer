@@ -43,6 +43,12 @@ class LiveVideoStream:
         self.stream = cv.VideoCapture(source)
         self.ret, self.frame = self.stream.read()
 
+        self.width = int(self.stream.get(cv.CAP_PROP_FRAME_WIDTH))
+        self.height = int(self.stream.get(cv.CAP_PROP_FRAME_HEIGHT))
+        self.res = (self.width, self.height)
+
+        self.fps = math.ceil(self.stream.get(FPS))
+
         # Initializing the thread name
         self.thread_name = 'DefaultVideoStream'
 
@@ -81,7 +87,7 @@ class LiveVideoStream:
     # Gets FPS count
     def get_fps(self):
         if not self.kill_stream:
-            return math.ceil(self.stream.get(FPS))
+            return self.fps
             # if get_opencv_version() == '2':
             #     return math.ceil(self.stream.get(FPS_DEPR))
             # else:
