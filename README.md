@@ -80,7 +80,7 @@ Current contributors can be viewed either from the [Contributors][contributors] 
 Caer is released under the [MIT License](https://github.com/jasmcaus/caer/blob/master/LICENSE).
 
 [contributing]: https://github.com/jasmcaus/caer/blob/master/.github/CONTRIBUTING.md
-[docs]: https://github.com/jasmcaus/caer/blob/master/docs/README.md
+[docs]: https://github.com/jasmcaus/caer/blob/master/docs/
 [contributors]: https://github.com/jasmcaus/caer/blob/master/CONTRIBUTORS
 [coc]: https://github.com/jasmcaus/caer/blob/master/CODE_OF_CONDUCT.md
 [issues]: https://github.com/jasmcaus/caer/issues
