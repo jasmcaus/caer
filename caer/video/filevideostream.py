@@ -133,3 +133,8 @@ class FileVideoStream:
             #     return math.ceil(self.stream.get(FPS_DEPR))
             # else:
             #     return math.ceil(self.stream.get(FPS))
+    
+    
+    # Get frame dimensions
+    def get_res(self):
+        return self.res
