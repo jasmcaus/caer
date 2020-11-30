@@ -11,6 +11,8 @@
 
 
 import cv2 as cv 
+import numpy as np 
+
 from .constants import RGB2BGR, RGB2GRAY, RGB2HSV, RGB2LAB
 
 __all__ = [
@@ -21,7 +23,7 @@ __all__ = [
 ]
 
 
-def rgb_to_bgr(img):
+def rgb_to_bgr(img) -> np.ndarray:
     """
         Converts an RGB image to its BGR version
     """
@@ -31,7 +33,7 @@ def rgb_to_bgr(img):
     return cv.cvtColor(img, RGB2BGR)
 
 
-def rgb_to_gray(img):
+def rgb_to_gray(img) -> np.ndarray:
     """
         Converts an RGB image to its Grayscale version
     """
@@ -41,7 +43,7 @@ def rgb_to_gray(img):
     return cv.cvtColor(img, RGB2GRAY)
 
 
-def rgb_to_hsv(img):
+def rgb_to_hsv(img) -> np.ndarray:
     """
         Converts an RGB image to its HSV counterpart
     """
@@ -51,7 +53,7 @@ def rgb_to_hsv(img):
     return cv.cvtColor(img, RGB2HSV)
 
 
-def rgb_to_lab(img):
+def rgb_to_lab(img) -> np.ndarray:
     """
         Converts an RGB image to its LAB counterpart
     """
