@@ -13,6 +13,7 @@
 #pylint:disable=redefined-outer-name
 
 import os
+from ..jit._jit_internal import List
 
 _acceptable_video_formats = ('.mp4', '.avi', '.mov', '.mkv', '.webm')
 _acceptable_image_formats = ('.jpg', '.jpeg', '.png', '.bmp', '.tif', '.tiff')
@@ -37,7 +38,7 @@ __all__ = [
 ]
 
 
-def list_images(DIR, include_subdirs=True, use_fullpath=False, show_size=False, verbose=1):
+def list_images(DIR, include_subdirs=True, use_fullpath=False, show_size=False, verbose=1) -> List[str]:
     """
         Lists all image files within a specific directory (and sub-directories if `include_subdirs=True`)
     
@@ -63,7 +64,7 @@ def list_images(DIR, include_subdirs=True, use_fullpath=False, show_size=False, 
         return images # images is a list
 
 
-def list_videos(DIR, include_subdirs=True, use_fullpath=False, show_size=False, verbose=1):
+def list_videos(DIR, include_subdirs=True, use_fullpath=False, show_size=False, verbose=1) -> List[str]:
     """
         Lists all video files within a specific directory (and sub-directories if `include_subdirs=True`)
     
@@ -90,7 +91,7 @@ def list_videos(DIR, include_subdirs=True, use_fullpath=False, show_size=False, 
         return videos # videos is a list
 
 
-def list_media(DIR, include_subdirs=True, use_fullpath=False, show_size=True, verbose=0):
+def list_media(DIR, include_subdirs=True, use_fullpath=False, show_size=True, verbose=0) -> List[str]:
     """
         Lists all media files within a specific directory (and sub-directories if `include_subdirs=True`)
     
@@ -117,7 +118,7 @@ def list_media(DIR, include_subdirs=True, use_fullpath=False, show_size=True, ve
         return media # media is a list
 
 
-def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, show_size=True,  list_image_files=False, list_video_files=False, verbose=1):
+def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, show_size=True,  list_image_files=False, list_video_files=False, verbose=1) -> List[str]:
     """
         Lists all media files within a specific directory (and sub-directories if `include_subdirs=True`)
     
@@ -231,7 +232,7 @@ def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, show_size
         
 
 
-def listdir(DIR, include_subdirs=True, use_fullpath=False, show_size=True, verbose=1):
+def listdir(DIR, include_subdirs=True, use_fullpath=False, show_size=True, verbose=1) -> List[str]:
     """
         Lists all files within a specific directory (and sub-directories if `include_subdirs=True`)
     
@@ -300,7 +301,7 @@ def listdir(DIR, include_subdirs=True, use_fullpath=False, show_size=True, verbo
     return dirs
 
 
-def is_image(path):
+def is_image(path) -> bool:
     """
         Checks if a given path is that of a valid image file
             
@@ -324,7 +325,7 @@ def is_image(path):
     return False
 
 
-def is_video(path):
+def is_video(path) -> bool:
     """
         Checks if a given path is that of a valid image file
             
@@ -347,7 +348,7 @@ def is_video(path):
     return False
 
 
-def _is_extension_acceptable(path):
+def _is_extension_acceptable(path) -> bool:
     """
         0 --> Image
         1 --> Video
@@ -375,18 +376,18 @@ def _is_extension_acceptable(path):
         return -1
 
 
-def osname():
+def osname() -> str:
     return os.name
 
 
-def cwd():
+def cwd() -> str:
     """
         Returns the filepath to the current working directory
     """
     return os.getcwd()
 
 
-def exists(path):
+def exists(path) -> bool:
     """
         Checks if a given filepath is valid
             
@@ -409,7 +410,7 @@ def exists(path):
     return False
 
 
-def isdir(DIR):
+def isdir(DIR) -> bool:
     """
         Checks if a given filepath is that of a directory
             
@@ -426,21 +427,21 @@ def isdir(DIR):
     return os.path.isdir(DIR)
 
 
-def mkdir(path):
+def mkdir(path) -> None:
     """
         Creates a directory at `path`
     """
     os.mkdir(path)
 
 
-def abspath(file_name):
+def abspath(file_name) -> str:
     """
         Returns the absolute path of `file_name`
     """
     return os.path.abspath(file_name)
 
 
-def chdir(path):
+def chdir(path) -> None:
     """
         Checks into directory `path`
     """
@@ -450,7 +451,7 @@ def chdir(path):
     os.chdir(path)
 
 
-def get_size(file, disp_format='bytes'):
+def get_size(file, disp_format='bytes') -> float:
     """
         Returns the size of `file` in bytes/kb/mb/gb/tb
             
@@ -491,7 +492,7 @@ def get_size(file, disp_format='bytes'):
         return size * 1e-12
 
 
-def minijoin(*paths):
+def minijoin(*paths) -> str:
     """
         Join multiple filepaths together
     """
@@ -499,7 +500,7 @@ def minijoin(*paths):
     return os.path.join(*paths)
 
 
-def dirname(file):
+def dirname(file) -> str:
     """
         Returns the base directory name of `file`
     """
