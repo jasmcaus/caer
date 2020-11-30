@@ -45,6 +45,7 @@ class GPUFileVideoStream:
 
         self.width = int(self.stream.get(cv.CAP_PROP_FRAME_WIDTH))
         self.height = int(self.stream.get(cv.CAP_PROP_FRAME_HEIGHT))
+        self.res = (self.width, self.height)
 
         self.fps = math.ceil(self.stream.get(FPS))
         self.frames = int(self.stream.get(FRAME_COUNT))
