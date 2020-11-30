@@ -13,7 +13,7 @@
 #pylint:disable=redefined-outer-name
 
 import os
-from ..jit._jit_internal import List
+from ..jit.annotations import List
 
 _acceptable_video_formats = ('.mp4', '.avi', '.mov', '.mkv', '.webm')
 _acceptable_image_formats = ('.jpg', '.jpeg', '.png', '.bmp', '.tif', '.tiff')
