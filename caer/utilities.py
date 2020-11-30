@@ -58,12 +58,41 @@ def get_classes_from_dir(DIR, verbose=0):
         return classes
 
 
+def _sep(data):
+    
+    x = [i[0] for i in data]
+    y = [i[1] for i in data]
+
+    return x, y
+
+
 def train_val_split(X, y, val_ratio=.2):
     """
         Do not use if mean subtraction is being employed
         Returns X_train, X_val, y_train, y_val
     """
-    X_train, X_val, y_train, y_val = train_test_split(X, y, test_size=val_ratio)
+    if len(X) != len(y):
+        raise ValueError('X must be equal to y')
+    
+    data = [] 
+    for i in range(len(X)):
+        data.append([X[i], y[i]])
+    
+    # import random
+    # random.shuffle(data)
+
+    split = int(len(X) - (len(X) * val_ratio)) - 1
+    print(split)
+
+    data_train = data[0:split]
+    data_test = data[split:]
+
+    print(data_train)
+    print(data_test)
+
+    X_train, y_train = _sep(data_train)
+    X_val, y_val = _sep(data_test)
+
     return X_train, X_val, y_train, y_val
 
 

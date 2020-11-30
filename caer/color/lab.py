@@ -15,12 +15,12 @@ import cv2 as cv
 from .constants import LAB2BGR, LAB2RGB
 from .bgr import bgr_to_gray, bgr_to_hsv
 
-__all__ = (
+__all__ = [
     'lab_to_rgb',
     'lab_to_bgr',
     'lab_to_hsv',
     'lab_to_gray',
-)
+]
 
 
 def lab_to_rgb(img):
