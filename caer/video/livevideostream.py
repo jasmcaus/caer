@@ -16,7 +16,7 @@ from threading import Thread
 import math
 import cv2 as cv
 
-from ..globals import FPS
+from .constants import FPS
 
 __all__ = [
     'LiveVideoStream'
