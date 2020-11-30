@@ -13,7 +13,7 @@ from ..io import imread
 from ..path import abspath, minijoin
 from .._base import __curr__ 
 import numpy as np 
-
+import torch
 
 here = minijoin(__curr__, 'data').replace('\\', "/") + "/"
 
@@ -21,7 +21,7 @@ def get_path_to_data(name) -> str:
     return minijoin(here, name)
 
 
-def audio_mixer(target_size=None, rgb=False) -> np.ndarray:
+def audio_mixer(target_size=None, rgb=False) -> torch.Tensor:
     return imread(here+'audio_mixer.jpg', target_size=target_size, rgb=rgb)
 
 
