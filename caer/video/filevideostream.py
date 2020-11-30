@@ -16,7 +16,7 @@ import math
 from queue import Queue
 import cv2 as cv
 
-from ..globals import FRAME_COUNT, FPS
+from .constants import FRAME_COUNT, FPS
 
 
 __all__ = [
