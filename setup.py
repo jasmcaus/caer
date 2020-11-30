@@ -118,7 +118,7 @@ GIT_VERSION = repr(sha)
 PLATFORMS = ['Any']
 URL = cfg['git_url']
 DOWNLOAD_URL = cfg['download_url']
-PACKAGES = find_packages()
+PACKAGES = [i for i in find_packages() if 'tests' not in i]
 DESCRIPTION = cfg['description']
 LONG_DESCRIPTION = open('README.md', encoding='utf-8').read()
 KEYWORDS = [i for i in cfg['keywords'].split(', ')]
