@@ -47,6 +47,13 @@ class FileVideoStream:
 		# initializing the video stream
         self.video_stream = cv.VideoCapture(source)
         self.kill_stream = False
+
+        self.width = int(self.stream.get(cv.CAP_PROP_FRAME_WIDTH))
+        self.height = int(self.stream.get(cv.CAP_PROP_FRAME_HEIGHT))
+        self.res = (self.width, self.height)
+
+        self.fps = math.ceil(self.stream.get(FPS))
+        self.frames = int(self.stream.get(FRAME_COUNT))
         
         # initialize the queue to store frames 
         self.Q = Queue(maxsize=queue_size)
@@ -106,7 +113,7 @@ class FileVideoStream:
     # Gets frame count
     def count_frames(self):
         if not self.kill_stream and not self.live_video:
-            return int(self.video_stream.get(FRAME_COUNT))
+            return self.frames
             # if get_opencv_version() == '2':
             #     return int(self.stream.get(FRAME_COUNT_DEPR))
             # else:
@@ -121,7 +128,7 @@ class FileVideoStream:
     # Gets FPS count
     def get_fps(self):
         if not self.kill_stream:
-            return math.ceil(self.video_stream.get(FPS))
+            return self.fps
             # if get_opencv_version() == '2':
             #     return math.ceil(self.stream.get(FPS_DEPR))
             # else:
