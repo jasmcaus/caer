@@ -17,6 +17,7 @@ from ..path import exists, list_images
 from ..io import imread 
 from ..opencv import mean, merge, split
 from ..utilities import npmean
+from ..jit.annotations import Tuple, List
 
 import numpy as np 
 
@@ -33,7 +34,7 @@ __all__ = [
 ]
 
 class MeanProcess:
-    def __init__(self, mean_sub_values, channels):
+    def __init__(self, mean_sub_values, channels) -> None:
         # mean_sub_values is a tuple
         flag = _check_mean_sub_values(mean_sub_values, channels)
         if flag:
@@ -44,7 +45,7 @@ class MeanProcess:
             else:
                 self.bgrMean = mean_sub_values[0]
 
-    def mean_preprocess(self, image, channels):
+    def mean_preprocess(self, image, channels) -> np.ndarray:
         """
             Mean Subtraction performed per channel
             Mean must be calculated ONLY on the training set
@@ -66,7 +67,7 @@ class MeanProcess:
             return image
             
 
-def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True, include_subdirs=True):
+def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True, include_subdirs=True) -> Tuple:
     """
         Computes mean per channel
         Mean must be computed ONLY on the train set
@@ -116,7 +117,7 @@ def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True, include_s
         return tuple([bgrMean])
 
 
-def compute_mean(data, channels, per_channel_subtraction=True):
+def compute_mean(data, channels, per_channel_subtraction=True) -> Tuple:
     """
         Computes mean per channel over the train set and returns a tuple of dimensions=channels
         Train should not be normalized
@@ -160,7 +161,7 @@ def compute_mean(data, channels, per_channel_subtraction=True):
         return tuple([bgrMean])
 
 
-def subtract_mean(data, channels, mean_sub_values):
+def subtract_mean(data, channels, mean_sub_values) -> List[str]:
     """
         Per channel subtraction values computed from compute_mean() or compute_mean_from_dir()
         Subtracts mean from the validation set
