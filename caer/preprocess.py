@@ -126,10 +126,9 @@ def preprocess_from_dir(DIR,
         since_preprocess = time.time()
 
         if classes is None:
-            classes = get_classes_from_dir(DIR)
+            classes = get_classes_from_dir(DIR)            
             # Removing false folders
             classes = _check_for_false_folders(DIR, classes)
-
 
         if per_class_size is None:
             per_class_size = len(listdir(minijoin(DIR, classes[0]), verbose=0))
