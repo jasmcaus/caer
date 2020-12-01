@@ -55,10 +55,10 @@ $ pip install --upgrade caer
 >> sunrise = caer.data.sunrise(rgb=True)
 
 # Resize the image to 500x500 while MAINTAINING aspect ratio
->> resized = caer.resize(sunrise, target_size=(500,500), keep_aspect_ratio=True)
+>> resized = caer.resize(sunrise, target_size=(400,400), keep_aspect_ratio=True)
 ```
 
-For more examples, see the [Caer demos](demos).
+For more examples, see the [Caer demos](https://github.com/jasmcaus/caer/blob/master/examples/).
 
 ## Resources
 
