@@ -27,6 +27,7 @@ __all__ = [
     'listdir',
     'is_image',
     'is_video'
+    'isfile'
     'cwd',
     'exists',
     'minijoin',
@@ -410,7 +411,24 @@ def exists(path) -> bool:
     return False
 
 
-def isdir(DIR) -> bool:
+def isfile(path) -> bool:
+    """
+        Checks if a given filepath is a valid path
+            
+    Parameters
+    ----------
+        path : str
+            Filepath to check
+    
+    Returns
+    ----------
+        True; if `path` is a valid filepath
+        False; otherwise
+    """
+    return os.path.isdir(path)
+
+
+def isdir(path) -> bool:
     """
         Checks if a given filepath is that of a directory
             
@@ -424,7 +442,7 @@ def isdir(DIR) -> bool:
         True; if `path` is a valid directory
         False; otherwise
     """
-    return os.path.isdir(DIR)
+    return os.path.isdir(path)
 
 
 def mkdir(path) -> None:
