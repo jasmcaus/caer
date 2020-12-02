@@ -32,7 +32,8 @@ def resize(image, target_size=None, resize_factor=None, keep_aspect_ratio=False,
         Tuple must be of a shape 2 (width, height)
         Priority given to `resize_factor`
     """
-    width, height = image[:2]
+    # Opencv uses the (h,w) format
+    height, width = image[:2]
 
     if resize_factor is None:
         if target_size is None:
@@ -56,7 +57,7 @@ def resize(image, target_size=None, resize_factor=None, keep_aspect_ratio=False,
         if resize_factor > 1:
             interpolation = 'bicubic'
 
-        new_shape = (int(resize_factor * image.shape[1]), int(resize_factor * image.shape[0]))
+        new_shape = (int(resize_factor * width), int(resize_factor * height))
             
     interpolation_methods = {
         'nearest': INTER_NEAREST, # 0
