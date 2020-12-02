@@ -1,0 +1,45 @@
+name: Tests
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+      - master
+      - dev
+  schedule:
+    - cron: "0 4 * * *"
+
+jobs:
+  tests:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        python-version: [3.6, 3.7, 3.8]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Setup conda dependencies
+      uses: conda-incubator/setup-miniconda@v2
+      with:
+        auto-update-conda: true
+        python-version: ${{ matrix.python-version }}
+
+    - name: Install dependencies
+      shell: bash -l {0}
+      run: |
+        conda install curl make -c conda-forge
+        pip install -r requirements/test.txt
+        make install
+
+    - name: Run Tests
+      shell: bash -l {0}
+      run: pytest -v --cov=caer --cov-report xml ./test
+
+    - name: Upload coverage
+      uses: codecov/codecov-action@v1
+      with:
+        file: ./coverage.xml
