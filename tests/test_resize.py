@@ -4,7 +4,7 @@ import os
 here = os.path.dirname(__file__)
 
 def test_target_sizes():
-    test_img = os.path.join(here, 'caer', 'data', 'bear.jpg')
+    test_img = os.path.join(here, 'tests', 'data', 'beverages.jpg')
 
     img_400_400 = caer.imread(test_img, target_size=(400,400))
     img_300_300 = caer.imread(test_img, target_size=(300,300))
@@ -16,7 +16,7 @@ def test_target_sizes():
 
 
 def test_keep_aspect_ratio():
-    test_img = os.path.join(here, 'caer', 'data', 'sunrise.jpg')
+    test_img = os.path.join(here, 'tests', 'data', 'green_fish.jpg')
 
     img_400_400 = caer.imread(test_img, target_size=(400,400), keep_aspect_ratio=True)
     img_223_182 = caer.imread(test_img, target_size=(223,182), keep_aspect_ratio=True)
