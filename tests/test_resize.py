@@ -7,11 +7,11 @@ def test_target_sizes():
     test_img = os.path.join(here, 'data', 'beverages.jpg')
 
     img_400_400 = caer.imread(test_img, target_size=(400,400))
-    img_300_300 = caer.imread(test_img, target_size=(300,300))
+    img_304_339 = caer.imread(test_img, target_size=(304,339))
     img_199_206 = caer.imread(test_img, target_size=(199,206))
 
     assert img_400_400.shape[:2] == (400,400)
-    assert img_300_300.shape[:2] == (300,300)
+    assert img_304_339.shape[:2] == (304,339)
     assert img_199_206.shape[:2] == (199,206)
 
 
