@@ -23,6 +23,7 @@ from .paths import exists
 from .paths import get_size
 from .paths import abspath
 from .paths import isdir
+from .paths import isfile
 from .paths import mkdir
 from .paths import osname
 from .paths import chdir

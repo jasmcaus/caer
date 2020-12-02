@@ -18,6 +18,7 @@ from .color import bgr_to_rgb, bgr_to_gray, IMREAD_COLOR
 from ._internal import _check_target_size
 from .path import exists
 from .resize import resize
+from .path import isfile
 
 
 __all__ = [
@@ -40,8 +41,28 @@ def imread(image_path, target_size=None, channels=3, rgb=False, resize_factor=No
     return _imread(image_path, target_size=target_size, channels=channels, rgb=rgb, resize_factor=resize_factor, keep_aspect_ratio=keep_aspect_ratio)
 
 
-def imsave(filename, img):
-    cv.imwrite(filename, img)
+def imsave(path, img):
+    """
+        Saves an image file to `path`
+            
+    Parameters
+    ----------
+        path : str
+            Filepath to check
+    
+    Returns
+    ----------
+        True; if `img` was written to `path`
+        False; otherwise
+    """
+    if isfile(path):
+        try:
+            return cv.imwrite(path, img)
+        except:
+            raise ValueError('`img` needs to be an opencv-specific image. Try reading the image using `caer.imread()`. More support for additional platforms will follow. Check the Changelog for further details.')
+    
+    else:
+        raise ValueError(f'{path} is not a valid filename (verify that it exists)')
 
 
 def _imread(image_path, target_size=None, channels=3, rgb=False, resize_factor=None, keep_aspect_ratio=False):   
