@@ -116,7 +116,7 @@ def _resize_with_ratio(image, target_size, keep_aspect_ratio=False):
     minimal_resize_factor = _compute_minimal_resize((org_w, org_h), (target_w, target_h))
 
     # Resizing minimally
-    image = _cv2_resize(image, (image.shape[1]//minimal_resize_factor, image.shape[0]//minimal_resize_factor))
+    image = _cv2_resize(image, (org_w//minimal_resize_factor, org_h//minimal_resize_factor))
 
     # Computing centre crop (to avoid extra crop, we resize minimally first)
     image = _compute_centre_crop(image, (target_w, target_h))
@@ -170,7 +170,7 @@ def _compute_centre_crop(image, target_size):
     _ = _check_target_size(target_size)
 
     # Getting org height and target
-    org_w, org_h = image.shape[:2]
+    org_h, org_w = image.shape[:2]
     target_w, target_h = target_size
 
     # The following line is actually the right way of accessing height and width of an opencv-specific image (height, width). However for some reason, while the code runs, this is flipped (it now becomes (width,height)). Testing needs to be done to catch this little bug
