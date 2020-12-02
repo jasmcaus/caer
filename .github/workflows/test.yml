@@ -7,8 +7,8 @@ on:
   pull_request:
       - master
       - dev
-  schedule:
-    - cron: "0 4 * * *"
+  # schedule:
+  #   - cron: "0 4 * * *"
 
 jobs:
   tests:
