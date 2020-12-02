@@ -183,4 +183,4 @@ def _compute_centre_crop(image, target_size):
     diff_h = (org_h - target_h) // 2
     diff_w = (org_w - target_w ) // 2
     
-    return image[diff_h:diff_h + target_h, diff_w:diff_w + target_w]
+    return image[diff_w:diff_w + target_w, diff_h:diff_h + target_h]
