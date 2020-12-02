@@ -38,7 +38,8 @@ jobs:
 
     - name: Run Tests
       shell: bash -l {0}
-      run: pytest -v --cov=caer --cov-report xml ./test
+      # run: pytest -v --cov=caer --cov-report xml ./test
+      run: pytest -v ./test
 
     - name: Upload coverage
       uses: codecov/codecov-action@v1
