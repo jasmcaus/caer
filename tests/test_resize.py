@@ -11,8 +11,8 @@ def test_target_sizes():
     img_199_206 = caer.imread(test_img, target_size=(199,206))
 
     assert img_400_400.shape[:2] == (400,400)
-    assert img_304_339.shape[:2] == (339,304)
-    assert img_199_206.shape[:2] == (206,199)
+    assert img_304_339.shape[:2] == (339,304) # Numpy arrays are processes differently (h,w) as opposed to (w,h)
+    assert img_199_206.shape[:2] == (206,199) # Numpy arrays are processes differently (h,w) as opposed to (w,h)
 
 
 def test_keep_aspect_ratio():
@@ -23,5 +23,5 @@ def test_keep_aspect_ratio():
     img_93_35 = caer.imread(test_img, target_size=(93,35), keep_aspect_ratio=True)
 
     assert img_400_400.shape[:2] == (400,400)
-    assert img_223_182.shape[:2] == (182,223)
-    assert img_93_35.shape[:2] == (35,93)
+    assert img_223_182.shape[:2] == (182,223) # Numpy arrays are processes differently (h,w) as opposed to (w,h)
+    assert img_93_35.shape[:2] == (35,93) # Numpy arrays are processes differently (h,w) as opposed to (w,h)
