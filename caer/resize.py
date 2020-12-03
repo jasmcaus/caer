@@ -33,7 +33,7 @@ def resize(image, target_size=None, resize_factor=None, keep_aspect_ratio=False,
         Priority given to `resize_factor`
     """
     # Opencv uses the (h,w) format
-    height, width = image[:2]
+    height, width = image.shape[:2]
 
     if resize_factor is None:
         if target_size is None:
