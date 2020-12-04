@@ -57,7 +57,7 @@ def imsave(path, img):
     """
     if isfile(path):
         try:
-            return cv.imwrite(path, img)
+            cv.imwrite(path, img)
         except:
             raise ValueError('`img` needs to be an opencv-specific image. Try reading the image using `caer.imread()`. More support for additional platforms will follow. Check the Changelog for further details.')
     
@@ -122,6 +122,10 @@ def _url_to_image(url, rgb=False):
     response = urlopen(url)
     image = asarray(bytearray(response.read()), dtype='uint8')
     image = cv.imdecode(image, IMREAD_COLOR)
-    if rgb:
-        image = bgr_to_rgb(image)
-    return image
+
+    if image:
+        if rgb:
+            image = bgr_to_rgb(image)
+        return image
+    else:
+        raise ValueError(f'No such image at {url}')
