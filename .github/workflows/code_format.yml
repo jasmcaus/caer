@@ -7,23 +7,23 @@ on:  # Trigger the workflow on push or pull request, but only for the master bra
     branches: [master, dev, "release/*"]
 
 jobs:
-  imports-check-isort:
-    name: Check valid import formatting with isort
-    runs-on: ubuntu-20.04
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+  # imports-check-isort:
+  #   name: Check valid import formatting with isort
+  #   runs-on: ubuntu-20.04
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
 
-      - name: Set up Python 3.8
-        uses: actions/setup-python@v2
-        with:
-          python-version: 3.8
+  #     - name: Set up Python 3.8
+  #       uses: actions/setup-python@v2
+  #       with:
+  #         python-version: 3.8
 
-      - name: Install isort
-        run: pip install isort==5.6.4
+  #     - name: Install isort
+  #       run: pip install isort==5.6.4
 
-      - name: Run isort
-        run: isort --settings-path=./pyproject.toml --check-only --diff .
+  #     - name: Run isort
+  #       run: isort --settings-path=./pyproject.toml --check-only --diff .
 
   code-black:
     name: Check code formatting with Black
@@ -43,23 +43,23 @@ jobs:
         run: echo "LGTM"
         # run black --skip-string-normalization --config=pyproject.toml --check . # TODO, uncomment
 
-  python-pep8:
-    name: Python formatting PEP8
-    runs-on: ubuntu-20.04
+  # python-pep8:
+  #   name: Python formatting PEP8
+  #   runs-on: ubuntu-20.04
 
-    # Timeout: https://stackoverflow.com/a/59076067/4521646
-    timeout-minutes: 10
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: 3.7
+  #   # Timeout: https://stackoverflow.com/a/59076067/4521646
+  #   timeout-minutes: 10
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v2
+  #     - uses: actions/setup-python@v2
+  #       with:
+  #         python-version: 3.7
 
-      - name: Install dependencies
-        run: |
-          pip install flake8
+  #     - name: Install dependencies
+  #       run: |
+  #         pip install flake8
 
-      - name: Run checking
-        run: |
-          flake8 .
+  #     - name: Run checking
+  #       run: |
+  #         flake8 .
