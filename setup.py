@@ -113,6 +113,7 @@ AUTHOR = cfg['author']
 AUTHOR_EMAIL = cfg['author_email']
 AUTHOR_LONG = AUTHOR + ' <' + AUTHOR_EMAIL + '>'
 LICENSE = cfg['license']
+FUNDING = cfg['funding']
 GIT_VERSION = repr(sha)
 PLATFORMS = ['Any']
 URL = cfg['git_url']
@@ -245,6 +246,7 @@ def setup_package():
         project_urls = {
             'Bug Tracker': URL + '/issues',
             'Documentation': get_docs_url(),
+            'Funding': FUNDING,
             'Source Code': URL,
         },
         packages = PACKAGES,
