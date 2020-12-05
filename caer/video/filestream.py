@@ -30,9 +30,10 @@ __all__ = [
 # ret, jpeg = cv2.imencode('.jpg', image)
 # return jpeg.tobytes()
 
+
 # This class can handle both live as well as pre-existing videos. 
 class FileStream:
-    def __init__(self, source = 0, queue_size=128) -> None:
+    def __init__(self, source = 0, queue_size=128) -> None: # TODO: Add colorspace support
         """
             Source must either be an integer (0,1,2 etc) or a path to a video file
         """
@@ -57,24 +58,27 @@ class FileStream:
         self.frames = int(self.stream.get(FRAME_COUNT))
         
         # initialize the queue to store frames 
-        self.Q = Queue(maxsize=queue_size)
+        self._Q = Queue(maxsize=queue_size)
+
         # intialize thread
-        self.thread = Thread(target=self.update, args=())
-        self.thread.daemon = True
+        self._thread = None
 
 
     def begin_stream(self) -> None:
         # start a thread to read frames from the video stream
-        self.thread.start()
+        self._thread = Thread(target=self._update, name="caer.video.Stream()", args=())
+        self._thread.daemon = True
+        self._thread.start()
         return self
 
-    def update(self) -> np.ndarray:
+
+    def _update(self) -> np.ndarray:
         while True:
             if self.kill_stream:
                 break
 
             # otherwise, ensure the queue has room in it
-            if not self.Q.full():
+            if not self._Q.full():
                 # read the next frame from the file
                 ret, frame = self.video_stream.read()
 
@@ -84,7 +88,7 @@ class FileStream:
                     return 
 
                 # add the frame to the queue
-                self.Q.put(frame)
+                self._Q.put(frame)
             else:
                 time.sleep(0.1)  # Rest for 10ms if we have a full queue
 
@@ -92,24 +96,36 @@ class FileStream:
 
 
     def read(self) -> np.ndarray:
-        # return next frame in the queue
-        return self.Q.get()
+        """
+        Extracts frames synchronously from monitored deque, while maintaining a fixed-length frame buffer in the memory, and blocks the thread if the deque is full.
+
+        **Returns:** A n-dimensional numpy array.
+        """
+
+        return self._Q.get()
 
 
     def more(self) -> bool:
         # # returns True if there are still frames in the queue
         # tries = 0
-        # while self.Q.qsize() == 0 and not self.kill_stream and tries < 5:
+        # while self._Q.qsize() == 0 and not self.kill_stream and tries < 5:
         #     time.sleep(0.1)
         #     tries += 1
 
-        return self.Q.qsize() > 0 or not self.kill_stream
+        return self._Q.qsize() > 0 or not self.kill_stream
 
 
     def release(self) -> None:
+        """
+        Safely terminates the thread, and release the Stream resources.
+        """
         self.kill_stream = True
         # wait until stream resources are released
-        self.thread.join()
+        if self._thread is not None:
+            self._thread.join()
+            self._thread = None 
+        self.frames = 0 
+        self.fps = 0
     
 
     # Gets frame count
