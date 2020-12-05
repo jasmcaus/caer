@@ -12,11 +12,11 @@
 
 from .extract_frames import extract_frames
 
-from .livevideostream import LiveVideoStream
+from .livevideostream import LiveStream
 
-from .videostream import VideoStream
+from .videostream import Stream
 
-from .gpufilevideostream import GPUFileVideoStream
+from .gpufilevideostream import GPUFileStream
 
 from .frames_and_fps import count_frames
 from .frames_and_fps import get_fps

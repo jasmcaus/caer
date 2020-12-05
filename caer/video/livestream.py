@@ -19,7 +19,7 @@ import cv2 as cv
 from .constants import FPS
 
 __all__ = [
-    'LiveVideoStream'
+    'LiveStream'
 ]
 
 """
@@ -31,7 +31,7 @@ __all__ = [
 # This class can only handle live video streams. When applied on pre-existing videos, there appears to # be an issue with Threading. As a result, the video plays through with a high (almost x4) speed
 # This issue has been marked and will be fixed in a future update. 
 
-class LiveVideoStream:
+class LiveStream:
     def __init__(self, source=0):
         """
             Source must either be an integer (0,1,2 etc) or a path to a video file
@@ -97,3 +97,5 @@ class LiveVideoStream:
     # Get frame dimensions
     def get_res(self):
         return self.res
+
+LiveVideoStream = LiveStream()
