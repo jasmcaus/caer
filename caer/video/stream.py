@@ -47,10 +47,8 @@ class Stream:
         if not isinstance(source, (int,str)):
             raise ValueError(f'Expected either an integer or filepath. Got {type(source)}')
         
-		# initializing the video stream
-        print('Vid str begin')
+        # initializing the video stream
         self._video_stream = cv.VideoCapture(source)
-        print('Vid sr end')
         self.kill_stream = False
 
         self.width = int(self._video_stream.get(FRAME_WIDTH))
@@ -157,6 +155,7 @@ class Stream:
     # Get frame dimensions
     def get_res(self) -> Tuple[int]:
         return self.res
+
 
 
 ###########################################################################################
