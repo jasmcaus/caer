@@ -21,7 +21,7 @@ from .constants import FRAME_COUNT, FPS
 from ..jit.annotations import Tuple
 
 __all__ = [
-    'FileVideoStream'
+    'FileStream'
 ]
 
 
@@ -31,7 +31,7 @@ __all__ = [
 # return jpeg.tobytes()
 
 # This class can handle both live as well as pre-existing videos. 
-class FileVideoStream:
+class FileStream:
     def __init__(self, source = 0, queue_size=128) -> None:
         """
             Source must either be an integer (0,1,2 etc) or a path to a video file
@@ -140,3 +140,5 @@ class FileVideoStream:
     # Get frame dimensions
     def get_res(self) -> Tuple[int]:
         return self.res
+
+FileVideoStream = FileStream()

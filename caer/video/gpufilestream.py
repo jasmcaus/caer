@@ -19,11 +19,11 @@ import cv2 as cv
 from .constants import FRAME_COUNT, FPS
 
 __all__ = [
-    'GPUFileVideoStream'
+    'GPUFileStream'
 ]
 
 
-class GPUFileVideoStream:
+class GPUFileStream:
 
     def __init__(self, source, queueSize=128):
         """

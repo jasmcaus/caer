@@ -10,18 +10,18 @@
 # Copyright (c) 2020 The Caer Authors <http://github.com/jasmcaus>
 
 
-from .filevideostream import FileVideoStream
+from .filestream import FileStream
 
 __all__ = [
-    'VideoStream'
+    'Stream'
 ]
 
-# Using the FileVideoStream class as it can handle both live as well as pre-existing videos
+# Using the FileStream class as it can handle both live as well as pre-existing videos
 
-class VideoStream():
+class Stream():
     def __init__(self, source=0):
         # Initializing the stream from DefaultVideoStream
-        self.video_stream = FileVideoStream(source=source)
+        self.video_stream = FileStream(source=source)
 
     def begin_stream(self):
         # Begins the threaded video stream
@@ -47,3 +47,6 @@ class VideoStream():
     # Get frame dimensions
     def get_res(self):
         return self.video_stream.get_res()
+
+
+VideoStream = Stream()
