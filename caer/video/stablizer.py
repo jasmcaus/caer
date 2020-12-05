@@ -80,19 +80,10 @@ class Stabilizer:
             if not crop_n_zoom:
                 # initialize global border mode variable
                 self.__border_mode = border_modes[border_type]
-                if self.__logging and border_type != "black":
-                    logger.debug("Setting Border type: {}".format(border_type))
+
             else:
-                # log and reset to default
-                if self.__logging and border_type != "black":
-                    logger.debug(
-                        "Setting border type is disabled if cropping is enabled!"
-                    )
                 self.__border_mode = border_modes["black"]
         else:
-            # otherwise log if not
-            if logging:
-                logger.debug("Invalid input border type!")
             self.__border_mode = border_modes["black"]  # reset to default mode
 
         # define normalized box filter
