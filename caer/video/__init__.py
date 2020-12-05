@@ -12,11 +12,11 @@
 
 from .extract_frames import extract_frames
 
-from .livevideostream import LiveStream
+# from .livestream import LiveStream
 
-from .videostream import Stream
+from .stream import Stream
 
-from .gpufilevideostream import GPUFileStream
+from .gpufilestream import GPUFileStream
 
 from .frames_and_fps import count_frames
 from .frames_and_fps import get_fps
@@ -24,19 +24,20 @@ from .frames_and_fps import get_fps
 
 # __all__ globals 
 from .extract_frames import __all__ as __all_extract__ 
-from .livevideostream import __all__ as __all_livevs__
-from .gpufilevideostream import __all__ as __all_gpufilevs__
-from .videostream import __all__ as __all_vs__
+# from .livestream import __all__ as __all_livevs__
+from .gpufilestream import __all__ as __all_gpufilevs__
+from .stream import __all__ as __all_vs__
 from .frames_and_fps import __all__ as __all_ffps__
 from .constants import __all__ as __all_const__
 
 
-__all__ = __all_const__ + __all_extract__  + __all_livevs__ + __all_vs__ + __all_ffps__ + __all_gpufilevs__
+__all__ = __all_const__ + __all_extract__  + __all_vs__ + __all_ffps__ + __all_gpufilevs__
+# __all__ = __all_const__ + __all_extract__  + __all_livevs__ + __all_vs__ + __all_ffps__ + __all_gpufilevs__
 
 # Stop polluting the namespace
 del __all_const__
 del __all_extract__
 del __all_ffps__
 del __all_gpufilevs__
-del __all_livevs__
+# del __all_livevs__
 del __all_vs__

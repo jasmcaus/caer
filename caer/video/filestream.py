@@ -17,7 +17,9 @@ from queue import Queue
 import cv2 as cv
 import numpy as np 
 
-from .constants import FRAME_COUNT, FPS
+from .constants import (
+    FPS, FRAME_COUNT, FRAME_HEIGHT, FRAME_WIDTH
+)
 from ..jit.annotations import Tuple
 
 __all__ = [
@@ -47,15 +49,15 @@ class FileStream:
             raise ValueError(f'Expected either an integer or filepath. Got {type(source)}')
         
 		# initializing the video stream
-        self.video_stream = cv.VideoCapture(source)
+        self._video_stream = cv.VideoCapture(source)
         self.kill_stream = False
 
-        self.width = int(self.stream.get(cv.CAP_PROP_FRAME_WIDTH))
-        self.height = int(self.stream.get(cv.CAP_PROP_FRAME_HEIGHT))
+        self.width = int(self._video_stream.get(FRAME_WIDTH))
+        self.height = int(self._video_stream.get(FRAME_HEIGHT))
         self.res = (self.width, self.height)
 
-        self.fps = math.ceil(self.stream.get(FPS))
-        self.frames = int(self.stream.get(FRAME_COUNT))
+        self.fps = math.ceil(self._video_stream.get(FPS))
+        self.frames = int(self._video_stream.get(FRAME_COUNT))
         
         # initialize the queue to store frames 
         self._Q = Queue(maxsize=queue_size)
@@ -154,5 +156,3 @@ class FileStream:
     # Get frame dimensions
     def get_res(self) -> Tuple[int]:
         return self.res
-
-FileVideoStream = FileStream()
