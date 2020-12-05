@@ -14,8 +14,6 @@ import cv2 as cv
 import numpy as np
 from collections import deque
 
-from .helper import logger_handler, check_CV_version
-
 
 class Stabilizer:
     """
@@ -47,6 +45,7 @@ class Stabilizer:
         self.__path = None  # handles path i.e cumulative sum of pevious_2_current transformations along a axis
         self.__transforms = []  # handles pevious_2_current transformations [dx,dy,da]
         self.__frame_transforms_smoothed = None  # handles smoothed array of pevious_2_current transformations w.r.t to frames
+        self.frame_transform = None 
         self.__previous_gray = None  # handles previous gray frame
         self.__previous_keypoints = (
             None  # handles previous detect_GFTTed keypoints w.r.t previous gray frame
@@ -176,7 +175,7 @@ class Stabilizer:
         frame_gray = self.__clahe.apply(frame_gray)  # optimize it
 
         # calculate optical flow using Lucas-Kanade differential method
-        curr_kps, status, error = cv.calcOpticalFlowPyrLK(
+        curr_kps, status, _ = cv.calcOpticalFlowPyrLK(
             self.__previous_gray, frame_gray, self.__previous_keypoints, None
         )
 
@@ -305,9 +304,6 @@ class Stabilizer:
                 self.__crop_n_zoom : -self.__crop_n_zoom,
             ]
             # zoom stabilized frame
-            interpolation = (
-                cv.INTER_CUBIC if (check_CV_version() < 4) else cv.INTER_LINEAR_EXACT
-            )
             frame_stabilized = cv.resize(
                 frame_cropped, self.__frame_size[::-1], interpolation=interpolation
             )
