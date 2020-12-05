@@ -12,10 +12,14 @@
 
 __all__ = [
     'FPS',
-    'FRAME_COUNT'
+    'FRAME_COUNT',
+    'FRAME_WIDTH',
+    'FRAME_HEIGHT'
 ]
 
 
 ## Video
+FRAME_WIDTH = 3
+FRAME_HEIGHT = 4
 FPS = 5
 FRAME_COUNT = 7  

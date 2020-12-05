@@ -10,7 +10,13 @@
 # Copyright (c) 2020 The Caer Authors <http://github.com/jasmcaus>
 
 
+import math 
+
 from .filestream import FileStream
+from .constants import (
+    FPS, FRAME_COUNT, FRAME_HEIGHT, FRAME_WIDTH
+)
+
 
 __all__ = [
     'Stream'
@@ -27,7 +33,14 @@ class Stream():
 
     def __init__(self, source=0):
         # Initializing the stream from DefaultVideoStream
-        self.video_stream = FileStream(source=source)
+        self._video_stream = FileStream(source=source)
+
+        self.width = int(self._video_stream.get(FRAME_WIDTH))
+        self.height = int(self._video_stream.get(FRAME_HEIGHT))
+        self.res = (self.width, self.height)
+
+        self.fps = math.ceil(self._video_stream.get(FPS))
+        self.frames = int(self._video_stream.get(FRAME_COUNT))
 
     def start(self):
         # Begins the threaded video stream
