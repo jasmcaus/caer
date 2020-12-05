@@ -105,16 +105,6 @@ class FileStream:
         return self._Q.get()
 
 
-    def more(self) -> bool:
-        # # returns True if there are still frames in the queue
-        # tries = 0
-        # while self._Q.qsize() == 0 and not self.kill_stream and tries < 5:
-        #     time.sleep(0.1)
-        #     tries += 1
-
-        return self._Q.qsize() > 0 or not self.kill_stream
-
-
     def release(self) -> None:
         """
         Safely terminates the thread, and release the Stream resources.
@@ -130,6 +120,10 @@ class FileStream:
 
     # Gets frame count
     def count_frames(self) -> int:
+        """
+            Returns the number of frames for the current video
+            Optional: use the `frames` attribute
+        """
         if not self.kill_stream and not self.live_video:
             return self.frames
             # if get_opencv_version() == '2':
@@ -145,6 +139,10 @@ class FileStream:
 
     # Gets FPS count
     def get_fps(self) -> (float, int):
+        """
+            Returns the fps (frames per second) value for the current video
+            Optional: use the `fps` attribute
+        """
         if not self.kill_stream:
             return self.fps
             # if get_opencv_version() == '2':
