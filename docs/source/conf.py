@@ -28,9 +28,11 @@ author = 'Jason Dsouza'
 
 def get_version():
     # find the version number from caer/_meta__.py
-    setup_lines = open('../../caer/_meta.py').readlines()
+    f = os.path.abspath('../../caer/_meta.py')
+    setup_lines = open(f).readlines()
+    version = None 
     for l in setup_lines:
-        if l.startswith('__version__'):
+        if l.startswith('version'):
             version = l.split("=")[-1]
             break
     return version
