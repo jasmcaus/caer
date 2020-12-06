@@ -20,6 +20,7 @@ This design philosophy makes Caer ideal for students, researchers, hobbyists and
 
    getting_started/caer_at_a_glance.rst
    getting_started/install.rst
+   contribute
 
 
 .. toctree::
@@ -27,30 +28,19 @@ This design philosophy makes Caer ideal for students, researchers, hobbyists and
    :caption: Caer API
 
    caer
-   caer.augment
-   caer.color
-   caer.data
-   caer.distance
-   caer.filters
-   caer.morph
-   caer.path
-   caer.preprocessing
-   caer.segmentation
-   caer.transforms
-   caer.utils
-   caer.video
+   api/augment
+   api/color
+   api/data
+   api/distance
+   api/filters
+   api/morph
+   api/path
+   api/preprocessing
+   api/segmentation
+   api/transforms
+   api/utils
+   api/video
 
-
-.. toctree::
-   :maxdepth: 2
-   :hidden:
-   :caption: Getting Started
-
-   self
-   installation
-   tutorials
-   contribute
-   modules
 
 .. toctree::
    :maxdepth: 2
