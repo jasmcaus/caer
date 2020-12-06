@@ -61,8 +61,8 @@ This design philosophy makes Caer ideal for students, researchers, hobbyists and
    :name: community
    :caption: Community
 
-   code_of_conduct.md
-   contribute.md
+   CODE_OF_CONDUCT.md
+   CONTRIBUTING.md
    governance.md
 
 
