@@ -110,6 +110,5 @@ html_static_path = ['_static', '_templates']
 
 html_favicon = 'favicon.png'
 
-#html_logo = "../logos/lightly_logo_crop.png"
 def setup(app):
     app.add_css_file('main.css')
