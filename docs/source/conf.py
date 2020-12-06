@@ -11,14 +11,17 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
 
-#pylint:disable=unused-import,redefined-builtin
+#pylint:disable=unused-import,redefined-builtin,redefined-outer-name
 
 import os
 import sys
+import shutil 
+import glob
 sys.path.insert(0, os.path.abspath('../..'))
 
 import sphinx_rtd_theme
 
+GIT_HERE = os.path.abspath('../../.github')
 
 # -- Project information -----------------------------------------------------
 
@@ -41,6 +44,11 @@ def get_version():
 release = get_version()
 master_doc = 'index'
 
+# copy all documents from GH templates like contribution guide
+for f in os.listdir(GIT_HERE):
+    if f.startswith(('CODE_OF_CONDUCT.md','CONTRIBUTING.md')):
+        shutil.copy(os.path.join(GIT_HERE, f),f)
+
 
 # -- General configuration ---------------------------------------------------
 
@@ -52,6 +60,7 @@ extensions = [
    	'sphinx.ext.napoleon',
     'sphinx.ext.autosummary',
     "sphinx.ext.autodoc",
+    'sphinx.ext.intersphinx',
     'sphinx_gallery.gen_gallery',
 ]
 
