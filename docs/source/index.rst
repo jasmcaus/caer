@@ -24,7 +24,7 @@ This design philosophy makes Caer ideal for students, researchers, hobbyists and
 
 .. toctree::
    :maxdepth: 1
-   :caption: Python API
+   :caption: Caer API
 
    caer
    caer.augment
