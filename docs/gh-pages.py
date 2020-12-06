@@ -72,7 +72,7 @@ def init_repo(path):
 #-----------------------------------------------------------------------------
 if __name__ == '__main__':
     # find the version number from caer/_meta__.py
-    setup_lines = open('../caer/_meta__.py').readlines()
+    setup_lines = open('../caer/_meta.py').readlines()
     tag = 'vUndefined'
     for l in setup_lines:
         if l.startswith('__version__'):
