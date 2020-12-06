@@ -20,7 +20,7 @@ This design philosophy makes Caer ideal for students, researchers, hobbyists and
 
    caer_at_a_glance.rst
    install.rst
-   contribute
+   contribute.md
 
 
 .. toctree::
@@ -54,6 +54,16 @@ This design philosophy makes Caer ideal for students, researchers, hobbyists and
    api/nlp
    api/arules
    api/datasets
+
+
+.. toctree::
+   :maxdepth: 1
+   :name: community
+   :caption: Community
+
+   code_of_conduct.md
+   contribute.md
+   governance.md
 
 
 Indices and tables
