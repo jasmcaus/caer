@@ -59,10 +59,22 @@ pip install git+https://github.com/jasmcaus/caer.git
 ### From Source
 If you plan to develop `caer` yourself, or want to be on the cutting edge, you can use an editable install:
 
+First, uninstall any existing installations:
+```shell
+pip uninstall -y caer
+```
+
+Clone the repo:
 ```shell
 git clone https://github.com/jasmcaus/caer.git
 cd caer
 pip install -e . # Do this once to add the package to the Python Path
+```
+
+To update the installation:
+```shell
+git pull  # Grabs the latest source
+pip install -e . # Reinstalls Caer
 ```
 
 &thinsp;
