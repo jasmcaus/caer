@@ -5,8 +5,7 @@ Caer supports an installation of Python 3.6 above, available on Windows, MacOS a
 Version check
 ------------------------------------------------------------------------------
 
-To see whether `caer` is already installed or to check if an install has
-worked, run the following in a Python shell or Jupyter notebook:
+To see whether `caer` is already installed or to check if an install has worked, run the following in a Python shell or Jupyter notebook:
 
 ```python
 >> import caer
@@ -23,19 +22,21 @@ python -c "import caer; print(caer.__version__)"
 
 You'll see the version number if `caer` is installed and an error message otherwise.
 
+&thinsp;
+
 ## Installation
 
-### pip
+### pip (Recommended)
 
 Prerequisites to a pip install: You are able to use your system's command line to install packages and are using a [virtual environment](https://towardsdatascience.com/virtual-environments-104c62d48c54?gi=2532aa12906#ee81) (any of [several](https://stackoverflow.com/questions/41573587/what-is-the-difference-between-venv-pyvenv-pyenv-virtualenv-virtualenvwrappe)).
-
-While it is possible to use pip without a virtual environment, it is not advised: virtual environments create a clean Python environment that does not interfere with any existing system installation, can be easily removed, and contains only the package versions your application needs. They help avoid a common challenge known as "[dependency hell](ttps://en.wikipedia.org/wiki/Dependency_hell)"
 
 To install the current `caer` you'll need at least Python 3.6.1. If you have an older version of Python, you will not be able to use `caer`.
 
 ```shell
 $ pip install --upgrade caer
 ```
+
+Alternatively, you may download the wheels from [PyPi](https://pypi.org/project/caer/#files)
 
 <!-- To include a selection of other Python packages that expand `caer`'s capabilities, e.g., for Deep Learning, you can install `canaro` as well: 
 
@@ -63,6 +64,8 @@ git clone https://github.com/jasmcaus/caer.git
 cd caer
 pip install -e . # Do this once to add the package to the Python Path
 ```
+
+&thinsp;
 
 ## System package managers
 
