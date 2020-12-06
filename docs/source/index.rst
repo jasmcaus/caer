@@ -42,11 +42,28 @@ This design philosophy makes Caer ideal for students, researchers, hobbyists and
 
 
 .. toctree::
-   :maxdepth: 1
-   :caption: On-Premise
+   :maxdepth: 2
+   :hidden:
+   :caption: Getting Started
 
-   docker/overview.rst
+   self
+   installation
+   tutorials
+   contribute
+   modules
 
+.. toctree::
+   :maxdepth: 2
+   :hidden:
+   :caption: Documentation
+
+   api/classification
+   api/regression
+   api/clustering
+   api/anomaly
+   api/nlp
+   api/arules
+   api/datasets
 
 
 Indices and tables
