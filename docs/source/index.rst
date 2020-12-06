@@ -18,8 +18,8 @@ This design philosophy makes Caer ideal for students, researchers, hobbyists and
    :maxdepth: 1
    :caption: First Steps
 
-   getting_started/caer_at_a_glance.rst
-   getting_started/install.rst
+   caer_at_a_glance.rst
+   install.rst
    contribute
 
 
