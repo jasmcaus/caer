@@ -2,7 +2,9 @@
 [![Python](https://img.shields.io/pypi/pyversions/caer.svg)][py-versions]
 [![PyPI](https://badge.fury.io/py/caer.svg)][pypi-latest-version]
 [![Downloads](https://pepy.tech/badge/caer)][downloads]
+[![Documentation Status](https://readthedocs.org/projects/caer/badge/?version=latest)](https://caer.readthedocs.io/en/latest/?badge=latest)
 [![license](https://img.shields.io/github/license/jasmcaus/caer?label=license)][license]
+
 
 
 # Introduction
