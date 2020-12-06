@@ -53,11 +53,11 @@ extensions = [
     'sphinx_gallery.gen_gallery',
 ]
 
-sphinx_gallery_conf = {
-     'examples_dirs': ['tutorials_source/package', 'tutorials_source/platform'],
-     'gallery_dirs': ['tutorials/package', 'tutorials/platform'],  # path to where to save gallery generated output
-     'filename_pattern': '/tutorial_',
-}
+# sphinx_gallery_conf = {
+#      'examples_dirs': ['tutorials_source/package', 'tutorials_source/platform'],
+#      'gallery_dirs': ['tutorials/package', 'tutorials/platform'],  # path to where to save gallery generated output
+#      'filename_pattern': '/tutorial_',
+# }
 
 napoleon_google_docstring = True
 napoleon_numpy_docstring = False
