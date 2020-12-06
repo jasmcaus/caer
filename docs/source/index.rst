@@ -19,7 +19,7 @@ This design philosophy makes Caer ideal for students, researchers, hobbyists and
    :caption: First Steps
 
    caer_at_a_glance.rst
-   install.rst
+   install.md
    contribute.md
 
 
