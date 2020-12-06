@@ -6,7 +6,7 @@
 # from the environment for the first two.
 SPHINXOPTS     ?=
 SPHINXBUILD    ?= sphinx-build
-SOURCEDIR      = source
+SOURCEDIR      = src
 BUILDDIR       = build
 
 ZIPOPTS        ?= -qo
