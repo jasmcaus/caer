@@ -84,9 +84,9 @@ templates_path = ['_templates']
 # source_suffix = ['.rst', '.md', '.ipynb']
 source_suffix = {
     '.rst': 'restructuredtext',
-    '.txt': 'markdown',
-    '.md': 'markdown',
-    '.ipynb': 'nbsphinx',
+    # '.txt': 'markdown',
+    # '.md': 'markdown',
+    # '.ipynb': 'nbsphinx',
 }
 
 # List of patterns, relative to source directory, that match files and
@@ -94,6 +94,12 @@ source_suffix = {
 # This pattern also affects html_static_path and html_extra_path.
 exclude_patterns = []
 
+# Sphinx will add “permalinks” for each heading and description environment as paragraph signs that
+#  become visible when the mouse hovers over them.
+# This value determines the text for the permalink; it defaults to "¶". Set it to None or the empty
+#  string to disable permalinks.
+# https://www.sphinx-doc.org/en/master/usage/configuration.html#confval-html_add_permalinks
+html_add_permalinks = "¶"
 
 # -- Options for HTML output -------------------------------------------------
 
