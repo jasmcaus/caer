@@ -22,3 +22,7 @@ help:
 %: Makefile
 	make download
 	@$(SPHINXBUILD) -M $@ "$(SOURCEDIR)" "$(BUILDDIR)" $(SPHINXOPTS) $(O) -v
+
+clean:
+	@echo "Removing everything under 'build' and 'source/generated'.."
+	@rm -rf $(BUILDDIR)/html/ $(BUILDDIR)/doctrees $(SOURCEDIR)/generated
