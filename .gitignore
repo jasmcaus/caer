@@ -11,6 +11,7 @@ gitacp.bat
 dashsymbols.py 
 Samples/*
 commit-at-large.py
+docs/build/*
 
 # PyPi 
 dist/*
