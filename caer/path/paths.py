@@ -377,7 +377,7 @@ def _is_extension_acceptable(path) -> bool:
 
 
 def osname() -> str:
-    return os.name()
+    return os.name
 
 
 def cwd() -> str:
@@ -489,7 +489,7 @@ def get_size(file, disp_format='bytes') -> float:
         raise ValueError('display format must be a string')
     
     disp_format = disp_format.lower()
-    
+
     if disp_format not in ['bytes', 'kb', 'mb', 'gb', 'tb']:
         raise ValueError('display format needs to be either bytes/kb/mb/gb/tb')
 
