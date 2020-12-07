@@ -16,7 +16,6 @@ from .morph import (
     erode,
     dilate,
     cdilate,
-    get_structuring_elem,
     hitmiss, 
     regmax,
     __all__ as __all_morph__
