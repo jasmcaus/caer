@@ -29,26 +29,23 @@ def distance(bw, metric='euclidean2'):
     If there is no background, then a very high value will be returned in all
     pixels (this is a sort of infinity).
     
-    Parameters
-    ----------
-        bw : ndarray
-            If boolean, ``False`` will denote the background and ``True`` the
-            foreground. If not boolean, this will be interpreted as ``bw != 0``
-            (this way you can use labeled images without any problems).
-        metric : str, optional
+    Args:
+        bw (ndarray): If boolean, ``False`` will denote the background and ``True`` the
+                      foreground. If not boolean, this will be interpreted as ``bw != 0``
+                      (this way you can use labeled images without any problems).
+        metric (str, optional):
             one of 'euclidean2' (default) or 'euclidean'
-    Returns
-    -------
-        dmap : ndarray
+    Returns:
+            dmap (ndarray)
             distance map
-    References
-    ----------
-    For 2-D images, the following algorithm is used:
-    Felzenszwalb P, Huttenlocher D. *Distance transforms of sampled functions.
-    Cornell Computing and Information.* 2004.
-    Available at:
-    http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.88.1647&rep=rep1&type=pdf.
-    For n-D images (with n > 2), a slower hand-craft method is used.
+
+    References:
+        For 2-D images, the following algorithm is used:
+        Felzenszwalb P, Huttenlocher D. *Distance transforms of sampled functions.
+        Cornell Computing and Information.* 2004.
+        Available at:
+        http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.88.1647&rep=rep1&type=pdf.
+        For n-D images (with n > 2), a slower hand-craft method is used.
     """
 
     if metric.lower() not in ['euclidean2', 'euclidean']:
