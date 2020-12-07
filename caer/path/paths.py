@@ -55,7 +55,7 @@ def list_images(DIR, include_subdirs=True, use_fullpath=False, show_size=False, 
             Prints the disk size of the image files (default = False)
     
     Returns
-    ----------
+    -------
         image_files : list
             List of names (or full filepaths if `use_fullpath=True`) of the image files
     """
@@ -377,7 +377,7 @@ def _is_extension_acceptable(path) -> bool:
 
 
 def osname() -> str:
-    return os.name
+    return os.name()
 
 
 def cwd() -> str:
@@ -445,19 +445,22 @@ def isdir(path) -> bool:
 
 
 def mkdir(path) -> None:
-    """Creates a directory at `path`
+    """
+        Creates a directory at `path`
     """
     os.mkdir(path)
 
 
 def abspath(file_name) -> str:
-    """Returns the absolute path of `file_name`
+    """
+        Returns the absolute path of `file_name`
     """
     return os.path.abspath(file_name)
 
 
 def chdir(path) -> None:
-    """Checks into directory `path`
+    """
+        Checks into directory `path`
     """
     if not isinstance(path, str):
         raise ValueError('Specify a valid path')
@@ -466,7 +469,8 @@ def chdir(path) -> None:
 
 
 def get_size(file, disp_format='bytes') -> float:
-    """Returns the size of `file` in bytes/kb/mb/gb/tb
+    """
+        Returns the size of `file` in bytes/kb/mb/gb/tb
             
     Parameters
     ----------
@@ -476,15 +480,17 @@ def get_size(file, disp_format='bytes') -> float:
             Size format (bytes/kb/mb/gb/tb)
     
     Returns
-    ----------
+    --------
         size : str
             File size in bytes/kb/mb/gb/tb
     """
 
     if not isinstance(disp_format, str):
         raise ValueError('display format must be a string')
-
-    if disp_format.lower() not in ['bytes', 'kb', 'mb', 'gb', 'tb']:
+    
+    disp_format = disp_format.lower()
+    
+    if disp_format not in ['bytes', 'kb', 'mb', 'gb', 'tb']:
         raise ValueError('display format needs to be either bytes/kb/mb/gb/tb')
 
     size = os.path.getsize(file)
