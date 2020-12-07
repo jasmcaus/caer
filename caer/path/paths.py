@@ -107,7 +107,7 @@ def list_media(DIR, include_subdirs=True, use_fullpath=False, show_size=True, ve
             Prints the disk size of the media files (default = False)
     
     Returns
-    ----------
+    -------
         media_files : list
             List of names (or full filepaths if `use_fullpath=True`) of the media files
     """
@@ -134,7 +134,7 @@ def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, show_size
             Prints the disk size of the media files (default = False)
     
     Returns
-    ----------
+    -------
         media_files : list
             List of names (or full filepaths if `use_fullpath=True`) of the media files
     """
@@ -248,7 +248,7 @@ def listdir(DIR, include_subdirs=True, use_fullpath=False, show_size=True, verbo
             Prints the disk size of the files (default = False)
     
     Returns
-    ----------
+    -------
         files : list
             List of names (or full filepaths if `use_fullpath=True`) of the files
     """
@@ -311,7 +311,7 @@ def is_image(path) -> bool:
             Filepath to check
     
     Returns
-    ----------
+    -------
         True; if `path` is a valid image filepath
         False; otherwise
     """
@@ -335,7 +335,7 @@ def is_video(path) -> bool:
             Filepath to check
     
     Returns
-    ----------
+    -------
         True; if `path` is a valid image filepath
         False; otherwise
     """
@@ -397,7 +397,7 @@ def exists(path) -> bool:
             Filepath to check
     
     Returns
-    ----------
+    -------
         True; if `path` is a valid filepath
         False; otherwise
     """
@@ -420,7 +420,7 @@ def isfile(path) -> bool:
             Filepath to check
     
     Returns
-    ----------
+    -------
         True; if `path` is a valid filepath
         False; otherwise
     """
@@ -437,7 +437,7 @@ def isdir(path) -> bool:
             Filepath to check
     
     Returns
-    ----------
+    -------
         True; if `path` is a valid directory
         False; otherwise
     """
