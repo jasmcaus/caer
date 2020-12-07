@@ -1,24 +1,46 @@
 name: Build docs
 
 on:
-  push:
-    branches:
-      - master
-  release:
-    branches:
-      - master
+    push:
+        branches:
+          - master
+          - dev
+    release:
+        branches:
+          - master
       
 env:
-  PYTHON_VERSION: 3.x
+    PYTHON_VERSION: 3.x
 
 jobs:
-  build:
-    name: Building
+  docs:
+    name: Building Docs
     if: github.event_name != 'pull_request' && github.ref == 'refs/heads/master'
     runs-on: ubuntu-latest
+
     steps:
-      - name: LGTM
-        run: echo "LGTM" #TODO, uncomment
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
+        with:
+          python_version: 3.8
+        
+      - name: Install Reqs
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements/build-docs.txt
+          python -m pip install -e . -vv
+          python -m pip install -r requirements/default.txt
+        
+      - name: Building
+        run: |
+          cd docs
+          make clean
+          make html
+
+
+    # steps:
+    #   - name: LGTM
+    #     run: echo "LGTM" #TODO, uncomment
         
     # env:
     #   GIT_TOKEN: ${{ secrets.GIT_TOKEN }}
