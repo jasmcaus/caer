@@ -183,12 +183,13 @@ def write_meta(filename='caer/_meta.py'):
     TEXT = META_PY_TEXT
     FULL_VERSION = VERSION
     CONTRIBUTORS = get_contributors_list()
-    HOMEPAGE = URL
+    HOMEPAGE = GIT_URL
     
     a = open(filename, 'w')
 
     try:
         a.write(TEXT % {'author': AUTHOR_LONG,
+                        'author_email': AUTHOR_EMAIL,
                         'version': VERSION,
                        'full_version': FULL_VERSION,
                        'git_version': GIT_VERSION,
