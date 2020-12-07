@@ -66,8 +66,7 @@ def list_images(DIR, include_subdirs=True, use_fullpath=False, show_size=False, 
 
 
 def list_videos(DIR, include_subdirs=True, use_fullpath=False, show_size=False, verbose=1) -> List[str]:
-    """
-        Lists all video files within a specific directory (and sub-directories if `include_subdirs=True`)
+    """Lists all video files within a specific directory (and sub-directories if `include_subdirs=True`)
     
     Parameters
     ----------
@@ -81,7 +80,7 @@ def list_videos(DIR, include_subdirs=True, use_fullpath=False, show_size=False, 
             Prints the disk size of the video files (default = False)
     
     Returns
-    ----------
+    -------
         video_files : list
             List of names (or full filepaths if `use_fullpath=True`) of the video files
     """
@@ -446,22 +445,19 @@ def isdir(path) -> bool:
 
 
 def mkdir(path) -> None:
-    """
-        Creates a directory at `path`
+    """Creates a directory at `path`
     """
     os.mkdir(path)
 
 
 def abspath(file_name) -> str:
-    """
-        Returns the absolute path of `file_name`
+    """Returns the absolute path of `file_name`
     """
     return os.path.abspath(file_name)
 
 
 def chdir(path) -> None:
-    """
-        Checks into directory `path`
+    """Checks into directory `path`
     """
     if not isinstance(path, str):
         raise ValueError('Specify a valid path')
@@ -470,8 +466,7 @@ def chdir(path) -> None:
 
 
 def get_size(file, disp_format='bytes') -> float:
-    """
-        Returns the size of `file` in bytes/kb/mb/gb/tb
+    """Returns the size of `file` in bytes/kb/mb/gb/tb
             
     Parameters
     ----------
