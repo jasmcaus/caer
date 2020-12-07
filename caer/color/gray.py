@@ -27,6 +27,12 @@ __all__ = [
 def gray_to_rgb(img) -> np.ndarray:
     """
         Converts an Grayscale image to its RGB version
+
+        Args:
+            img (np.ndarray): Valid Grayscale Image array (1 Channel)
+        
+        Returns:
+            RGB Image
     """
     if len(img.shape) != 1:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a Grayscale image to its RGB counterpart')
@@ -37,6 +43,12 @@ def gray_to_rgb(img) -> np.ndarray:
 def gray_to_bgr(img) -> np.ndarray:
     """
         Converts am Grayscale image to its BGR version
+
+        Args:
+            img (np.ndarray): Valid Grayscale Image array (1 Channel)
+        
+        Returns:
+            BGR Image
     """
     if len(img.shape) != 1:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a Grayscale image to its BGR counterpart')
@@ -47,6 +59,12 @@ def gray_to_bgr(img) -> np.ndarray:
 def gray_to_lab(img) -> np.ndarray:
     """
         Converts an Grayscale image to its LAB version
+
+        Args:
+            img (np.ndarray): Valid Grayscale Image array (1 Channel)
+        
+        Returns:
+            LAB Image
     """
     if len(img.shape) != 3:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a Grayscale image to its LAB counterpart')
@@ -59,6 +77,12 @@ def gray_to_lab(img) -> np.ndarray:
 def gray_to_hsv(img) -> np.ndarray:
     """
         Converts an Grayscale image to its HSV version
+
+        Args:
+            img (np.ndarray): Valid Grayscale Image array (1 Channel)
+        
+        Returns:
+            HSV Image
     """
     if len(img.shape) != 1:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a LAB image to its HSV counterpart')
