@@ -23,5 +23,5 @@ jobs:
     - name: Install SLOCCount
       run: sudo apt-get install sloccount
 
-    - name: Check <25000 lines
-      run: sloccount caer tests examples; if [ $(sloccount caer | sed -n 's/.*Total Physical Source Lines of Code (SLOC)[ ]*= \([^ ]*\).*/\1/p' | tr -d ',') -gt 25000 ]; then exit 1; fi
+    - name: Check <50000 lines
+      run: sloccount caer tests examples docs; if [ $(sloccount caer | sed -n 's/.*Total Physical Source Lines of Code (SLOC)[ ]*= \([^ ]*\).*/\1/p' | tr -d ',') -gt 50000 ]; then exit 1; fi
