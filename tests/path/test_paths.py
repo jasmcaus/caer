@@ -25,9 +25,9 @@ def test_cwd():
 
 
 def test_abspath():
-    s = caer.path.abspath()
+    s = caer.path.abspath(__file__)
 
-    assert s == os.path.abspath()
+    assert s == os.path.abspath(__file__)
     
 
 def test_dirname():
