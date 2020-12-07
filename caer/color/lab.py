@@ -27,6 +27,12 @@ __all__ = [
 def lab_to_rgb(img) -> np.ndarray:
     """
         Converts an LAB image to its RGB version
+
+        Args:
+            img (np.ndarray): Valid LAB Image array
+        
+        Returns:
+            RGB Image
     """
     if len(img.shape) != 3:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a LAB image to its RGB counterpart')
@@ -36,7 +42,13 @@ def lab_to_rgb(img) -> np.ndarray:
 
 def lab_to_bgr(img) -> np.ndarray:
     """
-        Converts am LAB image to its BGR version
+        Converts an LAB image to its BGR version
+
+        Args:
+            img (np.ndarray): Valid LAB Image array
+        
+        Returns:
+            BGR Image
     """
     if len(img.shape) != 3:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a LAB image to its BGR counterpart')
@@ -47,6 +59,12 @@ def lab_to_bgr(img) -> np.ndarray:
 def lab_to_gray(img) -> np.ndarray:
     """
         Converts an LAB image to its Grayscale version
+
+        Args:
+            img (np.ndarray): Valid LAB Image array
+        
+        Returns:
+            Grayscale Image
     """
     if len(img.shape) != 3:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a LAB image to its Grayscale counterpart')
@@ -59,6 +77,12 @@ def lab_to_gray(img) -> np.ndarray:
 def lab_to_hsv(img) -> np.ndarray:
     """
         Converts an LAB image to its LAB version
+
+        Args:
+            img (np.ndarray): Valid LAB Image array
+        
+        Returns:
+            HSV Image
     """
     if len(img.shape) != 3:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a LAB image to its LAB counterpart')
