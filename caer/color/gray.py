@@ -32,13 +32,13 @@ def gray_to_rgb(img) -> np.ndarray:
             img (np.ndarray): Valid Grayscale Image array (1 Channel)
         
         Returns:
-            RGB Image
+            RGB Image (np.ndarray)
         
         Raises:
             ValueError: If `img` is not of shape 1
     """
-    if len(img.shape) != 1:
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a Grayscale image to its RGB counterpart')
+    if len(img.shape) != 2:
+        raise ValueError(f'Image of shape 2 expected. Found shape {len(img.shape)}. This method converts a Grayscale image to its RGB counterpart')
 
     return cv.cvtColor(img, GRAY2RGB)
 
@@ -56,8 +56,8 @@ def gray_to_bgr(img) -> np.ndarray:
         Raises:
             ValueError: If `img` is not of shape 1
     """
-    if len(img.shape) != 1:
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a Grayscale image to its BGR counterpart')
+    if len(img.shape) != 2:
+        raise ValueError(f'Image of shape 2 expected. Found shape {len(img.shape)}. This method converts a Grayscale image to its BGR counterpart')
 
     return cv.cvtColor(img, GRAY2BGR)
 
@@ -70,13 +70,13 @@ def gray_to_lab(img) -> np.ndarray:
             img (np.ndarray): Valid Grayscale Image array (1 Channel)
         
         Returns:
-            LAB Image
+            LAB Image (np.ndarray)
         
         Raises:
             ValueError: If `img` is not of shape 1
     """
     if len(img.shape) != 3:
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a Grayscale image to its LAB counterpart')
+        raise ValueError(f'Image of shape 2 expected. Found shape {len(img.shape)}. This method converts a Grayscale image to its LAB counterpart')
 
     bgr = gray_to_bgr(img)
 
@@ -91,13 +91,13 @@ def gray_to_hsv(img) -> np.ndarray:
             img (np.ndarray): Valid Grayscale Image array (1 Channel)
         
         Returns:
-            HSV Image
+            HSV Image (np.ndarray)
         
         Raises:
             ValueError: If `img` is not of shape 1
     """
-    if len(img.shape) != 1:
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a LAB image to its HSV counterpart')
+    if len(img.shape) != 2:
+        raise ValueError(f'Image of shape 2 expected. Found shape {len(img.shape)}. This method converts a LAB image to its HSV counterpart')
 
     bgr = gray_to_bgr(img)
 

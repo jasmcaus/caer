@@ -30,7 +30,7 @@ def bgr_to_rgb(img) -> np.ndarray:
             img (np.ndarray): Valid image array
         
         Returns:
-            RGB Image
+            RGB Image (np.ndarray)
         
         Raises:
             ValueError: If `img` is not of shape 3
@@ -49,7 +49,7 @@ def bgr_to_gray(img) -> np.ndarray:
             img (np.ndarray): Valid image array
         
         Returns:
-            Grayscale Image
+            Grayscale Image (np.ndarray)
         
         Raises:
             ValueError: If `img` is not of shape 3
@@ -68,7 +68,7 @@ def bgr_to_hsv(img) -> np.ndarray:
             img (np.ndarray): Valid image array
         
         Returns:
-            HSV Image
+            HSV Image (np.ndarray)
         
         Raises:
             ValueError: If `img` is not of shape 3
@@ -87,7 +87,7 @@ def bgr_to_lab(img) -> np.ndarray:
             img (np.ndarray): Valid image array
         
         Returns:
-            LAB Image
+            LAB Image (np.ndarray)
         
         Raises:
             ValueError: If `img` is not of shape 3
