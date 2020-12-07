@@ -1,5 +1,5 @@
-Contribute
-===========
+Contributing to Caer 
+=====================
 
 Thank you for choosing to contribute to Caer.  We'd love to accept your patches! For those just getting started, Github has a [how to](https://help.github.com/articles/using-pull-requests/). All bug fixes, new functionality, new tutorials etc. are (and should be) submitted via GitHub's mechanism of pull requests.
 
@@ -9,7 +9,7 @@ We have written a comprehensive Contribution Guide (https://github.com/jasmcaus/
 
 
 Documentation
--------------
+---------------
 
 There is always room for improvement in documentation. We welcome all pull requests to fix typo / improve grammar or semantic structuring of documents. Here are a few documents you can work on:
 
@@ -19,25 +19,26 @@ There is always room for improvement in documentation. We welcome all pull reque
 
 
 Open Issues
------------
+--------------
 
 If you would like to help in working on open issues. Look out for the following tags: ``good first issue``, ``help wanted``, ``open for contribution``
 
 
 Major Contributions
---------------------
+----------------------
 
 If you are willing to make a major contribution you can always lookout for the active sprint under ``Projects`` and discuss the proposal with one of our maintainers.
 
 
 What we currently need help on
--------------------------------
+---------------------------------
+
 -  Improving unit-test cases and test coverage (https://github.com/jasmcaus/caer/tree/master/tests)
 -  Include GPU support
 
 
 If you write articles:
---------------
+------------------------
 
 If you are interested or have already written a story covering ``Caer``, you can submit your story in ``markdown`` format as a PR to https://github.com/jasmcaus/caer/tree/master/resources. 
 To convert medium stories into ``markdown`` format please download this chrome extension: https://chrome.google.com/webstore/detail/export-to-markdown/dodkihcbgpjblncjahodbnlgkkflliim
