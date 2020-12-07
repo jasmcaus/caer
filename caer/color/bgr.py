@@ -26,14 +26,18 @@ def bgr_to_rgb(img) -> np.ndarray:
     """
         Converts a BGR image to its RGB version
 
-        Args:
-            img (np.ndarray): Valid image array
-        
-        Returns:
-            RGB Image (np.ndarray)
-        
-        Raises:
-            ValueError: If `img` is not of shape 3
+    Parameters
+    -----------
+        img : ndarray
+            Valid BGR image array
+    
+    Returns
+    -------
+        RGB Image : ndarray
+    
+    Raises
+    ------
+        ValueError: If `img` is not of shape 3
     """
     if len(img.shape) != 3:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a BGR image to its RGB counterpart')
@@ -45,14 +49,18 @@ def bgr_to_gray(img) -> np.ndarray:
     """
         Converts a BGR image to its Grayscale version
 
-        Args:
-            img (np.ndarray): Valid image array
+    Parameters
+    -----------
+        img : ndarray
+            Valid BGR image array
         
-        Returns:
-            Grayscale Image (np.ndarray)
-        
-        Raises:
-            ValueError: If `img` is not of shape 3
+    Returns
+    -------
+        Grayscale Image : ndarray
+    
+    Raises
+    ------
+        ValueError: If `img` is not of shape 3
     """
     if len(img.shape) != 3:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a BGR image to its Grayscale counterpart')
@@ -64,14 +72,18 @@ def bgr_to_hsv(img) -> np.ndarray:
     """
         Converts a BGR image to its HSV counterpart
 
-        Args:
-            img (np.ndarray): Valid image array
+    Parameters
+    -----------
+        img : ndarray
+            Valid BGR image array
         
-        Returns:
-            HSV Image (np.ndarray)
-        
-        Raises:
-            ValueError: If `img` is not of shape 3
+    Returns
+    -------
+        HSV Image : ndarray
+    
+    Raises
+    ------
+        ValueError: If `img` is not of shape 3
     """
     if len(img.shape) != 3:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a BGR image to its HSV counterpart')
@@ -83,14 +95,18 @@ def bgr_to_lab(img) -> np.ndarray:
     """
         Converts a BGR image to its LAB counterpart
 
-        Args:
-            img (np.ndarray): Valid image array
+    Parameters
+    -----------
+        img : ndarray
+            Valid BGR image array
         
-        Returns:
-            LAB Image (np.ndarray)
-        
-        Raises:
-            ValueError: If `img` is not of shape 3
+    Returns
+    -------
+        LAB Image : ndarray
+    
+    Raises
+    ------
+        ValueError: If `img` is not of shape 3
     """
     if len(img.shape) != 3:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a BGR image to its LAB counterpart')

@@ -28,14 +28,18 @@ def hsv_to_rgb(img) -> np.ndarray:
     """
         Converts an HSV image to its RGB version
 
-        Args:
-            img (np.ndarray): Valid HSV Image array
+    Parameters
+    -----------
+        img : ndarray
+            Valid HSV image array
         
-        Returns:
-            RGB Image
-        
-        Raises:
-            ValueError: If `img` is not of shape 3
+    Returns
+    -------
+        RGB Image : ndarray
+    
+    Raises
+    ------
+        ValueError: If `img` is not of shape 3
     """
     if len(img.shape) != 3:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a HSV image to its RGB counterpart')
@@ -47,14 +51,18 @@ def hsv_to_bgr(img) -> np.ndarray:
     """
         Converts am HSV image to its BGR version
 
-        Args:
-            img (np.ndarray): Valid HSV Image array
+    Parameters
+    -----------
+        img : ndarray
+            Valid HSV image array
         
-        Returns:
-            BGR Image (np.ndarray)
-        
-        Raises:
-            ValueError: If `img` is not of shape 3
+    Returns
+    -------
+        BGR Image : ndarray
+    
+    Raises
+    ------
+        ValueError: If `img` is not of shape 3
     """
     if len(img.shape) != 3:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a HSV image to its BGR counterpart')
@@ -66,8 +74,10 @@ def hsv_to_gray(img) -> np.ndarray:
     """
         Converts an HSV image to its Grayscale version
 
-        Args:
-            img (np.ndarray): Valid HSV Image array
+    Parameters
+    -----------
+        img : ndarray
+            Valid HSV image array
         
         Returns:
             Grayscale Image (np.ndarray)
@@ -87,8 +97,10 @@ def hsv_to_lab(img) -> np.ndarray:
     """
         Converts an HSV image to its LAB version
 
-        Args:
-            img (np.ndarray): Valid HSV Image array
+    Parameters
+    -----------
+        img : ndarray
+            Valid HSV image array
         
         Returns:
             LAB Image (np.ndarray)
