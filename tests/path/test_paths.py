@@ -13,7 +13,7 @@ import os
 import caer 
 
 def test_osname():
-    s = caer.path.osname
+    s = caer.path.osname()
 
     assert s == os.name
 
