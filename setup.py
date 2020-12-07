@@ -194,7 +194,7 @@ def write_meta(filename='caer/_meta.py'):
                        'full_version': FULL_VERSION,
                        'git_version': GIT_VERSION,
                        'isrelease': str(ISRELEASED),
-                       'contributors': CONTRIBUTORS
+                       'contributors': CONTRIBUTORS,
                        'homepage': HOMEPAGE })
     finally:
         a.close()
