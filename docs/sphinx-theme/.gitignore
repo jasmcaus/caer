@@ -1,0 +1,8 @@
+*build/
+*.sass-cache
+*.map
+package-lock.json
+__pycache__
+dist/
+*.egg-info/
+scss/vendor/*
