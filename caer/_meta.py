@@ -7,4 +7,4 @@ full_version = '1.9.3'
 git_version = '4d24915d87403e0c92a98f6672dd4ffd01593086'
 release = True
 contributors = ['Jason Dsouza <jasmcaus@gmail.com>']
-homepage = https://github.com/jasmcaus/caer
+homepage = 'https://github.com/jasmcaus/caer'
