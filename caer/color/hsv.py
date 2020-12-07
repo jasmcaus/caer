@@ -51,7 +51,7 @@ def hsv_to_bgr(img) -> np.ndarray:
             img (np.ndarray): Valid HSV Image array
         
         Returns:
-            BGR Image
+            BGR Image (np.ndarray)
         
         Raises:
             ValueError: If `img` is not of shape 3
@@ -70,7 +70,7 @@ def hsv_to_gray(img) -> np.ndarray:
             img (np.ndarray): Valid HSV Image array
         
         Returns:
-            Grayscale Image
+            Grayscale Image (np.ndarray)
         
         Raises:
             ValueError: If `img` is not of shape 3
@@ -91,7 +91,7 @@ def hsv_to_lab(img) -> np.ndarray:
             img (np.ndarray): Valid HSV Image array
         
         Returns:
-            LAB Image
+            LAB Image (np.ndarray)
         
         Raises:
             ValueError: If `img` is not of shape 3
