@@ -30,7 +30,8 @@ def extract_frames(input_folder,
                    frames_per_sec=None, 
                    frame_interval=None,
                    dest_filetype='jpg') -> int:
-    """ Function to extract frames from videos within a directory
+    """
+    Function to extract frames from videos within a directory
     and save them as separate frames in an output directory.
     Args:
         input_folder: Input video directory.
