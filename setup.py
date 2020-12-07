@@ -189,13 +189,13 @@ def write_meta(filename='caer/_meta.py'):
 
     try:
         a.write(TEXT % {'author': AUTHOR_LONG,
-                        'author_email': AUTHOR_EMAIL,
+                        'author_email': str(AUTHOR_EMAIL),
                         'version': VERSION,
                        'full_version': FULL_VERSION,
                        'git_version': GIT_VERSION,
                        'isrelease': str(ISRELEASED),
                        'contributors': CONTRIBUTORS,
-                       'homepage': HOMEPAGE })
+                       'homepage': str(HOMEPAGE} })
     finally:
         a.close()
 
