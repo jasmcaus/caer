@@ -15,7 +15,7 @@ import caer
 def test_osname():
     s = caer.path.osname
 
-    assert s == os.name()
+    assert s == os.name
 
 
 def test_cwd():
