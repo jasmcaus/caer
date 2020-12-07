@@ -36,8 +36,8 @@ def distance(bw, metric='euclidean2'):
         metric (str, optional):
             one of 'euclidean2' (default) or 'euclidean'
     Returns:
-            dmap (ndarray)
-            distance map
+        dmap (ndarray)
+        distance map
 
     References:
         For 2-D images, the following algorithm is used:

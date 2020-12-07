@@ -36,23 +36,23 @@ __all__ = [
 
 
 def sobel(img, just_filter=False):
-    '''
-    edges = sobel(img, just_filter=False)
-    Compute edges using Sobel's algorithm
+    """
+    Compute edges using Sobel's algorithm.
+
     `edges` is a binary image of edges computed according to Sobel's algorithm.
     This implementation is tuned to match MATLAB's implementation.
-    Parameters
-    ----------
-    img : Any 2D-ndarray
-    just_filter : boolean, optional
-        If true, then return the result of filtering the image with the sobel
-        filters, but do not threashold (default is False).
-    Returns
-    -------
-    edges : ndarray
+
+    Args:
+        img (2D-ndarray) : 
+        just_filter (boolean, optional) : 
+            If true, then return the result of filtering the image with the sobel
+            filters, but do not threashold (default is False).
+
+    Returns:
+    edges (ndarray) : 
         Binary image of edges, unless `just_filter`, in which case it will be
         an array of floating point values.
-    '''
+    """
     # This is based on Octave's implementation,
     # but with some reverse engineering to match Matlab exactly
     img = np.array(img, dtype=np.float)
@@ -60,12 +60,15 @@ def sobel(img, just_filter=False):
         try:
             img = bgr_to_gray(img)
         except Exception:
-            raise ValueError('caer.sobel: Only available for 2-dimensional images')
+            raise ValueError('caer.filters.sobel() is only available for 2-dimensional images')
+
     img -= img.min()
     ptp = img.ptp()
+
     if ptp == 0:
         return img
     img /= ptp
+
     # Using 'nearest' seems to be MATLAB's implementation
     vfiltered = convolve(img, _vsobel_filter, mode='nearest')
     hfiltered = convolve(img, _hsobel_filter, mode='nearest')
@@ -73,33 +76,34 @@ def sobel(img, just_filter=False):
     hfiltered **= 2
     filtered = vfiltered
     filtered += hfiltered
+
     if just_filter:
         return filtered
+
     thresh = 2*np.sqrt(filtered.mean())
+
     return regmax(filtered) * (np.sqrt(filtered) > thresh)
 
 
 def dog(img, sigma1 = 2, multiplier = 1.001, just_filter = False):
-    '''
-    edges = dog(img, sigma1 = 2, thresh= None, just_filter = False)
+    """
     Compute edges using the Difference of Gaussian (DoG) operator.
     `edges` is a binary image of edges.
-    Parameters
-    ----------
-    img : Any 2D-ndarray
-    sigma1 : the sigma value of the first Gaussian filter. The second filter 
-        will have sigma value 1.001*sigma1
-    multiplier : the multiplier to get sigma2. sigma2 = sigma1 * multiplier
-    just_filter : boolean, optional
-        If true, then return the result of filtering the image with the DoG
-        filters, no zero-crossing is detected (default is False).
+
+    Args:
+        img : Any 2D-ndarray
+        sigma1 : the sigma value of the first Gaussian filter. The second filter 
+            will have sigma value 1.001*sigma1
+        multiplier : the multiplier to get sigma2. sigma2 = sigma1 * multiplier
+        just_filter (boolean, optional) : 
+            If true, then return the result of filtering the image with the DoG
+            filters, no zero-crossing is detected (default is False).
       
-    Returns
-    -------
-    edges : ndarray
-        Binary image of edges, unless `just_filter`, in which case it will be
-        an array of floating point values.
-    '''
+    Returns:
+        edges (ndarray) : 
+            Binary image of edges, unless `just_filter`, in which case it will be
+            an array of floating point values.
+    """
     img = np.array(img, dtype=np.float)
     if img.ndim != 2:
         raise ValueError('caer.dog: Only available for 2-dimensional images')
