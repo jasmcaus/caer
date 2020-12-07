@@ -20,7 +20,7 @@ This design philosophy makes Caer ideal for students, researchers, hobbyists and
 
    caer_at_a_glance.rst
    install.md
-   contribute.md
+   community/CONTRIBUTING.md
    readme
 
 

@@ -1,39 +1,43 @@
-Contributing to Caer
-=====================
+Contribute
+===========
 
-If you have improvements to `caer`, send us your pull requests! We'd love to accept your patches! For those just getting started, Github has a `how to <https://help.github.com/articles/using-pull-requests/>`__. All bug fixes, new functionality, new tutorials etc. are (and should be) submitted via GitHub's mechanism of pull requests.
+Thank you for choosing to contribute to Caer.  We'd love to accept your patches! For those just getting started, Github has a [how to](https://help.github.com/articles/using-pull-requests/). All bug fixes, new functionality, new tutorials etc. are (and should be) submitted via GitHub's mechanism of pull requests.
 
-If you want to contribute, start working through the `caer` codebase, read the `Documentation <https://github.com/jasmcaus/caer/blob/master/docs/>`__ , navigate to the `Issues <https://github.com/jasmcaus/caer/issues>`__ tab and start looking through interesting issues. 
+Caer was made publically available in August 2020 by Jason Dsouza <jasmcaus@gmail.com> and we are proud to have over 150k installs since then! Caer is now maintained by awesome community members just like you. 
 
-***NOTE***: Only original source code from you and other people that have been working on the PR can be accepted into the main repository.
-
-
-Before you start contributing you should
-----------------------------------------
-
--   Make sure you agree to the `caer` MIT license before you contribute your code
-
--   If you are submitting a new algorithm implementation, do a quick search over the internet to see whether the algorithm is patented or not. 
-
--   If you are going to fix a bug, check that it hasn't yet been spotted or there is someone working on it. In the latter, you might provide support or suggestion in the issue or in the linked pull request.
-
--   If you have a question about the software, then this is **NOT** the right place. Feel free to read the official `documentation <https://github.com/jasmcaus/caer/blob/master/docs/>`__ or if that does not help, you can contact one of the maintainers (use this as your last resort. Most of the time, we may not have the time to reply to your messages.)
-
-Before you open up anything on the Caer GitHub page, be sure that you are at the right place with your problem.
+We have written a comprehensive Contribution Guide (https://github.com/jasmcaus/caer/blob/master/CONTRIBUTING.md) that you can follow when contributing to the project. 
 
 
-Reporting issues
-------------------------
+Documentation
+-------------
 
-You can report issues in the `caer` codebase by navigating to the `Issues <https://github.com/jasmcaus/caer/issues>`__ tab. When reporting issues, please include as much detail as possible about your operating system, `caer` version and Python version. Whenever possible, include a brief, self-contained code example that demonstrates the problem.
+There is always room for improvement in documentation. We welcome all pull requests to fix typo / improve grammar or semantic structuring of documents. Here are a few documents you can work on:
 
-
-A note on feature enhancements/API changes
-------------------------
-
-If you are interested in adding a new feature to Caer, consider submitting your feature proposal as a pull request using the label `suggest-feature` which is the preferred way for discussing new features and changes to the API.
+-  Official Tutorials:
+   https://github.com/jasmcaus/caer/tree/master/example
+-  README https://github.com/jasmcaus/caer/blob/master/README.md
 
 
-Last, but certainly not the least! **Make sure you get due credit**. We try to highlight all the contributions and list major ones in the `Contributors List <https://github.com/jasmcaus/caer/blob/master/CONTRIBUTORS>`__ and release announcements, but sometimes we may inadvertently forget to do that. Please do not hesitate to remind us, and we will update it accordingly.
+Open Issues
+-----------
 
-Happy Contributing!
+If you would like to help in working on open issues. Look out for the following tags: ``good first issue``, ``help wanted``, ``open for contribution``
+
+
+Major Contributions
+--------------------
+
+If you are willing to make a major contribution you can always lookout for the active sprint under ``Projects`` and discuss the proposal with one of our maintainers.
+
+
+What we currently need help on
+-------------------------------
+-  Improving unit-test cases and test coverage (https://github.com/jasmcaus/caer/tree/master/tests)
+-  Include GPU support
+
+
+If you write articles:
+--------------
+
+If you are interested or have already written a story covering ``Caer``, you can submit your story in ``markdown`` format as a PR to https://github.com/jasmcaus/caer/tree/master/resources. 
+To convert medium stories into ``markdown`` format please download this chrome extension: https://chrome.google.com/webstore/detail/export-to-markdown/dodkihcbgpjblncjahodbnlgkkflliim
