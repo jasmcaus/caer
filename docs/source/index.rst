@@ -48,7 +48,9 @@ This design philosophy makes Caer ideal for students, researchers, hobbyists and
    :name: community
    :caption: Community
 
-   community/*
+   community/CONTRIBUTING.rst
+   community/CODE_OF_CONDUCT.rst
+   community/governance.rst
 
 
 Indices and tables
