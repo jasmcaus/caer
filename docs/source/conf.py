@@ -135,9 +135,15 @@ html_add_permalinks = "¶"
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-import pt_lightning_sphinx_theme
-html_theme = 'pt_lightning_sphinx_theme'
-html_theme_path = [pt_lightning_sphinx_theme.get_html_theme_path()]
+
+# Navigate to docs/
+DOCS_PATH = os.path.dirname(os.path.dirname(os.path.join(os.getcwd(), __file__)))
+THEME_PATH = os.path.join(DOCS_PATH, 'sphinx-theme')
+# Optionally install the package:
+# subprocess.call('python setup.py install'], cwd=THEMES, shell=True)
+
+html_theme = 'caer_sphinx_theme'
+html_theme_path = [THEME_PATH]
 # html_theme = 'sphinx_rtd_theme'
 
 html_theme_options = {
