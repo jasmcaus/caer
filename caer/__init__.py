@@ -31,15 +31,35 @@ __version__
 
 #pylint:disable=undefined-all-variable, redefined-builtin
 
-from ._meta import version as __version__
-from ._meta import author as __author__
-from ._meta import release as __release__
-from ._meta import contributors as __contributors__
+from ._meta import version
+from ._meta import author 
+from ._meta import release 
+from ._meta import contributors 
+from ._meta import (
+    version,
+    release,
+    author,
+    author_email,
+    contributors,
+    homepage
+)
+
+"""
+Root Package Info
+"""
+
+__version__ = version
+__release__ = release 
+__author__ = author 
+__author_email__ = author_email
+__contributors__ = contributors
 __license__ = 'MIT License'
 __copyright__ = """
 Copyright (c) 2020 Jason Dsouza <jasmcaus>
 All Rights Reserved.
 """
+__homepage__ = homepage
+
 
 def license():
     return __license__ 
@@ -167,6 +187,14 @@ __all__ += __all_path__
 __all__ += __all_color__
 
 # Stop polluting the namespace
+
+## Remove root package info
+del author
+del version 
+del release
+del contributors 
+
+## Remove everything else 
 del __all_globals__ 
 del __all_io__ 
 del __all_resize__ 

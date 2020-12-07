@@ -116,7 +116,8 @@ LICENSE = cfg['license']
 FUNDING = cfg['funding']
 GIT_VERSION = repr(sha)
 PLATFORMS = ['Any']
-URL = cfg['git_url']
+GIT_URL = cfg['git_url']
+DOCS_URL = cfg['docs_url']
 DOWNLOAD_URL = cfg['download_url']
 PACKAGES = [i for i in find_packages() if 'tests' not in i]
 DESCRIPTION = cfg['description']
@@ -163,6 +164,7 @@ full_version = '%(full_version)s'
 git_version = %(git_version)s
 release = %(isrelease)s
 contributors = %(contributors)s
+homepage = %(homepage)s
 """
 
 
@@ -181,6 +183,7 @@ def write_meta(filename='caer/_meta.py'):
     TEXT = META_PY_TEXT
     FULL_VERSION = VERSION
     CONTRIBUTORS = get_contributors_list()
+    HOMEPAGE = URL
     
     a = open(filename, 'w')
 
@@ -190,13 +193,14 @@ def write_meta(filename='caer/_meta.py'):
                        'full_version': FULL_VERSION,
                        'git_version': GIT_VERSION,
                        'isrelease': str(ISRELEASED),
-                       'contributors': CONTRIBUTORS })
+                       'contributors': CONTRIBUTORS
+                       'homepage': HOMEPAGE })
     finally:
         a.close()
 
 
 def get_docs_url():
-    return URL + '/blob/master/docs/README.md'
+    return DOCS_URL
 
 
 CYTHON_SOURCES = ('',)
@@ -241,13 +245,13 @@ def setup_package():
         description = DESCRIPTION,
         long_description = LONG_DESCRIPTION,
         long_description_content_type = 'text/markdown',
-        url = URL,
+        url = GIT_URL,
         download_url = DOWNLOAD_URL,
         project_urls = {
-            'Bug Tracker': URL + '/issues',
+            'Bug Tracker': GIT_URL + '/issues',
             'Documentation': get_docs_url(),
             'Funding': FUNDING,
-            'Source Code': URL,
+            'Source Code': GIT_URL,
         },
         packages = PACKAGES,
         # ext_modules = EXT_MODULES,
