@@ -1,6 +1,6 @@
 sphinx
 sphinx_rtd_theme
-sphinx>=2.0, <3.0
+sphinx>=2.0, <4.0
 recommonmark  # fails with badges
 sphinx-autodoc-typehints
 sphinx-paramlinks<0.4.0
