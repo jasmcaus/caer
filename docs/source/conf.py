@@ -47,7 +47,7 @@ master_doc = 'index'
 # copy all documents from GH templates like contribution guide
 for f in os.listdir(GIT_HERE):
     if f.startswith(('CODE_OF_CONDUCT.md','CONTRIBUTING.md')):
-        shutil.copy(os.path.join(GIT_HERE, f),f)
+        shutil.copy(os.path.join(GIT_HERE, 'community', f), f)
 
 
 # -- General configuration ---------------------------------------------------
