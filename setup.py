@@ -164,7 +164,7 @@ full_version = '%(full_version)s'
 git_version = %(git_version)s
 release = %(isrelease)s
 contributors = %(contributors)s
-homepage = %(homepage)s
+homepage = '%(homepage)s'
 """
 
 
