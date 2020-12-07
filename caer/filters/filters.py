@@ -26,6 +26,15 @@ __all__ = [
 ]
 
 def brighten(img):
+    """
+        Brighten any BGR/RGB image
+
+    Args:
+        img (ndarray) : Any regular BGR/RGB image
+    
+    Returns:
+        Brightened image
+    """
     dup = img.copy()
     hsv = cv.cvtColor(dup, cv.COLOR_BGR2HSV) # convert image to HSV color space
     hsv = np.array(hsv, dtype = np.float64)
@@ -40,14 +49,30 @@ def brighten(img):
     
 
 def invert(img):
+    """
+        Invert any BGR/RGB image
+
+    Args:
+        img (ndarray) : Any regular BGR/RGB image
+    
+    Returns:
+        Inverted image
+    """
     return cv.bitwise_not(img.copy())
 
 
 def summer(img):
     """
+        Convert an image using a "Winter" filter
         For values of gamma above 1, the values are increased and for below 1, the pixel values are decreased. 
         It is implemented by creating a lookup table and using `cv2.LUT()`. 
         The values of the Red channel of BGR and Saturation of HSV is increased by taking a value of gamma greater than 1 and the values of the Blue channel is decreased by taking a value less than 1.
+
+    Args:
+        img (ndarray) : Any regular BGR/RGB image
+    
+    Returns:
+        Winter image
     """
     dup = img.copy()
     dup[:, :, 0] = _gamma_function(dup[:, :, 0], 0.75) # downscaling blue channel
@@ -60,6 +85,15 @@ def summer(img):
 
 
 def winter(img):
+    """
+        Convert an image using a "Winter" filter
+
+    Args:
+        img (ndarray) : Any regular BGR/RGB image
+    
+    Returns:
+        Winter image
+    """
     dup = img.copy()
     dup[:, :, 0] = _gamma_function(dup[:, :, 0], 1.25)
     dup[:, :, 2] = _gamma_function(dup[:, :, 2], 0.75)
@@ -79,6 +113,15 @@ def _gamma_function(channel, gamma):
 
 
 def sepia(img):
+    """
+        Convert an image using a "Sepia" filter
+
+    Args:
+        img (ndarray) : Any regular BGR/RGB image
+    
+    Returns:
+        Sepia image
+    """
     dup = img.copy()
     dup = np.array(dup, dtype=np.float64) # converting to float to prevent loss
     dup = cv.transform(dup, sep_matrix) # multipying image with special sepia matrix

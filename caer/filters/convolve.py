@@ -32,29 +32,24 @@ __all__ = [
 
 def convolve(f, weights, mode='reflect', cval=0.0, out=None, output=None):
     """
-    convolved = convolve(f, weights, mode='reflect', cval=0.0, out={new array})
     Convolution of `f` and `weights`
+
     Convolution is performed in `doubles` to avoid over/underflow, but the
     result is then cast to `f.dtype`. **This conversion may result in
     over/underflow when using small integer types or unsigned types (if the
     output is negative).** Converting to a floating point representation avoids
     this issue::
         c = convolve(f.astype(float), kernel)
-    Parameters
-    ----------
-    f : ndarray
-        input. Any dimension is supported
-    weights : ndarray
-        weight filter. If not of the same dtype as `f`, it is cast
+
+    Args:
+    f (ndarray): input. Any dimension is supported
+    weights (ndarray): weight filter. If not of the same dtype as `f`, it is cast
     mode : {'reflect' [default], 'nearest', 'wrap', 'mirror', 'constant', 'ignore'}
-        How to handle borders
-    cval : double, optional
-        If `mode` is constant, which constant to use (default: 0.0)
-    out : ndarray, optional
-        Output array. Must have same shape and dtype as `f` as well as be
+    cval (double, optional): If `mode` is constant, which constant to use (default: 0.0)
+    out (ndarray, optional): Output array. Must have same shape and dtype as `f` as well as be
         C-contiguous.
-    Returns
-    -------
+
+    Returns:
     convolved : ndarray of same dtype as `f`
     """
     weights = weights.astype(f.dtype, copy=False)
@@ -67,32 +62,27 @@ def convolve(f, weights, mode='reflect', cval=0.0, out=None, output=None):
 
 def convolve1d(f, weights, axis, mode='reflect', cval=0., out=None):
     """
-    convolved = convolve1d(f, weights, axis, mode='reflect', cval=0.0, out={new array})
     Convolution of `f` and `weights` along axis `axis`.
     Convolution is performed in `doubles` to avoid over/underflow, but the
     result is then cast to `f.dtype`.
-    Parameters
-    ----------
-    f : ndarray
-        input. Any dimension is supported
-    weights : 1-D ndarray
-        weight filter. If not of the same dtype as `f`, it is cast
-    axis : int
-        Axis along which to convolve
-    mode : {'reflect' [default], 'nearest', 'wrap', 'mirror', 'constant', 'ignore'}
-        How to handle borders
-    cval : double, optional
-        If `mode` is constant, which constant to use (default: 0.0)
-    out : ndarray, optional
-        Output array. Must have same shape and dtype as `f` as well as be
-        C-contiguous.
-    Returns
-    -------
-    convolved : ndarray of same dtype as `f`
-    See Also
-    --------
-    convolve : function
-        generic convolution
+
+    Args:
+        f (ndarray) : 
+            input. Any dimension is supported
+        weights (1-D ndarray) : 
+            weight filter. If not of the same dtype as `f`, it is cast
+        axis (int) : 
+            Axis along which to convolve
+        mode : {'reflect' [default], 'nearest', 'wrap', 'mirror', 'constant', 'ignore'}
+            How to handle borders
+        cval (double, optional) : 
+            If `mode` is constant, which constant to use (default: 0.0)
+        out (ndarray, optional) : 
+            Output array. Must have same shape and dtype as `f` as well as be
+            C-contiguous.
+
+    Returns:
+        convolved : ndarray of same dtype as `f`
     """
     weights = np.asanyarray(weights)
     weights = weights.squeeze()
@@ -124,23 +114,23 @@ def convolve1d(f, weights, axis, mode='reflect', cval=0., out=None):
 def median_filter(f, Bc=None, mode='reflect', cval=0.0, out=None, output=None):
     """
     Median filter
-    Parameters
-    ----------
-    f : ndarray
-        input. Any dimension is supported
-    Bc : ndarray or int, optional
-        Defines the neighbourhood, default is a square of side 3.
-    mode : {'reflect' [default], 'nearest', 'wrap', 'mirror', 'constant', 'ignore'}
-        How to handle borders
-    cval : double, optional
-        If `mode` is constant, which constant to use (default: 0.0)
-    out : ndarray, optional
-        Output array. Must have same shape and dtype as `f` as well as be
-        C-contiguous.
-    Returns
-    -------
+
+    Args:
+        f (ndarray) : 
+            input. Any dimension is supported
+        Bc (ndarray or int, optional) : 
+            Defines the neighbourhood, default is a square of side 3.
+        mode : {'reflect' [default], 'nearest', 'wrap', 'mirror', 'constant', 'ignore'}
+            How to handle borders
+        cval (double, optional) : 
+            If `mode` is constant, which constant to use (default: 0.0)
+        out (ndarray, optional) : 
+            Output array. Must have same shape and dtype as `f` as well as be
+            C-contiguous.
+
+    Returns:
     median : ndarray of same type and shape as ``f``
-        median[i,j] is the median value of the points in f close to (i,j)
+             median[i,j] is the median value of the points in f close to (i,j)
     """
     if Bc is None:
         Bc = np.ones((3,) * len(f.shape), f.dtype)
@@ -155,29 +145,25 @@ def median_filter(f, Bc=None, mode='reflect', cval=0.0, out=None, output=None):
 
 
 def mean_filter(f, Bc, mode='ignore', cval=0.0, out=None):
-    """mean = mean_filter(f, Bc, mode='ignore', cval=0.0, out=None)
+    """
     Mean filter. The value at ``mean[i,j]`` will be the mean of the values in
     the neighbourhood defined by ``Bc``.
-    Parameters
-    ----------
-    f : ndarray
-        input. Any dimension is supported
-    Bc : ndarray
-        Defines the neighbourhood. Must be explicitly passed, no default.
-    mode : {'reflect', 'nearest', 'wrap', 'mirror', 'constant', 'ignore' [ignore]}
-        How to handle borders. The default is to ignore points beyond the
-        border, so that the means computed near the border include fewer elements.
-    cval : double, optional
-        If `mode` is constant, which constant to use (default: 0.0)
-    out : ndarray, optional
-        Output array. Must be a double array with the same shape as `f` as well
-        as be C-contiguous.
-    Returns
-    -------
-    mean : ndarray of type double and same shape as ``f``
-    See Also
-    --------
-    median_filter : An alternative filtering method
+
+    Args:
+        f (ndarray) : 
+            input. Any dimension is supported
+        Bc (ndarray) : 
+            Defines the neighbourhood. Must be explicitly passed, no default.
+        mode : {'reflect', 'nearest', 'wrap', 'mirror', 'constant', 'ignore' [ignore]}
+            How to handle borders. The default is to ignore points beyond the
+            border, so that the means computed near the border include fewer elements.
+        cval (double, optional) : 
+            If `mode` is constant, which constant to use (default: 0.0)
+        out (ndarray, optional) : 
+            Output array. Must be a double array with the same shape as `f` as well
+            as be C-contiguous.
+    Returns:
+        mean : ndarray of type double and same shape as ``f``
     """
     Bc = cmorph.get_structuring_elem(f, Bc)
     out = _get_output(f, out, 'mean_filter', dtype=np.float64)
@@ -187,15 +173,14 @@ def mean_filter(f, Bc, mode='ignore', cval=0.0, out=None):
 
 def gaussian_filter1d(array, sigma, axis=-1, order=0, mode='reflect', cval=0., output=None):
     """
-    filtered = gaussian_filter1d(array, sigma, axis=-1, order=0, mode='reflect', cval=0., out={np.empty_like(array)})
     One-dimensional Gaussian filter.
-    Parameters
-    ----------
-        array : ndarray
+
+    Args:
+        array (ndarray) : 
             input array of a floating-point type
-        sigma : float
+        sigma (float) : 
             standard deviation for Gaussian kernel (in pixel units)
-        axis : int, optional
+        axis (int, optional) : 
             axis to operate on
         order : {0, 1, 2, 3}, optional
             An order of 0 corresponds to convolution with a Gaussian
@@ -204,12 +189,11 @@ def gaussian_filter1d(array, sigma, axis=-1, order=0, mode='reflect', cval=0., o
             order derivatives are not implemented
         mode : {'reflect' [default], 'nearest', 'wrap', 'mirror', 'constant', 'ignore'}
             How to handle borders
-        cval : double, optional
+        cval (double, optional) : 
             If `mode` is constant, which constant to use (default: 0.0)
-    Returns
-    -------
-        filtered : ndarray
-            Filtered version of `array`
+
+    Returns:
+        filtered (ndarray) : Filtered version of `array`
     """
     _verify_is_floatingpoint_type(array, 'gaussian_filter1d')
     sigma = float(sigma)
@@ -243,14 +227,13 @@ def gaussian_filter1d(array, sigma, axis=-1, order=0, mode='reflect', cval=0., o
 
 def gaussian_filter(array, sigma, order=0, mode='reflect', cval=0., out=None, output=None):
     """
-    filtered = gaussian_filter(array, sigma, order=0, mode='reflect', cval=0., out={np.empty_like(array)})
     Multi-dimensional Gaussian filter.
-    Parameters
-    ----------
-        array : ndarray
+
+    Args:
+        array (ndarray) : 
             input array, any dimension is supported. If the array is an integer
             array, it will be converted to a double array.
-        sigma : scalar or sequence of scalars
+        sigma (scalar or sequence of scalars) : 
             standard deviation for Gaussian kernel. The standard
             deviations of the Gaussian filter are given for each axis as a
             sequence, or as a single number, in which case it is equal for
@@ -263,17 +246,16 @@ def gaussian_filter(array, sigma, order=0, mode='reflect', cval=0., out=None, ou
             derivatives of a Gaussian. Higher order derivatives are not implemented
         mode : {'reflect' [default], 'nearest', 'wrap', 'mirror', 'constant', 'ignore'}
             How to handle borders
-        cval : double, optional
+        cval (double, optional) : 
             If `mode` is constant, which constant to use (default: 0.0)
-        out : ndarray, optional
+        out (ndarray, optional) : 
             Output array. Must have same shape as `array` as well as be C-contiguous. If `array` is an integer array, this must be a double array; otherwise, it must have the same type as `array`.
-    Returns
-    -------
-        filtered : ndarray
-            Filtered version of `array`
-    Notes
-    -----
-    The multi-dimensional filter is implemented as a sequence of one-dimensional convolution filters. The intermediate arrays are stored in the same data type as the output. Therefore, for output types with a limited precision, the results may be imprecise because intermediate results may be stored with insufficient precision.
+
+    Returns:
+        filtered (ndarray) : Filtered version of `array`
+
+    Notes:
+        The multi-dimensional filter is implemented as a sequence of one-dimensional convolution filters. The intermediate arrays are stored in the same data type as the output. Therefore, for output types with a limited precision, the results may be imprecise because intermediate results may be stored with insufficient precision.
     """
     array = _as_floating_point_array(array)
     output = _get_output(array, out, 'gaussian_filter', output=output)
@@ -305,21 +287,15 @@ def _wavelet_array(f, inline, func):
 def haar(f, preserve_energy=True, inline=False):
     """
     Haar transform
-    Parameters
-    ----------
-        f : 2-D ndarray
+
+    Args:
+        f (2-D ndarray) : 
             Input image
-        preserve_energy : bool, optional
-            Whether to normalise the result so that energy is preserved (the
-            default).
-        inline : bool, optional
-            Whether to write the results to the input image. By default, a new
-            image is returned. Integer images are always converted to floating
-            point and copied.
-    See Also
-    --------
-    ihaar : function
-        Reverse Haar transform
+        preserve_energy (bool, optional) : 
+            Whether to normalise the result so that energy is preserved (the default).
+        inline (bool, optional) : 
+            Whether to write the results to the input image. By default, a new image is returned. Integer images are always converted to floating point and copied.
+
     """
     f = _wavelet_array(f, inline, 'haar')
     cconvolve.haar(f)
@@ -339,23 +315,16 @@ def _daubechies_code(c):
 
 def daubechies(f, code, inline=False):
     """
-    filtered = daubechies(f, code, inline=False)
     Daubechies wavelet transform
     This function works best if the image sizes are powers of 2!
-    Parameters
-    ----------
-        f : ndarray
+
+    Args:
+        f (ndarray) : 
             2-D image
-        code : str
+        code (str) : 
             One of 'D2', 'D4', ... 'D20'
-        inline : bool, optional
-            Whether to write the results to the input image. By default, a new
-            image is returned. Integer images are always converted to floating
-            point and copied.
-    See Also
-    --------
-        haar : function
-            Haar transform (equivalent to D2)
+        inline (bool, optional) : 
+            Whether to write the results to the input image. By default, a new image is returned. Integer images are always converted to floating point and copied.
     """
     f = _wavelet_array(f, inline, 'daubechies')
     code = _daubechies_code(code)
@@ -366,20 +335,17 @@ def daubechies(f, code, inline=False):
 
 def laplacian_2D(array, alpha = 0.2):
     """
-    filtered = laplacian_2D(array, alpha = 0.2)
     2D Laplacian filter.
-    Parameters
-    ----------
-        array : ndarray
+
+    Args:
+        array (ndarray) : 
             input 2D array. If the array is an integer array, it will be converted 
             to a double array.
-        alpha : scalar or sequence of scalars
+        alpha (scalar or sequence of scalars) : 
             controls the shape of Laplacian operator. Must be 0-1. A larger values 
             makes the operator empahsize the diagonal direction.
-    Returns
-    -------
-        filtered : ndarray
-            Filtered version of `array`
+    Returns:
+        filtered (ndarray) : Filtered version of `array`
     """
     array = np.array(array, dtype=np.float)
     if array.ndim != 2:
