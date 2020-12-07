@@ -34,7 +34,6 @@ __all__ = __all_extract__ + __all_vs__ + __all_ffps__ + __all_gpufilevs__
 # __all__ = __all_extract__  + __all_livevs__ + __all_vs__ + __all_ffps__ + __all_gpufilevs__
 
 # Stop polluting the namespace
-del __all_const__
 del __all_extract__
 del __all_ffps__
 del __all_gpufilevs__
