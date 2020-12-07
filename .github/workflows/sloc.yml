@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - master
+      - dev
+      - staging
   pull_request:
     branches:
       - master
