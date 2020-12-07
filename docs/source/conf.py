@@ -138,7 +138,7 @@ html_add_permalinks = "¶"
 html_theme = 'sphinx_rtd_theme'
 
 html_theme_options = {
-    'caer_project': 'docs',
+    # 'caer_project': 'docs',
     # 'canonical_url': 'https://jasmcaus.github.io/caer',
     'collapse_navigation': False, # set to false to prevent menu item collapse
     'display_version': True,

@@ -28,7 +28,6 @@ This design philosophy makes Caer ideal for students, researchers, hobbyists and
    :maxdepth: 1
    :caption: Caer API
 
-   caer
    api/augment
    api/color
    api/data
