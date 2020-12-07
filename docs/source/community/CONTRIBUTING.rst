@@ -13,8 +13,8 @@ Documentation
 
 There is always room for improvement in documentation. We welcome all pull requests to fix typos/improve grammar or semantic structuring of documents. Here are a few documents you can work on:
 
--  **`Official Tutorials <https://github.com/jasmcaus/caer/tree/master/example>`__**
--  **`README <https://github.com/jasmcaus/caer/blob/master/README.md>`__**
+-  `Official Tutorials <https://github.com/jasmcaus/caer/tree/master/example>`__
+-  `README <https://github.com/jasmcaus/caer/blob/master/README.md>`__
 
 
 Open Issues
