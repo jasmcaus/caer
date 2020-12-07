@@ -1,13 +1,14 @@
 name: Build docs
 
 on:
-    push:
-        branches:
-          - master
-          - dev
-    release:
-        branches:
-          - master
+  push:
+      branches:
+        - master
+        - dev
+  release:
+      branches:
+        - master
+        - dev
       
 env:
     PYTHON_VERSION: 3.x
