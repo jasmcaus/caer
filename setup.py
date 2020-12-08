@@ -2,19 +2,19 @@
 Caer - Modern Computer Vision on the Fly
 =====
 
-A Computer Vision library in Python with powerful image and video processing operations.
+A lightweight Computer Vision library in Python with powerful image and video processing operations.
 Caer is a set of utility functions designed to help speed up your Computer Vision workflow. Functions inside `caer` will help reduce the number of calculation calls your code makes, ultimately making it neat, concise and readable.
 
 Available sub-modules
 -----------
+augment
+    Augmentations functions
+color
+    Colorspace Operations
 data
     Test images and example data.
 distance
     Distance-computing algorithms
-exposure
-    Image intensity adjustment, e.g., histogram equalization, etc.
-features
-    Feature detection and extraction, e.g., texture analysis corners, etc.
 filters
     Sharpening, edge finding, rank filters, thresholding, etc.
 morph
@@ -24,7 +24,9 @@ path
 preprocessing
     Image preprocessing utilities
 segmentation
-    Partitioning an image into multiple regions.   
+    Partitioning an image into multiple regions.  
+transforms
+    Image Transformations
 utils
     Generic utilities.
 video
@@ -189,7 +191,7 @@ def write_meta(filename='caer/_meta.py'):
     a = open(filename, 'w')
 
     try:
-        a.write(TEXT % {'author': AUTHOR_LONG,
+        a.write(TEXT % {'author': AUTHOR,
                         'author_email': str(AUTHOR_EMAIL),
                         'version': VERSION,
                        'full_version': FULL_VERSION,
