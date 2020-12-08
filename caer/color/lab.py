@@ -46,7 +46,7 @@ def lab_to_rgb(img) -> np.ndarray:
     ------
         ValueError: If `img` is not of shape 3
     """
-    if is_lab_image(img):
+    if not is_lab_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a LAB image to its RGB counterpart')
 
     return cv.cvtColor(img, LAB2RGB)
@@ -69,7 +69,7 @@ def lab_to_bgr(img) -> np.ndarray:
     ------
         ValueError: If `img` is not of shape 3
     """
-    if is_lab_image(img):
+    if not is_lab_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a LAB image to its BGR counterpart')
 
     return cv.cvtColor(img, LAB2BGR)
@@ -92,7 +92,7 @@ def lab_to_gray(img) -> np.ndarray:
     ------
         ValueError: If `img` is not of shape 3
     """
-    if is_lab_image(img):
+    if not is_lab_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a LAB image to its Grayscale counterpart')
 
     bgr = lab_to_bgr(img)
@@ -117,7 +117,7 @@ def lab_to_hsv(img) -> np.ndarray:
     ------
         ValueError: If `img` is not of shape 3
     """
-    if is_lab_image(img):
+    if not is_lab_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a LAB image to its LAB counterpart')
 
     bgr = lab_to_bgr(img)
