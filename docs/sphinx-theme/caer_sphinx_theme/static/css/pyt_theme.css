@@ -2107,6 +2107,10 @@ pre code {
   color: #6c757d;
   opacity: 1;
 }
+.form-control::-moz-placeholder {
+  color: #6c757d;
+  opacity: 1;
+}
 .form-control:-ms-input-placeholder {
   color: #6c757d;
   opacity: 1;
@@ -4553,8 +4557,10 @@ tbody.collapse.show {
 @media (min-width: 576px) {
   .card-columns {
     -webkit-column-count: 3;
+       -moz-column-count: 3;
             column-count: 3;
     -webkit-column-gap: 1.25rem;
+       -moz-column-gap: 1.25rem;
             column-gap: 1.25rem;
   }
   .card-columns .card {
@@ -5670,7 +5676,7 @@ button.close {
   -webkit-transform: translateX(0);
           transform: translateX(0);
 }
-@supports ((-webkit-transform-style: preserve-3d) or (transform-style: preserve-3d)) {
+@supports (transform-style: preserve-3d) {
   .carousel-item-next.carousel-item-left,
   .carousel-item-prev.carousel-item-right {
     -webkit-transform: translate3d(0, 0, 0);
@@ -5683,7 +5689,7 @@ button.close {
   -webkit-transform: translateX(100%);
           transform: translateX(100%);
 }
-@supports ((-webkit-transform-style: preserve-3d) or (transform-style: preserve-3d)) {
+@supports (transform-style: preserve-3d) {
   .carousel-item-next,
   .active.carousel-item-right {
     -webkit-transform: translate3d(100%, 0, 0);
@@ -5696,7 +5702,7 @@ button.close {
   -webkit-transform: translateX(-100%);
           transform: translateX(-100%);
 }
-@supports ((-webkit-transform-style: preserve-3d) or (transform-style: preserve-3d)) {
+@supports (transform-style: preserve-3d) {
   .carousel-item-prev,
   .active.carousel-item-left {
     -webkit-transform: translate3d(-100%, 0, 0);
@@ -7227,7 +7233,6 @@ button.bg-dark:focus {
 }
 
 .position-sticky {
-  position: -webkit-sticky !important;
   position: sticky !important;
 }
 
@@ -7247,9 +7252,8 @@ button.bg-dark:focus {
   z-index: 1030;
 }
 
-@supports ((position: -webkit-sticky) or (position: sticky)) {
+@supports (position: sticky) {
   .sticky-top {
-    position: -webkit-sticky;
     position: sticky;
     top: 0;
     z-index: 1020;
@@ -9535,8 +9539,7 @@ a:link,
 a:visited,
 a:hover {
   text-decoration: none;
-  color: #ee0823;
-  /* color: #db3236; */
+  color: #e44c2c;
 }
 
 a.with-right-arrow, .btn.with-right-arrow {
@@ -9556,23 +9559,23 @@ a.with-right-arrow, .btn.with-right-arrow {
 }
 
 ::-webkit-input-placeholder {
-  color: #ee0823;
+  color: #e44c2c;
 }
 
 ::-moz-placeholder {
-  color: #ee0823;
+  color: #e44c2c;
 }
 
 :-ms-input-placeholder {
-  color: #ee0823;
+  color: #e44c2c;
 }
 
 :-moz-placeholder {
-  color: #ee0823;
+  color: #e44c2c;
 }
 
 .email-subscribe-form input.email {
-  color: #ee0823;
+  color: #e44c2c;
   border: none;
   border-bottom: 1px solid #939393;
   width: 100%;
@@ -9645,12 +9648,12 @@ code.highlighter-rouge {
 a:link code.highlighter-rouge,
 a:visited code.highlighter-rouge,
 a:hover code.highlighter-rouge {
-  color: #fe6162;
+  color: #4974D1;
 }
 a:link.has-code,
 a:visited.has-code,
 a:hover.has-code {
-  color: #fe6162;
+  color: #4974D1;
 }
 
 p code,
@@ -9733,10 +9736,10 @@ pre {
 }
 @media screen and (min-width: 1100px) {
   .header-logo {
-    background-size: 254px 43px;
+    background-size: 108px 27px;
     position: absolute;
-    height: 43px;
-    width: 254px;
+    height: 27px;
+    width: 108px;
     top: 4px;
     float: none;
   }
@@ -9792,7 +9795,7 @@ pre {
 .header-holder .main-menu ul li.active:after {
   content: "•";
   bottom: -24px;
-  color: #ee0823;
+  color: #e44c2c;
   font-size: 1.375rem;
   left: 0;
   position: absolute;
@@ -9800,14 +9803,14 @@ pre {
   text-align: center;
 }
 .header-holder .main-menu ul li.active a {
-  color: #ee0823;
+  color: #e44c2c;
 }
 .header-holder .main-menu ul li:last-of-type {
   margin-right: 0;
 }
 .header-holder .main-menu ul li a {
   color: #ffffff;
-  font-size: 1.125rem;
+  font-size: 1.3rem;
   letter-spacing: 0;
   line-height: 2.125rem;
   text-align: center;
@@ -9815,7 +9818,7 @@ pre {
 }
 @media screen and (min-width: 1100px) {
   .header-holder .main-menu ul li a:hover {
-    color: #ee0823;
+    color: #e44c2c;
   }
 }
 
@@ -9862,7 +9865,7 @@ pre {
   list-style-type: none;
   padding: 0;
 }
-.mobile-main-menu.open ul li a {
+.mobile-main-menu.open ul li a, .mobile-main-menu.open .resources-mobile-menu-title {
   font-size: 2rem;
   color: #ffffff;
   letter-spacing: 0;
@@ -9870,7 +9873,7 @@ pre {
   text-decoration: none;
 }
 .mobile-main-menu.open ul li.active a {
-  color: #ee0823;
+  color: #e44c2c;
 }
 
 .main-menu-close-button {
@@ -9905,7 +9908,7 @@ pre {
 .site-footer {
   padding: 2.5rem 0;
   width: 100%;
-  background-image: url("../images/home-footer-background.jpg");
+  background: #000000;
   background-size: 100%;
   margin-left: 0;
   margin-right: 0;
@@ -9928,7 +9931,7 @@ pre {
 .site-footer ul li {
   font-size: 1.125rem;
   line-height: 2rem;
-  color: #6c6c6d;
+  color: #A0A0A1;
   padding-bottom: 0.375rem;
 }
 .site-footer ul li.list-title {
@@ -9941,7 +9944,7 @@ pre {
 }
 @media screen and (min-width: 768px) {
   .site-footer a:hover {
-    color: #ee0823;
+    color: #e44c2c;
   }
 }
 
@@ -9951,7 +9954,7 @@ pre {
   padding-top: 2.5rem;
   padding-bottom: 2.5rem;
   position: relative;
-  z-index: 21;
+  z-index: 201;
 }
 @media screen and (min-width: 768px) {
   .docs-tutorials-resources {
@@ -10003,7 +10006,7 @@ pre {
 }
 .docs-tutorials-resources a {
   font-size: 1.125rem;
-  color: #ee0823;
+  color: #e44c2c;
 }
 .docs-tutorials-resources a:hover {
   color: #ffffff;
@@ -10101,6 +10104,11 @@ pre {
   background-image: url("../images/logo-twitter-dark.svg");
   background-position: center center;
   background-size: 17px 17px;
+  background-repeat: no-repeat;
+}
+.footer-social-icons a.youtube {
+  background-image: url("../images/logo-youtube-dark.svg");
+  background-position: center center;
   background-repeat: no-repeat;
 }
 
@@ -10244,7 +10252,7 @@ p {
 p a:link,
 p a:visited,
 p a:hover {
-  color: #ee0823;
+  color: #e44c2c;
   text-decoration: none;
 }
 @media screen and (min-width: 768px) {
@@ -10255,11 +10263,11 @@ p a:hover {
 p a:link,
 p a:visited,
 p a:hover {
-  color: #ee0823;
+  color: #ee4c2c;
 }
 
 .wy-breadcrumbs li a {
-  color: #ee0823;
+  color: #ee4c2c;
 }
 
 ul.pytorch-breadcrumbs {
@@ -10271,7 +10279,7 @@ ul.pytorch-breadcrumbs li {
   font-size: 0.875rem;
 }
 ul.pytorch-breadcrumbs a {
-  color: #ee0823;
+  color: #ee4c2c;
   text-decoration: none;
 }
 
@@ -10307,7 +10315,7 @@ ul.pytorch-breadcrumbs a {
 }
 
 .tutorials-header .header-logo {
-  background-image: url("../images/logo.svg");
+  background-image: url("../images/logo-dark.svg");
 }
 .tutorials-header .main-menu ul li a {
   color: #262626;
@@ -10335,11 +10343,11 @@ ul.pytorch-breadcrumbs a {
   display: none;
 }
 .rst-content footer .helpful-container .helpful-question.yes-link, .rst-content footer .helpful-container .helpful-question.no-link {
-  color: #ee0823;
+  color: #e44c2c;
   cursor: pointer;
 }
 .rst-content footer .helpful-container .helpful-question.yes-link:hover, .rst-content footer .helpful-container .helpful-question.no-link:hover {
-  background-color: #ee0823;
+  background-color: #e44c2c;
   color: #ffffff;
 }
 .rst-content footer div[role="contentinfo"] {
@@ -10379,12 +10387,12 @@ pre {
 a:link.has-code,
 a:hover.has-code,
 a:visited.has-code {
-  color: #fe6162;
+  color: #4974D1;
 }
 a:link.has-code span,
 a:hover.has-code span,
 a:visited.has-code span {
-  color: #fe6162;
+  color: #4974D1;
 }
 
 article.pytorch-article ul,
@@ -10501,7 +10509,7 @@ article.pytorch-article .sphx-glr-thumbcontainer .figure a.reference.internal {
     position: absolute;
     bottom: 0;
     left: 0;
-    background-color: #ee0823;
+    background-color: #e44c2c;
     -webkit-transition: width .250s ease-in-out;
     transition: width .250s ease-in-out;
   }
@@ -10511,15 +10519,15 @@ article.pytorch-article .sphx-glr-thumbcontainer .figure a.reference.internal {
 }
 @media screen and (min-width: 768px) {
   article.pytorch-article .sphx-glr-thumbcontainer:after {
-    background-color: #ee0823;
+    background-color: #ee4c2c;
   }
 }
 
 article.pytorch-article .section :not(dt) > code {
   color: #262626;
-  border-top: solid 2px #f3f4f7;
-  background-color: #f3f4f7;
-  border-bottom: solid 2px #f3f4f7;
+  border-top: solid 2px #ffffff;
+  background-color: #ffffff;
+  border-bottom: solid 2px #ffffff;
   padding: 0px 3px;
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
@@ -10528,22 +10536,22 @@ article.pytorch-article .section :not(dt) > code .pre {
   outline: 0px;
   padding: 0px;
 }
-article.pytorch-article .function dt, article.pytorch-article .method dt, article.pytorch-article .attribute dt, article.pytorch-article .class .attribute dt, article.pytorch-article .class dt {
+article.pytorch-article .function dt, article.pytorch-article .attribute dt, article.pytorch-article .class .attribute dt, article.pytorch-article .class dt {
   position: relative;
   background: #f3f4f7;
   padding: 0.5rem;
-  border-left: 3px solid #ee0823;
+  border-left: 3px solid #ee4c2c;
   word-wrap: break-word;
   padding-right: 100px;
 }
-article.pytorch-article .function dt em.property, article.pytorch-article .method dt em.property, article.pytorch-article .attribute dt em.property, article.pytorch-article .class dt em.property {
+article.pytorch-article .function dt em.property, article.pytorch-article .attribute dt em.property, article.pytorch-article .class dt em.property {
   font-family: inherit;
 }
-article.pytorch-article .function dt em, article.pytorch-article .method dt em, article.pytorch-article .attribute dt em, article.pytorch-article .class .attribute dt em, article.pytorch-article .class dt em, article.pytorch-article .function dt .sig-paren, article.pytorch-article .method dt .sig-paren, article.pytorch-article .attribute dt .sig-paren, article.pytorch-article .class dt .sig-paren {
+article.pytorch-article .function dt em, article.pytorch-article .attribute dt em, article.pytorch-article .class .attribute dt em, article.pytorch-article .class dt em, article.pytorch-article .function dt .sig-paren, article.pytorch-article .attribute dt .sig-paren, article.pytorch-article .class dt .sig-paren {
   font-family: IBMPlexMono,SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
   font-size: 87.5%;
 }
-article.pytorch-article .function dt a, article.pytorch-article .method dt a, article.pytorch-article .attribute dt a, article.pytorch-article .class .attribute dt a, article.pytorch-article .class dt a {
+article.pytorch-article .function dt a, article.pytorch-article .attribute dt a, article.pytorch-article .class .attribute dt a, article.pytorch-article .class dt a {
   position: absolute;
   right: 30px;
   padding-right: 0;
@@ -10551,17 +10559,17 @@ article.pytorch-article .function dt a, article.pytorch-article .method dt a, ar
   -webkit-transform: perspective(1px) translateY(-50%);
           transform: perspective(1px) translateY(-50%);
 }
-article.pytorch-article .function dt:hover .viewcode-link, article.pytorch-article .method dt:hover .viewcode-link, article.pytorch-article .attribute dt:hover .viewcode-link, article.pytorch-article .class dt:hover .viewcode-link {
-  color: #ee0823;
+article.pytorch-article .function dt:hover .viewcode-link, article.pytorch-article .attribute dt:hover .viewcode-link, article.pytorch-article .class dt:hover .viewcode-link {
+  color: #ee4c2c;
 }
-article.pytorch-article .function .anchorjs-link, article.pytorch-article .method .anchorjs-link, article.pytorch-article .attribute .anchorjs-link, article.pytorch-article .class .anchorjs-link {
+article.pytorch-article .function .anchorjs-link, article.pytorch-article .attribute .anchorjs-link, article.pytorch-article .class .anchorjs-link {
   display: inline;
   position: absolute;
   right: 8px;
   font-size: 1.5625rem !important;
   padding-left: 0;
 }
-article.pytorch-article .function dt > code, article.pytorch-article .method dt > code, article.pytorch-article .attribute dt > code, article.pytorch-article .class .attribute dt > code, article.pytorch-article .class dt > code {
+article.pytorch-article .function dt > code, article.pytorch-article .attribute dt > code, article.pytorch-article .class .attribute dt > code, article.pytorch-article .class dt > code {
   color: #262626;
   border-top: solid 2px #f3f4f7;
   background-color: #f3f4f7;
@@ -10569,55 +10577,55 @@ article.pytorch-article .function dt > code, article.pytorch-article .method dt 
   -webkit-box-decoration-break: clone;
   box-decoration-break: clone;
 }
-article.pytorch-article .function .viewcode-link, article.pytorch-article .method .viewcode-link, article.pytorch-article .attribute .viewcode-link, article.pytorch-article .class .viewcode-link {
+article.pytorch-article .function .viewcode-link, article.pytorch-article .attribute .viewcode-link, article.pytorch-article .class .viewcode-link {
   font-size: 0.875rem;
   color: #979797;
   letter-spacing: 0;
   line-height: 1.5rem;
   text-transform: uppercase;
 }
-article.pytorch-article .function dd, article.pytorch-article .method dd, article.pytorch-article .attribute dd, article.pytorch-article .class .attribute dd, article.pytorch-article .class dd {
+article.pytorch-article .function dd, article.pytorch-article .attribute dd, article.pytorch-article .class .attribute dd, article.pytorch-article .class dd {
   padding-left: 3.75rem;
 }
-article.pytorch-article .function dd p, article.pytorch-article .method dd p, article.pytorch-article .attribute dd p, article.pytorch-article .class .attribute dd p, article.pytorch-article .class dd p {
+article.pytorch-article .function dd p, article.pytorch-article .attribute dd p, article.pytorch-article .class .attribute dd p, article.pytorch-article .class dd p {
   color: #262626;
 }
-article.pytorch-article .function table tbody tr th.field-name, article.pytorch-article .method table tbody tr th.field-name, article.pytorch-article .attribute table tbody tr th.field-name, article.pytorch-article .class table tbody tr th.field-name {
+article.pytorch-article .function table tbody tr th.field-name, article.pytorch-article .attribute table tbody tr th.field-name, article.pytorch-article .class table tbody tr th.field-name {
   white-space: nowrap;
   color: #262626;
   width: 20%;
 }
 @media screen and (min-width: 768px) {
-  article.pytorch-article .function table tbody tr th.field-name, article.pytorch-article .method table tbody tr th.field-name, article.pytorch-article .attribute table tbody tr th.field-name, article.pytorch-article .class table tbody tr th.field-name {
+  article.pytorch-article .function table tbody tr th.field-name, article.pytorch-article .attribute table tbody tr th.field-name, article.pytorch-article .class table tbody tr th.field-name {
     width: 15%;
   }
 }
-article.pytorch-article .function table tbody tr td.field-body, article.pytorch-article .method table tbody tr td.field-body, article.pytorch-article .attribute table tbody tr td.field-body, article.pytorch-article .class table tbody tr td.field-body {
+article.pytorch-article .function table tbody tr td.field-body, article.pytorch-article .attribute table tbody tr td.field-body, article.pytorch-article .class table tbody tr td.field-body {
   padding: 0.625rem;
   width: 80%;
   color: #262626;
 }
 @media screen and (min-width: 768px) {
-  article.pytorch-article .function table tbody tr td.field-body, article.pytorch-article .method table tbody tr td.field-body, article.pytorch-article .attribute table tbody tr td.field-body, article.pytorch-article .class table tbody tr td.field-body {
+  article.pytorch-article .function table tbody tr td.field-body, article.pytorch-article .attribute table tbody tr td.field-body, article.pytorch-article .class table tbody tr td.field-body {
     width: 85%;
   }
 }
 @media screen and (min-width: 1600px) {
-  article.pytorch-article .function table tbody tr td.field-body, article.pytorch-article .method table tbody tr td.field-body, article.pytorch-article .attribute table tbody tr td.field-body, article.pytorch-article .class table tbody tr td.field-body {
+  article.pytorch-article .function table tbody tr td.field-body, article.pytorch-article .attribute table tbody tr td.field-body, article.pytorch-article .class table tbody tr td.field-body {
     padding-left: 1.25rem;
   }
 }
-article.pytorch-article .function table tbody tr td.field-body p, article.pytorch-article .method table tbody tr td.field-body p, article.pytorch-article .attribute table tbody tr td.field-body p, article.pytorch-article .class table tbody tr td.field-body p {
+article.pytorch-article .function table tbody tr td.field-body p, article.pytorch-article .attribute table tbody tr td.field-body p, article.pytorch-article .class table tbody tr td.field-body p {
   padding-left: 0px;
 }
-article.pytorch-article .function table tbody tr td.field-body p:last-of-type, article.pytorch-article .method table tbody tr td.field-body p:last-of-type, article.pytorch-article .attribute table tbody tr td.field-body p:last-of-type, article.pytorch-article .class table tbody tr td.field-body p:last-of-type {
+article.pytorch-article .function table tbody tr td.field-body p:last-of-type, article.pytorch-article .attribute table tbody tr td.field-body p:last-of-type, article.pytorch-article .class table tbody tr td.field-body p:last-of-type {
   margin-bottom: 0;
 }
-article.pytorch-article .function table tbody tr td.field-body ol, article.pytorch-article .method table tbody tr td.field-body ol, article.pytorch-article .attribute table tbody tr td.field-body ol, article.pytorch-article .class table tbody tr td.field-body ol, article.pytorch-article .function table tbody tr td.field-body ul, article.pytorch-article .method table tbody tr td.field-body ul, article.pytorch-article .attribute table tbody tr td.field-body ul, article.pytorch-article .class table tbody tr td.field-body ul {
+article.pytorch-article .function table tbody tr td.field-body ol, article.pytorch-article .attribute table tbody tr td.field-body ol, article.pytorch-article .class table tbody tr td.field-body ol, article.pytorch-article .function table tbody tr td.field-body ul, article.pytorch-article .attribute table tbody tr td.field-body ul, article.pytorch-article .class table tbody tr td.field-body ul {
   padding-left: 1rem;
   padding-bottom: 0;
 }
-article.pytorch-article .function table.docutils.field-list, article.pytorch-article .method table.docutils.field-list, article.pytorch-article .attribute table.docutils.field-list, article.pytorch-article .class table.docutils.field-list {
+article.pytorch-article .function table.docutils.field-list, article.pytorch-article .attribute table.docutils.field-list, article.pytorch-article .class table.docutils.field-list {
   margin-bottom: 0.75rem;
 }
 article.pytorch-article .attribute .has-code {
@@ -10625,7 +10633,7 @@ article.pytorch-article .attribute .has-code {
 }
 article.pytorch-article .class dt {
   border-left: none;
-  border-top: 3px solid #ee0823;
+  border-top: 3px solid #ee4c2c;
   padding-left: 4em;
 }
 article.pytorch-article .class dt em.property {
@@ -10638,7 +10646,7 @@ article.pytorch-article .class dd .docutils dt {
 article.pytorch-article .class em.property {
   text-transform: uppercase;
   font-style: normal;
-  color: #ee0823;
+  color: #ee4c2c;
   font-size: 1rem;
   letter-spacing: 0;
   padding-right: 0.75rem;
@@ -10650,7 +10658,7 @@ article.pytorch-article .class dl dt em.property {
 }
 article.pytorch-article .class .method dt,
 article.pytorch-article .class .staticmethod dt {
-  border-left: 3px solid #ee0823;
+  border-left: 3px solid #ee4c2c;
   border-top: none;
 }
 article.pytorch-article .class .method dt,
@@ -10918,7 +10926,7 @@ article.pytorch-article .admonition > p:last-of-type {
     position: absolute;
     bottom: 0;
     left: 0;
-    background-color: #ee0823;
+    background-color: #e44c2c;
     -webkit-transition: width .250s ease-in-out;
     transition: width .250s ease-in-out;
   }
@@ -10928,7 +10936,7 @@ article.pytorch-article .admonition > p:last-of-type {
 }
 @media screen and (min-width: 768px) {
   .pytorch-article div.sphx-glr-download a:after {
-    background-color: #ee0823;
+    background-color: #ee4c2c;
   }
 }
 @media screen and (min-width: 768px) {
@@ -10998,8 +11006,7 @@ article.pytorch-article .wy-table-responsive table tbody td {
 }
 article.pytorch-article .wy-table-responsive table tbody td .pre {
   background: #ffffff;
-  outline: 1px solid #e9e9e9;
-  color: #ee0823;
+  color: #ee4c2c;
   font-size: 87.5%;
 }
 article.pytorch-article .wy-table-responsive table tbody td code {
@@ -11082,33 +11089,33 @@ article.pytorch-article .math img {
 a:link,
 a:visited,
 a:hover {
-  color: #ee0823;
+  color: #ee4c2c;
 }
 
 ::-webkit-input-placeholder {
-  color: #ee0823;
+  color: #ee4c2c;
 }
 
 ::-moz-placeholder {
-  color: #ee0823;
+  color: #ee4c2c;
 }
 
 :-ms-input-placeholder {
-  color: #ee0823;
+  color: #ee4c2c;
 }
 
 :-moz-placeholder {
-  color: #ee0823;
+  color: #ee4c2c;
 }
 
 @media screen and (min-width: 768px) {
   .site-footer a:hover {
-    color: #ee0823;
+    color: #ee4c2c;
   }
 }
 
 .docs-tutorials-resources a {
-  color: #ee0823;
+  color: #ee4c2c;
 }
 
 .header-holder {
@@ -11117,19 +11124,19 @@ a:hover {
 }
 
 .header-holder .main-menu ul li.active:after {
-  color: #ee0823;
+  color: #ee4c2c;
 }
 .header-holder .main-menu ul li.active a {
-  color: #ee0823;
+  color: #ee4c2c;
 }
 @media screen and (min-width: 1100px) {
   .header-holder .main-menu ul li a:hover {
-    color: #ee0823;
+    color: #ee4c2c;
   }
 }
 
 .mobile-main-menu.open ul li.active a {
-  color: #ee0823;
+  color: #ee4c2c;
 }
 
 .version {
@@ -11174,7 +11181,7 @@ a:hover {
   cursor: pointer;
 }
 .pytorch-call-to-action-links a:hover {
-  color: #ee0823;
+  color: #e44c2c;
 }
 .pytorch-call-to-action-links a .call-to-action-desktop-view {
   display: none;
@@ -11206,8 +11213,274 @@ a:hover {
 }
 .pytorch-call-to-action-links a #google-colab-link:hover, .pytorch-call-to-action-links a #download-notebook-link:hover,
 .pytorch-call-to-action-links a #github-view-link:hover {
-  border-bottom-color: #ee0823;
-  color: #ee0823;
+  border-bottom-color: #e44c2c;
+  color: #e44c2c;
+}
+
+#tutorial-cards-container #tutorial-cards {
+  width: 100%;
+}
+#tutorial-cards-container .tutorials-nav {
+  padding-left: 0;
+  padding-right: 0;
+  padding-bottom: 0;
+}
+#tutorial-cards-container .tutorials-hr {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+#tutorial-cards-container .card.tutorials-card {
+  border-radius: 0;
+  border-color: #f3f4f7;
+  height: 98px;
+  margin-bottom: 1.25rem;
+  margin-bottom: 1.875rem;
+  overflow: scroll;
+  background-color: #f3f4f7;
+  cursor: pointer;
+}
+@media screen and (min-width: 1240px) {
+  #tutorial-cards-container .card.tutorials-card {
+    height: 200px;
+    overflow: inherit;
+  }
+}
+@media (min-width: 768px) and (max-width: 1239px) {
+  #tutorial-cards-container .card.tutorials-card {
+    height: 200px;
+    overflow: scroll;
+  }
+}
+#tutorial-cards-container .card.tutorials-card .tutorials-image {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  height: 96px;
+  width: 96px;
+  opacity: 0.5;
+}
+#tutorial-cards-container .card.tutorials-card .tutorials-image img {
+  height: 100%;
+  width: 100%;
+}
+@media screen and (min-width: 768px) {
+  #tutorial-cards-container .card.tutorials-card .tutorials-image {
+    height: 100%;
+    width: 25%;
+  }
+}
+@media (min-width: 768px) and (max-width: 1239px) {
+  #tutorial-cards-container .card.tutorials-card .tutorials-image {
+    height: 100%;
+    width: 198px;
+  }
+}
+#tutorial-cards-container .card.tutorials-card .tutorials-image:before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1;
+  background: #000000;
+  opacity: .075;
+}
+#tutorial-cards-container .card.tutorials-card .card-title-container {
+  width: 70%;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+@media screen and (min-width: 768px) {
+  #tutorial-cards-container .card.tutorials-card .card-title-container {
+    width: 75%;
+  }
+}
+@media (min-width: 768px) and (max-width: 1239px) {
+  #tutorial-cards-container .card.tutorials-card .card-title-container {
+    width: 70%;
+  }
+}
+#tutorial-cards-container .card.tutorials-card .card-title-container h4 {
+  margin-bottom: 1.125rem;
+  margin-top: 0;
+  font-size: 1.5rem;
+}
+#tutorial-cards-container .card.tutorials-card p.card-summary, #tutorial-cards-container .card.tutorials-card p.tags {
+  font-size: 0.9375rem;
+  line-height: 1.5rem;
+  margin-bottom: 0;
+  color: #6c6c6d;
+  font-weight: 400;
+  width: 70%;
+}
+@media screen and (min-width: 768px) {
+  #tutorial-cards-container .card.tutorials-card p.card-summary, #tutorial-cards-container .card.tutorials-card p.tags {
+    width: 75%;
+  }
+}
+@media (min-width: 768px) and (max-width: 1239px) {
+  #tutorial-cards-container .card.tutorials-card p.card-summary, #tutorial-cards-container .card.tutorials-card p.tags {
+    width: 70%;
+  }
+}
+#tutorial-cards-container .card.tutorials-card p.tags {
+  margin-top: 30px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+#tutorial-cards-container .card.tutorials-card h4 {
+  color: #262626;
+  margin-bottom: 1.125rem;
+}
+#tutorial-cards-container .card.tutorials-card a {
+  height: 100%;
+}
+@media screen and (min-width: 768px) {
+  #tutorial-cards-container .card.tutorials-card a {
+    min-height: 190px;
+  }
+}
+@media (min-width: 768px) and (max-width: 1239px) {
+  #tutorial-cards-container .card.tutorials-card a {
+    min-height: 234px;
+  }
+}
+@media screen and (min-width: 768px) {
+  #tutorial-cards-container .card.tutorials-card:after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 1px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: #e44c2c;
+    -webkit-transition: width .250s ease-in-out;
+    transition: width .250s ease-in-out;
+  }
+  #tutorial-cards-container .card.tutorials-card:hover:after {
+    width: 100%;
+  }
+}
+#tutorial-cards-container .card.tutorials-card:hover {
+  background-color: #ffffff;
+  border: 1px solid #e2e2e2;
+  border-bottom: none;
+}
+#tutorial-cards-container .card.tutorials-card:hover p.card-summary {
+  color: #262626;
+}
+#tutorial-cards-container .card.tutorials-card:hover .tutorials-image {
+  opacity: unset;
+}
+#tutorial-cards-container .tutorial-tags-container {
+  width: 75%;
+}
+#tutorial-cards-container .tutorial-tags-container.active {
+  width: 0;
+}
+#tutorial-cards-container .tutorial-filter-menu ul {
+  list-style-type: none;
+  padding-left: 1.25rem;
+}
+#tutorial-cards-container .tutorial-filter-menu ul li {
+  padding-right: 1.25rem;
+  word-break: break-all;
+}
+#tutorial-cards-container .tutorial-filter-menu ul li a {
+  color: #979797;
+}
+#tutorial-cards-container .tutorial-filter-menu ul li a:hover {
+  color: #e44c2c;
+}
+#tutorial-cards-container .tutorial-filter {
+  cursor: pointer;
+}
+#tutorial-cards-container .filter-btn {
+  color: #979797;
+  border: 1px solid #979797;
+  display: inline-block;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  padding: 0.375rem 0.75rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  margin-bottom: 5px;
+}
+#tutorial-cards-container .filter-btn:hover {
+  border: 1px solid #e44c2c;
+  color: #e44c2c;
+}
+#tutorial-cards-container .filter-btn.selected {
+  background-color: #e44c2c;
+  border: 1px solid #e44c2c;
+  color: #ffffff;
+}
+#tutorial-cards-container .all-tag-selected {
+  background-color: #979797;
+  color: #ffffff;
+}
+#tutorial-cards-container .all-tag-selected:hover {
+  border-color: #979797;
+  color: #ffffff;
+}
+#tutorial-cards-container .pagination .page {
+  border: 1px solid #dee2e6;
+  padding: 0.5rem 0.75rem;
+}
+#tutorial-cards-container .pagination .active .page {
+  background-color: #dee2e6;
+}
+
+article.pytorch-article .tutorials-callout-container {
+  padding-bottom: 50px;
+}
+article.pytorch-article .tutorials-callout-container .col-md-6 {
+  padding-bottom: 10px;
+}
+article.pytorch-article .tutorials-callout-container .text-container {
+  padding: 10px 0px 30px 0px;
+  padding-bottom: 10px;
+}
+article.pytorch-article .tutorials-callout-container .text-container .body-paragraph {
+  color: #666666;
+  font-weight: 300;
+  font-size: 1.125rem;
+  line-height: 1.875rem;
+}
+article.pytorch-article .tutorials-callout-container .btn.callout-button {
+  font-size: 1.125rem;
+  border-radius: 0;
+  border: none;
+  background-color: #f3f4f7;
+  color: #6c6c6d;
+  font-weight: 400;
+  position: relative;
+  letter-spacing: 0.25px;
+}
+@media screen and (min-width: 768px) {
+  article.pytorch-article .tutorials-callout-container .btn.callout-button:after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 1px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    background-color: #e44c2c;
+    -webkit-transition: width .250s ease-in-out;
+    transition: width .250s ease-in-out;
+  }
+  article.pytorch-article .tutorials-callout-container .btn.callout-button:hover:after {
+    width: 100%;
+  }
+}
+article.pytorch-article .tutorials-callout-container .btn.callout-button a {
+  color: inherit;
 }
 
 .pytorch-container {
@@ -11361,6 +11634,7 @@ a:hover {
   display: none;
   background-color: #f3f4f7;
   color: #262626;
+  overflow: scroll;
 }
 @media screen and (min-width: 1101px) {
   .pytorch-left-menu {
@@ -11388,14 +11662,26 @@ a:hover {
   }
 }
 
+.expand-menu, .hide-menu {
+  color: #6c6c6d;
+  padding-left: 10px;
+  cursor: pointer;
+}
+
+.hide-menu {
+  display: none;
+}
+
+.left-nav-top-caption {
+  padding-top: 1rem;
+}
+
 .pytorch-left-menu p.caption {
   color: #262626;
   display: block;
-  display: inline-block;
   font-size: 1rem;
   line-height: 1.375rem;
   margin-bottom: 1rem;
-  padding: 0;
   text-transform: none;
   white-space: nowrap;
 }
@@ -11410,6 +11696,9 @@ a:hover {
 }
 
 .pytorch-left-menu-search ::-webkit-input-placeholder {
+  color: #262626;
+}
+.pytorch-left-menu-search ::-moz-placeholder {
   color: #262626;
 }
 .pytorch-left-menu-search :-ms-input-placeholder {
@@ -11555,7 +11844,7 @@ a:hover {
 }
 .pytorch-left-menu li.toctree-l1.current > a,
 .pytorch-right-menu li.toctree-l1.current > a {
-  color: #ee0823;
+  color: #ee4c2c;
 }
 .pytorch-left-menu li.toctree-l1.current > a:before,
 .pytorch-right-menu li.toctree-l1.current > a:before {
@@ -11565,7 +11854,7 @@ a:hover {
   left: -15px;
   top: 1px;
   font-size: 1.375rem;
-  color: #ee0823;
+  color: #ee4c2c;
 }
 @media screen and (min-width: 1101px) {
   .pytorch-left-menu li.toctree-l1.current > a:before,
@@ -11653,14 +11942,14 @@ a:hover {
   left: -12px;
 }
 .pytorch-right-menu li.active > a {
-  color: #ee0823;
+  color: #ee4c2c;
 }
 .pytorch-right-menu li.active > a span.pre, .pytorch-right-menu li.active > a:before {
-  color: #ee0823;
+  color: #ee4c2c;
 }
 .pytorch-right-menu li.active > a:after {
   content: "\2022";
-  color: #ee0823;
+  color: #e44c2c;
   display: inline-block;
   font-size: 1.375rem;
   left: -17px;
@@ -11900,7 +12189,10 @@ a:hover {
   }
 }
 
-.main-menu ul li .ecosystem-dropdown, .main-menu ul li .resources-dropdown a {
+.main-menu ul li.active:after {
+  display: none;
+}
+.main-menu ul li .resources-dropdown a {
   cursor: pointer;
 }
 .main-menu ul li .dropdown-menu {
@@ -11915,7 +12207,7 @@ a:hover {
   border-bottom-color: transparent;
 }
 .main-menu ul li .dropdown-menu .dropdown-item:hover {
-  background-color: #ee0823;
+  background-color: #e44c2c;
 }
 .main-menu ul li .dropdown-menu .dropdown-item p {
   font-size: 1rem;
@@ -11928,18 +12220,16 @@ a:hover {
   color: #ffffff;
 }
 
-.ecosystem-dropdown-menu, .resources-dropdown-menu {
+.resources-dropdown-menu {
   left: -75px;
   width: 226px;
   display: none;
   position: absolute;
-  top: 3.125rem;
   z-index: 1000;
   display: none;
   float: left;
   min-width: 10rem;
   padding: 0.5rem 0;
-  margin: 0.125rem 0 0;
   font-size: 1rem;
   color: #212529;
   text-align: left;
@@ -11950,18 +12240,38 @@ a:hover {
   border-radius: 0.25rem;
 }
 
-.ecosystem-dropdown-menu.show-menu, .resources-dropdown-menu.show-menu {
+.resources-dropdown:hover .resources-dropdown-menu {
   display: block;
 }
 
-.main-menu ul li .ecosystem-dropdown-menu, .main-menu ul li .resources-dropdown-menu {
+.main-menu ul li .resources-dropdown-menu {
   border-radius: 0;
   padding: 0;
 }
 
-.main-menu ul li .ecosystem-dropdown-menu .dropdown-item, .main-menu ul li .resources-dropdown-menu .dropdown-item {
+.main-menu ul li .resources-dropdown-menu .dropdown-item {
   color: #6c6c6d;
   border-bottom: 1px solid #e2e2e2;
+}
+
+.resources-dropdown .with-down-orange-arrow {
+  padding-right: 2rem;
+  position: relative;
+  background-image: url("/assets/images/chevron-down-orange.svg");
+  background-size: 14px 18px;
+  background-position: top 7px right 10px;
+  background-repeat: no-repeat;
+}
+.resources-dropdown .with-down-arrow {
+  padding-right: 2rem;
+  position: relative;
+  background-image: url("/assets/images/chevron-down-black.svg");
+  background-size: 14px 18px;
+  background-position: top 7px right 10px;
+  background-repeat: no-repeat;
+}
+.resources-dropdown .with-down-arrow:hover {
+  background-image: url("/assets/images/chevron-down-orange.svg");
 }
 
 .header-holder .main-menu ul li a.nav-dropdown-item {
@@ -11981,7 +12291,7 @@ a:hover {
   border-bottom-color: transparent;
 }
 .header-holder .main-menu ul li a.nav-dropdown-item:hover {
-  background-color: #ee0823;
+  background-color: #e44c2c;
   color: white;
 }
 .header-holder .main-menu ul li a.nav-dropdown-item .dropdown-title {
@@ -11992,7 +12302,7 @@ a:hover {
 }
 
 .header-holder .main-menu ul li a.nav-dropdown-item:hover .dropdown-title {
-  background-color: #ee0823;
+  background-color: #e44c2c;
   color: white;
 }
 
