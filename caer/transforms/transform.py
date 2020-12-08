@@ -129,9 +129,23 @@ def translate(image, x, y):
     return cv.warpAffine(image, transMat, (image.shape[1], image.shape[0]))
 
 
-def scale(img, scale, interpolation=cv2.INTER_LINEAR):
+def scale(img, scale_factor, interpolation='bilinear'):
+    interpolation_methods = {
+        'nearest': INTER_NEAREST, # 0
+        'bilinear': INTER_LINEAR, # 1
+        'bicubic': INTER_CUBIC, # 2
+        'area': INTER_AREA, # 3
+    }
+    if interpolation not in interpolation_methods:
+        raise ValueError('Specify a valid interpolation type - area/nearest/bicubic/bilinear')
+
+    if scale_factor > 1:
+        # Neater, more precise
+        interpolation = 'bicubic'
+
     height, width = img.shape[:2]
-    new_height, new_width = int(height * scale), int(width * scale)
+    new_height, new_width = int(height * scale_factor), int(width * scale_factor)
+
     return resize(img, new_height, new_width, interpolation)
 
 
@@ -157,29 +171,34 @@ def crop(img, x_min, y_min, x_max, y_max):
     return img[y_min:y_max, x_min:x_max]
 
 
-def get_center_crop_coords(height, width, crop_height, crop_width):
-    y1 = (height - crop_height) // 2
-    y2 = y1 + crop_height
-    x1 = (width - crop_width) // 2
-    x2 = x1 + crop_width
-    return x1, y1, x2, y2
+def _compute_centre_crop(image, target_size):
+    _ = _check_target_size(target_size)
+
+    # Getting org height and target
+    org_h, org_w = image.shape[:2]
+    target_w, target_h = target_size
+
+    # The following line is actually the right way of accessing height and width of an opencv-specific image (height, width). However for some reason, while the code runs, this is flipped (it now becomes (width,height)). Testing needs to be done to catch this little bug
+    # org_h, org_w = image.shape[:2]
 
 
-def center_crop(img, crop_height, crop_width):
-    height, width = img.shape[:2]
-    if height < crop_height or width < crop_width:
-        raise ValueError(
-            "Requested crop size ({crop_height}, {crop_width}) is "
-            "larger than the image size ({height}, {width})".format(
-                crop_height=crop_height, crop_width=crop_width, height=height, width=width
-            )
-        )
-    x1, y1, x2, y2 = get_center_crop_coords(height, width, crop_height, crop_width)
-    img = img[y1:y2, x1:x2]
-    return img
+    if target_h > org_h or target_w > org_w:
+        raise ValueError('To compute centre crop, target size dimensions must be <= image dimensions')
+
+    diff_h = (org_h - target_h) // 2
+    diff_w = (org_w - target_w ) // 2
+    
+    return image[diff_w:diff_w + target_w, diff_h:diff_h + target_h]
 
 
-def get_random_crop_coords(height, width, crop_height, crop_width, h_start, w_start):
+def center_crop(image, target_size=None):
+    """
+        Computes the centre crop of an image using `target_size`
+    """
+    return _compute_centre_crop(image, target_size)
+
+
+def _get_random_crop_coords(height, width, crop_height, crop_width, h_start, w_start):
     y1 = int((height - crop_height) * h_start)
     y2 = y1 + crop_height
     x1 = int((width - crop_width) * w_start)
@@ -187,7 +206,7 @@ def get_random_crop_coords(height, width, crop_height, crop_width, h_start, w_st
     return x1, y1, x2, y2
 
 
-def random_crop(img, crop_height, crop_width, h_start, w_start):
+def rand_crop(img, crop_height, crop_width, h_start, w_start):
     height, width = img.shape[:2]
     if height < crop_height or width < crop_width:
         raise ValueError(
@@ -196,6 +215,6 @@ def random_crop(img, crop_height, crop_width, h_start, w_start):
                 crop_height=crop_height, crop_width=crop_width, height=height, width=width
             )
         )
-    x1, y1, x2, y2 = get_random_crop_coords(height, width, crop_height, crop_width, h_start, w_start)
+    x1, y1, x2, y2 = _get_random_crop_coords(height, width, crop_height, crop_width, h_start, w_start)
     img = img[y1:y2, x1:x2]
     return img
