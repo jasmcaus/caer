@@ -1,5 +1,7 @@
 <div align="center">
-![Caer Logo](https://github.com/jasmcaus/caer/blob/dev/docs/sphinx-theme/_static/thumbs/caer-logo-flat.png)
+<!-- ![Caer Logo](https://github.com/jasmcaus/caer/blob/dev/docs/sphinx-theme/_static/thumbs/caer-logo-flat.png) -->
+<img src="https://github.com/jasmcaus/caer/blob/dev/docs/sphinx-theme/_static/thumbs/caer-logo-flat.png" alt="Caer Logo" / >
+
 **The lightweight PyTorch wrapper for high-performance AI research.    
 Scale your models, not the boilerplate.**
 
