@@ -379,18 +379,23 @@ def equalize(img, mask=None, by_channels=True):
     r"""Equalize the image histogram.
 
     Args:
-        img (ndarray): RGB or grayscale image.
-        mask (ndarray): An optional mask.  If given, only the pixels selected by the mask are included in the analysis. Maybe 1 channel or 3 channel array.
+        img (ndarray)*: RGB or grayscale image.
+
+        mask (ndarray)*: An optional mask.  If given, only the pixels selected by the mask are included in the analysis. Maybe 1 channel or 3 channel array.
+
         by_channels (bool): If True, use equalization by channels separately, else convert image to YCbCr representation and use equalization by `Y` channel.
 
     Returns:
         Equalized image (ndarray)
     
-    Examples:
-        >> img = caer.data.beverages()
-        >> equalized = caer.equalize(img, mask=None)
-        >> equalized.shape
+
+    Examples::
+    
+        >> img = caer.data.beverages()   
+        >> equalized = caer.equalize(img, mask=None)  
+        >> equalized.shape   
         (427,640,3)
+    
     """
     if img.dtype != np.uint8:
         raise TypeError("Image must have uint8 channel type")
