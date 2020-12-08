@@ -21,7 +21,11 @@ __all__ = [
     'hsv_to_bgr',
     'hsv_to_lab',
     'hsv_to_gray',
+    'is_hsv_image'
 ]
+
+def is_hsv_image(img):
+    return is_bgr_image(img)
 
 
 def hsv_to_rgb(img) -> np.ndarray:
@@ -41,7 +45,7 @@ def hsv_to_rgb(img) -> np.ndarray:
     ------
         ValueError: If `img` is not of shape 3
     """
-    if len(img.shape) != 3:
+    if is_hsv_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a HSV image to its RGB counterpart')
 
     return cv.cvtColor(img, HSV2RGB)
@@ -64,7 +68,7 @@ def hsv_to_bgr(img) -> np.ndarray:
     ------
         ValueError: If `img` is not of shape 3
     """
-    if len(img.shape) != 3:
+    if is_hsv_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a HSV image to its BGR counterpart')
 
     return cv.cvtColor(img, HSV2BGR)
@@ -85,7 +89,7 @@ def hsv_to_gray(img) -> np.ndarray:
         Raises:
             ValueError: If `img` is not of shape 3
     """
-    if len(img.shape) != 3:
+    if is_hsv_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a HSV image to its Grayscale counterpart')
 
     bgr = hsv_to_bgr(img)
@@ -108,7 +112,7 @@ def hsv_to_lab(img) -> np.ndarray:
         Raises:
             ValueError: If `img` is not of shape 3
     """
-    if len(img.shape) != 3:
+    if is_hsv_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a HSV image to its LAB counterpart')
 
     bgr = hsv_to_bgr(img)
