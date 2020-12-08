@@ -62,6 +62,7 @@ def transpose(img):
 def rotate(img, angle, rotPoint=None):
     """
         Rotates an given image by an angle around a particular rotation point (if provided) or centre otherwise.
+        
     """
     # h, w = image.shape[:2]
     # (cX, cY) = (w/2, h/2)
@@ -104,6 +105,7 @@ def translate(image, x, y):
     
     Returns:
         The translated image
+
     """
     transMat = np.float32([[1, 0, x], [0, 1, y]])
     return cv.warpAffine(image, transMat, (image.shape[1], image.shape[0]))
@@ -162,10 +164,12 @@ def center_crop(image, target_size=None):
         Cropped Centre (ndarray)
     
     Examples::
+
         >> img = caer.data.bear() # Standard 640x427 image
         >> cropped = caer.center_crop(img, target_size=(200,200))
         >> cropped.shape
         (200,200,3)
+
     """
     return _compute_centre_crop(image, target_size)
 
@@ -263,11 +267,13 @@ def solarize(img, threshold=128):
     Returns:
         Solarized image (ndarray)
     
-    Examples:
+    Examples::
+
         >> img = caer.data.sunrise()
         >> solarized = caer.solarize(img, threshold=128)
         >> solarized.shape
         (427,640,3)
+
     """
     dtype = img.dtype
     max_val = MAX_VALUES_BY_DTYPE[dtype]
@@ -298,11 +304,13 @@ def posterize(img, bits):
     Returns:
         Image with reduced color channels (ndarray)
     
-    Examples:
+    Examples::
+
         >> img = caer.data.sunrise()
         >> posterized = caer.posterize(img, bits=4)
         >> posterized.shape
         (427,640,3)
+
     """
     bits = np.uint8(bits)
 
@@ -380,9 +388,7 @@ def equalize(img, mask=None, by_channels=True):
 
     Args:
         img (ndarray)*: RGB or grayscale image.
-
         mask (ndarray)*: An optional mask.  If given, only the pixels selected by the mask are included in the analysis. Maybe 1 channel or 3 channel array.
-
         by_channels (bool): If True, use equalization by channels separately, else convert image to YCbCr representation and use equalization by `Y` channel.
 
     Returns:
@@ -390,7 +396,7 @@ def equalize(img, mask=None, by_channels=True):
     
 
     Examples::
-    
+
         >> img = caer.data.beverages()   
         >> equalized = caer.equalize(img, mask=None)  
         >> equalized.shape   
