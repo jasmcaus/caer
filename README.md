@@ -2,6 +2,7 @@
 <!-- ![Caer Logo](https://github.com/jasmcaus/caer/blob/dev/docs/sphinx-theme/_static/thumbs/caer-logo-flat.png) -->
 <img src="https://github.com/jasmcaus/caer/blob/dev/docs/sphinx-theme/_static/thumbs/caer-logo-flat.png" alt="Caer Logo" / >
 
+---
 
 [![Python](https://img.shields.io/pypi/pyversions/caer.svg)][py-versions]
 [![PyPI](https://badge.fury.io/py/caer.svg)][pypi-latest-version]
