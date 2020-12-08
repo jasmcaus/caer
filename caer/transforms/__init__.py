@@ -14,6 +14,10 @@ from .transform import (
     hflip,
     vflip,
     hvflip,
+    scale,
+    translate,
+    transpose,
+    rotate,
     __all__ as __all_trans__
 )
 

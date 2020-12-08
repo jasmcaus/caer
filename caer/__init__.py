@@ -94,12 +94,7 @@ from .opencv import (
     get_opencv_version,
     mean,
     merge,
-    split,
-    # energy_map,
-    # color_map,
-    translate,
-    rotate,
-    edges,
+    split
 )
 
 # General visualizations
