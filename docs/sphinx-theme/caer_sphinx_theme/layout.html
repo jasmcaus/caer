@@ -22,7 +22,7 @@
 
   {# FAVICON #}
   {% if favicon %}
-    <link rel="shortcut icon" href="{{ pathto('_static/' + favicon, 1) }}"/>
+    <link rel="shortcut icon" href="{{ pathto('_static/' + favicon.png, 1) }}"/>
   {% endif %}
   {# CANONICAL URL #}
   {% if theme_canonical_url %}
@@ -85,14 +85,15 @@
 <div class="container-fluid header-holder tutorials-header" id="header-holder">
   <div class="container">
     <div class="header-container">
-      <a class="header-logo" href="{{ theme_variables.external_urls['home'] }}" aria-label="PyTorch">
-      <!--  <img class="call-to-action-img" src="{{ pathto('_static/images/logo-lightning-icon.png', 1) }}"/> -->
+      <a class="header-logo" href="{{ theme_variables.external_urls['home'] }}" aria-label="pytorch">
+       <img class="call-to-action-img" src="{{ pathto('_static/images/caer-logo-flat', 1) }}"/>
       </a>
 
       <div class="main-menu">
         <ul>
           <li>
-            <a href="{{ theme_variables.external_urls['get_started'] }}">Get Started</a>
+            <!-- <a href="{{ theme_variables.external_urls['get_started'] }}">Get Started</a> -->
+            <a href="caer_at_a_glance.html">Get Started</a>
           </li>
 
           <li>
@@ -120,7 +121,7 @@
                 <!--
                 <a class="nav-dropdown-item" href="{{ theme_variables.external_urls['features'] }}">
                   <span class=dropdown-title>About</span>
-                  <p>Learn about PyTorch’s features and capabilities</p>
+                  <p>Learn about pytorch’s features and capabilities</p>
                 </a>
                 -->
               </div>
@@ -210,7 +211,7 @@
       <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
         <div class="pytorch-content-left">
 
-        {% if theme_pytorch_project == 'tutorials' %}
+        <!-- {% if theme_pytorch_project == 'tutorials' %}
 
           <div class="pytorch-call-to-action-links">
             <div id="tutorial-type">{{ pagename }}</div>
@@ -232,7 +233,7 @@
             </div>
           </div>
 
-        {% endif %}
+        {% endif %} -->
 
         {%- block content %}
           {% if theme_style_external_links|tobool %}
@@ -305,17 +306,17 @@
       });
   </script>
 
-  {%- block footer %} {% endblock %}
+  <!-- {%- block footer %} {% endblock %}
 
   <!-- Begin Footer -->
-
+<!-- 
   <div class="container-fluid docs-tutorials-resources" id="docs-tutorials-resources">
     <div class="container">
       <div class="row">
-        <!--
+        
         <div class="col-md-4 text-center">
           <h2>Docs</h2>
-          <p>Access comprehensive developer documentation for PyTorch</p>
+          <p>Access comprehensive developer documentation for pytorch</p>
           <a class="with-right-arrow" href="{{ theme_variables.external_urls['docs'] }}">View Docs</a>
         </div>
 
@@ -330,10 +331,10 @@
           <p>Find development resources and get your questions answered</p>
           <a class="with-right-arrow" href="{{ theme_variables.external_urls['resources'] }}">View Resources</a>
         </div>
-        -->
+       
       </div>
     </div>
-  </div>
+  </div>  -->
 
   <!--
   <footer class="site-footer">
@@ -345,7 +346,7 @@
       <div class="footer-links-wrapper">
         <div class="footer-links-col">
           <ul>
-            <li class="list-title"><a href="{{ theme_variables.external_urls['home'] }}">PyTorch</a></li>
+            <li class="list-title"><a href="{{ theme_variables.external_urls['home'] }}">pytorch</a></li>
             <li><a href="{{ theme_variables.external_urls['get_started'] }}">Get Started</a></li>
             <li><a href="{{ theme_variables.external_urls['features'] }}">Features</a></li>
             <li><a href="{{ theme_variables.external_urls['ecosystem'] }}">Ecosystem</a></li>
@@ -422,7 +423,7 @@
     <div class="container-fluid">
       <div class="container">
         <div class="mobile-main-menu-header-container">
-          <a class="header-logo" href="{{ theme_variables.external_urls['home'] }}" aria-label="PyTorch Lightning"></a>
+          <a class="header-logo" href="{{ theme_variables.external_urls['home'] }}" aria-label="pytorch Lightning"></a>
           <a class="main-menu-close-button" href="#" data-behavior="close-mobile-menu"></a>
         </div>
       </div>
@@ -439,9 +440,9 @@
             <a href="{{ theme_variables.external_urls['features'] }}">Features</a>
           </li>
 
-          <li>
+          <!-- <li>
             <a href="{{ theme_variables.external_urls['blog'] }}">Blog</a>
-          </li>
+          </li> -->
 
           <li {%- if theme_pytorch_project == 'tutorials' %} class="active"{%- endif %}>
             <a href="{{ theme_variables.external_urls['tutorials'] }}">Tutorials</a>
