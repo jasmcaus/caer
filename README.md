@@ -1,9 +1,7 @@
 <div align="center">
 <!-- ![Caer Logo](https://github.com/jasmcaus/caer/blob/dev/docs/sphinx-theme/_static/thumbs/caer-logo-flat.png) -->
-<img src="https://github.com/jasmcaus/caer/blob/dev/docs/sphinx-theme/_static/thumbs/caer-logo-flat.png" width="800" alt="Caer Logo" / >
+<img src="https://github.com/jasmcaus/caer/blob/dev/docs/sphinx-theme/_static/thumbs/caer-logo-flat.png" alt="Caer Logo" / >
 
-**The lightweight PyTorch wrapper for high-performance AI research.    
-Scale your models, not the boilerplate.**
 
 # Caer - Modern Computer Vision on the Fly
 [![Python](https://img.shields.io/pypi/pyversions/caer.svg)][py-versions]
@@ -14,7 +12,6 @@ Scale your models, not the boilerplate.**
 
 </div>
 
-# Introduction
 
 Caer is a lightweight Computer Vision library for high-performance AI research. It simplifies your approach towards Computer Vision by abstracting away unnecessary boilerplate code enabling maximum flexibility. By offering powerful image and video processing algorithms, Caer provides both casual and advanced users with an elegant interface for Machine vision operations.
 
