@@ -12,6 +12,20 @@
 import numpy as np 
 import cv2 as cv 
 
+__all__ = [
+    'hflip',
+    'vflip',
+    'hvflip'
+]
+
 
 def hflip(img):
     return np.ascontiguousarray(img[:, ::-1, ...])
+
+
+def vflip(img):
+    return np.ascontiguousarray(img[::-1, ...])
+
+
+def hvflip(img):
+    return hflip(vflip(img))
