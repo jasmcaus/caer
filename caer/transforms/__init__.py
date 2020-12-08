@@ -21,6 +21,8 @@ from .transform import (
     crop,
     center_crop,
     rand_crop,
+    posterize,
+    solarize,
     __all__ as __all_trans__
 )
 

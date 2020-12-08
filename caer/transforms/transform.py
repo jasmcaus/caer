@@ -12,11 +12,18 @@
 import numpy as np 
 import cv2 as cv 
 
+from ..color import is_rgb_image
 from .._internal import _check_target_size
 from ..globals import (
     INTER_AREA, INTER_CUBIC, INTER_NEAREST, INTER_LINEAR
 )
 
+MAX_VALUES_BY_DTYPE = {
+    np.dtype("uint8"): 255,
+    np.dtype("uint16"): 65535,
+    np.dtype("uint32"): 4294967295,
+    np.dtype("float32"): 1.0,
+}
 
 __all__ = [
     'hflip',
@@ -25,7 +32,9 @@ __all__ = [
     'transpose',
     'scale',
     'rotate',
-    'translate'
+    'translate',
+    'solarize',
+    'posterize'
 ]
 
 
@@ -240,3 +249,93 @@ def _proc_in_chunks(process_fn, **kwargs):
         return img
 
     return __process_fn
+
+
+def solarize(img, threshold=128):
+    r"""Invert all pixel values above a threshold.
+
+    Args:
+        img (ndarray): The image to solarize.
+        threshold (int): All pixels above this grayscale level are inverted.
+
+    Returns:
+        Solarized image (ndarray)
+    
+    Examples:
+        >> img = caer.data.sunrise()
+        >> solarized = caer.solarize(img, threshold=128)
+        >> solarized.shape
+        (427,640,3)
+    """
+    dtype = img.dtype
+    max_val = MAX_VALUES_BY_DTYPE[dtype]
+
+    if dtype == np.dtype("uint8"):
+        lut = [(i if i < threshold else max_val - i) for i in range(max_val + 1)]
+
+        prev_shape = img.shape
+        img = cv.LUT(img, np.array(lut, dtype=dtype))
+
+        if len(prev_shape) != len(img.shape):
+            img = np.expand_dims(img, -1)
+        return img
+
+    result_img = img.copy()
+    cond = img >= threshold
+    result_img[cond] = max_val - result_img[cond]
+    return result_img
+
+
+def posterize(img, bits):
+    r"""Reduce the number of bits for each color channel in the image.
+
+    Args:
+        img (ndarray): Image to posterize.
+        bits (int): Number of high bits. Must be in range [0, 8]
+
+    Returns:
+        Image with reduced color channels (ndarray)
+    
+    Examples:
+        >> img = caer.data.sunrise()
+        >> posterized = caer.posterize(img, bits=4)
+        >> posterized.shape
+        (427,640,3)
+    """
+    bits = np.uint8(bits)
+
+    if img.dtype != np.uint8:
+        raise TypeError("Image must have uint8 channel type")
+
+    if np.any((bits < 0) | (bits > 8)):
+        raise ValueError("bits must be in range [0, 8]")
+
+    if not bits.shape or len(bits) == 1:
+        if bits == 0:
+            return np.zeros_like(img)
+        if bits == 8:
+            return img.copy()
+
+        lut = np.arange(0, 256, dtype=np.uint8)
+        mask = ~np.uint8(2 ** (8 - bits) - 1)
+        lut &= mask
+
+        return cv.LUT(img, lut)
+
+    if not is_rgb_image(img):
+        raise TypeError("If `bits` is iterable, image must be RGB")
+
+    result_img = np.empty_like(img)
+    for i, channel_bits in enumerate(bits):
+        if channel_bits == 0:
+            result_img[..., i] = np.zeros_like(img[..., i])
+        elif channel_bits == 8:
+            result_img[..., i] = img[..., i].copy()
+        else:
+            lut = np.arange(0, 256, dtype=np.uint8)
+            mask = ~np.uint8(2 ** (8 - channel_bits) - 1)
+            lut &= mask
+
+            result_img[..., i] = cv.LUT(img[..., i], lut)
+
+    return result_img
