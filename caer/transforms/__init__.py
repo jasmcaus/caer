@@ -18,6 +18,9 @@ from .transform import (
     translate,
     transpose,
     rotate,
+    crop,
+    center_crop,
+    rand_crop,
     __all__ as __all_trans__
 )
 
