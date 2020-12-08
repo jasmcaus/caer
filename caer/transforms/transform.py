@@ -34,7 +34,9 @@ __all__ = [
     'rotate',
     'translate',
     'solarize',
-    'posterize'
+    'posterize',
+    'equalize',
+    'clip'
 ]
 
 
@@ -343,6 +345,7 @@ def posterize(img, bits):
 
 def clip(img, dtype, maxval):
     return np.clip(img, 0, maxval).astype(dtype)
+
 
 def _equalize_cv(img, mask=None):
     if mask is None:

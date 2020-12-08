@@ -23,6 +23,8 @@ from .transform import (
     rand_crop,
     posterize,
     solarize,
+    equalize,
+    clip,
     __all__ as __all_trans__
 )
 
