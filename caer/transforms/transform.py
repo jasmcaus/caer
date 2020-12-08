@@ -12,6 +12,12 @@
 import numpy as np 
 import cv2 as cv 
 
+from .._internal import _check_target_size
+from ..globals import (
+    INTER_AREA, INTER_CUBIC, INTER_NEAREST, INTER_LINEAR
+)
+
+
 __all__ = [
     'hflip',
     'vflip',
@@ -42,7 +48,7 @@ def transpose(img):
         return img.transpose(1, 0)
 
 
-def rotate(image, angle, rotPoint=None):
+def rotate(img, angle, rotPoint=None):
     """
         Rotates an given image by an angle around a particular rotation point (if provided) or centre otherwise.
     """
@@ -65,7 +71,7 @@ def rotate(image, angle, rotPoint=None):
     # # Performs the actual rotation and returns the image
     # return cv.warpAffine(image, transMat, (nW, nH))
 
-    height, width = image.shape[:2]
+    height, width = img.shape[:2]
 
     # If no rotPoint is specified, we assume the rotation point to be around the centre
     if rotPoint is None:
@@ -73,16 +79,20 @@ def rotate(image, angle, rotPoint=None):
 
     rotMat = cv.getRotationMatrix2D(centre, angle, scale=1.0)
 
-    warp_fn = _proc_in_chunks(cv.warpAffine, src=image, M=rotMat, dsize=(width, height))
+    warp_fn = _proc_in_chunks(cv.warpAffine, src=img, M=rotMat, dsize=(width, height))
 
     return warp_fn(img)
 
 
 def translate(image, x, y):
-    """
-        Translates a given image across the x-axis and the y-axis
-        :param x: shifts the image right (positive) or left (negative)
-        :param y: shifts the image down (positive) or up (negative)
+    r"""Translates a given image across the x-axis and the y-axis
+
+    Args:
+        x (int): shifts the image right (positive) or left (negative)
+        y (int): shifts the image down (positive) or up (negative)
+    
+    Returns:
+        The translated image
     """
     transMat = np.float32([[1, 0, x], [0, 1, y]])
     return cv.warpAffine(image, transMat, (image.shape[1], image.shape[0]))
@@ -105,7 +115,7 @@ def scale(img, scale_factor, interpolation='bilinear'):
     height, width = img.shape[:2]
     new_height, new_width = int(height * scale_factor), int(width * scale_factor)
 
-    return resize(img, new_height, new_width, interpolation)
+    return cv.resize(img, (new_width,new_height), interpolation=interpolation)
 
 
 def crop(img, x_min, y_min, x_max, y_max):
@@ -163,24 +173,25 @@ def rand_crop(img, crop_height, crop_width, h_start, w_start):
     return img
 
 
-def _compute_centre_crop(image, target_size):
+def _compute_centre_crop(img, target_size):
     _ = _check_target_size(target_size)
 
     # Getting org height and target
-    org_h, org_w = image.shape[:2]
+    org_h, org_w = img.shape[:2]
     target_w, target_h = target_size
 
     # The following line is actually the right way of accessing height and width of an opencv-specific image (height, width). However for some reason, while the code runs, this is flipped (it now becomes (width,height)). Testing needs to be done to catch this little bug
-    # org_h, org_w = image.shape[:2]
+    # org_h, org_w = img.shape[:2]
 
 
     if target_h > org_h or target_w > org_w:
-        raise ValueError('To compute centre crop, target size dimensions must be <= image dimensions')
+        raise ValueError('To compute centre crop, target size dimensions must be <= img dimensions')
 
     diff_h = (org_h - target_h) // 2
     diff_w = (org_w - target_w ) // 2
     
-    return image[diff_w:diff_w + target_w, diff_h:diff_h + target_h]
+    # img[y:y+h, x:x+h]
+    return img[diff_h:diff_h + target_h, diff_w:diff_w + target_w]
 
 
 def _get_random_crop_coords(height, width, crop_height, crop_width, h_start, w_start):
@@ -189,6 +200,10 @@ def _get_random_crop_coords(height, width, crop_height, crop_width, h_start, w_s
     x1 = int((width - crop_width) * w_start)
     x2 = x1 + crop_width
     return x1, y1, x2, y2
+
+
+def _get_num_channels(img):
+    return img.shape[2] if len(img.shape) == 3 else 1
 
 
 def _proc_in_chunks(process_fn, **kwargs):
@@ -204,7 +219,7 @@ def _proc_in_chunks(process_fn, **kwargs):
     """
 
     def __process_fn(img):
-        num_channels = get_num_channels(img)
+        num_channels = _get_num_channels(img)
         if num_channels > 4:
             chunks = []
             for index in range(0, num_channels, 4):
