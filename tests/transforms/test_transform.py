@@ -26,9 +26,9 @@ def test_flips():
     cv_hvflip = cv.flip(img, -1)
 
     # Assert same shapes
-    assert vflip.shape = img.shape
-    assert hflip.shape = img.shape
-    assert hvflip.shape = img.shape
+    assert vflip.shape == img.shape
+    assert hflip.shape == img.shape
+    assert hvflip.shape == img.shape
 
     # Assert everything else
     assert np.all(vflip == cv_vflip)
