@@ -12,7 +12,7 @@
 import numpy as np 
 import cv2 as cv 
 
-from ..color import is_rgb_image
+from ..color import is_rgb_image, is_gray_image
 from .._internal import _check_target_size
 from ..globals import (
     INTER_AREA, INTER_CUBIC, INTER_NEAREST, INTER_LINEAR
@@ -337,5 +337,90 @@ def posterize(img, bits):
             lut &= mask
 
             result_img[..., i] = cv.LUT(img[..., i], lut)
+
+    return result_img
+
+
+def clip(img, dtype, maxval):
+    return np.clip(img, 0, maxval).astype(dtype)
+
+def _equalize_cv(img, mask=None):
+    if mask is None:
+        return cv.equalizeHist(img)
+
+    histogram = cv.calcHist([img], [0], mask, [256], (0, 256)).ravel()
+    i = 0
+    for val in histogram:
+        if val > 0:
+            break
+        i += 1
+    i = min(i, 255)
+
+    total = np.sum(histogram)
+    if histogram[i] == total:
+        return np.full_like(img, i)
+
+    scale = 255.0 / (total - histogram[i])
+    _sum = 0
+
+    lut = np.zeros(256, dtype=np.uint8)
+    i += 1
+    for i in range(i, len(histogram)):
+        _sum += histogram[i]
+        lut[i] = clip(round(_sum * scale), np.dtype("uint8"), 255)
+
+    return cv.LUT(img, lut)
+
+
+def equalize(img, mask=None, by_channels=True):
+    r"""Equalize the image histogram.
+
+    Args:
+        img (ndarray): RGB or grayscale image.
+        mask (ndarray): An optional mask.  If given, only the pixels selected by the mask are included in the analysis. Maybe 1 channel or 3 channel array.
+        by_channels (bool): If True, use equalization by channels separately, else convert image to YCbCr representation and use equalization by `Y` channel.
+
+    Returns:
+        Equalized image (ndarray)
+    
+    Examples:
+        >> img = caer.data.beverages()
+        >> equalized = caer.equalize(img, mask=None)
+        >> equalized.shape
+        (427,640,3)
+    """
+    if img.dtype != np.uint8:
+        raise TypeError("Image must have uint8 channel type")
+
+    if mask is not None:
+        if is_rgb_image(mask) and is_gray_image(img):
+            raise ValueError("Wrong mask shape. Image shape: {}. Mask shape: {}".format(img.shape, mask.shape))
+
+        if not by_channels and not is_gray_image(mask):
+            raise ValueError(
+                "When `by_channels=False`, only 1-channel mask is supported. Mask shape: {}".format(mask.shape)
+            )
+
+    if mask is not None:
+        mask = mask.astype(np.uint8)
+
+    if is_gray_image(img):
+        return _equalize_cv(img, mask)
+
+    if not by_channels:
+        result_img = cv.cvtColor(img, cv.COLOR_RGB2YCrCb)
+        result_img[..., 0] = _equalize_cv(result_img[..., 0], mask)
+        return cv.cvtColor(result_img, cv.COLOR_YCrCb2RGB)
+
+    result_img = np.empty_like(img)
+    for i in range(3):
+        if mask is None:
+            _mask = None
+        elif is_gray_image(mask):
+            _mask = mask
+        else:
+            _mask = mask[..., i]
+
+        result_img[..., i] = _equalize_cv(img[..., i], _mask)
 
     return result_img
