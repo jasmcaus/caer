@@ -1,5 +1,5 @@
-<!-- ![Caer Logo](https://github.com/jasmcaus/caer/blob/master/docs/sphinx-theme/_static/thumbs/caer-logo-flat-readme.png) -->
-![Caer Logo](https://github.com/jasmcaus/caer/blob/dev/docs/sphinx-theme/_static/thumbs/caer-full.png)
+<div align="center">
+![Caer Logo](https://github.com/jasmcaus/caer/blob/dev/docs/sphinx-theme/_static/thumbs/caer-logo-flat.png)
 **The lightweight PyTorch wrapper for high-performance AI research.    
 Scale your models, not the boilerplate.**
 
@@ -10,6 +10,7 @@ Scale your models, not the boilerplate.**
 [![Documentation Status](https://readthedocs.org/projects/caer/badge/?version=latest)](https://caer.readthedocs.io/en/latest/?badge=latest)
 [![license](https://img.shields.io/github/license/jasmcaus/caer?label=license)][license]
 
+</div>
 
 # Introduction
 
