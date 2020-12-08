@@ -40,47 +40,6 @@ def transpose(img):
         return img.transpose(1, 0, 2)
     else:
         return img.transpose(1, 0)
-    
-
-def rot90(img, factor):
-    img = np.rot90(img, factor)
-    return np.ascontiguousarray(img)
-
-
-def _proc_in_chunks(process_fn, **kwargs):
-    """
-    Wrap OpenCV function to enable processing images with more than 4 channels.
-    Limitations:
-        This wrapper requires image to be the first argument and rest must be sent via named arguments.
-    Args:
-        process_fn: Transform function (e.g cv.resize).
-        kwargs: Additional parameters.
-    Returns:
-        numpy.ndarray: Transformed image.
-    """
-
-    def __process_fn(img):
-        num_channels = get_num_channels(img)
-        if num_channels > 4:
-            chunks = []
-            for index in range(0, num_channels, 4):
-                if num_channels - index == 2:
-                    # Many OpenCV functions cannot work with 2-channel images
-                    for i in range(2):
-                        chunk = img[:, :, index + i : index + i + 1]
-                        chunk = process_fn(chunk, **kwargs)
-                        chunk = np.expand_dims(chunk, -1)
-                        chunks.append(chunk)
-                else:
-                    chunk = img[:, :, index : index + 4]
-                    chunk = process_fn(chunk, **kwargs)
-                    chunks.append(chunk)
-            img = np.dstack(chunks)
-        else:
-            img = process_fn(img, **kwargs)
-        return img
-
-    return __process_fn
 
 
 def rotate(image, angle, rotPoint=None):
@@ -171,6 +130,39 @@ def crop(img, x_min, y_min, x_max, y_max):
     return img[y_min:y_max, x_min:x_max]
 
 
+def center_crop(image, target_size=None):
+    r"""Computes the centre crop of an image using `target_size`
+
+    Args:
+        image (ndarray): Valid image array
+        target_size (tuple): Size of the centre crop. Must be in the format `(width,height)`
+    
+    Returns:
+        Cropped Centre (ndarray)
+    
+    Examples::
+        >> img = caer.data.bear() # Standard 640x427 image
+        >> cropped = caer.center_crop(img, target_size=(200,200))
+        >> cropped.shape
+        (200,200,3)
+    """
+    return _compute_centre_crop(image, target_size)
+
+
+def rand_crop(img, crop_height, crop_width, h_start, w_start):
+    height, width = img.shape[:2]
+    if height < crop_height or width < crop_width:
+        raise ValueError(
+            "Requested crop size ({crop_height}, {crop_width}) is "
+            "larger than the image size ({height}, {width})".format(
+                crop_height=crop_height, crop_width=crop_width, height=height, width=width
+            )
+        )
+    x1, y1, x2, y2 = _get_random_crop_coords(height, width, crop_height, crop_width, h_start, w_start)
+    img = img[y1:y2, x1:x2]
+    return img
+
+
 def _compute_centre_crop(image, target_size):
     _ = _check_target_size(target_size)
 
@@ -191,13 +183,6 @@ def _compute_centre_crop(image, target_size):
     return image[diff_w:diff_w + target_w, diff_h:diff_h + target_h]
 
 
-def center_crop(image, target_size=None):
-    """
-        Computes the centre crop of an image using `target_size`
-    """
-    return _compute_centre_crop(image, target_size)
-
-
 def _get_random_crop_coords(height, width, crop_height, crop_width, h_start, w_start):
     y1 = int((height - crop_height) * h_start)
     y2 = y1 + crop_height
@@ -206,15 +191,37 @@ def _get_random_crop_coords(height, width, crop_height, crop_width, h_start, w_s
     return x1, y1, x2, y2
 
 
-def rand_crop(img, crop_height, crop_width, h_start, w_start):
-    height, width = img.shape[:2]
-    if height < crop_height or width < crop_width:
-        raise ValueError(
-            "Requested crop size ({crop_height}, {crop_width}) is "
-            "larger than the image size ({height}, {width})".format(
-                crop_height=crop_height, crop_width=crop_width, height=height, width=width
-            )
-        )
-    x1, y1, x2, y2 = _get_random_crop_coords(height, width, crop_height, crop_width, h_start, w_start)
-    img = img[y1:y2, x1:x2]
-    return img
+def _proc_in_chunks(process_fn, **kwargs):
+    """
+    Wrap OpenCV function to enable processing images with more than 4 channels.
+    Limitations:
+        This wrapper requires image to be the first argument and rest must be sent via named arguments.
+    Args:
+        process_fn: Transform function (e.g cv.resize).
+        kwargs: Additional parameters.
+    Returns:
+        numpy.ndarray: Transformed image.
+    """
+
+    def __process_fn(img):
+        num_channels = get_num_channels(img)
+        if num_channels > 4:
+            chunks = []
+            for index in range(0, num_channels, 4):
+                if num_channels - index == 2:
+                    # Many OpenCV functions cannot work with 2-channel images
+                    for i in range(2):
+                        chunk = img[:, :, index + i : index + i + 1]
+                        chunk = process_fn(chunk, **kwargs)
+                        chunk = np.expand_dims(chunk, -1)
+                        chunks.append(chunk)
+                else:
+                    chunk = img[:, :, index : index + 4]
+                    chunk = process_fn(chunk, **kwargs)
+                    chunks.append(chunk)
+            img = np.dstack(chunks)
+        else:
+            img = process_fn(img, **kwargs)
+        return img
+
+    return __process_fn
