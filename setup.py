@@ -39,6 +39,7 @@ __version__
     Caer version string
 
 """
+#pylint:disable=broad-except
 
 import sys 
 import platform
