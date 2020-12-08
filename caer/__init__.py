@@ -181,7 +181,7 @@ from .transforms import __all__ as __all_transforms__
 # from .morph import __all__ as __all_morph__
 
 
-__all__ = __all_globals__ + __all_io__ + __all_resize__ + __all_opencv__ + __all_preprocess__ + __all_utilities__ + __all_visualizations__ + __all_filters__ + 
+__all__ = __all_globals__ + __all_io__ + __all_resize__ + __all_opencv__ + __all_preprocess__ + __all_utilities__ + __all_visualizations__ + __all_filters__
 # __all__ = __all_globals__ + __all_io__ + __all_resize__ + __all_opencv__ + __all_preprocess__ + __all_utilities__ + __all_visualizations__ + __all_filters__ + __all_distance__ + __all_morph__
 
 __all__ += __all_preprocessing__ 
