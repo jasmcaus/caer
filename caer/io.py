@@ -14,7 +14,7 @@ import cv2 as cv
 from urllib.request import urlopen
 
 from .utilities import asarray
-from .color import bgr_to_rgb, bgr_to_gray, IMREAD_COLOR
+from .color import bgr_to_rgb, bgr_to_gray, rgb_to_bgr, IMREAD_COLOR
 from ._internal import _check_target_size
 from .path import exists
 from .resize import resize
@@ -41,7 +41,7 @@ def imread(image_path, target_size=None, channels=3, rgb=False, resize_factor=No
     return _imread(image_path, target_size=target_size, channels=channels, rgb=rgb, resize_factor=resize_factor, keep_aspect_ratio=keep_aspect_ratio)
 
 
-def imsave(path, img):
+def imsave(path, img, rgb=True):
     """
         Saves an image file to `path`
             
@@ -56,6 +56,9 @@ def imsave(path, img):
         False; otherwise
     """
     try:
+        # OpenCV uses BGR images and saves them as RGB images
+        if rgb:
+            img = rgb_to_bgr(img)
         return cv.imwrite(path, img)
     except:
         raise ValueError('`img` needs to be an opencv-specific image. Try reading the image using `caer.imread()`. More support for additional platforms will follow. Check the Changelog for further details.')
