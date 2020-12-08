@@ -26,11 +26,11 @@
 
 <div role="navigation" aria-label="breadcrumbs navigation">
 
-  <ul class="pytorch-breadcrumbs">
+  <ul class="caer-breadcrumbs">
     {% block breadcrumbs %}
       <li>
         <a href="{{ pathto(master_doc) }}">
-          {% if theme_pytorch_project == 'tutorials' %}
+          {% if theme_caer_project == 'tutorials' %}
             Tutorials
           {% else %}
             Docs
@@ -44,7 +44,7 @@
       <li>{{ title }}</li>
     {% endblock %}
     {% block breadcrumbs_aside %}
-      <li class="pytorch-breadcrumbs-aside">
+      <li class="caer-breadcrumbs-aside">
         {% if hasdoc(pagename) %}
             {% if display_github %}
             {% if check_meta and 'github_url' in meta %}
