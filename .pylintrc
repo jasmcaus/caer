@@ -1,158 +1,114 @@
 [MASTER]
-
-# Add files or directories to the blacklist. They should be base names, not
-# paths.
-ignore=third_party
-
-# Add files or directories matching the regex patterns to the blacklist. The
-# regex matches against base names, not paths.
-ignore-patterns=
-
-# Pickle collected data for later comparisons.
-persistent=no
-
-# List of plugins (as comma separated values of python modules names) to load,
-# usually to register additional checkers.
-load-plugins=
-
 # Use multiple processes to speed up Pylint.
 jobs=4
 
-# Allow loading of arbitrary C extensions. Extensions are imported into the
-# active Python interpreter and may run arbitrary code.
-unsafe-load-any-extension=no
-
-# A comma-separated list of package or module names from where C extensions may
-# be loaded. Extensions are loading into the active Python interpreter and may
-# run arbitrary code
-extension-pkg-whitelist=
-
-
 [MESSAGES CONTROL]
 
-# Only show warnings with the listed confidence levels. Leave empty to show
-# all. Valid levels: HIGH, INFERENCE, INFERENCE_FAILURE, UNDEFINED
-confidence=
+disable=R,C,c-extension-no-member,broad_except,invalid-name,no-member,too-many-arguments,too-many-function-args,protected-access,no-name-in-module
 
-# Enable the message, report, category or checker with the given id(s). You can
-# either give multiple identifier separated by comma (,) or put this option
-# multiple time (only on the command line, not in the configuration file where
-# it should appear only once). See also the "--disable" option for examples.
-#enable=
-
-# Disable the message, report, category or checker with the given id(s). You
-# can either give multiple identifiers separated by comma (,) or put this
-# option multiple times (only on the command line, not in the configuration
-# file where it should appear only once).You can also use "--disable=all" to
-# disable everything first and then reenable specific checks. For example, if
-# you want to run only the similarities checker, you can use "--disable=all
-# --enable=similarities". If you want to run only the classes checker, but have
-# no Warning level messages displayed, use"--disable=all --enable=classes
-# --disable=W"
-R,C,,
-disable=R,
-        C,
-        abstract-method,
-        apply-builtin,
-        arguments-differ,
-        attribute-defined-outside-init,
-        backtick,
-        bad-option-value,
-        basestring-builtin,
-        broad-except,
-        buffer-builtin,
-        c-extension-no-member,
-        consider-using-enumerate,
-        cmp-builtin,
-        cmp-method,
-        coerce-builtin,
-        coerce-method,
-        delslice-method,
-        div-method,
-        duplicate-code,
-        eq-without-hash,
-        execfile-builtin,
-        file-builtin,
-        filter-builtin-not-iterating,
-        fixme,
-        getslice-method,
-        global-statement,
-        hex-method,
-        idiv-method,
-        implicit-str-concat-in-sequence,
-        import-error,
-        import-self,
-        import-star-module-level,
-        inconsistent-return-statements,
-        input-builtin,
-        intern-builtin,
-        invalid-str-codec,
-        invalid-name,
-        locally-disabled,
-        long-builtin,
-        long-suffix,
-        map-builtin-not-iterating,
-        misplaced-comparison-constant,
-        missing-function-docstring,
-        metaclass-assignment,
-        next-method-called,
-        next-method-defined,
-        no-absolute-import,
-        no-else-break,
-        no-else-continue,
-        no-else-raise,
-        no-else-return,
-        no-init,  # added
-        no-member,
-        no-name-in-module,
-        no-self-use,
-        nonzero-method,
-        oct-method,
-        old-division,
-        old-ne-operator,
-        old-octal-literal,
-        old-raise-syntax,
-        parameter-unpacking,
-        print-statement,
-        protected-access,
-        raising-string,
-        range-builtin-not-iterating,
-        raw_input-builtin,
-        rdiv-method,
-        reduce-builtin,
-        relative-import,
-        reload-builtin,
-        round-builtin,
-        setslice-method,
-        signature-differs,
-        standarderror-builtin,
-        suppressed-message,
-        sys-max-int,
-        too-few-public-methods,
-        too-many-ancestors,
-        too-many-arguments,
-        too-many-boolean-expressions,
-        too-many-branches,
-        too-many-instance-attributes,
-        too-many-locals,
-        too-many-nested-blocks,
-        too-many-public-methods,
-        too-many-return-statements,
-        too-many-function-args,
-        too-many-statements,
-        trailing-newlines,
-        unichr-builtin,
-        unicode-builtin,
-        unnecessary-pass,
-        undefined-all-variable,
-        unpacking-in-except,
-        useless-else-on-loop,
-        useless-object-inheritance,
-        useless-suppression,
-        using-cmp-argument,
-        wrong-import-order,
-        xrange-builtin,
-        zip-builtin-not-iterating,
+# disable=R,
+#         C,
+#         abstract-method,
+#         apply-builtin,
+#         arguments-differ,
+#         attribute-defined-outside-init,
+#         backtick,
+#         bad-option-value,
+#         basestring-builtin,
+#         broad-except,
+#         buffer-builtin,
+#         c-extension-no-member,
+#         consider-using-enumerate,
+#         cmp-builtin,
+#         cmp-method,
+#         coerce-builtin,
+#         coerce-method,
+#         delslice-method,
+#         div-method,
+#         duplicate-code,
+#         eq-without-hash,
+#         execfile-builtin,
+#         file-builtin,
+#         filter-builtin-not-iterating,
+#         fixme,
+#         getslice-method,
+#         global-statement,
+#         hex-method,
+#         idiv-method,
+#         implicit-str-concat-in-sequence,
+#         import-error,
+#         import-self,
+#         import-star-module-level,
+#         inconsistent-return-statements,
+#         input-builtin,
+#         intern-builtin,
+#         invalid-str-codec,
+#         invalid-name,
+#         locally-disabled,
+#         long-builtin,
+#         long-suffix,
+#         map-builtin-not-iterating,
+#         misplaced-comparison-constant,
+#         missing-function-docstring,
+#         metaclass-assignment,
+#         next-method-called,
+#         next-method-defined,
+#         no-absolute-import,
+#         no-else-break,
+#         no-else-continue,
+#         no-else-raise,
+#         no-else-return,
+#         no-init,  # added
+#         no-member,
+#         no-name-in-module,
+#         no-self-use,
+#         nonzero-method,
+#         oct-method,
+#         old-division,
+#         old-ne-operator,
+#         old-octal-literal,
+#         old-raise-syntax,
+#         parameter-unpacking,
+#         print-statement,
+#         protected-access,
+#         raising-string,
+#         range-builtin-not-iterating,
+#         raw_input-builtin,
+#         rdiv-method,
+#         reduce-builtin,
+#         relative-import,
+#         reload-builtin,
+#         round-builtin,
+#         setslice-method,
+#         signature-differs,
+#         standarderror-builtin,
+#         suppressed-message,
+#         sys-max-int,
+#         too-few-public-methods,
+#         too-many-ancestors,
+#         too-many-arguments
+#         too-many-boolean-expressions,
+#         too-many-branches,
+#         too-many-instance-attributes,
+#         too-many-locals,
+#         too-many-nested-blocks,
+#         too-many-public-methods,
+#         too-many-return-statements,
+#         too-many-function-args,
+#         too-many-statements,
+#         trailing-newlines,
+#         unichr-builtin,
+#         unicode-builtin,
+#         unnecessary-pass,
+#         undefined-all-variable,
+#         unpacking-in-except,
+#         useless-else-on-loop,
+#         useless-object-inheritance,
+#         useless-suppression,
+#         using-cmp-argument,
+#         wrong-import-order,
+#         xrange-builtin,
+#         zip-builtin-not-iterating,
 
 
 [FORMAT]
@@ -164,38 +120,38 @@ max-line-length=120
 max-module-lines=99999
 
 
-[MISCELLANEOUS]
+# [MISCELLANEOUS]
 
-# List of note tags to take in consideration, separated by a comma.
-notes=TODO
-
-
-[CLASSES]
-
-# List of method names used to declare (i.e. assign) instance attributes.
-defining-attr-methods=__init__,
-                      __new__,
-                      setUp
-
-# List of member names, which should be excluded from the protected access
-# warning.
-exclude-protected=_asdict,
-                  _fields,
-                  _replace,
-                  _source,
-                  _make
-
-# List of valid names for the first argument in a class method.
-valid-classmethod-first-arg=cls,class_
-
-# List of valid names for the first argument in a metaclass class method.
-valid-metaclass-classmethod-first-arg=mcs
+# # List of note tags to take in consideration, separated by a comma.
+# notes=TODO
 
 
-[EXCEPTIONS]
+# [CLASSES]
 
-# Exceptions that will emit a warning when being caught. Defaults to
-# "Exception"
-overgeneral-exceptions=StandardError,
-                       Exception,
-                       BaseException
+# # List of method names used to declare (i.e. assign) instance attributes.
+# defining-attr-methods=__init__,
+#                       __new__,
+#                       setUp
+
+# # List of member names, which should be excluded from the protected access
+# # warning.
+# exclude-protected=_asdict,
+#                   _fields,
+#                   _replace,
+#                   _source,
+#                   _make
+
+# # List of valid names for the first argument in a class method.
+# valid-classmethod-first-arg=cls,class_
+
+# # List of valid names for the first argument in a metaclass class method.
+# valid-metaclass-classmethod-first-arg=mcs
+
+
+# [EXCEPTIONS]
+
+# # Exceptions that will emit a warning when being caught. Defaults to
+# # "Exception"
+# overgeneral-exceptions=StandardError,
+#                        Exception,
+#                        BaseException

@@ -105,8 +105,7 @@ from .visualizations import (
 
 # Resize
 from .resize import (
-    resize,
-    center_crop
+    resize
 )
 
 # Image 

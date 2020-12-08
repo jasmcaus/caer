@@ -19,7 +19,6 @@ from .globals import (
 )
 
 __all__ = [
-    'center_crop',
     'resize'
 ]
 
@@ -156,15 +155,6 @@ def _compute_minimal_resize(org_size, target_dim):
         return h_factor 
     else:
         return w_factor
-    
-
-def center_crop(image, target_size=None):
-    r"""Computes the centre crop of an image using `target_size`
-
-    Args:
-        image (n)
-    """
-    return _compute_centre_crop(image, target_size)
 
 
 def _compute_centre_crop(image, target_size):
@@ -176,7 +166,6 @@ def _compute_centre_crop(image, target_size):
 
     # The following line is actually the right way of accessing height and width of an opencv-specific image (height, width). However for some reason, while the code runs, this is flipped (it now becomes (width,height)). Testing needs to be done to catch this little bug
     # org_h, org_w = image.shape[:2]
-
 
     if target_h > org_h or target_w > org_w:
         raise ValueError('To compute centre crop, target size dimensions must be <= image dimensions')
