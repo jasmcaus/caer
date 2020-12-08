@@ -4,7 +4,7 @@ jobs=4
 
 [MESSAGES CONTROL]
 
-disable=R,C,c-extension-no-member,broad_except,invalid-name,no-member,too-many-arguments,too-many-function-args,protected-access,no-name-in-module,invalid-unary-operand-type
+disable=R,C,c-extension-no-member,broad_except,invalid-name,no-member,too-many-arguments,too-many-function-args,protected-access,no-name-in-module,invalid-unary-operand-type,redefined-outer-name
 
 # disable=R,
 #         C,
