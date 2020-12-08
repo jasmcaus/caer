@@ -137,7 +137,11 @@ from .color import (
     lab_to_bgr,
     lab_to_gray,
     lab_to_hsv,
-    lab_to_rgb
+    lab_to_rgb,
+    is_rgb_image,
+    is_bgr_image,
+    is_hsv_image,
+    is_lab_image
 )
 
 # Bringing in configuration variables from globals.py

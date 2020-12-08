@@ -20,7 +20,11 @@ __all__ = [
     'rgb_to_hsv',
     'rgb_to_lab',
     'rgb_to_bgr'
+    'is_rgb_image',
 ]
+
+def is_rgb_image(img):
+    return len(img.shape) == 3 and img.shape[-1] == 3
 
 
 def rgb_to_bgr(img) -> np.ndarray:
@@ -40,7 +44,7 @@ def rgb_to_bgr(img) -> np.ndarray:
     ------
         ValueError: If `img` is not of shape 3
     """
-    if len(img.shape) != 3:
+    if is_rgb_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts an RGB image to its BGR counterpart')
 
     return cv.cvtColor(img, RGB2BGR)
@@ -63,7 +67,7 @@ def rgb_to_gray(img) -> np.ndarray:
     ------
         ValueError: If `img` is not of shape 3
     """
-    if len(img.shape) != 3:
+    if is_rgb_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts an RGB image to its Grayscale counterpart')
     
     return cv.cvtColor(img, RGB2GRAY)
@@ -86,7 +90,7 @@ def rgb_to_hsv(img) -> np.ndarray:
     ------
         ValueError: If `img` is not of shape 3
     """
-    if len(img.shape) != 3:
+    if is_rgb_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts an RGB image to its HSV counterpart')
     
     return cv.cvtColor(img, RGB2HSV)
@@ -109,7 +113,7 @@ def rgb_to_lab(img) -> np.ndarray:
     ------
         ValueError: If `img` is not of shape 3
     """
-    if len(img.shape) != 3:
+    if is_rgb_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts an RGB image to its LAB counterpart')
 
     return cv.cvtColor(img, RGB2LAB)
