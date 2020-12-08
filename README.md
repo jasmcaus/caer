@@ -31,12 +31,13 @@ Caer is a Python library that consists of the following components:
 | [**caer.augment**](https://github.com/jasmcaus/caer/tree/master/caer/augment) | Powerful augmentation functions |
 | [**caer.color**](https://github.com/jasmcaus/caer/tree/master/caer/color) | Colorspace operations |
 | [**caer.data**](https://github.com/jasmcaus/caer/tree/master/caer/data) | Standard high-quality test images and example data |
-<!-- | [**caer.filters**](https://github.com/jasmcaus/caer/tree/master/caer/filters) | Sharpening, edge finding, rank filters, thresholding, etc | -->
 | [**caer.path**](https://github.com/jasmcaus/caer/tree/master/caer/path) | OS-specific path manipulations |
 | [**caer.preprocessing**](https://github.com/jasmcaus/caer/tree/master/caer/preprocessing) | Image preprocessing utilities. |
 | [**caer.transforms**](https://github.com/jasmcaus/caer/tree/master/caer/transforms) | Image transformations |
-<!-- | [**caer.utils**](https://github.com/jasmcaus/caer/tree/master/caer/utils) | Generic utilities  | -->
 | [**caer.video**](https://github.com/jasmcaus/caer/tree/master/caer/video) | Video processing utilities |
+
+<!-- | [**caer.utils**](https://github.com/jasmcaus/caer/tree/master/caer/utils) | Generic utilities  | -->
+<!-- | [**caer.filters**](https://github.com/jasmcaus/caer/tree/master/caer/filters) | Sharpening, edge finding, rank filters, thresholding, etc | -->
 
 Usually, Caer is used either as:
 
