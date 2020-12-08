@@ -8,3 +8,10 @@
 # Licensed under the MIT License <http://opensource.org/licenses/MIT>
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2020 The Caer Authors <http://github.com/jasmcaus>
+
+import numpy as np 
+import cv2 as cv 
+
+
+def hflip(img):
+    return np.ascontiguousarray(img[:, ::-1, ...])
