@@ -1,4 +1,4 @@
-Distance
+distance
 ===================
 .. automodule:: caer.distance
    :members:

@@ -26,8 +26,8 @@ __all__ = [
     'mkdir',
     'listdir',
     'is_image',
-    'is_video'
-    'isfile'
+    'is_video',
+    'isfile',
     'cwd',
     'exists',
     'minijoin',
@@ -40,24 +40,18 @@ __all__ = [
 
 
 def list_images(DIR, include_subdirs=True, use_fullpath=False, show_size=False, verbose=1) -> List[str]:
-    """
+    r"""
         Lists all image files within a specific directory (and sub-directories if `include_subdirs=True`)
     
-    Parameters
-    ----------
-        DIR : str
-            Directory to search for image files
-        include_subdirs : bool
-            Indicate whether to search all subdirectories as well (default = False)
-        use_fullpath : bool
-            Include full filepaths in the returned list (default = False)
-        show_size : bool
-            Prints the disk size of the image files (default = False)
+    Args:
+        DIR (str): Directory to search for image files
+        include_subdirs (bool): Indicate whether to search all subdirectories as well (default = False)
+        use_fullpath (bool): Include full filepaths in the returned list (default = False)
+        show_size (bool): Prints the disk size of the image files (default = False)
     
-    Returns
-    -------
-        image_files : list
-            List of names (or full filepaths if `use_fullpath=True`) of the image files
+    Returns:
+        image_files (list): List of names (or full filepaths if `use_fullpath=True`) of the image files
+
     """
     images = _get_media_from_dir(DIR=DIR, include_subdirs=include_subdirs, use_fullpath=use_fullpath, show_size=show_size, list_image_files=True, verbose=verbose)
 
@@ -66,23 +60,18 @@ def list_images(DIR, include_subdirs=True, use_fullpath=False, show_size=False, 
 
 
 def list_videos(DIR, include_subdirs=True, use_fullpath=False, show_size=False, verbose=1) -> List[str]:
-    """Lists all video files within a specific directory (and sub-directories if `include_subdirs=True`)
+    r"""
+        Lists all video files within a specific directory (and sub-directories if `include_subdirs=True`)
     
-    Parameters
-    ----------
-        DIR : str
-            Directory to search for video files
-        include_subdirs : bool
-            Indicate whether to search all subdirectories as well (default = False)
-        use_fullpath : bool
-            Include full filepaths in the returned list (default = False)
-        show_size : bool
-            Prints the disk size of the video files (default = False)
+    Args:
+        DIR (str): Directory to search for video files
+        include_subdirs (bool): Indicate whether to search all subdirectories as well (default = False)
+        use_fullpath (bool): Include full filepaths in the returned list (default = False)
+        show_size (bool): Prints the disk size of the video files (default = False)
     
-    Returns
-    -------
-        video_files : list
-            List of names (or full filepaths if `use_fullpath=True`) of the video files
+    Returns:
+        video_files (list): List of names (or full filepaths if `use_fullpath=True`) of the video files
+
     """
 
     videos = _get_media_from_dir(DIR=DIR, include_subdirs=include_subdirs, use_fullpath=use_fullpath, show_size=show_size, list_video_files=True, verbose=verbose)
@@ -92,24 +81,18 @@ def list_videos(DIR, include_subdirs=True, use_fullpath=False, show_size=False, 
 
 
 def list_media(DIR, include_subdirs=True, use_fullpath=False, show_size=True, verbose=0) -> List[str]:
-    """
+    r"""
         Lists all media files within a specific directory (and sub-directories if `include_subdirs=True`)
     
-    Parameters
-    ----------
-        DIR : str
-            Directory to search for media files
-        include_subdirs : bool
-            Indicate whether to search all subdirectories as well (default = False)
-        use_fullpath : bool
-            Include full filepaths in the returned list (default = False)
-        show_size : bool
-            Prints the disk size of the media files (default = False)
+    Args:
+        DIR (str): Directory to search for media files
+        include_subdirs (bool): Indicate whether to search all subdirectories as well (default = False)
+        use_fullpath (bool): Include full filepaths in the returned list (default = False)
+        show_size (bool): Prints the disk size of the media files (default = False)
     
-    Returns
-    -------
-        media_files : list
-            List of names (or full filepaths if `use_fullpath=True`) of the media files
+    Returns:
+        media_files (list): List of names (or full filepaths if `use_fullpath=True`) of the media files
+
     """
 
     media = _get_media_from_dir(DIR=DIR, include_subdirs=include_subdirs, use_fullpath=use_fullpath, show_size=show_size, list_image_files=True, list_video_files=True, verbose=verbose)
@@ -119,24 +102,18 @@ def list_media(DIR, include_subdirs=True, use_fullpath=False, show_size=True, ve
 
 
 def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, show_size=True,  list_image_files=False, list_video_files=False, verbose=1) -> List[str]:
-    """
+    r"""
         Lists all media files within a specific directory (and sub-directories if `include_subdirs=True`)
     
-    Parameters
-    ----------
-        DIR : str
-            Directory to search for media files
-        include_subdirs : bool
-            Indicate whether to search all subdirectories as well (default = False)
-        use_fullpath : bool
-            Include full filepaths in the returned list (default = False)
-        show_size : bool
-            Prints the disk size of the media files (default = False)
+    Args:
+        DIR (str): Directory to search for media files
+        include_subdirs (bool): Indicate whether to search all subdirectories as well (default = False)
+        use_fullpath (bool): Include full filepaths in the returned list (default = False)
+        show_size (bool): Prints the disk size of the media files (default = False)
     
-    Returns
-    -------
-        media_files : list
-            List of names (or full filepaths if `use_fullpath=True`) of the media files
+    Returns:
+        media_files (list): List of names (or full filepaths if `use_fullpath=True`) of the media files
+
     """
 
     if not exists(DIR):
@@ -233,24 +210,18 @@ def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, show_size
 
 
 def listdir(DIR, include_subdirs=True, use_fullpath=False, show_size=True, verbose=1) -> List[str]:
-    """
+    r"""
         Lists all files within a specific directory (and sub-directories if `include_subdirs=True`)
     
-    Parameters
-    ----------
-        DIR : str
-            Directory to search for files
-        include_subdirs : bool
-            Indicate whether to search all subdirectories as well (default = False)
-        use_fullpath : bool
-            Include full filepaths in the returned list (default = False)
-        show_size : bool
-            Prints the disk size of the files (default = False)
+    Args:
+        DIR (str): Directory to search for files
+        include_subdirs (bool): Indicate whether to search all subdirectories as well (default = False)
+        use_fullpath (bool): Include full filepaths in the returned list (default = False)
+        show_size (bool): Prints the disk size of the files (default = False)
     
-    Returns
-    -------
-        files : list
-            List of names (or full filepaths if `use_fullpath=True`) of the files
+    Returns:
+        files (list): List of names (or full filepaths if `use_fullpath=True`) of the files
+
     """
 
     if not exists(DIR):
@@ -302,18 +273,16 @@ def listdir(DIR, include_subdirs=True, use_fullpath=False, show_size=True, verbo
 
 
 def is_image(path) -> bool:
-    """
+    r"""
         Checks if a given path is that of a valid image file
             
-    Parameters
-    ----------
-        path : str
-            Filepath to check
+    Args:
+        path (str): Filepath to check
     
-    Returns
-    -------
+    Returns:
         True; if `path` is a valid image filepath
         False; otherwise
+
     """
 
     if not isinstance(path, str):
@@ -326,18 +295,16 @@ def is_image(path) -> bool:
 
 
 def is_video(path) -> bool:
-    """
+    r"""
         Checks if a given path is that of a valid image file
             
-    Parameters
-    ----------
-        path : str
-            Filepath to check
+    Args:
+        path (str): Filepath to check
     
-    Returns
-    -------
+    Returns:
         True; if `path` is a valid image filepath
         False; otherwise
+
     """
     if not isinstance(path, str):
         raise ValueError('path must be a string')
@@ -381,25 +348,23 @@ def osname() -> str:
 
 
 def cwd() -> str:
-    """
+    r"""
         Returns the filepath to the current working directory
     """
     return os.getcwd()
 
 
 def exists(path) -> bool:
-    """
+    r"""
         Checks if a given filepath is valid
             
-    Parameters
-    ----------
-        path : str
-            Filepath to check
+    Args:
+        path (str): Filepath to check
     
-    Returns
-    -------
+    Returns:
         True; if `path` is a valid filepath
         False; otherwise
+
     """
 
     if not isinstance(path, str):
@@ -411,56 +376,55 @@ def exists(path) -> bool:
 
 
 def isfile(path) -> bool:
-    """
+    r"""
         Checks if a given filepath is a valid path
             
-    Parameters
-    ----------
-        path : str
-            Filepath to check
+    Args:
+        path (str): Filepath to check
     
-    Returns
-    -------
+    Returns:
         True; if `path` is a valid filepath
         False; otherwise
+
     """
     return os.path.isdir(path)
 
 
 def isdir(path) -> bool:
-    """
+    r"""
         Checks if a given filepath is that of a directory
             
-    Parameters
-    ----------
-        path : str
-            Filepath to check
+    Args:
+        path (str): Filepath to check
     
-    Returns
-    -------
+    Returns:
         True; if `path` is a valid directory
         False; otherwise
+
     """
     return os.path.isdir(path)
 
 
 def mkdir(path) -> None:
-    """
+    r"""
         Creates a directory at `path`
+
     """
     os.mkdir(path)
 
 
 def abspath(file_name) -> str:
-    """
+    r"""
         Returns the absolute path of `file_name`
+
     """
     return os.path.abspath(file_name)
 
 
 def chdir(path) -> None:
-    """
+    r"""
         Checks into directory `path`
+
     """
     if not isinstance(path, str):
         raise ValueError('Specify a valid path')
@@ -469,20 +433,16 @@ def chdir(path) -> None:
 
 
 def get_size(file, disp_format='bytes') -> float:
-    """
-        Returns the size of `file` in bytes/kb/mb/gb/tb
+    r"""
+        Returns: the size of `file` in bytes/kb/mb/gb/tb
             
-    Parameters
-    ----------
-        file : str
-            Filepath to check
-        disp_format : str
-            Size format (bytes/kb/mb/gb/tb)
+    Args:
+        file (str): Filepath to check
+        disp_format (str): Size format (bytes/kb/mb/gb/tb)
     
-    Returns
-    --------
-        size : str
-            File size in bytes/kb/mb/gb/tb
+    Returns:
+        size (str): File size in bytes/kb/mb/gb/tb
+
     """
 
     if not isinstance(disp_format, str):
@@ -512,16 +472,18 @@ def get_size(file, disp_format='bytes') -> float:
 
 
 def minijoin(*paths) -> str:
-    """
+    r"""
         Join multiple filepaths together
+
     """
 
     return os.path.join(*paths)
 
 
 def dirname(file) -> str:
-    """
+    r"""
         Returns the base directory name of `file`
+
     """
 
     return os.path.dirname(file)
