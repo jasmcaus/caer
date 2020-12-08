@@ -1,6 +1,7 @@
 <!-- ![Caer Logo](https://github.com/jasmcaus/caer/blob/master/docs/sphinx-theme/_static/thumbs/caer-logo-flat-readme.png) -->
-![Caer Logo](https://github.com/jasmcaus/caer/blob/dev/docs/sphinx-theme/_static/thumbs/caer-green.png)
-<img src="https://github.com/jasmcaus/caer/blob/dev/docs/sphinx-theme/_static/thumbs/caer-full.png" alt="Caer Logo">
+![Caer Logo](https://github.com/jasmcaus/caer/blob/dev/docs/sphinx-theme/_static/thumbs/caer-full.png)
+**The lightweight PyTorch wrapper for high-performance AI research.    
+Scale your models, not the boilerplate.**
 
 # Caer - Modern Computer Vision on the Fly
 [![Python](https://img.shields.io/pypi/pyversions/caer.svg)][py-versions]
