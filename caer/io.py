@@ -55,14 +55,10 @@ def imsave(path, img):
         True; if `img` was written to `path`
         False; otherwise
     """
-    if isfile(path):
-        try:
-            cv.imwrite(path, img)
-        except:
-            raise ValueError('`img` needs to be an opencv-specific image. Try reading the image using `caer.imread()`. More support for additional platforms will follow. Check the Changelog for further details.')
-    
-    else:
-        raise ValueError(f'{path} is not a valid filename (verify that it exists)')
+    try:
+        return cv.imwrite(path, img)
+    except:
+        raise ValueError('`img` needs to be an opencv-specific image. Try reading the image using `caer.imread()`. More support for additional platforms will follow. Check the Changelog for further details.')
 
 
 def _imread(image_path, target_size=None, channels=3, rgb=False, resize_factor=None, keep_aspect_ratio=False):   
