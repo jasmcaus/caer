@@ -5,7 +5,8 @@ caer.color
 ===================
 .. currentmodule:: caer.color
 
-Color functions
+
+From the **RGB** colorspace
 ----------------------------------
 
 :hidden:`rgb_to_bgr`
@@ -32,6 +33,10 @@ Color functions
 .. autofunction:: rgb_to_bgr
 
 
+
+From the **BGR** colorspace
+----------------------------------
+
 :hidden:`bgr_to_rgb`
 ~~~~~~~~~~~~~~~~
 
@@ -57,6 +62,9 @@ Color functions
 
 
 
+From the **HSV** colorspace
+----------------------------------
+
 :hidden:`hsv_to_rgb`
 ~~~~~~~~~~~~~~~~
 
@@ -79,6 +87,9 @@ Color functions
 .. autofunction:: hsv_to_lab
 
 
+
+From the **LAB** colorspace
+----------------------------------
 
 :hidden:`lab_to_rgb`
 ~~~~~~~~~~~~~~~~
