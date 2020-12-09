@@ -18,7 +18,7 @@ import caer
 # Hence, we add an additional 'tests' for Pytest to run correctly
 
 PATH_TO_MEDIA_FILES = os.path.join(os.getcwd(), 'media-files')
-PATH_TO_MEDIA_FILES = r'tests\media-files'
+# PATH_TO_MEDIA_FILES = r'tests\media-files'
 
 def test_list_images():
     DIR = PATH_TO_MEDIA_FILES
