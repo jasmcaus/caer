@@ -19,7 +19,7 @@ import caer
 
 # PATH_TO_MEDIA_FILES = os.path.join(os.getcwd(), 'media-files')
 PATH_TO_MEDIA_FILES = os.path.join(os.getcwd(), 'tests', 'path', 'media_files')
-# PATH_TO_MEDIA_FILES = r'tests\media-files'
+
 
 def test_list_images():
     DIR = PATH_TO_MEDIA_FILES
@@ -135,3 +135,7 @@ def test_getcwd():
         f.append(i)
     
     raise AssertionError(f'Problems with {f}')
+
+
+def test_exists():
+    raise AssertionError(f'{caer.path.exists(PATH_TO_MEDIA_FILES)}')
