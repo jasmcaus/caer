@@ -127,5 +127,5 @@ def test_dirname():
     assert s == os.path.dirname(__file__)
 
 
-def test_cwd():
+def test_getcwd():
     raise AssertionError(f'CWD = {os.getcwd()}')
