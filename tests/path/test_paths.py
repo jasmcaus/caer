@@ -13,11 +13,11 @@ import os
 import caer
 
 # Note: 
-# os.path.join(os.path.dirname(os.getcwd()), 'media-files') is the correct convention (for accessing tests/media-files)
+# os.path.join(os.path.dirname(os.getcwd()), 'media') is the correct convention (for accessing tests/media)
 # However, pytest runs differently and doesn't call os.getcwd() as we would expect (i.e it runs it from the root dir 'caer')
 # Hence, we add an additional 'tests' for Pytest to run correctly
 
-# PATH_TO_MEDIA_FILES = os.path.join(os.getcwd(), 'media-files')
+# PATH_TO_MEDIA_FILES = os.path.join(os.getcwd(), 'media')
 PATH_TO_MEDIA_FILES = os.path.join(os.getcwd(), 'tests', 'path', 'media_files')
 
 
@@ -27,7 +27,7 @@ def test_list_images():
     images_list = caer.path.list_images(DIR, include_subdirs=True, use_fullpath=True)
 
     assert images_list is not None 
-    assert len(images_list) == 18 #There are 18 images & 7 videos in tests/media-files
+    assert len(images_list) == 18 #There are 18 images & 7 videos in tests/media
 
     for i in images_list:
         assert os.path.exists(i) 
@@ -39,7 +39,7 @@ def test_list_videos():
     videos_list = caer.path.list_videos(DIR, include_subdirs=True, use_fullpath=True)
 
     assert videos_list is not None 
-    assert len(videos_list) == 7 #There are 18 images & 7 videos in tests/media-files
+    assert len(videos_list) == 7 #There are 18 images & 7 videos in tests/media
 
     for i in videos_list:
         assert os.path.exists(i) 
@@ -51,7 +51,7 @@ def test_list_media():
     media_list = caer.path.list_media(DIR, include_subdirs=True, use_fullpath=True)
 
     assert media_list is not None 
-    assert len(media_list) == 25 #There are 18 images & 7 videos in tests/media-files
+    assert len(media_list) == 25 #There are 18 images & 7 videos in tests/media
 
     for i in media_list:
         assert os.path.exists(i) 
@@ -63,7 +63,7 @@ def test_listdir():
     dir_list = caer.path.listdir(DIR, include_subdirs=True, use_fullpath=True)
 
     assert dir_list is not None 
-    assert len(dir_list) == 26 #There are 18 images, 7 videos and 1 README.md in tests/media-files
+    assert len(dir_list) == 26 #There are 18 images, 7 videos and 1 README.md in tests/media
 
     for i in dir_list:
         assert os.path.exists(i) 
@@ -130,7 +130,7 @@ def test_dirname():
 def test_getcwd():
     # raise AssertionError(f'CWD = {os.getcwd()}')
     f = [] 
-    ff = os.path.join(os.getcwd(), 'tests', 'path', 'media-files')
+    ff = os.path.join(os.getcwd(), 'tests', 'path', 'media')
     for i in os.listdir(ff):
         f.append(i)
     
@@ -139,4 +139,4 @@ def test_getcwd():
 
 def test_exists():
     ff = os.path.join(os.getcwd(), 'tests', 'path', 'media-files')
-    raise AssertionError(f'{os.path.exists(ff)}')
+    raise AssertionError(f'{ff} exists')
