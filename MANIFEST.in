@@ -8,6 +8,7 @@ include tools/cythonize.py
 include pyproject.toml
 
 recursive-include caer/data *
-recursive-include caer *.pyx *.pyd *.pxd *.pxi *.py *.c *.cpp *.h *.ini *.txt *.in *.md
+# recursive-include caer *.pyx *.pyd *.pxd *.pxi *.py *.c *.cpp *.h *.ini *.txt *.in *.md
+recursive-include caer *.py *.ini *.txt *.in *.md
 
-recursive-exclude * __pycache__ *.npy *.npz
+recursive-exclude * __pycache__ *.npy *.npz *.c *.cpp *.h *.pyx *.pyd *.pxd *.pxi
