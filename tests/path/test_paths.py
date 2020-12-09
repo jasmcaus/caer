@@ -138,4 +138,4 @@ def test_getcwd():
 
 
 def test_exists():
-    raise AssertionError(f'{caer.path.exists(PATH_TO_MEDIA_FILES)}')
+    raise AssertionError(f'{os.path.join(os.getcwd(), 'tests', 'path', 'media-files')}')
