@@ -18,7 +18,7 @@ import caer
 # Hence, we add an additional 'tests' for Pytest to run correctly
 
 # PATH_TO_MEDIA_FILES = os.path.join(os.getcwd(), 'media-files')
-PATH_TO_MEDIA_FILES = os.path.join(os.path.dirname(__file__), 'media_files')
+PATH_TO_MEDIA_FILES = os.path.join(os.getcwd(), 'tests', 'path' 'media_files')
 # PATH_TO_MEDIA_FILES = r'tests\media-files'
 
 def test_list_images():
@@ -130,7 +130,7 @@ def test_dirname():
 def test_getcwd():
     # raise AssertionError(f'CWD = {os.getcwd()}')
     f = [] 
-    ff = os.path.join(os.getcwd(), 'tests', 'path')
+    ff = os.path.join(os.getcwd(), 'tests', 'path', 'media-files')
     for i in os.listdir(ff):
         f.append(i)
     
