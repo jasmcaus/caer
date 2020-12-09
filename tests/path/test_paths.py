@@ -138,4 +138,5 @@ def test_getcwd():
 
 
 def test_exists():
-    raise AssertionError(f'{os.path.join(os.getcwd(), 'tests', 'path', 'media-files')}')
+    ff = os.path.join(os.getcwd(), 'tests', 'path', 'media-files')
+    raise AssertionError(f'{os.path.exists(ff)}')
