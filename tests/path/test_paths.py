@@ -17,7 +17,8 @@ import caer
 # However, pytest runs differently and doesn't call os.getcwd() as we would expect (i.e it runs it from the root dir 'caer')
 # Hence, we add an additional 'tests' for Pytest to run correctly
 
-PATH_TO_MEDIA_FILES = os.path.join(os.getcwd(), 'media-files')
+# PATH_TO_MEDIA_FILES = os.path.join(os.getcwd(), 'media-files')
+PATH_TO_MEDIA_FILES = os.path.join(os.path.dirname(__file__), 'media_files')
 # PATH_TO_MEDIA_FILES = r'tests\media-files'
 
 def test_list_images():
@@ -124,3 +125,7 @@ def test_dirname():
     s = caer.path.dirname(__file__)
 
     assert s == os.path.dirname(__file__)
+
+
+def test_cwd():
+    raise AssertionError(f'CWD = {os.getcwd()}')
