@@ -14,7 +14,7 @@ import caer
 
 
 PATH_TO_MEDIA_FILES = os.path.join(os.path.dirname(os.getcwd()), 'media-files')
-
+print(PATH_TO_MEDIA_FILES)
 
 def test_list_images():
     DIR = PATH_TO_MEDIA_FILES
