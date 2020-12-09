@@ -12,8 +12,12 @@
 import os 
 import caer
 
+# Note: 
+# os.path.join(os.path.dirname(os.getcwd()), 'media-files') is the correct convention (for accessing tests/media-files)
+# However, pytest runs differently and doesn't call os.getcwd() as we would expect (i.e it runs it from the root dir 'caer')
+# Hence, we add an additional 'tests' for Pytest to run correctly
 
-PATH_TO_MEDIA_FILES = os.path.join(os.path.dirname(os.getcwd()), 'media-files')
+PATH_TO_MEDIA_FILES = os.path.join(os.path.dirname(os.getcwd()), 'tests', 'media-files')
 print(PATH_TO_MEDIA_FILES)
 
 def test_list_images():
@@ -58,7 +62,7 @@ def test_listdir():
     dir_list = caer.path.listdir(DIR, include_subdirs=True, use_fullpath=True)
 
     assert dir_list is not None 
-    assert len(dir_list) == 19 #There are 18 images, 7 videos and 1 README.md in tests/media-files
+    assert len(dir_list) == 26 #There are 18 images, 7 videos and 1 README.md in tests/media-files
 
     for i in dir_list:
         assert os.path.exists(i) 
@@ -89,7 +93,7 @@ def test_isdir():
 
 
 def test_get_size():
-    FILE = os.path.join(PATH_TO_MEDIA_FILES, 'GoPro', 'gopro3')
+    FILE = os.path.join(PATH_TO_MEDIA_FILES, 'GoPro', 'gopro3.mp4')
 
     assert caer.path.get_size(FILE, 'bytes') == os.path.getsize(FILE)
     assert caer.path.get_size(FILE, 'kb') == (os.path.getsize(FILE) * 1e-3)

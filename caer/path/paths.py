@@ -387,7 +387,7 @@ def isfile(path) -> bool:
         False; otherwise
 
     """
-    return os.path.isdir(path)
+    return os.path.isfile(path)
 
 
 def isdir(path) -> bool:

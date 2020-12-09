@@ -13,7 +13,7 @@
 import cv2 as cv 
 import numpy as np 
 
-sep_matrix = np.matrix([[0.272, 0.534, 0.131],
+sep_matrix = np.array([[0.272, 0.534, 0.131],
                         [0.349, 0.686, 0.168],
                         [0.393, 0.769, 0.189]])
 
