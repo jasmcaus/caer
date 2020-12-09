@@ -85,7 +85,7 @@
 <div class="container-fluid header-holder tutorials-header" id="header-holder">
   <div class="container">
     <div class="header-container">
-      <a class="header-logo" href="{{ theme_variables.external_urls['home'] }}" aria-label="pytorch">
+      <a class="header-logo" href="{{ theme_variables.external_urls['home'] }}" aria-label="caer">
        <!-- <img class="call-to-action-img" src="{{ pathto('_static/images/caer-logo-flat', 1) }}"/> -->
       </a>
 
@@ -100,11 +100,11 @@
             <a href="{{ theme_variables.external_urls['blog'] }}">Blog</a>
           </li>
 
-          <li {%- if theme_pytorch_project == 'tutorials' %} class="active"{% endif %}>
+          <li {%- if theme_caer_project == 'tutorials' %} class="active"{% endif %}>
             <a href="{{ theme_variables.external_urls['tutorials'] }}">Tutorials</a>
           </li>
 
-          <li {%- if theme_pytorch_project == 'docs' %} class="active"{% endif %}>
+          <li {%- if theme_caer_project == 'docs' %} class="active"{% endif %}>
             <a href="{{ theme_variables.external_urls['docs'] }}">Docs</a>
           </li>
 
@@ -121,7 +121,7 @@
                 <!--
                 <a class="nav-dropdown-item" href="{{ theme_variables.external_urls['features'] }}">
                   <span class=dropdown-title>About</span>
-                  <p>Learn about pytorch’s features and capabilities</p>
+                  <p>Learn about caer’s features and capabilities</p>
                 </a>
                 -->
               </div>
@@ -141,7 +141,7 @@
 </div>
 
 
-<body class="pytorch-body">
+<body class="caer-body">
 
   {% block extrabody %} {% endblock %}
 
@@ -152,10 +152,10 @@
       <a href="#" class="toggle-table-of-contents" data-behavior="toggle-table-of-contents"></a>
     </div>
 
-    <nav data-toggle="wy-nav-shift" class="pytorch-left-menu" id="pytorch-left-menu">
-      <div class="pytorch-side-scroll">
-        <div class="pytorch-menu pytorch-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
-          <div class="pytorch-left-menu-search">
+    <nav data-toggle="wy-nav-shift" class="caer-left-menu" id="caer-left-menu">
+      <div class="caer-side-scroll">
+        <div class="caer-menu caer-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          <div class="caer-left-menu-search">
             {% block sidebartitle %}
 
             {% if theme_display_version %}
@@ -197,37 +197,37 @@
       </div>
     </nav>
 
-    <div class="pytorch-container">
-      <div class="pytorch-page-level-bar" id="pytorch-page-level-bar">
-        <div class="pytorch-breadcrumbs-wrapper">
+    <div class="caer-container">
+      <div class="caer-page-level-bar" id="caer-page-level-bar">
+        <div class="caer-breadcrumbs-wrapper">
           {% include "breadcrumbs.html" %}
         </div>
 
-        <div class="pytorch-shortcuts-wrapper" id="pytorch-shortcuts-wrapper">
+        <div class="caer-shortcuts-wrapper" id="caer-shortcuts-wrapper">
           Shortcuts
         </div>
       </div>
 
-      <section data-toggle="wy-nav-shift" id="pytorch-content-wrap" class="pytorch-content-wrap">
-        <div class="pytorch-content-left">
+      <section data-toggle="wy-nav-shift" id="caer-content-wrap" class="caer-content-wrap">
+        <div class="caer-content-left">
 
-        <!-- {% if theme_pytorch_project == 'tutorials' %}
+        <!-- {% if theme_caer_project == 'tutorials' %}
 
-          <div class="pytorch-call-to-action-links">
+          <div class="caer-call-to-action-links">
             <div id="tutorial-type">{{ pagename }}</div>
 
             <div id="google-colab-link">
-              <img class="call-to-action-img" src="{{ pathto('_static/images/pytorch-colab.svg', 1) }}"/>
+              <img class="call-to-action-img" src="{{ pathto('_static/images/caer-colab.svg', 1) }}"/>
               <div class="call-to-action-desktop-view">Run in Google Colab</div>
               <div class="call-to-action-mobile-view">Colab</div>
             </div>
             <div id="download-notebook-link">
-              <img class="call-to-action-notebook-img" src="{{ pathto('_static/images/pytorch-download.svg', 1) }}"/>
+              <img class="call-to-action-notebook-img" src="{{ pathto('_static/images/caer-download.svg', 1) }}"/>
               <div class="call-to-action-desktop-view">Download Notebook</div>
               <div class="call-to-action-mobile-view">Notebook</div>
             </div>
             <div id="github-view-link">
-              <img class="call-to-action-img" src="{{ pathto('_static/images/pytorch-github.svg', 1) }}"/>
+              <img class="call-to-action-img" src="{{ pathto('_static/images/caer-github.svg', 1) }}"/>
               <div class="call-to-action-desktop-view">View on GitHub</div>
               <div class="call-to-action-mobile-view">GitHub</div>
             </div>
@@ -243,7 +243,7 @@
           {% endif %}
             <div role="main" class="main-content" itemscope="itemscope" itemtype="http://schema.org/Article">
             {%- block document %}
-             <article itemprop="articleBody" id="pytorch-article" class="pytorch-article">
+             <article itemprop="articleBody" id="caer-article" class="caer-article">
               {% block body %}{% endblock %}
              </article>
              {% if self.comments()|trim %}
@@ -258,9 +258,9 @@
         {%- endblock %}
         </div>
 
-        <div class="pytorch-content-right" id="pytorch-content-right">
-          <div class="pytorch-right-menu" id="pytorch-right-menu">
-            <div class="pytorch-side-scroll" id="pytorch-side-scroll-right">
+        <div class="caer-content-right" id="caer-content-right">
+          <div class="caer-right-menu" id="caer-right-menu">
+            <div class="caer-side-scroll" id="caer-side-scroll-right">
               {{ toc }}
             </div>
           </div>
@@ -316,7 +316,7 @@
         
         <div class="col-md-4 text-center">
           <h2>Docs</h2>
-          <p>Access comprehensive developer documentation for pytorch</p>
+          <p>Access comprehensive developer documentation for caer</p>
           <a class="with-right-arrow" href="{{ theme_variables.external_urls['docs'] }}">View Docs</a>
         </div>
 
@@ -346,7 +346,7 @@
       <div class="footer-links-wrapper">
         <div class="footer-links-col">
           <ul>
-            <li class="list-title"><a href="{{ theme_variables.external_urls['home'] }}">pytorch</a></li>
+            <li class="list-title"><a href="{{ theme_variables.external_urls['home'] }}">caer</a></li>
             <li><a href="{{ theme_variables.external_urls['get_started'] }}">Get Started</a></li>
             <li><a href="{{ theme_variables.external_urls['features'] }}">Features</a></li>
             <li><a href="{{ theme_variables.external_urls['ecosystem'] }}">Ecosystem</a></li>
@@ -444,11 +444,11 @@
             <a href="{{ theme_variables.external_urls['blog'] }}">Blog</a>
           </li> -->
 
-          <li {%- if theme_pytorch_project == 'tutorials' %} class="active"{%- endif %}>
+          <li {%- if theme_caer_project == 'tutorials' %} class="active"{%- endif %}>
             <a href="{{ theme_variables.external_urls['tutorials'] }}">Tutorials</a>
           </li>
 
-          <li {%- if theme_pytorch_project == 'docs' %} class="active"{%- endif %}>
+          <li {%- if theme_caer_project == 'docs' %} class="active"{%- endif %}>
             <a href="{{ theme_variables.external_urls['docs'] }}">Docs</a>
           </li>
 
@@ -472,14 +472,14 @@
     $(document).ready(function() {
       mobileMenu.bind();
       mobileTOC.bind();
-      pytorchAnchors.bind();
+      caerAnchors.bind();
       sideMenus.bind();
       scrollToAnchor.bind();
       highlightNavigation.bind();
       mainMenuDropdown.bind();
 
       // Add class to links that have code blocks, since we cannot create links in code blocks
-      $("article.pytorch-article a span.pre").each(function(e) {
+      $("article.caer-article a span.pre").each(function(e) {
         $(this).closest("a").addClass("has-code");
       });
     })
