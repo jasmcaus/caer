@@ -9724,7 +9724,7 @@ pre {
 .header-logo {
   height: 23px;
   width: 93px;
-  background-image: url("../images/logo.svg");
+  background-image: url("../images/logo-full.svg");
   background-repeat: no-repeat;
   background-size: 93px 23px;
   display: block;
@@ -9737,7 +9737,7 @@ pre {
     position: absolute;
     height: 43px;
     width: 254px;
-    top: 4px;
+    /* top: 4px; */
     float: none;
   }
 }
@@ -10307,7 +10307,7 @@ ul.pytorch-breadcrumbs a {
 }
 
 .tutorials-header .header-logo {
-  background-image: url("../images/logo.svg");
+  background-image: url("../images/logo-full.svg");
 }
 .tutorials-header .main-menu ul li a {
   color: #262626;
