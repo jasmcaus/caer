@@ -18,10 +18,8 @@ This design philosophy makes Caer ideal for students, researchers, hobbyists and
    :maxdepth: 1
    :caption: First Steps
 
-   caer_at_a_glance.rst
    install.md
    community/CONTRIBUTING.md
-   readme
 
 
 .. toctree::
