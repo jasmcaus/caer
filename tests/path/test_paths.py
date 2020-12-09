@@ -125,18 +125,3 @@ def test_dirname():
     s = caer.path.dirname(__file__)
 
     assert s == os.path.dirname(__file__)
-
-
-def test_getcwd():
-    # raise AssertionError(f'CWD = {os.getcwd()}')
-    f = [] 
-    ff = os.path.join(os.getcwd(), 'tests', 'path', 'media')
-    for i in os.listdir(ff):
-        f.append(i)
-    
-    raise AssertionError(f'Problems with {f}')
-
-
-def test_exists():
-    ff = os.path.join(os.getcwd(), 'tests', 'path', 'media-files')
-    raise AssertionError(f'{ff} exists')
