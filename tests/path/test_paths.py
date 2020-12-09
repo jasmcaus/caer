@@ -130,7 +130,8 @@ def test_dirname():
 def test_getcwd():
     # raise AssertionError(f'CWD = {os.getcwd()}')
     f = [] 
-    for i in os.listdir(os.getcwd()):
+    ff = os.path.join(os.getcwd(), 'tests', 'path')
+    for i in os.listdir(ff):
         f.append(i)
     
     raise AssertionError(f'Problems with {f}')
