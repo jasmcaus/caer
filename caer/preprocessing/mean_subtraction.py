@@ -15,8 +15,7 @@
 from .._internal import _check_mean_sub_values
 from ..path import exists, list_images
 from ..io import imread 
-from ..opencv import mean, merge, split
-from ..utilities import npmean
+from ..core import mean, merge, split, npmean
 from ..jit.annotations import Tuple, List
 
 import numpy as np 

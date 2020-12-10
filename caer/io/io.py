@@ -13,7 +13,7 @@
 import cv2 as cv
 from urllib.request import urlopen
 
-from ..utilities import asarray
+from ..core import asarray
 from ..color import bgr_to_rgb, bgr_to_gray, rgb_to_bgr, IMREAD_COLOR
 from .._internal import _check_target_size
 from ..path import exists
