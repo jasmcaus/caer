@@ -20,7 +20,7 @@ def _get_path_to_data(name) -> str:
     return minijoin(here, name)
 
 
-def audio_mixer(target_size=None, rgb=False) -> np.ndarray:
+def audio_mixer(target_size=None, rgb=True) -> np.ndarray:
     r"""
         Returns a standard 640x427 image (RGB, by default) of an audio mixer.
 
@@ -35,7 +35,7 @@ def audio_mixer(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'audio_mixer.jpg', target_size=target_size, rgb=rgb)
 
 
-def bear(target_size=None, rgb=False) -> np.ndarray:
+def bear(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x427 image (RGB, by default) of a bear.
 
@@ -50,7 +50,7 @@ def bear(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'bear.jpg', target_size=target_size, rgb=rgb)
 
 
-def beverages(target_size=None, rgb=False) -> np.ndarray:
+def beverages(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x427 image (RGB, by default) of beverages.
 
@@ -65,7 +65,7 @@ def beverages(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'beverages.jpg', target_size=target_size, rgb=rgb)
 
 
-def black_cat(target_size=None, rgb=False) -> np.ndarray:
+def black_cat(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x427 image (RGB, by default) of a black cat.
 
@@ -80,7 +80,7 @@ def black_cat(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'black_cat.jpg', target_size=target_size, rgb=rgb)
 
 
-def blue_tang(target_size=None, rgb=False) -> np.ndarray:
+def blue_tang(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x414 image (RGB, by default) of a blue tang (a type of fish).
 
@@ -95,7 +95,7 @@ def blue_tang(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'blue_tang.jpg', target_size=target_size, rgb=rgb)
 
 
-def camera(target_size=None, rgb=False) -> np.ndarray:
+def camera(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x427 image (RGB, by default) of a camera.
 
@@ -110,7 +110,7 @@ def camera(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'camera.jpg', target_size=target_size, rgb=rgb)
 
 
-def controller(target_size=None, rgb=False) -> np.ndarray:
+def controller(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x427 image (RGB, by default) of a game controller.
 
@@ -125,7 +125,7 @@ def controller(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'controller.jpg', target_size=target_size, rgb=rgb)
 
 
-def drone(target_size=None, rgb=False) -> np.ndarray:
+def drone(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x358 image (RGB, by default) of a robotic drone.
 
@@ -140,7 +140,7 @@ def drone(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'drone.jpg', target_size=target_size, rgb=rgb)
 
 
-def dusk(target_size=None, rgb=False) -> np.ndarray:
+def dusk(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x427 image (RGB, by default) of a dusk landscape.
 
@@ -155,7 +155,7 @@ def dusk(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'dusk.jpg', target_size=target_size, rgb=rgb)
 
 
-def fighter_fish(target_size=None, rgb=False) -> np.ndarray:
+def fighter_fish(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x640 image (RGB, by default) of a fighter fish.
 
@@ -170,7 +170,7 @@ def fighter_fish(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'fighter_fish.jpg', target_size=target_size, rgb=rgb)
 
 
-def gold_fish(target_size=None, rgb=False) -> np.ndarray:
+def gold_fish(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x901 image (RGB, by default) of a gold fish.
 
@@ -185,7 +185,7 @@ def gold_fish(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'gold_fish.jpg', target_size=target_size, rgb=rgb)
 
 
-def green_controller(target_size=None, rgb=False) -> np.ndarray:
+def green_controller(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x512 image (RGB, by default) of a green game controller.
 
@@ -200,7 +200,7 @@ def green_controller(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'green_controller.jpg', target_size=target_size, rgb=rgb)
 
 
-def green_fish(target_size=None, rgb=False) -> np.ndarray:
+def green_fish(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x430 image (RGB, by default) of a green fish.
 
@@ -215,7 +215,7 @@ def green_fish(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'green_fish.jpg', target_size=target_size, rgb=rgb)
 
 
-def guitar(target_size=None, rgb=False) -> np.ndarray:
+def guitar(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x427 image (RGB, by default) of a guitar.
 
@@ -230,7 +230,7 @@ def guitar(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'guitar.jpg', target_size=target_size, rgb=rgb)
 
 
-def island(target_size=None, rgb=False) -> np.ndarray:
+def island(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x426 image (RGB, by default) of an island.
 
@@ -245,7 +245,7 @@ def island(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'island.jpg', target_size=target_size, rgb=rgb)
 
 
-def jellyfish(target_size=None, rgb=False) -> np.ndarray:
+def jellyfish(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x427 image (RGB, by default) of a jellyfish.
 
@@ -260,7 +260,7 @@ def jellyfish(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'jellyfish.jpg', target_size=target_size, rgb=rgb)
 
 
-def laptop(target_size=None, rgb=False) -> np.ndarray:
+def laptop(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x427 image (RGB, by default) of a laptop.
 
@@ -275,7 +275,7 @@ def laptop(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'laptop.jpg', target_size=target_size, rgb=rgb)
 
 
-def mountain(target_size=None, rgb=False) -> np.ndarray:
+def mountain(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x427 image (RGB, by default) of a mountain.
 
@@ -290,7 +290,7 @@ def mountain(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'mountain.jpg', target_size=target_size, rgb=rgb)
 
 
-def night(target_size=None, rgb=False) -> np.ndarray:
+def night(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x427 image (RGB, by default) of a night landscape.
 
@@ -305,7 +305,7 @@ def night(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'night.jpg', target_size=target_size, rgb=rgb)
 
 
-def puppies(target_size=None, rgb=False) -> np.ndarray:
+def puppies(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x427 image (RGB, by default) of a litter of puppies.
 
@@ -320,7 +320,7 @@ def puppies(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'puppies.jpg', target_size=target_size, rgb=rgb)
 
 
-def puppy(target_size=None, rgb=False) -> np.ndarray:
+def puppy(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x512 image (RGB, by default) of a puppy.
 
@@ -335,7 +335,7 @@ def puppy(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'puppy.jpg', target_size=target_size, rgb=rgb)
 
 
-def red_fish(target_size=None, rgb=False) -> np.ndarray:
+def red_fish(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x427 image (RGB, by default) of a red fish.
 
@@ -350,7 +350,7 @@ def red_fish(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'red_fish.jpg', target_size=target_size, rgb=rgb)
 
 
-def phone(target_size=None, rgb=False) -> np.ndarray:
+def phone(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x427 image (RGB, by default) of a rotary phone.
 
@@ -365,7 +365,7 @@ def phone(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'rotary_phone.jpg', target_size=target_size, rgb=rgb)
 
 
-def sea_turtle(target_size=None, rgb=False) -> np.ndarray:
+def sea_turtle(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x400 image (RGB, by default) of a sea turtle.
 
@@ -380,7 +380,7 @@ def sea_turtle(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'sea_turtle.jpg', target_size=target_size, rgb=rgb)
 
 
-def snow(target_size=None, rgb=False) -> np.ndarray:
+def snow(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x360 image (RGB, by default) of snow.
 
@@ -395,7 +395,7 @@ def snow(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'snow.jpg', target_size=target_size, rgb=rgb)
 
 
-def snowflake(target_size=None, rgb=False) -> np.ndarray:
+def snowflake(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x480 image (RGB, by default) of a snowflake.
 
@@ -410,7 +410,7 @@ def snowflake(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'snowflake.jpg', target_size=target_size, rgb=rgb)
 
 
-def sunrise(target_size=None, rgb=False) -> np.ndarray:
+def sunrise(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x427 image (RGB, by default) of a sunrise landscape.
 
@@ -425,7 +425,7 @@ def sunrise(target_size=None, rgb=False) -> np.ndarray:
     return imread(here+'sunrise.jpg', target_size=target_size, rgb=rgb)
 
 
-def tent(target_size=None, rgb=False) -> np.ndarray:
+def tent(target_size=None, rgb=True) -> np.ndarray:
     """
         Returns a standard 640x427 image (RGB, by default) of a tent.
 

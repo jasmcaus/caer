@@ -1,6 +1,9 @@
 # Caer Documentation
 Caer is a set of utility functions designed to help speed up your Computer Vision workflow. Functions inside `caer` will help reduce the number of calculation calls your code makes, ultimately making it neat, concise and readable.
 
+[Read the documentation here](http://caer.rtfd.io).
+
+<!-- 
 ## Overview
 - [Caer Version](#get-caer-version)
 - [Get Caer Functions](#get-all-caer-functions)
@@ -21,7 +24,6 @@ Caer is a set of utility functions designed to help speed up your Computer Visio
 
 ## Get Caer Version
 Use `caer.__version__` to get the current version number of your `caer` installation.
-
 
 ## Get all Caer functions
 `caer.get_caer_methods()` or `caer.get_caer_functions()` will return a tuple of all the available functions in your current installation of `caer`. 
@@ -141,12 +143,12 @@ Currently, `caer` supports converting an image from BGR to the RGB, Grayscale, H
 ## Image from URL
 ***Note: `caer.imread()` can read in images from URLs as well. This is the recommended method.***
 
-`caer.url_from_image()` reads in an image from a URL and returns it as an RGB image (if `rgb = True`) or BGR (if `rgb=False`)
+`caer.url_from_image()` reads in an image from a URL and returns it as an RGB image (if `rgb = True`) or BGR (if `rgb=True`)
 ```python
 # Returns an RGB image
 >> img_from_url_rgb = caer.url_from_image(url, rgb=True)
 # Returns a BGR image
->> img_from_url_bgr = caer.url_from_image(url, rgb=False)
+>> img_from_url_bgr = caer.url_from_image(url, rgb=True)
 ```
 
 
@@ -165,4 +167,4 @@ Currently, `caer` supports converting an image from BGR to the RGB, Grayscale, H
 `caer.train_val_split()` splits the training set (features, labels) into actual training and validation sets
 ```python
 >> X_train, y_train, X_val, y_val = caer.train_val_split(features, labels, val_ratio=.2)
-```
+``` -->

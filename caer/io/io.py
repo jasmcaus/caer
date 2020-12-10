@@ -26,7 +26,7 @@ __all__ = [
 ]
 
 
-def imread(image_path, target_size=None, channels=3, rgb=False, resize_factor=None, preserve_aspect_ratio=False):
+def imread(image_path, target_size=None, channels=3, rgb=True, resize_factor=None, preserve_aspect_ratio=False):
     """
         Loads in an image from `image_path`
         Arguments
@@ -35,7 +35,7 @@ def imread(image_path, target_size=None, channels=3, rgb=False, resize_factor=No
             channels: 1 (grayscale) or 3 (RGB/BGR). Default: 3
             rgb: Boolean to keep RGB ordering. Default: False
             resize_factor: Resizes the image using `resize_factor`. Default: None
-            preserve_aspect_ratio: Resizes image to `target_size` keeping aspect ratio. Some parts of the image may not be included. Default: False
+            preserved_aspect_ratio: Resized image to `target_size` keeping aspect ratio. Some parts of the image may not be included. Default: False
     """
     return _imread(image_path, target_size=target_size, channels=channels, rgb=rgb, resize_factor=resize_factor, preserve_aspect_ratio=preserve_aspect_ratio)
 
@@ -63,7 +63,7 @@ def imsave(path, img, rgb=True):
         raise ValueError('`img` needs to be an opencv-specific image. Try reading the image using `caer.imread()`. More support for additional platforms will follow. Check the Changelog for further details.')
 
 
-def _imread(image_path, target_size=None, channels=3, rgb=False, resize_factor=None, preserve_aspect_ratio=False):   
+def _imread(image_path, target_size=None, channels=3, rgb=True, resize_factor=None, preserve_aspect_ratio=False):   
     if target_size is not None:
         _ = _check_target_size(target_size)
         
@@ -78,7 +78,7 @@ def _imread(image_path, target_size=None, channels=3, rgb=False, resize_factor=N
         rgb = False
 
     try:
-        image_array = _url_to_image(image_path, rgb=False)
+        image_array = _url_to_image(image_path, rgb=True)
     except Exception:
         if exists(image_path):
             image_array = _read_image(image_path)
@@ -115,7 +115,7 @@ def _read_image(image_path):
     return cv.imread(image_path)
 
 
-def _url_to_image(url, rgb=False):
+def _url_to_image(url, rgb=True):
     # Converts the image to a Numpy array and reads it in OpenCV
     response = urlopen(url)
     image = asarray(bytearray(response.read()), dtype='uint8')
