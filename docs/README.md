@@ -36,7 +36,7 @@ Use `caer.__version__` to get the current version number of your `caer` installa
 - `channels`: 1 (convert to grayscale) or 3 (BGR/RGB). Default: 3
 - `rgb`: Boolean to decide if keep RGB (True) or BGR (False) formatting. Default: True
 - `resize_factor`: Resizes image using a specific integer/float. Default: None
-- `keep_aspect_ratio`: Resizes an image to `target_size` keeping the aspect ratio. Some parts of the image may not be included (such as margins of the image). Default: False
+- `preserve_aspect_ratio`: Resizes an image to `target_size` keeping the aspect ratio. Some parts of the image may not be included (such as margins of the image). Default: False
 ```python
 # BGR Image
 >> image = caer.imread(path, target_size=None, channels=3, rgb=False)
@@ -48,10 +48,10 @@ Use `caer.__version__` to get the current version number of your `caer` installa
 >> image = caer.imread(path, resize_ratio = .2, channels=3, rgb=True)
 
 # Image resized to (500,500) ignoring aspect ratio
->> image = caer.imread(path, target_size=(500,500), keep_aspect_ratio=False)
+>> image = caer.imread(path, target_size=(500,500), preserve_aspect_ratio=False)
 
 # Image resized to (500,500) keeping aspect ratio
->> image = caer.imread(path, target_size=(500,500), keep_aspect_ratio=True)
+>> image = caer.imread(path, target_size=(500,500), preserve_aspect_ratio=True)
 ```
 
 
@@ -104,10 +104,10 @@ If rotation point `rotPoint` is not specified, the image will be rotated around 
 >> image = caer.resize(image, resize_factor=.5)
 
 # Image resized to (500,500) ignoring aspect ratio
->> image = caer.resize(image, target_size=(500,500), keep_aspect_ratio=False)
+>> image = caer.resize(image, target_size=(500,500), preserve_aspect_ratio=False)
 
 # Image resized to (500,500) keeping aspect ratio
->> image = caer.resize(image, target_size=(500,500), keep_aspect_ratio=True)
+>> image = caer.resize(image, target_size=(500,500), preserve_aspect_ratio=True)
 ```
 
 
