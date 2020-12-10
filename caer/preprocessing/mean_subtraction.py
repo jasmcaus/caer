@@ -88,7 +88,7 @@ def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True, include_s
 
     for img_filepath in image_list:
         count += 1
-        img = imread(img_filepath, rgb=False)
+        img = imread(img_filepath, rgb=True)
 
         if channels == 3:
             b, g, r = mean(img.astype('float32'))[:3]
