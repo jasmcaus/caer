@@ -9,36 +9,11 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2020 The Caer Authors <http://github.com/jasmcaus>
 
+import caer
+import os  
 
-#pylint:disable=undefined-all-variable
+def test_imsave():
+    img = caer.data.sunrise()
 
-from .paths import (
-    list_media,
-    list_images,
-    list_videos,
-    listdir,
-    is_image,
-    is_video,
-    cwd,
-    exists,
-    get_size,
-    abspath,
-    isdir,
-    isfile,
-    mkdir,
-    osname,
-    chdir,
-    minijoin,
-    dirname,
-
-    # Variables
-    _acceptable_video_formats,
-    _acceptable_image_formats,
-
-    __all__ as __all_paths__,
-)
-
-__all__ = __all_paths__ 
-
-# Stop polluting the namespace
-del __all_paths__
+    assert caer.imsave('sunrise.jpg', img)
+    os.remove('sunrise.jpg')
