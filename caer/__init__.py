@@ -84,8 +84,11 @@ from .preprocess import (
 )
 
 # General utilities
-from .utilities import (
+from .core import (
     median,
+    mean,
+    merge,
+    split,
     npmean,
     to_array,
     array,
@@ -93,17 +96,10 @@ from .utilities import (
     train_val_split,
     get_classes_from_dir,
     sort_dict,
-    __all__ as __all_utilities__
+    get_opencv_version,
+    __all__ as __all_core__
 )
 
-# Opencv-specific methods
-from .opencv import (
-    get_opencv_version,
-    mean,
-    merge,
-    split,
-    __all__ as __all_opencv__
-)
 
 # General visualizations
 from .visualizations import (
@@ -165,7 +161,7 @@ from .filters import __all__ as __all_filters__
 from .transforms import __all__ as __all_transforms__
 
 
-__all__ = __all_globals__ + __all_opencv__ + __all_preprocess__ + __all_utilities__ + __all_visualizations__ + __all_filters__
+__all__ = __all_globals__ + __all_core__ + __all_preprocess__ + __all_visualizations__ + __all_filters__
 
 __all__ += __all_io__ 
 __all__ += __all_preprocessing__ 
@@ -187,9 +183,8 @@ del contributors
 
 ## Remove everything else 
 del __all_globals__ 
-del __all_opencv__ 
+del __all_core__ 
 del __all_preprocess__ 
-del __all_utilities__ 
 del __all_visualizations__
 
 del __all_preprocessing__ 
