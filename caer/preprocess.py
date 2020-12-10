@@ -14,7 +14,7 @@ import random
 import time
 import numpy as np
 
-from .utilities import get_classes_from_dir, to_array
+from .core import get_classes_from_dir, to_array
 from .io import imread
 from .preprocessing import MeanProcess
 from ._internal import _check_target_size, _check_mean_sub_values
