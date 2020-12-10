@@ -26,33 +26,51 @@ __all__ = [
 ]
 
 
-def imread(image_path, target_size=None, channels=3, rgb=True, resize_factor=None, preserve_aspect_ratio=False):
-    """
-        Loads in an image from `image_path`
-        Arguments
-            image_path: Filepath/URL to read the image from
-            target_size: Target image size
+def imread(image_path, target_size=None, channels=3, rgb=True, resize_factor=None, preserve_aspect_ratio=False, interpolation='bilinear'):
+    r"""
+        Loads in an image from `image_path` (can be either a system filepath or a URL)
+
+        Args:
+            image_path (str): Filepath/URL to read the image from.
+            target_size (tuple): Target size. Must be a tuple of ``(width, height)`` integer.
             channels: 1 (grayscale) or 3 (RGB/BGR). Default: 3
-            rgb: Boolean to keep RGB ordering. Default: False
-            resize_factor: Resizes the image using `resize_factor`. Default: None
-            preserved_aspect_ratio: Resized image to `target_size` keeping aspect ratio. Some parts of the image may not be included. Default: False
+            rgb: Boolean to keep RGB ordering. Default: True
+            resize_factor (float, tuple): Resizing Factor to employ. 
+                Shrinks the image if ``resize_factor < 1``
+                Enlarges the image if ``resize_factor > 1``
+            preserve_aspect_ratio (bool): Prevent aspect ratio distortion (employs center crop).
+            interpolation (str): Interpolation to use for resizing. Defaults to `'bilinear'`. 
+                Supports `'bilinear'`, `'bicubic'`, `'area'`, `'nearest'`.
+
+
+        Returns:
+            Array with shape ``(height, width, channels)``.
+
+        
+        Examples::
+            >> img = caer.imread(img_path) # From FilePath
+            >> img.shape
+            (427, 640, 3)
+
+            >> img = caer.imread('https://raw.githubusercontent.com/jasmcaus/caer/master/caer/data/beverages.jpg') # From URL
+            >> img.shape
+            (427, 640, 3)
+
     """
-    return _imread(image_path, target_size=target_size, channels=channels, rgb=rgb, resize_factor=resize_factor, preserve_aspect_ratio=preserve_aspect_ratio)
+    return _imread(image_path, target_size=target_size, channels=channels, rgb=rgb, resize_factor=resize_factor, preserve_aspect_ratio=preserve_aspect_ratio, interpolation=interpolation)
 
 
 def imsave(path, img, rgb=True):
-    """
+    r"""
         Saves an image file to `path`
             
-    Parameters
-    ----------
-        path : str
-            Filepath to check
+    Args:
+        path (str): Filepath to save the image to 
     
     Returns
-    ----------
         True; if `img` was written to `path`
         False; otherwise
+
     """
     try:
         # OpenCV uses BGR images and saves them as RGB images
@@ -63,7 +81,7 @@ def imsave(path, img, rgb=True):
         raise ValueError('`img` needs to be an opencv-specific image. Try reading the image using `caer.imread()`. More support for additional platforms will follow. Check the Changelog for further details.')
 
 
-def _imread(image_path, target_size=None, channels=3, rgb=True, resize_factor=None, preserve_aspect_ratio=False):   
+def _imread(image_path, target_size=None, channels=3, rgb=True, resize_factor=None, preserve_aspect_ratio=False, interpolation='bilinear'):   
     if target_size is not None:
         _ = _check_target_size(target_size)
         
@@ -76,6 +94,16 @@ def _imread(image_path, target_size=None, channels=3, rgb=True, resize_factor=No
     if rgb and channels == 1:
         # Preference goes to Grayscale
         rgb = False
+    
+    interpolation_methods = {
+        'nearest': 0,  '0': 0, 
+        'bilinear': 1, '1': 1,
+        'bicubic': 2,  '2': 2,
+        'area': 3,     '3': 3,
+    }
+
+    if interpolation not in interpolation_methods:
+        raise ValueError('Specify a valid interpolation type - area/nearest/bicubic/bilinear')
 
     try:
         image_array = _url_to_image(image_path, rgb=True)
@@ -94,7 +122,7 @@ def _imread(image_path, target_size=None, channels=3, rgb=True, resize_factor=No
         image_array = bgr_to_gray(image_array)
 
     if target_size is not None or resize_factor is not None:
-        image_array = resize(image_array, target_size, resize_factor=resize_factor, preserve_aspect_ratio=preserve_aspect_ratio)
+        image_array = resize(image_array, target_size, resize_factor=resize_factor, preserve_aspect_ratio=preserve_aspect_ratio, interpolation=interpolation)
 
     if rgb:
         image_array = bgr_to_rgb(image_array)
@@ -104,10 +132,12 @@ def _imread(image_path, target_size=None, channels=3, rgb=True, resize_factor=No
 
 def _read_image(image_path):
     """Reads an image located at `path` into an array.
-    Arguments:
+
+    Args:
         path (str): Path to a valid image file in the filesystem.
+
     Returns:
-        `numpy.ndarray` of size `(height, width, channels)`.
+        Array of size `(height, width, channels)`.
     """
     if not exists(image_path):
         raise FileNotFoundError('The image file was not found')
