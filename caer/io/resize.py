@@ -80,6 +80,7 @@ def resize(image, target_size=None, resize_factor=None, keep_aspect_ratio=False,
     """
     # Opencv uses the (h,w) format
     height, width = image.shape[:2]
+    interpolation = str(interpolation)
 
     if resize_factor is None:
         if target_size is None:
@@ -106,10 +107,10 @@ def resize(image, target_size=None, resize_factor=None, keep_aspect_ratio=False,
         new_shape = (int(resize_factor * width), int(resize_factor * height))
             
     interpolation_methods = {
-        'nearest': INTER_NEAREST, # 0
-        'bilinear': INTER_LINEAR, # 1
-        'bicubic': INTER_CUBIC, # 2
-        'area': INTER_AREA, # 3
+        'nearest': INTER_NEAREST, '0': INTER_NEAREST, # 0
+        'bilinear': INTER_LINEAR, '1': INTER_LINEAR,# 1
+        'bicubic': INTER_CUBIC, '2': INTER_CUBIC,# 2
+        'area': INTER_AREA, '3': INTER_AREA,# 3
     }
 
     if interpolation not in interpolation_methods:
@@ -184,15 +185,16 @@ def _resize_with_ratio(img, target_size, keep_aspect_ratio=False, interpolation=
         :param keep_aspect_ratio: Boolean to keep/ignore aspect ratio when resizing
     """
     _ = _check_target_size(target_size)
+    interpolation = str(interpolation)
     
     if not isinstance(keep_aspect_ratio, bool):
         raise ValueError('keep_aspect_ratio must be a boolean')
     
     interpolation_methods = {
-        'nearest': INTER_NEAREST, # 0
-        'bilinear': INTER_LINEAR, # 1
-        'bicubic': INTER_CUBIC, # 2
-        'area': INTER_AREA, # 3
+        'nearest': INTER_NEAREST, '0': INTER_NEAREST, # 0
+        'bilinear': INTER_LINEAR, '1': INTER_LINEAR,# 1
+        'bicubic': INTER_CUBIC, '2': INTER_CUBIC,# 2
+        'area': INTER_AREA, '3': INTER_AREA,# 3
     }
 
     if interpolation not in interpolation_methods:
