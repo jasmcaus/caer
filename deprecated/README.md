@@ -79,7 +79,7 @@ For more examples, see the [Caer demos](https://github.com/jasmcaus/caer/blob/ma
 
 # Contributing
 
-We appreciate all contributions, feedback and issues. If you plan to contribute new features, utility functions, or extensions to the core, please go through our [Contribution Guidelines][contributing].
+We appreciate all contributions, feedback and issues. If you plan to contribute new features, utility functions, or extensions to the core, please go through our [Contribution Guidelines][contributing]. By participating, you are expected to uphold the [Code of Conduct][coc].
 
 To contribute, start working through the `caer` codebase, read the [Documentation][docs], navigate to the [Issues][issues] tab and start looking through interesting issues. 
 
