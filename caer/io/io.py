@@ -26,7 +26,7 @@ __all__ = [
 ]
 
 
-def imread(image_path, target_size=None, channels=3, rgb=False, resize_factor=None, keep_aspect_ratio=False):
+def imread(image_path, target_size=None, channels=3, rgb=False, resize_factor=None, preserve_aspect_ratio=False):
     """
         Loads in an image from `image_path`
         Arguments
@@ -35,9 +35,9 @@ def imread(image_path, target_size=None, channels=3, rgb=False, resize_factor=No
             channels: 1 (grayscale) or 3 (RGB/BGR). Default: 3
             rgb: Boolean to keep RGB ordering. Default: False
             resize_factor: Resizes the image using `resize_factor`. Default: None
-            keep_aspect_ratio: Resized image to `target_size` keeping aspect ratio. Some parts of the image may not be included. Default: False
+            preserve_aspect_ratio: Resizes image to `target_size` keeping aspect ratio. Some parts of the image may not be included. Default: False
     """
-    return _imread(image_path, target_size=target_size, channels=channels, rgb=rgb, resize_factor=resize_factor, keep_aspect_ratio=keep_aspect_ratio)
+    return _imread(image_path, target_size=target_size, channels=channels, rgb=rgb, resize_factor=resize_factor, preserve_aspect_ratio=preserve_aspect_ratio)
 
 
 def imsave(path, img, rgb=True):
@@ -63,7 +63,7 @@ def imsave(path, img, rgb=True):
         raise ValueError('`img` needs to be an opencv-specific image. Try reading the image using `caer.imread()`. More support for additional platforms will follow. Check the Changelog for further details.')
 
 
-def _imread(image_path, target_size=None, channels=3, rgb=False, resize_factor=None, keep_aspect_ratio=False):   
+def _imread(image_path, target_size=None, channels=3, rgb=False, resize_factor=None, preserve_aspect_ratio=False):   
     if target_size is not None:
         _ = _check_target_size(target_size)
         
@@ -94,7 +94,7 @@ def _imread(image_path, target_size=None, channels=3, rgb=False, resize_factor=N
         image_array = bgr_to_gray(image_array)
 
     if target_size is not None or resize_factor is not None:
-        image_array = resize(image_array, target_size, resize_factor=resize_factor, keep_aspect_ratio=keep_aspect_ratio)
+        image_array = resize(image_array, target_size, resize_factor=resize_factor, preserve_aspect_ratio=preserve_aspect_ratio)
 
     if rgb:
         image_array = bgr_to_rgb(image_array)

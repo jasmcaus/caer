@@ -23,7 +23,7 @@ __all__ = [
 ]
 
 
-def resize(image, target_size=None, resize_factor=None, keep_aspect_ratio=False, interpolation='bilinear'):
+def resize(image, target_size=None, resize_factor=None, preserve_aspect_ratio=False, interpolation='bilinear'):
     r"""
         Resizes an image to a target_size without aspect ratio distortion.
         
@@ -36,7 +36,7 @@ def resize(image, target_size=None, resize_factor=None, keep_aspect_ratio=False,
         Alternatively, you may use:
         ```python
         size = (200,200)
-        img = caer.resize(img, target_size=size, keep_aspect_ratio=True)
+        img = caer.resize(img, target_size=size, preserve_aspect_ratio=True)
         ``` 
 
         Note:
@@ -51,7 +51,7 @@ def resize(image, target_size=None, resize_factor=None, keep_aspect_ratio=False,
             resize_factor (float, tuple): Resizing Factor to employ. 
                 Shrinks the image if ``resize_factor < 1``
                 Enlarges the image if ``resize_factor > 1``
-            keep_aspect_ratio (bool): Prevent aspect ratio distortion (employs center crop).
+            preserve_aspect_ratio (bool): Prevent aspect ratio distortion (employs center crop).
             interpolation (str): Interpolation to use for resizing. Defaults to `'bilinear'`. 
                 Supports `'bilinear'`, `'bicubic'`, `'area'`, `'nearest'`.
         
@@ -73,7 +73,7 @@ def resize(image, target_size=None, resize_factor=None, keep_aspect_ratio=False,
             >> resized_wf.shape
             (213, 320, 3)
 
-            >> resized = caer.resize(img, target_size=(200,200), keep_aspect_ratio=True) # Preserves aspect ratio
+            >> resized = caer.resize(img, target_size=(200,200), preserve_aspect_ratio=True) # Preserves aspect ratio
             >> resized.shape
             (200, 200, 3)
 
@@ -84,7 +84,7 @@ def resize(image, target_size=None, resize_factor=None, keep_aspect_ratio=False,
 
     if resize_factor is None:
         if target_size is None:
-            if keep_aspect_ratio:
+            if preserve_aspect_ratio:
                 raise ValueError('Specify a target size')
             else:
                 raise ValueError('Specify either a resize factor or target dimensions')
@@ -96,7 +96,7 @@ def resize(image, target_size=None, resize_factor=None, keep_aspect_ratio=False,
 
     if resize_factor is not None:
         target_size = None
-        keep_aspect_ratio = False 
+        preserve_aspect_ratio = False 
 
         if not isinstance(resize_factor, (int, float)):
             raise ValueError('resize_factor must be an integer or float')
@@ -116,8 +116,8 @@ def resize(image, target_size=None, resize_factor=None, keep_aspect_ratio=False,
     if interpolation not in interpolation_methods:
         raise ValueError('Specify a valid interpolation type - area/nearest/bicubic/bilinear')
 
-    if keep_aspect_ratio:
-        return _resize_with_ratio(image, target_size=target_size, keep_aspect_ratio=keep_aspect_ratio, interpolation=interpolation_methods[interpolation])
+    if preserve_aspect_ratio:
+        return _resize_with_ratio(image, target_size=target_size, preserve_aspect_ratio=preserve_aspect_ratio, interpolation=interpolation_methods[interpolation])
     else:
         width, height = new_shape[:2]
         return _cv2_resize(image, (width, height), interpolation=interpolation_methods[interpolation])
@@ -136,7 +136,7 @@ def smart_resize(img, target_size, interpolation='bilinear'):
         Alternatively, you may use:
         ```python
         size = (200,200)
-        img = caer.resize(img, target_size=size, keep_aspect_ratio=True)
+        img = caer.resize(img, target_size=size, preserve_aspect_ratio=True)
         ``` 
     
         Args:
@@ -158,7 +158,7 @@ def smart_resize(img, target_size, interpolation='bilinear'):
 
     """
 
-    return _resize_with_ratio(img, target_size=target_size, keep_aspect_ratio=True, interpolation=interpolation)
+    return _resize_with_ratio(img, target_size=target_size, preserve_aspect_ratio=True, interpolation=interpolation)
 
 
 def _cv2_resize(image, target_size, interpolation=None):
@@ -178,17 +178,17 @@ def _cv2_resize(image, target_size, interpolation=None):
     return cv.resize(image, dimensions, interpolation=interpolation)
 
 
-def _resize_with_ratio(img, target_size, keep_aspect_ratio=False, interpolation='bilinear'):
+def _resize_with_ratio(img, target_size, preserve_aspect_ratio=False, interpolation='bilinear'):
     """
         Resizes an image using advanced algorithms
         :param target_size: Tuple of size 2 in the format (width,height)
-        :param keep_aspect_ratio: Boolean to keep/ignore aspect ratio when resizing
+        :param preserve_aspect_ratio: Boolean to keep/ignore aspect ratio when resizing
     """
     _ = _check_target_size(target_size)
     interpolation = str(interpolation)
     
-    if not isinstance(keep_aspect_ratio, bool):
-        raise ValueError('keep_aspect_ratio must be a boolean')
+    if not isinstance(preserve_aspect_ratio, bool):
+        raise ValueError('preserve_aspect_ratio must be a boolean')
     
     interpolation_methods = {
         'nearest': INTER_NEAREST, '0': INTER_NEAREST, # 0
