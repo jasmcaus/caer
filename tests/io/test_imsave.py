@@ -10,11 +10,11 @@
 # Copyright (c) 2020 The Caer Authors <http://github.com/jasmcaus>
 
 import caer
-import os  
+# import os  
 
 def test_imsave():
     img = caer.data.sunrise()
 
     saved = caer.imsave('sunrise.jpg', img)
     assert saved == True
-    os.remove(os.path.join('io', 'sunrise.jpg'))
+    # os.remove(os.path.join('io', 'sunrise.jpg'))
