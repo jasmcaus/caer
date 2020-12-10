@@ -10,35 +10,26 @@
 # Copyright (c) 2020 The Caer Authors <http://github.com/jasmcaus>
 
 
-#pylint:disable=undefined-all-variable
+import caer 
+import os 
+import cv2 as cv 
+import numpy as np 
 
-from .paths import (
-    list_media,
-    list_images,
-    list_videos,
-    listdir,
-    is_image,
-    is_video,
-    cwd,
-    exists,
-    get_size,
-    abspath,
-    isdir,
-    isfile,
-    mkdir,
-    osname,
-    chdir,
-    minijoin,
-    dirname,
+here = os.path.dirname(os.path.dirname(__file__))
 
-    # Variables
-    _acceptable_video_formats,
-    _acceptable_image_formats,
 
-    __all__ as __all_paths__,
-)
+def test_imread():
+    test_img = os.path.join(here, 'data', 'beverages.jpg')
 
-__all__ = __all_paths__ 
+    img = caer.imread(test_img)
+    test_against = cv.imread(test_img) 
 
-# Stop polluting the namespace
-del __all_paths__
+    assert np.all(img == test_against)
+
+
+def test_gray():
+    test_img = os.path.join(here, 'data', 'green_fish.jpg')
+
+    img = caer.imread(test_img, channels=1)
+
+    assert len(img.shape) == 2
