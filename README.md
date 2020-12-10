@@ -68,6 +68,7 @@ $ pip install --upgrade caer
 # Resize the image to 400x400 while MAINTAINING aspect ratio
 >> resized = caer.resize(sunrise, target_size=(400,400), keep_aspect_ratio=True)
 ```
+<img src="examples/thumbs/resize-with-ratio.png" alt="caer.resize()" />
 
 For more examples, see the [Caer demos](https://github.com/jasmcaus/caer/blob/master/examples/).
 
