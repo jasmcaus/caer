@@ -15,5 +15,6 @@ import os
 def test_imsave():
     img = caer.data.sunrise()
 
-    assert caer.imsave('sunrise.jpg', img)
-    os.remove('sunrise.jpg')
+    saved = caer.imsave('sunrise.jpg', img)
+    assert saved == True
+    os.remove(os.path.join('io', 'sunrise.jpg'))
