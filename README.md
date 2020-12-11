@@ -14,11 +14,7 @@
 
 # Caer - Modern Computer Vision on the Fly
 
-Caer is a lightweight Computer Vision library for high-performance AI research. It simplifies your approach towards Computer Vision by abstracting away unnecessary boilerplate code enabling maximum flexibility. By offering powerful image and video processing algorithms, Caer provides both casual and advanced users with an elegant interface for Machine vision operations.
-
-It leverages the power of libraries like OpenCV and Pillow to speed up your Computer Vision workflow — making it ideal if you want to quickly test out something.
-
-This design philosophy makes Caer ideal for students, researchers, hobbyists and even experts in the fields of Deep Learning and Computer Vision to quickly prototype deep learning models or research ideas.
+Caer is a lightweight, scalable Computer Vision library for high-performance AI research. It simplifies your approach towards Computer Vision by abstracting away unnecessary boilerplate code giving you maximum flexibility to quickly prototype deep learning models or research ideas. Our design philosophy makes Caer ideal for students, researchers, hobbyists and even experts in the fields of Deep Learning and Computer Vision.
 
 
 ## Overview
@@ -51,14 +47,14 @@ See the Caer **[Installation][install]** guide for detailed installation instruc
 Currently, `caer` supports releases of Python 3.6 onwards; Python 2 is not supported (nor recommended). 
 To install the current release:
 
-```shell
+```bash
 $ pip install --upgrade caer
 ```
 
 
 # Getting Started
 
-## Examples
+## Minimal Example
 ```python
 >> import caer
 
@@ -72,11 +68,13 @@ $ pip install --upgrade caer
 
 For more examples, see the [Caer demos](https://github.com/jasmcaus/caer/blob/master/examples/).
 
+
 ## Resources
 
 - [**PyPi**](https://pypi.org/project/caer)
 - [**Documentation**](https://github.com/jasmcaus/caer/blob/master/docs/README.md)
 - [**Issue tracking**](https://github.com/jasmcaus/caer/issues)
+
 
 # Contributing
 
