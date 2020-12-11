@@ -12,6 +12,7 @@ dashsymbols.py
 Samples/*
 commit-at-large.py
 docs/build/*
+sunrise.jpg
 
 # PyPi 
 dist/*
