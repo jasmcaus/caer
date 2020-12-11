@@ -9,8 +9,11 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2020 The Caer Authors <http://github.com/jasmcaus>
 
+r"""
+    caer.transforms consists of 1) Color and 2) Position transforms for use.
+"""
 
-from .transform import (
+from .position import (
     hflip,
     vflip,
     hvflip,
