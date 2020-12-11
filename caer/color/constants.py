@@ -26,6 +26,9 @@ HSV2BGR = 54
 HSV2RGB = 55
 LAB2BGR = 56
 LAB2RGB = 57
+HLS2BGR = 60
+HLS2RGB = 61
+
 
 
 __all__ = [d for d in dir() if not d.startswith('_')]
