@@ -42,8 +42,8 @@ def audio_mixer(target_size=None, rgb=True) -> Tensor:
     return imread(here+'audio_mixer.jpg', target_size=target_size, rgb=rgb)
 
 
-def rbear(target_size=None, rgb=True) -> Tensor:
-    """
+def bear(target_size=None, rgb=True) -> Tensor:
+    r"""
         Returns a standard 640x427 image (RGB, by default) of a bear.
 
     Args:
