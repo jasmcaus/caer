@@ -26,17 +26,13 @@ This design philosophy makes Caer ideal for students, researchers, hobbyists and
    :maxdepth: 1
    :caption: Caer API
 
-   api/augment
    api/color
    api/data
-   api/distance
    api/filters
-   api/morph
+   api/io
    api/path
    api/preprocessing
-   api/segmentation
    api/transforms
-   api/utils
    api/video
 
 

@@ -125,20 +125,20 @@ Standard Test Images
 
 
 :hidden:`sea_turtle`
-~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
 .. autofunction:: sea_turtle
 
 
 :hidden:`snow`
-~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~
 .. autofunction:: snow
 
 
 :hidden:`sunrise`
-~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~
 .. autofunction:: sunrise
 
 
 :hidden:`tent`
-~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~
 .. autofunction:: tent
