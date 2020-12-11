@@ -11,6 +11,7 @@
 
 import numpy as np 
 import cv2 as cv 
+import random 
 
 from ..color import is_rgb_image, is_gray_image
 from .._internal import _check_target_size
@@ -29,6 +30,7 @@ __all__ = [
     'hflip',
     'vflip',
     'hvflip',
+    'rand_flip',
     'transpose',
     'scale',
     'rotate',
@@ -51,6 +53,15 @@ def vflip(img):
 def hvflip(img):
     return hflip(vflip(img))
 
+
+def rand_flip(img): 
+    p = random.uniform(0,1)
+
+    if p > 0.5:
+        return vflip(img)
+    else:
+        return hflip(img)
+        
 
 def transpose(img):
     if len(img.shape) > 2:
