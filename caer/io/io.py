@@ -48,7 +48,7 @@ def imread(image_path, target_size=None, channels=3, rgb=True, resize_factor=Non
 
         
         Examples::
-        
+
             >> img = caer.imread(img_path) # From FilePath
             >> img.shape
             (427, 640, 3)
@@ -69,8 +69,15 @@ def imsave(path, img, rgb=True):
         path (str): Filepath to save the image to 
     
     Returns
-        True; if `img` was written to `path`
-        False; otherwise
+        ``True``; if `img` was written to `path`
+
+        ``False``; otherwise
+
+    Examples::
+
+        >> img = caer.data.audio_mixer()
+        >> caer.imsave('audio_mixer.png', img)
+        True
 
     """
     try:

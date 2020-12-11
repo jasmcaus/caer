@@ -61,6 +61,7 @@ def resize(image, target_size=None, resize_factor=None, preserve_aspect_ratio=Fa
 
 
         Examples::
+
             >> img = caer.data.sunrise()
             >> img.shape
             (427, 640, 3)
@@ -149,6 +150,7 @@ def smart_resize(img, target_size, interpolation='bilinear'):
             Array with shape `(height, width, channels)`
 
         Examples::
+        
             >> img = caer.data.sunrise()
             >> img.shape
             (427, 640, 3)

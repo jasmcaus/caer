@@ -32,6 +32,12 @@ def audio_mixer(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.audio_mixer()
+        >> img.shape
+        (427, 640, 3)
+
     """
     return imread(here+'audio_mixer.jpg', target_size=target_size, rgb=rgb)
 
@@ -46,6 +52,12 @@ def bear(target_size=None, rgb=True) -> Tensor:
     
     Returns:
         Image array of shape ``(height, width, channels)``
+
+    Examples::
+
+        >> img = caer.data.bear()
+        >> img.shape
+        (427, 640, 3)
 
     """
     return imread(here+'bear.jpg', target_size=target_size, rgb=rgb)
@@ -62,6 +74,12 @@ def beverages(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.beverages()
+        >> img.shape
+        (427, 640, 3)
+        
     """
     return imread(here+'beverages.jpg', target_size=target_size, rgb=rgb)
 
@@ -77,6 +95,12 @@ def black_cat(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.black_cat()
+        >> img.shape
+        (427, 640, 3)
+        
     """
     return imread(here+'black_cat.jpg', target_size=target_size, rgb=rgb)
 
@@ -92,6 +116,12 @@ def blue_tang(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.audio_mixer()
+        >> img.shape
+        (414, 640, 3)
+        
     """
     return imread(here+'blue_tang.jpg', target_size=target_size, rgb=rgb)
 
@@ -107,6 +137,12 @@ def camera(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.camera()
+        >> img.shape
+        (427, 640, 3)
+        
     """
     return imread(here+'camera.jpg', target_size=target_size, rgb=rgb)
 
@@ -122,6 +158,12 @@ def controller(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.controller()
+        >> img.shape
+        (427, 640, 3)
+        
     """
     return imread(here+'controller.jpg', target_size=target_size, rgb=rgb)
 
@@ -137,6 +179,12 @@ def drone(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.drone()
+        >> img.shape
+        (358, 640, 3)
+        
     """
     return imread(here+'drone.jpg', target_size=target_size, rgb=rgb)
 
@@ -152,6 +200,12 @@ def dusk(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.dusk()
+        >> img.shape
+        (427, 640, 3)
+        
     """
     return imread(here+'dusk.jpg', target_size=target_size, rgb=rgb)
 
@@ -167,6 +221,12 @@ def fighter_fish(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.fighter_fish()
+        >> img.shape
+        (640, 640, 3)
+        
     """
     return imread(here+'fighter_fish.jpg', target_size=target_size, rgb=rgb)
 
@@ -182,6 +242,12 @@ def gold_fish(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.gold_fish()
+        >> img.shape
+        (901, 640, 3)
+        
     """
     return imread(here+'gold_fish.jpg', target_size=target_size, rgb=rgb)
 
@@ -197,6 +263,12 @@ def green_controller(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.green_controller()
+        >> img.shape
+        (512, 640, 3)
+        
     """
     return imread(here+'green_controller.jpg', target_size=target_size, rgb=rgb)
 
@@ -212,6 +284,12 @@ def green_fish(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.green_fish()
+        >> img.shape
+        (430, 640, 3)
+        
     """
     return imread(here+'green_fish.jpg', target_size=target_size, rgb=rgb)
 
@@ -227,6 +305,12 @@ def guitar(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.guitar()
+        >> img.shape
+        (427, 640, 3)
+        
     """
     return imread(here+'guitar.jpg', target_size=target_size, rgb=rgb)
 
@@ -242,6 +326,12 @@ def island(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.island()
+        >> img.shape
+        (426, 640, 3)
+        
     """
     return imread(here+'island.jpg', target_size=target_size, rgb=rgb)
 
@@ -257,6 +347,12 @@ def jellyfish(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.jellyfish()
+        >> img.shape
+        (427, 640, 3)
+        
     """
     return imread(here+'jellyfish.jpg', target_size=target_size, rgb=rgb)
 
@@ -272,6 +368,12 @@ def laptop(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.laptop()
+        >> img.shape
+        (427, 640, 3)
+        
     """
     return imread(here+'laptop.jpg', target_size=target_size, rgb=rgb)
 
@@ -287,6 +389,12 @@ def mountain(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.mountain()
+        >> img.shape
+        (427, 640, 3)
+        
     """
     return imread(here+'mountain.jpg', target_size=target_size, rgb=rgb)
 
@@ -302,6 +410,12 @@ def night(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.night()
+        >> img.shape
+        (427, 640, 3)
+        
     """
     return imread(here+'night.jpg', target_size=target_size, rgb=rgb)
 
@@ -317,6 +431,12 @@ def puppies(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.puppies()
+        >> img.shape
+        (427, 640, 3)
+        
     """
     return imread(here+'puppies.jpg', target_size=target_size, rgb=rgb)
 
@@ -332,6 +452,12 @@ def puppy(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.puppy()
+        >> img.shape
+        (512, 640, 3)
+        
     """
     return imread(here+'puppy.jpg', target_size=target_size, rgb=rgb)
 
@@ -347,6 +473,12 @@ def red_fish(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.red_fish()
+        >> img.shape
+        (427, 640, 3)
+        
     """
     return imread(here+'red_fish.jpg', target_size=target_size, rgb=rgb)
 
@@ -362,6 +494,12 @@ def phone(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.phone()
+        >> img.shape
+        (427, 640, 3)
+        
     """
     return imread(here+'rotary_phone.jpg', target_size=target_size, rgb=rgb)
 
@@ -377,6 +515,12 @@ def sea_turtle(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.sea_turtle()
+        >> img.shape
+        (400, 640, 3)
+        
     """
     return imread(here+'sea_turtle.jpg', target_size=target_size, rgb=rgb)
 
@@ -392,6 +536,12 @@ def snow(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.snow()
+        >> img.shape
+        (360, 640, 3)
+        
     """
     return imread(here+'snow.jpg', target_size=target_size, rgb=rgb)
 
@@ -407,6 +557,12 @@ def snowflake(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.snowflake()
+        >> img.shape
+        (480, 640, 3)
+        
     """
     return imread(here+'snowflake.jpg', target_size=target_size, rgb=rgb)
 
@@ -422,6 +578,12 @@ def sunrise(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.sunrise()
+        >> img.shape
+        (427, 640, 3)
+        
     """
     return imread(here+'sunrise.jpg', target_size=target_size, rgb=rgb)
 
@@ -437,6 +599,12 @@ def tent(target_size=None, rgb=True) -> Tensor:
     Returns:
         Image array of shape ``(height, width, channels)``
 
+    Examples::
+
+        >> img = caer.data.tent()
+        >> img.shape
+        (427, 640, 3)
+        
     """
     return imread(here+'tent.jpg', target_size=target_size, rgb=rgb)
 
