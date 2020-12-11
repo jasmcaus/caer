@@ -5,32 +5,42 @@ caer.io
 ===================
 .. currentmodule:: caer.io
 
-Reading Images
-----------------
+
+**Reading Images**
+----------------------
 
 :hidden:`imread`
 ~~~~~~~~~~~~~~~~~~
 .. autofunction:: imread
 
 
-Saving Images
-----------------
+-------------------------------------
+
+
+**Saving Images**
+----------------------
 
 :hidden:`imsave`
 ~~~~~~~~~~~~~~~~~~~
 .. autofunction:: imsave
 
 
-Resizing Images
-----------------
+-------------------------------------
+
+
+**Resizing Images**
+----------------------
 :hidden:`imread`
 ~~~~~~~~~~~~~~~~~~~
 
 .. autofunction:: resize
 
 
-Smart Resizing
-----------------
+-------------------------------------
+
+
+**Smart Resizing**
+----------------------
 :hidden:`smart_resize`
 ~~~~~~~~~~~~~~~~~~~~~~~~
 

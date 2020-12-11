@@ -10,7 +10,7 @@ caer.color
 ----------------------------------
 
 :hidden:`rgb_to_bgr`
-~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~
 .. autofunction:: rgb_to_bgr
 
 
@@ -28,6 +28,8 @@ caer.color
 ~~~~~~~~~~~~~~~~~~~~~~~
 .. autofunction:: rgb_to_bgr
 
+
+-----------------------------------------
 
 
 **From the BGR colorspace**
@@ -52,7 +54,7 @@ caer.color
 ~~~~~~~~~~~~~~~~~~~~~~~
 .. autofunction:: bgr_to_lab
 
-
+-----------------------------------------
 
 **From the HSV colorspace**
 ----------------------------------
@@ -74,7 +76,7 @@ caer.color
 ~~~~~~~~~~~~~~~~~~~~~~~
 .. autofunction:: hsv_to_lab
 
-
+-----------------------------------------
 
 **From the LAB colorspace**
 ----------------------------------
