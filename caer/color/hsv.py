@@ -14,13 +14,14 @@ import cv2 as cv
 import numpy as np 
 
 from .constants import HSV2BGR, HSV2RGB
-from .bgr import bgr_to_gray, bgr_to_lab, is_bgr_image
+from .bgr import bgr_to_gray, bgr_to_lab, bgr_to_hls, is_bgr_image
 
 __all__ = [
     'hsv_to_rgb',
     'hsv_to_bgr',
     'hsv_to_lab',
     'hsv_to_gray',
+    'hsv_to_hls',
     'is_hsv_image'
 ]
 
@@ -110,4 +111,26 @@ def hsv_to_lab(img) -> np.ndarray:
     bgr = hsv_to_bgr(img)
 
     return bgr_to_lab(bgr)
+
+
+def hsv_to_hls(img) -> np.ndarray:
+    r"""
+        Converts a HSV image to its HLS version
+
+    Args:
+        img (ndarray): Valid HSV image array
+    
+    Returns:
+        HLS Image (ndarray)
+    
+    Raises:
+        ValueError: If `img` is not of shape 3
+        
+    """
+    if not is_hsv_image(img):
+        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a HSV image to its HLS counterpart')
+
+    bgr = hsv_to_bgr(img)
+
+    return bgr_to_hls(bgr)
 

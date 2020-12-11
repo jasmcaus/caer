@@ -15,6 +15,7 @@ from .bgr import (
     bgr_to_hsv,
     bgr_to_lab,
     bgr_to_rgb,
+    bgr_to_hls,
     is_bgr_image,
     __all__ as __all_bgr__
 )
@@ -24,6 +25,7 @@ from .rgb import (
     rgb_to_hsv,
     rgb_to_lab,
     rgb_to_bgr,
+    rgb_to_hls,
     is_rgb_image,
     __all__ as __all_rgb__
 )

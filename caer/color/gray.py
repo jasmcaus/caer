@@ -12,15 +12,17 @@
 
 import cv2 as cv 
 import numpy as np 
+Tensor = np.ndarray 
 
 from .constants import GRAY2BGR, GRAY2RGB
-from .bgr import bgr_to_lab, bgr_to_hsv
+from .bgr import bgr_to_lab, bgr_to_hsv, bgr_to_hls
 
 __all__ = [
     'gray_to_rgb',
     'gray_to_bgr',
-    'gray_to_hsv',
     'gray_to_lab',
+    'gray_to_hsv',
+    'gray_to_hls',
     'is_gray_image'
 ]
 
@@ -29,7 +31,7 @@ def is_gray_image(img):
     return (len(img.shape) == 2) or (len(img.shape) == 3 and img.shape[-1] == 1)
 
 
-def gray_to_rgb(img) -> np.ndarray:
+def gray_to_rgb(img) -> Tensor:
     r"""
         Converts a Grayscale image to its RGB version
 
@@ -49,7 +51,7 @@ def gray_to_rgb(img) -> np.ndarray:
     return cv.cvtColor(img, GRAY2RGB)
 
 
-def gray_to_bgr(img) -> np.ndarray:
+def gray_to_bgr(img) -> Tensor:
     r"""
         Converts a Grayscale image to its BGR version
 
@@ -69,7 +71,7 @@ def gray_to_bgr(img) -> np.ndarray:
     return cv.cvtColor(img, GRAY2BGR)
 
 
-def gray_to_lab(img) -> np.ndarray:
+def gray_to_lab(img) -> Tensor:
     r"""
         Converts a Grayscale image to its LAB version
 
@@ -91,7 +93,7 @@ def gray_to_lab(img) -> np.ndarray:
     return bgr_to_lab(bgr)
 
 
-def gray_to_hsv(img) -> np.ndarray:
+def gray_to_hsv(img) -> Tensor:
     r"""
         Converts a Grayscale image to its HSV version
 
@@ -112,3 +114,24 @@ def gray_to_hsv(img) -> np.ndarray:
 
     return bgr_to_hsv(bgr)
 
+
+def gray_to_hls(img) -> Tensor:
+    r"""
+        Converts a Grayscale image to its HLS version
+
+    Args:
+        img (ndarray): Valid Grayscale image array
+    
+    Returns:
+        HLS Image (ndarray)
+    
+    Raises:
+        ValueError: If `img` is not of shape 2
+        
+    """
+    if not is_gray_image(img):
+        raise ValueError(f'Image of shape 2 expected. Found shape {len(img.shape)}. This method converts a LAB image to its HLS counterpart')
+
+    bgr = gray_to_bgr(img)
+
+    return bgr_to_hls(bgr)
