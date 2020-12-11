@@ -15,13 +15,17 @@ import numpy as np
 from collections import deque
 
 
+__all__ = [
+    'Stabilizer'
+]
+
 class Stabilizer:
-    """
-    This is an auxiliary class that enables Video Stabilization for vidgear with minimalistic latency, and at the expense
-    of little to no additional computational requirements.
-    The basic idea behind it is to tracks and save the salient feature array for the given number of frames and then uses
-    these anchor point to cancel out all perturbations relative to it for the incoming frames in the queue. This class relies
-    heavily on **Threaded Queue mode** for error-free & ultra-fast frame handling.
+    r"""
+        This is an auxiliary class that enables Video Stabilization for caer with minimalistic latency, and at the expense
+        of little to no additional computational requirements.
+        
+        The basic idea behind it is to tracks and save the salient feature array for the given number of frames and then uses
+        these anchor point to cancel out all perturbations relative to it for the incoming frames in the queue. This class relies heavily on **Threaded Queue mode** for error-free & ultra-fast frame handling.
     """
 
     def __init__(
@@ -304,9 +308,7 @@ class Stabilizer:
                 self.__crop_n_zoom : -self.__crop_n_zoom,
             ]
             # zoom stabilized frame
-            frame_stabilized = cv.resize(
-                frame_cropped, self.__frame_size[::-1], interpolation=interpolation
-            )
+            frame_stabilized = cv.resize(frame_cropped, self.__frame_size[::-1])
 
         # finally return stabilized frame
         return frame_stabilized

@@ -48,6 +48,7 @@ def imread(image_path, target_size=None, channels=3, rgb=True, resize_factor=Non
 
         
         Examples::
+        
             >> img = caer.imread(img_path) # From FilePath
             >> img.shape
             (427, 640, 3)
