@@ -48,6 +48,15 @@ from .hsv import (
     __all__ as __all_hsv__
 )
 
+from .hls import (
+    hls_to_gray,
+    hls_to_rgb,
+    hls_to_lab,
+    hls_to_bgr,
+    is_hls_image,
+    __all__ as __all_hls__
+)
+
 from .lab import (
     lab_to_gray,
     lab_to_rgb,
@@ -73,10 +82,12 @@ from .constants import (
     LAB2RGB,
     GRAY2BGR,
     GRAY2RGB,
+    HLS2BGR,
+    HLS2RGB,
     __all__ as __all_const__
 )
 
-__all__ = __all_const__ + __all_rgb__ + __all_gray__ + __all_bgr__ + __all_hsv__ + __all_lab__
+__all__ = __all_const__ + __all_rgb__ + __all_hls__+ __all_gray__ + __all_bgr__ + __all_hsv__ + __all_lab__
 
 # Don't pollute namespace
 del __all_const__
@@ -85,3 +96,4 @@ del __all_rgb__
 del __all_gray__
 del __all_hsv__
 del __all_lab__
+del __all_hls__
