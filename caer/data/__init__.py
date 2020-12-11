@@ -42,7 +42,7 @@ def audio_mixer(target_size=None, rgb=True) -> Tensor:
     return imread(here+'audio_mixer.jpg', target_size=target_size, rgb=rgb)
 
 
-def bear(target_size=None, rgb=True) -> Tensor:
+def rbear(target_size=None, rgb=True) -> Tensor:
     """
         Returns a standard 640x427 image (RGB, by default) of a bear.
 
@@ -64,7 +64,7 @@ def bear(target_size=None, rgb=True) -> Tensor:
 
 
 def beverages(target_size=None, rgb=True) -> Tensor:
-    """
+    r"""
         Returns a standard 640x427 image (RGB, by default) of beverages.
 
     Args:
@@ -85,7 +85,7 @@ def beverages(target_size=None, rgb=True) -> Tensor:
 
 
 def black_cat(target_size=None, rgb=True) -> Tensor:
-    """
+    r"""
         Returns a standard 640x427 image (RGB, by default) of a black cat.
 
     Args:
@@ -106,7 +106,7 @@ def black_cat(target_size=None, rgb=True) -> Tensor:
 
 
 def blue_tang(target_size=None, rgb=True) -> Tensor:
-    """
+    r"""
         Returns a standard 640x414 image (RGB, by default) of a blue tang (a type of fish).
 
     Args:
@@ -127,7 +127,7 @@ def blue_tang(target_size=None, rgb=True) -> Tensor:
 
 
 def camera(target_size=None, rgb=True) -> Tensor:
-    """
+    r"""
         Returns a standard 640x427 image (RGB, by default) of a camera.
 
     Args:
@@ -148,7 +148,7 @@ def camera(target_size=None, rgb=True) -> Tensor:
 
 
 def controller(target_size=None, rgb=True) -> Tensor:
-    """
+    r"""
         Returns a standard 640x427 image (RGB, by default) of a game controller.
 
     Args:
@@ -169,7 +169,7 @@ def controller(target_size=None, rgb=True) -> Tensor:
 
 
 def drone(target_size=None, rgb=True) -> Tensor:
-    """
+    r"""
         Returns a standard 640x358 image (RGB, by default) of a robotic drone.
 
     Args:
@@ -190,7 +190,7 @@ def drone(target_size=None, rgb=True) -> Tensor:
 
 
 def dusk(target_size=None, rgb=True) -> Tensor:
-    """
+    r"""
         Returns a standard 640x427 image (RGB, by default) of a dusk landscape.
 
     Args:
@@ -211,7 +211,7 @@ def dusk(target_size=None, rgb=True) -> Tensor:
 
 
 def fighter_fish(target_size=None, rgb=True) -> Tensor:
-    """
+    r"""
         Returns a standard 640x640 image (RGB, by default) of a fighter fish.
 
     Args:
@@ -232,7 +232,7 @@ def fighter_fish(target_size=None, rgb=True) -> Tensor:
 
 
 def gold_fish(target_size=None, rgb=True) -> Tensor:
-    """
+    r"""
         Returns a standard 640x901 image (RGB, by default) of a gold fish.
 
     Args:
@@ -253,7 +253,7 @@ def gold_fish(target_size=None, rgb=True) -> Tensor:
 
 
 def green_controller(target_size=None, rgb=True) -> Tensor:
-    """
+    r"""
         Returns a standard 640x512 image (RGB, by default) of a green game controller.
 
     Args:
@@ -274,7 +274,7 @@ def green_controller(target_size=None, rgb=True) -> Tensor:
 
 
 def green_fish(target_size=None, rgb=True) -> Tensor:
-    """
+    r"""
         Returns a standard 640x430 image (RGB, by default) of a green fish.
 
     Args:
@@ -295,7 +295,7 @@ def green_fish(target_size=None, rgb=True) -> Tensor:
 
 
 def guitar(target_size=None, rgb=True) -> Tensor:
-    """
+    r"""
         Returns a standard 640x427 image (RGB, by default) of a guitar.
 
     Args:
@@ -316,7 +316,7 @@ def guitar(target_size=None, rgb=True) -> Tensor:
 
 
 def island(target_size=None, rgb=True) -> Tensor:
-    """
+    r"""
         Returns a standard 640x426 image (RGB, by default) of an island.
 
     Args:
@@ -337,7 +337,7 @@ def island(target_size=None, rgb=True) -> Tensor:
 
 
 def jellyfish(target_size=None, rgb=True) -> Tensor:
-    """
+    r"""
         Returns a standard 640x427 image (RGB, by default) of a jellyfish.
 
     Args:
@@ -358,7 +358,7 @@ def jellyfish(target_size=None, rgb=True) -> Tensor:
 
 
 def laptop(target_size=None, rgb=True) -> Tensor:
-    """
+    r"""
         Returns a standard 640x427 image (RGB, by default) of a laptop.
 
     Args:
@@ -379,7 +379,7 @@ def laptop(target_size=None, rgb=True) -> Tensor:
 
 
 def mountain(target_size=None, rgb=True) -> Tensor:
-    """
+    r"""
         Returns a standard 640x427 image (RGB, by default) of a mountain.
 
     Args:
@@ -400,7 +400,7 @@ def mountain(target_size=None, rgb=True) -> Tensor:
 
 
 def night(target_size=None, rgb=True) -> Tensor:
-    """
+    r"""
         Returns a standard 640x427 image (RGB, by default) of a night landscape.
 
     Args:
@@ -421,7 +421,7 @@ def night(target_size=None, rgb=True) -> Tensor:
 
 
 def puppies(target_size=None, rgb=True) -> Tensor:
-    """
+    r"""
         Returns a standard 640x427 image (RGB, by default) of a litter of puppies.
 
     Args:
@@ -442,7 +442,7 @@ def puppies(target_size=None, rgb=True) -> Tensor:
 
 
 def puppy(target_size=None, rgb=True) -> Tensor:
-    """
+    r"""
         Returns a standard 640x512 image (RGB, by default) of a puppy.
 
     Args:
@@ -463,7 +463,7 @@ def puppy(target_size=None, rgb=True) -> Tensor:
 
 
 def red_fish(target_size=None, rgb=True) -> Tensor:
-    """
+    r"""
         Returns a standard 640x427 image (RGB, by default) of a red fish.
 
     Args:
@@ -484,7 +484,7 @@ def red_fish(target_size=None, rgb=True) -> Tensor:
 
 
 def phone(target_size=None, rgb=True) -> Tensor:
-    """
+    r"""
         Returns a standard 640x427 image (RGB, by default) of a rotary phone.
 
     Args:
@@ -505,7 +505,7 @@ def phone(target_size=None, rgb=True) -> Tensor:
 
 
 def sea_turtle(target_size=None, rgb=True) -> Tensor:
-    """
+    r"""
         Returns a standard 640x400 image (RGB, by default) of a sea turtle.
 
     Args:
@@ -526,7 +526,7 @@ def sea_turtle(target_size=None, rgb=True) -> Tensor:
 
 
 def snow(target_size=None, rgb=True) -> Tensor:
-    """
+    r"""
         Returns a standard 640x360 image (RGB, by default) of snow.
 
     Args:
@@ -547,7 +547,7 @@ def snow(target_size=None, rgb=True) -> Tensor:
 
 
 def snowflake(target_size=None, rgb=True) -> Tensor:
-    """
+    r"""
         Returns a standard 640x480 image (RGB, by default) of a snowflake.
 
     Args:
@@ -568,7 +568,7 @@ def snowflake(target_size=None, rgb=True) -> Tensor:
 
 
 def sunrise(target_size=None, rgb=True) -> Tensor:
-    """
+    f"""
         Returns a standard 640x427 image (RGB, by default) of a sunrise landscape.
 
     Args:
@@ -589,7 +589,7 @@ def sunrise(target_size=None, rgb=True) -> Tensor:
 
 
 def tent(target_size=None, rgb=True) -> Tensor:
-    """
+    r"""
         Returns a standard 640x427 image (RGB, by default) of a tent.
 
     Args:
