@@ -568,7 +568,7 @@ def snowflake(target_size=None, rgb=True) -> Tensor:
 
 
 def sunrise(target_size=None, rgb=True) -> Tensor:
-    f"""
+    r"""
         Returns a standard 640x427 image (RGB, by default) of a sunrise landscape.
 
     Args:
