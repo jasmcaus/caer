@@ -423,7 +423,7 @@ def sunrise(target_size=None, rgb=True) -> np.ndarray:
 
     """
     return imread(here+'sunrise.jpg', target_size=target_size, rgb=rgb)
-
+    
 
 def tent(target_size=None, rgb=True) -> np.ndarray:
     """
@@ -467,7 +467,6 @@ __all__ = [d for d in dir() if not d.startswith('_')]
 #     'phone',
 #     'sea_turtle',
 #     'snow',
-#     'sea_turtle',
 #     'sunrise',
 #     'tent'
 # ]
