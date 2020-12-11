@@ -17,6 +17,7 @@ from .position import (
     hflip,
     vflip,
     hvflip,
+    rand_flip,
     scale,
     translate,
     transpose,

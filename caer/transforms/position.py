@@ -55,13 +55,13 @@ def hvflip(img):
 
 
 def rand_flip(img): 
-    p = random.uniform(0,1)
+    p = random.uniform(0, 1)
 
     if p > 0.5:
         return vflip(img)
     else:
         return hflip(img)
-        
+
 
 def transpose(img):
     if len(img.shape) > 2:
