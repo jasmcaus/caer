@@ -13,7 +13,7 @@ import caer
 import numpy as np 
 
 def test_gray_to_rgb():
-    img = caer.data.drone(channels=1)
+    img = caer.data.drone(gray=True)
 
     rgb = caer.gray_to_rgb(img)
 
@@ -22,7 +22,7 @@ def test_gray_to_rgb():
 
 
 def test_gray_to_bgr():
-    img = caer.data.drone(channels=1)
+    img = caer.data.drone(gray=True)
 
     bgr = caer.gray_to_bgr(img)
 
@@ -31,7 +31,7 @@ def test_gray_to_bgr():
 
 
 def test_gray_to_hsv():
-    img = caer.data.drone(channels=1)
+    img = caer.data.drone(gray=True)
 
     hsv = caer.gray_to_hsv(img)
 
@@ -40,7 +40,7 @@ def test_gray_to_hsv():
 
 
 def test_gray_to_lab():
-    img = caer.data.drone(channels=1)
+    img = caer.data.drone(gray=True)
 
     lab = caer.gray_to_lab(img)
 

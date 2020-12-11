@@ -21,7 +21,7 @@ def _get_path_to_data(name) -> str:
     return minijoin(here, name)
 
 
-def audio_mixer(target_size=None, rgb=True) -> Tensor:
+def audio_mixer(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x427 image (RGB, by default) of an audio mixer.
 
@@ -39,10 +39,10 @@ def audio_mixer(target_size=None, rgb=True) -> Tensor:
         (427, 640, 3)
 
     """
-    return imread(here+'audio_mixer.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'audio_mixer.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def bear(target_size=None, rgb=True) -> Tensor:
+def bear(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x427 image (RGB, by default) of a bear.
 
@@ -60,10 +60,10 @@ def bear(target_size=None, rgb=True) -> Tensor:
         (427, 640, 3)
 
     """
-    return imread(here+'bear.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'bear.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def beverages(target_size=None, rgb=True) -> Tensor:
+def beverages(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x427 image (RGB, by default) of beverages.
 
@@ -81,10 +81,10 @@ def beverages(target_size=None, rgb=True) -> Tensor:
         (427, 640, 3)
         
     """
-    return imread(here+'beverages.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'beverages.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def black_cat(target_size=None, rgb=True) -> Tensor:
+def black_cat(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x427 image (RGB, by default) of a black cat.
 
@@ -102,10 +102,10 @@ def black_cat(target_size=None, rgb=True) -> Tensor:
         (427, 640, 3)
         
     """
-    return imread(here+'black_cat.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'black_cat.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def blue_tang(target_size=None, rgb=True) -> Tensor:
+def blue_tang(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x414 image (RGB, by default) of a blue tang (a type of fish).
 
@@ -123,10 +123,10 @@ def blue_tang(target_size=None, rgb=True) -> Tensor:
         (414, 640, 3)
         
     """
-    return imread(here+'blue_tang.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'blue_tang.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def camera(target_size=None, rgb=True) -> Tensor:
+def camera(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x427 image (RGB, by default) of a camera.
 
@@ -144,10 +144,10 @@ def camera(target_size=None, rgb=True) -> Tensor:
         (427, 640, 3)
         
     """
-    return imread(here+'camera.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'camera.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def controller(target_size=None, rgb=True) -> Tensor:
+def controller(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x427 image (RGB, by default) of a game controller.
 
@@ -165,10 +165,10 @@ def controller(target_size=None, rgb=True) -> Tensor:
         (427, 640, 3)
         
     """
-    return imread(here+'controller.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'controller.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def drone(target_size=None, rgb=True) -> Tensor:
+def drone(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x358 image (RGB, by default) of a robotic drone.
 
@@ -186,10 +186,10 @@ def drone(target_size=None, rgb=True) -> Tensor:
         (358, 640, 3)
         
     """
-    return imread(here+'drone.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'drone.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def dusk(target_size=None, rgb=True) -> Tensor:
+def dusk(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x427 image (RGB, by default) of a dusk landscape.
 
@@ -207,10 +207,10 @@ def dusk(target_size=None, rgb=True) -> Tensor:
         (427, 640, 3)
         
     """
-    return imread(here+'dusk.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'dusk.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def fighter_fish(target_size=None, rgb=True) -> Tensor:
+def fighter_fish(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x640 image (RGB, by default) of a fighter fish.
 
@@ -228,10 +228,10 @@ def fighter_fish(target_size=None, rgb=True) -> Tensor:
         (640, 640, 3)
         
     """
-    return imread(here+'fighter_fish.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'fighter_fish.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def gold_fish(target_size=None, rgb=True) -> Tensor:
+def gold_fish(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x901 image (RGB, by default) of a gold fish.
 
@@ -249,10 +249,10 @@ def gold_fish(target_size=None, rgb=True) -> Tensor:
         (901, 640, 3)
         
     """
-    return imread(here+'gold_fish.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'gold_fish.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def green_controller(target_size=None, rgb=True) -> Tensor:
+def green_controller(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x512 image (RGB, by default) of a green game controller.
 
@@ -270,10 +270,10 @@ def green_controller(target_size=None, rgb=True) -> Tensor:
         (512, 640, 3)
         
     """
-    return imread(here+'green_controller.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'green_controller.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def green_fish(target_size=None, rgb=True) -> Tensor:
+def green_fish(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x430 image (RGB, by default) of a green fish.
 
@@ -291,10 +291,10 @@ def green_fish(target_size=None, rgb=True) -> Tensor:
         (430, 640, 3)
         
     """
-    return imread(here+'green_fish.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'green_fish.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def guitar(target_size=None, rgb=True) -> Tensor:
+def guitar(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x427 image (RGB, by default) of a guitar.
 
@@ -312,10 +312,10 @@ def guitar(target_size=None, rgb=True) -> Tensor:
         (427, 640, 3)
         
     """
-    return imread(here+'guitar.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'guitar.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def island(target_size=None, rgb=True) -> Tensor:
+def island(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x426 image (RGB, by default) of an island.
 
@@ -333,10 +333,10 @@ def island(target_size=None, rgb=True) -> Tensor:
         (426, 640, 3)
         
     """
-    return imread(here+'island.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'island.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def jellyfish(target_size=None, rgb=True) -> Tensor:
+def jellyfish(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x427 image (RGB, by default) of a jellyfish.
 
@@ -354,10 +354,10 @@ def jellyfish(target_size=None, rgb=True) -> Tensor:
         (427, 640, 3)
         
     """
-    return imread(here+'jellyfish.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'jellyfish.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def laptop(target_size=None, rgb=True) -> Tensor:
+def laptop(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x427 image (RGB, by default) of a laptop.
 
@@ -375,10 +375,10 @@ def laptop(target_size=None, rgb=True) -> Tensor:
         (427, 640, 3)
         
     """
-    return imread(here+'laptop.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'laptop.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def mountain(target_size=None, rgb=True) -> Tensor:
+def mountain(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x427 image (RGB, by default) of a mountain.
 
@@ -396,10 +396,10 @@ def mountain(target_size=None, rgb=True) -> Tensor:
         (427, 640, 3)
         
     """
-    return imread(here+'mountain.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'mountain.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def night(target_size=None, rgb=True) -> Tensor:
+def night(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x427 image (RGB, by default) of a night landscape.
 
@@ -417,10 +417,10 @@ def night(target_size=None, rgb=True) -> Tensor:
         (427, 640, 3)
         
     """
-    return imread(here+'night.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'night.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def puppies(target_size=None, rgb=True) -> Tensor:
+def puppies(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x427 image (RGB, by default) of a litter of puppies.
 
@@ -438,10 +438,10 @@ def puppies(target_size=None, rgb=True) -> Tensor:
         (427, 640, 3)
         
     """
-    return imread(here+'puppies.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'puppies.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def puppy(target_size=None, rgb=True) -> Tensor:
+def puppy(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x512 image (RGB, by default) of a puppy.
 
@@ -459,10 +459,10 @@ def puppy(target_size=None, rgb=True) -> Tensor:
         (512, 640, 3)
         
     """
-    return imread(here+'puppy.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'puppy.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def red_fish(target_size=None, rgb=True) -> Tensor:
+def red_fish(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x427 image (RGB, by default) of a red fish.
 
@@ -480,10 +480,10 @@ def red_fish(target_size=None, rgb=True) -> Tensor:
         (427, 640, 3)
         
     """
-    return imread(here+'red_fish.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'red_fish.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def phone(target_size=None, rgb=True) -> Tensor:
+def phone(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x427 image (RGB, by default) of a rotary phone.
 
@@ -501,10 +501,10 @@ def phone(target_size=None, rgb=True) -> Tensor:
         (427, 640, 3)
         
     """
-    return imread(here+'rotary_phone.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'rotary_phone.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def sea_turtle(target_size=None, rgb=True) -> Tensor:
+def sea_turtle(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x400 image (RGB, by default) of a sea turtle.
 
@@ -522,10 +522,10 @@ def sea_turtle(target_size=None, rgb=True) -> Tensor:
         (400, 640, 3)
         
     """
-    return imread(here+'sea_turtle.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'sea_turtle.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def snow(target_size=None, rgb=True) -> Tensor:
+def snow(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x360 image (RGB, by default) of snow.
 
@@ -543,10 +543,10 @@ def snow(target_size=None, rgb=True) -> Tensor:
         (360, 640, 3)
         
     """
-    return imread(here+'snow.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'snow.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def snowflake(target_size=None, rgb=True) -> Tensor:
+def snowflake(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x480 image (RGB, by default) of a snowflake.
 
@@ -564,10 +564,10 @@ def snowflake(target_size=None, rgb=True) -> Tensor:
         (480, 640, 3)
         
     """
-    return imread(here+'snowflake.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'snowflake.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def sunrise(target_size=None, rgb=True) -> Tensor:
+def sunrise(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x427 image (RGB, by default) of a sunrise landscape.
 
@@ -585,10 +585,10 @@ def sunrise(target_size=None, rgb=True) -> Tensor:
         (427, 640, 3)
         
     """
-    return imread(here+'sunrise.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'sunrise.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
-def tent(target_size=None, rgb=True) -> Tensor:
+def tent(target_size=None, rgb=True, gray=False) -> Tensor:
     r"""
         Returns a standard 640x427 image (RGB, by default) of a tent.
 
@@ -606,7 +606,7 @@ def tent(target_size=None, rgb=True) -> Tensor:
         (427, 640, 3)
         
     """
-    return imread(here+'tent.jpg', target_size=target_size, rgb=rgb)
+    return imread(here+'tent.jpg', target_size=target_size, rgb=rgb, gray=gray)
 
 
 __all__ = [d for d in dir() if not d.startswith('_')]
