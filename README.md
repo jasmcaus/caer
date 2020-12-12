@@ -14,7 +14,7 @@
 
 # Caer - Modern Computer Vision on the Fly
 
-Caer is a *lightweight, scalable* Computer Vision library for high-performance AI research. It simplifies your approach towards Computer Vision by abstracting away unnecessary boilerplate code giving you maximum flexibility to quickly prototype deep learning models or research ideas. 
+Caer is a *lightweight, scalable* Computer Vision library for high-performance AI research. It simplifies your approach towards Computer Vision by abstracting away unnecessary boilerplate code giving you the flexibility to quickly prototype deep learning models or research ideas. 
 
 Our design philosophy makes Caer ideal for students, researchers, hobbyists and even experts in the fields of Deep Learning and Computer Vision.
 
