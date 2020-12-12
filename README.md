@@ -89,7 +89,7 @@ Current contributors can be viewed either from the [Contributors][contributors] 
 # Asking for help
 If you have any questions, please:
 1. [Read the docs](https://caer.rtfd.io/en/latest/).
-2. [Look it up in our Github Discussions (or add a new question)](https://github.com/jasmcaus/caer/discussions)
+2. [Look it up in our Github Discussions (or add a new question)](https://github.com/jasmcaus/caer/discussions).
 2. [Search through the issues](https://github.com/jasmcaus/caer/issues).
 
 
