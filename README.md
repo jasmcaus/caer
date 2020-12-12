@@ -86,8 +86,8 @@ To contribute, start working through the `caer` codebase, read the [Documentatio
 Current contributors can be viewed either from the [Contributors][contributors] file or by using the `caer.__contributors__` command.
 
 
-### Asking for help
-If you have any questions please:
+# Asking for help
+If you have any questions, please:
 1. [Read the docs](https://caer.rtfd.io/en/latest/).
 2. [Look it up in our Github Discussions (or add a new question)](https://github.com/jasmcaus/caer/discussions)
 2. [Search through the issues](https://github.com/jasmcaus/caer/issues).
@@ -98,7 +98,7 @@ If you have any questions please:
 Caer is open-source and released under the [MIT License](LICENSE).
 
 
-## BibTeX
+# BibTeX
 If you want to cite the framework feel free to use this (but only if you loved it 😊):
 
 ```bibtex
