@@ -12,6 +12,9 @@
 import numpy as np 
 
 class Tensor(np.ndarray):
+    def __repr__(self):
+        return "<class 'caer.Tensor'>"
+
     def __new__(self, x, dtype=None):
         obj = np.asarray(x, dtype=dtype).view(Tensor)
 
@@ -21,8 +24,8 @@ class Tensor(np.ndarray):
             self.size = obj.shape
         return obj 
     
-    def __repr__(self):
-        return "<class 'caer.Tensor'>"
+    # def __repr__(self):
+    #     return "<class 'caer.Tensor'>"
 
 
 
