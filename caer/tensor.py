@@ -22,7 +22,7 @@ class Tensor(np.ndarray):
         return obj 
     
     def __repr__(self):
-        return 'tensor('
+        return "<class 'caer.Tensor'>"
 
 
 
