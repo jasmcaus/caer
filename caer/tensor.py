@@ -9,4 +9,25 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2020 The Caer Authors <http://github.com/jasmcaus>
 
+import numpy as np 
 
+class Tensor(np.ndarray):
+    def __new__(self, x, dtype=None):
+        obj = np.asarray(x, dtype=dtype).view(Tensor)
+
+        if len(obj.shape) > 1:
+            self.size = (obj.shape[1], obj.shape[0])
+        else:
+            self.size = obj.shape
+        return obj 
+    
+    def __repr__(self):
+        return 'tensor('
+
+
+
+def tensor(x, dtype=None):
+    if not isinstance(x, (tuple, list, np.ndarray)):
+        raise ValueError('Data needs to be (ideally) a list')
+
+    return Tensor(x, dtype=dtype)

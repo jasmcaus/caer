@@ -101,6 +101,8 @@ from .core import (
 )
 
 
+from .tensor import tensor, Tensor
+
 # General visualizations
 from .visualizations import (
     hex_to_rgb,

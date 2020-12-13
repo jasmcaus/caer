@@ -7,7 +7,7 @@
 [![Python](https://img.shields.io/pypi/pyversions/caer.svg)][py-versions]
 [![PyPI](https://badge.fury.io/py/caer.svg)][pypi-latest-version]
 [![Downloads](https://pepy.tech/badge/caer)][downloads]
-[![Documentation Status](https://readthedocs.org/projects/caer/badge/?version=latest)](https://caer.readthedocs.io/en/latest/?badge=latest)
+[![Documentation Status](https://caer.rtfd.io/en/latest)](https://caer.readthedocs.io/en/latest/?badge=latest)
 [![license](https://img.shields.io/github/license/jasmcaus/caer?label=license)][license]
 
 </div>
@@ -67,10 +67,10 @@ $ pip install --upgrade caer
 ```
 <img src="examples/thumbs/resize-with-ratio.png" alt="caer.resize()" />
 
-For more examples, see the [Caer demos](https://github.com/jasmcaus/caer/blob/master/examples/).
+For more examples, see the [Caer demos](https://github.com/jasmcaus/caer/blob/master/examples/) or [Read the documentation](http://caer.rtfd.io)
 
 
-## Resources
+# Resources
 
 - [**PyPi**](https://pypi.org/project/caer)
 - [**Documentation**](https://github.com/jasmcaus/caer/blob/master/docs/README.md)
