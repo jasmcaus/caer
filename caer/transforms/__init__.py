@@ -9,32 +9,3 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2020 The Caer Authors <http://github.com/jasmcaus>
 
-r"""
-    caer.transforms consists of position transforms for use.
-    For color-based transforms, see caer.filters.
-"""
-
-from .position import (
-    hflip,
-    vflip,
-    hvflip,
-    rand_flip,
-    scale,
-    translate,
-    transpose,
-    rotate,
-    crop,
-    center_crop,
-    rand_crop,
-    posterize,
-    solarize,
-    equalize,
-    clip,
-    __all__ as __all_trans__
-)
-
-
-__all__ = __all_trans__ 
-
-# Stop polluting the namespace
-del __all_trans__
