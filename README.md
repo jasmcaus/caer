@@ -26,11 +26,11 @@ Caer is a Python library that consists of the following components:
 | Component | Description |
 | ---- | --- |
 | [**caer**](https://github.com/jasmcaus/caer/) | A lightweight GPU-accelerated Computer Vision library for high-performance AI research |
+| [**caer.augment**](https://github.com/jasmcaus/caer/tree/master/caer/augment) | Powerful image transformations and augmentations |
 | [**caer.color**](https://github.com/jasmcaus/caer/tree/master/caer/color) | Colorspace operations |
 | [**caer.data**](https://github.com/jasmcaus/caer/tree/master/caer/data) | Standard high-quality test images and example data |
 | [**caer.path**](https://github.com/jasmcaus/caer/tree/master/caer/path) | OS-specific path manipulations |
 | [**caer.preprocessing**](https://github.com/jasmcaus/caer/tree/master/caer/preprocessing) | Image preprocessing utilities. |
-| [**caer.transforms**](https://github.com/jasmcaus/caer/tree/master/caer/transforms) | Powerful image transformations and augmentations |
 | [**caer.video**](https://github.com/jasmcaus/caer/tree/master/caer/video) | Video processing utilities |
 
 <!-- | [**caer.utils**](https://github.com/jasmcaus/caer/tree/master/caer/utils) | Generic utilities  | -->
@@ -59,10 +59,12 @@ $ pip install --upgrade caer
 ```python
 >> import caer
 
-# Load a standard 640x427 test image that ships out-of-the-box with caer
+# Load a standard 640x427 test image that 
+# ships out-of-the-box with caer
 >> sunrise = caer.data.sunrise(rgb=True)
 
-# Resize the image to 400x400 while MAINTAINING aspect ratio
+# Resize the image to 400x400 while MAINTAINING 
+# aspect ratio
 >> resized = caer.resize(sunrise, target_size=(400,400), preserve_aspect_ratio=True)
 ```
 <img src="examples/thumbs/resize-with-ratio.png" alt="caer.resize()" />
