@@ -2,3 +2,4 @@ pytest
 numpy
 opencv-contrib-python
 typing_extensions
+pillow
