@@ -74,6 +74,7 @@ from .io import (
 )
 
 # Preprocessing
+# Kept for backward compatibility (with my online OpenCV course published on FreeCodeCamp.org)
 from .preprocess import (
     preprocess_from_dir,
     sep_train,
@@ -98,16 +99,6 @@ from .core import (
     sort_dict,
     get_opencv_version,
     __all__ as __all_core__
-)
-
-
-from .tensor import tensor, Tensor
-
-# General visualizations
-from .visualizations import (
-    hex_to_rgb,
-    draw_rectangle,
-    __all__ as __all_visualizations__
 )
 
 # Color Spaces
@@ -163,7 +154,7 @@ from .filters import __all__ as __all_filters__
 from .augment import __all__ as __all_augment__
 
 
-__all__ = __all_globals__ + __all_core__ + __all_preprocess__ + __all_visualizations__ + __all_filters__
+__all__ = __all_globals__ + __all_core__ + __all_preprocess__ + __all_filters__
 
 __all__ += __all_io__ 
 __all__ += __all_preprocessing__ 
@@ -189,10 +180,10 @@ del __all_core__
 del __all_preprocess__ 
 del __all_visualizations__
 
-del __all_preprocessing__ 
-del __all_video__ 
-del __all_data__ 
-del __all_utils__ 
+del __all_augment__ 
 del __all_color__ 
-del __all_transforms__ 
+del __all_data__ 
 del __all_filters__
+del __all_preprocessing__ 
+del __all_utils__ 
+del __all_video__ 
