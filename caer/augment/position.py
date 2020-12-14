@@ -12,12 +12,21 @@
 import numpy as np 
 import cv2 as cv 
 import random 
+import collections
 
+from .functional import _is_numpy_array
 from ..color import is_rgb_image, is_gray_image
 from .._internal import _check_target_size
 from ..globals import (
     INTER_AREA, INTER_CUBIC, INTER_NEAREST, INTER_LINEAR
 )
+
+pad_to_str = {
+    'constant':  0,
+    'edge':      1,
+    'reflect':   4,
+    'symmetric': 2
+}
 
 MAX_VALUES_BY_DTYPE = {
     np.dtype("uint8"): 255,
@@ -38,23 +47,74 @@ __all__ = [
     'solarize',
     'posterize',
     'equalize',
-    'clip'
+    'clip',
+    'pad'
 ]
 
 
 def hflip(img):
+    r"""
+        Flip an image horizontally. 
+    Args:
+        img (ndarray): Image to be flipped.
+
+    Returns:
+        Flipped image.
+
+    """
+    if not _is_numpy_array(img):
+        raise TypeError(f'img should be a Numpy array. Got {type(img)}')
+
     return np.ascontiguousarray(img[:, ::-1, ...])
 
 
 def vflip(img):
+    r"""
+        Flip an image vertically. 
+    Args:
+        img (ndarray): Image to be flipped.
+
+    Returns:
+        Flipped image.
+        
+    """
+    if not _is_numpy_array(img):
+        raise TypeError(f'img should be a Numpy array. Got {type(img)}')
+
     return np.ascontiguousarray(img[::-1, ...])
 
 
 def hvflip(img):
+    r"""
+        Flip an image both horizontally and vertically. 
+
+    Args:
+        img (ndarray): Image to be flipped.
+
+    Returns:
+        Flipped image.
+        
+    """
+    if not _is_numpy_array(img):
+        raise TypeError(f'img should be a Numpy array. Got {type(img)}')
+
     return hflip(vflip(img))
 
 
 def rand_flip(img): 
+    r"""
+        Randomly flip an image vertically or horizontally. 
+
+    Args:
+        img (ndarray): Image to be flipped.
+
+    Returns:
+        Flipped image.
+        
+    """
+    if not _is_numpy_array(img):
+        raise TypeError(f'img should be a Numpy array. Got {type(img)}')
+
     p = random.uniform(0, 1)
 
     if p > 0.5:
@@ -71,7 +131,7 @@ def transpose(img):
 
 
 def rotate(img, angle, rotPoint=None):
-    """
+    r"""
         Rotates an given image by an angle around a particular rotation point (if provided) or centre otherwise.
         
     """
@@ -124,10 +184,10 @@ def translate(image, x, y):
 
 def scale(img, scale_factor, interpolation='bilinear'):
     interpolation_methods = {
-        'nearest': INTER_NEAREST, # 0
-        'bilinear': INTER_LINEAR, # 1
-        'bicubic': INTER_CUBIC, # 2
-        'area': INTER_AREA, # 3
+        'nearest': INTER_NEAREST, '0': INTER_NEAREST, 0: INTER_NEAREST, # 0
+        'bilinear': INTER_LINEAR, '1': INTER_LINEAR,  1: INTER_LINEAR,  # 1
+        'bicubic': INTER_CUBIC,   '2': INTER_CUBIC,   2: INTER_CUBIC,   # 2
+        'area': INTER_AREA,       '3': INTER_AREA,    3: INTER_AREA     # 3
     }
     if interpolation not in interpolation_methods:
         raise ValueError('Specify a valid interpolation type - area/nearest/bicubic/bilinear')
@@ -142,6 +202,75 @@ def scale(img, scale_factor, interpolation='bilinear'):
     return cv.resize(img, (new_width,new_height), interpolation=interpolation)
 
 
+def pad(img, padding, fill=0, padding_mode='constant'):
+    r"""
+        Pad the given image on all sides with specified padding mode and fill value.
+
+    Args:
+        img (ndarray): image to be padded.
+        padding (int or tuple): Padding on each border. If a single int is provided this 
+            is used to pad all borders. If tuple of length 2 is provided this is the padding
+            on left/right and top/bottom respectively. If a tuple of length 4 is provided
+            this is the padding for the left, top, right and bottom borders
+            respectively.
+        fill: Pixel fill value for constant fill. Default is 0. If a tuple of
+            length 3, it is used to fill R, G, B channels respectively.
+            This value is only used when the padding_mode is constant
+        padding_mode: Type of padding. Should be: constant, edge, reflect or symmetric. Default is constant.
+            - constant: pads with a constant value, this value is specified with fill
+            - edge: pads with the last value on the edge of the image
+            - reflect: pads with reflection of image (without repeating the last value on the edge)
+                       padding [1, 2, 3, 4] with 2 elements on both sides in reflect mode
+                       will result in [3, 2, 1, 2, 3, 4, 3, 2]
+            - symmetric: pads with reflection of image (repeating the last value on the edge)
+                         padding [1, 2, 3, 4] with 2 elements on both sides in symmetric mode
+                         will result in [2, 1, 1, 2, 3, 4, 4, 3]
+                         
+    Returns:
+        Array of shape ``(height, width, channels)``.
+
+    """
+    if not _is_numpy_array(img):
+        raise TypeError(f'img should be a numpy ndarray. Got {type(img)}')
+
+    if not isinstance(padding, (tuple, list)):
+        raise TypeError('Got inappropriate padding arg')
+
+    if not isinstance(fill, (str, tuple)):
+        raise TypeError('Got inappropriate fill arg')
+
+    if not isinstance(padding_mode, str):
+        raise TypeError('Got inappropriate padding_mode arg')
+
+    if isinstance(padding, collections.Sequence) and len(padding) not in [2, 4]:
+        raise ValueError(f'Padding must be an int or a 2, or 4 element tuple, not a {len(padding)} element tuple')
+
+    assert padding_mode in ['constant', 'edge', 'reflect', 'symmetric'], \
+        'Padding mode should be either constant, edge, reflect or symmetric'
+
+    if isinstance(padding, int):
+        pad_left = pad_right = pad_top = pad_bottom = padding
+
+    if isinstance(padding, collections.Sequence) and len(padding) == 2:
+        pad_left = pad_right = padding[0]
+        pad_top = pad_bottom = padding[1]
+
+    if isinstance(padding, collections.Sequence) and len(padding) == 4:
+        pad_left = padding[0]
+        pad_top = padding[1]
+        pad_right = padding[2]
+        pad_bottom = padding[3]
+
+
+        return cv.copyMakeBorder(img,
+                                top = pad_top,
+                                bottom = pad_bottom,
+                                left = pad_left,
+                                right = pad_right,
+                                borderType = pad_to_str[padding_mode],
+                                value = fill)
+
+                                
 def crop(img, x_min, y_min, x_max, y_max):
     height, width = img.shape[:2]
     if x_max <= x_min or y_max <= y_min:
