@@ -12,30 +12,16 @@
 #pylint:disable=unused-argument,unused-variable,eval-used
 
 import numpy as np 
-import cv2 as cv 
 import random
-import math 
+from PIL import Image, ImageEnhance
+import cv2 as cv 
+import math
 
 from .functional import (
-    is_list, 
-    is_numeric, 
-    is_numeric_list_or_tuple, 
-    is_tuple, 
     _is_numpy_array,
+    is_list,
     _hls,
-    _rgb,
-    _snow_process,
-    _generate_random_lines,
-    _rain_process,
-    _generate_random_blur_coordinates,
-    _add_blur,
-    _gravel_process,
-    _add_sun_flare_line,
-    _add_sun_process,
-    _apply_motion_blur,
-    _autumn_process,
-    _exposure_process,
-    _shadow_process
+    _exposure_process
 )
 
 from ..color import (
@@ -44,34 +30,30 @@ from ..color import (
 )
 
 __all__ = [
-    'change_light',
+    'adjust_brightness',
+    'adjust_contrast',
+    'adjust_hue',
+    'adjust_saturation',
+    'adjust_gamma',
+    'affine',
     'darken',
     'brighten',
     'random_brightness',
-    'add_snow',
-    'add_rain',
-    'add_fog',
-    'add_gravel',
-    'add_sun_flare',
-    'add_motion_blur',
-    'add_autumn',
-    'add_shadow',
     'correct_exposure',
     'augment_random'
 ]
 
 
-def change_light(img, coeff, rgb=True):
+def adjust_brightness(img, coeff, rgb=True):
     r"""
-        Change the lighting of an image.
+        Adjust the brightness of an image.
 
     Args:
         img (ndarray) : Any regular BGR/RGB image.
         coeff (int): Coefficient value.
-
-            If ``coeff < 1``, the image is darkened.
-
-            If ``coeff > 1``, the image is lightened.
+            - ``coeff < 1``, the image is darkened.
+            - ``coeff = 1``, the image is unchanged.
+            - ``coeff > 1``, the image is lightened.
         rgb (bool): Operate on RGB images. Default: True.
     
     Returns:
@@ -80,7 +62,7 @@ def change_light(img, coeff, rgb=True):
     Examples::
 
         >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.filters.change_light(img, coeff=1.4, rgb=True)
+        >> filtered = caer.augment.adjust_brightness(img, coeff=1.4, rgb=True)
         >> filtered
         (427, 640, 3)
 
@@ -118,7 +100,7 @@ def brighten(img, coeff=-1, rgb=True):
     Examples::
 
         >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.filters.brighten(img, coeff=-1, rgb=True)
+        >> filtered = caer.augment.brighten(img, coeff=-1, rgb=True)
         >> filtered
         (427, 640, 3)
 
@@ -132,7 +114,7 @@ def brighten(img, coeff=-1, rgb=True):
     else:
         coeff_t = 1 + coeff  # coeff between 1.0 and 2.0
 
-    return change_light(img, coeff_t, rgb=rgb)
+    return adjust_brightness(img, coeff_t, rgb=rgb)
 
 
 def darken(img, darkness_coeff = -1, rgb=True):
@@ -150,7 +132,7 @@ def darken(img, darkness_coeff = -1, rgb=True):
     Examples::
 
         >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.filters.darken(img, coeff=-1, rgb=True)
+        >> filtered = caer.augment.darken(img, coeff=-1, rgb=True)
         >> filtered
         (427, 640, 3)
 
@@ -164,7 +146,7 @@ def darken(img, darkness_coeff = -1, rgb=True):
     else:
         darkness_coeff_t = 1 - darkness_coeff  
 
-    return change_light(img, darkness_coeff_t, rgb=True)
+    return adjust_brightness(img, darkness_coeff_t, rgb=True)
 
 
 def random_brightness(img, rgb=True):
@@ -181,277 +163,247 @@ def random_brightness(img, rgb=True):
     Examples::
 
         >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.filters.random_brightness(img, rgb=True)
+        >> filtered = caer.augment.random_brightness(img, rgb=True)
         >> filtered
         (427, 640, 3)
 
     """
     rand_br_coeff = 2 * np.random.uniform(0, 1) # Generates a value between 0.0 and 2.0
-    return change_light(img, rand_br_coeff, rgb=rgb)
+    return adjust_brightness(img, rand_br_coeff, rgb=rgb)
 
 
-def add_snow(img, snow_coeff=-1, rgb=True):
-    r"""
-        Simulate snowy conditions on an image.
+def adjust_contrast(img, contrast_factor):
+    """
+        Adjust contrast of an image.
 
     Args:
-        img (ndarray) : Any regular BGR/RGB image.
-        snow_coeff (int): Coefficient value.
-        rgb (bool): Operate on RGB images. Default: True.
-    
+        img (ndarray): Any valid BGR/RGB image.
+        contrast_factor (float): How much to adjust the contrast. Can be any
+            non negative number. 0 gives a solid gray image, 1 gives the
+            original image while 2 increases the contrast by a factor of 2.
     Returns:
-        Array of shape ``(height, width, channels)``.
+        numpy ndarray: Contrast adjusted image.
+    """
+    # It's much faster to use the LUT construction because you have to change dtypes multiple times
+    if not _is_numpy_array(img):
+        raise TypeError('Expected Numpy ndarray. Got {}'.format(type(img)))
 
+    table = np.array([(i - 74) * contrast_factor + 74
+                      for i in range(0, 256)]).clip(0, 255).astype('uint8')
+
+    # enhancer = ImageEnhance.Contrast(img)
+    # img = enhancer.enhance(contrast_factor)
+    return cv.LUT(img, table)
+
+
+def adjust_saturation(img, saturation_factor):
+    """Adjust color saturation of an image.
+    Args:
+        img (numpy ndarray): Any valid BGR/RGB image.
+        saturation_factor (float):  How much to adjust the saturation. 0 will
+            give a black and white image, 1 will give the original image while
+            2 will enhance the saturation by a factor of 2.
+
+    Returns:
+        Saturation-adjusted image.
+    
     Examples::
 
         >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.filters.add_snow(img, snow_coeff=-1, rgb=True)
+        >> filtered = caer.augment.adjust_saturation(img, saturation_factor=1.5, rgb=True)
         >> filtered
         (427, 640, 3)
 
     """
-    if snow_coeff != -1:
-        if snow_coeff < 0.0 or snow_coeff > 1.0:
-            raise ValueError('Snow coeff must only be between 0 and 1')
-    else:
-        snow_coeff=random.uniform(0, 1)
+    # ~10ms slower than PIL!
+    if not _is_numpy_array(img):
+        raise TypeError('Expected Numpy ndarray. Got {}'.format(type(img)))
 
-    snow_coeff*=255/2
-    snow_coeff+=255/3
+    img = Image.fromarray(img)
+    enhancer = ImageEnhance.Color(img)
+    img = enhancer.enhance(saturation_factor)
 
-    return _snow_process(img, snow_coeff, rgb=rgb)
+    return np.array(img)
 
 
-# Rain_type = 'drizzle', 'heavy', 'torrential'
-def add_rain(img, slant=-1, drop_length=20, drop_width=1, drop_color=(200,200,200), rain_type='None', rgb=True): ## (200,200,200) is a shade of gray
+def adjust_hue(img, hue_factor):
     r"""
-        Simulate rainy conditions on an image.
+        Adjust hue of an image.
+
+        The image hue is adjusted by converting the image to HSV and cyclically shifting the intensities in the hue channel (H). The image is then converted back to original image mode.
+        
+        See `Hue`_ for more details.
+        .. _Hue: https://en.wikipedia.org/wiki/Hue
 
     Args:
-        img (ndarray) : Any regular BGR/RGB image.
-        slant (int): Slant value.
-        drop_length (int): Length of the raindrop.
-        drop_width (int): Width of the raindrop.
-        drop_color (tuple): Color of the raindrop.
-        rain_type (str): Type of rain. Can be either 'drizzle', 'heavy' or 'torrential'.
-        rgb (bool): Operate on RGB images. Default: True.
-    
+        img (ndarray): Any valid BGR/RGB image.
+        hue_factor (float):  How much to shift the hue channel. Should be in the range [-0.5, 0.5]. 
+            0.5 and -0.5 give complete reversal of hue channel in HSV space in positive and negative direction respectively.
+            0 means no shift. Therefore, both -0.5 and 0.5 will give an image with complementary colors while 0 gives the original image.
+            
     Returns:
-        Array of shape ``(height, width, channels)``.
+        Hue adjusted image.
 
     Examples::
 
         >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.filters.add_rain(img, rgb=True)
+        >> filtered = caer.augment.adjust_hue(img, hue_factor=1, rgb=True)
         >> filtered
         (427, 640, 3)
 
     """
-    
-    slant_extreme = slant
-    if not(is_numeric(slant_extreme) and (slant_extreme >=-20 and slant_extreme <= 20) or slant_extreme==-1):
-        raise ValueError('Numeric value must be between -20 and 20')
 
-    if not(is_numeric(drop_width) and drop_width>=1 and drop_width<=5):
-        raise ValueError('Width must be between 1 and 5')
+    if not (-0.5 <= hue_factor <= 0.5):
+        raise ValueError('`hue_factor` is not in [-0.5, 0.5].')
 
-    if not(is_numeric(drop_length) and drop_length>=0 and drop_length<=100):
-        raise ValueError('Length must be between 0 and 100')
+    if not _is_numpy_array(img):
+        raise TypeError('Expected Numpy ndarray. Got {}'.format(type(img)))
 
-    imshape = img.shape
-    if slant_extreme == -1:
-        slant= np.random.randint(-10,10) # generate random slant if no slant value is given
+    img = Image.fromarray(img)
+    input_mode = img.mode
+    if input_mode in {'L', '1', 'I', 'F'}:
+        return np.array(img)
 
-    rain_drops, drop_length= _generate_random_lines(imshape, slant, drop_length, rain_type)
-    return _rain_process(img, slant_extreme, drop_length, drop_color, drop_width, rain_drops)
+    h, s, v = img.convert('HSV').split()
+
+    np_h = np.array(h, dtype=np.uint8)
+
+    # uint8 addition take cares of rotation across boundaries
+    with np.errstate(over='ignore'):
+        np_h += np.uint8(hue_factor * 255)
+    h = Image.fromarray(np_h, 'L')
+
+    img = Image.merge('HSV', (h, s, v)).convert(input_mode)
+    return np.array(img)
 
 
-def add_fog(img, fog_coeff=-1, rgb=True):
+def adjust_gamma(img, gamma, gain=1):
     r"""
-        Simulate foggy conditions on an image.
+        Perform gamma correction on an image.
+
+        Also known as Power Law Transform. Intensities in RGB mode are adjusted
+        based on the following equation:
+        .. math::
+            I_{\text{out}} = 255 \times \text{gain} \times \left(\frac{I_{\text{in}}}{255}\right)^{\gamma}
+        See `Gamma Correction`_ for more details.
+        .. _Gamma Correction: https://en.wikipedia.org/wiki/Gamma_correction
 
     Args:
-        img (ndarray) : Any regular BGR/RGB image.
-        fog_coeff (int): Coefficient value.
-        rgb (bool): Operate on RGB images. Default: True.
-    
-    Returns:
-        Array of shape ``(height, width, channels)``.
+        img (ndarray): Any valid BGR/RGB image.
+        gamma (float): Non negative real number, same as :math:`\gamma` in the equation.
+            gamma larger than 1 make the shadows darker,
+            while gamma smaller than 1 make dark regions lighter.
+        gain (float): The constant multiplier.
 
     Examples::
 
         >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.filters.add_fog(img, fog_coeff=-1, rgb=True)
+        >> filtered = caer.augment.adjust_gamma(img, gamma=1.5, rgb=True)
         >> filtered
         (427, 640, 3)
 
     """
-    if fog_coeff != -1:
-        if fog_coeff < 0.0 or fog_coeff > 1.0:
-            raise ValueError('Fog coefficient must be between 0 and 1')
+    if not _is_numpy_array(img):
+        raise TypeError('Expected Numpy ndarray. Got {}'.format(type(img)))
 
-    imshape = img.shape
+    if gamma < 0:
+        raise ValueError('Gamma should be a non-negative real number')
 
-    if fog_coeff == -1:
-        fog_coeff_t = random.uniform(0.3,1)
-    else:
-        fog_coeff_t = fog_coeff
+    # from here
+    # https://stackoverflow.com/questions/33322488/how-to-change-image-illumination-in-opencv-python/41061351
+    table = np.array([((i / 255.0)**gamma) * 255 * gain
+                      for i in np.arange(0, 256)]).astype('uint8')
 
-    hw = int(imshape[1]//3*fog_coeff_t)
-    haze_list = _generate_random_blur_coordinates(imshape,hw)
-    for haze_points in haze_list: 
-        img = _add_blur(img, haze_points[0], haze_points[1], hw, fog_coeff_t) 
-
-    img = cv.blur(img, (hw//10, hw//10))
-    
-    return _rgb(img, rgb=rgb)
+    return cv.LUT(img, table)
 
 
-def add_gravel(img, rectangular_roi=(-1,-1,-1,-1), num_patches=8, rgb=True):
-    r"""
-        Simulate gravelly conditions on an image.
+def _get_affine_matrix(center, angle, translate, scale, shear):
+    # Helper method to compute matrix for affine transformation
+    # We need compute affine transformation matrix: M = T * C * RSS * C^-1
+    # where T is translation matrix: [1, 0, tx | 0, 1, ty | 0, 0, 1]
+    #       C is translation matrix to keep center: [1, 0, cx | 0, 1, cy | 0, 0, 1]
+    #       RSS is rotation with scale and shear matrix
+    #       RSS(a, scale, shear) = [ cos(a)*scale    -sin(a + shear)*scale     0]
+    #                              [ sin(a)*scale    cos(a + shear)*scale     0]
+    #                              [     0                  0          1]
+
+    angle = math.radians(angle)
+    shear = math.radians(shear)
+    # scale = 1.0 / scale
+
+    T = np.array([[1, 0, translate[0]], [0, 1, translate[1]], [0, 0, 1]])
+    C = np.array([[1, 0, center[0]], [0, 1, center[1]], [0, 0, 1]])
+    RSS = np.array(
+        [[math.cos(angle) * scale, -math.sin(angle + shear) * scale, 0],
+         [math.sin(angle) * scale,
+          math.cos(angle + shear) * scale, 0], [0, 0, 1]])
+    matrix = T @ C @ RSS @ np.linalg.inv(C)
+
+    return matrix[:2, :]
+
+
+def affine(img,
+           angle,
+           translate,
+           scale,
+           shear,
+           interpolation='bilinear',
+           mode=0,
+           fillcolor=0):
+    """
+        Apply affine transformation on the image keeping image center invariant.
 
     Args:
-        img (ndarray) : Any regular BGR/RGB image.
-        rectangular_roi (tuple): Rectanglar co-ordinates of the intended region of interest. Default: (-1,-1,-1,-1).
-        num_patches (int): Number of patches to operate on.
-        rgb (bool): Operate on RGB images. Default: True.
-    
-    Returns:
-        Array of shape ``(height, width, channels)``.
-
-    Examples::
-
-        >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.filters.add_gravel(img, rgb=True)
-        >> filtered
-        (427, 640, 3)
-
+        img (ndarray): Any valid BGR/RGB image.
+        angle (float or int): Rotation angle in degrees between -180 and 180, clockwise direction.
+        translate (list or tuple of integers): Horizontal and vertical translations (post-rotation translation)
+        scale (float): Overall scale
+        shear (float): Shear angle value in degrees between -180 to 180, clockwise direction.
+        interpolation (int, str): Interpolation to use for resizing. Defaults to `'bilinear'`. 
+                Supports `'bilinear'`, `'bicubic'`, `'area'`, `'nearest'`.
+        mode (int, str): Method for filling in border regions. 
+                Defaults to ``constant`` meaning areas outside the image are filled with a value (val, default 0). 
+                Supports ``'replicate'``, ``'reflect'``, ``'reflect-101'``.
+        val (int): Optional fill color for the area outside the transform in the output image. Default: 0
     """
-    if is_tuple(rectangular_roi) and is_numeric_list_or_tuple(rectangular_roi) and len(rectangular_roi)==4:
-        x1 = rectangular_roi[0]
-        y1 = rectangular_roi[1]
-        x2 = rectangular_roi[2]
-        y2 = rectangular_roi[3]
-    else:
-        raise ValueError('Rectangular ROI dimensions are invalid.')
 
-    if rectangular_roi == (-1,-1,-1,-1):
-        if _is_numpy_array(img):
-            x1 = 0
-            y1 = int(img.shape[0]*3/4)
-            x2 = img.shape[1]
-            y2 = img.shape[0]
-        else:
-            x1 = 0
-            y1 = int(img[0].shape[0]*3/4)
-            x2 = img[0].shape[1]
-            y2 = img[0].shape[0]
+    if not _is_numpy_array(img):
+        raise TypeError('Expected Numpy ndarray. Got {}'.format(type(img)))
 
-    elif x1 == -1 or y1 == -1 or x2 == -1 or y2 == -1 or x2 <= x1 or y2 <= y1:
-        raise ValueError('Rectangular ROI dimensions are invalid.')
+    assert isinstance(translate, (tuple, list)) and len(translate) == 2, \
+        'Argument translate should be a list or tuple of length 2'
 
-    return _gravel_process(img, x1, x2, y1, y2, num_patches, rgb=rgb)
+    assert scale > 0.0, 'Argument scale should be positive'
 
+    interpolation_methods = {
+        'nearest': 0,  '0': 0,  0: 0, # 0
+        'bilinear': 1, '1': 1,  1: 1, # 1
+        'bicubic': 2,  '2': 2,  2: 2, # 2
+        'area': 3,     '3': 3,  3: 3 # 3
+    }
+    border_methods = {
+        'constant': 0,    '0': 0, 0: 0, # 0
+        'replicate': 1,   '1': 1, 1: 1, # 1
+        'reflect': 2,     '2': 2, 2: 2, # 2
+        'reflect-101': 4, '4': 4, 4: 4 # 4
+    }
 
-def add_sun_flare(img, flare_center=-1, angle=-1, num_flare_circles=8, src_radius=400, src_color=(255,255,255)):
-    r"""
-        Add a source of light (flare) on an specific region of an image.
+    if interpolation not in interpolation_methods:
+        raise ValueError('Specify a valid interpolation type - area/nearest/bicubic/bilinear')
 
-    Args:
-        img (ndarray) : Any regular BGR/RGB image.
-        flare_center (int): Center of the flare. Default: -1.
-        angle (int): Angle of the flare. Default: -1
-        num_flare_circles (int): Number of flare circles to operate on.
-        src_radius (int): Intended size of the flare
-        src_color (tuple): Intended source color of the flare
-    
-    Returns:
-        Array of shape ``(height, width, channels)``.
+    if mode not in border_methods:
+        raise ValueError('Specify a valid border type - constant/replicate/reflect/reflect-101')
 
-    Examples::
+    output_size = img.shape[0:2]
+    center = (img.shape[1] * 0.5 + 0.5, img.shape[0] * 0.5 + 0.5)
+    matrix = _get_affine_matrix(center, angle, translate, scale, shear)
 
-        >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.filters.add_sun_flare(img)
-        >> filtered
-        (427, 640, 3)
-
-    """
-    if angle != -1:
-        angle = angle % (2*math.pi)
-
-    if not(num_flare_circles >= 0 and num_flare_circles <= 20):
-        raise ValueError('Numeric value must be between 0 and 20')
-
-    imshape = img.shape
-    if angle == -1:
-        angle_t = random.uniform(0, 2*math.pi)
-        if angle_t == math.pi/2:
-            angle_t = 0
-    else:
-        angle_t = angle
-
-    if flare_center == -1:
-        flare_center_t = (random.randint(0,imshape[1]), random.randint(0,imshape[0]//2))
-    else:
-        flare_center_t = flare_center
-
-    x, y = _add_sun_flare_line(flare_center_t, angle_t, imshape)
-
-    return _add_sun_process(img, num_flare_circles, flare_center_t, src_radius, x, y, src_color)
-
-
-def add_motion_blur(img, speed_coeff=-1):
-    r"""
-        Simulate motion-blur conditions on an image.
-
-    Args:
-        img (ndarray) : Any regular BGR/RGB image.
-        speed_coeff (int, float): Speed coefficient. Value must be between 0 and 1.
-    
-    Returns:
-        Array of shape ``(height, width, channels)``.
-
-    Examples::
-
-        >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.filters.add_motion_blur(img, speed_coeff=-1)
-        >> filtered
-        (427, 640, 3)
-
-    """
-    if speed_coeff != -1:
-        if speed_coeff < 0.0 or speed_coeff > 1.0:
-            raise ValueError('Speed coefficient must be between 0 and 1')
-
-    if speed_coeff == -1:
-        count_t = int(15 * random.uniform(0, 1))
-    else:
-        count_t = int(15 * speed_coeff)
-
-    return _apply_motion_blur(img, count_t)
-
-
-def add_autumn(img, rgb=True):
-    r"""
-        Simulate autumn conditions on an image.
-
-    Args:
-        img (ndarray) : Any regular BGR/RGB image.
-        rgb (bool): Operate on RGB images. Default: True.
-    
-    Returns:
-        Array of shape ``(height, width, channels)``.
-
-    Examples::
-
-        >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.filters.add_autumn(img, rgb=True)
-        >> filtered
-        (427, 640, 3)
-
-    """
-    return _autumn_process(img, rgb=rgb)
+    return cv.warpAffine(img,
+                            matrix,
+                            output_size[::-1],
+                            interpolation,
+                            borderMode=mode,
+                            borderValue=fillcolor)
 
 
 def correct_exposure(img, rgb=True):
@@ -468,7 +420,7 @@ def correct_exposure(img, rgb=True):
     Examples::
 
         >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.filters.correct_exposure(img, rgb=True)
+        >> filtered = caer.augment.correct_exposure(img, rgb=True)
         >> filtered
         (427, 640, 3)
 
@@ -509,58 +461,3 @@ def augment_random(img, aug_types='', volume='expand' ):
         raise ValueError('volume type can only be "same" or "expand"')
 
     return output
-
-
-## ROI:(top-left x1,y1, bottom-right x2,y2), shadow_dimension=no. of sides of polygon generated
-def add_shadow(img, num_shadows=1, rectangular_roi=(-1,-1,-1,-1), shadow_dimension=5, rgb=True): 
-    r"""
-        Simulate shadowy conditions on an image.
-
-    Args:
-        img (ndarray) : Any regular BGR/RGB image.
-        num_shadows (int): Number of shadows to work with. Value must be between 1 and 10.
-        rectangular_roi (tuple): Rectanglar co-ordinates of the intended region of interest. Default: (-1,-1,-1,-1).
-        shadow_dimensions (int): Number of shadow dimensions. Value must be > 3. 
-        rgb (bool): Operate on RGB images. Default: True.
-    
-    Returns:
-        Array of shape ``(height, width, channels)``.
-
-    Examples::
-
-        >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.filters.add_shadow(img, rgb=True)
-        >> filtered
-        (427, 640, 3)
-
-    """
-    if not(is_numeric(num_shadows) and num_shadows >= 1 and num_shadows <= 10):
-        raise ValueError('Only 1-10 shadows can be introduced in an image')
-
-    if not(is_numeric(shadow_dimension) and shadow_dimension >= 3 and shadow_dimension <= 10):
-        raise ValueError('Polygons with dimensions < 3 don\'t exist and take time to plot')
-
-    if is_tuple(rectangular_roi) and is_numeric_list_or_tuple(rectangular_roi) and len(rectangular_roi)==4:
-        x1 = rectangular_roi[0]
-        y1 = rectangular_roi[1]
-        x2 = rectangular_roi[2]
-        y2 = rectangular_roi[3]
-    else:
-        raise ValueError('Rectangular ROI dimensions are not valid')
-
-    if rectangular_roi==(-1,-1,-1,-1):
-        x1 = 0
-        
-        if(_is_numpy_array(img)):
-            y1 = img.shape[0] // 2
-            x2 = img.shape[1]
-            y2 = img.shape[0]
-        else:
-            y1 = img[0].shape[0] // 2
-            x2 = img[0].shape[1]
-            y2 = img[0].shape[0]
-
-    elif x1 == -1 or y1 == -1 or x2 == -1 or y2 == -1 or x2 <= x1 or y2 <= y1:
-        raise ValueError('Rectangular ROI dimensions are not valid')
-
-    return _shadow_process(img,num_shadows, x1, y1, x2, y2, shadow_dimension, rgb=rgb)

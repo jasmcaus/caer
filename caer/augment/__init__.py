@@ -14,6 +14,7 @@ r"""
     For color-based transforms, see caer.filters.
 """
 
+# Don't import from functional.py
 
 from .position import (
     hflip,
@@ -31,30 +32,41 @@ from .position import (
     solarize,
     equalize,
     clip,
+    pad,
     __all__ as __all_pos__
 )
 
 from .color import (
-    change_light,
+    adjust_brightness,
+    adjust_contrast,
+    adjust_hue,
+    adjust_saturation,
+    adjust_gamma,
+    affine,
     darken,
     brighten,
     random_brightness,
-    add_snow,
-    add_rain,
-    add_fog,
-    add_gravel,
-    add_sun_flare,
-    add_motion_blur,
-    add_autumn,
-    add_shadow,
     correct_exposure,
     augment_random,
     __all__ as __all_color__
 )
 
-__all__ = __all_color__ + __all_pos__
+from .simulate import (
+    sim_snow,
+    sim_rain,
+    sim_fog,
+    sim_gravel,
+    sim_sun_flare,
+    sim_motion_blur,
+    sim_autumn,
+    sim_shadow,
+    __all__ as __all_sim__
+)
+
+__all__ = __all_color__ + __all_pos__ + __all_sim__
 
 
 # Stop polluting the namespace
 del __all_pos__
 del __all_color__
+del __all_sim__
