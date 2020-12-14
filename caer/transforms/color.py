@@ -55,15 +55,30 @@ def _hue(img, rgb=True):
     return _hls(img, rgb=rgb)[:,:,0]
 
 
-def lightness(img, rgb=True):
-    return _hls(img, rgb=rgb)[:,:,1]
-
-
-def saturation(img, rgb=True):
-    return _hls(img, rgb=rgb)[:,:,2]
-
-
 def change_light(img, coeff, rgb=True):
+    r"""
+        Change the lighting of an image.
+
+    Args:
+        img (ndarray) : Any regular BGR/RGB image.
+        coeff (int): Coefficient value.
+
+            If ``coeff < 1``, the image is darkened.
+
+            If ``coeff > 1``, the image is lightened.
+        rgb (bool): Operate on RGB images. Default: True.
+    
+    Returns:
+        Array of shape ``(height, width, channels)``.
+
+    Examples::
+
+        >> img = caer.data.sunrise(rgb=True)
+        >> filtered = caer.filters.change_light(img, coeff=1.4, rgb=True)
+        >> filtered
+        (427, 640, 3)
+
+    """
     img = _hls(img, rgb=rgb)
 
     img = np.array(img, dtype=np.float64) 
@@ -83,6 +98,25 @@ def change_light(img, coeff, rgb=True):
 
 
 def brighten(img, coeff=-1, rgb=True):
+    r"""
+        Brighten an image.
+
+    Args:
+        img (ndarray) : Any regular BGR/RGB image.
+        coeff (int): Coefficient value.
+        rgb (bool): Operate on RGB images. Default: True.
+    
+    Returns:
+        Array of shape ``(height, width, channels)``.
+
+    Examples::
+
+        >> img = caer.data.sunrise(rgb=True)
+        >> filtered = caer.filters.brighten(img, coeff=-1, rgb=True)
+        >> filtered
+        (427, 640, 3)
+
+    """
     if coeff !=-1:
         if coeff < 0.0 or coeff > 1.0:
             raise ValueError('Brightness coefficient can only be between 0.0 and 1.0')
@@ -96,6 +130,25 @@ def brighten(img, coeff=-1, rgb=True):
 
 
 def darken(img, darkness_coeff = -1, rgb=True):
+    r"""
+        Darken an image.
+
+    Args:
+        img (ndarray) : Any regular BGR/RGB image.
+        darkness_coeff (int): Coefficient value.
+        rgb (bool): Operate on RGB images. Default: True.
+    
+    Returns:
+        Array of shape ``(height, width, channels)``.
+
+    Examples::
+
+        >> img = caer.data.sunrise(rgb=True)
+        >> filtered = caer.filters.darken(img, coeff=-1, rgb=True)
+        >> filtered
+        (427, 640, 3)
+
+    """
     if darkness_coeff != -1:
         if darkness_coeff < 0.0 or darkness_coeff > 1.0:
             raise ValueError('Darkness coeff must only be between 0.0 and 1.0') 
@@ -109,13 +162,30 @@ def darken(img, darkness_coeff = -1, rgb=True):
 
 
 def random_brightness(img, rgb=True):
+    r"""
+        Add random brightness to an image.
+
+    Args:
+        img (ndarray) : Any regular BGR/RGB image.
+        rgb (bool): Operate on RGB images. Default: True.
+    
+    Returns:
+        Array of shape ``(height, width, channels)``.
+
+    Examples::
+
+        >> img = caer.data.sunrise(rgb=True)
+        >> filtered = caer.filters.random_brightness(img, rgb=True)
+        >> filtered
+        (427, 640, 3)
+
+    """
     rand_br_coeff = 2 * np.random.uniform(0, 1) # Generates a value between 0.0 and 2.0
     return change_light(img, rand_br_coeff, rgb=rgb)
 
 
-err_snow_coeff="Snow coeff can only be between 0 and 1"
 
-def snow_process(img, snow_coeff, rgb=True):
+def _snow_process(img, snow_coeff, rgb=True):
     img = _hls(img, rgb=rgb)
 
     img = np.array(img, dtype=np.float64) 
@@ -134,6 +204,25 @@ def snow_process(img, snow_coeff, rgb=True):
 
 
 def add_snow(img, snow_coeff=-1, rgb=True):
+    r"""
+        Simulate snowy conditions on an image.
+
+    Args:
+        img (ndarray) : Any regular BGR/RGB image/
+        snow_coeff (int): Coefficient value.
+        rgb (bool): Operate on RGB images. Default: True.
+    
+    Returns:
+        Array of shape ``(height, width, channels)``.
+
+    Examples::
+
+        >> img = caer.data.sunrise(rgb=True)
+        >> filtered = caer.filters.add_snow(img, snow_coeff=-1, rgb=True)
+        >> filtered
+        (427, 640, 3)
+
+    """
     if snow_coeff != -1:
         if snow_coeff < 0.0 or snow_coeff > 1.0:
             raise ValueError('Snow coeff must only be between 0 and 1')
@@ -143,7 +232,7 @@ def add_snow(img, snow_coeff=-1, rgb=True):
     snow_coeff*=255/2
     snow_coeff+=255/3
 
-    return snow_process(img, snow_coeff, rgb=rgb)
+    return _snow_process(img, snow_coeff, rgb=rgb)
 
 
 def _generate_random_lines(imshape, slant, drop_length, rain_type):
@@ -174,13 +263,13 @@ def _generate_random_lines(imshape, slant, drop_length, rain_type):
     return drops, drop_length
 
 
-def rain_process(img, slant, drop_length, drop_color, drop_width, rain_drops, rgb=True):
-    img_t= img.copy()
+def _rain_process(img, slant, drop_length, drop_color, drop_width, rain_drops, rgb=True):
+    img_t = img.copy()
 
     for rain_drop in rain_drops:
         cv.line(img_t, (rain_drop[0],rain_drop[1]), (rain_drop[0]+slant,rain_drop[1]+drop_length), drop_color, drop_width)
 
-    img= cv.blur(img_t,(7,7)) ## Rainy views are blurred
+    img = cv.blur(img_t,(7,7)) ## Rainy views are blurred
     brightness_coefficient = 0.7 ## Rainy days are usually shady 
 
     img = _hls(img) ## Conversion to hls
@@ -194,6 +283,30 @@ def rain_process(img, slant, drop_length, drop_color, drop_width, rain_drops, rg
 
 # Rain_type = 'drizzle', 'heavy', 'torrential'
 def add_rain(img, slant=-1, drop_length=20, drop_width=1, drop_color=(200,200,200), rain_type='None', rgb=True): ## (200,200,200) is a shade of gray
+    r"""
+        Simulate rainy conditions on an image.
+
+    Args:
+        img (ndarray) : Any regular BGR/RGB image/
+        slant (int): Slant value.
+        drop_length (int): Length of the raindrop.
+        drop_width (int): Width of the raindrop.
+        drop_color (tuple): Color of the raindrop.
+        rain_type (str): Type of rain. Can be either 'drizzle', 'heavy' or 'torrential'.
+        rgb (bool): Operate on RGB images. Default: True.
+    
+    Returns:
+        Array of shape ``(height, width, channels)``.
+
+    Examples::
+
+        >> img = caer.data.sunrise(rgb=True)
+        >> filtered = caer.filters.add_rain(img, rgb=True)
+        >> filtered
+        (427, 640, 3)
+
+    """
+    
     slant_extreme = slant
     if not(is_numeric(slant_extreme) and (slant_extreme >=-20 and slant_extreme <= 20) or slant_extreme==-1):
         raise ValueError('Numeric value must be between -20 and 20')
@@ -209,10 +322,10 @@ def add_rain(img, slant=-1, drop_length=20, drop_width=1, drop_color=(200,200,20
         slant= np.random.randint(-10,10) ##generate random slant if no slant value is given
 
     rain_drops, drop_length= _generate_random_lines(imshape, slant, drop_length, rain_type)
-    return rain_process(img, slant_extreme, drop_length, drop_color, drop_width, rain_drops)
+    return _rain_process(img, slant_extreme, drop_length, drop_color, drop_width, rain_drops)
 
 
-def add_blur(img, x, y, hw, fog_coeff):
+def _add_blur(img, x, y, hw, fog_coeff):
     overlay= img.copy()
     output= img.copy()
     alpha= 0.08*fog_coeff
@@ -224,7 +337,7 @@ def add_blur(img, x, y, hw, fog_coeff):
     return output
 
 
-def generate_random_blur_coordinates(imshape, hw):
+def _generate_random_blur_coordinates(imshape, hw):
     blur_points=[]
     midx = imshape[1]//2-2*hw
     midy = imshape[0]//2-hw
@@ -243,6 +356,25 @@ def generate_random_blur_coordinates(imshape, hw):
 
 
 def add_fog(img, fog_coeff=-1, rgb=True):
+    r"""
+        Simulate foggy conditions on an image.
+
+    Args:
+        img (ndarray) : Any regular BGR/RGB image/
+        fog_coeff (int): Coefficient value.
+        rgb (bool): Operate on RGB images. Default: True.
+    
+    Returns:
+        Array of shape ``(height, width, channels)``.
+
+    Examples::
+
+        >> img = caer.data.sunrise(rgb=True)
+        >> filtered = caer.filters.add_fog(img, fog_coeff=-1, rgb=True)
+        >> filtered
+        (427, 640, 3)
+
+    """
     if fog_coeff != -1:
         if fog_coeff < 0.0 or fog_coeff > 1.0:
             raise ValueError('Fog coefficient must be between 0 and 1')
@@ -255,9 +387,9 @@ def add_fog(img, fog_coeff=-1, rgb=True):
         fog_coeff_t = fog_coeff
 
     hw = int(imshape[1]//3*fog_coeff_t)
-    haze_list = generate_random_blur_coordinates(imshape,hw)
+    haze_list = _generate_random_blur_coordinates(imshape,hw)
     for haze_points in haze_list: 
-        img = add_blur(img, haze_points[0], haze_points[1], hw, fog_coeff_t) 
+        img = _add_blur(img, haze_points[0], haze_points[1], hw, fog_coeff_t) 
 
     img = cv.blur(img, (hw//10, hw//10))
     
