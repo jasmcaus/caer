@@ -85,10 +85,10 @@ def _imread(image_path, rgb=True, channels=3, target_size=None, resize_factor=No
     #     raise ValueError('channels must be an integer - 1 (Grayscale) or 3 (RGB)')
 
     interpolation_methods = {
-        'nearest':  0,  '0': 0, 
-        'bilinear': 1,  '1': 1,
-        'bicubic':  2,  '2': 2,
-        'area':     3,  '3': 3,
+        'nearest':  0, '0': 0,  0: 0, # 0
+        'bilinear': 1, '1': 1,  1: 1, # 1
+        'bicubic':  2, '2': 2,  2: 2, # 2
+        'area':     3, '3': 3,  3: 3  # 3
     }
 
     if interpolation not in interpolation_methods:

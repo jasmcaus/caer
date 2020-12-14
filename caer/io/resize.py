@@ -108,10 +108,10 @@ def resize(image, target_size=None, resize_factor=None, preserve_aspect_ratio=Fa
         new_shape = (int(resize_factor * width), int(resize_factor * height))
             
     interpolation_methods = {
-        'nearest': INTER_NEAREST, '0': INTER_NEAREST, # 0
-        'bilinear': INTER_LINEAR, '1': INTER_LINEAR,# 1
-        'bicubic': INTER_CUBIC, '2': INTER_CUBIC,# 2
-        'area': INTER_AREA, '3': INTER_AREA,# 3
+        'nearest': INTER_NEAREST, '0': INTER_NEAREST, 0: INTER_NEAREST, # 0
+        'bilinear': INTER_LINEAR, '1': INTER_LINEAR,  1: INTER_LINEAR,  # 1
+        'bicubic': INTER_CUBIC,   '2': INTER_CUBIC,   2: INTER_CUBIC,   # 2
+        'area': INTER_AREA,       '3': INTER_AREA,    3: INTER_AREA     # 3
     }
 
     if interpolation not in interpolation_methods:
