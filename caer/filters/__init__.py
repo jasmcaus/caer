@@ -11,11 +11,20 @@
 
 
 from .filters import (
+    change_light,
+    darken,
     brighten,
-    summer,
-    winter,
-    invert,
-    sepia,
+    random_brightness,
+    add_snow,
+    add_rain,
+    add_fog,
+    add_gravel,
+    add_sun_flare,
+    add_motion_blur,
+    add_autumn,
+    add_shadow,
+    correct_exposure,
+    augment_random,
     __all__ as __all_filters__
 )
 
