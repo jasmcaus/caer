@@ -32,8 +32,19 @@ __all__ = [
 # This issue has been marked and will be fixed in a future update. 
 
 class LiveStream:
+    r"""
+        This is an auxiliary class that enables Live Video Streaming for caer with minimalistic latency, and at the expense
+        of little to no additional computational requirements.
+        
+        The basic idea behind it is to tracks and save the salient feature array for the given number of frames and then uses these anchor point to cancel out all perturbations relative to it for the incoming frames in the queue. This class relies heavily on **Threaded Queue mode** for error-free & ultra-fast frame handling.
+
+    Args:
+        source (int): Source path for the video. If ``source=0``, the default camera device is used. For 
+            multiple external camera devices, use incremented values. For eg: ``source=1`` represents the second camera device on your system.
+    """
+
     def __init__(self, source=0):
-        """
+        r"""
             Source must either be an integer (0, 1, 2 etc) or a path to a video file
         """
         if isinstance(source, str):
