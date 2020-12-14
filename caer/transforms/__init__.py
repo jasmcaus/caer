@@ -10,7 +10,8 @@
 # Copyright (c) 2020 The Caer Authors <http://github.com/jasmcaus>
 
 r"""
-    caer.transforms consists of 1) Color and 2) Position transforms for use.
+    caer.transforms consists of position transforms for use.
+    For color-based transforms, see caer.filters.
 """
 
 from .position import (
