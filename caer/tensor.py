@@ -18,10 +18,13 @@ class Tensor(np.ndarray):
     def __new__(self, x, dtype=None):
         obj = np.asarray(x, dtype=dtype).view(Tensor)
 
-        if len(obj.shape) > 1:
-            self.size = (obj.shape[1], obj.shape[0])
+        y = obj.shape
+        # print('This is y:', y)
+        # print(len(obj.shape)>1)
+        if len(y)>1:
+            self.size = (y[1], y[0])
         else:
-            self.size = obj.shape
+            self.size = y
         return obj 
     
     # def __repr__(self):
