@@ -33,13 +33,13 @@ def is_bgr_image(img):
 
 def bgr_to_rgb(img) -> Tensor:
     r"""
-        Converts a BGR image to its RGB version
+        Converts a BGR image to its RGB version.
 
     Args:
         img (ndarray): Valid BGR image array
     
     Returns:
-        RGB Image (ndarray)
+        RGB image array of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 3
@@ -53,13 +53,13 @@ def bgr_to_rgb(img) -> Tensor:
 
 def bgr_to_gray(img) -> Tensor:
     r"""
-        Converts a BGR image to its Grayscale version
+        Converts a BGR image to its Grayscale version.
 
     Args:
         img (ndarray): Valid BGR image array
     
     Returns:
-        Grayscale Image (ndarray)
+        Grayscale image array of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 3
@@ -73,13 +73,13 @@ def bgr_to_gray(img) -> Tensor:
 
 def bgr_to_hsv(img) -> Tensor:
     r"""
-        Converts a BGR image to its HSV version
+        Converts a BGR image to its HSV version.
 
     Args:
         img (ndarray): Valid BGR image array
     
     Returns:
-        HSV Image (ndarray)
+        HSV image array of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 3
@@ -93,13 +93,13 @@ def bgr_to_hsv(img) -> Tensor:
 
 def bgr_to_lab(img) -> Tensor:
     r"""
-        Converts a BGR image to its LAB version
+        Converts a BGR image to its LAB version.
 
     Args:
         img (ndarray): Valid BGR image array
     
     Returns:
-        LAB Image (ndarray)
+        LAB image array of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 3
@@ -113,13 +113,13 @@ def bgr_to_lab(img) -> Tensor:
 
 def bgr_to_hls(img) -> Tensor:
     r"""
-        Converts a BGR image to its HLS version
+        Converts a BGR image to its HLS version.
 
     Args:
         img (ndarray): Valid BGR image array
     
     Returns:
-        HLS Image (ndarray)
+        HLS image array of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 3
