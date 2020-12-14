@@ -39,13 +39,13 @@ __all__ = [
 ]
 
 
-def list_images(DIR, include_subdirs=True, use_fullpath=False, show_size=False, verbose=1) -> List[str]:
+def list_images(DIR, recursive=True, use_fullpath=False, show_size=False, verbose=1) -> List[str]:
     r"""
-        Lists all image files within a specific directory (and sub-directories if `include_subdirs=True`)
+        Lists all image files within a specific directory (and sub-directories if `recursive=True`)
     
     Args:
         DIR (str): Directory to search for image files
-        include_subdirs (bool): Indicate whether to search all subdirectories as well (default = False)
+        recursive (bool): Indicate whether to search all subdirectories as well (default = False)
         use_fullpath (bool): Include full filepaths in the returned list (default = False)
         show_size (bool): Prints the disk size of the image files (default = False)
     
@@ -53,19 +53,19 @@ def list_images(DIR, include_subdirs=True, use_fullpath=False, show_size=False, 
         image_files (list): List of names (or full filepaths if `use_fullpath=True`) of the image files
 
     """
-    images = _get_media_from_dir(DIR=DIR, include_subdirs=include_subdirs, use_fullpath=use_fullpath, show_size=show_size, list_image_files=True, verbose=verbose)
+    images = _get_media_from_dir(DIR=DIR, recursive=recursive, use_fullpath=use_fullpath, show_size=show_size, list_image_files=True, verbose=verbose)
 
     if images is not None:   
         return images # images is a list
 
 
-def list_videos(DIR, include_subdirs=True, use_fullpath=False, show_size=False, verbose=1) -> List[str]:
+def list_videos(DIR, recursive=True, use_fullpath=False, show_size=False, verbose=1) -> List[str]:
     r"""
-        Lists all video files within a specific directory (and sub-directories if `include_subdirs=True`)
+        Lists all video files within a specific directory (and sub-directories if `recursive=True`)
     
     Args:
         DIR (str): Directory to search for video files
-        include_subdirs (bool): Indicate whether to search all subdirectories as well (default = False)
+        recursive (bool): Indicate whether to search all subdirectories as well (default = False)
         use_fullpath (bool): Include full filepaths in the returned list (default = False)
         show_size (bool): Prints the disk size of the video files (default = False)
     
@@ -74,19 +74,19 @@ def list_videos(DIR, include_subdirs=True, use_fullpath=False, show_size=False, 
 
     """
 
-    videos = _get_media_from_dir(DIR=DIR, include_subdirs=include_subdirs, use_fullpath=use_fullpath, show_size=show_size, list_video_files=True, verbose=verbose)
+    videos = _get_media_from_dir(DIR=DIR, recursive=recursive, use_fullpath=use_fullpath, show_size=show_size, list_video_files=True, verbose=verbose)
 
     if videos is not None:   
         return videos # videos is a list
 
 
-def list_media(DIR, include_subdirs=True, use_fullpath=False, show_size=True, verbose=0) -> List[str]:
+def list_media(DIR, recursive=True, use_fullpath=False, show_size=True, verbose=0) -> List[str]:
     r"""
-        Lists all media files within a specific directory (and sub-directories if `include_subdirs=True`)
+        Lists all media files within a specific directory (and sub-directories if `recursive=True`)
     
     Args:
         DIR (str): Directory to search for media files
-        include_subdirs (bool): Indicate whether to search all subdirectories as well (default = False)
+        recursive (bool): Indicate whether to search all subdirectories as well (default = False)
         use_fullpath (bool): Include full filepaths in the returned list (default = False)
         show_size (bool): Prints the disk size of the media files (default = False)
     
@@ -95,19 +95,19 @@ def list_media(DIR, include_subdirs=True, use_fullpath=False, show_size=True, ve
 
     """
 
-    media = _get_media_from_dir(DIR=DIR, include_subdirs=include_subdirs, use_fullpath=use_fullpath, show_size=show_size, list_image_files=True, list_video_files=True, verbose=verbose)
+    media = _get_media_from_dir(DIR=DIR, recursive=recursive, use_fullpath=use_fullpath, show_size=show_size, list_image_files=True, list_video_files=True, verbose=verbose)
 
     if media is not None:   
         return media # media is a list
 
 
-def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, show_size=True,  list_image_files=False, list_video_files=False, verbose=1) -> List[str]:
+def _get_media_from_dir(DIR, recursive=True, use_fullpath=False, show_size=True,  list_image_files=False, list_video_files=False, verbose=1) -> List[str]:
     r"""
-        Lists all media files within a specific directory (and sub-directories if `include_subdirs=True`)
+        Lists all media files within a specific directory (and sub-directories if `recursive=True`)
     
     Args:
         DIR (str): Directory to search for media files
-        include_subdirs (bool): Indicate whether to search all subdirectories as well (default = False)
+        recursive (bool): Indicate whether to search all subdirectories as well (default = False)
         use_fullpath (bool): Include full filepaths in the returned list (default = False)
         show_size (bool): Prints the disk size of the media files (default = False)
     
@@ -128,7 +128,7 @@ def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, show_size
     size_image_list = 0
     size_video_list = 0
     
-    if include_subdirs:
+    if recursive:
         for root, _, files in os.walk(DIR):
             for file in files:
                 fullpath = minijoin(root, file).replace('\\', '/')
@@ -209,13 +209,13 @@ def _get_media_from_dir(DIR, include_subdirs=True, use_fullpath=False, show_size
         
 
 
-def listdir(DIR, include_subdirs=True, use_fullpath=False, show_size=True, verbose=1) -> List[str]:
+def listdir(DIR, recursive=True, use_fullpath=False, show_size=True, verbose=1) -> List[str]:
     r"""
-        Lists all files within a specific directory (and sub-directories if `include_subdirs=True`)
+        Lists all files within a specific directory (and sub-directories if `recursive=True`)
     
     Args:
         DIR (str): Directory to search for files
-        include_subdirs (bool): Indicate whether to search all subdirectories as well (default = False)
+        recursive (bool): Indicate whether to search all subdirectories as well (default = False)
         use_fullpath (bool): Include full filepaths in the returned list (default = False)
         show_size (bool): Prints the disk size of the files (default = False)
     
@@ -227,8 +227,8 @@ def listdir(DIR, include_subdirs=True, use_fullpath=False, show_size=True, verbo
     if not exists(DIR):
         raise ValueError('Specified directory does not exist')
     
-    if not isinstance(include_subdirs, bool):
-        raise ValueError('include_subdirs must be a boolean')
+    if not isinstance(recursive, bool):
+        raise ValueError('recursive must be a boolean')
 
     if not isinstance(use_fullpath, bool):
         raise ValueError('use_fullpath must be a boolean')
@@ -240,7 +240,7 @@ def listdir(DIR, include_subdirs=True, use_fullpath=False, show_size=True, verbo
     count_files= 0
     size_dirs_list = 0
     
-    if include_subdirs:
+    if recursive:
         for root, _, files in os.walk(DIR):
             for file in files:
                 fullpath = minijoin(root, file).replace('\\', '/')
