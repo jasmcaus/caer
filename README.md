@@ -59,12 +59,10 @@ $ pip install --upgrade caer
 ```python
 >> import caer
 
-# Load a standard 640x427 test image that 
-# ships out-of-the-box with caer
+# Load a standard 640x427 test image that ships out-of-the-box with caer
 >> sunrise = caer.data.sunrise(rgb=True)
 
-# Resize the image to 400x400 while MAINTAINING 
-# aspect ratio
+# Resize the image to 400x400 while MAINTAINING aspect ratio
 >> resized = caer.resize(sunrise, target_size=(400,400), preserve_aspect_ratio=True)
 ```
 <img src="examples/thumbs/resize-with-ratio.png" alt="caer.resize()" />
