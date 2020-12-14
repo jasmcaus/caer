@@ -202,19 +202,19 @@ def _resize_with_ratio(img, target_size, preserve_aspect_ratio=False, interpolat
     if interpolation not in interpolation_methods:
         raise ValueError('Specify a valid interpolation type - area/nearest/bicubic/bilinear')
 
-    org_h, org_w = img.shape[:2]
+    oh, ow = img.shape[:2]
     target_w, target_h = target_size
 
-    if target_h > org_h or target_w > org_w:
+    if target_h > oh or target_w > ow:
         raise ValueError('To compute resizing keeping the aspect ratio, the target size dimensions must be <= actual image dimensions')
 
     # Computing minimal resize
-    # min_width, w_factor = _compute_minimal_resize(org_w, target_w)
-    # min_height, h_factor = _compute_minimal_resize(org_h, target_h)
-    minimal_resize_factor = _compute_minimal_resize((org_w, org_h), (target_w, target_h))
+    # min_width, w_factor = _compute_minimal_resize(ow, target_w)
+    # min_height, h_factor = _compute_minimal_resize(oh, target_h)
+    minimal_resize_factor = _compute_minimal_resize((ow, oh), (target_w, target_h))
 
     # Resizing minimally
-    img = _cv2_resize(img, (org_w//minimal_resize_factor, org_h//minimal_resize_factor))
+    img = _cv2_resize(img, (ow//minimal_resize_factor, oh//minimal_resize_factor))
 
     # Computing centre crop (to avoid extra crop, we resize minimally first)
     img = _compute_centre_crop(img, (target_w, target_h))
@@ -245,11 +245,11 @@ def _compute_minimal_resize(org_size, target_dim):
     if len(org_size) != 2 or len(target_dim) != 2:
         raise ValueError('Size of tuple must be = 2')
 
-    org_h, org_w = org_size[:2]
+    oh, ow = org_size[:2]
     targ_w, targ_h = target_dim[:2]
 
-    h_factor = math.floor(org_h/targ_h)
-    w_factor = math.floor(org_w/targ_w)
+    h_factor = math.floor(oh/targ_h)
+    w_factor = math.floor(ow/targ_w)
 
     if h_factor <= w_factor:
         return h_factor 
@@ -261,18 +261,18 @@ def _compute_centre_crop(img, target_size):
     _ = _check_target_size(target_size)
 
     # Getting org height and target
-    org_h, org_w = img.shape[:2]
+    oh, ow = img.shape[:2]
     target_w, target_h = target_size
 
     # The following line is actually the right way of accessing height and width of an opencv-specific image (height, width). However for some reason, while the code runs, this is flipped (it now becomes (width,height)). Testing needs to be done to catch this little bug
-    # org_h, org_w = img.shape[:2]
+    # oh, ow = img.shape[:2]
 
 
-    if target_h > org_h or target_w > org_w:
+    if target_h > oh or target_w > ow:
         raise ValueError('To compute centre crop, target size dimensions must be <= img dimensions')
 
-    diff_h = (org_h - target_h) // 2
-    diff_w = (org_w - target_w ) // 2
+    diff_h = (oh - target_h) // 2
+    diff_w = (ow - target_w ) // 2
     
     # img[y:y+h, x:x+h]
     return img[diff_h:diff_h + target_h, diff_w:diff_w + target_w]
