@@ -30,6 +30,29 @@
 # ]
 
 
+# mode2int = {
+#     'nearest' : 0,
+#     'wrap' : 1,
+#     'reflect' : 2,
+#     'mirror' : 3,
+#     'constant' : 4,
+#     'ignore' : 5,
+# }
+
+# modes = frozenset(mode2int.keys())
+
+# def _checked_mode2int(mode, cval, fname):
+#     if mode not in modes:
+#         raise ValueError(f'caer.{fname}: `mode` not in {modes}')
+
+#     if mode == 'constant' and cval != 0.:
+#         raise NotImplementedError('Please email caer developers to get this implemented.')
+    
+#     return mode2int[mode]
+
+# _check_mode = _checked_mode2int
+
+
 # def convolve(f, weights, mode='reflect', cval=0.0, out=None, output=None):
 #     """
 #     Convolution of `f` and `weights`
