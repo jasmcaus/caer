@@ -32,13 +32,13 @@ def is_hls_image(img):
 
 def hls_to_rgb(img) -> Tensor:
     r"""
-        Converts a HLS image to its RGB version
+        Converts a HLS image to its RGB version.
 
     Args:
         img (ndarray): Valid HLS image array
     
     Returns:
-        RGB Image (ndarray)
+        RGB image array of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 3
@@ -52,13 +52,13 @@ def hls_to_rgb(img) -> Tensor:
 
 def hls_to_bgr(img) -> Tensor:
     r"""
-        Converts a HLS image to its BGR version
+        Converts a HLS image to its BGR version.
 
     Args:
         img (ndarray): Valid HLS image array
     
     Returns:
-        BGR Image (ndarray)
+        BGR image array of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 3
@@ -72,13 +72,13 @@ def hls_to_bgr(img) -> Tensor:
 
 def hls_to_gray(img) -> Tensor:
     r"""
-        Converts a HLS image to its Grayscale version
+        Converts a HLS image to its Grayscale version.
 
     Args:
         img (ndarray): Valid HLS image array
     
     Returns:
-        Grayscale Image (ndarray)
+        Grayscale image array of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 3
@@ -94,13 +94,13 @@ def hls_to_gray(img) -> Tensor:
 
 def hls_to_lab(img) -> Tensor:
     r"""
-        Converts a HLS image to its LAB version
+        Converts a HLS image to its LAB version.
 
     Args:
         img (ndarray): Valid HLS image array
     
     Returns:
-        LAB Image (ndarray)
+        LAB image array of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 3

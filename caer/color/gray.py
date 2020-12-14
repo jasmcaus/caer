@@ -33,13 +33,13 @@ def is_gray_image(img):
 
 def gray_to_rgb(img) -> Tensor:
     r"""
-        Converts a Grayscale image to its RGB version
+        Converts a Grayscale image to its RGB version.
 
     Args:
         img (ndarray): Valid Grayscale image array
     
     Returns:
-        RGB Image (ndarray)
+        RGB image array of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 2
@@ -53,13 +53,13 @@ def gray_to_rgb(img) -> Tensor:
 
 def gray_to_bgr(img) -> Tensor:
     r"""
-        Converts a Grayscale image to its BGR version
+        Converts a Grayscale image to its BGR version.
 
     Args:
         img (ndarray): Valid Grayscale image array
     
     Returns:
-        BGR Image (ndarray)
+        BGR image array of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 2
@@ -73,13 +73,13 @@ def gray_to_bgr(img) -> Tensor:
 
 def gray_to_lab(img) -> Tensor:
     r"""
-        Converts a Grayscale image to its LAB version
+        Converts a Grayscale image to its LAB version.
 
     Args:
         img (ndarray): Valid Grayscale image array
     
     Returns:
-        LAB Image (ndarray)
+        LAB image array of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 2
@@ -95,13 +95,13 @@ def gray_to_lab(img) -> Tensor:
 
 def gray_to_hsv(img) -> Tensor:
     r"""
-        Converts a Grayscale image to its HSV version
+        Converts a Grayscale image to its HSV version.
 
     Args:
         img (ndarray): Valid Grayscale image array
     
     Returns:
-        HSV Image (ndarray)
+        HSV image array of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 2
@@ -117,13 +117,13 @@ def gray_to_hsv(img) -> Tensor:
 
 def gray_to_hls(img) -> Tensor:
     r"""
-        Converts a Grayscale image to its HLS version
+        Converts a Grayscale image to its HLS version.
 
     Args:
         img (ndarray): Valid Grayscale image array
     
     Returns:
-        HLS Image (ndarray)
+        HLS image array of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 2
