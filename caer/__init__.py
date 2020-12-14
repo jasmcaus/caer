@@ -160,7 +160,7 @@ from .data import __all__ as __all_data__
 from .utils import __all__ as __all_utils__
 from .path import __all__ as __all_path__
 from .filters import __all__ as __all_filters__
-from .transforms import __all__ as __all_transforms__
+from .augment import __all__ as __all_augment__
 
 
 __all__ = __all_globals__ + __all_core__ + __all_preprocess__ + __all_visualizations__ + __all_filters__
@@ -172,7 +172,7 @@ __all__ += __all_data__
 __all__ += __all_utils__ 
 __all__ += __all_path__
 __all__ += __all_color__
-__all__ += __all_transforms__
+__all__ += __all_augment__
 
 
 # Stop polluting the namespace
