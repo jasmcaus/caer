@@ -24,8 +24,18 @@ __all__ = [
 
 
 class GPUFileStream:
+    r"""
+        This is an auxiliary class that enables Video Streaming using the GPU for caer with minimalistic latency, and at the expense of little to no additional computational requirements.
+        
+        The basic idea behind it is to tracks and save the salient feature array for the given number of frames and then uses these anchor point to cancel out all perturbations relative to it for the incoming frames in the queue. This class relies heavily on **Threaded Queue mode** for error-free & ultra-fast frame handling.
 
-    def __init__(self, source, queueSize=128):
+    Args:
+        source (int, str): Source path for the video. If ``source=0``, the default camera device is used. For 
+            multiple external camera devices, use incremented values. For eg: ``source=1`` represents the second camera device on your system.
+        qsize (int): Default queue size for handling the video streams. Default: 128.
+    """
+
+    def __init__(self, source, qsize=128):
         """
             Source must be a path to a video file
             Utilizes your system's GPU to process the stream
@@ -41,7 +51,7 @@ class GPUFileStream:
         self.count = 0
 
         # initialize the queue to store frames
-        self.Q = Queue(maxsize=queueSize)
+        self.Q = Queue(maxsize=qsize)
 
         self.width = int(self.stream.get(cv.CAP_PROP_FRAME_WIDTH))
         self.height = int(self.stream.get(cv.CAP_PROP_FRAME_HEIGHT))
@@ -52,8 +62,8 @@ class GPUFileStream:
         
         # since we use UMat to store the images to
         # we need to initialize them beforehand
-        self.qframes = [0] * queueSize
-        for ii in range(queueSize):
+        self.qframes = [0] * qsize
+        for ii in range(qsize):
             self.qframes[ii] = cv.UMat(self.height, self.width, cv.CV_8UC3)
 
 

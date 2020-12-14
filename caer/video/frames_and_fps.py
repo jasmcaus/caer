@@ -11,7 +11,7 @@
 
 
 from .stream import Stream
-
+from ..path import exists
 
 __all__ = [
     'count_frames',
@@ -20,6 +20,16 @@ __all__ = [
 
 
 def count_frames(video_path=None):
+    r"""
+        Returns the number of frames in a video at ``video_path``.
+
+    Args:
+        video_path (str): Video Filepath
+    
+    Returns:
+        Frame count 
+
+    """
     if video_path is None:
         raise ValueError('Specify a valid video path')
 
@@ -30,7 +40,17 @@ def count_frames(video_path=None):
 
 
 def get_fps(video_path=None):
-    if video_path is None:
+    r"""
+        Returns the FPS in a video at ``video_path``.
+
+    Args:
+        video_path (str): Video Filepath
+    
+    Returns:
+        FPS value. 
+
+    """
+    if video_path is None and not exists(video_path):
         raise ValueError('Specify a valid video path')
 
     stream = Stream(video_path)

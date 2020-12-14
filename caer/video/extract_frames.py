@@ -19,6 +19,9 @@ from ..path import list_videos, exists, mkdir
 from .constants import FRAME_COUNT, FPS
 from ..io import imsave, resize
 
+__all__ = [
+    'extract_frames'
+]
 
 def extract_frames(input_folder, 
                    output_folder, 
@@ -29,20 +32,22 @@ def extract_frames(input_folder,
                    frames_per_sec=None, 
                    frame_interval=None,
                    dest_filetype='jpg') -> int:
-    """
-    Function to extract frames from videos within a directory
-    and save them as separate frames in an output directory.
+    r"""
+        Extract frames from videos within a directory and save them as separate frames in an output directory.
+
     Args:
-        input_folder: Input video directory.
-        output_folder: Output directory to save the frames.
-        target_size: Destination Image Size (tuple of size 2)
-        label_counter: Starting label counter
-        max_video_count: Number of videos to process.
-        frames_per_sec: Number of frames to process per second. 
-        frame_interval: Interval between the frames to be processed.
-        dest_filetype: Processed image filetype (png, jpg) --> Default: png
+        input_folder (str): Input video directory.
+        output_folder (str): Output directory to save the frames.
+        target_size (tuple): Destination Image Size (tuple of size 2)
+        label_counter (int): Starting label counter (optional)
+        max_video_count (int): Number of videos to process.
+        frames_per_sec (int, float): Number of frames to process per second. 
+        frame_interval (int, float): Interval between the frames to be processed.
+        dest_filetype (str): Processed image filetype (png, jpg). Default: png
+
     Returns:
         label_counter (after processing)
+
     """
 
     dest_filetype.replace('.', '')
@@ -143,8 +148,3 @@ def _determine_interval(x) -> int:
         return math.floor(x)
     else:
         return math.ceil(x)
-
-
-__all__ = [
-    'extract_frames'
-]

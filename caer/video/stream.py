@@ -34,8 +34,19 @@ __all__ = [
 
 # This class can handle both live as well as pre-existing videos. 
 class Stream:
-    def __init__(self, source = 0, queue_size=128) -> None: # TODO: Add colorspace support
-        """
+    r"""
+        This is an auxiliary class that enables Video Streaming for ``caer`` with minimalistic latency, and at the expense
+        of little to no additional computational requirements.
+        
+        The basic idea behind it is to tracks and save the salient feature array for the given number of frames and then uses these anchor point to cancel out all perturbations relative to it for the incoming frames in the queue. This class relies heavily on **Threaded Queue mode** for error-free & ultra-fast frame handling.
+
+    Args:
+        source (int, str): Source path for the video. Uses an external camera device if ``source`` is an integer.
+        qsize (int): Default queue size for handling the video streams. Default: 128.
+    """
+
+    def __init__(self, source = 0, qsize=128) -> None: # TODO: Add colorspace support
+        r"""
             Source must either be an integer (0,1,2 etc) or a path to a video file
         """
         self.live_video = False
@@ -59,7 +70,7 @@ class Stream:
         self.frames = int(self._video_stream.get(FRAME_COUNT))
         
         # initialize the queue to store frames 
-        self._Q = Queue(maxsize=queue_size)
+        self._Q = Queue(maxsize=qsize)
 
         # intialize thread
         self._thread = None
