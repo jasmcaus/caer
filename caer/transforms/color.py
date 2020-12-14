@@ -30,14 +30,14 @@ BGR2HLS = 52
 RGB2HLS = 53
 
 
-def hls(img, rgb=True):
+def _hls(img, rgb=True):
     if rgb:
         return rgb_to_hls(img)
     else:
         return bgr_to_hls(img)
 
 
-def bgr(img, rgb=True):
+def _bgr(img, rgb=True):
     if rgb:
         return rgb_to_bgr(img)
     else:
@@ -51,20 +51,20 @@ def _rgb(img, rgb=True):
         return bgr_to_rgb(img)
 
 
-def hue(img, rgb=True):
-    return hls(img, rgb=rgb)[:,:,0]
+def _hue(img, rgb=True):
+    return _hls(img, rgb=rgb)[:,:,0]
 
 
 def lightness(img, rgb=True):
-    return hls(img, rgb=rgb)[:,:,1]
+    return _hls(img, rgb=rgb)[:,:,1]
 
 
 def saturation(img, rgb=True):
-    return hls(img, rgb=rgb)[:,:,2]
+    return _hls(img, rgb=rgb)[:,:,2]
 
 
 def change_light(img, coeff, rgb=True):
-    img = hls(img, rgb=rgb)
+    img = _hls(img, rgb=rgb)
 
     img = np.array(img, dtype=np.float64) 
     img[:,:,1] = img[:,:,1]*coeff ## scale pixel values up or down for channel 1 (for lightness)
@@ -116,7 +116,7 @@ def random_brightness(img, rgb=True):
 err_snow_coeff="Snow coeff can only be between 0 and 1"
 
 def snow_process(img, snow_coeff, rgb=True):
-    img = hls(img, rgb=rgb)
+    img = _hls(img, rgb=rgb)
 
     img = np.array(img, dtype=np.float64) 
 
@@ -183,7 +183,7 @@ def rain_process(img, slant, drop_length, drop_color, drop_width, rain_drops, rg
     img= cv.blur(img_t,(7,7)) ## Rainy views are blurred
     brightness_coefficient = 0.7 ## Rainy days are usually shady 
 
-    img = hls(img) ## Conversion to hls
+    img = _hls(img) ## Conversion to hls
     img[:,:,1] = img[:,:,1]*brightness_coefficient ## scale pixel values down for channel 1(Lightness)
 
     if rgb:
@@ -292,7 +292,7 @@ def gravel_process(img, x1, x2, y1, y2, num_patches, rgb=True):
         yy2=random.randint(y1, yy1)
         rectangular_roi_default.append((xx2, yy2, min(xx1,xx2+200), min(yy1,yy2+30)))
 
-    img = hls(img, rgb=rgb)
+    img = _hls(img, rgb=rgb)
 
     for roi in rectangular_roi_default:
         gravels = _generate_gravel_patch(roi)
@@ -439,7 +439,7 @@ def add_speed(img, speed_coeff=-1):
 def autumn_process(img, rgb=True):
     img_t = img.copy()
     imshape = img_t.shape
-    img_t = hls(img_t, rgb=rgb)
+    img_t = _hls(img_t, rgb=rgb)
     step = 8
     aut_colors=[1, 5, 9, 11]
     col= aut_colors[random.randint(0, 3)]
@@ -541,7 +541,7 @@ def _generate_shadow_coordinates(imshape, num_shadows, rectangular_roi, shadow_d
 
 
 def shadow_process(img, num_shadows, x1, y1, x2, y2, shadow_dimension, rgb=True):
-    img = hls(img, rgb=rgb) ## Conversion to hls
+    img = _hls(img, rgb=rgb) ## Conversion to hls
 
     mask = np.zeros_like(img) 
     imshape = img.shape

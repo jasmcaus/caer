@@ -32,6 +32,8 @@ from .position import (
     __all__ as __all_trans__
 )
 
+from .color import *
+
 __all__ = __all_trans__ 
 
 # Stop polluting the namespace
