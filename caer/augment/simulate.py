@@ -26,10 +26,10 @@ from .functional import (
     _generate_random_lines,
     _rain_process,
     _generate_random_blur_coordinates,
-    _sim_blur,
+    _add_blur,
     _gravel_process,
-    _sim_sun_flare_line,
-    _sim_sun_process,
+    _add_sun_flare_line,
+    _add_sun_process,
     _apply_motion_blur,
     _autumn_process,
     _shadow_process
@@ -156,7 +156,7 @@ def sim_fog(img, fog_coeff=-1, rgb=True):
     hw = int(imshape[1]//3*fog_coeff_t)
     haze_list = _generate_random_blur_coordinates(imshape,hw)
     for haze_points in haze_list: 
-        img = _sim_blur(img, haze_points[0], haze_points[1], hw, fog_coeff_t) 
+        img = _add_blur(img, haze_points[0], haze_points[1], hw, fog_coeff_t) 
 
     img = cv.blur(img, (hw//10, hw//10))
     
@@ -248,13 +248,13 @@ def sim_sun_flare(img, flare_center=-1, angle=-1, num_flare_circles=8, src_radiu
         angle_t = angle
 
     if flare_center == -1:
-        flare_center_t = (random.randint(0,imshape[1]), random.randint(0,imshape[0]//2))
+        flare_center_t = (random.randint(0, imshape[1]), random.randint(0, imshape[0]//2))
     else:
         flare_center_t = flare_center
 
-    x, y = _sim_sun_flare_line(flare_center_t, angle_t, imshape)
+    x, y = _add_sun_flare_line(flare_center_t, angle_t, imshape)
 
-    return _sim_sun_process(img, num_flare_circles, flare_center_t, src_radius, x, y, src_color)
+    return _add_sun_process(img, num_flare_circles, flare_center_t, src_radius, x, y, src_color)
 
 
 def sim_motion_blur(img, speed_coeff=-1):
