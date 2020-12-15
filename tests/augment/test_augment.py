@@ -17,9 +17,9 @@ import caer
 def test_flips():
     img = caer.data.sunrise()
 
-    vflip = caer.transforms.vflip(img)
-    hflip = caer.transforms.hflip(img)
-    hvflip = caer.transforms.hvflip(img)
+    vflip = caer.augment.vflip(img)
+    hflip = caer.augment.hflip(img)
+    hvflip = caer.augment.hvflip(img)
 
     cv_vflip = cv.flip(img, 0)
     cv_hflip = cv.flip(img, 1)
