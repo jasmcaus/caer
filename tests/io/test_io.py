@@ -75,7 +75,7 @@ def test_gray():
     img_path = os.path.join(here, 'data', 'green_fish.jpg')
 
     img = caer.imread(img_path, gray=True)
-    img_chann = caer.imread(img_path, channels=1) # Maintain backwards-compatibility
+    img_chann = caer.imread(img_path, gray=True) # Maintain backwards-compatibility
 
     assert len(img.shape) == 2
     assert len(img_chann.shape) == 2

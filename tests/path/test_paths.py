@@ -24,7 +24,7 @@ PATH_TO_MEDIA_FILES = os.path.join(os.getcwd(), 'tests', 'path', 'media')
 def test_list_images():
     DIR = PATH_TO_MEDIA_FILES
 
-    images_list = caer.path.list_images(DIR, include_subdirs=True, use_fullpath=True)
+    images_list = caer.path.list_images(DIR, recursive=True, use_fullpath=True)
 
     assert images_list is not None 
     assert len(images_list) == 18 #There are 18 images & 7 videos in tests/media
@@ -36,7 +36,7 @@ def test_list_images():
 def test_list_videos():
     DIR = PATH_TO_MEDIA_FILES
 
-    videos_list = caer.path.list_videos(DIR, include_subdirs=True, use_fullpath=True)
+    videos_list = caer.path.list_videos(DIR, recursive=True, use_fullpath=True)
 
     assert videos_list is not None 
     assert len(videos_list) == 7 #There are 18 images & 7 videos in tests/media
@@ -48,7 +48,7 @@ def test_list_videos():
 def test_list_media():
     DIR = PATH_TO_MEDIA_FILES
 
-    media_list = caer.path.list_media(DIR, include_subdirs=True, use_fullpath=True)
+    media_list = caer.path.list_media(DIR, recursive=True, use_fullpath=True)
 
     assert media_list is not None 
     assert len(media_list) == 25 #There are 18 images & 7 videos in tests/media
@@ -60,7 +60,7 @@ def test_list_media():
 def test_listdir():
     DIR = PATH_TO_MEDIA_FILES
 
-    dir_list = caer.path.listdir(DIR, include_subdirs=True, use_fullpath=True)
+    dir_list = caer.path.listdir(DIR, recursive=True, use_fullpath=True)
 
     assert dir_list is not None 
     assert len(dir_list) == 26 #There are 18 images, 7 videos and 1 README.md in tests/media

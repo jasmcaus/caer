@@ -66,7 +66,7 @@ class MeanProcess:
             return image
             
 
-def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True, include_subdirs=True) -> Tuple:
+def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True, recursive=True) -> Tuple:
     """
         Computes mean per channel
         Mean must be computed ONLY on the train set
@@ -74,7 +74,7 @@ def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True, include_s
     if not exists(DIR):
         raise ValueError('The specified directory does not exist')
     
-    image_list = list_images(DIR, include_subdirs=include_subdirs, use_fullpath=True, verbose=0)
+    image_list = list_images(DIR, recursive=recursive, use_fullpath=True, verbose=0)
 
     if len(image_list) == 0:
         raise ValueError(f'No images found at {DIR}')

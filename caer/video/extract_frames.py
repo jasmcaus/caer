@@ -26,7 +26,7 @@ __all__ = [
 def extract_frames(input_folder, 
                    output_folder, 
                    target_size=None, 
-                   include_subdirs=False,
+                   recursive=False,
                    label_counter = None, 
                    max_video_count=None, 
                    frames_per_sec=None, 
@@ -60,7 +60,7 @@ def extract_frames(input_folder,
     if target_size is not None:
         _ = _check_target_size(target_size)
     
-    video_list = list_videos(input_folder, include_subdirs=include_subdirs, use_fullpath=True, verbose=0)
+    video_list = list_videos(input_folder, recursive=recursive, use_fullpath=True, verbose=0)
 
     if len(video_list) == 0:
         raise ValueError(f'No videos found at {input_folder}')

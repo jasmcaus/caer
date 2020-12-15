@@ -58,25 +58,25 @@ Use `caer.__version__` to get the current version number of your `caer` installa
 
 
 ## List Image Files from Directory
-`caer.path.list_images()` lists all image files in the immediate directory (if `include_subdirs = False`)  or all sub-directories, otherwise. 
+`caer.path.list_images()` lists all image files in the immediate directory (if `recursive = False`)  or all sub-directories, otherwise. 
 ```python
->> image_list = caer.path.list_images(DIR='Photos', include_subdirs=True, use_fullpath=False, show_size=False)
+>> image_list = caer.path.list_images(DIR='Photos', recursive=True, use_fullpath=False, show_size=False)
 >> image_list
 ```
 
 
 ## List Video Files from Directory
-`caer.path.list_videos()` lists all image files in the immediate directory (if `include_subdirs = False`)  or all sub-directories, otherwise. 
+`caer.path.list_videos()` lists all image files in the immediate directory (if `recursive = False`)  or all sub-directories, otherwise. 
 ```python
->> video_list = caer.path.list_videos(DIR='Videos', include_subdirs=True, use_fullpath=False, show_size=False)
+>> video_list = caer.path.list_videos(DIR='Videos', recursive=True, use_fullpath=False, show_size=False)
 >> video_list
 ```
 
 
 ## List Media Files from Directory
-`caer.path.list_media()` lists all media files (images and videos) in the immediate directory (if `include_subdirs = False`)  or all sub-directories, otherwise. 
+`caer.path.list_media()` lists all media files (images and videos) in the immediate directory (if `recursive = False`)  or all sub-directories, otherwise. 
 ```python
->> media_list = caer.path.list_media(DIR='Media', include_subdirs=True, use_fullpath=False, show_size=False)
+>> media_list = caer.path.list_media(DIR='Media', recursive=True, use_fullpath=False, show_size=False)
 >> media_list
 ```
 
