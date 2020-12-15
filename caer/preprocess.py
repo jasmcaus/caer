@@ -222,7 +222,7 @@ def _check_for_false_folders(base_dir, classes):
         g = []
         for i in classes:
             path = minijoin(base_dir, i)
-            if list_images(path, include_subdirs=False, verbose=0) is not None:
+            if list_images(path, recursive=False, verbose=0) is not None:
                 g.append(i)
     
     return g

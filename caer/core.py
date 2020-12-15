@@ -81,7 +81,7 @@ def get_classes_from_dir(DIR, verbose=0):
         raise ValueError('The specified directory does not seem to have any folders in it')
     else:
         import os 
-        classes = [i for i in listdir(DIR, include_subdirs=False, verbose=verbose) if os.path.isdir(minijoin(DIR, i))]
+        classes = [i for i in listdir(DIR, recursive=False, verbose=verbose) if os.path.isdir(minijoin(DIR, i))]
         return classes
 
 
