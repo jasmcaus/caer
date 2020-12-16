@@ -11,10 +11,12 @@
 
 import numpy as np 
 import caer 
+
 from ._tensor_str import _str
+from ._tensor_base import _TensorBase
 
 
-class Tensor(np.ndarray):
+class Tensor(_TensorBase):
     # This is required to get the type(Tensor) to be 'caer.Tensor'. 
     # Without this, type(Tensor) is 'caer.tensor.Tensor' which is not ideal.
     # Alternatively, we may shove this class to __init__.py, but this would, again, not be ideal
@@ -24,6 +26,7 @@ class Tensor(np.ndarray):
         # return "<class 'caerf.Tensor'>"
         return _str(self)
 
+
     def __new__(self, x, dtype=None):
 
         obj = np.array(x, dtype=dtype).view(Tensor)
@@ -31,15 +34,12 @@ class Tensor(np.ndarray):
         y = obj.shape
         # print('This is y:', y)
         # print(len(obj.shape)>1)
-        if len(y)>1:
+        if len(y) > 1:
             self.size = (y[1], y[0])
+
         else:
             self.size = y
         return obj 
-    
-    # def __repr__(self):
-    #     return "<class 'caer.Tensor'>"
-
 
 
 def tensor(x, dtype=None):
@@ -70,4 +70,5 @@ def from_numpy(x, dtype=None):
     Args:
         x (ndarray): Array to convert.
     """
-    return np.array(x, dtype=dtype).view(caer.Tensor)
+    x = np.asarray(x, dtype=dtype)
+    return x.view(caer.Tensor)
