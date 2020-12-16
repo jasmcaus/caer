@@ -140,6 +140,7 @@ from .color import (
 
 # Bringing in configuration variables from globals.py
 from .globals import *
+from .adorad import *
 
 
 def get_caer_version():
