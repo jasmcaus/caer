@@ -9,9 +9,3 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2020 The Caer Authors <http://github.com/jasmcaus>
 
-
-from .tensor import (
-    Tensor,
-    from_numpy,
-    is_tensor
-)

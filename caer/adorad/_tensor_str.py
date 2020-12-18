@@ -13,7 +13,6 @@
 import math
 import numpy as np
 
-
 class __PrinterOptions(object):
     precision = 4
     threshold = 1000
@@ -28,7 +27,7 @@ PRINT_OPTS = __PrinterOptions()
 
 class _Formatter(object):
     def __init__(self, tensor):
-        self.floating_dtype = tensor.dtype.is_floating_point
+        self.floating_dtype = 'float' in str(repr(tensor.dtype))
         self.int_mode = True
         self.sci_mode = False
         self.max_width = 1
@@ -47,12 +46,10 @@ class _Formatter(object):
 
             for value in tensor_view:
                 if value != np.ceil(value):
-                    print('YE')
                     self.int_mode = False
                     break
 
             if self.int_mode:
-                print('ee')
                 for value in tensor_view:
                     value_str = ('{:.0f}').format(value)
                     self.max_width = max(self.max_width, len(value_str) + 1)
@@ -104,7 +101,7 @@ def _vector_str(self, indent, summarize, formatter):
 
     # Preventing the entire tensor from being displayed to the terminal. 
     # We (figuratively) "prune" the tensor for output
-    if summarize and self.size(0) > 2 * PRINT_OPTS.edgeitems:
+    if summarize and self.size_dim(0) > 2 * PRINT_OPTS.edgeitems:
         data = ([_val_formatter(val) for val in self[:PRINT_OPTS.edgeitems].tolist()] +
                 [' ...'] +
                 [_val_formatter(val) for val in self[-PRINT_OPTS.edgeitems:].tolist()])
@@ -129,7 +126,7 @@ def _tensor_str_with_formatter(self, indent, summarize, formatter):
 
     # Preventing the entire tensor from being displayed to the terminal. 
     # We (figuratively) "prune" the tensor for output
-    if summarize and self.size(0) > 2 * PRINT_OPTS.edgeitems:
+    if summarize and self.size_dim(0) > 2 * PRINT_OPTS.edgeitems:
         slices = ([_tensor_str_with_formatter(self[i], indent + 1, summarize, formatter)
                    for i in range(0, PRINT_OPTS.edgeitems)] +
                   ['...'] +
@@ -139,7 +136,7 @@ def _tensor_str_with_formatter(self, indent, summarize, formatter):
     # If tensor is small enough to display to terminal
     else:
         slices = [_tensor_str_with_formatter(self[i], indent + 1, summarize, formatter)
-                  for i in range(0, self.size(0))]
+                  for i in range(0, self.size_dim(0))]
 
     tensor_str = (',' + '\n' * (dim - 1) + ' ' * (indent + 1)).join(slices)
     return '[' + tensor_str + ']'
@@ -148,9 +145,8 @@ def _tensor_str_with_formatter(self, indent, summarize, formatter):
 def _tensor_str(self, indent):
     if self.numel() == 0:
         return '[]'
-
     summarize = self.numel() > PRINT_OPTS.threshold
-    # summarize = self.size > PRINT_OPTS.threshold
+    # summarize = self.size_dim > PRINT_OPTS.threshold
 
     # if self.dtype is torch.float16 or self.dtype is torch.bfloat16:
     #     self = self.float()
@@ -184,19 +180,19 @@ def _add_suffixes(tensor_str, suffixes, indent, force_newline):
 
 
 def get_summarized_data(self):
-    dim = self.dim()
-    # dim = self.ndim()
     
-    # if dim == 0:
-    #     return self
+    dim = self.dim()
+    
+    if dim == 0:
+        return self
 
     if dim == 1:
-        if self.size(0) > 2 * PRINT_OPTS.edgeitems:
+        if self.size_dim(0) > 2 * PRINT_OPTS.edgeitems:
             return np.cat((self[:PRINT_OPTS.edgeitems], self[-PRINT_OPTS.edgeitems:]))
         else:
             return self
 
-    if self.size(0) > 2 * PRINT_OPTS.edgeitems:
+    if self.size_dim(0) > 2 * PRINT_OPTS.edgeitems:
         start = [self[i] for i in range(0, PRINT_OPTS.edgeitems)]
         end = ([self[i]
                for i in range(len(self) - PRINT_OPTS.edgeitems, len(self))])
@@ -206,6 +202,7 @@ def get_summarized_data(self):
 
 
 def _str_intern(self):
+    
     prefix = PRINT_OPTS.prefix
     indent = len(prefix)
     suffixes = []
@@ -223,7 +220,7 @@ def _str_intern(self):
 
         tensor_str = _tensor_str(self, indent)
 
-    return _add_suffixes(prefix + tensor_str, suffixes, indent, force_newline=self.is_sparse)
+    return _add_suffixes(prefix + tensor_str, suffixes, indent, force_newline=False)
 
 
 def _str(self):

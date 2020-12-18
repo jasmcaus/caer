@@ -10,26 +10,27 @@
 # Copyright (c) 2020 The Caer Authors <http://github.com/jasmcaus>
 
 
-class _TensorBase():
+class _TensorBase:
     def __init__(self):
         self.max_width = 2
-        self.floating_dtype = None 
+        self.is_floating_point = False 
         self.sci_mode = False 
         self.int_mode = True  
-        self.dtype = None 
-        self.size = None 
-        self.ndim = None 
-        self.numel = None 
+        self.dtype = self.dtype 
+        self.numelem = self.size
 
 
-    # def numel(self):
-    #     return self.numel 
+    def numel(self):
+        return self.numelem
     
-    # def dim(self):
-    #     return self.dim 
 
-    # def size(self):
-    #     return self.size  
+    def dim(self):
+        return self.ndim
+
+
+    def size_dim(self, dim):
+        return self.shape[dim]
+
 
     # def dtype(self):
     #     return self.dtype 
