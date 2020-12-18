@@ -9,44 +9,43 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2020 The Caer Authors <http://github.com/jasmcaus>
 
+#pylint:disable=unused-argument
+
 import numpy as np 
-import caer 
 
 from ._tensor_str import _str
 from ._tensor_base import _TensorBase
+   
 
-
-class Tensor(_TensorBase):
+# We use np.ndarray as a super class, because ``ndarray.view()`` expects an ndarray sub-class
+# We also derive useful class methods from ``_TensorBase`` which serves as the Tensor's Base
+class Tensor(_TensorBase, np.ndarray):
     # This is required to get the type(Tensor) to be 'caer.Tensor'. 
     # Without this, type(Tensor) is 'caer.tensor.Tensor' which is not ideal.
     # Alternatively, we may shove this class to __init__.py, but this would, again, not be ideal
     __module__ = 'caer'
 
+    def __new__(cls, x, dtype=None):
+        if not isinstance(x, (tuple, list, np.ndarray)):
+            raise ValueError('Data needs to be (ideally) a list')
+
+        obj = np.asarray(x, dtype=dtype).view(cls)
+        obj.dtype = obj.dtype
+
+        return obj 
+    
+
+    def __init__(self, x, dtype):
+        super().__init__() # gets attributes from '_TensorBase'
+        self.x = self.__repr__()
+        
+
     def __repr__(self):
-        # return "<class 'caerf.Tensor'>"
         return _str(self)
 
 
-    def __new__(self, x, dtype=None):
-
-        obj = np.array(x, dtype=dtype).view(Tensor)
-
-        y = obj.shape
-        # print('This is y:', y)
-        # print(len(obj.shape)>1)
-        if len(y) > 1:
-            self.size = (y[1], y[0])
-
-        else:
-            self.size = y
-        return obj 
-
-
-def tensor(x, dtype=None):
-    if not isinstance(x, (tuple, list, np.ndarray)):
-        raise ValueError('Data needs to be (ideally) a list')
-
-    return Tensor(x, dtype=dtype)
+    def __str__(self):
+        return self.__repr__()
 
 
 def is_tensor(obj):
@@ -65,10 +64,9 @@ def is_tensor(obj):
 
 def from_numpy(x, dtype=None):
     r"""
-        Convert a numpy array to a Caer tensor.
+    Convert a numpy array to a Caer tensor.
 
     Args:
         x (ndarray): Array to convert.
     """
-    x = np.asarray(x, dtype=dtype)
-    return x.view(caer.Tensor)
+    return Tensor(x, dtype=dtype)
