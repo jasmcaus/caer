@@ -20,6 +20,15 @@ class _TensorBase:
         self.numelem = self.size
 
 
+    def height(self):
+        return self.shape[0]
+    
+    def width(self):
+        return self.shape[1]
+    
+    def channels(self):
+        return self.shape[2]
+
     def numel(self):
         return self.numelem
     
@@ -32,5 +41,5 @@ class _TensorBase:
         return self.shape[dim]
 
 
-    # def dtype(self):
-    #     return self.dtype 
+    def type(self):
+        return self.dtype 
