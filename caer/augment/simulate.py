@@ -16,6 +16,8 @@ import cv2 as cv
 import random
 import math 
 
+from ..adorad import Tensor 
+
 from .functional import (
     is_numeric, 
     is_numeric_list_or_tuple, 
@@ -46,7 +48,7 @@ __all__ = [
     'sim_shadow'
 ]
 
-def sim_snow(img, snow_coeff=-1, rgb=True):
+def sim_snow(img, snow_coeff=-1, rgb=True) -> Tensor:
     r"""
         Simulate snowy conditions on an image.
 
@@ -79,7 +81,7 @@ def sim_snow(img, snow_coeff=-1, rgb=True):
 
 
 # Rain_type = 'drizzle', 'heavy', 'torrential'
-def sim_rain(img, slant=-1, drop_length=20, drop_width=1, drop_color=(200,200,200), rain_type='None', rgb=True): ## (200,200,200) is a shade of gray
+def sim_rain(img, slant=-1, drop_length=20, drop_width=1, drop_color=(200,200,200), rain_type='None', rgb=True) -> Tensor: ## (200,200,200) is a shade of gray
     r"""
         Simulate rainy conditions on an image.
 
@@ -122,7 +124,7 @@ def sim_rain(img, slant=-1, drop_length=20, drop_width=1, drop_color=(200,200,20
     return _rain_process(img, slant_extreme, drop_length, drop_color, drop_width, rain_drops)
 
 
-def sim_fog(img, fog_coeff=-1, rgb=True):
+def sim_fog(img, fog_coeff=-1, rgb=True) -> Tensor:
     r"""
         Simulate foggy conditions on an image.
 
@@ -163,7 +165,7 @@ def sim_fog(img, fog_coeff=-1, rgb=True):
     return _rgb(img, rgb=rgb)
 
 
-def sim_gravel(img, rectangular_roi=(-1,-1,-1,-1), num_patches=8, rgb=True):
+def sim_gravel(img, rectangular_roi=(-1,-1,-1,-1), num_patches=8, rgb=True) -> Tensor:
     r"""
         Simulate gravelly conditions on an image.
 
@@ -210,7 +212,7 @@ def sim_gravel(img, rectangular_roi=(-1,-1,-1,-1), num_patches=8, rgb=True):
     return _gravel_process(img, x1, x2, y1, y2, num_patches, rgb=rgb)
 
 
-def sim_sun_flare(img, flare_center=-1, angle=-1, num_flare_circles=8, src_radius=400, src_color=(255,255,255)):
+def sim_sun_flare(img, flare_center=-1, angle=-1, num_flare_circles=8, src_radius=400, src_color=(255,255,255)) -> Tensor:
     r"""
         Add a source of light (flare) on an specific region of an image.
 
@@ -257,7 +259,7 @@ def sim_sun_flare(img, flare_center=-1, angle=-1, num_flare_circles=8, src_radiu
     return _add_sun_process(img, num_flare_circles, flare_center_t, src_radius, x, y, src_color)
 
 
-def sim_motion_blur(img, speed_coeff=-1):
+def sim_motion_blur(img, speed_coeff=-1) -> Tensor:
     r"""
         Simulate motion-blur conditions on an image.
 
@@ -288,7 +290,7 @@ def sim_motion_blur(img, speed_coeff=-1):
     return _apply_motion_blur(img, count_t)
 
 
-def sim_autumn(img, rgb=True):
+def sim_autumn(img, rgb=True) -> Tensor:
     r"""
         Simulate autumn conditions on an image.
 
@@ -311,7 +313,7 @@ def sim_autumn(img, rgb=True):
 
 
 ## ROI:(top-left x1,y1, bottom-right x2,y2), shadow_dimension=no. of sides of polygon generated
-def sim_shadow(img, num_shadows=1, rectangular_roi=(-1,-1,-1,-1), shadow_dimension=5, rgb=True): 
+def sim_shadow(img, num_shadows=1, rectangular_roi=(-1,-1,-1,-1), shadow_dimension=5, rgb=True) -> Tensor: 
     r"""
         Simulate shadowy conditions on an image.
 

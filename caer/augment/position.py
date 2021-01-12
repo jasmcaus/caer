@@ -15,6 +15,7 @@ import random
 import collections
 
 from .functional import _is_numpy_array
+from ..adorad import Tensor
 from ..color import is_rgb_image, is_gray_image
 from .._internal import _check_target_size
 from ..globals import (
@@ -52,7 +53,7 @@ __all__ = [
 ]
 
 
-def hflip(img):
+def hflip(img) -> Tensor:
     r"""
         Flip an image horizontally. 
     Args:
@@ -68,7 +69,7 @@ def hflip(img):
     return np.ascontiguousarray(img[:, ::-1, ...])
 
 
-def vflip(img):
+def vflip(img) -> Tensor:
     r"""
         Flip an image vertically. 
     Args:
@@ -84,7 +85,7 @@ def vflip(img):
     return np.ascontiguousarray(img[::-1, ...])
 
 
-def hvflip(img):
+def hvflip(img) -> Tensor:
     r"""
         Flip an image both horizontally and vertically. 
 
@@ -101,7 +102,7 @@ def hvflip(img):
     return hflip(vflip(img))
 
 
-def rand_flip(img): 
+def rand_flip(img) -> Tensor: 
     r"""
         Randomly flip an image vertically or horizontally. 
 
@@ -123,14 +124,14 @@ def rand_flip(img):
         return hflip(img)
 
 
-def transpose(img):
+def transpose(img) -> Tensor:
     if len(img.shape) > 2:
         return img.transpose(1, 0, 2)
     else:
         return img.transpose(1, 0)
 
 
-def rotate(img, angle, rotPoint=None):
+def rotate(img, angle, rotPoint=None) -> Tensor:
     r"""
         Rotates an given image by an angle around a particular rotation point (if provided) or centre otherwise.
         
@@ -167,7 +168,7 @@ def rotate(img, angle, rotPoint=None):
     return warp_fn(img)
 
 
-def translate(image, x, y):
+def translate(image, x, y) -> Tensor:
     r"""Translates a given image across the x-axis and the y-axis
 
     Args:
@@ -182,7 +183,7 @@ def translate(image, x, y):
     return cv.warpAffine(image, transMat, (image.shape[1], image.shape[0]))
 
 
-def scale(img, scale_factor, interpolation='bilinear'):
+def scale(img, scale_factor, interpolation='bilinear') -> Tensor:
     interpolation_methods = {
         'nearest': INTER_NEAREST, '0': INTER_NEAREST, 0: INTER_NEAREST, # 0
         'bilinear': INTER_LINEAR, '1': INTER_LINEAR,  1: INTER_LINEAR,  # 1
@@ -202,7 +203,7 @@ def scale(img, scale_factor, interpolation='bilinear'):
     return cv.resize(img, (new_width,new_height), interpolation=interpolation)
 
 
-def pad(img, padding, fill=0, padding_mode='constant'):
+def pad(img, padding, fill=0, padding_mode='constant') -> Tensor:
     r"""
         Pad the given image on all sides with specified padding mode and fill value.
 
@@ -271,7 +272,7 @@ def pad(img, padding, fill=0, padding_mode='constant'):
                                 value = fill)
 
                                 
-def crop(img, x_min, y_min, x_max, y_max):
+def crop(img, x_min, y_min, x_max, y_max) -> Tensor:
     height, width = img.shape[:2]
     if x_max <= x_min or y_max <= y_min:
         raise ValueError(
@@ -293,7 +294,7 @@ def crop(img, x_min, y_min, x_max, y_max):
     return img[y_min:y_max, x_min:x_max]
 
 
-def center_crop(image, target_size=None):
+def center_crop(image, target_size=None) -> Tensor:
     r"""Computes the centre crop of an image using `target_size`
 
     Args:
@@ -314,7 +315,7 @@ def center_crop(image, target_size=None):
     return _compute_centre_crop(image, target_size)
 
 
-def rand_crop(img, crop_height, crop_width, h_start, w_start):
+def rand_crop(img, crop_height, crop_width, h_start, w_start) -> Tensor:
     height, width = img.shape[:2]
     if height < crop_height or width < crop_width:
         raise ValueError(
@@ -328,7 +329,7 @@ def rand_crop(img, crop_height, crop_width, h_start, w_start):
     return img
 
 
-def _compute_centre_crop(img, target_size):
+def _compute_centre_crop(img, target_size) -> Tensor:
     _ = _check_target_size(target_size)
 
     # Getting org height and target
@@ -397,7 +398,7 @@ def _proc_in_chunks(process_fn, **kwargs):
     return __process_fn
 
 
-def solarize(img, threshold=128):
+def solarize(img, threshold=128) -> Tensor:
     r"""Invert all pixel values above a threshold.
 
     Args:
@@ -434,7 +435,7 @@ def solarize(img, threshold=128):
     return result_img
 
 
-def posterize(img, bits):
+def posterize(img, bits) -> Tensor:
     r"""Reduce the number of bits for each color channel in the image.
 
     Args:
@@ -491,11 +492,11 @@ def posterize(img, bits):
     return result_img
 
 
-def clip(img, dtype, maxval):
+def clip(img, dtype, maxval) -> Tensor:
     return np.clip(img, 0, maxval).astype(dtype)
 
 
-def _equalize_cv(img, mask=None):
+def _equalize_cv(img, mask=None) -> Tensor:
     if mask is None:
         return cv.equalizeHist(img)
 
@@ -523,7 +524,7 @@ def _equalize_cv(img, mask=None):
     return cv.LUT(img, lut)
 
 
-def equalize(img, mask=None, by_channels=True):
+def equalize(img, mask=None, by_channels=True) -> Tensor:
     r"""Equalize the image histogram.
 
     Args:
