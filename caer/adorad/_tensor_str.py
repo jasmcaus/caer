@@ -188,7 +188,7 @@ def get_summarized_data(self):
 
     if dim == 1:
         if self.size_dim(0) > 2 * PRINT_OPTS.edgeitems:
-            return np.cat((self[:PRINT_OPTS.edgeitems], self[-PRINT_OPTS.edgeitems:]))
+            return np.concatenate((self[:PRINT_OPTS.edgeitems], self[-PRINT_OPTS.edgeitems:]))
         else:
             return self
 
