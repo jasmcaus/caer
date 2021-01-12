@@ -243,7 +243,7 @@ def flare_source(img, point, radius, src_color) -> Tensor:
         Add a source of light (flare) on an specific region of an image.
 
     Args:
-        img (ndarray) : Any regular BGR/RGB image.
+        img (Tensor) : Any regular BGR/RGB image.
         point (int): Starting point of the flare.
         radius (int): Intended radius (in pixels) of the flare.
         src_color (tuple): Color of the flare. Must be in the format ``(R,G,B)``

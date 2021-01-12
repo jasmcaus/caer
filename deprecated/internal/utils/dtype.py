@@ -56,7 +56,7 @@ def dtype_limits(image, clip_negative=False):
 
     Parameters
     ----------
-        image : ndarray
+        image : Tensor
             Input image.
         clip_negative : bool, optional
             If True, clip the negative range (i.e. return 0 for min intensity)
@@ -129,7 +129,7 @@ def _scale(a, n, m, copy=True):
 
     Parameters
     ----------
-    a : ndarray
+    a : Tensor
         Input image array.
     n : int
         Number of bits currently used to encode the values in `a`.
@@ -218,7 +218,7 @@ def _convert(image, dtype, force_copy=False, uniform=False):
 
     Parameters
     ----------
-    image : ndarray
+    image : Tensor
         Input image.
     dtype : dtype
         Target data-type.
@@ -383,14 +383,14 @@ def img_as_float32(image, force_copy=False):
 
     Parameters
     ----------
-    image : ndarray
+    image : Tensor
         Input image.
     force_copy : bool, optional
         Force a copy of the data, irrespective of its current dtype.
 
     Returns
     -------
-    out : ndarray of float32
+    out : Tensor of float32
         Output image.
 
     Notes
@@ -409,14 +409,14 @@ def img_as_float64(image, force_copy=False):
 
     Parameters
     ----------
-    image : ndarray
+    image : Tensor
         Input image.
     force_copy : bool, optional
         Force a copy of the data, irrespective of its current dtype.
 
     Returns
     -------
-    out : ndarray of float64
+    out : Tensor of float64
         Output image.
 
     Notes
@@ -438,14 +438,14 @@ def img_as_float(image, force_copy=False):
 
     Parameters
     ----------
-    image : ndarray
+    image : Tensor
         Input image.
     force_copy : bool, optional
         Force a copy of the data, irrespective of its current dtype.
 
     Returns
     -------
-    out : ndarray of float
+    out : Tensor of float
         Output image.
 
     Notes
@@ -464,14 +464,14 @@ def img_as_uint(image, force_copy=False):
 
     Parameters
     ----------
-    image : ndarray
+    image : Tensor
         Input image.
     force_copy : bool, optional
         Force a copy of the data, irrespective of its current dtype.
 
     Returns
     -------
-    out : ndarray of uint16
+    out : Tensor of uint16
         Output image.
 
     Notes
@@ -488,14 +488,14 @@ def img_as_int(image, force_copy=False):
 
     Parameters
     ----------
-    image : ndarray
+    image : Tensor
         Input image.
     force_copy : bool, optional
         Force a copy of the data, irrespective of its current dtype.
 
     Returns
     -------
-    out : ndarray of int16
+    out : Tensor of int16
         Output image.
 
     Notes
@@ -513,14 +513,14 @@ def img_as_ubyte(image, force_copy=False):
 
     Parameters
     ----------
-    image : ndarray
+    image : Tensor
         Input image.
     force_copy : bool, optional
         Force a copy of the data, irrespective of its current dtype.
 
     Returns
     -------
-    out : ndarray of ubyte (uint8)
+    out : Tensor of ubyte (uint8)
         Output image.
 
     Notes
@@ -537,14 +537,14 @@ def img_as_bool(image, force_copy=False):
 
     Parameters
     ----------
-    image : ndarray
+    image : Tensor
         Input image.
     force_copy : bool, optional
         Force a copy of the data, irrespective of its current dtype.
 
     Returns
     -------
-    out : ndarray of bool (`bool_`)
+    out : Tensor of bool (`bool_`)
         Output image.
 
     Notes
@@ -561,7 +561,7 @@ def convert_to_float(image, preserve_range):
     Convert input image to float image with the appropriate range.
     Parameters
     ----------
-    image : ndarray
+    image : Tensor
         Input image.
     preserve_range : bool
         Determines if the range of the image should be kept or transformed
@@ -571,7 +571,7 @@ def convert_to_float(image, preserve_range):
     * Input images with `float32` data type are not upcast.
     Returns
     -------
-    image : ndarray
+    image : Tensor
         Transformed version of the input.
     """
     if preserve_range:

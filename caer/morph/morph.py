@@ -31,11 +31,11 @@
 #     Retrieve appropriate structuring element
 
 #     Args:
-#         A (ndarray) : array which will be operated on
+#         A (Tensor) : array which will be operated on
 #         B (None, int, or array-like) : 
 
 #     Returns:
-#         B_out (ndarray) : Structuring element. This array will be of the same type as A, C-contiguous.
+#         B_out (Tensor) : Structuring element. This array will be of the same type as A, C-contiguous.
 #     """
 
 #     translate_sizes = {
@@ -90,13 +90,13 @@
 #     interpreted as +Inf.
 
 #     Args:
-#         A (ndarray of bools) : inp array
-#         B (ndarray, optional) : Structuring element. By default, use a cross.
-#         out (ndarray, optional) : output array. If used, this must be a C-array of the same `dtype` as
+#         A (Tensor of bools) : inp array
+#         B (Tensor, optional) : Structuring element. By default, use a cross.
+#         out (Tensor, optional) : output array. If used, this must be a C-array of the same `dtype` as
 #             `A`. Otherwise, a new array is allocated.
 
 #     Returns:
-#         dilated (ndarray) : dilated version of `A`
+#         dilated (Tensor) : dilated version of `A`
 #     """
 
 #     _verify_is_integer_type(A, 'dilate')
@@ -115,13 +115,13 @@
 #     interpreted as -Inf.
     
 #     Args:
-#         A (ndarray) : inp image
-#         B (ndarray, optional) : Structuring element. By default, uses a cross.
-#         out (ndarray, optional) : output array. If used, this must be a C-array of the same `dtype` as
+#         A (Tensor) : inp image
+#         B (Tensor, optional) : Structuring element. By default, uses a cross.
+#         out (Tensor, optional) : output array. If used, this must be a C-array of the same `dtype` as
 #             `A`. Otherwise, a new array is allocated.
 
 #     Returns:
-#         erosion (ndarray) : eroded version of `A`
+#         erosion (Tensor) : eroded version of `A`
 #     """
 #     _verify_is_integer_type(A,'erode')
 
@@ -139,12 +139,12 @@
 #     interpreted as -Inf.
 
 #     Args:
-#         f (ndarray) : inp image
-#         g (ndarray) : conditional image
-#         B (ndarray, optional) : Structuring element. By default, use a cross.
+#         f (Tensor) : inp image
+#         g (Tensor) : conditional image
+#         B (Tensor, optional) : Structuring element. By default, use a cross.
             
 #     Returns:
-#         conditionally_eroded (ndarray) : eroded version of `f` conditioned on `g`
+#         conditionally_eroded (Tensor) : eroded version of `f` conditioned on `g`
 #     """
 
 #     f = np.maximum(f, g)
@@ -207,11 +207,11 @@
 #         markers : image
 #             initial markers (must be a labeled image, i.e., one where 0 represents
 #             the background and higher integers represent different regions)
-#         B (ndarray, optional) : structuring element (default: 3x3 cross)
+#         B (Tensor, optional) : structuring element (default: 3x3 cross)
 #         return_lines (boolean, optional) : whether to return separating lines (in addition to regions)
 
 #     Returns:
-#         W : integer ndarray (int64 ints)
+#         W : integer Tensor (int64 ints)
 #             Regions image (i.e., W[i,j] == region for pixel (i,j))
 #         WL : Lines image (`if return_lines==True`)
 #     """
@@ -234,12 +234,12 @@
 #     For a given pixel position, the hit&miss is `True` if, when `B` is overlaid on `inp`, centered at that position, the `1` values line up with `1`s, while the `0`s line up with `0`s/
 
 #     Args:
-#         inp (ndarray) : This is interpreted as a binary array.
-#         B (ndarray) : hit & miss template, values must be one of (0, 1, 2)
-#         out (ndarray, optional) : Used for output. Must be Boolean ndarray of same size as `inp`
+#         inp (Tensor) : This is interpreted as a binary array.
+#         B (Tensor) : hit & miss template, values must be one of (0, 1, 2)
+#         out (Tensor, optional) : Used for output. Must be Boolean Tensor of same size as `inp`
 
 #     Returns:
-#         filtered : ndarray
+#         filtered : Tensor
 #     """
 #     _verify_is_integer_type(inp, 'hitmiss')
 #     _verify_is_integer_type(B, 'hitmiss')
@@ -302,14 +302,14 @@
 #     neighbourhood, but it is not a regional maximum.
 
 #     Args:
-#         f (ndarray)
-#         Bc (ndarray, optional) : structuring element
-#         out (ndarray, optional) : Used for output. Must be Boolean ndarray of same size as `f`
+#         f (Tensor)
+#         Bc (Tensor, optional) : structuring element
+#         out (Tensor, optional) : Used for output. Must be Boolean Tensor of same size as `f`
 #         output : deprecated
 #             Do not use
 
 #     Returns:
-#         filtered (ndarray) : boolean image of same size as f.
+#         filtered (Tensor) : boolean image of same size as f.
 #     """
 #     Bc = _get_structuring_elem(f, Bc)
 #     Bc = _remove_centre(Bc.copy())

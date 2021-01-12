@@ -12,8 +12,8 @@
 
 import cv2 as cv 
 import numpy as np 
-Tensor = np.ndarray
 
+from ..adorad import Tensor
 from .constants import RGB2BGR, RGB2GRAY, RGB2HSV, RGB2LAB, RGB2HLS
 
 __all__ = [
@@ -34,7 +34,7 @@ def rgb_to_bgr(img) -> Tensor:
         Converts an RGB image to its BGR version.
 
     Args:
-        img (ndarray): Valid RGB image array
+        img (Tensor): Valid RGB image array
     
     Returns:
         BGR image array of shape ``(height, width, channels)``
@@ -54,7 +54,7 @@ def rgb_to_gray(img) -> Tensor:
         Converts an RGB image to its Grayscale version.
 
     Args:
-        img (ndarray): Valid RGB image array
+        img (Tensor): Valid RGB image array
     
     Returns:
         Grayscale image array of shape ``(height, width, channels)``
@@ -74,7 +74,7 @@ def rgb_to_hsv(img) -> Tensor:
         Converts an RGB image to its HSV version.
 
     Args:
-        img (ndarray): Valid RGB image array
+        img (Tensor): Valid RGB image array
     
     Returns:
         HSV image array of shape ``(height, width, channels)``
@@ -94,7 +94,7 @@ def rgb_to_lab(img) -> Tensor:
         Converts an RGB image to its LAB version.
 
     Args:
-        img (ndarray): Valid RGB image array
+        img (Tensor): Valid RGB image array
     
     Returns:
         LAB image array of shape ``(height, width, channels)``
@@ -114,7 +114,7 @@ def rgb_to_hls(img) -> Tensor:
         Converts an RGB image to its HLS version.
 
     Args:
-        img (ndarray): Valid RGB image array
+        img (Tensor): Valid RGB image array
     
     Returns:
         HLS image array of shape ``(height, width, channels)``

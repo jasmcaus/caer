@@ -43,13 +43,13 @@
 #     This implementation is tuned to match MATLAB's implementation.
 
 #     Args:
-#         img (2D-ndarray) : 
+#         img (2D-Tensor) : 
 #         just_filter (boolean, optional) : 
 #             If true, then return the result of filtering the image with the sobel
 #             filters, but do not threashold (default is False).
 
 #     Returns:
-#     edges (ndarray) : 
+#     edges (Tensor) : 
 #         Binary image of edges, unless `just_filter`, in which case it will be
 #         an array of floating point values.
 #     """
@@ -91,7 +91,7 @@
 #     `edges` is a binary image of edges.
 
 #     Args:
-#         img : Any 2D-ndarray
+#         img : Any 2D-Tensor
 #         sigma1 : the sigma value of the first Gaussian filter. The second filter 
 #             will have sigma value 1.001*sigma1
 #         multiplier : the multiplier to get sigma2. sigma2 = sigma1 * multiplier
@@ -100,7 +100,7 @@
 #             filters, no zero-crossing is detected (default is False).
       
 #     Returns:
-#         edges (ndarray) : 
+#         edges (Tensor) : 
 #             Binary image of edges, unless `just_filter`, in which case it will be
 #             an array of floating point values.
 #     """

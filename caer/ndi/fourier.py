@@ -84,13 +84,13 @@ def fourier_gaussian(inp, sigma, n=-1, axis=-1, output=None):
         transformation along the real transform direction.
     axis : int, optional
         The axis of the real transform.
-    output : ndarray, optional
+    output : Tensor, optional
         If given, the result of filtering the inp is placed in this array.
         None is returned in this case.
 
     Returns
     -------
-    fourier_gaussian : ndarray
+    fourier_gaussian : Tensor
         The filtered inp.
     """
     inp = np.asarray(inp)
@@ -129,13 +129,13 @@ def fourier_uniform(inp, size, n=-1, axis=-1, output=None):
         transformation along the real transform direction.
     axis : int, optional
         The axis of the real transform.
-    output : ndarray, optional
+    output : Tensor, optional
         If given, the result of filtering the inp is placed in this array.
         None is returned in this case.
 
     Returns
     -------
-    fourier_uniform : ndarray
+    fourier_uniform : Tensor
         The filtered inp.
     """
     inp = np.asarray(inp)
@@ -174,13 +174,13 @@ def fourier_ellipsoid(inp, size, n=-1, axis=-1, output=None):
         transformation along the real transform direction.
     axis : int, optional
         The axis of the real transform.
-    output : ndarray, optional
+    output : Tensor, optional
         If given, the result of filtering the inp is placed in this array.
         None is returned in this case.
 
     Returns
     -------
-    fourier_ellipsoid : ndarray
+    fourier_ellipsoid : Tensor
         The filtered inp.
 
     Notes
@@ -222,13 +222,13 @@ def fourier_shift(inp, shift, n=-1, axis=-1, output=None):
         transformation along the real transform direction.
     axis : int, optional
         The axis of the real transform.
-    output : ndarray, optional
+    output : Tensor, optional
         If given, the result of shifting the inp is placed in this array.
         None is returned in this case.
 
     Returns
     -------
-    fourier_shift : ndarray
+    fourier_shift : Tensor
         The shifted inp.
     """
 

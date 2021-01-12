@@ -57,7 +57,7 @@ def hflip(img) -> Tensor:
     r"""
         Flip an image horizontally. 
     Args:
-        img (ndarray): Image to be flipped.
+        img (Tensor): Image to be flipped.
 
     Returns:
         Flipped image.
@@ -73,7 +73,7 @@ def vflip(img) -> Tensor:
     r"""
         Flip an image vertically. 
     Args:
-        img (ndarray): Image to be flipped.
+        img (Tensor): Image to be flipped.
 
     Returns:
         Flipped image.
@@ -90,7 +90,7 @@ def hvflip(img) -> Tensor:
         Flip an image both horizontally and vertically. 
 
     Args:
-        img (ndarray): Image to be flipped.
+        img (Tensor): Image to be flipped.
 
     Returns:
         Flipped image.
@@ -107,7 +107,7 @@ def rand_flip(img) -> Tensor:
         Randomly flip an image vertically or horizontally. 
 
     Args:
-        img (ndarray): Image to be flipped.
+        img (Tensor): Image to be flipped.
 
     Returns:
         Flipped image.
@@ -208,7 +208,7 @@ def pad(img, padding, fill=0, padding_mode='constant') -> Tensor:
         Pad the given image on all sides with specified padding mode and fill value.
 
     Args:
-        img (ndarray): image to be padded.
+        img (Tensor): image to be padded.
         padding (int or tuple): Padding on each border. If a single int is provided this 
             is used to pad all borders. If tuple of length 2 is provided this is the padding
             on left/right and top/bottom respectively. If a tuple of length 4 is provided
@@ -232,7 +232,7 @@ def pad(img, padding, fill=0, padding_mode='constant') -> Tensor:
 
     """
     if not _is_numpy_array(img):
-        raise TypeError(f'img should be a numpy ndarray. Got {type(img)}')
+        raise TypeError(f'img should be a numpy Tensor. Got {type(img)}')
 
     if not isinstance(padding, (tuple, list)):
         raise TypeError('Got inappropriate padding arg')
@@ -298,11 +298,11 @@ def center_crop(image, target_size=None) -> Tensor:
     r"""Computes the centre crop of an image using `target_size`
 
     Args:
-        image (ndarray): Valid image array
+        image (Tensor): Valid image array
         target_size (tuple): Size of the centre crop. Must be in the format `(width,height)`
     
     Returns:
-        Cropped Centre (ndarray)
+        Cropped Centre (Tensor)
     
     Examples::
 
@@ -371,7 +371,7 @@ def _proc_in_chunks(process_fn, **kwargs):
         process_fn: Transform function (e.g cv.resize).
         kwargs: Additional parameters.
     Returns:
-        numpy.ndarray: Transformed image.
+        numpy.Tensor: Transformed image.
     """
 
     def __process_fn(img):
@@ -402,11 +402,11 @@ def solarize(img, threshold=128) -> Tensor:
     r"""Invert all pixel values above a threshold.
 
     Args:
-        img (ndarray): The image to solarize.
+        img (Tensor): The image to solarize.
         threshold (int): All pixels above this grayscale level are inverted.
 
     Returns:
-        Solarized image (ndarray)
+        Solarized image (Tensor)
     
     Examples::
 
@@ -439,11 +439,11 @@ def posterize(img, bits) -> Tensor:
     r"""Reduce the number of bits for each color channel in the image.
 
     Args:
-        img (ndarray): Image to posterize.
+        img (Tensor): Image to posterize.
         bits (int): Number of high bits. Must be in range [0, 8]
 
     Returns:
-        Image with reduced color channels (ndarray)
+        Image with reduced color channels (Tensor)
     
     Examples::
 
@@ -528,12 +528,12 @@ def equalize(img, mask=None, by_channels=True) -> Tensor:
     r"""Equalize the image histogram.
 
     Args:
-        img (ndarray)*: RGB or grayscale image.
-        mask (ndarray)*: An optional mask.  If given, only the pixels selected by the mask are included in the analysis. Maybe 1 channel or 3 channel array.
+        img (Tensor)*: RGB or grayscale image.
+        mask (Tensor)*: An optional mask.  If given, only the pixels selected by the mask are included in the analysis. Maybe 1 channel or 3 channel array.
         by_channels (bool): If True, use equalization by channels separately, else convert image to YCbCr representation and use equalization by `Y` channel.
 
     Returns:
-        Equalized image (ndarray)
+        Equalized image (Tensor)
     
 
     Examples::

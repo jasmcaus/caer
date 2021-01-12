@@ -21,6 +21,7 @@ from .constants import (
     FPS, FRAME_COUNT, FRAME_HEIGHT, FRAME_WIDTH
 )
 from ..jit.annotations import Tuple
+from ..adorad import Tensor
 
 __all__ = [
     'Stream'
@@ -84,7 +85,7 @@ class Stream:
         return self
 
 
-    def _update(self) -> np.ndarray:
+    def _update(self) -> Tensor:
         while True:
             if self.kill_stream:
                 break
@@ -107,7 +108,7 @@ class Stream:
         self._video_stream.release()
 
 
-    def read(self) -> np.ndarray:
+    def read(self) -> Tensor:
         """
         Extracts frames synchronously from monitored deque, while maintaining a fixed-length frame buffer in the memory, and blocks the thread if the deque is full.
 

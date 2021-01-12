@@ -12,8 +12,8 @@
 
 import cv2 as cv 
 import numpy as np 
-Tensor = np.ndarray 
 
+from ..adorad import Tensor
 from .constants import GRAY2BGR, GRAY2RGB
 from .bgr import bgr_to_lab, bgr_to_hsv, bgr_to_hls
 
@@ -36,7 +36,7 @@ def gray_to_rgb(img) -> Tensor:
         Converts a Grayscale image to its RGB version.
 
     Args:
-        img (ndarray): Valid Grayscale image array
+        img (Tensor): Valid Grayscale image array
     
     Returns:
         RGB image array of shape ``(height, width, channels)``
@@ -56,7 +56,7 @@ def gray_to_bgr(img) -> Tensor:
         Converts a Grayscale image to its BGR version.
 
     Args:
-        img (ndarray): Valid Grayscale image array
+        img (Tensor): Valid Grayscale image array
     
     Returns:
         BGR image array of shape ``(height, width, channels)``
@@ -76,7 +76,7 @@ def gray_to_lab(img) -> Tensor:
         Converts a Grayscale image to its LAB version.
 
     Args:
-        img (ndarray): Valid Grayscale image array
+        img (Tensor): Valid Grayscale image array
     
     Returns:
         LAB image array of shape ``(height, width, channels)``
@@ -98,7 +98,7 @@ def gray_to_hsv(img) -> Tensor:
         Converts a Grayscale image to its HSV version.
 
     Args:
-        img (ndarray): Valid Grayscale image array
+        img (Tensor): Valid Grayscale image array
     
     Returns:
         HSV image array of shape ``(height, width, channels)``
@@ -120,7 +120,7 @@ def gray_to_hls(img) -> Tensor:
         Converts a Grayscale image to its HLS version.
 
     Args:
-        img (ndarray): Valid Grayscale image array
+        img (Tensor): Valid Grayscale image array
     
     Returns:
         HLS image array of shape ``(height, width, channels)``

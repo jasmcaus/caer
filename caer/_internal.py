@@ -68,13 +68,13 @@ def _get_output(array, out, fname, dtype=None, output=None):
         (2) else verify that output is of right size, shape, and contiguous
     Parameters
     ----------
-    array : ndarray
-    out : ndarray or None
+    array : Tensor
+    out : Tensor or None
     fname : str
         Function name. Used in error messages
     Returns
     -------
-    output : ndarray
+    output : Tensor
     '''
     detail = '.\nWhen an output argument is used, the checking is very strict as this is a performance feature.'
     if dtype is None:
@@ -109,7 +109,7 @@ def _get_axis(array, axis, fname):
     Checks that ``axis`` is a valid axis of ``array`` and normalises it.
     Parameters
     ----------
-    array : ndarray
+    array : Tensor
     axis : int
     fname : str
         Function name. Used in error messages
@@ -135,7 +135,7 @@ def _normalize_sequence(array, value, fname):
     each dimension of array.
     Parameters
     ----------
-    array : ndarray
+    array : Tensor
     value : sequence or scalar
     fname : str
         Function name. Used in error messages
@@ -159,7 +159,7 @@ def _verify_is_floatingpoint_type(A, function_name):
     ``TypeError``.
     Parameters
     ----------
-    A : ndarray
+    A : Tensor
     function_name : str
         Used for error messages
     '''
@@ -174,7 +174,7 @@ def _verify_is_integer_type(A, function_name):
     ``TypeError``.
     Parameters
     ----------
-    A : ndarray
+    A : Tensor
     function_name : str
         Used for error messages
     '''
@@ -190,7 +190,7 @@ def _verify_is_nonnegative_integer_type(A, function_name):
     ``TypeError``.
     Parameters
     ----------
-    A : ndarray
+    A : Tensor
     function_name : str
         Used for error messages
     '''

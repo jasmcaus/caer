@@ -65,15 +65,15 @@
 #         c = convolve(f.astype(float), kernel)
 
 #     Args:
-#     f (ndarray): input. Any dimension is supported
-#     weights (ndarray): weight filter. If not of the same dtype as `f`, it is cast
+#     f (Tensor): input. Any dimension is supported
+#     weights (Tensor): weight filter. If not of the same dtype as `f`, it is cast
 #     mode : {'reflect' [default], 'nearest', 'wrap', 'mirror', 'constant', 'ignore'}
 #     cval (double, optional): If `mode` is constant, which constant to use (default: 0.0)
-#     out (ndarray, optional): Output array. Must have same shape and dtype as `f` as well as be
+#     out (Tensor, optional): Output array. Must have same shape and dtype as `f` as well as be
 #         C-contiguous.
 
 #     Returns:
-#     convolved : ndarray of same dtype as `f`
+#     convolved : Tensor of same dtype as `f`
 #     """
 #     weights = weights.astype(f.dtype, copy=False)
 #     if f.ndim != weights.ndim:
@@ -90,9 +90,9 @@
 #     result is then cast to `f.dtype`.
 
 #     Args:
-#         f (ndarray) : 
+#         f (Tensor) : 
 #             input. Any dimension is supported
-#         weights (1-D ndarray) : 
+#         weights (1-D Tensor) : 
 #             weight filter. If not of the same dtype as `f`, it is cast
 #         axis (int) : 
 #             Axis along which to convolve
@@ -100,12 +100,12 @@
 #             How to handle borders
 #         cval (double, optional) : 
 #             If `mode` is constant, which constant to use (default: 0.0)
-#         out (ndarray, optional) : 
+#         out (Tensor, optional) : 
 #             Output array. Must have same shape and dtype as `f` as well as be
 #             C-contiguous.
 
 #     Returns:
-#         convolved : ndarray of same dtype as `f`
+#         convolved : Tensor of same dtype as `f`
 #     """
 #     weights = np.asanyarray(weights)
 #     weights = weights.squeeze()
@@ -139,20 +139,20 @@
 #     Median filter
 
 #     Args:
-#         f (ndarray) : 
+#         f (Tensor) : 
 #             input. Any dimension is supported
-#         Bc (ndarray or int, optional) : 
+#         Bc (Tensor or int, optional) : 
 #             Defines the neighbourhood, default is a square of side 3.
 #         mode : {'reflect' [default], 'nearest', 'wrap', 'mirror', 'constant', 'ignore'}
 #             How to handle borders
 #         cval (double, optional) : 
 #             If `mode` is constant, which constant to use (default: 0.0)
-#         out (ndarray, optional) : 
+#         out (Tensor, optional) : 
 #             Output array. Must have same shape and dtype as `f` as well as be
 #             C-contiguous.
 
 #     Returns:
-#     median : ndarray of same type and shape as ``f``
+#     median : Tensor of same type and shape as ``f``
 #              median[i,j] is the median value of the points in f close to (i,j)
 #     """
 #     if Bc is None:
@@ -173,20 +173,20 @@
 #     the neighbourhood defined by ``Bc``.
 
 #     Args:
-#         f (ndarray) : 
+#         f (Tensor) : 
 #             input. Any dimension is supported
-#         Bc (ndarray) : 
+#         Bc (Tensor) : 
 #             Defines the neighbourhood. Must be explicitly passed, no default.
 #         mode : {'reflect', 'nearest', 'wrap', 'mirror', 'constant', 'ignore' [ignore]}
 #             How to handle borders. The default is to ignore points beyond the
 #             border, so that the means computed near the border include fewer elements.
 #         cval (double, optional) : 
 #             If `mode` is constant, which constant to use (default: 0.0)
-#         out (ndarray, optional) : 
+#         out (Tensor, optional) : 
 #             Output array. Must be a double array with the same shape as `f` as well
 #             as be C-contiguous.
 #     Returns:
-#         mean : ndarray of type double and same shape as ``f``
+#         mean : Tensor of type double and same shape as ``f``
 #     """
 #     Bc = cmorph.get_structuring_elem(f, Bc)
 #     out = _get_output(f, out, 'mean_filter', dtype=np.float64)
@@ -199,7 +199,7 @@
 #     One-dimensional Gaussian filter.
 
 #     Args:
-#         array (ndarray) : 
+#         array (Tensor) : 
 #             input array of a floating-point type
 #         sigma (float) : 
 #             standard deviation for Gaussian kernel (in pixel units)
@@ -216,7 +216,7 @@
 #             If `mode` is constant, which constant to use (default: 0.0)
 
 #     Returns:
-#         filtered (ndarray) : Filtered version of `array`
+#         filtered (Tensor) : Filtered version of `array`
 #     """
 #     _verify_is_floatingpoint_type(array, 'gaussian_filter1d')
 #     sigma = float(sigma)
@@ -253,7 +253,7 @@
 #     Multi-dimensional Gaussian filter.
 
 #     Args:
-#         array (ndarray) : 
+#         array (Tensor) : 
 #             input array, any dimension is supported. If the array is an integer
 #             array, it will be converted to a double array.
 #         sigma (scalar or sequence of scalars) : 
@@ -271,11 +271,11 @@
 #             How to handle borders
 #         cval (double, optional) : 
 #             If `mode` is constant, which constant to use (default: 0.0)
-#         out (ndarray, optional) : 
+#         out (Tensor, optional) : 
 #             Output array. Must have same shape as `array` as well as be C-contiguous. If `array` is an integer array, this must be a double array; otherwise, it must have the same type as `array`.
 
 #     Returns:
-#         filtered (ndarray) : Filtered version of `array`
+#         filtered (Tensor) : Filtered version of `array`
 
 #     Notes:
 #         The multi-dimensional filter is implemented as a sequence of one-dimensional convolution filters. The intermediate arrays are stored in the same data type as the output. Therefore, for output types with a limited precision, the results may be imprecise because intermediate results may be stored with insufficient precision.
@@ -312,7 +312,7 @@
 #     Haar transform
 
 #     Args:
-#         f (2-D ndarray) : 
+#         f (2-D Tensor) : 
 #             Input image
 #         preserve_energy (bool, optional) : 
 #             Whether to normalise the result so that energy is preserved (the default).
@@ -342,7 +342,7 @@
 #     This function works best if the image sizes are powers of 2!
 
 #     Args:
-#         f (ndarray) : 
+#         f (Tensor) : 
 #             2-D image
 #         code (str) : 
 #             One of 'D2', 'D4', ... 'D20'
@@ -361,14 +361,14 @@
 #     2D Laplacian filter.
 
 #     Args:
-#         array (ndarray) : 
+#         array (Tensor) : 
 #             input 2D array. If the array is an integer array, it will be converted 
 #             to a double array.
 #         alpha (scalar or sequence of scalars) : 
 #             controls the shape of Laplacian operator. Must be 0-1. A larger values 
 #             makes the operator empahsize the diagonal direction.
 #     Returns:
-#         filtered (ndarray) : Filtered version of `array`
+#         filtered (Tensor) : Filtered version of `array`
 #     """
 #     array = np.array(array, dtype=np.float)
 #     if array.ndim != 2:
