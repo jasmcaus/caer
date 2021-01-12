@@ -73,7 +73,7 @@ def _get_num_channels(img) -> int:
     
 
 def _is_numpy_array(img) -> bool:
-    return isinstance(img, Tensor)
+    return isinstance(img, (Tensor, np.ndarray))
 
 
 def _is_numpy_image(img) -> bool:
