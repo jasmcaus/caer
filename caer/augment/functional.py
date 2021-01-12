@@ -15,7 +15,8 @@ import cv2 as cv
 import random 
 import math 
 import numpy as np 
-Tensor = np.ndarray 
+
+from ..adorad import Tensor 
 
 from ..color import (
     rgb_to_hls, 
@@ -26,28 +27,28 @@ from ..color import (
     hls_to_rgb
 )
 
-def _hls(img, rgb=True):
+def _hls(img, rgb=True) -> Tensor:
     if rgb:
         return rgb_to_hls(img)
     else:
         return bgr_to_hls(img)
 
 
-def _bgr(img, rgb=True):
+def _bgr(img, rgb=True) -> Tensor:
     if rgb:
         return rgb_to_bgr(img)
     else:
         return img
 
 
-def _rgb(img, rgb=True):
+def _rgb(img, rgb=True) -> Tensor:
     if rgb:
         return img
     else:
         return bgr_to_rgb(img)
 
 
-def _hue(img, rgb=True):
+def _hue(img, rgb=True) -> Tensor:
     return _hls(img, rgb=rgb)[:,:,0]
 
 
@@ -98,7 +99,7 @@ def is_numeric_list_or_tuple(x):
     return True
 
 
-def _snow_process(img, snow_coeff, rgb=True):
+def _snow_process(img, snow_coeff, rgb=True) -> Tensor:
     img = _hls(img, rgb=rgb)
 
     img = np.array(img, dtype=np.float64) 
@@ -144,7 +145,7 @@ def _generate_random_lines(imshape, slant, drop_length, rain_type):
     return drops, drop_length
 
 
-def _rain_process(img, slant, drop_length, drop_color, drop_width, rain_drops, rgb=True):
+def _rain_process(img, slant, drop_length, drop_color, drop_width, rain_drops, rgb=True) -> Tensor:
     img_t = img.copy()
 
     for rain_drop in rain_drops:
@@ -162,7 +163,7 @@ def _rain_process(img, slant, drop_length, drop_color, drop_width, rain_drops, r
         return hls_to_bgr(img)
 
 
-def _add_blur(img, x, y, hw, fog_coeff):
+def _add_blur(img, x, y, hw, fog_coeff) -> Tensor:
     overlay= img.copy()
     output= img.copy()
     alpha= 0.08*fog_coeff
@@ -237,7 +238,7 @@ def _gravel_process(img, x1, x2, y1, y2, num_patches, rgb=True):
         return hls_to_bgr(img)
 
 
-def flare_source(img, point, radius, src_color):
+def flare_source(img, point, radius, src_color) -> Tensor:
     r"""
         Add a source of light (flare) on an specific region of an image.
 
@@ -295,7 +296,7 @@ def _add_sun_flare_line(flare_center, angle, imshape):
     return x, y
 
 
-def _add_sun_process(img, num_flare_circles, flare_center, src_radius, x, y, src_color):
+def _add_sun_process(img, num_flare_circles, flare_center, src_radius, x, y, src_color) -> Tensor:
     overlay = img.copy()
     output = img.copy()
     imshape = img.shape
@@ -329,7 +330,7 @@ def _apply_motion_blur(img, count):
     return img_t
 
 
-def _autumn_process(img, rgb=True):
+def _autumn_process(img, rgb=True) -> Tensor:
     img_t = img.copy()
     imshape = img_t.shape
     img_t = _hls(img_t, rgb=rgb)
@@ -351,7 +352,7 @@ def _autumn_process(img, rgb=True):
         return hls_to_bgr(img)
 
 
-def _exposure_process(img, rgb=True):
+def _exposure_process(img, rgb=True) -> Tensor:
     img = np.copy(img)
     img_yuv = cv.cvtColor(img, cv.COLOR_BGR2YUV)
 
@@ -390,7 +391,7 @@ def _generate_shadow_coordinates(num_shadows, rectangular_roi, shadow_dimension)
     return vertices_list ## List of shadow vertices
 
 
-def _shadow_process(img, num_shadows, x1, y1, x2, y2, shadow_dimension, rgb=True):
+def _shadow_process(img, num_shadows, x1, y1, x2, y2, shadow_dimension, rgb=True) -> Tensor:
     img = _hls(img, rgb=rgb) ## Conversion to hls
 
     mask = np.zeros_like(img) 

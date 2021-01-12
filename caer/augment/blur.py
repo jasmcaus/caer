@@ -12,25 +12,26 @@
 import cv2 as cv 
 import numpy as np 
 
-from .transforms import _proc_in_chunks
+from ..adorad import Tensor
+from .position import _proc_in_chunks
 
 
 __all__ = [
 
 ]
 
-def blur(img, ksize):
+def blur(img, ksize) -> Tensor:
     func = _proc_in_chunks(cv.blur, ksize=(ksize, ksize))
     return func(img)
 
 
-def gaussian_blur(img, ksize, sigma=0):
+def gaussian_blur(img, ksize, sigma=0) -> Tensor:
     # When sigma=0, it is computed as `sigma = 0.3*((ksize-1)*0.5 - 1) + 0.8`
     func = _proc_in_chunks(cv.GaussianBlur, ksize=(ksize, ksize), sigmaX=sigma)
     return func(img)
 
 
-def median_blur(img, ksize):
+def median_blur(img, ksize) -> Tensor:
     if img.dtype == np.float32 and ksize not in {3, 5}:
         raise ValueError(
             "Invalid ksize value {}. For a float32 image the only valid ksize values are 3 and 5".format(ksize)
@@ -40,6 +41,6 @@ def median_blur(img, ksize):
     return func(img)
 
 
-def motion_blur(img, kernel):
+def motion_blur(img, kernel) -> Tensor:
     func = _proc_in_chunks(cv.filter2D, ddepth=-1, kernel=kernel)
     return func(img)

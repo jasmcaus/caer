@@ -17,6 +17,8 @@ from PIL import Image, ImageEnhance
 import cv2 as cv 
 import math
 
+from ..adorad import Tensor
+
 from .functional import (
     _is_numpy_array,
     is_list,
@@ -28,6 +30,7 @@ from ..color import (
     hls_to_bgr,
     hls_to_rgb
 )
+
 
 __all__ = [
     'adjust_brightness',
@@ -44,7 +47,7 @@ __all__ = [
 ]
 
 
-def adjust_brightness(img, coeff, rgb=True):
+def adjust_brightness(img, coeff, rgb=True) -> Tensor:
     r"""
         Adjust the brightness of an image.
 
@@ -85,7 +88,7 @@ def adjust_brightness(img, coeff, rgb=True):
         return hls_to_bgr(img)
 
 
-def brighten(img, coeff=-1, rgb=True):
+def brighten(img, coeff=-1, rgb=True) -> Tensor:
     r"""
         Brighten an image.
 
@@ -117,7 +120,7 @@ def brighten(img, coeff=-1, rgb=True):
     return adjust_brightness(img, coeff_t, rgb=rgb)
 
 
-def darken(img, darkness_coeff = -1, rgb=True):
+def darken(img, darkness_coeff = -1, rgb=True) -> Tensor:
     r"""
         Darken an image.
 
@@ -149,7 +152,7 @@ def darken(img, darkness_coeff = -1, rgb=True):
     return adjust_brightness(img, darkness_coeff_t, rgb=True)
 
 
-def random_brightness(img, rgb=True):
+def random_brightness(img, rgb=True) -> Tensor:
     r"""
         Add random brightness to an image.
 
@@ -172,7 +175,7 @@ def random_brightness(img, rgb=True):
     return adjust_brightness(img, rand_br_coeff, rgb=rgb)
 
 
-def adjust_contrast(img, contrast_factor):
+def adjust_contrast(img, contrast_factor) -> Tensor:
     """
         Adjust contrast of an image.
 
@@ -196,7 +199,7 @@ def adjust_contrast(img, contrast_factor):
     return cv.LUT(img, table)
 
 
-def adjust_saturation(img, saturation_factor):
+def adjust_saturation(img, saturation_factor) -> Tensor:
     """Adjust color saturation of an image.
     Args:
         img (numpy ndarray): Any valid BGR/RGB image.
@@ -226,7 +229,7 @@ def adjust_saturation(img, saturation_factor):
     return np.array(img)
 
 
-def adjust_hue(img, hue_factor):
+def adjust_hue(img, hue_factor) -> Tensor:
     r"""
         Adjust hue of an image.
 
@@ -277,7 +280,7 @@ def adjust_hue(img, hue_factor):
     return np.array(img)
 
 
-def adjust_gamma(img, gamma, gain=1):
+def adjust_gamma(img, gamma, gain=1) -> Tensor:
     r"""
         Perform gamma correction on an image.
 
@@ -317,7 +320,7 @@ def adjust_gamma(img, gamma, gain=1):
     return cv.LUT(img, table)
 
 
-def _get_affine_matrix(center, angle, translate, scale, shear):
+def _get_affine_matrix(center, angle, translate, scale, shear) -> Tensor:
     # Helper method to compute matrix for affine transformation
     # We need compute affine transformation matrix: M = T * C * RSS * C^-1
     # where T is translation matrix: [1, 0, tx | 0, 1, ty | 0, 0, 1]
@@ -349,7 +352,7 @@ def affine(img,
            shear,
            interpolation='bilinear',
            mode=0,
-           fillcolor=0):
+           fillcolor=0) -> Tensor:
     """
         Apply affine transformation on the image keeping image center invariant.
 
@@ -406,7 +409,7 @@ def affine(img,
                             borderValue=fillcolor)
 
 
-def correct_exposure(img, rgb=True):
+def correct_exposure(img, rgb=True) -> Tensor:
     r"""
         Correct the exposure of an image.
 
@@ -428,7 +431,7 @@ def correct_exposure(img, rgb=True):
     return _exposure_process(img, rgb=rgb)
 
 
-def augment_random(img, aug_types='', volume='expand' ):
+def augment_random(img, aug_types='', volume='expand' ) -> Tensor:
     aug_types_all = ['random_brightness','add_shadow','add_snow','add_rain','add_fog','add_gravel','add_sun_flare','add_motion_blur','add_autumn','random_flip']
 
     if aug_types=='':
