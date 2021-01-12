@@ -69,4 +69,25 @@ def from_numpy(x, dtype=None):
     Args:
         x (ndarray): Array to convert.
     """
-    return Tensor(x, dtype=dtype)
+    return to_tensor(x, dtype=dtype)
+
+
+def to_tensor(x, dtype=None):
+    r"""
+    Convert a numpy array to a Caer tensor.
+
+    Args:
+        x (ndarray): Array to convert.
+    """
+    if isinstance(x, np.ndarray):
+        return Tensor(x, dtype=dtype)
+
+    elif isinstance(x, Tensor) and x.dtype != dtype:
+        return Tensor(x, dtype=dtype)
+
+    elif isinstance(x, Tensor) and x.dtype == dtype:
+        return x 
+
+    else:
+        raise TypeError(f'Cannot convert class {type(x)} to a caer Tensor. Currrently, only Numpy arrays are supported.')
+    
