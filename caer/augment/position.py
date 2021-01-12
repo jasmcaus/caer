@@ -14,8 +14,7 @@ import cv2 as cv
 import random 
 import collections
 
-from .functional import _is_numpy_array
-from ..adorad import Tensor
+from ..adorad import Tensor, is_tensor
 from ..color import is_rgb_image, is_gray_image
 from .._internal import _check_target_size
 from ..globals import (
@@ -63,7 +62,7 @@ def hflip(img) -> Tensor:
         Flipped image.
 
     """
-    if not _is_numpy_array(img):
+    if not is_tensor(img):
         raise TypeError(f'img should be a Numpy array. Got {type(img)}')
 
     return np.ascontiguousarray(img[:, ::-1, ...])
@@ -79,7 +78,7 @@ def vflip(img) -> Tensor:
         Flipped image.
         
     """
-    if not _is_numpy_array(img):
+    if not is_tensor(img):
         raise TypeError(f'img should be a Numpy array. Got {type(img)}')
 
     return np.ascontiguousarray(img[::-1, ...])
@@ -96,7 +95,7 @@ def hvflip(img) -> Tensor:
         Flipped image.
         
     """
-    if not _is_numpy_array(img):
+    if not is_tensor(img):
         raise TypeError(f'img should be a Numpy array. Got {type(img)}')
 
     return hflip(vflip(img))
@@ -113,7 +112,7 @@ def rand_flip(img) -> Tensor:
         Flipped image.
         
     """
-    if not _is_numpy_array(img):
+    if not is_tensor(img):
         raise TypeError(f'img should be a Numpy array. Got {type(img)}')
 
     p = random.uniform(0, 1)
@@ -231,7 +230,7 @@ def pad(img, padding, fill=0, padding_mode='constant') -> Tensor:
         Array of shape ``(height, width, channels)``.
 
     """
-    if not _is_numpy_array(img):
+    if not is_tensor(img):
         raise TypeError(f'img should be a numpy Tensor. Got {type(img)}')
 
     if not isinstance(padding, (tuple, list)):

@@ -70,17 +70,9 @@ def _get_num_channels(img) -> int:
     
     else:
         return 1
-    
-
-def _is_numpy_array(img) -> bool:
-    return isinstance(img, (Tensor, np.ndarray))
 
 
-def _is_numpy_image(img) -> bool:
-    return img.ndim in {2, 3}
-
-
-def is_tuple(x):
+def is_tuple(x) -> bool:
     return isinstance(x, tuple)
 
 
