@@ -13,7 +13,8 @@ from ..io import imread
 from ..path import abspath, minijoin
 from .._base import __curr__ 
 import numpy as np 
-Tensor = np.ndarray 
+
+from ..adorad import Tensor
 
 here = minijoin(__curr__, 'data').replace('\\', "/") + "/"
 

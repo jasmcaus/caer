@@ -12,8 +12,8 @@
 
 import cv2 as cv 
 import numpy as np 
-Tensor = np.ndarray 
 
+from ..adorad import Tensor
 from .constants import BGR2RGB, BGR2GRAY, BGR2HSV, BGR2LAB, BGR2HLS
 from .rgb import is_rgb_image
 
@@ -36,7 +36,7 @@ def bgr_to_rgb(img) -> Tensor:
         Converts a BGR image to its RGB version.
 
     Args:
-        img (ndarray): Valid BGR image array
+        img (Tensor): Valid BGR image array
     
     Returns:
         RGB image array of shape ``(height, width, channels)``
@@ -56,7 +56,7 @@ def bgr_to_gray(img) -> Tensor:
         Converts a BGR image to its Grayscale version.
 
     Args:
-        img (ndarray): Valid BGR image array
+        img (Tensor): Valid BGR image array
     
     Returns:
         Grayscale image array of shape ``(height, width, channels)``
@@ -76,7 +76,7 @@ def bgr_to_hsv(img) -> Tensor:
         Converts a BGR image to its HSV version.
 
     Args:
-        img (ndarray): Valid BGR image array
+        img (Tensor): Valid BGR image array
     
     Returns:
         HSV image array of shape ``(height, width, channels)``
@@ -96,7 +96,7 @@ def bgr_to_lab(img) -> Tensor:
         Converts a BGR image to its LAB version.
 
     Args:
-        img (ndarray): Valid BGR image array
+        img (Tensor): Valid BGR image array
     
     Returns:
         LAB image array of shape ``(height, width, channels)``
@@ -116,7 +116,7 @@ def bgr_to_hls(img) -> Tensor:
         Converts a BGR image to its HLS version.
 
     Args:
-        img (ndarray): Valid BGR image array
+        img (Tensor): Valid BGR image array
     
     Returns:
         HLS image array of shape ``(height, width, channels)``

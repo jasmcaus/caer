@@ -47,8 +47,8 @@ def mean(image, mask=None):
 
 
 def merge(img):
-    # if not isinstance(img, (list, np.ndarray)):
-    #     raise ValueError('img must be a list or numpy.ndarray of (ideally) shape = 3)')
+    # if not isinstance(img, (list, caer.Tensor)):
+    #     raise ValueError('img must be a list or caer.Tensor of (ideally) shape = 3)')
 
     return cv.merge(img)
 

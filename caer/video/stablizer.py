@@ -14,6 +14,7 @@ import cv2 as cv
 import numpy as np
 from collections import deque
 
+from ..adorad import Tensor
 
 __all__ = [
     'Stabilizer'
@@ -95,7 +96,7 @@ class Stabilizer:
         """
         This method takes an unstabilized video frame, and returns a stabilized one.
         Parameters:
-            frame (numpy.ndarray): inputs unstabilized video frames.
+            frame (Tensor): inputs unstabilized video frames.
         """
         # check if frame is None
         if frame is None:
@@ -229,7 +230,7 @@ class Stabilizer:
         """
         An internal method that applies *normalized linear box filter* to path w.r.t averaging window
         Parameters:
-        * path (numpy.ndarray): a cumulative sum of transformations
+        * path (Tensor): a cumulative sum of transformations
         * window_size (int): averaging window size
         """
         # pad path to size of averaging window

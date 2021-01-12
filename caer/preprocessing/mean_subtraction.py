@@ -16,6 +16,7 @@ from .._internal import _check_mean_sub_values
 from ..path import exists, list_images
 from ..io import imread 
 from ..core import mean, merge, split, npmean
+from ..adorad import Tensor
 from ..jit.annotations import Tuple, List
 
 import numpy as np 
@@ -44,7 +45,7 @@ class MeanProcess:
             else:
                 self.bgrMean = mean_sub_values[0]
 
-    def mean_preprocess(self, image, channels) -> np.ndarray:
+    def mean_preprocess(self, image, channels) -> Tensor:
         """
             Mean Subtraction performed per channel
             Mean must be calculated ONLY on the training set
@@ -124,7 +125,7 @@ def compute_mean(data, channels, per_channel_subtraction=True) -> Tuple:
     if len(data) == 0:
         raise ValueError('Dataset is empty')
     
-    if not isinstance(data, (list, np.ndarray)):
+    if not isinstance(data, (list, Tensor)):
         raise ValueError('Dataset must be a list of size=number of images and shape=image shape')
 
     if channels == 3:
@@ -171,7 +172,7 @@ def subtract_mean(data, channels, mean_sub_values) -> List[str]:
     if len(data) == 0:
         raise ValueError('Dataset is empty')
     
-    if not isinstance(data, (list, np.ndarray)):
+    if not isinstance(data, (list, Tensor)):
         raise ValueError('Dataset must be a list of size = number of images and shape = image shape')
 
     data = [mean_process.mean_preprocess(img, channels) for img in data]

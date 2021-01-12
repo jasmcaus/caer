@@ -46,7 +46,7 @@ def resize(image, target_size=None, resize_factor=None, preserve_aspect_ratio=Fa
 
     
         Args:
-            img (ndarray): Input Image. Must be in the format ``(height, width, channels)``.
+            img (Tensor): Input Image. Must be in the format ``(height, width, channels)``.
             target_size (tuple): Target size. Must be a tuple of ``(width, height)`` integer.
             resize_factor (float, tuple): Resizing Factor to employ. 
                 Shrinks the image if ``resize_factor < 1``
@@ -141,7 +141,7 @@ def smart_resize(img, target_size, interpolation='bilinear'):
         ``` 
     
         Args:
-            img (ndarray): Input Image. Must be in the format `(height, width, channels)`.
+            img (Tensor): Input Image. Must be in the format `(height, width, channels)`.
             target_size (tuple): Target size. Must be a tuple of `(width, height)` integer.
             interpolation (str): Interpolation to use for resizing. Defaults to `'bilinear'`. 
                 Supports `'bilinear'`, `'bicubic'`, `'area'`, `'nearest'`.

@@ -77,7 +77,7 @@ def _make_indexable(iterable):
     Let `None` and indexable objects (e.g. pandas dataframes) pass unchanged.
     Parameters
     ----------
-    iterable : {list, dataframe, ndarray, sparse matrix} or None
+    iterable : {list, dataframe, Tensor, sparse matrix} or None
         Object to be converted to an indexable iterable.
     """
     if issparse(iterable):
@@ -110,7 +110,7 @@ def indexable(*iterables):
     non-interable objects to arrays.
     Parameters
     ----------
-    *iterables : {lists, dataframes, ndarrays, sparse matrices}
+    *iterables : {lists, dataframes, Tensors, sparse matrices}
         List of objects to ensure sliceability.
     """
     result = [_make_indexable(X) for X in iterables]

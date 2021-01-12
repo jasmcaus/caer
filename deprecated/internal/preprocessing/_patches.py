@@ -70,7 +70,7 @@ def _extract_patches(arr, patch_shape=8, extraction_step=1):
 
     Parameters
     ----------
-    arr : ndarray
+    arr : Tensor
         n-dimensional array of which patches are to be extracted
 
     patch_shape : int or tuple of length arr.ndim.default=8
@@ -85,7 +85,7 @@ def _extract_patches(arr, patch_shape=8, extraction_step=1):
 
     Returns
     -------
-    patches : strided ndarray
+    patches : strided Tensor
         2n-dimensional array indexing patches on first n dimensions and
         containing patches on the last n dimensions. These dimensions
         are fake, but this way no data is copied. A simple reshape invokes
@@ -126,7 +126,7 @@ def extract_patches_2d(image, patch_size, *, max_patches=None,
 
     Parameters
     ----------
-    image : ndarray of shape (image_height, image_width) or \
+    image : Tensor of shape (image_height, image_width) or \
         (image_height, image_width, n_channels)
         The original image data. For color images, the last dimension specifies
         the channel: a RGB image would have `n_channels=3`.

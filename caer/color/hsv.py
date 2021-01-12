@@ -13,6 +13,7 @@
 import cv2 as cv 
 import numpy as np 
 
+from ..adorad import Tensor
 from .constants import HSV2BGR, HSV2RGB
 from .bgr import bgr_to_gray, bgr_to_lab, bgr_to_hls, is_bgr_image
 
@@ -29,12 +30,12 @@ def is_hsv_image(img):
     return is_bgr_image(img)
 
 
-def hsv_to_rgb(img) -> np.ndarray:
+def hsv_to_rgb(img) -> Tensor:
     r"""
         Converts a HSV image to its RGB version.
 
     Args:
-        img (ndarray): Valid HSV image array
+        img (Tensor): Valid HSV image array
     
     Returns:
         RGB image array of shape ``(height, width, channels)``
@@ -49,12 +50,12 @@ def hsv_to_rgb(img) -> np.ndarray:
     return cv.cvtColor(img, HSV2RGB)
 
 
-def hsv_to_bgr(img) -> np.ndarray:
+def hsv_to_bgr(img) -> Tensor:
     r"""
         Converts a HSV image to its BGR version.
 
     Args:
-        img (ndarray): Valid HSV image array
+        img (Tensor): Valid HSV image array
     
     Returns:
         BGR image array of shape ``(height, width, channels)``
@@ -69,12 +70,12 @@ def hsv_to_bgr(img) -> np.ndarray:
     return cv.cvtColor(img, HSV2BGR)
 
 
-def hsv_to_gray(img) -> np.ndarray:
+def hsv_to_gray(img) -> Tensor:
     r"""
         Converts a HSV image to its Grayscale version.
 
     Args:
-        img (ndarray): Valid HSV image array
+        img (Tensor): Valid HSV image array
     
     Returns:
         Grayscale image array of shape ``(height, width, channels)``
@@ -91,12 +92,12 @@ def hsv_to_gray(img) -> np.ndarray:
     return bgr_to_gray(bgr)
 
 
-def hsv_to_lab(img) -> np.ndarray:
+def hsv_to_lab(img) -> Tensor:
     r"""
         Converts a HSV image to its LAB version.
 
     Args:
-        img (ndarray): Valid HSV image array
+        img (Tensor): Valid HSV image array
     
     Returns:
         LAB image array of shape ``(height, width, channels)``
@@ -113,12 +114,12 @@ def hsv_to_lab(img) -> np.ndarray:
     return bgr_to_lab(bgr)
 
 
-def hsv_to_hls(img) -> np.ndarray:
+def hsv_to_hls(img) -> Tensor:
     r"""
         Converts a HSV image to its HLS version.
 
     Args:
-        img (ndarray): Valid HSV image array
+        img (Tensor): Valid HSV image array
     
     Returns:
         HLS image array of shape ``(height, width, channels)``

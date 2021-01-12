@@ -334,7 +334,7 @@ def _safe_accumulator_op(op, x, *args, **kwargs):
     ----------
     op : function
         A numpy accumulator function such as np.mean or np.sum.
-    x : ndarray
+    x : Tensor
         A numpy array to apply the accumulator function.
     *args : positional arguments
         Positional arguments passed to the accumulator function after the
@@ -353,7 +353,7 @@ def _safe_accumulator_op(op, x, *args, **kwargs):
     return result
 
 def _assert_all_finite(X, allow_nan=False, msg_dtype=None):
-    """Like assert_all_finite, but only for ndarray."""
+    """Like assert_all_finite, but only for Tensor."""
 
     X = np.asanyarray(X)
     # First try an O(n) time, O(1) space solution for the common case that

@@ -30,13 +30,13 @@
 #     pixels (this is a sort of infinity).
     
 #     Args:
-#         bw (ndarray): If boolean, ``False`` will denote the background and ``True`` the
+#         bw (Tensor): If boolean, ``False`` will denote the background and ``True`` the
 #                       foreground. If not boolean, this will be interpreted as ``bw != 0``
 #                       (this way you can use labeled images without any problems).
 #         metric (str, optional):
 #             one of 'euclidean2' (default) or 'euclidean'
 #     Returns:
-#         dmap (ndarray)
+#         dmap (Tensor)
 #         distance map
 
 #     References:

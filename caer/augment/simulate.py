@@ -53,7 +53,7 @@ def sim_snow(img, snow_coeff=-1, rgb=True) -> Tensor:
         Simulate snowy conditions on an image.
 
     Args:
-        img (ndarray) : Any regular BGR/RGB image.
+        img (Tensor) : Any regular BGR/RGB image.
         snow_coeff (int): Coefficient value.
         rgb (bool): Operate on RGB images. Default: True.
     
@@ -86,7 +86,7 @@ def sim_rain(img, slant=-1, drop_length=20, drop_width=1, drop_color=(200,200,20
         Simulate rainy conditions on an image.
 
     Args:
-        img (ndarray) : Any regular BGR/RGB image.
+        img (Tensor) : Any regular BGR/RGB image.
         slant (int): Slant value.
         drop_length (int): Length of the raindrop.
         drop_width (int): Width of the raindrop.
@@ -129,7 +129,7 @@ def sim_fog(img, fog_coeff=-1, rgb=True) -> Tensor:
         Simulate foggy conditions on an image.
 
     Args:
-        img (ndarray) : Any regular BGR/RGB image.
+        img (Tensor) : Any regular BGR/RGB image.
         fog_coeff (int): Coefficient value.
         rgb (bool): Operate on RGB images. Default: True.
     
@@ -170,7 +170,7 @@ def sim_gravel(img, rectangular_roi=(-1,-1,-1,-1), num_patches=8, rgb=True) -> T
         Simulate gravelly conditions on an image.
 
     Args:
-        img (ndarray) : Any regular BGR/RGB image.
+        img (Tensor) : Any regular BGR/RGB image.
         rectangular_roi (tuple): Rectanglar co-ordinates of the intended region of interest. Default: (-1,-1,-1,-1).
         num_patches (int): Number of patches to operate on.
         rgb (bool): Operate on RGB images. Default: True.
@@ -217,7 +217,7 @@ def sim_sun_flare(img, flare_center=-1, angle=-1, num_flare_circles=8, src_radiu
         Add a source of light (flare) on an specific region of an image.
 
     Args:
-        img (ndarray) : Any regular BGR/RGB image.
+        img (Tensor) : Any regular BGR/RGB image.
         flare_center (int): Center of the flare. Default: -1.
         angle (int): Angle of the flare. Default: -1
         num_flare_circles (int): Number of flare circles to operate on.
@@ -264,7 +264,7 @@ def sim_motion_blur(img, speed_coeff=-1) -> Tensor:
         Simulate motion-blur conditions on an image.
 
     Args:
-        img (ndarray) : Any regular BGR/RGB image.
+        img (Tensor) : Any regular BGR/RGB image.
         speed_coeff (int, float): Speed coefficient. Value must be between 0 and 1.
     
     Returns:
@@ -295,7 +295,7 @@ def sim_autumn(img, rgb=True) -> Tensor:
         Simulate autumn conditions on an image.
 
     Args:
-        img (ndarray) : Any regular BGR/RGB image.
+        img (Tensor) : Any regular BGR/RGB image.
         rgb (bool): Operate on RGB images. Default: True.
     
     Returns:
@@ -318,7 +318,7 @@ def sim_shadow(img, num_shadows=1, rectangular_roi=(-1,-1,-1,-1), shadow_dimensi
         Simulate shadowy conditions on an image.
 
     Args:
-        img (ndarray) : Any regular BGR/RGB image.
+        img (Tensor) : Any regular BGR/RGB image.
         num_shadows (int): Number of shadows to work with. Value must be between 1 and 10.
         rectangular_roi (tuple): Rectanglar co-ordinates of the intended region of interest. Default: (-1,-1,-1,-1).
         shadow_dimensions (int): Number of shadow dimensions. Value must be > 3. 

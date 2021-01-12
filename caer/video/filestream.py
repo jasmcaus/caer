@@ -23,6 +23,7 @@ The very same implementation can be found in stream.py. Until 5 Dec 2020, this w
 # import cv2 as cv
 # import numpy as np 
 
+# from ..adorad import Tensor
 # from .constants import (
 #     FPS, FRAME_COUNT, FRAME_HEIGHT, FRAME_WIDTH
 # )
@@ -81,7 +82,7 @@ The very same implementation can be found in stream.py. Until 5 Dec 2020, this w
 #         return self
 
 
-#     def _update(self) -> np.ndarray:
+#     def _update(self) -> Tensor:
 #         while True:
 #             if self.kill_stream:
 #                 break
@@ -104,7 +105,7 @@ The very same implementation can be found in stream.py. Until 5 Dec 2020, this w
 #         self._video_stream.release()
 
 
-#     def read(self) -> np.ndarray:
+#     def read(self) -> Tensor:
 #         """
 #         Extracts frames synchronously from monitored deque, while maintaining a fixed-length frame buffer in the memory, and blocks the thread if the deque is full.
 

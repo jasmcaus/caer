@@ -133,7 +133,7 @@ def convolve1d(inp, weights, axis=-1, output=None, mode="reflect",
     Parameters
     ----------
     %(inp)s
-    weights : ndarray
+    weights : Tensor
         1-D sequence of numbers.
     %(axis)s
     %(output)s
@@ -143,7 +143,7 @@ def convolve1d(inp, weights, axis=-1, output=None, mode="reflect",
 
     Returns
     -------
-    convolve1d : ndarray
+    convolve1d : Tensor
         Convolved array with same shape as inp
     """
     weights = weights[::-1]
@@ -216,7 +216,7 @@ def gaussian_filter1d(inp, sigma, axis=-1, order=0, output=None,
 
     Returns
     -------
-    gaussian_filter1d : ndarray
+    gaussian_filter1d : Tensor
     """
     sd = float(sigma)
     # make the radius of the filter equal to truncate standard deviations
@@ -254,7 +254,7 @@ def gaussian_filter(inp, sigma, order=0, output=None,
 
     Returns
     -------
-    gaussian_filter : ndarray
+    gaussian_filter : Tensor
         Returned array of same shape as `inp`.
 
     Notes
@@ -447,7 +447,7 @@ def generic_gradient_magnitude(inp, derivative, output=None,
                        *extra_arguments, **extra_keywords)
 
         See `extra_arguments`, `extra_keywords` below.
-        `derivative` can assume that `inp` and `output` are ndarrays.
+        `derivative` can assume that `inp` and `output` are Tensors.
         Note that the output from `derivative` is modified inplace;
         be careful to copy important inps before returning them.
     %(output)s
@@ -502,7 +502,7 @@ def gaussian_gradient_magnitude(inp, sigma, output=None,
 
     Returns
     -------
-    gaussian_gradient_magnitude : ndarray
+    gaussian_gradient_magnitude : Tensor
         Filtered array. Has the same shape as `inp`.
     """
     inp = np.asarray(inp)
@@ -592,7 +592,7 @@ def correlate(inp, weights, output=None, mode='reflect', cval=0.0,
     Parameters
     ----------
     %(inp)s
-    weights : ndarray
+    weights : Tensor
         array of weights, same number of dimensions as inp
     %(output)s
     %(mode)s
@@ -601,7 +601,7 @@ def correlate(inp, weights, output=None, mode='reflect', cval=0.0,
 
     Returns
     -------
-    result : ndarray
+    result : Tensor
         The result of correlation of `inp` with `weights`.
     """
     return _correlate_or_convolve(inp, weights, output, mode, cval,
@@ -630,7 +630,7 @@ def convolve(inp, weights, output=None, mode='reflect', cval=0.0,
 
     Returns
     -------
-    result : ndarray
+    result : Tensor
         The result of convolution of `inp` with `weights`.
 
     See Also
@@ -665,7 +665,7 @@ def median_filter(inp, size=None, footprint=None, output=None,
 
     Returns
     -------
-    median_filter : ndarray
+    median_filter : Tensor
         Filtered array. Has the same shape as `inp`.
     """
     return _rank_filter(inp, 0, size, footprint, output, mode, cval,
@@ -734,7 +734,7 @@ def maximum_filter1d(inp, size, axis=-1, output=None,
     %(origin)s
     Returns
     -------
-    maximum1d : ndarray, None
+    maximum1d : Tensor, None
         Maximum-filtered array with same shape as inp.
         None if `output` is not None
     Notes
@@ -876,7 +876,7 @@ def minimum_filter(inp, size=None, footprint=None, output=None,
     %(origin_multiple)s
     Returns
     -------
-    minimum_filter : ndarray
+    minimum_filter : Tensor
         Filtered array. Has the same shape as `inp`.
     """
     return _min_or_max_filter(inp, size, footprint, None, output, mode, cval, origin, 1)
@@ -896,7 +896,7 @@ def maximum_filter(inp, size=None, footprint=None, output=None,
     %(origin_multiple)s
     Returns
     -------
-    maximum_filter : ndarray
+    maximum_filter : Tensor
         Filtered array. Has the same shape as `inp`.
     """
     return _min_or_max_filter(inp, size, footprint, None, output, mode, cval, origin, 0)

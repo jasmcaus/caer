@@ -11,6 +11,7 @@
 
 import caer 
 import numpy as np 
+Tensor = caer.Tensor
 
 def test_bgr_to_rgb():
     img = caer.data.drone()
@@ -18,7 +19,7 @@ def test_bgr_to_rgb():
     rgb = caer.bgr_to_rgb(img)
 
     assert len(rgb.shape) == 3 
-    assert isinstance(rgb, np.ndarray)
+    assert isinstance(rgb, Tensor)
 
 
 def test_bgr_to_gray():
@@ -27,7 +28,7 @@ def test_bgr_to_gray():
     gray = caer.bgr_to_gray(img)
 
     assert len(gray.shape) == 2
-    assert isinstance(gray, np.ndarray)
+    assert isinstance(gray, Tensor)
 
 
 def test_bgr_to_hsv():
@@ -36,7 +37,7 @@ def test_bgr_to_hsv():
     hsv = caer.bgr_to_hsv(img)
 
     assert len(hsv.shape) == 3 
-    assert isinstance(hsv, np.ndarray)
+    assert isinstance(hsv, Tensor)
 
 
 def test_bgr_to_lab():
@@ -45,4 +46,4 @@ def test_bgr_to_lab():
     lab = caer.bgr_to_lab(img)
 
     assert len(lab.shape) == 3 
-    assert isinstance(lab, np.ndarray)
+    assert isinstance(lab, Tensor)

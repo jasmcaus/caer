@@ -52,7 +52,7 @@ def adjust_brightness(img, coeff, rgb=True) -> Tensor:
         Adjust the brightness of an image.
 
     Args:
-        img (ndarray) : Any regular BGR/RGB image.
+        img (Tensor) : Any regular BGR/RGB image.
         coeff (int): Coefficient value.
             - ``coeff < 1``, the image is darkened.
             - ``coeff = 1``, the image is unchanged.
@@ -93,7 +93,7 @@ def brighten(img, coeff=-1, rgb=True) -> Tensor:
         Brighten an image.
 
     Args:
-        img (ndarray) : Any regular BGR/RGB image.
+        img (Tensor) : Any regular BGR/RGB image.
         coeff (int): Coefficient value.
         rgb (bool): Operate on RGB images. Default: True.
     
@@ -125,7 +125,7 @@ def darken(img, darkness_coeff = -1, rgb=True) -> Tensor:
         Darken an image.
 
     Args:
-        img (ndarray) : Any regular BGR/RGB image.
+        img (Tensor) : Any regular BGR/RGB image.
         darkness_coeff (int): Coefficient value.
         rgb (bool): Operate on RGB images. Default: True.
     
@@ -157,7 +157,7 @@ def random_brightness(img, rgb=True) -> Tensor:
         Add random brightness to an image.
 
     Args:
-        img (ndarray) : Any regular BGR/RGB image.
+        img (Tensor) : Any regular BGR/RGB image.
         rgb (bool): Operate on RGB images. Default: True.
     
     Returns:
@@ -180,16 +180,16 @@ def adjust_contrast(img, contrast_factor) -> Tensor:
         Adjust contrast of an image.
 
     Args:
-        img (ndarray): Any valid BGR/RGB image.
+        img (Tensor): Any valid BGR/RGB image.
         contrast_factor (float): How much to adjust the contrast. Can be any
             non negative number. 0 gives a solid gray image, 1 gives the
             original image while 2 increases the contrast by a factor of 2.
     Returns:
-        numpy ndarray: Contrast adjusted image.
+        numpy Tensor: Contrast adjusted image.
     """
     # It's much faster to use the LUT construction because you have to change dtypes multiple times
     if not _is_numpy_array(img):
-        raise TypeError('Expected Numpy ndarray. Got {}'.format(type(img)))
+        raise TypeError('Expected Numpy Tensor. Got {}'.format(type(img)))
 
     table = np.array([(i - 74) * contrast_factor + 74
                       for i in range(0, 256)]).clip(0, 255).astype('uint8')
@@ -202,7 +202,7 @@ def adjust_contrast(img, contrast_factor) -> Tensor:
 def adjust_saturation(img, saturation_factor) -> Tensor:
     """Adjust color saturation of an image.
     Args:
-        img (numpy ndarray): Any valid BGR/RGB image.
+        img (numpy Tensor): Any valid BGR/RGB image.
         saturation_factor (float):  How much to adjust the saturation. 0 will
             give a black and white image, 1 will give the original image while
             2 will enhance the saturation by a factor of 2.
@@ -220,7 +220,7 @@ def adjust_saturation(img, saturation_factor) -> Tensor:
     """
     # ~10ms slower than PIL!
     if not _is_numpy_array(img):
-        raise TypeError('Expected Numpy ndarray. Got {}'.format(type(img)))
+        raise TypeError('Expected Numpy Tensor. Got {}'.format(type(img)))
 
     img = Image.fromarray(img)
     enhancer = ImageEnhance.Color(img)
@@ -239,7 +239,7 @@ def adjust_hue(img, hue_factor) -> Tensor:
         .. _Hue: https://en.wikipedia.org/wiki/Hue
 
     Args:
-        img (ndarray): Any valid BGR/RGB image.
+        img (Tensor): Any valid BGR/RGB image.
         hue_factor (float):  How much to shift the hue channel. Should be in the range [-0.5, 0.5]. 
             0.5 and -0.5 give complete reversal of hue channel in HSV space in positive and negative direction respectively.
             0 means no shift. Therefore, both -0.5 and 0.5 will give an image with complementary colors while 0 gives the original image.
@@ -260,7 +260,7 @@ def adjust_hue(img, hue_factor) -> Tensor:
         raise ValueError('`hue_factor` is not in [-0.5, 0.5].')
 
     if not _is_numpy_array(img):
-        raise TypeError('Expected Numpy ndarray. Got {}'.format(type(img)))
+        raise TypeError('Expected Numpy Tensor. Got {}'.format(type(img)))
 
     img = Image.fromarray(img)
     input_mode = img.mode
@@ -292,7 +292,7 @@ def adjust_gamma(img, gamma, gain=1) -> Tensor:
         .. _Gamma Correction: https://en.wikipedia.org/wiki/Gamma_correction
 
     Args:
-        img (ndarray): Any valid BGR/RGB image.
+        img (Tensor): Any valid BGR/RGB image.
         gamma (float): Non negative real number, same as :math:`\gamma` in the equation.
             gamma larger than 1 make the shadows darker,
             while gamma smaller than 1 make dark regions lighter.
@@ -307,7 +307,7 @@ def adjust_gamma(img, gamma, gain=1) -> Tensor:
 
     """
     if not _is_numpy_array(img):
-        raise TypeError('Expected Numpy ndarray. Got {}'.format(type(img)))
+        raise TypeError('Expected Numpy Tensor. Got {}'.format(type(img)))
 
     if gamma < 0:
         raise ValueError('Gamma should be a non-negative real number')
@@ -357,7 +357,7 @@ def affine(img,
         Apply affine transformation on the image keeping image center invariant.
 
     Args:
-        img (ndarray): Any valid BGR/RGB image.
+        img (Tensor): Any valid BGR/RGB image.
         angle (float or int): Rotation angle in degrees between -180 and 180, clockwise direction.
         translate (list or tuple of integers): Horizontal and vertical translations (post-rotation translation)
         scale (float): Overall scale
@@ -371,7 +371,7 @@ def affine(img,
     """
 
     if not _is_numpy_array(img):
-        raise TypeError('Expected Numpy ndarray. Got {}'.format(type(img)))
+        raise TypeError('Expected Numpy Tensor. Got {}'.format(type(img)))
 
     assert isinstance(translate, (tuple, list)) and len(translate) == 2, \
         'Argument translate should be a list or tuple of length 2'
@@ -414,7 +414,7 @@ def correct_exposure(img, rgb=True) -> Tensor:
         Correct the exposure of an image.
 
     Args:
-        img (ndarray) : Any regular BGR/RGB image.
+        img (Tensor) : Any regular BGR/RGB image.
         rgb (bool): Operate on RGB images. Default: True.
     
     Returns:
