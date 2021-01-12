@@ -16,13 +16,12 @@ import cv2 as cv
 import random
 import math 
 
-from ..adorad import Tensor 
+from ..adorad import Tensor, is_tensor
 
 from .functional import (
     is_numeric, 
     is_numeric_list_or_tuple, 
     is_tuple, 
-    _is_numpy_array,
     _rgb,
     _snow_process,
     _generate_random_lines,
@@ -195,7 +194,7 @@ def sim_gravel(img, rectangular_roi=(-1,-1,-1,-1), num_patches=8, rgb=True) -> T
         raise ValueError('Rectangular ROI dimensions are invalid.')
 
     if rectangular_roi == (-1,-1,-1,-1):
-        if _is_numpy_array(img):
+        if is_tensor(img):
             x1 = 0
             y1 = int(img.shape[0]*3/4)
             x2 = img.shape[1]
@@ -352,7 +351,7 @@ def sim_shadow(img, num_shadows=1, rectangular_roi=(-1,-1,-1,-1), shadow_dimensi
     if rectangular_roi==(-1,-1,-1,-1):
         x1 = 0
         
-        if(_is_numpy_array(img)):
+        if(is_tensor(img)):
             y1 = img.shape[0] // 2
             x2 = img.shape[1]
             y2 = img.shape[0]

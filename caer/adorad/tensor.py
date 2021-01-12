@@ -59,7 +59,7 @@ def is_tensor(obj):
     Args:
         obj (Object): Object to test
     """
-    return isinstance(obj, Tensor)
+    return isinstance(obj, (Tensor, np.ndarray))
 
 
 def from_numpy(x, dtype=None):

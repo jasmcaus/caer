@@ -17,10 +17,9 @@ from PIL import Image, ImageEnhance
 import cv2 as cv 
 import math
 
-from ..adorad import Tensor
+from ..adorad import Tensor, is_tensor
 
 from .functional import (
-    _is_numpy_array,
     is_list,
     _hls,
     _exposure_process
@@ -188,7 +187,7 @@ def adjust_contrast(img, contrast_factor) -> Tensor:
         numpy Tensor: Contrast adjusted image.
     """
     # It's much faster to use the LUT construction because you have to change dtypes multiple times
-    if not _is_numpy_array(img):
+    if not is_tensor(img):
         raise TypeError('Expected Numpy Tensor. Got {}'.format(type(img)))
 
     table = np.array([(i - 74) * contrast_factor + 74
@@ -219,7 +218,7 @@ def adjust_saturation(img, saturation_factor) -> Tensor:
 
     """
     # ~10ms slower than PIL!
-    if not _is_numpy_array(img):
+    if not is_tensor(img):
         raise TypeError('Expected Numpy Tensor. Got {}'.format(type(img)))
 
     img = Image.fromarray(img)
@@ -259,7 +258,7 @@ def adjust_hue(img, hue_factor) -> Tensor:
     if not (-0.5 <= hue_factor <= 0.5):
         raise ValueError('`hue_factor` is not in [-0.5, 0.5].')
 
-    if not _is_numpy_array(img):
+    if not is_tensor(img):
         raise TypeError('Expected Numpy Tensor. Got {}'.format(type(img)))
 
     img = Image.fromarray(img)
@@ -306,7 +305,7 @@ def adjust_gamma(img, gamma, gain=1) -> Tensor:
         (427, 640, 3)
 
     """
-    if not _is_numpy_array(img):
+    if not is_tensor(img):
         raise TypeError('Expected Numpy Tensor. Got {}'.format(type(img)))
 
     if gamma < 0:
@@ -370,7 +369,7 @@ def affine(img,
         val (int): Optional fill color for the area outside the transform in the output image. Default: 0
     """
 
-    if not _is_numpy_array(img):
+    if not is_tensor(img):
         raise TypeError('Expected Numpy Tensor. Got {}'.format(type(img)))
 
     assert isinstance(translate, (tuple, list)) and len(translate) == 2, \
