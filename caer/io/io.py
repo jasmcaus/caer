@@ -14,6 +14,7 @@ import cv2 as cv
 from urllib.request import urlopen
 import warnings
 
+from ..adorad import from_numpy
 from ..core import asarray
 from ..color import bgr_to_rgb, bgr_to_gray, rgb_to_bgr, IMREAD_COLOR
 from .._internal import _check_target_size
@@ -118,7 +119,8 @@ def _imread(image_path, rgb=True, channels=3, target_size=None, resize_factor=No
     if rgb:
         image_array = bgr_to_rgb(image_array)
 
-    return image_array
+    tensor = from_numpy(image_array)
+    return tensor
 
 
 def _read_image(image_path):
