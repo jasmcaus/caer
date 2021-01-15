@@ -97,7 +97,8 @@ def _imread(image_path, rgb=True, channels=3, target_size=None, resize_factor=No
 
     try:
         # If channels=1, we convert it to grayscale later on
-        image_array = _url_to_image(image_path, rgb=True)
+        image_array = _url_to_image(image_path, rgb=rgb)
+        url_img = True
     except Exception:
         if exists(image_path):
             image_array = _read_image(image_path)
@@ -110,13 +111,13 @@ def _imread(image_path, rgb=True, channels=3, target_size=None, resize_factor=No
     #     pass
     
     if channels == 1:
-        # TBH, rgb_to_gray() and bgr_to_gray() is pretty much the same thing
+        # TBH, rgb_to_gray() and bgr_to_gray() are pretty much the same thing
         image_array = bgr_to_gray(image_array)
 
     if target_size is not None or resize_factor is not None:
         image_array = resize(image_array, target_size, resize_factor=resize_factor, preserve_aspect_ratio=preserve_aspect_ratio, interpolation=interpolation)
 
-    if rgb:
+    if rgb and url_img is False:
         image_array = bgr_to_rgb(image_array)
 
     tensor = from_numpy(image_array)
@@ -144,7 +145,7 @@ def _url_to_image(url, rgb=True):
     image = asarray(bytearray(response.read()), dtype='uint8')
     image = cv.imdecode(image, IMREAD_COLOR)
 
-    if image:
+    if image is not None:
         if rgb:
             image = bgr_to_rgb(image)
         return image
