@@ -1,34 +1,26 @@
-"""
-Caer - Modern Computer Vision on the Fly
+r""" \
+Caer
 =====
+Caer is a *lightweight, scalable* Computer Vision library for high-performance AI research. It simplifies your approach towards Computer Vision by abstracting away unnecessary boilerplate code giving you the flexibility to quickly prototype deep learning models or research ideas. 
 
-A lightweight Computer Vision library in Python with powerful image and video processing operations.
-Caer is a set of utility functions designed to help speed up your Computer Vision workflow. Functions inside `caer` will help reduce the number of calculation calls your code makes, ultimately making it neat, concise and readable.
+Our design philosophy makes Caer ideal for students, researchers, hobbyists and even experts in the fields of Deep Learning and Computer Vision.
 
-Available sub-modules
------------
-augment
-    Augmentations functions
+Documentation: https://caer.rtfd.io
+
+Available subpackages
+---------------------
 color
-    Colorspace Operations
+    Colorspace manipulation
 data
-    Test images and example data.
-distance
-    Distance-computing algorithms
+    Standard high-quality test images
 filters
-    Sharpening, edge finding, rank filters, thresholding, etc.
-morph
-    Morphological operations, e.g., skeletonization.
+    Advanced Image Filters
 path
     OS-specific Path Manipulations
 preprocessing
     Image preprocessing utilities
-segmentation
-    Partitioning an image into multiple regions.  
 transforms
-    Image Transformations
-utils
-    Generic utilities.
+    Image transformations & augmentations
 video
     Video processing utilities
 
@@ -38,6 +30,15 @@ Utilities
 __version__
     Caer version string
 
+__author__
+    Author of Caer
+
+__contributors__
+    List of all contributors to the project
+
+__homepage__
+    Web URL of the Caer documentation
+
 """
 #pylint:disable=broad-except
 
@@ -46,7 +47,7 @@ import platform
 
 MAJOR = 1 
 MINOR = 9
-MICRO = 4
+MICRO = 5
 ISRELEASED = True
 VERSION = f'{MAJOR}.{MINOR}.{MICRO}'
 
