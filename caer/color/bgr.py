@@ -11,7 +11,6 @@
 
 
 import cv2 as cv 
-import numpy as np 
 
 from ..adorad import Tensor
 from .constants import BGR2RGB, BGR2GRAY, BGR2HSV, BGR2LAB, BGR2HLS
