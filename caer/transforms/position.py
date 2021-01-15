@@ -158,9 +158,9 @@ def rotate(img, angle, rotPoint=None) -> Tensor:
 
     # If no rotPoint is specified, we assume the rotation point to be around the centre
     if rotPoint is None:
-        centre = (width//2, height//2)
+        rotPoint = (width//2, height//2)
 
-    rotMat = cv.getRotationMatrix2D(centre, angle, scale=1.0)
+    rotMat = cv.getRotationMatrix2D(rotPoint, angle, scale=1.0)
 
     warp_fn = _proc_in_chunks(cv.warpAffine, M=rotMat, dsize=(width, height))
 

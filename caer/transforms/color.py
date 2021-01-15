@@ -64,7 +64,7 @@ def adjust_brightness(img, coeff, rgb=True) -> Tensor:
     Examples::
 
         >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.augment.adjust_brightness(img, coeff=1.4, rgb=True)
+        >> filtered = caer.transforms.adjust_brightness(img, coeff=1.4, rgb=True)
         >> filtered
         (427, 640, 3)
 
@@ -102,7 +102,7 @@ def brighten(img, coeff=-1, rgb=True) -> Tensor:
     Examples::
 
         >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.augment.brighten(img, coeff=-1, rgb=True)
+        >> filtered = caer.transforms.brighten(img, coeff=-1, rgb=True)
         >> filtered
         (427, 640, 3)
 
@@ -134,7 +134,7 @@ def darken(img, darkness_coeff = -1, rgb=True) -> Tensor:
     Examples::
 
         >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.augment.darken(img, coeff=-1, rgb=True)
+        >> filtered = caer.transforms.darken(img, coeff=-1, rgb=True)
         >> filtered
         (427, 640, 3)
 
@@ -165,7 +165,7 @@ def random_brightness(img, rgb=True) -> Tensor:
     Examples::
 
         >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.augment.random_brightness(img, rgb=True)
+        >> filtered = caer.transforms.random_brightness(img, rgb=True)
         >> filtered
         (427, 640, 3)
 
@@ -212,7 +212,7 @@ def adjust_saturation(img, saturation_factor) -> Tensor:
     Examples::
 
         >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.augment.adjust_saturation(img, saturation_factor=1.5, rgb=True)
+        >> filtered = caer.transforms.adjust_saturation(img, saturation_factor=1.5, rgb=True)
         >> filtered
         (427, 640, 3)
 
@@ -249,7 +249,7 @@ def adjust_hue(img, hue_factor) -> Tensor:
     Examples::
 
         >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.augment.adjust_hue(img, hue_factor=1, rgb=True)
+        >> filtered = caer.transforms.adjust_hue(img, hue_factor=1, rgb=True)
         >> filtered
         (427, 640, 3)
 
@@ -300,7 +300,7 @@ def adjust_gamma(img, gamma, gain=1) -> Tensor:
     Examples::
 
         >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.augment.adjust_gamma(img, gamma=1.5, rgb=True)
+        >> filtered = caer.transforms.adjust_gamma(img, gamma=1.5, rgb=True)
         >> filtered
         (427, 640, 3)
 
@@ -422,7 +422,7 @@ def correct_exposure(img, rgb=True) -> Tensor:
     Examples::
 
         >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.augment.correct_exposure(img, rgb=True)
+        >> filtered = caer.transforms.correct_exposure(img, rgb=True)
         >> filtered
         (427, 640, 3)
 
@@ -443,7 +443,7 @@ def augment_random(img, aug_types='', volume='expand' ) -> Tensor:
     if volume == 'expand':
         for aug_type in aug_types:
             if not(aug_type in aug_types_all):
-                raise ValueError('Incorrect augmentation function defined')
+                raise ValueError('Incorrect transformation function defined')
 
             command = aug_type + '(img)'
             result = eval(command)
@@ -453,7 +453,7 @@ def augment_random(img, aug_types='', volume='expand' ) -> Tensor:
     elif volume == 'same':
         for aug_type in aug_types:
             if not (aug_type in aug_types_all):
-                raise ValueError('Incorrect augmentation function defined')
+                raise ValueError('Incorrect transformation function defined')
 
         selected_aug = aug_types[random.randint(0, len(aug_types)-1)]
         command = selected_aug+'(img)'
