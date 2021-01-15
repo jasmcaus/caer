@@ -162,7 +162,7 @@ def rotate(img, angle, rotPoint=None) -> Tensor:
 
     rotMat = cv.getRotationMatrix2D(centre, angle, scale=1.0)
 
-    warp_fn = _proc_in_chunks(cv.warpAffine, src=img, M=rotMat, dsize=(width, height))
+    warp_fn = _proc_in_chunks(cv.warpAffine, M=rotMat, dsize=(width, height))
 
     return warp_fn(img)
 
@@ -370,7 +370,7 @@ def _proc_in_chunks(process_fn, **kwargs):
         process_fn: Transform function (e.g cv.resize).
         kwargs: Additional parameters.
     Returns:
-        numpy.Tensor: Transformed image.
+        caer.Tensor: Transformed image.
     """
 
     def __process_fn(img):
