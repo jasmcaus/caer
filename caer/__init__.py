@@ -158,7 +158,7 @@ def get_caer_methods():
 # __all__ configs
 from .globals import __all__ as __all_globals__
 
-from .augment import __all__ as __all_augment__
+from .transforms import __all__ as __all_transforms__
 from .data import __all__ as __all_data__
 # from .filters import __all__ as __all_filters__
 from .path import __all__ as __all_path__
@@ -168,7 +168,7 @@ from .video import __all__ as __all_video__
 
 __all__ = __all_globals__ + __all_core__ + __all_preprocess__
 
-__all__ += __all_augment__
+__all__ += __all_transforms__
 __all__ += __all_color__
 __all__ += __all_data__ 
 # __all__ += __all_filters__ 
@@ -191,7 +191,7 @@ del __all_globals__
 del __all_core__ 
 del __all_preprocess__ 
 
-del __all_augment__ 
+del __all_transforms__ 
 del __all_color__ 
 del __all_data__ 
 # del __all_filters__

@@ -10,7 +10,7 @@
 # Copyright (c) 2020 The Caer Authors <http://github.com/jasmcaus>
 
 r"""
-    caer.augment consists of position and color-based transforms for use.
+    caer.transforms consists of position and color-based transforms for use.
 """
 
 # Don't import from functional.py
