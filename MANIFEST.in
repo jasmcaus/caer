@@ -12,3 +12,4 @@ recursive-include caer/data *
 recursive-include caer *.py *.ini *.txt *.in *.md
 
 recursive-exclude * __pycache__ *.npy *.npz *.c *.cpp *.h *.pyx *.pyd *.pxd *.pxi
+recursive-exclude build/*
