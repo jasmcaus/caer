@@ -12,16 +12,16 @@
 
 import cv2 as cv 
 
-from ..adorad import Tensor
+from ..adorad import Tensor, to_tensor
 from .constants import BGR2RGB, BGR2GRAY, BGR2HSV, BGR2LAB, BGR2HLS
 from .rgb import is_rgb_image
 
 __all__ = [
-    'bgr_to_gray',
-    'bgr_to_hsv',
-    'bgr_to_lab',
-    'bgr_to_rgb',
-    'bgr_to_hls',
+    '_bgr_to_gray',
+    '_bgr_to_hsv',
+    '_bgr_to_lab',
+    '_bgr_to_rgb',
+    '_bgr_to_hls',
     'is_bgr_image'
 ]
 
@@ -30,7 +30,7 @@ def is_bgr_image(img):
     return is_rgb_image(img)
 
 
-def bgr_to_rgb(img) -> Tensor:
+def _bgr_to_rgb(img) -> Tensor:
     r"""
         Converts a BGR image to its RGB version.
 
@@ -50,7 +50,7 @@ def bgr_to_rgb(img) -> Tensor:
     return cv.cvtColor(img, BGR2RGB)
 
 
-def bgr_to_gray(img) -> Tensor:
+def _bgr_to_gray(img) -> Tensor:
     r"""
         Converts a BGR image to its Grayscale version.
 
@@ -70,7 +70,7 @@ def bgr_to_gray(img) -> Tensor:
     return cv.cvtColor(img, BGR2GRAY)
 
 
-def bgr_to_hsv(img) -> Tensor:
+def _bgr_to_hsv(img) -> Tensor:
     r"""
         Converts a BGR image to its HSV version.
 
@@ -90,7 +90,7 @@ def bgr_to_hsv(img) -> Tensor:
     return cv.cvtColor(img, BGR2HSV)
 
 
-def bgr_to_lab(img) -> Tensor:
+def _bgr_to_lab(img) -> Tensor:
     r"""
         Converts a BGR image to its LAB version.
 
@@ -110,7 +110,7 @@ def bgr_to_lab(img) -> Tensor:
     return cv.cvtColor(img, BGR2LAB)
 
 
-def bgr_to_hls(img) -> Tensor:
+def _bgr_to_hls(img) -> Tensor:
     r"""
         Converts a BGR image to its HLS version.
 
