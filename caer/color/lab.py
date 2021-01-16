@@ -15,23 +15,23 @@ import numpy as np
 
 from ..adorad import Tensor
 from .constants import LAB2BGR, LAB2RGB
-from .bgr import bgr_to_gray, bgr_to_hsv, bgr_to_hls, is_bgr_image
+from .bgr import _bgr_to_gray, _bgr_to_hsv, _bgr_to_hls, _is_bgr_image
 
 __all__ = [
-    'lab_to_rgb',
-    'lab_to_bgr',
-    'lab_to_gray',
-    'lab_to_hsv',
-    'lab_to_hls',
-    'is_lab_image'
+    '_lab_to_rgb',
+    '_lab_to_bgr',
+    '_lab_to_gray',
+    '_lab_to_hsv',
+    '_lab_to_hls',
+    '_is_lab_image'
 ]
 
 
-def is_lab_image(img):
-    return is_bgr_image(img)
+def _is_lab_image(img):
+    return _is_bgr_image(img)
 
 
-def lab_to_rgb(img) -> Tensor:
+def _lab_to_rgb(img) -> Tensor:
     r"""
         Converts an LAB image to its RGB version.
 
@@ -45,13 +45,13 @@ def lab_to_rgb(img) -> Tensor:
         ValueError: If `img` is not of shape 3
         
     """
-    if not is_lab_image(img):
+    if not _is_lab_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a LAB image to its RGB counterpart')
 
     return cv.cvtColor(img, LAB2RGB)
 
 
-def lab_to_bgr(img) -> Tensor:
+def _lab_to_bgr(img) -> Tensor:
     r"""
         Converts an LAB image to its BGR version.
 
@@ -65,13 +65,13 @@ def lab_to_bgr(img) -> Tensor:
         ValueError: If `img` is not of shape 3
         
     """
-    if not is_lab_image(img):
+    if not _is_lab_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a LAB image to its BGR counterpart')
 
     return cv.cvtColor(img, LAB2BGR)
 
 
-def lab_to_gray(img) -> Tensor:
+def _lab_to_gray(img) -> Tensor:
     r"""
         Converts an LAB image to its Grayscale version.
 
@@ -85,15 +85,15 @@ def lab_to_gray(img) -> Tensor:
         ValueError: If `img` is not of shape 3
         
     """
-    if not is_lab_image(img):
+    if not _is_lab_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a LAB image to its Grayscale counterpart')
 
-    bgr = lab_to_bgr(img)
+    bgr = _lab_to_bgr(img)
 
-    return bgr_to_gray(bgr)
+    return _bgr_to_gray(bgr)
 
 
-def lab_to_hsv(img) -> Tensor:
+def _lab_to_hsv(img) -> Tensor:
     r"""
         Converts an LAB image to its HSV version.
 
@@ -107,15 +107,15 @@ def lab_to_hsv(img) -> Tensor:
         ValueError: If `img` is not of shape 3
         
     """
-    if not is_lab_image(img):
+    if not _is_lab_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a LAB image to its LAB counterpart')
 
-    bgr = lab_to_bgr(img)
+    bgr = _lab_to_bgr(img)
 
-    return bgr_to_hsv(bgr)
+    return _bgr_to_hsv(bgr)
 
 
-def lab_to_hls(img) -> Tensor:
+def _lab_to_hls(img) -> Tensor:
     r"""
         Converts an LAB image to its HLS version.
 
@@ -129,9 +129,9 @@ def lab_to_hls(img) -> Tensor:
         ValueError: If `img` is not of shape 3
         
     """
-    if not is_lab_image(img):
+    if not _is_lab_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a LAB image to its LAB counterpart')
 
-    bgr = lab_to_bgr(img)
+    bgr = _lab_to_bgr(img)
 
-    return bgr_to_hls(bgr)
+    return _bgr_to_hls(bgr)
