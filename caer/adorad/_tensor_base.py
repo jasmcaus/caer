@@ -16,10 +16,16 @@ class _TensorBase:
         self.is_floating_point = False 
         self.sci_mode = False 
         self.int_mode = True  
-        self.dtype = self.dtype 
         self.numelem = self.size
+        self._mode = 'rgb'
+        self.mode = self._mode # '._mode' is used internally --> prevents misuse of the API
 
-
+    def __repr__(self):
+        return "<class 'caer.Tensor'>"
+    
+    def __str__(self):
+        return self.__repr__()
+    
     def height(self):
         return self.shape[0]
     
@@ -29,17 +35,36 @@ class _TensorBase:
     def channels(self):
         return self.shape[2]
 
+    def cmode(self):
+        return self._mode 
+    
     def numel(self):
         return self.numelem
     
-
     def dim(self):
         return self.ndim
-
 
     def size_dim(self, dim):
         return self.shape[dim]
 
-
     def type(self):
         return self.dtype 
+
+    # Color-mode stuff
+    def is_rgb(self):
+        return self._mode == 'rgb'
+    
+    def is_bgr(self):
+        return self._mode == 'bgr'
+    
+    def is_gray(self):
+        return self._mode == 'gray'
+    
+    def is_hsv(self):
+        return self._mode == 'hsv'
+    
+    def is_lab(self):
+        return self._mode == 'lab'
+    
+    def is_hls(self):
+        return self._mode == 'hls'
