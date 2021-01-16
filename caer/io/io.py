@@ -81,6 +81,8 @@ def imread(image_path, target_size=None, rgb=True, gray=False, resize_factor=Non
 def _imread(image_path, rgb=True, channels=3, target_size=None, resize_factor=None, preserve_aspect_ratio=False, interpolation='bilinear'):   
     if target_size is not None:
         _ = _check_target_size(target_size)
+    
+    url_img = False 
         
     # if not isinstance(channels, int) or channels not in [1, 3]:
     #     raise ValueError('channels must be an integer - 1 (Grayscale) or 3 (RGB)')
