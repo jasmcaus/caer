@@ -12,6 +12,10 @@
 
 from .tensor import (
     Tensor,
-    from_numpy,
     is_tensor
+)
+
+from ._internal import (
+    from_numpy,
+    to_tensor
 )
