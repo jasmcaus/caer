@@ -37,7 +37,7 @@ class Tensor(_TensorBase, np.ndarray):
 
     def __init__(self, x, dtype):
         super().__init__() # gets attributes from '_TensorBase'
-        self.x = self.__repr__()
+        self.x = x
         
 
     def __repr__(self):
@@ -60,34 +60,3 @@ def is_tensor(obj):
         obj (Object): Object to test
     """
     return isinstance(obj, (Tensor, np.ndarray))
-
-
-def from_numpy(x, dtype=None):
-    r"""
-    Convert a numpy array to a Caer tensor.
-
-    Args:
-        x (ndarray): Array to convert.
-    """
-    return to_tensor(x, dtype=dtype)
-
-
-def to_tensor(x, dtype=None):
-    r"""
-    Convert a numpy array to a Caer tensor.
-
-    Args:
-        x (ndarray): Array to convert.
-    """
-    if isinstance(x, np.ndarray):
-        return Tensor(x, dtype=dtype)
-
-    elif isinstance(x, Tensor) and x.dtype != dtype:
-        return Tensor(x, dtype=dtype)
-
-    elif isinstance(x, Tensor) and x.dtype == dtype:
-        return x 
-
-    else:
-        raise TypeError(f'Cannot convert class {type(x)} to a caer Tensor. Currrently, only Numpy arrays are supported.')
-    
