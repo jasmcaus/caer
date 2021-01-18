@@ -19,24 +19,21 @@ import numpy as np
 from ..adorad import Tensor 
 
 from ..color import (
-    rgb_to_hls, 
-    bgr_to_hls, 
-    bgr_to_rgb,
-    rgb_to_bgr,
-    hls_to_bgr,
-    hls_to_rgb
+    to_hls, 
+    to_rgb,
+    to_bgr
 )
 
 def _hls(img, rgb=True) -> Tensor:
     if rgb:
-        return rgb_to_hls(img)
+        return to_hls(img)
     else:
-        return bgr_to_hls(img)
+        return to_hls(img)
 
 
 def _bgr(img, rgb=True) -> Tensor:
     if rgb:
-        return rgb_to_bgr(img)
+        return to_bgr(img)
     else:
         return img
 
@@ -45,7 +42,7 @@ def _rgb(img, rgb=True) -> Tensor:
     if rgb:
         return img
     else:
-        return bgr_to_rgb(img)
+        return to_rgb(img)
 
 
 def _hue(img, rgb=True) -> Tensor:
@@ -104,9 +101,9 @@ def _snow_process(img, snow_coeff, rgb=True) -> Tensor:
     img = np.array(img, dtype=np.uint8)
 
     if rgb:
-        return hls_to_rgb(img)
+        return to_rgb(img)
     else:
-        return hls_to_bgr(img)
+        return to_bgr(img)
 
 
 def _generate_random_lines(imshape, slant, drop_length, rain_type):
@@ -150,9 +147,9 @@ def _rain_process(img, slant, drop_length, drop_color, drop_width, rain_drops, r
     img[:,:,1] = img[:,:,1]*brightness_coefficient ## scale pixel values down for channel 1(Lightness)
 
     if rgb:
-        return hls_to_rgb(img)
+        return to_rgb(img)
     else:
-        return hls_to_bgr(img)
+        return to_bgr(img)
 
 
 def _add_blur(img, x, y, hw, fog_coeff) -> Tensor:
@@ -225,9 +222,9 @@ def _gravel_process(img, x1, x2, y1, y2, num_patches, rgb=True):
             img[max(y-r,0):min(y+r,y), max(x-r,0):min(x+r,x), 1] = r1
 
     if rgb:
-        return hls_to_rgb(img)
+        return to_rgb(img)
     else:
-        return hls_to_bgr(img)
+        return to_bgr(img)
 
 
 def flare_source(img, point, radius, src_color) -> Tensor:
@@ -339,9 +336,9 @@ def _autumn_process(img, rgb=True) -> Tensor:
                 img_t[j:j+step,i:i+step,2] =255
 
     if rgb:
-        return hls_to_rgb(img)
+        return to_rgb(img)
     else:
-        return hls_to_bgr(img)
+        return to_bgr(img)
 
 
 def _exposure_process(img, rgb=True) -> Tensor:
@@ -397,6 +394,6 @@ def _shadow_process(img, num_shadows, x1, y1, x2, y2, shadow_dimension, rgb=True
     img[:,:,1][mask[:,:,0]==255] = img[:,:,1][mask[:,:,0]==255]*0.5   ## if red channel is hot, img's "Lightness" channel's brightness is lowered 
 
     if rgb:
-        return hls_to_rgb(img)
+        return to_rgb(img)
     else:
-        return hls_to_bgr(img)
+        return to_bgr(img)

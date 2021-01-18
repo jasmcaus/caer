@@ -12,10 +12,16 @@
 import numpy as np 
 from .tensor import Tensor 
 
+__all__ = [
+    'from_numpy',
+    'to_tensor',
+    'to_tensor_'
+]
+
 
 def from_numpy(x, dtype=None):
     r"""
-        Convert a numpy array to a Caer tensor.
+        Convert a numpy array to a caer.Tensor.
 
     Args:
         x (ndarray): Array to convert.
@@ -25,10 +31,13 @@ def from_numpy(x, dtype=None):
 
 def to_tensor(x, dtype=None):
     r"""
-    Convert a numpy array to a Caer tensor.
+        Convert an array to a caer Tensor
+        If a caer Tensor is passed, its attributes are NOT preserved. For attributes to be preserved, use 
+        ``to_tensor_()``
 
     Args:
-        x (ndarray): Array to convert.
+        x (ndarray, Tensor, PIL): Array to convert.
+        dtype (numpy): (optional) Data Type 
     """
     if isinstance(x, np.ndarray):
         return Tensor(x, dtype=dtype)
@@ -59,29 +68,26 @@ def to_tensor_(x, dtype=None):
         x (ndarray, Tensor, PIL): Array to convert.
         dtype (numpy): (optional) Data Type 
     """
-    new = Tensor(x, dtype=dtype)
-    tens = _preserve_tensor_attrs(old=x, new=new)
+    x = to_tensor(x, dtype=dtype)
+    tens = _preserve_tensor_attrs(old=x)
 
     return tens 
     
 
-def _preserve_tensor_attrs(old, new):
+def _preserve_tensor_attrs(old):
     r"""
-        Copies Tensor attributes (like self.cspace and dtype) of `old` in `new`. Both must be a new caer.Tensors 
+        Copies Tensor attributes (like self.cspace) of `old` in `new`. Both must be caer.Tensors 
     
     Args:
         old (Tensor): caer Tensor
-        new (Tensor): caer Tensor
     
     Returns:
         caer Tensor
     """
     if not isinstance(old, Tensor):
         raise TypeError('`old` needs to be a caer.Tensor.')
-    
-    if not isinstance(new, Tensor):
-        raise TypeError('`new` needs to be a caer.Tensor.')
 
+    new = to_tensor(old, dtype=old.dtype)
     new.cspace = old.cspace 
     return new 
 

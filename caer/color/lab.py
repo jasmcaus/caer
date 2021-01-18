@@ -11,9 +11,8 @@
 
 
 import cv2 as cv 
-import numpy as np
 
-from ..adorad import Tensor
+from ..adorad import Tensor, to_tensor_
 from .constants import LAB2BGR, LAB2RGB
 from .bgr import _bgr_to_gray, _bgr_to_hsv, _bgr_to_hls, _is_bgr_image
 
@@ -28,6 +27,7 @@ __all__ = [
 
 
 def _is_lab_image(img):
+    img = to_tensor_(img)
     return _is_bgr_image(img)
 
 
@@ -48,7 +48,9 @@ def _lab_to_rgb(img) -> Tensor:
     if not _is_lab_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a LAB image to its RGB counterpart')
 
-    return cv.cvtColor(img, LAB2RGB)
+    im = cv.cvtColor(img, LAB2RGB)
+    im = to_tensor_(im)
+    return im
 
 
 def _lab_to_bgr(img) -> Tensor:
@@ -68,7 +70,9 @@ def _lab_to_bgr(img) -> Tensor:
     if not _is_lab_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a LAB image to its BGR counterpart')
 
-    return cv.cvtColor(img, LAB2BGR)
+    im = cv.cvtColor(img, LAB2BGR)
+    im = to_tensor_(im)
+    return im
 
 
 def _lab_to_gray(img) -> Tensor:

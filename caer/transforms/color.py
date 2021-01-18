@@ -26,8 +26,8 @@ from .functional import (
 )
 
 from ..color import (
-    hls_to_bgr,
-    hls_to_rgb
+    to_bgr,
+    to_rgb
 )
 
 
@@ -82,9 +82,9 @@ def adjust_brightness(img, coeff, rgb=True) -> Tensor:
     img = np.array(img, dtype=np.uint8)
 
     if rgb:
-        return hls_to_rgb(img)
+        return to_rgb(img)
     else:
-        return hls_to_bgr(img)
+        return to_bgr(img)
 
 
 def brighten(img, coeff=-1, rgb=True) -> Tensor:

@@ -11,9 +11,8 @@
 
 
 import cv2 as cv 
-import numpy as np 
 
-from ..adorad import Tensor
+from ..adorad import Tensor, to_tensor_
 from .constants import RGB2BGR, RGB2GRAY, RGB2HSV, RGB2LAB, RGB2HLS
 
 __all__ = [
@@ -26,6 +25,7 @@ __all__ = [
 ]
 
 def _is_rgb_image(img):
+    img = to_tensor_(img)
     return len(img.shape) == 3 and img.shape[-1] == 3
 
 
@@ -46,7 +46,9 @@ def _rgb_to_bgr(img) -> Tensor:
     if not _is_rgb_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts an RGB image to its BGR counterpart')
 
-    return cv.cvtColor(img, RGB2BGR)
+    im = cv.cvtColor(img, RGB2BGR)
+    im = to_tensor_(im)
+    return im 
 
 
 def _rgb_to_gray(img) -> Tensor:
@@ -66,7 +68,9 @@ def _rgb_to_gray(img) -> Tensor:
     if not _is_rgb_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts an RGB image to its Grayscale counterpart')
     
-    return cv.cvtColor(img, RGB2GRAY)
+    im = cv.cvtColor(img, RGB2GRAY)
+    im = to_tensor_(im)
+    return im 
 
 
 def _rgb_to_hsv(img) -> Tensor:
@@ -86,7 +90,9 @@ def _rgb_to_hsv(img) -> Tensor:
     if not _is_rgb_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts an RGB image to its HSV counterpart')
     
-    return cv.cvtColor(img, RGB2HSV)
+    im = cv.cvtColor(img, RGB2HSV)
+    im = to_tensor_(im)
+    return im 
 
 
 def _rgb_to_lab(img) -> Tensor:
@@ -106,7 +112,9 @@ def _rgb_to_lab(img) -> Tensor:
     if not _is_rgb_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts an RGB image to its LAB counterpart')
 
-    return cv.cvtColor(img, RGB2LAB)
+    im = cv.cvtColor(img, RGB2LAB)
+    im = to_tensor_(im)
+    return im 
 
 
 def _rgb_to_hls(img) -> Tensor:
@@ -126,4 +134,6 @@ def _rgb_to_hls(img) -> Tensor:
     if not _is_rgb_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts an RGB image to its HLS counterpart')
     
-    return cv.cvtColor(img, RGB2HLS)
+    im = cv.cvtColor(img, RGB2HLS)
+    im = to_tensor_(im)
+    return im 
