@@ -15,7 +15,8 @@ import numpy as np
 from urllib.request import urlopen
 
 from ..adorad import to_tensor
-from ..color import bgr_to_rgb, IMREAD_COLOR
+from ..color.constants import IMREAD_COLOR
+from ..color.bgr import _bgr_to_rgb
 from ..path import exists
 
 
@@ -71,13 +72,13 @@ def _imread(image_path, rgb=True):
             raise ValueError('Specify either a valid URL or filepath')
     
     img = to_tensor(img)
-    img._mode = 'rgb'
+    img.cspace = 'rgb'
     
     if rgb is False:
-        img = bgr_to_rgb(img)
+        img = _bgr_to_rgb(img)
         # We need to convert back to tensor
         img = to_tensor(img)
-        img._mode = 'bgr'
+        img.cspace = 'bgr'
     
     return img 
 
@@ -88,7 +89,7 @@ def _read_image(image_path):
     # BGR image
     image =  cv.imread(image_path)
     # Convert to RGB
-    image = bgr_to_rgb(image)
+    image = _bgr_to_rgb(image)
 
     return image 
 
@@ -102,7 +103,7 @@ def _url_to_image(url):
 
     if image is not None:
         # Convert to RGB
-        image = bgr_to_rgb(image)
+        image = _bgr_to_rgb(image)
 
         return image 
         
@@ -131,7 +132,7 @@ def imsave(path, img, rgb=True):
     try:
         # OpenCV uses BGR images and saves them as RGB images
         if rgb:
-            img = bgr_to_rgb(img)
+            img = _bgr_to_rgb(img)
         return cv.imwrite(path, img)
     except:
         raise ValueError('`img` needs to be a caer Tensor. Try reading the image using `caer.imread()`. More support for additional platforms will follow. Check the Changelog for further details.')

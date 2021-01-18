@@ -17,8 +17,9 @@ class _TensorBase:
         self.sci_mode = False 
         self.int_mode = True  
         self.numelem = self.size
-        self._mode = 'rgb'
-        self.mode = self._mode # '._mode' is used internally --> prevents misuse of the API
+        # self._mode = 'rgb'
+        # self.mode = self._mode # '._mode' is used internally --> prevents misuse of the API
+        self.cspace = 'rgb' # default
 
     def __repr__(self):
         return "<class 'caer.Tensor'>"
@@ -36,7 +37,7 @@ class _TensorBase:
         return self.shape[2]
 
     def cmode(self):
-        return self._mode 
+        return self.cspace 
     
     def numel(self):
         return self.numelem
@@ -50,21 +51,21 @@ class _TensorBase:
     def type(self):
         return self.dtype 
 
-    # Color-mode stuff
+    # Colorspace stuff
     def is_rgb(self):
-        return self._mode == 'rgb'
+        return self.cspace == 'rgb'
     
     def is_bgr(self):
-        return self._mode == 'bgr'
+        return self.cspace == 'bgr'
     
     def is_gray(self):
-        return self._mode == 'gray'
+        return self.cspace == 'gray'
     
     def is_hsv(self):
-        return self._mode == 'hsv'
+        return self.cspace == 'hsv'
     
     def is_lab(self):
-        return self._mode == 'lab'
+        return self.cspace == 'lab'
     
     def is_hls(self):
-        return self._mode == 'hls'
+        return self.cspace == 'hls'

@@ -115,26 +115,12 @@ from .core import (
 
 # Color Spaces
 from .color import (
-    bgr_to_gray,
-    bgr_to_hsv,
-    bgr_to_lab,
-    bgr_to_rgb,
-    rgb_to_gray,
-    rgb_to_hsv,
-    rgb_to_lab,
-    rgb_to_bgr,
-    hsv_to_bgr,
-    hsv_to_gray,
-    hsv_to_lab,
-    hsv_to_rgb,
-    lab_to_bgr,
-    lab_to_gray,
-    lab_to_hsv,
-    lab_to_rgb,
-    is_rgb_image,
-    is_bgr_image,
-    is_hsv_image,
-    is_lab_image,
+    to_bgr,
+    to_rgb,
+    to_gray,
+    to_hsv,
+    to_hls,
+    to_lab,
     __all__ as __all_color__
 )
 
