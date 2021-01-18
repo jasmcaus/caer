@@ -15,18 +15,11 @@ from .core import (
     to_gray,
     to_hsv,
     to_hls,
-    to_lab
+    to_lab,
+    __all__ as __all_core__
 )
 
-__all__ = [
-    'to_bgr',
-    'to_rgb',
-    'to_gray',
-    'to_hsv',
-    'to_hls',
-    'to_lab'
-]
-
+__all__ = __all_core__
 
 # from .bgr import (
 #     bgr_to_gray,

@@ -11,9 +11,8 @@
 
 
 import cv2 as cv 
-import numpy as np 
 
-from ..adorad import Tensor
+from ..adorad import Tensor, to_tensor_
 from .constants import GRAY2BGR, GRAY2RGB
 from .bgr import _bgr_to_lab, _bgr_to_hsv, _bgr_to_hls
 
@@ -28,6 +27,7 @@ __all__ = [
 
 
 def _is_gray_image(img):
+    img = to_tensor_(img)
     return (len(img.shape) == 2) or (len(img.shape) == 3 and img.shape[-1] == 1)
 
 
@@ -48,7 +48,9 @@ def _gray_to_rgb(img) -> Tensor:
     if not _is_gray_image(img):
         raise ValueError(f'Image of shape 2 expected. Found shape {len(img.shape)}. This method converts a Grayscale image to its RGB counterpart')
 
-    return cv.cvtColor(img, GRAY2RGB)
+    im = cv.cvtColor(img, GRAY2RGB)
+    im = to_tensor_(im)
+    return im 
 
 
 def _gray_to_bgr(img) -> Tensor:
@@ -68,7 +70,9 @@ def _gray_to_bgr(img) -> Tensor:
     if not _is_gray_image(img):
         raise ValueError(f'Image of shape 2 expected. Found shape {len(img.shape)}. This method converts a Grayscale image to its BGR counterpart')
 
-    return cv.cvtColor(img, GRAY2BGR)
+    im = cv.cvtColor(img, GRAY2BGR)
+    im = to_tensor_(im)
+    return im 
 
 
 def _gray_to_lab(img) -> Tensor:

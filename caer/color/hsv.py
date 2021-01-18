@@ -12,7 +12,7 @@
 
 import cv2 as cv 
 
-from ..adorad import Tensor
+from ..adorad import Tensor, to_tensor_
 from .constants import HSV2BGR, HSV2RGB
 from .bgr import _bgr_to_gray, _bgr_to_lab, _bgr_to_hls, _is_bgr_image
 
@@ -26,6 +26,7 @@ __all__ = [
 ]
 
 def _is_hsv_image(img):
+    img = to_tensor_(img)
     return _is_bgr_image(img)
 
 
@@ -46,7 +47,9 @@ def _hsv_to_rgb(img) -> Tensor:
     if not _is_hsv_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a HSV image to its RGB counterpart')
 
-    return cv.cvtColor(img, HSV2RGB)
+    im = cv.cvtColor(img, HSV2RGB)
+    im = to_tensor_(im)
+    return im 
 
 
 def _hsv_to_bgr(img) -> Tensor:
@@ -66,7 +69,9 @@ def _hsv_to_bgr(img) -> Tensor:
     if not _is_hsv_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a HSV image to its BGR counterpart')
 
-    return cv.cvtColor(img, HSV2BGR)
+    im = cv.cvtColor(img, HSV2BGR)
+    im = to_tensor_(im)
+    return im 
 
 
 def _hsv_to_gray(img) -> Tensor:

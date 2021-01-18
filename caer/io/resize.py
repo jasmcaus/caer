@@ -13,6 +13,7 @@
 import math 
 import cv2 as cv
 
+from ..adorad import to_tensor_
 from .._internal import _check_target_size
 from ..globals import (
     INTER_AREA, INTER_CUBIC, INTER_NEAREST, INTER_LINEAR
@@ -118,10 +119,12 @@ def resize(image, target_size=None, resize_factor=None, preserve_aspect_ratio=Fa
         raise ValueError('Specify a valid interpolation type - area/nearest/bicubic/bilinear')
 
     if preserve_aspect_ratio:
-        return _resize_with_ratio(image, target_size=target_size, preserve_aspect_ratio=preserve_aspect_ratio, interpolation=interpolation_methods[interpolation])
+        im = _resize_with_ratio(image, target_size=target_size, preserve_aspect_ratio=preserve_aspect_ratio, interpolation=interpolation_methods[interpolation])
     else:
         width, height = new_shape[:2]
-        return _cv2_resize(image, (width, height), interpolation=interpolation_methods[interpolation])
+        im = _cv2_resize(image, (width, height), interpolation=interpolation_methods[interpolation])
+    
+    return to_tensor_(im)
 
 
 def smart_resize(img, target_size, interpolation='bilinear'):
@@ -160,7 +163,8 @@ def smart_resize(img, target_size, interpolation='bilinear'):
 
     """
 
-    return _resize_with_ratio(img, target_size=target_size, preserve_aspect_ratio=True, interpolation=interpolation)
+    im = _resize_with_ratio(img, target_size=target_size, preserve_aspect_ratio=True, interpolation=interpolation)
+    return to_tensor_(im)
 
 
 def _cv2_resize(image, target_size, interpolation=None):

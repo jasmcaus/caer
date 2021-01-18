@@ -12,7 +12,7 @@
 
 import cv2 as cv 
 
-from ..adorad import Tensor
+from ..adorad import Tensor, to_tensor_
 from .constants import BGR2RGB, BGR2GRAY, BGR2HSV, BGR2LAB, BGR2HLS
 from .rgb import _is_rgb_image
 
@@ -46,8 +46,10 @@ def _bgr_to_rgb(img) -> Tensor:
     """
     if not _is_bgr_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a BGR image to its RGB counterpart')
-
-    return cv.cvtColor(img, BGR2RGB)
+    
+    im = cv.cvtColor(img, BGR2RGB)
+    im = to_tensor_(im)
+    return im 
 
 
 def _bgr_to_gray(img) -> Tensor:
@@ -67,7 +69,9 @@ def _bgr_to_gray(img) -> Tensor:
     if not _is_bgr_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a BGR image to its Grayscale counterpart')
     
-    return cv.cvtColor(img, BGR2GRAY)
+    im = cv.cvtColor(img, BGR2GRAY)
+    im = to_tensor_(im)
+    return im 
 
 
 def _bgr_to_hsv(img) -> Tensor:
@@ -87,7 +91,9 @@ def _bgr_to_hsv(img) -> Tensor:
     if not _is_bgr_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a BGR image to its HSV counterpart')
     
-    return cv.cvtColor(img, BGR2HSV)
+    im = cv.cvtColor(img, BGR2HSV)
+    im = to_tensor_(im)
+    return im 
 
 
 def _bgr_to_lab(img) -> Tensor:
@@ -107,7 +113,9 @@ def _bgr_to_lab(img) -> Tensor:
     if not _is_bgr_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a BGR image to its LAB counterpart')
 
-    return cv.cvtColor(img, BGR2LAB)
+    im = cv.cvtColor(img, BGR2LAB)
+    im = to_tensor_(im)
+    return im 
 
 
 def _bgr_to_hls(img) -> Tensor:
@@ -127,4 +135,6 @@ def _bgr_to_hls(img) -> Tensor:
     if not _is_bgr_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a BGR image to its HLS counterpart')
     
-    return cv.cvtColor(img, BGR2HLS)
+    im = cv.cvtColor(img, BGR2HLS)
+    im = to_tensor_(im)
+    return im 
