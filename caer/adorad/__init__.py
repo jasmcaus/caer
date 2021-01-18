@@ -17,5 +17,6 @@ from .tensor import (
 
 from ._internal import (
     from_numpy,
-    to_tensor
+    to_tensor,
+    to_tensor_
 )

@@ -11,11 +11,10 @@
 
 
 import cv2 as cv 
-import numpy as np 
 
 from ..adorad import Tensor
 from .constants import HSV2BGR, HSV2RGB
-from .bgr import bgr_to_gray, bgr_to_lab, bgr_to_hls, is_bgr_image
+from .bgr import _bgr_to_gray, _bgr_to_lab, _bgr_to_hls, _is_bgr_image
 
 __all__ = [
     '_hsv_to_rgb',
@@ -27,7 +26,7 @@ __all__ = [
 ]
 
 def _is_hsv_image(img):
-    return is_bgr_image(img)
+    return _is_bgr_image(img)
 
 
 def _hsv_to_rgb(img) -> Tensor:
@@ -89,7 +88,7 @@ def _hsv_to_gray(img) -> Tensor:
 
     bgr = _hsv_to_bgr(img)
 
-    return bgr_to_gray(bgr)
+    return _bgr_to_gray(bgr)
 
 
 def _hsv_to_lab(img) -> Tensor:
@@ -111,7 +110,7 @@ def _hsv_to_lab(img) -> Tensor:
 
     bgr = _hsv_to_bgr(img)
 
-    return bgr_to_lab(bgr)
+    return _bgr_to_lab(bgr)
 
 
 def _hsv_to_hls(img) -> Tensor:
@@ -133,5 +132,5 @@ def _hsv_to_hls(img) -> Tensor:
 
     bgr = _hsv_to_bgr(img)
 
-    return bgr_to_hls(bgr)
+    return _bgr_to_hls(bgr)
 

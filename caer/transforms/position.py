@@ -15,7 +15,8 @@ import random
 import collections
 
 from ..adorad import Tensor, is_tensor
-from ..color import is_rgb_image, is_gray_image
+from ..color.rgb import _is_rgb_image
+from ..color.gray import _is_gray_image
 from .._internal import _check_target_size
 from ..globals import (
     INTER_AREA, INTER_CUBIC, INTER_NEAREST, INTER_LINEAR
@@ -472,7 +473,7 @@ def posterize(img, bits) -> Tensor:
 
         return cv.LUT(img, lut)
 
-    if not is_rgb_image(img):
+    if not _is_rgb_image(img):
         raise TypeError("If `bits` is iterable, image must be RGB")
 
     result_img = np.empty_like(img)
@@ -547,10 +548,10 @@ def equalize(img, mask=None, by_channels=True) -> Tensor:
         raise TypeError("Image must have uint8 channel type")
 
     if mask is not None:
-        if is_rgb_image(mask) and is_gray_image(img):
+        if _is_rgb_image(mask) and _is_gray_image(img):
             raise ValueError("Wrong mask shape. Image shape: {}. Mask shape: {}".format(img.shape, mask.shape))
 
-        if not by_channels and not is_gray_image(mask):
+        if not by_channels and not _is_gray_image(mask):
             raise ValueError(
                 "When `by_channels=False`, only 1-channel mask is supported. Mask shape: {}".format(mask.shape)
             )
@@ -558,7 +559,7 @@ def equalize(img, mask=None, by_channels=True) -> Tensor:
     if mask is not None:
         mask = mask.astype(np.uint8)
 
-    if is_gray_image(img):
+    if _is_gray_image(img):
         return _equalize_cv(img, mask)
 
     if not by_channels:
@@ -570,7 +571,7 @@ def equalize(img, mask=None, by_channels=True) -> Tensor:
     for i in range(3):
         if mask is None:
             _mask = None
-        elif is_gray_image(mask):
+        elif _is_gray_image(mask):
             _mask = mask
         else:
             _mask = mask[..., i]

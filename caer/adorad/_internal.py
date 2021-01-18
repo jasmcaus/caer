@@ -48,16 +48,52 @@ def to_tensor(x, dtype=None):
 
     else:
         raise TypeError(f'Cannot convert class {type(x)} to a caer Tensor. Currently, only Numpy arrays are supported.')
+
+
+def to_tensor_(x, dtype=None):
+    r"""
+        Convert an array to a caer Tensor
+        If a caer Tensor is passed, its attributes are preserved. 
+
+    Args:
+        x (ndarray, Tensor, PIL): Array to convert.
+        dtype (numpy): (optional) Data Type 
+    """
+    new = Tensor(x, dtype=dtype)
+    tens = _preserve_tensor_attrs(old=x, new=new)
+
+    return tens 
     
+
+def _preserve_tensor_attrs(old, new):
+    r"""
+        Copies Tensor attributes (like self.cspace and dtype) of `old` in `new`. Both must be a new caer.Tensors 
+    
+    Args:
+        old (Tensor): caer Tensor
+        new (Tensor): caer Tensor
+    
+    Returns:
+        caer Tensor
+    """
+    if not isinstance(old, Tensor):
+        raise TypeError('`old` needs to be a caer.Tensor.')
+    
+    if not isinstance(new, Tensor):
+        raise TypeError('`new` needs to be a caer.Tensor.')
+
+    new.cspace = old.cspace 
+    return new 
+
 
 # def _assign_mode_to_tensor(self, rgb, gray, mode=None):
 #     r"""
-#         Assign proper value of self._mode 
+#         Assign proper value of self.cspace 
 
 #         Idea:
-#             rgb = True ==> self._mode = 'rgb'
-#             rgb = False ==> self._mode = 'bgr'
-#             gray = True ==> self._mode = 'gray'
+#             rgb = True ==> self.cspace = 'rgb'
+#             rgb = False ==> self.cspace = 'bgr'
+#             gray = True ==> self.cspace = 'gray'
 
 #         WARNING:
 #             Use `mode` explicitely ONLY if you are inside a function that converts to HSV, HLS or LAB.
@@ -69,5 +105,5 @@ def to_tensor(x, dtype=None):
 #         raise TypeError('`gray` needs to be boolean')
     
 #     if mode is not None and isinstance(mode, str):
-#         self._mode = mode 
+#         self.cspace = mode 
     
