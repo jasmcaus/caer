@@ -13,7 +13,7 @@
 import cv2 as cv
 import numpy as np 
 from urllib.request import urlopen
-import urllib
+from urllib.error import URLError
 
 from ..adorad import to_tensor
 from ..color.constants import IMREAD_COLOR
@@ -65,7 +65,7 @@ def _imread(image_path, rgb=True):
         # return img
 
     # If the URL is invalid
-    except Exception, urllib.error.URLError:
+    except (Exception, URLError):
         if exists(image_path):
             img = _read_image(image_path) # returns RGB
 
