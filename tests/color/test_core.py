@@ -248,12 +248,12 @@ def test_to_lab():
     assert caer_hls_lab.shape == cv_hls.shape 
     assert caer_rgb_lab.shape == cv_hls.shape 
 
-    assert caer_lab_lab.cspace == 'hls'
-    assert caer_bgr_lab.cspace == 'hls'
-    assert caer_gray_lab.cspace == 'hls'
-    assert caer_hsv_lab.cspace == 'hls'
-    assert caer_hls_lab.cspace == 'hls'
-    assert caer_rgb_lab.cspace == 'hls'
+    assert caer_lab_lab.cspace == 'lab'
+    assert caer_bgr_lab.cspace == 'lab'
+    assert caer_gray_lab.cspace == 'lab'
+    assert caer_hsv_lab.cspace == 'lab'
+    assert caer_hls_lab.cspace == 'lab'
+    assert caer_rgb_lab.cspace == 'lab'
 
     assert len(caer_lab_lab.shape) == 3
     assert len(caer_bgr_lab.shape) == 3
