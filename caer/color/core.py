@@ -11,12 +11,12 @@
 
 from ..adorad import Tensor, to_tensor_ 
 
-from .bgr import _bgr_to_gray, _bgr_to_hsv, _bgr_to_lab, _bgr_to_rgb, _bgr_to_hls
-from .rgb import _rgb_to_gray, _rgb_to_hsv, _rgb_to_lab, _rgb_to_bgr, _rgb_to_hls
-from .gray import _gray_to_lab, _gray_to_rgb, _gray_to_hsv, _gray_to_bgr, _gray_to_hls
-from .hsv import _hsv_to_gray, _hsv_to_rgb, _hsv_to_lab, _hsv_to_bgr, _hsv_to_hls
-from .hls import _hls_to_gray, _hls_to_rgb, _hls_to_lab, _hls_to_bgr, _hls_to_hsv
-from .lab import _lab_to_gray, _lab_to_rgb, _lab_to_hsv, _lab_to_bgr, _lab_to_hls
+from ._bgr import _bgr_to_gray, _bgr_to_hsv, _bgr_to_lab, _bgr_to_rgb, _bgr_to_hls
+from ._rgb import _rgb_to_gray, _rgb_to_hsv, _rgb_to_lab, _rgb_to_bgr, _rgb_to_hls
+from ._gray import _gray_to_lab, _gray_to_rgb, _gray_to_hsv, _gray_to_bgr, _gray_to_hls
+from ._hsv import _hsv_to_gray, _hsv_to_rgb, _hsv_to_lab, _hsv_to_bgr, _hsv_to_hls
+from ._hls import _hls_to_gray, _hls_to_rgb, _hls_to_lab, _hls_to_bgr, _hls_to_hsv
+from ._lab import _lab_to_gray, _lab_to_rgb, _lab_to_hsv, _lab_to_bgr, _lab_to_hls
 
 __all__ = [
     'to_rgb',
