@@ -13,7 +13,7 @@
 import cv2 as cv 
 
 from ..adorad import Tensor, to_tensor_
-from .constants import RGB2BGR, RGB2GRAY, RGB2HSV, RGB2LAB, RGB2HLS
+from ._constants import RGB2BGR, RGB2GRAY, RGB2HSV, RGB2LAB, RGB2HLS
 
 __all__ = [
     '_rgb_to_bgr',

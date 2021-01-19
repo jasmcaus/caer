@@ -13,8 +13,8 @@
 import cv2 as cv 
 
 from ..adorad import Tensor, to_tensor_
-from .constants import LAB2BGR, LAB2RGB
-from .bgr import _bgr_to_gray, _bgr_to_hsv, _bgr_to_hls, _is_bgr_image
+from ._constants import LAB2BGR, LAB2RGB
+from ._bgr import _bgr_to_gray, _bgr_to_hsv, _bgr_to_hls, _is_bgr_image
 
 __all__ = [
     '_lab_to_rgb',
