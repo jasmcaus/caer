@@ -12,7 +12,7 @@
 
 import cv2 as cv 
 
-from ..adorad import Tensor, to_tensor_
+from ..adorad import Tensor, to_tensor_, _convert_to_tensor_and_rename_cspace
 from ._constants import HSV2BGR, HSV2RGB
 from ._bgr import bgr2gray, bgr2lab, bgr2hls
 
@@ -48,9 +48,7 @@ def hsv2rgb(img) -> Tensor:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts a HSV image to its RGB counterpart')
 
     im = cv.cvtColor(img, HSV2RGB)
-    im = to_tensor_(im)
-    im.cspace = 'rgb'
-    return im 
+    return _convert_to_tensor_and_rename_cspace(im, 'rgb')
 
 
 def hsv2bgr(img) -> Tensor:
@@ -71,9 +69,7 @@ def hsv2bgr(img) -> Tensor:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts a HSV image to its BGR counterpart')
 
     im = cv.cvtColor(img, HSV2BGR)
-    im = to_tensor_(im)
-    im.cspace = 'bgr'
-    return im 
+    return _convert_to_tensor_and_rename_cspace(im, 'bgr')
 
 
 def hsv2gray(img) -> Tensor:
@@ -96,34 +92,7 @@ def hsv2gray(img) -> Tensor:
     bgr = hsv2bgr(img)
 
     im = bgr2gray(bgr)
-    im = to_tensor_(im)
-    im.cspace = 'gray'
-    return im 
-
-
-def hsv2lab(img) -> Tensor:
-    r"""
-        Converts a HSV image to its LAB version.
-
-    Args:
-        img (Tensor): Valid HSV image array
-    
-    Returns:
-        LAB image array of shape ``(height, width, channels)``
-    
-    Raises:
-        ValueError: If `img` is not of shape 3
-        
-    """
-    if not _is_hsv_image(img):
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts a HSV image to its LAB counterpart')
-
-    bgr = hsv2bgr(img)
-
-    im = bgr2lab(bgr)
-    im = to_tensor_(im)
-    im.cspace = 'lab'
-    return im 
+    return _convert_to_tensor_and_rename_cspace(im, 'gray')
 
 
 def hsv2hls(img) -> Tensor:
@@ -146,6 +115,27 @@ def hsv2hls(img) -> Tensor:
     bgr = hsv2bgr(img)
 
     im = bgr2hls(bgr)
-    im = to_tensor_(im)
-    im.cspace = 'hls'
-    return im 
+    return _convert_to_tensor_and_rename_cspace(im, 'hls')
+
+
+def hsv2lab(img) -> Tensor:
+    r"""
+        Converts a HSV image to its LAB version.
+
+    Args:
+        img (Tensor): Valid HSV image array
+    
+    Returns:
+        LAB image array of shape ``(height, width, channels)``
+    
+    Raises:
+        ValueError: If `img` is not of shape 3
+        
+    """
+    if not _is_hsv_image(img):
+        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts a HSV image to its LAB counterpart')
+
+    bgr = hsv2bgr(img)
+
+    im = bgr2lab(bgr)
+    return _convert_to_tensor_and_rename_cspace(im, 'lab')
