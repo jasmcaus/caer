@@ -18,7 +18,7 @@ here = os.path.dirname(os.path.dirname(__file__))
 img_path = os.path.join(here, 'data', 'drone.jpg')
 
 # BGR
-cv_bgr = cv.imread(img_path)
+cv_bgr = caer.imread(img_path, rgb=False)
 # RGB
 cv_rgb = cv.cvtColor(cv_bgr, cv.COLOR_BGR2RGB)
 # GRAY
