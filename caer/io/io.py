@@ -13,12 +13,13 @@
 import cv2 as cv
 import numpy as np 
 from urllib.request import urlopen
-from urllib.error import URLError
+# from urllib.error import URLError
 
+from .resize import resize
 from ..adorad import to_tensor_
 from ..color import to_rgb
 from ..path import exists
-
+from .._internal import _check_target_size
 
 __all__ = [
     'imread',
@@ -28,7 +29,7 @@ __all__ = [
 IMREAD_COLOR = 1
 
 
-def imread(image_path, rgb=True):
+def imread(image_path, rgb=True, target_size=None, resize_factor=None, preserve_aspect_ratio=False, interpolation='bilinear'):
     r"""
         Loads in an image from `image_path` (can be either a system filepath or a URL)
 
@@ -51,11 +52,32 @@ def imread(image_path, rgb=True):
 
     """    
 
-    return _imread(image_path, rgb=rgb)
+    return _imread(image_path, rgb=rgb,target_size=target_size, resize_factor=resize_factor, preserve_aspect_ratio=preserve_aspect_ratio, interpolation=interpolation)
 
 
-def _imread(image_path, rgb=True):   
-    try:
+def _imread(image_path, rgb=True, target_size=None, resize_factor=None, preserve_aspect_ratio=False, interpolation='bilinear'):   
+    if target_size is not None:
+        _ = _check_target_size(target_size)
+    
+    # if not isinstance(channels, int) or channels not in [1, 3]:
+    #     raise ValueError('channels must be an integer - 1 (Grayscale) or 3 (RGB)')
+
+    interpolation_methods = {
+        'nearest':  0, '0': 0,  0: 0, # 0
+        'bilinear': 1, '1': 1,  1: 1, # 1
+        'bicubic':  2, '2': 2,  2: 2, # 2
+        'area':     3, '3': 3,  3: 3  # 3
+    }
+
+    if interpolation not in interpolation_methods:
+        raise ValueError('Specify a valid interpolation type - area/nearest/bicubic/bilinear')
+    
+
+    if exists(image_path):
+        img = _read_image(image_path) # returns RGB
+
+    # TODO: Create URL validator 
+    elif image_path.startswith(('http://', 'https://')):
         # Returns RGB image
         img = _url_to_image(image_path)
         
@@ -63,20 +85,39 @@ def _imread(image_path, rgb=True):
         if img is None:
             raise ValueError('The URL specified does not point to an image')
 
-        # return img
+    else:
+        raise ValueError('Specify either a valid URL or filepath')
 
-    # If the URL is invalid
-    except (Exception, URLError):
-        if exists(image_path):
-            img = _read_image(image_path) # returns RGB
+    # try:
+    #     # Returns RGB image
+    #     img = _url_to_image(image_path)
+        
+    #     # If the URL is valid, but no image at that URL, NoneType is returned
+    #     if img is None:
+    #         raise ValueError('The URL specified does not point to an image')
 
-        else:
-            raise ValueError('Specify either a valid URL or filepath')
+    #     # return img
+
+    # # If the URL is invalid
+    # except (Exception, URLError):
+    #     if exists(image_path):
+    #         img = _read_image(image_path) # returns RGB
+
+    #     else:
+    #         raise ValueError('Specify either a valid URL or filepath')
     
+    if target_size is not None or resize_factor is not None:
+        image_array = resize(image_array, 
+                             target_size, 
+                             resize_factor=resize_factor, 
+                             preserve_aspect_ratio=preserve_aspect_ratio, 
+                             interpolation=interpolation
+        )
+
     img = to_tensor_(img)
     img.cspace = 'rgb'
     
-    if rgb is False:
+    if not rgb:
         img = to_rgb(img)
         # We need to convert back to tensor
         img = to_tensor_(img)
