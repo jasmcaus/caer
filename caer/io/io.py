@@ -16,7 +16,6 @@ from urllib.request import urlopen
 from urllib.error import URLError
 
 from ..adorad import to_tensor_
-from ..color.constants import IMREAD_COLOR
 from ..color import to_rgb
 from ..path import exists
 
@@ -25,6 +24,8 @@ __all__ = [
     'imread',
     'imsave'
 ]
+
+IMREAD_COLOR = 1
 
 
 def imread(image_path, rgb=True):
