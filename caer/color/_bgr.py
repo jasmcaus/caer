@@ -14,7 +14,6 @@ import cv2 as cv
 
 from ..adorad import Tensor, to_tensor_
 from ._constants import BGR2RGB, BGR2GRAY, BGR2HSV, BGR2LAB, BGR2HLS
-from ._rgb import _is_rgb_image
 
 __all__ = [
     '_bgr_to_gray',
@@ -27,7 +26,9 @@ __all__ = [
 
 
 def _is_bgr_image(img):
-    return _is_rgb_image(img)
+    img = to_tensor_(img)
+    return img.is_bgr()
+    # return len(img.shape) == 3 and img.shape[-1] == 3
 
 
 def _bgr_to_rgb(img) -> Tensor:

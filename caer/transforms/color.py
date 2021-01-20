@@ -13,7 +13,6 @@
 
 import numpy as np 
 import random
-from PIL import Image, ImageEnhance
 import cv2 as cv 
 import math
 
@@ -29,7 +28,6 @@ from ..color import (
     to_bgr,
     to_rgb
 )
-
 
 __all__ = [
     'adjust_brightness',
@@ -221,6 +219,11 @@ def adjust_saturation(img, saturation_factor) -> Tensor:
     if not is_tensor(img):
         raise TypeError('Expected Numpy Tensor. Got {}'.format(type(img)))
 
+    try:
+        from PIL import Image, ImageEnhance
+    except ImportError:
+        raise ImportError('Pillow must be installed to use this ``caer.color.adjust_saturation()``.')
+
     img = Image.fromarray(img)
     enhancer = ImageEnhance.Color(img)
     img = enhancer.enhance(saturation_factor)
@@ -260,6 +263,11 @@ def adjust_hue(img, hue_factor) -> Tensor:
 
     if not is_tensor(img):
         raise TypeError('Expected Numpy Tensor. Got {}'.format(type(img)))
+
+    try:
+        from PIL import Image
+    except ImportError:
+        raise ImportError('Pillow must be installed to use this ``caer.color.adjust_hue()``.')
 
     img = Image.fromarray(img)
     input_mode = img.mode

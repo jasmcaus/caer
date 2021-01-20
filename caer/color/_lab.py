@@ -14,7 +14,7 @@ import cv2 as cv
 
 from ..adorad import Tensor, to_tensor_
 from ._constants import LAB2BGR, LAB2RGB
-from ._bgr import _bgr_to_gray, _bgr_to_hsv, _bgr_to_hls, _is_bgr_image
+from ._bgr import _bgr_to_gray, _bgr_to_hsv, _bgr_to_hls
 
 __all__ = [
     '_lab_to_rgb',
@@ -28,7 +28,8 @@ __all__ = [
 
 def _is_lab_image(img):
     img = to_tensor_(img)
-    return _is_bgr_image(img)
+    return img.is_lab()
+    # return len(img.shape) == 3 and img.shape[-1] == 3
 
 
 def _lab_to_rgb(img) -> Tensor:
