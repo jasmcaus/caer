@@ -45,10 +45,11 @@ def bgr2rgb(img) -> Tensor:
 
     """
     if not _is_bgr_image(img):
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a BGR image to its RGB counterpart')
+        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts a BGR image to its RGB counterpart')
     
     im = cv.cvtColor(img, BGR2RGB)
     im = to_tensor_(im)
+    im.cspace = 'rgb'
     return im 
 
 
@@ -67,10 +68,11 @@ def bgr2gray(img) -> Tensor:
         
     """
     if not _is_bgr_image(img):
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a BGR image to its Grayscale counterpart')
+        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts a BGR image to its Grayscale counterpart')
     
     im = cv.cvtColor(img, BGR2GRAY)
     im = to_tensor_(im)
+    im.cspace = 'gray'
     return im 
 
 
@@ -89,10 +91,11 @@ def bgr2hsv(img) -> Tensor:
         
     """
     if not _is_bgr_image(img):
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a BGR image to its HSV counterpart')
+        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts a BGR image to its HSV counterpart')
     
     im = cv.cvtColor(img, BGR2HSV)
     im = to_tensor_(im)
+    im.cspace = 'hsv'
     return im 
 
 
@@ -111,10 +114,11 @@ def bgr2lab(img) -> Tensor:
         
     """
     if not _is_bgr_image(img):
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a BGR image to its LAB counterpart')
+        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts a BGR image to its LAB counterpart')
 
     im = cv.cvtColor(img, BGR2LAB)
     im = to_tensor_(im)
+    im.cspace = 'lab'
     return im 
 
 
@@ -133,8 +137,9 @@ def bgr2hls(img) -> Tensor:
         
     """
     if not _is_bgr_image(img):
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a BGR image to its HLS counterpart')
+        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts a BGR image to its HLS counterpart')
     
     im = cv.cvtColor(img, BGR2HLS)
     im = to_tensor_(im)
+    im.cspace = 'hls'
     return im 
