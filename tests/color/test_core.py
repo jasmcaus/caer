@@ -46,12 +46,12 @@ def test_to_rgb():
     assert isinstance(caer_hls_rgb, caer.Tensor)
     assert isinstance(caer_lab_rgb, caer.Tensor)
 
-    assert caer_rgb_rgb.shape == cv_hls.shape 
-    assert caer_bgr_rgb.shape == cv_hls.shape 
-    assert caer_gray_rgb.shape == cv_hls.shape 
-    assert caer_hsv_rgb.shape == cv_hls.shape 
-    assert caer_hls_rgb.shape == cv_hls.shape 
-    assert caer_lab_rgb.shape == cv_hls.shape 
+    assert caer_rgb_rgb.shape == cv_rgb.shape 
+    assert caer_bgr_rgb.shape == cv_rgb.shape 
+    assert caer_gray_rgb.shape == cv_rgb.shape 
+    assert caer_hsv_rgb.shape == cv_rgb.shape 
+    assert caer_hls_rgb.shape == cv_rgb.shape 
+    assert caer_lab_rgb.shape == cv_rgb.shape 
 
     assert caer_rgb_rgb.cspace == 'rgb'
     assert caer_bgr_rgb.cspace == 'rgb'
@@ -85,12 +85,12 @@ def test_to_bgr():
     assert isinstance(caer_hls_bgr, caer.Tensor)
     assert isinstance(caer_lab_bgr, caer.Tensor)
 
-    assert caer_bgr_bgr.shape == cv_hls.shape 
-    assert caer_rgb_bgr.shape == cv_hls.shape 
-    assert caer_gray_bgr.shape == cv_hls.shape 
-    assert caer_hsv_bgr.shape == cv_hls.shape 
-    assert caer_hls_bgr.shape == cv_hls.shape 
-    assert caer_lab_bgr.shape == cv_hls.shape 
+    assert caer_bgr_bgr.shape == cv_bgr.shape 
+    assert caer_rgb_bgr.shape == cv_bgr.shape 
+    assert caer_gray_bgr.shape == cv_bgr.shape 
+    assert caer_hsv_bgr.shape == cv_bgr.shape 
+    assert caer_hls_bgr.shape == cv_bgr.shape 
+    assert caer_lab_bgr.shape == cv_bgr.shape 
 
     assert caer_bgr_bgr.cspace == 'bgr'
     assert caer_rgb_bgr.cspace == 'bgr'
@@ -124,12 +124,12 @@ def test_to_gray():
     assert isinstance(caer_hls_gray, caer.Tensor)
     assert isinstance(caer_lab_gray, caer.Tensor)
 
-    assert caer_gray_gray.shape == cv_hls.shape 
-    assert caer_bgr_gray.shape == cv_hls.shape 
-    assert caer_rgb_gray.shape == cv_hls.shape 
-    assert caer_hsv_gray.shape == cv_hls.shape 
-    assert caer_hls_gray.shape == cv_hls.shape 
-    assert caer_lab_gray.shape == cv_hls.shape 
+    assert caer_gray_gray.shape == cv_gray.shape 
+    assert caer_bgr_gray.shape == cv_gray.shape 
+    assert caer_rgb_gray.shape == cv_gray.shape 
+    assert caer_hsv_gray.shape == cv_gray.shape 
+    assert caer_hls_gray.shape == cv_gray.shape 
+    assert caer_lab_gray.shape == cv_gray.shape 
 
     assert caer_gray_gray.cspace == 'gray'
     assert caer_bgr_gray.cspace == 'gray'
@@ -163,12 +163,12 @@ def test_to_hsv():
     assert isinstance(caer_hls_hsv, caer.Tensor)
     assert isinstance(caer_lab_hsv, caer.Tensor)
 
-    assert caer_hsv_hsv.shape == cv_hls.shape 
-    assert caer_bgr_hsv.shape == cv_hls.shape 
-    assert caer_gray_hsv.shape == cv_hls.shape 
-    assert caer_rgb_hsv.shape == cv_hls.shape 
-    assert caer_hls_hsv.shape == cv_hls.shape 
-    assert caer_lab_hsv.shape == cv_hls.shape 
+    assert caer_hsv_hsv.shape == cv_hsv.shape 
+    assert caer_bgr_hsv.shape == cv_hsv.shape 
+    assert caer_gray_hsv.shape == cv_hsv.shape 
+    assert caer_rgb_hsv.shape == cv_hsv.shape 
+    assert caer_hls_hsv.shape == cv_hsv.shape 
+    assert caer_lab_hsv.shape == cv_hsv.shape 
 
     assert caer_hsv_hsv.cspace == 'hsv'
     assert caer_bgr_hsv.cspace == 'hsv'
@@ -241,12 +241,12 @@ def test_to_lab():
     assert isinstance(caer_hls_lab, caer.Tensor)
     assert isinstance(caer_rgb_lab, caer.Tensor)
 
-    assert caer_lab_lab.shape == cv_hls.shape 
-    assert caer_bgr_lab.shape == cv_hls.shape 
-    assert caer_gray_lab.shape == cv_hls.shape 
-    assert caer_hsv_lab.shape == cv_hls.shape 
-    assert caer_hls_lab.shape == cv_hls.shape 
-    assert caer_rgb_lab.shape == cv_hls.shape 
+    assert caer_lab_lab.shape == cv_lab.shape 
+    assert caer_bgr_lab.shape == cv_lab.shape 
+    assert caer_gray_lab.shape == cv_lab.shape 
+    assert caer_hsv_lab.shape == cv_lab.shape 
+    assert caer_hls_lab.shape == cv_lab.shape 
+    assert caer_rgb_lab.shape == cv_lab.shape 
 
     assert caer_lab_lab.cspace == 'lab'
     assert caer_bgr_lab.cspace == 'lab'
