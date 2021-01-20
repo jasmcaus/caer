@@ -19,5 +19,5 @@
 - [ ] I have followed the [contribution guidelines](CONTRIBUTING.md) and code style for this project.
 - [ ] I have added tests covering my contributions.
 - [ ] I have updated the documentation accordingly.
-- [ ] This PR is being made to `staging` and not `master`
-- [ ] I will squash merge this PR into `staging` (optional)
+- [ ] This PR is being made to `dev` and not `master`
+- [ ] I will squash merge this PR into `dev` (optional)
