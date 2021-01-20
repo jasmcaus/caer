@@ -13,7 +13,7 @@ The very same implementation can be found in stream.py. Until 5 Dec 2020, this w
 
 # # Licensed under the MIT License <http://opensource.org/licenses/MIT>
 # # SPDX-License-Identifier: MIT
-# # Copyright (c) 2021 The Caer Authors <http://github.com/jasmcaus>
+# # Copyright (c) 2020-2021 The Caer Authors <http://github.com/jasmcaus>
 
 
 # from threading import Thread

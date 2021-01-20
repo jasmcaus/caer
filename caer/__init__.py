@@ -63,7 +63,7 @@ __author_email__ = author_email
 __contributors__ = contributors
 __license__ = 'MIT License'
 __copyright__ = r"""
-Copyright (c) 2021 Jason Dsouza <jasmcaus>
+Copyright (c) 2020-2021 Jason Dsouza <jasmcaus>
 All Rights Reserved.
 """
 __homepage__ = homepage

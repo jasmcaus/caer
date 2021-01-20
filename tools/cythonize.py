@@ -64,7 +64,7 @@ SETUP_TEXT =\
 """
 # DO NOT EDIT!
 # THIS FILE WAS AUTOMATICALLY GENERATED AT %(time)s DURING THE CYTHON BUILD CYCLE OF ALL .PYX FILES
-# Copyright 2021, Caer
+# Copyright 2020-2021, Caer
 
 from setuptools import setup
 from Cython.Build import cythonize
