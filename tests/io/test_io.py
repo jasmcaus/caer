@@ -23,28 +23,27 @@ def test_imread():
 
     cv_bgr = cv.imread(img_path) 
     cv_rgb = cv.cvtColor(cv_bgr.copy(), cv.COLOR_BGR2RGB)
-    cv_gray = cv.cvtColor(cv_bgr.copy(), cv.COLOR_BGR2GRAY)
     
 
     caer_bgr = caer.imread(img_path, rgb=False) # Expected: BGR
     caer_rgb = caer.imread(img_path, rgb=True) # Expected: RGB
 
-    caer_rgbF_grayF = caer.imread(img_path, rgb=False, gray=False) # Expected: BGR
-    caer_rgbT_grayF = caer.imread(img_path, rgb=True, gray=False) # Expected: RGB
-    caer_rgbT_grayT = caer.imread(img_path, rgb=True, gray=True) # Expected: Gray
-    caer_rgbF_grayT = caer.imread(img_path, rgb=False, gray=True) # Expected: Gray
-    caer_rgbT_grayT = caer.imread(img_path, rgb=True, gray=True) # Expected: Gray
+    # caer_rgbF_grayF = caer.imread(img_path, rgb=False, gray=False) # Expected: BGR
+    # caer_rgbT_grayF = caer.imread(img_path, rgb=True, gray=False) # Expected: RGB
+    # caer_rgbT_grayT = caer.imread(img_path, rgb=True, gray=True) # Expected: Gray
+    # caer_rgbF_grayT = caer.imread(img_path, rgb=False, gray=True) # Expected: Gray
+    # caer_rgbT_grayT = caer.imread(img_path, rgb=True, gray=True) # Expected: Gray
 
 
     # Asserts
     assert np.all(caer_bgr == cv_bgr)
     assert np.all(caer_rgb == cv_rgb)
 
-    assert np.all(caer_rgbF_grayF == cv_bgr)
-    assert np.all(caer_rgbT_grayF == cv_rgb)
-    assert np.all(caer_rgbT_grayT == cv_gray)
-    assert np.all(caer_rgbF_grayT == cv_gray)
-    assert np.all(caer_rgbT_grayT == cv_gray)
+    # assert np.all(caer_rgbF_grayF == cv_bgr)
+    # assert np.all(caer_rgbT_grayF == cv_rgb)
+    # assert np.all(caer_rgbT_grayT == cv_gray)
+    # assert np.all(caer_rgbF_grayT == cv_gray)
+    # assert np.all(caer_rgbT_grayT == cv_gray)
 
 
 def test_imread_target_sizes():
@@ -71,11 +70,11 @@ def test_imread_preserve_aspect_ratio():
     assert img_93_35.shape[:2] == (35,93) # Numpy arrays are processed differently (h,w) as opposed to (w,h)
 
 
-def test_gray():
-    img_path = os.path.join(here, 'data', 'green_fish.jpg')
+# def test_gray():
+#     img_path = os.path.join(here, 'data', 'green_fish.jpg')
 
-    img = caer.imread(img_path, gray=True)
-    img_chann = caer.imread(img_path, gray=True) # Maintain backwards-compatibility
+#     img = caer.imread(img_path, gray=True)
+#     img_chann = caer.imread(img_path, gray=True) # Maintain backwards-compatibility
 
-    assert len(img.shape) == 2
-    assert len(img_chann.shape) == 2
+#     assert len(img.shape) == 2
+#     assert len(img_chann.shape) == 2
