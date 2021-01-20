@@ -28,8 +28,8 @@ __all__ = [
 
 def _is_lab_image(img):
     img = to_tensor_(img)
-    return img.is_lab()
-    # return len(img.shape) == 3 and img.shape[-1] == 3
+    # return img.is_lab()
+    return img.is_lab() or (len(img.shape) == 3 and img.shape[-1] == 3)
 
 
 def _lab_to_rgb(img) -> Tensor:

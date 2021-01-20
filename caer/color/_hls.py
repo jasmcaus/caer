@@ -28,8 +28,8 @@ __all__ = [
 
 def _is_hls_image(img):
     img = to_tensor_(img)
-    return img.is_hls()
-    # return len(img.shape) == 3 and img.shape[-1] == 3
+    # return img.is_hls()
+    return img.is_hls() or (len(img.shape) == 3 and img.shape[-1] == 3)
 
 
 def _hls_to_rgb(img) -> Tensor:

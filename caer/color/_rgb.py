@@ -26,8 +26,8 @@ __all__ = [
 
 def _is_rgb_image(img):
     img = to_tensor_(img)
-    return img.is_rgb()
-    # return len(img.shape) == 3 and img.shape[-1] == 3
+    # return img.is_rgb()
+    return img.is_rgb() or (len(img.shape) == 3 and img.shape[-1] == 3)
 
 
 def _rgb_to_bgr(img) -> Tensor:

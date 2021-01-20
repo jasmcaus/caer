@@ -21,6 +21,7 @@ class _TensorBase:
         # self.mode = self._mode # '._mode' is used internally --> prevents misuse of the API
         self.cspace = 'rgb' # default
 
+
     def __repr__(self):
         return "<class 'caer.Tensor'>"
     
@@ -52,6 +53,9 @@ class _TensorBase:
         return self.dtype 
 
     # Colorspace stuff
+    # def is_null(self):
+    #     return self.cspace == 'null'
+
     def is_rgb(self):
         return self.cspace == 'rgb'
     
