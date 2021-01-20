@@ -14,9 +14,7 @@ import cv2 as cv
 import random 
 import collections
 
-from ..adorad import Tensor, is_tensor
-from ..color.rgb import _is_rgb_image
-from ..color.gray import _is_gray_image
+from ..adorad import Tensor, is_tensor, to_tensor_
 from .._internal import _check_target_size
 from ..globals import (
     INTER_AREA, INTER_CUBIC, INTER_NEAREST, INTER_LINEAR
@@ -51,6 +49,17 @@ __all__ = [
     'clip',
     'pad'
 ]
+
+def _is_rgb_image(img):
+    img = to_tensor_(img)
+    return img.is_rgb()
+    # return len(img.shape) == 3 and img.shape[-1] == 3
+
+
+def _is_gray_image(img):
+    img = to_tensor_(img)
+    return img.is_gray()
+    # return (len(img.shape) == 2) or (len(img.shape) == 3 and img.shape[-1] == 1)
 
 
 def hflip(img) -> Tensor:
@@ -163,9 +172,7 @@ def rotate(img, angle, rotPoint=None) -> Tensor:
 
     rotMat = cv.getRotationMatrix2D(rotPoint, angle, scale=1.0)
 
-    warp_fn = _proc_in_chunks(cv.warpAffine, M=rotMat, dsize=(width, height))
-
-    return warp_fn(img)
+    return cv.warpAffine(img, rotMat, (width, height))
 
 
 def translate(image, x, y) -> Tensor:
@@ -360,42 +367,6 @@ def _get_random_crop_coords(height, width, crop_height, crop_width, h_start, w_s
 
 def _get_num_channels(img):
     return img.shape[2] if len(img.shape) == 3 else 1
-
-
-def _proc_in_chunks(process_fn, **kwargs):
-    """
-    Wrap OpenCV function to enable processing images with more than 4 channels.
-    Limitations:
-        This wrapper requires image to be the first argument and rest must be sent via named arguments.
-    Args:
-        process_fn: Transform function (e.g cv.resize).
-        kwargs: Additional parameters.
-    Returns:
-        caer.Tensor: Transformed image.
-    """
-
-    def __process_fn(img):
-        num_channels = _get_num_channels(img)
-        if num_channels > 4:
-            chunks = []
-            for index in range(0, num_channels, 4):
-                if num_channels - index == 2:
-                    # Many OpenCV functions cannot work with 2-channel images
-                    for i in range(2):
-                        chunk = img[:, :, index + i : index + i + 1]
-                        chunk = process_fn(chunk, **kwargs)
-                        chunk = np.expand_dims(chunk, -1)
-                        chunks.append(chunk)
-                else:
-                    chunk = img[:, :, index : index + 4]
-                    chunk = process_fn(chunk, **kwargs)
-                    chunks.append(chunk)
-            img = np.dstack(chunks)
-        else:
-            img = process_fn(img, **kwargs)
-        return img
-
-    return __process_fn
 
 
 def solarize(img, threshold=128) -> Tensor:
