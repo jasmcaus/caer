@@ -107,12 +107,7 @@ def _imread(image_path, rgb=True, target_size=None, resize_factor=None, preserve
     #         raise ValueError('Specify either a valid URL or filepath')
     
     if target_size is not None or resize_factor is not None:
-        image_array = resize(image_array, 
-                             target_size, 
-                             resize_factor=resize_factor, 
-                             preserve_aspect_ratio=preserve_aspect_ratio, 
-                             interpolation=interpolation
-        )
+        img = resize(img, target_size, resize_factor=resize_factor, preserve_aspect_ratio=preserve_aspect_ratio,interpolation=interpolation)
 
     img = to_tensor_(img)
     img.cspace = 'rgb'
