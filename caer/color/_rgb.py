@@ -44,10 +44,11 @@ def rgb2bgr(img) -> Tensor:
         
     """
     if not _is_rgb_image(img):
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts an RGB image to its BGR counterpart')
+        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts an RGB image to its BGR counterpart')
 
     im = cv.cvtColor(img, RGB2BGR)
     im = to_tensor_(im)
+    im.cspace = 'bgr'
     return im 
 
 
@@ -66,10 +67,11 @@ def rgb2gray(img) -> Tensor:
         
     """
     if not _is_rgb_image(img):
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts an RGB image to its Grayscale counterpart')
+        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts an RGB image to its Grayscale counterpart')
     
     im = cv.cvtColor(img, RGB2GRAY)
     im = to_tensor_(im)
+    im.cspace = 'gray'
     return im 
 
 
@@ -88,10 +90,11 @@ def rgb2hsv(img) -> Tensor:
         
     """
     if not _is_rgb_image(img):
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts an RGB image to its HSV counterpart')
+        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts an RGB image to its HSV counterpart')
     
     im = cv.cvtColor(img, RGB2HSV)
     im = to_tensor_(im)
+    im.cspace = 'hsv'
     return im 
 
 
@@ -110,10 +113,11 @@ def rgb2lab(img) -> Tensor:
         
     """
     if not _is_rgb_image(img):
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts an RGB image to its LAB counterpart')
+        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts an RGB image to its LAB counterpart')
 
     im = cv.cvtColor(img, RGB2LAB)
     im = to_tensor_(im)
+    im.cspace = 'lab'
     return im 
 
 
@@ -132,8 +136,9 @@ def rgb2hls(img) -> Tensor:
         
     """
     if not _is_rgb_image(img):
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts an RGB image to its HLS counterpart')
+        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts an RGB image to its HLS counterpart')
     
     im = cv.cvtColor(img, RGB2HLS)
     im = to_tensor_(im)
+    im.cspace = 'hls'
     return im 
