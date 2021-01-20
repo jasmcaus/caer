@@ -14,8 +14,8 @@ import cv2 as cv
 import numpy as np 
 import os 
 
-here = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
-img_path = os.path.join(here, 'data', 'drone.jpg')
+here = os.path.dirname(os.path.dirname(__file__))
+img_path = os.path.join(here, 'data', 'green_fish.jpg')
 
 # BGR
 cv_bgr = caer.imread(img_path, rgb=False)
