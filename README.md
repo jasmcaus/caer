@@ -107,7 +107,7 @@ If you want to cite the framework feel free to use this (but only if you loved i
   author={Dsouza, Jason},
   journal={GitHub. Note: https://github.com/jasmcaus/caer},
   volume={2},
-  year={2020}
+  year={2020-2021}
 }
 ```
 
