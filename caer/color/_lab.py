@@ -12,7 +12,7 @@
 
 import cv2 as cv 
 
-from ..adorad import Tensor, to_tensor_
+from ..adorad import Tensor, to_tensor_, _convert_to_tensor_and_rename_cspace
 from ._constants import LAB2BGR, LAB2RGB
 from ._bgr import bgr2gray, bgr2hsv, bgr2hls
 
@@ -49,9 +49,7 @@ def lab2rgb(img) -> Tensor:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts a LAB image to its RGB counterpart')
 
     im = cv.cvtColor(img, LAB2RGB)
-    im = to_tensor_(im)
-    im.cspace = 'rgb'
-    return im
+    return _convert_to_tensor_and_rename_cspace(im, 'rgb')
 
 
 def lab2bgr(img) -> Tensor:
@@ -72,9 +70,7 @@ def lab2bgr(img) -> Tensor:
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts a LAB image to its BGR counterpart')
 
     im = cv.cvtColor(img, LAB2BGR)
-    im = to_tensor_(im)
-    im.cspace = 'bgr'
-    return im
+    return _convert_to_tensor_and_rename_cspace(im, 'bgr')
 
 
 def lab2gray(img) -> Tensor:
@@ -97,9 +93,7 @@ def lab2gray(img) -> Tensor:
     bgr = lab2bgr(img)
 
     im = bgr2gray(bgr)
-    im = to_tensor_(im)
-    im.cspace = 'gray'
-    return im 
+    return _convert_to_tensor_and_rename_cspace(im, 'gray')
 
 
 def lab2hsv(img) -> Tensor:
@@ -122,9 +116,7 @@ def lab2hsv(img) -> Tensor:
     bgr = lab2bgr(img)
 
     im = bgr2hsv(bgr)
-    im = to_tensor_(im)
-    im.cspace = 'hsv'
-    return im 
+    return _convert_to_tensor_and_rename_cspace(im, 'hsv')
 
 
 def lab2hls(img) -> Tensor:
@@ -147,6 +139,4 @@ def lab2hls(img) -> Tensor:
     bgr = lab2bgr(img)
 
     im = bgr2hls(bgr)
-    im = to_tensor_(im)
-    im.cspace = 'hls'
-    return im 
+    return _convert_to_tensor_and_rename_cspace(im, 'hls')

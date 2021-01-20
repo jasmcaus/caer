@@ -92,6 +92,19 @@ def _preserve_tensor_attrs(old):
     return new 
 
 
+def _convert_to_tensor_and_rename_cspace(x, to) -> Tensor:
+    r"""
+    Args:
+        x (Tensor, ndarray): Image Tensor
+        to (str): rgb/bgr/gray/hsv/hls/lab
+        
+    Returns:
+        Tensor
+    """
+    x = to_tensor_(x)
+    x.cspace = to
+    return x
+
 # def _assign_mode_to_tensor(self, rgb, gray, mode=None):
 #     r"""
 #         Assign proper value of self.cspace 
