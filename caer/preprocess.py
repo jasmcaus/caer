@@ -19,7 +19,7 @@ from .io import imread
 from .preprocessing import MeanProcess
 from ._internal import _check_target_size, _check_mean_sub_values
 from .path import listdir, minijoin, exists, list_images
-
+from .color import to_gray
 
 __all__ = [
     'preprocess_from_dir',
@@ -148,9 +148,14 @@ def preprocess_from_dir(DIR,
                     # image_path = minijoin(class_path, image)
 
                     # Returns the resized image (ignoring aspect ratio since it isn't relevant for Deep Computer Vision models)
-                    img = imread(image_path, target_size=IMG_SIZE, channels=channels)
+                    img = imread(image_path, target_size=IMG_SIZE, rgb=True)
+
                     if img is None:
                         continue
+                    
+                    # Gray
+                    if channels == 1:
+                        img = to_gray(img)
 
                     # Normalizing
                     if normalize_train:
