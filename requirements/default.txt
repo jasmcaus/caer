@@ -1,4 +1,3 @@
 numpy<1.19.6
 opencv-contrib-python>=4.2.0
 typing_extensions
-pillow
