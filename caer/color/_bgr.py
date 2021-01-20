@@ -16,11 +16,11 @@ from ..adorad import Tensor, to_tensor_
 from ._constants import BGR2RGB, BGR2GRAY, BGR2HSV, BGR2LAB, BGR2HLS
 
 __all__ = [
-    '_bgr_to_gray',
-    '_bgr_to_hsv',
-    '_bgr_to_lab',
-    '_bgr_to_rgb',
-    '_bgr_to_hls',
+    'bgr2gray',
+    'bgr2hsv',
+    'bgr2lab',
+    'bgr2rgb',
+    'bgr2hls',
     '_is_bgr_image'
 ]
 
@@ -31,7 +31,7 @@ def _is_bgr_image(img):
     return img.is_bgr() or (len(img.shape) == 3 and img.shape[-1] == 3)
 
 
-def _bgr_to_rgb(img) -> Tensor:
+def bgr2rgb(img) -> Tensor:
     r"""
         Converts a BGR image to its RGB version.
 
@@ -53,7 +53,7 @@ def _bgr_to_rgb(img) -> Tensor:
     return im 
 
 
-def _bgr_to_gray(img) -> Tensor:
+def bgr2gray(img) -> Tensor:
     r"""
         Converts a BGR image to its Grayscale version.
 
@@ -75,7 +75,7 @@ def _bgr_to_gray(img) -> Tensor:
     return im 
 
 
-def _bgr_to_hsv(img) -> Tensor:
+def bgr2hsv(img) -> Tensor:
     r"""
         Converts a BGR image to its HSV version.
 
@@ -97,7 +97,7 @@ def _bgr_to_hsv(img) -> Tensor:
     return im 
 
 
-def _bgr_to_lab(img) -> Tensor:
+def bgr2lab(img) -> Tensor:
     r"""
         Converts a BGR image to its LAB version.
 
@@ -119,7 +119,7 @@ def _bgr_to_lab(img) -> Tensor:
     return im 
 
 
-def _bgr_to_hls(img) -> Tensor:
+def bgr2hls(img) -> Tensor:
     r"""
         Converts a BGR image to its HLS version.
 

@@ -16,11 +16,11 @@ from ..adorad import Tensor, to_tensor_
 from ._constants import RGB2BGR, RGB2GRAY, RGB2HSV, RGB2LAB, RGB2HLS
 
 __all__ = [
-    '_rgb_to_bgr',
-    '_rgb_to_gray',
-    '_rgb_to_hsv',
-    '_rgb_to_lab',
-    '_rgb_to_hls',
+    'rgb2bgr',
+    'rgb2gray',
+    'rgb2hsv',
+    'rgb2lab',
+    'rgb2hls',
     '_is_rgb_image',
 ]
 
@@ -30,7 +30,7 @@ def _is_rgb_image(img):
     return img.is_rgb() or (len(img.shape) == 3 and img.shape[-1] == 3)
 
 
-def _rgb_to_bgr(img) -> Tensor:
+def rgb2bgr(img) -> Tensor:
     r"""
         Converts an RGB image to its BGR version.
 
@@ -52,7 +52,7 @@ def _rgb_to_bgr(img) -> Tensor:
     return im 
 
 
-def _rgb_to_gray(img) -> Tensor:
+def rgb2gray(img) -> Tensor:
     r"""
         Converts an RGB image to its Grayscale version.
 
@@ -74,7 +74,7 @@ def _rgb_to_gray(img) -> Tensor:
     return im 
 
 
-def _rgb_to_hsv(img) -> Tensor:
+def rgb2hsv(img) -> Tensor:
     r"""
         Converts an RGB image to its HSV version.
 
@@ -96,7 +96,7 @@ def _rgb_to_hsv(img) -> Tensor:
     return im 
 
 
-def _rgb_to_lab(img) -> Tensor:
+def rgb2lab(img) -> Tensor:
     r"""
         Converts an RGB image to its LAB version.
 
@@ -118,7 +118,7 @@ def _rgb_to_lab(img) -> Tensor:
     return im 
 
 
-def _rgb_to_hls(img) -> Tensor:
+def rgb2hls(img) -> Tensor:
     r"""
         Converts an RGB image to its HLS version.
 
