@@ -11,12 +11,12 @@
 
 from ..adorad import Tensor, to_tensor_ 
 
-from ._bgr import _bgr_to_gray, _bgr_to_hsv, _bgr_to_lab, _bgr_to_rgb, _bgr_to_hls
-from ._rgb import _rgb_to_gray, _rgb_to_hsv, _rgb_to_lab, _rgb_to_bgr, _rgb_to_hls
-from ._gray import _gray_to_lab, _gray_to_rgb, _gray_to_hsv, _gray_to_bgr, _gray_to_hls
-from ._hsv import _hsv_to_gray, _hsv_to_rgb, _hsv_to_lab, _hsv_to_bgr, _hsv_to_hls
-from ._hls import _hls_to_gray, _hls_to_rgb, _hls_to_lab, _hls_to_bgr, _hls_to_hsv
-from ._lab import _lab_to_gray, _lab_to_rgb, _lab_to_hsv, _lab_to_bgr, _lab_to_hls
+from ._bgr import bgr2gray, bgr2hsv, bgr2lab, bgr2rgb, bgr2hls
+from ._rgb import rgb2gray, rgb2hsv, rgb2lab, rgb2bgr, rgb2hls
+from ._gray import gray2lab, gray2rgb, gray2hsv, gray2bgr, gray2hls
+from ._hsv import hsv2gray, hsv2rgb, hsv2lab, hsv2bgr, hsv2hls
+from ._hls import hls2gray, hls2rgb, hls2lab, hls2bgr, hls2hsv
+from ._lab import lab2gray, lab2rgb, lab2hsv, lab2bgr, lab2hls
 
 __all__ = [
     'to_rgb',
@@ -46,41 +46,40 @@ def to_rgb(img) -> Tensor:
         print('Warning: Caer was unable to assign a colorspace for a foreign tensor. Sticking with "rgb". This issue will be fixed in a future update.')
         
         # We assume that the img is a BGR image
-        im = _bgr_to_rgb(img)
+        im = bgr2rgb(img)
         im = to_tensor_(im)
         im.cspace = 'rgb'
         return im 
-
 
     elif cspace == 'rgb':
         return img 
     
     elif cspace == 'bgr':
-        im = _bgr_to_rgb(img)
+        im = bgr2rgb(img)
         im = to_tensor_(im)
         im.cspace = 'rgb'
         return im 
     
     elif cspace == 'gray':
-        im = _gray_to_rgb(img)
+        im = gray2rgb(img)
         im = to_tensor_(im)
         im.cspace = 'rgb'
         return im 
     
     elif cspace == 'hls':
-        im = _hls_to_rgb(img)
+        im = hls2rgb(img)
         im = to_tensor_(im)
         im.cspace = 'rgb'
         return im 
     
     elif cspace == 'hsv':
-        im = _hsv_to_rgb(img)
+        im = hsv2rgb(img)
         im = to_tensor_(im)
         im.cspace = 'rgb'
         return im 
     
     elif cspace == 'lab':
-        im = _lab_to_rgb(img)
+        im = lab2rgb(img)
         im = to_tensor_(im)
         im.cspace = 'rgb'
         return im 
@@ -104,31 +103,31 @@ def to_bgr(img) -> Tensor:
         return img 
     
     elif cspace == 'gray':
-        im = _gray_to_bgr(img)
+        im = gray2bgr(img)
         im = to_tensor_(im)
         im.cspace = 'bgr'
         return im 
     
     elif cspace == 'rgb':
-        im = _rgb_to_bgr(img)
+        im = rgb2bgr(img)
         im = to_tensor_(im)
         im.cspace = 'bgr'
         return im 
     
     elif cspace == 'hls':
-        im = _hls_to_bgr(img)
+        im = hls2bgr(img)
         im = to_tensor_(im)
         im.cspace = 'bgr'
         return im 
     
     elif cspace == 'hsv':
-        im = _hsv_to_bgr(img)
+        im = hsv2bgr(img)
         im = to_tensor_(im)
         im.cspace = 'bgr'
         return im 
     
     elif cspace == 'lab':
-        im = _lab_to_bgr(img)
+        im = lab2bgr(img)
         im = to_tensor_(im)
         im.cspace = 'bgr'
         return im 
@@ -152,31 +151,31 @@ def to_gray(img) -> Tensor:
         return img 
     
     elif cspace == 'bgr':
-        im = _bgr_to_gray(img)
+        im = bgr2gray(img)
         im = to_tensor_(im)
         im.cspace = 'gray'
         return im 
     
     elif cspace == 'rgb':
-        im = _rgb_to_gray(img)
+        im = rgb2gray(img)
         im = to_tensor_(im)
         im.cspace = 'gray'
         return im 
     
     elif cspace == 'hls':
-        im = _hls_to_gray(img)
+        im = hls2gray(img)
         im = to_tensor_(im)
         im.cspace = 'gray'
         return im 
     
     elif cspace == 'hsv':
-        im = _hsv_to_gray(img)
+        im = hsv2gray(img)
         im = to_tensor_(im)
         im.cspace = 'gray'
         return im 
     
     elif cspace == 'lab':
-        im = _lab_to_gray(img)
+        im = lab2gray(img)
         im = to_tensor_(im)
         im.cspace = 'gray'
         return im 
@@ -200,31 +199,31 @@ def to_hsv(img) -> Tensor:
         return img 
     
     elif cspace == 'bgr':
-        im = _bgr_to_hsv(img)
+        im = bgr2hsv(img)
         im = to_tensor_(im)
         im.cspace = 'hsv'
         return im 
     
     elif cspace == 'rgb':
-        im = _rgb_to_hsv(img)
+        im = rgb2hsv(img)
         im = to_tensor_(im)
         im.cspace = 'hsv'
         return im 
     
     elif cspace == 'hls':
-        im = _hls_to_hsv(img)
+        im = hls2hsv(img)
         im = to_tensor_(im)
         im.cspace = 'hsv'
         return im 
     
     elif cspace == 'gray':
-        im = _gray_to_hsv(img)
+        im = gray2hsv(img)
         im = to_tensor_(im)
         im.cspace = 'hsv'
         return im 
     
     elif cspace == 'lab':
-        im = _lab_to_hsv(img)
+        im = lab2hsv(img)
         im = to_tensor_(im)
         im.cspace = 'hsv'
         return im 
@@ -248,31 +247,31 @@ def to_hls(img) -> Tensor:
         return img 
     
     elif cspace == 'bgr':
-        im = _bgr_to_hls(img)
+        im = bgr2hls(img)
         im = to_tensor_(im)
         im.cspace = 'hls'
         return im 
     
     elif cspace == 'rgb':
-        im = _rgb_to_hls(img)
+        im = rgb2hls(img)
         im = to_tensor_(im)
         im.cspace = 'hls'
         return im 
     
     elif cspace == 'hsv':
-        im = _hsv_to_hls(img)
+        im = hsv2hls(img)
         im = to_tensor_(im)
         im.cspace = 'hls'
         return im 
     
     elif cspace == 'gray':
-        im = _gray_to_hls(img)
+        im = gray2hls(img)
         im = to_tensor_(im)
         im.cspace = 'hls'
         return im 
     
     elif cspace == 'lab':
-        im = _lab_to_hls(img)
+        im = lab2hls(img)
         im = to_tensor_(im)
         im.cspace = 'hls'
         return im 
@@ -296,31 +295,31 @@ def to_lab(img) -> Tensor:
         return img 
     
     elif cspace == 'bgr':
-        im = _bgr_to_lab(img)
+        im = bgr2lab(img)
         im = to_tensor_(im)
         im.cspace = 'lab'
         return im 
     
     elif cspace == 'rgb':
-        im = _rgb_to_lab(img)
+        im = rgb2lab(img)
         im = to_tensor_(im)
         im.cspace = 'lab'
         return im 
     
     elif cspace == 'hsv':
-        im = _hsv_to_lab(img)
+        im = hsv2lab(img)
         im = to_tensor_(im)
         im.cspace = 'lab'
         return im 
     
     elif cspace == 'gray':
-        im = _gray_to_lab(img)
+        im = gray2lab(img)
         im = to_tensor_(im)
         im.cspace = 'lab'
         return im 
     
     elif cspace == 'hls':
-        im = _hls_to_lab(img)
+        im = hls2lab(img)
         im = to_tensor_(im)
         im.cspace = 'lab'
         return im 

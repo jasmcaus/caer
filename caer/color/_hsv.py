@@ -14,14 +14,14 @@ import cv2 as cv
 
 from ..adorad import Tensor, to_tensor_
 from ._constants import HSV2BGR, HSV2RGB
-from ._bgr import _bgr_to_gray, _bgr_to_lab, _bgr_to_hls
+from ._bgr import bgr2gray, bgr2lab, bgr2hls
 
 __all__ = [
-    '_hsv_to_rgb',
-    '_hsv_to_bgr',
-    '_hsv_to_lab',
-    '_hsv_to_gray',
-    '_hsv_to_hls',
+    'hsv2rgb',
+    'hsv2bgr',
+    'hsv2lab',
+    'hsv2gray',
+    'hsv2hls',
     '_is_hsv_image'
 ]
 
@@ -31,7 +31,7 @@ def _is_hsv_image(img):
     return img.is_hsv() or (len(img.shape) == 3 and img.shape[-1] == 3)
 
 
-def _hsv_to_rgb(img) -> Tensor:
+def hsv2rgb(img) -> Tensor:
     r"""
         Converts a HSV image to its RGB version.
 
@@ -53,7 +53,7 @@ def _hsv_to_rgb(img) -> Tensor:
     return im 
 
 
-def _hsv_to_bgr(img) -> Tensor:
+def hsv2bgr(img) -> Tensor:
     r"""
         Converts a HSV image to its BGR version.
 
@@ -75,7 +75,7 @@ def _hsv_to_bgr(img) -> Tensor:
     return im 
 
 
-def _hsv_to_gray(img) -> Tensor:
+def hsv2gray(img) -> Tensor:
     r"""
         Converts a HSV image to its Grayscale version.
 
@@ -92,12 +92,12 @@ def _hsv_to_gray(img) -> Tensor:
     if not _is_hsv_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a HSV image to its Grayscale counterpart')
 
-    bgr = _hsv_to_bgr(img)
+    bgr = hsv2bgr(img)
 
-    return _bgr_to_gray(bgr)
+    return bgr2gray(bgr)
 
 
-def _hsv_to_lab(img) -> Tensor:
+def hsv2lab(img) -> Tensor:
     r"""
         Converts a HSV image to its LAB version.
 
@@ -114,12 +114,12 @@ def _hsv_to_lab(img) -> Tensor:
     if not _is_hsv_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a HSV image to its LAB counterpart')
 
-    bgr = _hsv_to_bgr(img)
+    bgr = hsv2bgr(img)
 
-    return _bgr_to_lab(bgr)
+    return bgr2lab(bgr)
 
 
-def _hsv_to_hls(img) -> Tensor:
+def hsv2hls(img) -> Tensor:
     r"""
         Converts a HSV image to its HLS version.
 
@@ -136,7 +136,7 @@ def _hsv_to_hls(img) -> Tensor:
     if not _is_hsv_image(img):
         raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This method converts a HSV image to its HLS counterpart')
 
-    bgr = _hsv_to_bgr(img)
+    bgr = hsv2bgr(img)
 
-    return _bgr_to_hls(bgr)
+    return bgr2hls(bgr)
 
