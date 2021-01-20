@@ -20,8 +20,7 @@ __all__ = [
     'bgr2hsv',
     'bgr2lab',
     'bgr2rgb',
-    'bgr2hls',
-    '_is_bgr_image'
+    'bgr2hls'
 ]
 
 

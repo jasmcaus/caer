@@ -22,8 +22,7 @@ __all__ = [
     'hls2bgr',
     'hls2lab',
     'hls2gray',
-    'hls2hsv',
-    '_is_hls_image'
+    'hls2hsv'
 ]
 
 def _is_hls_image(img):

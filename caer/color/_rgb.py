@@ -20,8 +20,7 @@ __all__ = [
     'rgb2gray',
     'rgb2hsv',
     'rgb2lab',
-    'rgb2hls',
-    '_is_rgb_image',
+    'rgb2hls'
 ]
 
 def _is_rgb_image(img):
