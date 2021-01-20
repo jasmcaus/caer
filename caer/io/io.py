@@ -126,25 +126,28 @@ def _read_image(image_path):
         raise FileNotFoundError('The image file was not found')
 
     # BGR image
-    image =  cv.imread(image_path)
-    # Convert to RGB
-    image = to_rgb(image)
+    img =  cv.imread(image_path)
 
-    return image 
+    # Convert to RGB
+    # WARNING: DO NOT USE to_rgb() as it creates a brand new Tensor (which defaults to RGB)
+    # This issue will, hopefully, be fixed in a future update.
+    # img = to_rgb(img)
+    return cv.cvtColor(img, cv.COLOR_BGR2RGB)
 
 
 def _url_to_image(url):
     # Converts the image to a Numpy array and reads it in OpenCV
     response = urlopen(url)
-    image = np.asarray(bytearray(response.read()), dtype='uint8')
+    img = np.asarray(bytearray(response.read()), dtype='uint8')
     # BGR image
-    image = cv.imdecode(image, IMREAD_COLOR)
+    img = cv.imdecode(img, IMREAD_COLOR)
 
-    if image is not None:
+    if img is not None:
         # Convert to RGB
-        image = to_rgb(image)
-
-        return image 
+        # WARNING: DO NOT USE to_rgb() as it creates a brand new Tensor (which defaults to RGB)
+        # This issue will, hopefully, be fixed in a future update.
+        # img = to_rgb(img)
+        return cv.cvtColor(img, cv.COLOR_BGR2RGB)
         
     else:
         raise ValueError(f'No image found at "{url}"')

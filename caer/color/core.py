@@ -41,7 +41,18 @@ def to_rgb(img) -> Tensor:
     img = to_tensor_(img)
     cspace = img.cspace 
 
-    if cspace == 'rgb':
+    # If 'null', we assume we have a brand new Tensor
+    if cspace == 'null':
+        print('Warning: Caer was unable to assign a colorspace for a foreign tensor. Sticking with "rgb". This issue will be fixed in a future update.')
+        
+        # We assume that the img is a BGR image
+        im = _bgr_to_rgb(img)
+        im = to_tensor_(im)
+        im.cspace = 'rgb'
+        return im 
+
+
+    elif cspace == 'rgb':
         return img 
     
     elif cspace == 'bgr':

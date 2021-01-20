@@ -27,8 +27,8 @@ __all__ = [
 
 def _is_hsv_image(img):
     img = to_tensor_(img)
-    return img.is_hsv()
-    # return len(img.shape) == 3 and img.shape[-1] == 3
+    # return img.is_hsv()
+    return img.is_hsv() or (len(img.shape) == 3 and img.shape[-1] == 3)
 
 
 def _hsv_to_rgb(img) -> Tensor:

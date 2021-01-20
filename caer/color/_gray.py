@@ -28,8 +28,8 @@ __all__ = [
 
 def _is_gray_image(img):
     img = to_tensor_(img)
-    return img.is_gray()
-    # return (len(img.shape) == 2) or (len(img.shape) == 3 and img.shape[-1] == 1)
+    # return img.is_gray()
+    return img.is_gray() or ((len(img.shape) == 2) or (len(img.shape) == 3 and img.shape[-1] == 1))
 
 
 def _gray_to_rgb(img) -> Tensor:
