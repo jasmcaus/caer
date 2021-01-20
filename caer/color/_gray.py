@@ -21,8 +21,7 @@ __all__ = [
     'gray2bgr',
     'gray2lab',
     'gray2hsv',
-    'gray2hls',
-    '_is_gray_image'
+    'gray2hls'
 ]
 
 

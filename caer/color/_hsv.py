@@ -21,8 +21,7 @@ __all__ = [
     'hsv2bgr',
     'hsv2lab',
     'hsv2gray',
-    'hsv2hls',
-    '_is_hsv_image'
+    'hsv2hls'
 ]
 
 def _is_hsv_image(img):

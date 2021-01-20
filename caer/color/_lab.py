@@ -21,8 +21,7 @@ __all__ = [
     'lab2bgr',
     'lab2gray',
     'lab2hsv',
-    'lab2hls',
-    '_is_lab_image'
+    'lab2hls'
 ]
 
 
