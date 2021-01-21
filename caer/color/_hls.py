@@ -33,7 +33,7 @@ def _is_hls_image(img):
 
 def hls2rgb(img) -> Tensor:
     r"""
-        Converts a HLS image to its RGB version.
+        Converts a HLS Tensor to its RGB version.
 
     Args:
         img (Tensor): Valid HLS Tensor
@@ -46,7 +46,7 @@ def hls2rgb(img) -> Tensor:
         
     """
     if not _is_hls_image(img):
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts a HLS image to its RGB counterpart')
+        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts a HLS Tensor to its RGB counterpart')
 
     im = cv.cvtColor(img, HLS2RGB)
     return _convert_to_tensor_and_rename_cspace(im, 'rgb') 
@@ -54,7 +54,7 @@ def hls2rgb(img) -> Tensor:
 
 def hls2bgr(img) -> Tensor:
     r"""
-        Converts a HLS image to its BGR version.
+        Converts a HLS Tensor to its BGR version.
 
     Args:
         img (Tensor): Valid HLS Tensor
@@ -67,7 +67,7 @@ def hls2bgr(img) -> Tensor:
         
     """
     if not _is_hls_image(img):
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts a HLS image to its BGR counterpart')
+        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts a HLS Tensor to its BGR counterpart')
 
     im = cv.cvtColor(img, HLS2BGR)
     return _convert_to_tensor_and_rename_cspace(im, 'bgr')
@@ -75,7 +75,7 @@ def hls2bgr(img) -> Tensor:
 
 def hls2gray(img) -> Tensor:
     r"""
-        Converts a HLS image to its Grayscale version.
+        Converts a HLS Tensor to its Grayscale version.
 
     Args:
         img (Tensor): Valid HLS Tensor
@@ -88,7 +88,7 @@ def hls2gray(img) -> Tensor:
         
     """
     if not _is_hls_image(img):
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts a HLS image to its Grayscale counterpart')
+        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts a HLS Tensor to its Grayscale counterpart')
 
     bgr = hls2bgr(img)
 
@@ -98,7 +98,7 @@ def hls2gray(img) -> Tensor:
 
 def hls2hsv(img) -> Tensor:
     r"""
-        Converts a HLS image to its HSV version.
+        Converts a HLS Tensor to its HSV version.
 
     Args:
         img (Tensor): Valid HLS Tensor
@@ -111,7 +111,7 @@ def hls2hsv(img) -> Tensor:
         
     """
     if not _is_hls_image(img):
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts a HLS image to its LAB counterpart')
+        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts a HLS Tensor to its LAB counterpart')
 
     bgr = hls2bgr(img)
 
@@ -121,7 +121,7 @@ def hls2hsv(img) -> Tensor:
 
 def hls2lab(img) -> Tensor:
     r"""
-        Converts a HLS image to its LAB version.
+        Converts a HLS Tensor to its LAB version.
 
     Args:
         img (Tensor): Valid HLS Tensor
@@ -134,7 +134,7 @@ def hls2lab(img) -> Tensor:
         
     """
     if not _is_hls_image(img):
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts a HLS image to its LAB counterpart')
+        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts a HLS Tensor to its LAB counterpart')
 
     bgr = hls2bgr(img)
 

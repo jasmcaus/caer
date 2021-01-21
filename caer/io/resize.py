@@ -13,7 +13,7 @@
 import math 
 import cv2 as cv
 
-from ..adorad import to_tensor_
+from ..adorad import Tensor, to_tensor_
 from .._internal import _check_target_size
 from ..globals import (
     INTER_AREA, INTER_CUBIC, INTER_NEAREST, INTER_LINEAR
@@ -83,6 +83,11 @@ def resize(image, target_size=None, resize_factor=None, preserve_aspect_ratio=Fa
     # Opencv uses the (h,w) format
     height, width = image.shape[:2]
     interpolation = str(interpolation)
+
+    if not isinstance(img, Tensor):
+        raise ValueError('')
+
+    cspace = img.cspace 
 
     if resize_factor is None:
         if target_size is None:

@@ -32,7 +32,7 @@ def _is_bgr_image(img):
 
 def bgr2rgb(img) -> Tensor:
     r"""
-        Converts a BGR image to its RGB version.
+        Converts a BGR Tensor to its RGB version.
 
     Args:
         img (Tensor): Valid BGR Tensor
@@ -45,7 +45,7 @@ def bgr2rgb(img) -> Tensor:
 
     """
     if not _is_bgr_image(img):
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts a BGR image to its RGB counterpart')
+        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts a BGR Tensor to its RGB counterpart')
     
     im = cv.cvtColor(img, BGR2RGB)
     return _convert_to_tensor_and_rename_cspace(im, 'rgb')
@@ -53,7 +53,7 @@ def bgr2rgb(img) -> Tensor:
 
 def bgr2gray(img) -> Tensor:
     r"""
-        Converts a BGR image to its Grayscale version.
+        Converts a BGR Tensor to its Grayscale version.
 
     Args:
         img (Tensor): Valid BGR Tensor
@@ -66,15 +66,18 @@ def bgr2gray(img) -> Tensor:
         
     """
     if not _is_bgr_image(img):
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts a BGR image to its Grayscale counterpart')
+        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts a BGR Tensor to its Grayscale counterpart')
     
+    img = to_tensor_(img)
+    _ = img._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
+
     im = cv.cvtColor(img, BGR2GRAY)
     return _convert_to_tensor_and_rename_cspace(im, 'gray')
 
 
 def bgr2hsv(img) -> Tensor:
     r"""
-        Converts a BGR image to its HSV version.
+        Converts a BGR Tensor to its HSV version.
 
     Args:
         img (Tensor): Valid BGR Tensor
@@ -87,7 +90,7 @@ def bgr2hsv(img) -> Tensor:
         
     """
     if not _is_bgr_image(img):
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts a BGR image to its HSV counterpart')
+        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts a BGR Tensor to its HSV counterpart')
     
     im = cv.cvtColor(img, BGR2HSV)
     return _convert_to_tensor_and_rename_cspace(im, 'hsv')
@@ -95,7 +98,7 @@ def bgr2hsv(img) -> Tensor:
 
 def bgr2lab(img) -> Tensor:
     r"""
-        Converts a BGR image to its LAB version.
+        Converts a BGR Tensor to its LAB version.
 
     Args:
         img (Tensor): Valid BGR Tensor
@@ -108,7 +111,7 @@ def bgr2lab(img) -> Tensor:
         
     """
     if not _is_bgr_image(img):
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts a BGR image to its LAB counterpart')
+        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts a BGR Tensor to its LAB counterpart')
 
     im = cv.cvtColor(img, BGR2LAB)
     return _convert_to_tensor_and_rename_cspace(im, 'lab')
@@ -116,7 +119,7 @@ def bgr2lab(img) -> Tensor:
 
 def bgr2hls(img) -> Tensor:
     r"""
-        Converts a BGR image to its HLS version.
+        Converts a BGR Tensor to its HLS version.
 
     Args:
         img (Tensor): Valid BGR Tensor
@@ -129,7 +132,7 @@ def bgr2hls(img) -> Tensor:
         
     """
     if not _is_bgr_image(img):
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts a BGR image to its HLS counterpart')
+        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts a BGR Tensor to its HLS counterpart')
     
     im = cv.cvtColor(img, BGR2HLS)
     return _convert_to_tensor_and_rename_cspace(im, 'hls')
