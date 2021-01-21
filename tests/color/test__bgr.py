@@ -19,6 +19,7 @@ img_path = os.path.join(here, 'data', 'green_fish.jpg')
 
 def test_bgr2rgb():
     cv_bgr = cv.imread(img_path)
+    cv_bgr = caer.to_tensor(cv_bgr, cspace='bgr')
 
     rgb = caer.bgr2rgb(cv_bgr)
 
@@ -29,6 +30,7 @@ def test_bgr2rgb():
 
 def test_bgr2gray():
     cv_bgr = cv.imread(img_path)
+    cv_bgr = caer.to_tensor(cv_bgr, cspace='bgr')
 
     gray = caer.bgr2gray(cv_bgr)
 
@@ -39,6 +41,7 @@ def test_bgr2gray():
 
 def test_bgr2hsv():
     cv_bgr = cv.imread(img_path)
+    cv_bgr = caer.to_tensor(cv_bgr, cspace='bgr')
 
     hsv = caer.bgr2hsv(cv_bgr)
 
@@ -49,6 +52,7 @@ def test_bgr2hsv():
 
 def test_bgr2hls():
     cv_bgr = cv.imread(img_path)
+    cv_bgr = caer.to_tensor(cv_bgr, cspace='bgr')
 
     hls = caer.bgr2hls(cv_bgr)
 
@@ -59,6 +63,7 @@ def test_bgr2hls():
 
 def test_bgr2lab():
     cv_bgr = cv.imread(img_path)
+    cv_bgr = caer.to_tensor(cv_bgr, cspace='bgr')
 
     lab = caer.bgr2lab(cv_bgr)
 
