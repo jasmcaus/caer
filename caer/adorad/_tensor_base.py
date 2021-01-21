@@ -17,6 +17,7 @@ class _TensorBase:
         self.sci_mode = False 
         self.int_mode = True  
         self.numelem = self.size
+        
         # self._mode = 'rgb'
         # self.mode = self._mode # '._mode' is used internally --> prevents misuse of the API
         self.cspace = 'rgb' # default
