@@ -32,7 +32,7 @@ def _is_hsv_image(img):
 
 def hsv2rgb(img) -> Tensor:
     r"""
-        Converts a HSV image to its RGB version.
+        Converts a HSV Tensor to its RGB version.
 
     Args:
         img (Tensor): Valid HSV Tensor
@@ -45,7 +45,7 @@ def hsv2rgb(img) -> Tensor:
         
     """
     if not _is_hsv_image(img):
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts a HSV image to its RGB counterpart')
+        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts a HSV Tensor to its RGB counterpart')
 
     im = cv.cvtColor(img, HSV2RGB)
     return _convert_to_tensor_and_rename_cspace(im, 'rgb')
@@ -53,7 +53,7 @@ def hsv2rgb(img) -> Tensor:
 
 def hsv2bgr(img) -> Tensor:
     r"""
-        Converts a HSV image to its BGR version.
+        Converts a HSV Tensor to its BGR version.
 
     Args:
         img (Tensor): Valid HSV Tensor
@@ -66,7 +66,7 @@ def hsv2bgr(img) -> Tensor:
         
     """
     if not _is_hsv_image(img):
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts a HSV image to its BGR counterpart')
+        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts a HSV Tensor to its BGR counterpart')
 
     im = cv.cvtColor(img, HSV2BGR)
     return _convert_to_tensor_and_rename_cspace(im, 'bgr')
@@ -74,7 +74,7 @@ def hsv2bgr(img) -> Tensor:
 
 def hsv2gray(img) -> Tensor:
     r"""
-        Converts a HSV image to its Grayscale version.
+        Converts a HSV Tensor to its Grayscale version.
 
     Args:
         img (Tensor): Valid HSV Tensor
@@ -87,7 +87,7 @@ def hsv2gray(img) -> Tensor:
         
     """
     if not _is_hsv_image(img):
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts a HSV image to its Grayscale counterpart')
+        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts a HSV Tensor to its Grayscale counterpart')
 
     bgr = hsv2bgr(img)
 
@@ -97,7 +97,7 @@ def hsv2gray(img) -> Tensor:
 
 def hsv2hls(img) -> Tensor:
     r"""
-        Converts a HSV image to its HLS version.
+        Converts a HSV Tensor to its HLS version.
 
     Args:
         img (Tensor): Valid HSV Tensor
@@ -110,7 +110,7 @@ def hsv2hls(img) -> Tensor:
         
     """
     if not _is_hsv_image(img):
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts a HSV image to its HLS counterpart')
+        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts a HSV Tensor to its HLS counterpart')
 
     bgr = hsv2bgr(img)
 
@@ -120,7 +120,7 @@ def hsv2hls(img) -> Tensor:
 
 def hsv2lab(img) -> Tensor:
     r"""
-        Converts a HSV image to its LAB version.
+        Converts a HSV Tensor to its LAB version.
 
     Args:
         img (Tensor): Valid HSV Tensor
@@ -133,7 +133,7 @@ def hsv2lab(img) -> Tensor:
         
     """
     if not _is_hsv_image(img):
-        raise ValueError(f'Image of shape 3 expected. Found shape {len(img.shape)}. This function converts a HSV image to its LAB counterpart')
+        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts a HSV Tensor to its LAB counterpart')
 
     bgr = hsv2bgr(img)
 

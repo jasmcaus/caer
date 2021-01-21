@@ -33,7 +33,7 @@ def _is_gray_image(img):
 
 def gray2rgb(img) -> Tensor:
     r"""
-        Converts a Grayscale image to its RGB version.
+        Converts a Grayscale Tensor to its RGB version.
 
     Args:
         img (Tensor): Valid Grayscale Tensor
@@ -46,7 +46,7 @@ def gray2rgb(img) -> Tensor:
         
     """
     if not _is_gray_image(img):
-        raise ValueError(f'Image of shape 2 expected. Found shape {len(img.shape)}. This function converts a Grayscale image to its RGB counterpart')
+        raise ValueError(f'Tensor of shape 2 expected. Found shape {len(img.shape)}. This function converts a Grayscale Tensor to its RGB counterpart')
 
     im = cv.cvtColor(img, GRAY2RGB)
     return _convert_to_tensor_and_rename_cspace(im, 'rgb')
@@ -54,7 +54,7 @@ def gray2rgb(img) -> Tensor:
 
 def gray2bgr(img) -> Tensor:
     r"""
-        Converts a Grayscale image to its BGR version.
+        Converts a Grayscale Tensor to its BGR version.
 
     Args:
         img (Tensor): Valid Grayscale Tensor
@@ -67,7 +67,7 @@ def gray2bgr(img) -> Tensor:
         
     """
     if not _is_gray_image(img):
-        raise ValueError(f'Image of shape 2 expected. Found shape {len(img.shape)}. This function converts a Grayscale image to its BGR counterpart')
+        raise ValueError(f'Tensor of shape 2 expected. Found shape {len(img.shape)}. This function converts a Grayscale Tensor to its BGR counterpart')
 
     im = cv.cvtColor(img, GRAY2BGR)
     return _convert_to_tensor_and_rename_cspace(im, 'bgr')
@@ -75,7 +75,7 @@ def gray2bgr(img) -> Tensor:
 
 def gray2hsv(img) -> Tensor:
     r"""
-        Converts a Grayscale image to its HSV version.
+        Converts a Grayscale Tensor to its HSV version.
 
     Args:
         img (Tensor): Valid Grayscale Tensor
@@ -88,7 +88,7 @@ def gray2hsv(img) -> Tensor:
         
     """
     if not _is_gray_image(img):
-        raise ValueError(f'Image of shape 2 expected. Found shape {len(img.shape)}. This function converts a LAB image to its HSV counterpart')
+        raise ValueError(f'Tensor of shape 2 expected. Found shape {len(img.shape)}. This function converts a LAB Tensor to its HSV counterpart')
 
     bgr = gray2bgr(img)
 
@@ -98,7 +98,7 @@ def gray2hsv(img) -> Tensor:
 
 def gray2hls(img) -> Tensor:
     r"""
-        Converts a Grayscale image to its HLS version.
+        Converts a Grayscale Tensor to its HLS version.
 
     Args:
         img (Tensor): Valid Grayscale Tensor
@@ -111,7 +111,7 @@ def gray2hls(img) -> Tensor:
         
     """
     if not _is_gray_image(img):
-        raise ValueError(f'Image of shape 2 expected. Found shape {len(img.shape)}. This function converts a LAB image to its HLS counterpart')
+        raise ValueError(f'Tensor of shape 2 expected. Found shape {len(img.shape)}. This function converts a LAB Tensor to its HLS counterpart')
 
     bgr = gray2bgr(img)
 
@@ -121,7 +121,7 @@ def gray2hls(img) -> Tensor:
 
 def gray2lab(img) -> Tensor:
     r"""
-        Converts a Grayscale image to its LAB version.
+        Converts a Grayscale Tensor to its LAB version.
 
     Args:
         img (Tensor): Valid Grayscale Tensor
@@ -134,7 +134,7 @@ def gray2lab(img) -> Tensor:
     
     """
     if not _is_gray_image(img):
-        raise ValueError(f'Image of shape 2 expected. Found shape {len(img.shape)}. This function converts a Grayscale image to its LAB counterpart')
+        raise ValueError(f'Tensor of shape 2 expected. Found shape {len(img.shape)}. This function converts a Grayscale Tensor to its LAB counterpart')
 
     bgr = gray2bgr(img)
 

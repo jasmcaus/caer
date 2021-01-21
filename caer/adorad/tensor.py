@@ -25,9 +25,12 @@ class Tensor(_TensorBase, np.ndarray):
     # Alternatively, we may shove this class to __init__.py, but this would, again, not be ideal
     __module__ = 'caer'
 
-    def __new__(cls, x, dtype=None):
+    def __new__(cls, x, cspace, dtype=None):
         if not isinstance(x, (tuple, list, np.ndarray)):
-            raise ValueError('Data needs to be (ideally) a list')
+            raise TypeError('Data needs to be (ideally) a list')
+            
+        if not isinstance(cspace, str):
+            raise TypeError(f'`cspace` needs to be of type <string>, not {type(cspace)}')
 
         obj = np.asarray(x, dtype=dtype).view(cls)
         obj.dtype = obj.dtype
@@ -35,9 +38,19 @@ class Tensor(_TensorBase, np.ndarray):
         return obj 
     
 
-    def __init__(self, x, dtype):
+    def __init__(self, x, cspace, dtype=None):
         super().__init__() # gets attributes from '_TensorBase'
         self.x = x
+        
+        # We assume that the attributes must be preserved.
+        if cspace is None:
+            self.cspace = 'null'
+        else:
+            if cspace not in ('rgb', 'bgr', 'gray', 'hsv', 'hls', 'lab'):
+                raise ValueError('The `cspace` attribute needs to be either rgb/bgr/gray/hsv/hls/lab')
+            else:
+                self.cspace = cspace 
+        
         
 
     def __repr__(self):
@@ -48,15 +61,15 @@ class Tensor(_TensorBase, np.ndarray):
         return self.__repr__()
 
 
-def is_tensor(obj):
+def is_tensor(x):
     r"""
-        Returns True if `obj` is a Caer tensor.
+        Returns True if `x` is a Caer tensor.
 
-        Note that this function is simply doing ``isinstance(obj, Tensor)``. Using the ``isinstance`` check is better for typechecking with mypy, and more explicit - so it's recommended to use that instead of ``is_tensor``.
+        Note that this function is simply doing ``isinstance(x, Tensor)``. Using the ``isinstance`` check is better for typechecking with mypy, and more explicit - so it's recommended to use that instead of ``is_tensor``.
 
-        For now, Caer Tensors are simply Numpy arrays.
+        For now, Caer Tensors are simply customized Numpy arrays.
 
     Args:
-        obj (Object): Object to test
+        x (Object): Object to test
     """
-    return isinstance(obj, (Tensor, np.ndarray))
+    return isinstance(x, (Tensor, np.ndarray))
