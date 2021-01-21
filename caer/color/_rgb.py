@@ -12,7 +12,7 @@
 
 import cv2 as cv 
 
-from ..adorad import Tensor, to_tensor_, _convert_to_tensor_and_rename_cspace
+from ..adorad import Tensor, to_tensor, _convert_to_tensor_and_rename_cspace
 from ._constants import RGB2BGR, RGB2GRAY, RGB2HSV, RGB2LAB, RGB2HLS
 
 __all__ = [
@@ -24,7 +24,7 @@ __all__ = [
 ]
 
 def _is_rgb_image(img):
-    # img = to_tensor_(img)
+    # img = to_tensor(img)
     # return img.is_rgb()
     return len(img.shape) == 3 and img.shape[-1] == 3
 

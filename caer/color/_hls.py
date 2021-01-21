@@ -12,7 +12,7 @@
 
 import cv2 as cv 
 
-from ..adorad import Tensor, to_tensor_, _convert_to_tensor_and_rename_cspace
+from ..adorad import Tensor, to_tensor, _convert_to_tensor_and_rename_cspace
 from ._constants import HLS2BGR, HLS2RGB
 from ._bgr import bgr2gray, bgr2lab, bgr2hsv
 
@@ -26,7 +26,7 @@ __all__ = [
 ]
 
 def _is_hls_image(img):
-    # img = to_tensor_(img)
+    # img = to_tensor(img)
     # return img.is_hls()
     return len(img.shape) == 3 and img.shape[-1] == 3
 

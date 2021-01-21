@@ -12,7 +12,7 @@
 
 import cv2 as cv 
 
-from ..adorad import Tensor, to_tensor_, _convert_to_tensor_and_rename_cspace
+from ..adorad import Tensor, to_tensor, _convert_to_tensor_and_rename_cspace
 from ._constants import BGR2RGB, BGR2GRAY, BGR2HSV, BGR2LAB, BGR2HLS
 
 __all__ = [
@@ -25,7 +25,7 @@ __all__ = [
 
 
 def _is_bgr_image(img):
-    # img = to_tensor_(img)
+    # img = to_tensor(img)
     # return img.is_bgr()
     return len(img.shape) == 3 and img.shape[-1] == 3
 
@@ -68,7 +68,7 @@ def bgr2gray(img) -> Tensor:
     if not _is_bgr_image(img):
         raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts a BGR Tensor to its Grayscale counterpart')
     
-    img = to_tensor_(img)
+    img = to_tensor(img)
     _ = img._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
 
     im = cv.cvtColor(img, BGR2GRAY)
