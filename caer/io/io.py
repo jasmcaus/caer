@@ -16,7 +16,7 @@ from urllib.request import urlopen
 # from urllib.error import URLError
 
 from .resize import resize
-from ..adorad import to_tensor_, Tensor
+from ..adorad import to_tensor, Tensor
 from ..color import to_bgr
 from ..path import exists
 from .._internal import _check_target_size
@@ -109,14 +109,15 @@ def _imread(image_path, rgb=True, target_size=None, resize_factor=None, preserve
     if target_size is not None or resize_factor is not None:
         img = resize(img, target_size, resize_factor=resize_factor, preserve_aspect_ratio=preserve_aspect_ratio,interpolation=interpolation)
 
-    img = to_tensor_(img)
-    img.cspace = 'rgb'
-    
+    img = to_tensor(img, cspace='rgb')
+    # img.cspace = 'rgb'
+
+
     # If `rgb=False`, then we assume that BGR is expected
     if not rgb:
         img = to_bgr(img)
         # We need to convert back to tensor
-        img = to_tensor_(img)
+        img = to_tensor(img)
         img.cspace = 'bgr'
     
     return img
@@ -172,7 +173,7 @@ def imsave(path, img) -> bool:
         True
 
     """
-    img = to_tensor_(img)
+    img = to_tensor(img)
 
     if img.is_null():
         raise TypeError('Cannot determine the colorspace for foreign tensor `img`. You can set it manually by modifying the `.cspace` attribute.')

@@ -25,11 +25,12 @@ class Tensor(_TensorBase, np.ndarray):
     # Alternatively, we may shove this class to __init__.py, but this would, again, not be ideal
     __module__ = 'caer'
 
+    # def __new__(cls, x, dtype=None):
     def __new__(cls, x, cspace, dtype=None):
         if not isinstance(x, (tuple, list, np.ndarray)):
             raise TypeError('Data needs to be (ideally) a list')
             
-        if not isinstance(cspace, str):
+        if not isinstance(cspace, str) and cspace is not None:
             raise TypeError(f'`cspace` needs to be of type <string>, not {type(cspace)}')
 
         obj = np.asarray(x, dtype=dtype).view(cls)
@@ -42,14 +43,15 @@ class Tensor(_TensorBase, np.ndarray):
         super().__init__() # gets attributes from '_TensorBase'
         self.x = x
         
-        # We assume that the attributes must be preserved.
         if cspace is None:
             self.cspace = 'null'
+
         else:
-            if cspace not in ('rgb', 'bgr', 'gray', 'hsv', 'hls', 'lab'):
-                raise ValueError('The `cspace` attribute needs to be either rgb/bgr/gray/hsv/hls/lab')
-            else:
+            if cspace in ('rgb', 'bgr', 'gray', 'hsv', 'hls', 'lab'):
                 self.cspace = cspace 
+            else:
+                raise ValueError('The `cspace` attribute needs to be either rgb/bgr/gray/hsv/hls/lab')
+                
         
         
 

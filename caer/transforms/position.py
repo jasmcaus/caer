@@ -14,7 +14,7 @@ import cv2 as cv
 import random 
 import collections
 
-from ..adorad import Tensor, is_tensor, to_tensor_
+from ..adorad import Tensor, is_tensor, to_tensor
 from .._internal import _check_target_size
 from ..globals import (
     INTER_AREA, INTER_CUBIC, INTER_NEAREST, INTER_LINEAR
@@ -51,13 +51,13 @@ __all__ = [
 ]
 
 def _is_rgb_image(img):
-    img = to_tensor_(img)
+    img = to_tensor(img)
     return img.is_rgb()
     # return len(img.shape) == 3 and img.shape[-1] == 3
 
 
 def _is_gray_image(img):
-    img = to_tensor_(img)
+    img = to_tensor(img)
     return img.is_gray()
     # return (len(img.shape) == 2) or (len(img.shape) == 3 and img.shape[-1] == 1)
 

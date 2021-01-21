@@ -12,7 +12,7 @@
 
 import cv2 as cv 
 
-from ..adorad import Tensor, to_tensor_, _convert_to_tensor_and_rename_cspace
+from ..adorad import Tensor, to_tensor, _convert_to_tensor_and_rename_cspace
 from ._constants import LAB2BGR, LAB2RGB
 from ._bgr import bgr2gray, bgr2hsv, bgr2hls
 
@@ -26,7 +26,7 @@ __all__ = [
 
 
 def _is_lab_image(img):
-    # img = to_tensor_(img)
+    # img = to_tensor(img)
     # return img.is_lab()
     return len(img.shape) == 3 and img.shape[-1] == 3
 
