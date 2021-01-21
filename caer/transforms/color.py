@@ -57,7 +57,7 @@ def adjust_brightness(img, coeff, rgb=True) -> Tensor:
         rgb (bool): Operate on RGB images. Default: True.
     
     Returns:
-        Array of shape ``(height, width, channels)``.
+        Tensor of shape ``(height, width, channels)``.
 
     Examples::
 
@@ -95,7 +95,7 @@ def brighten(img, coeff=-1, rgb=True) -> Tensor:
         rgb (bool): Operate on RGB images. Default: True.
     
     Returns:
-        Array of shape ``(height, width, channels)``.
+        Tensor of shape ``(height, width, channels)``.
 
     Examples::
 
@@ -127,7 +127,7 @@ def darken(img, darkness_coeff = -1, rgb=True) -> Tensor:
         rgb (bool): Operate on RGB images. Default: True.
     
     Returns:
-        Array of shape ``(height, width, channels)``.
+        Tensor of shape ``(height, width, channels)``.
 
     Examples::
 
@@ -158,7 +158,7 @@ def random_brightness(img, rgb=True) -> Tensor:
         rgb (bool): Operate on RGB images. Default: True.
     
     Returns:
-        Array of shape ``(height, width, channels)``.
+        Tensor of shape ``(height, width, channels)``.
 
     Examples::
 
@@ -425,7 +425,7 @@ def correct_exposure(img, rgb=True) -> Tensor:
         rgb (bool): Operate on RGB images. Default: True.
     
     Returns:
-        Array of shape ``(height, width, channels)``.
+        Tensor of shape ``(height, width, channels)``.
 
     Examples::
 

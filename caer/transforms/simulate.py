@@ -57,7 +57,7 @@ def sim_snow(img, snow_coeff=-1, rgb=True) -> Tensor:
         rgb (bool): Operate on RGB images. Default: True.
     
     Returns:
-        Array of shape ``(height, width, channels)``.
+        Tensor of shape ``(height, width, channels)``.
 
     Examples::
 
@@ -94,7 +94,7 @@ def sim_rain(img, slant=-1, drop_length=20, drop_width=1, drop_color=(200,200,20
         rgb (bool): Operate on RGB images. Default: True.
     
     Returns:
-        Array of shape ``(height, width, channels)``.
+        Tensor of shape ``(height, width, channels)``.
 
     Examples::
 
@@ -133,7 +133,7 @@ def sim_fog(img, fog_coeff=-1, rgb=True) -> Tensor:
         rgb (bool): Operate on RGB images. Default: True.
     
     Returns:
-        Array of shape ``(height, width, channels)``.
+        Tensor of shape ``(height, width, channels)``.
 
     Examples::
 
@@ -175,7 +175,7 @@ def sim_gravel(img, rectangular_roi=(-1,-1,-1,-1), num_patches=8, rgb=True) -> T
         rgb (bool): Operate on RGB images. Default: True.
     
     Returns:
-        Array of shape ``(height, width, channels)``.
+        Tensor of shape ``(height, width, channels)``.
 
     Examples::
 
@@ -224,7 +224,7 @@ def sim_sun_flare(img, flare_center=-1, angle=-1, num_flare_circles=8, src_radiu
         src_color (tuple): Intended source color of the flare
     
     Returns:
-        Array of shape ``(height, width, channels)``.
+        Tensor of shape ``(height, width, channels)``.
 
     Examples::
 
@@ -267,7 +267,7 @@ def sim_motion_blur(img, speed_coeff=-1) -> Tensor:
         speed_coeff (int, float): Speed coefficient. Value must be between 0 and 1.
     
     Returns:
-        Array of shape ``(height, width, channels)``.
+        Tensor of shape ``(height, width, channels)``.
 
     Examples::
 
@@ -298,7 +298,7 @@ def sim_autumn(img, rgb=True) -> Tensor:
         rgb (bool): Operate on RGB images. Default: True.
     
     Returns:
-        Array of shape ``(height, width, channels)``.
+        Tensor of shape ``(height, width, channels)``.
 
     Examples::
 
@@ -324,7 +324,7 @@ def sim_shadow(img, num_shadows=1, rectangular_roi=(-1,-1,-1,-1), shadow_dimensi
         rgb (bool): Operate on RGB images. Default: True.
     
     Returns:
-        Array of shape ``(height, width, channels)``.
+        Tensor of shape ``(height, width, channels)``.
 
     Examples::
 

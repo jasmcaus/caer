@@ -24,7 +24,7 @@ __all__ = [
 ]
 
 
-def resize(image, target_size=None, resize_factor=None, preserve_aspect_ratio=False, interpolation='bilinear'):
+def resize(img, target_size=None, resize_factor=None, preserve_aspect_ratio=False, interpolation='bilinear'):
     r"""
         Resizes an image to a target_size without aspect ratio distortion.
         
@@ -58,7 +58,7 @@ def resize(image, target_size=None, resize_factor=None, preserve_aspect_ratio=Fa
         
         
         Returns:
-            Array with shape ``(height, width, channels)``.
+            Tensor of shape ``(height, width, channels)``.
 
 
         Examples::
@@ -81,11 +81,11 @@ def resize(image, target_size=None, resize_factor=None, preserve_aspect_ratio=Fa
 
     """
     # Opencv uses the (h,w) format
-    height, width = image.shape[:2]
+    height, width = img.shape[:2]
     interpolation = str(interpolation)
 
     if not isinstance(img, Tensor):
-        raise ValueError('')
+        raise ValueError('This function works only on ``caer.Tensor``s')
 
     cspace = img.cspace 
 
@@ -124,12 +124,12 @@ def resize(image, target_size=None, resize_factor=None, preserve_aspect_ratio=Fa
         raise ValueError('Specify a valid interpolation type - area/nearest/bicubic/bilinear')
 
     if preserve_aspect_ratio:
-        im = _resize_with_ratio(image, target_size=target_size, preserve_aspect_ratio=preserve_aspect_ratio, interpolation=interpolation_methods[interpolation])
+        im = _resize_with_ratio(img, target_size=target_size, preserve_aspect_ratio=preserve_aspect_ratio, interpolation=interpolation_methods[interpolation])
     else:
         width, height = new_shape[:2]
-        im = _cv2_resize(image, (width, height), interpolation=interpolation_methods[interpolation])
+        im = _cv2_resize(img, (width, height), interpolation=interpolation_methods[interpolation])
     
-    return to_tensor(im)
+    return to_tensor(im, cspace=cspace)
 
 
 def smart_resize(img, target_size, interpolation='bilinear'):
@@ -155,7 +155,7 @@ def smart_resize(img, target_size, interpolation='bilinear'):
                 Supports `'bilinear'`, `'bicubic'`, `'area'`, `'nearest'`.
         
         Returns:
-            Array with shape `(height, width, channels)`
+            Tensor of shape `(height, width, channels)`
 
         Examples::
         

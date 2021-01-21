@@ -241,7 +241,7 @@ def flare_source(img, point, radius, src_color) -> Tensor:
         rgb (bool): Operate on RGB images. Default: True.
     
     Returns:
-        Array of shape ``(height, width, channels)``.
+        Tensor of shape ``(height, width, channels)``.
 
     Examples::
 

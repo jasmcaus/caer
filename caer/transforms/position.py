@@ -235,20 +235,20 @@ def pad(img, padding, fill=0, padding_mode='constant') -> Tensor:
                          will result in [2, 1, 1, 2, 3, 4, 4, 3]
                          
     Returns:
-        Array of shape ``(height, width, channels)``.
+        Tensor of shape ``(height, width, channels)``.
 
     """
     if not is_tensor(img):
-        raise TypeError(f'img should be a numpy Tensor. Got {type(img)}')
+        raise TypeError(f'img should be a caer.Tensor. Got {type(img)}')
 
     if not isinstance(padding, (tuple, list)):
-        raise TypeError('Got inappropriate padding arg')
+        raise TypeError('Got inappropriate padding argument')
 
     if not isinstance(fill, (str, tuple)):
-        raise TypeError('Got inappropriate fill arg')
+        raise TypeError('Got inappropriate fill argument')
 
     if not isinstance(padding_mode, str):
-        raise TypeError('Got inappropriate padding_mode arg')
+        raise TypeError('Got inappropriate padding_mode argument')
 
     if isinstance(padding, collections.Sequence) and len(padding) not in [2, 4]:
         raise ValueError(f'Padding must be an int or a 2, or 4 element tuple, not a {len(padding)} element tuple')
@@ -305,7 +305,7 @@ def center_crop(image, target_size=None) -> Tensor:
     r"""Computes the centre crop of an image using `target_size`
 
     Args:
-        image (Tensor): Valid image array
+        image (Tensor): Valid image Tensor
         target_size (tuple): Size of the centre crop. Must be in the format `(width,height)`
     
     Returns:
