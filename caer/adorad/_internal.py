@@ -10,6 +10,7 @@
 # Copyright (c) 2020-2021 The Caer Authors <http://github.com/jasmcaus>
 
 import numpy as np 
+from warnings import warn 
 from .tensor import Tensor 
 
 __all__ = [
@@ -29,6 +30,10 @@ def from_numpy(x, dtype=None):
     return to_tensor(x, dtype=dtype)
 
 
+class TensorWarning(UserWarning):
+    pass 
+
+
 def to_tensor(x, dtype=None):
     r"""
         Convert an array to a caer Tensor
@@ -40,6 +45,7 @@ def to_tensor(x, dtype=None):
         dtype (numpy): (optional) Data Type 
     """
     if isinstance(x, np.ndarray):
+        warn('<Adorad Tensor Warning: You are converting a Numpy array to a fresh Tensor. Unable to detect the colorspace. You can manually set it by modifying the ``.cspace`` attribute (defaults to ``null``)>', TensorWarning)
         return Tensor(x, dtype=dtype)
 
     elif isinstance(x, Tensor) and x.dtype == dtype:
