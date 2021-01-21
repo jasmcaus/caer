@@ -18,17 +18,23 @@ here = os.path.dirname(os.path.dirname(__file__))
 img_path = os.path.join(here, 'data', 'green_fish.jpg')
 
 # BGR
-cv_bgr = caer.imread(img_path, rgb=False)
+cv_bgr = cv.imread(img_path)
+cv_bgr = caer.to_tensor(cv_bgr, cspace='bgr')
 # RGB
 cv_rgb = cv.cvtColor(cv_bgr, cv.COLOR_BGR2RGB)
+cv_rgb = caer.to_tensor(cv_rgb, cspace='rgb')
 # GRAY
 cv_gray = cv.cvtColor(cv_bgr, cv.COLOR_BGR2GRAY)
+cv_gray = caer.to_tensor(cv_gray, cspace='gray')
 # HSV
 cv_hsv = cv.cvtColor(cv_bgr, cv.COLOR_BGR2HSV)
+cv_hsv = caer.to_tensor(cv_hsv, cspace='hsv')
 # HLS
 cv_hls = cv.cvtColor(cv_bgr, cv.COLOR_BGR2HLS)
+cv_hls = caer.to_tensor(cv_hls, cspace='hls')
 # LAB
 cv_lab = cv.cvtColor(cv_bgr, cv.COLOR_BGR2LAB)
+cv_lab = caer.to_tensor(cv_lab, cspace='lab')
 
 
 def test_to_rgb():
