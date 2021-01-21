@@ -26,9 +26,9 @@ __all__ = [
 
 
 def _is_lab_image(img):
-    img = to_tensor_(img)
+    # img = to_tensor_(img)
     # return img.is_lab()
-    return img.is_lab() or (len(img.shape) == 3 and img.shape[-1] == 3)
+    return len(img.shape) == 3 and img.shape[-1] == 3
 
 
 def lab2rgb(img) -> Tensor:
@@ -36,10 +36,10 @@ def lab2rgb(img) -> Tensor:
         Converts an LAB image to its RGB version.
 
     Args:
-        img (Tensor): Valid LAB image array
+        img (Tensor): Valid LAB Tensor
     
     Returns:
-        RGB image array of shape ``(height, width, channels)``
+        RGB Tensor of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 3
@@ -57,10 +57,10 @@ def lab2bgr(img) -> Tensor:
         Converts an LAB image to its BGR version.
 
     Args:
-        img (Tensor): Valid LAB image array
+        img (Tensor): Valid LAB Tensor
     
     Returns:
-        BGR image array of shape ``(height, width, channels)``
+        BGR Tensor of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 3
@@ -78,10 +78,10 @@ def lab2gray(img) -> Tensor:
         Converts an LAB image to its Grayscale version.
 
     Args:
-        img (Tensor): Valid LAB image array
+        img (Tensor): Valid LAB Tensor
     
     Returns:
-        Grayscale image array of shape ``(height, width, channels)``
+        Grayscale Tensor of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 3
@@ -101,10 +101,10 @@ def lab2hsv(img) -> Tensor:
         Converts an LAB image to its HSV version.
 
     Args:
-        img (Tensor): Valid LAB image array
+        img (Tensor): Valid LAB Tensor
     
     Returns:
-        HSV image array of shape ``(height, width, channels)``
+        HSV Tensor of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 3
@@ -124,10 +124,10 @@ def lab2hls(img) -> Tensor:
         Converts an LAB image to its HLS version.
 
     Args:
-        img (Tensor): Valid LAB image array
+        img (Tensor): Valid LAB Tensor
     
     Returns:
-        HLS image array of shape ``(height, width, channels)``
+        HLS Tensor of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 3

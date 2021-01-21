@@ -25,9 +25,9 @@ __all__ = [
 ]
 
 def _is_hsv_image(img):
-    img = to_tensor_(img)
+    # img = to_tensor_(img)
     # return img.is_hsv()
-    return img.is_hsv() or (len(img.shape) == 3 and img.shape[-1] == 3)
+    return len(img.shape) == 3 and img.shape[-1] == 3
 
 
 def hsv2rgb(img) -> Tensor:
@@ -35,10 +35,10 @@ def hsv2rgb(img) -> Tensor:
         Converts a HSV image to its RGB version.
 
     Args:
-        img (Tensor): Valid HSV image array
+        img (Tensor): Valid HSV Tensor
     
     Returns:
-        RGB image array of shape ``(height, width, channels)``
+        RGB Tensor of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 3
@@ -56,10 +56,10 @@ def hsv2bgr(img) -> Tensor:
         Converts a HSV image to its BGR version.
 
     Args:
-        img (Tensor): Valid HSV image array
+        img (Tensor): Valid HSV Tensor
     
     Returns:
-        BGR image array of shape ``(height, width, channels)``
+        BGR Tensor of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 3
@@ -77,10 +77,10 @@ def hsv2gray(img) -> Tensor:
         Converts a HSV image to its Grayscale version.
 
     Args:
-        img (Tensor): Valid HSV image array
+        img (Tensor): Valid HSV Tensor
     
     Returns:
-        Grayscale image array of shape ``(height, width, channels)``
+        Grayscale Tensor of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 3
@@ -100,10 +100,10 @@ def hsv2hls(img) -> Tensor:
         Converts a HSV image to its HLS version.
 
     Args:
-        img (Tensor): Valid HSV image array
+        img (Tensor): Valid HSV Tensor
     
     Returns:
-        HLS image array of shape ``(height, width, channels)``
+        HLS Tensor of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 3
@@ -123,10 +123,10 @@ def hsv2lab(img) -> Tensor:
         Converts a HSV image to its LAB version.
 
     Args:
-        img (Tensor): Valid HSV image array
+        img (Tensor): Valid HSV Tensor
     
     Returns:
-        LAB image array of shape ``(height, width, channels)``
+        LAB Tensor of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 3

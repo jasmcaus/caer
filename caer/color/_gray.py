@@ -26,9 +26,9 @@ __all__ = [
 
 
 def _is_gray_image(img):
-    img = to_tensor_(img)
+    # img = to_tensor_(img)
     # return img.is_gray()
-    return img.is_gray() or ((len(img.shape) == 2) or (len(img.shape) == 3 and img.shape[-1] == 1))
+    return (len(img.shape) == 2) or (len(img.shape) == 3 and img.shape[-1] == 1)
 
 
 def gray2rgb(img) -> Tensor:
@@ -36,10 +36,10 @@ def gray2rgb(img) -> Tensor:
         Converts a Grayscale image to its RGB version.
 
     Args:
-        img (Tensor): Valid Grayscale image array
+        img (Tensor): Valid Grayscale Tensor
     
     Returns:
-        RGB image array of shape ``(height, width, channels)``
+        RGB Tensor of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 2
@@ -57,10 +57,10 @@ def gray2bgr(img) -> Tensor:
         Converts a Grayscale image to its BGR version.
 
     Args:
-        img (Tensor): Valid Grayscale image array
+        img (Tensor): Valid Grayscale Tensor
     
     Returns:
-        BGR image array of shape ``(height, width, channels)``
+        BGR Tensor of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 2
@@ -78,10 +78,10 @@ def gray2hsv(img) -> Tensor:
         Converts a Grayscale image to its HSV version.
 
     Args:
-        img (Tensor): Valid Grayscale image array
+        img (Tensor): Valid Grayscale Tensor
     
     Returns:
-        HSV image array of shape ``(height, width, channels)``
+        HSV Tensor of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 2
@@ -101,10 +101,10 @@ def gray2hls(img) -> Tensor:
         Converts a Grayscale image to its HLS version.
 
     Args:
-        img (Tensor): Valid Grayscale image array
+        img (Tensor): Valid Grayscale Tensor
     
     Returns:
-        HLS image array of shape ``(height, width, channels)``
+        HLS Tensor of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 2
@@ -124,10 +124,10 @@ def gray2lab(img) -> Tensor:
         Converts a Grayscale image to its LAB version.
 
     Args:
-        img (Tensor): Valid Grayscale image array
+        img (Tensor): Valid Grayscale Tensor
     
     Returns:
-        LAB image array of shape ``(height, width, channels)``
+        LAB Tensor of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 2
