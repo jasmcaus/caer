@@ -130,7 +130,7 @@ def _scale(a, n, m, copy=True):
     Parameters
     ----------
     a : Tensor
-        Input image array.
+        Input image Tensor.
     n : int
         Number of bits currently used to encode the values in `a`.
     m : int
