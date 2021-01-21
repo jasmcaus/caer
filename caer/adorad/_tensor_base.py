@@ -17,7 +17,8 @@ class _TensorBase:
         self.sci_mode = False 
         self.int_mode = True  
         self.numelem = self.size
-        
+        self.foreign = True 
+
         # self._mode = 'rgb'
         # self.mode = self._mode # '._mode' is used internally --> prevents misuse of the API
         self.cspace = 'rgb' # default
@@ -53,10 +54,8 @@ class _TensorBase:
     def type(self):
         return self.dtype 
 
-    # Colorspace stuff
-    # def is_null(self):
-    #     return self.cspace == 'null'
 
+    # Colorspace stuff
     def is_rgb(self):
         return self.cspace == 'rgb'
     
@@ -74,3 +73,31 @@ class _TensorBase:
     
     def is_hls(self):
         return self.cspace == 'hls'
+
+    
+    # Foreign Tensor-stuff
+    def is_foreign(self):
+        return self.foreign
+    
+    
+    def is_null(self):
+        r"""
+            Returns True if the ``.cspace`` attribute is valid (either bgr/rgb/gray/hsv/hls/lab)
+            Returns False, otherwise (usually happens when foreign arrays (like ndarrays) are converted to Caer Tensors).
+        """
+        return self._valid_cspace()
+    
+    def _valid_cspace(self):
+        if (self.cspace == 'rgb') or (self.cspace == 'bgr') or (self.cspace == 'gray') or (self.cspace == 'hsv') or (self.cspace == 'hls') or (self.cspace == 'lab'):
+            return True 
+
+        # Else
+        self.cspace = 'null'
+        return False
+
+    def _nullprt(self):
+        r"""
+            NOT nullptr in C/C++. 
+            Raises a TypeError ==> usually happens when foreign arrays (like ndarrays) are converted to Caer Tensors.
+        """
+        raise TypeError('IllegalTensorWarning: Cannot determine the colorspace for this foreign tensor. You can set it manually by modifying the `.cspace` attribute. We suggest operating solely in Caer Tensors.')

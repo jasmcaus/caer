@@ -109,14 +109,14 @@ def _imread(image_path, rgb=True, target_size=None, resize_factor=None, preserve
     if target_size is not None or resize_factor is not None:
         img = resize(img, target_size, resize_factor=resize_factor, preserve_aspect_ratio=preserve_aspect_ratio,interpolation=interpolation)
 
-    img = to_tensor_(img, override_warnings=True)
+    img = to_tensor_(img)
     img.cspace = 'rgb'
     
     # If `rgb=False`, then we assume that BGR is expected
     if not rgb:
         img = to_bgr(img)
         # We need to convert back to tensor
-        img = to_tensor_(img, override_warnings=True)
+        img = to_tensor_(img)
         img.cspace = 'bgr'
     
     return img
