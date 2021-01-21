@@ -24,9 +24,9 @@ __all__ = [
 ]
 
 def _is_rgb_image(img):
-    img = to_tensor_(img)
+    # img = to_tensor_(img)
     # return img.is_rgb()
-    return img.is_rgb() or (len(img.shape) == 3 and img.shape[-1] == 3)
+    return len(img.shape) == 3 and img.shape[-1] == 3
 
 
 def rgb2bgr(img) -> Tensor:
@@ -34,10 +34,10 @@ def rgb2bgr(img) -> Tensor:
         Converts an RGB image to its BGR version.
 
     Args:
-        img (Tensor): Valid RGB image array
+        img (Tensor): Valid RGB Tensor
     
     Returns:
-        BGR image array of shape ``(height, width, channels)``
+        BGR Tensor of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 3
@@ -55,10 +55,10 @@ def rgb2gray(img) -> Tensor:
         Converts an RGB image to its Grayscale version.
 
     Args:
-        img (Tensor): Valid RGB image array
+        img (Tensor): Valid RGB Tensor
     
     Returns:
-        Grayscale image array of shape ``(height, width, channels)``
+        Grayscale Tensor of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 3
@@ -76,10 +76,10 @@ def rgb2hsv(img) -> Tensor:
         Converts an RGB image to its HSV version.
 
     Args:
-        img (Tensor): Valid RGB image array
+        img (Tensor): Valid RGB Tensor
     
     Returns:
-        HSV image array of shape ``(height, width, channels)``
+        HSV Tensor of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 3
@@ -97,10 +97,10 @@ def rgb2hls(img) -> Tensor:
         Converts an RGB image to its HLS version.
 
     Args:
-        img (Tensor): Valid RGB image array
+        img (Tensor): Valid RGB Tensor
     
     Returns:
-        HLS image array of shape ``(height, width, channels)``
+        HLS Tensor of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 3
@@ -118,10 +118,10 @@ def rgb2lab(img) -> Tensor:
         Converts an RGB image to its LAB version.
 
     Args:
-        img (Tensor): Valid RGB image array
+        img (Tensor): Valid RGB Tensor
     
     Returns:
-        LAB image array of shape ``(height, width, channels)``
+        LAB Tensor of shape ``(height, width, channels)``
     
     Raises:
         ValueError: If `img` is not of shape 3

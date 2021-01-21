@@ -24,14 +24,14 @@ def _get_path_to_data(name) -> str:
 
 def audio_mixer(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x427 image (RGB, by default) of an audio mixer.
+        Returns a standard 640x427 image Tensor (RGB, by default) of an audio mixer.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -45,14 +45,14 @@ def audio_mixer(target_size=None, rgb=True) -> Tensor:
 
 def bear(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x427 image (RGB, by default) of a bear.
+        Returns a standard 640x427 image Tensor (RGB, by default) of a bear.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -66,14 +66,14 @@ def bear(target_size=None, rgb=True) -> Tensor:
 
 def beverages(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x427 image (RGB, by default) of beverages.
+        Returns a standard 640x427 image Tensor (RGB, by default) of beverages.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -87,14 +87,14 @@ def beverages(target_size=None, rgb=True) -> Tensor:
 
 def black_cat(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x427 image (RGB, by default) of a black cat.
+        Returns a standard 640x427 image Tensor (RGB, by default) of a black cat.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -108,14 +108,14 @@ def black_cat(target_size=None, rgb=True) -> Tensor:
 
 def blue_tang(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x414 image (RGB, by default) of a blue tang (a type of fish).
+        Returns a standard 640x414 image Tensor (RGB, by default) of a blue tang (a type of fish).
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -129,14 +129,14 @@ def blue_tang(target_size=None, rgb=True) -> Tensor:
 
 def camera(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x427 image (RGB, by default) of a camera.
+        Returns a standard 640x427 image Tensor (RGB, by default) of a camera.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -150,14 +150,14 @@ def camera(target_size=None, rgb=True) -> Tensor:
 
 def controller(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x427 image (RGB, by default) of a game controller.
+        Returns a standard 640x427 image Tensor (RGB, by default) of a game controller.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -171,14 +171,14 @@ def controller(target_size=None, rgb=True) -> Tensor:
 
 def drone(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x358 image (RGB, by default) of a robotic drone.
+        Returns a standard 640x358 image Tensor (RGB, by default) of a robotic drone.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -192,14 +192,14 @@ def drone(target_size=None, rgb=True) -> Tensor:
 
 def dusk(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x427 image (RGB, by default) of a dusk landscape.
+        Returns a standard 640x427 image Tensor (RGB, by default) of a dusk landscape.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -213,14 +213,14 @@ def dusk(target_size=None, rgb=True) -> Tensor:
 
 def fighter_fish(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x640 image (RGB, by default) of a fighter fish.
+        Returns a standard 640x640 image Tensor (RGB, by default) of a fighter fish.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -234,14 +234,14 @@ def fighter_fish(target_size=None, rgb=True) -> Tensor:
 
 def gold_fish(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x901 image (RGB, by default) of a gold fish.
+        Returns a standard 640x901 image Tensor (RGB, by default) of a gold fish.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -255,14 +255,14 @@ def gold_fish(target_size=None, rgb=True) -> Tensor:
 
 def green_controller(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x512 image (RGB, by default) of a green game controller.
+        Returns a standard 640x512 image Tensor (RGB, by default) of a green game controller.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -276,14 +276,14 @@ def green_controller(target_size=None, rgb=True) -> Tensor:
 
 def green_fish(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x430 image (RGB, by default) of a green fish.
+        Returns a standard 640x430 image Tensor (RGB, by default) of a green fish.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -297,14 +297,14 @@ def green_fish(target_size=None, rgb=True) -> Tensor:
 
 def guitar(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x427 image (RGB, by default) of a guitar.
+        Returns a standard 640x427 image Tensor (RGB, by default) of a guitar.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -318,14 +318,14 @@ def guitar(target_size=None, rgb=True) -> Tensor:
 
 def island(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x426 image (RGB, by default) of an island.
+        Returns a standard 640x426 image Tensor (RGB, by default) of an island.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -339,14 +339,14 @@ def island(target_size=None, rgb=True) -> Tensor:
 
 def jellyfish(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x427 image (RGB, by default) of a jellyfish.
+        Returns a standard 640x427 image Tensor (RGB, by default) of a jellyfish.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -360,14 +360,14 @@ def jellyfish(target_size=None, rgb=True) -> Tensor:
 
 def laptop(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x427 image (RGB, by default) of a laptop.
+        Returns a standard 640x427 image Tensor (RGB, by default) of a laptop.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -381,14 +381,14 @@ def laptop(target_size=None, rgb=True) -> Tensor:
 
 def mountain(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x427 image (RGB, by default) of a mountain.
+        Returns a standard 640x427 image Tensor (RGB, by default) of a mountain.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -402,14 +402,14 @@ def mountain(target_size=None, rgb=True) -> Tensor:
 
 def night(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x427 image (RGB, by default) of a night landscape.
+        Returns a standard 640x427 image Tensor (RGB, by default) of a night landscape.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -423,14 +423,14 @@ def night(target_size=None, rgb=True) -> Tensor:
 
 def puppies(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x427 image (RGB, by default) of a litter of puppies.
+        Returns a standard 640x427 image Tensor (RGB, by default) of a litter of puppies.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -444,14 +444,14 @@ def puppies(target_size=None, rgb=True) -> Tensor:
 
 def puppy(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x512 image (RGB, by default) of a puppy.
+        Returns a standard 640x512 image Tensor (RGB, by default) of a puppy.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -465,14 +465,14 @@ def puppy(target_size=None, rgb=True) -> Tensor:
 
 def red_fish(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x427 image (RGB, by default) of a red fish.
+        Returns a standard 640x427 image Tensor (RGB, by default) of a red fish.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -486,14 +486,14 @@ def red_fish(target_size=None, rgb=True) -> Tensor:
 
 def phone(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x427 image (RGB, by default) of a rotary phone.
+        Returns a standard 640x427 image Tensor (RGB, by default) of a rotary phone.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -507,14 +507,14 @@ def phone(target_size=None, rgb=True) -> Tensor:
 
 def sea_turtle(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x400 image (RGB, by default) of a sea turtle.
+        Returns a standard 640x400 image Tensor (RGB, by default) of a sea turtle.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -528,14 +528,14 @@ def sea_turtle(target_size=None, rgb=True) -> Tensor:
 
 def snow(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x360 image (RGB, by default) of snow.
+        Returns a standard 640x360 image Tensor (RGB, by default) of snow.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -549,14 +549,14 @@ def snow(target_size=None, rgb=True) -> Tensor:
 
 def snowflake(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x480 image (RGB, by default) of a snowflake.
+        Returns a standard 640x480 image Tensor (RGB, by default) of a snowflake.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -570,14 +570,14 @@ def snowflake(target_size=None, rgb=True) -> Tensor:
 
 def sunrise(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x427 image (RGB, by default) of a sunrise landscape.
+        Returns a standard 640x427 image Tensor (RGB, by default) of a sunrise landscape.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 
@@ -591,14 +591,14 @@ def sunrise(target_size=None, rgb=True) -> Tensor:
 
 def tent(target_size=None, rgb=True) -> Tensor:
     r"""
-        Returns a standard 640x427 image (RGB, by default) of a tent.
+        Returns a standard 640x427 image Tensor (RGB, by default) of a tent.
 
     Args:
         target_size (tuple): Intended target size (follows the ``(width,height)`` format)
-        rgb (bool): Return an RGB image?
+        rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``)
     
     Returns:
-        Image array of shape ``(height, width, channels)``
+        Tensor of shape ``(height, width, channels)``
 
     Examples::
 

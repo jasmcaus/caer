@@ -121,11 +121,51 @@ from .color import (
     to_hsv,
     to_hls,
     to_lab,
+
+    bgr2rgb,
+    bgr2gray,
+    bgr2hsv,    
+    bgr2hls,
+    bgr2lab,
+
+    rgb2bgr,
+    rgb2gray,
+    rgb2hsv,
+    rgb2hls,
+    rgb2lab,
+
+    gray2rgb,
+    gray2bgr,    
+    gray2hsv,
+    gray2hls,
+    gray2lab,    
+
+    hsv2rgb,
+    hsv2bgr,
+    hsv2gray,
+    hsv2hls,
+    hsv2lab,
+
+    hls2rgb,
+    hls2bgr,
+    hls2gray,
+    hls2hsv,
+    hls2lab,
+
+    lab2rgb,
+    lab2bgr,
+    lab2gray,
+    lab2hsv,
+    lab2hls,
+
     __all__ as __all_color__
 )
 
+
 # Bringing in configuration variables from globals.py
-from .globals import *
+# from .globals import *
+
+# Tensor-stuff 
 from .adorad import *
 
 
