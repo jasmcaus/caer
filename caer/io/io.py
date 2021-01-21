@@ -29,7 +29,7 @@ __all__ = [
 IMREAD_COLOR = 1
 
 
-def imread(image_path, rgb=True, target_size=None, resize_factor=None, preserve_aspect_ratio=False, interpolation='bilinear'):
+def imread(image_path, rgb=True, target_size=None, resize_factor=None, preserve_aspect_ratio=False, interpolation='bilinear') -> Tensor:
     r"""
         Loads in an image from `image_path` (can be either a system filepath or a URL)
 
@@ -55,7 +55,7 @@ def imread(image_path, rgb=True, target_size=None, resize_factor=None, preserve_
     return _imread(image_path, rgb=rgb,target_size=target_size, resize_factor=resize_factor, preserve_aspect_ratio=preserve_aspect_ratio, interpolation=interpolation)
 
 
-def _imread(image_path, rgb=True, target_size=None, resize_factor=None, preserve_aspect_ratio=False, interpolation='bilinear'):   
+def _imread(image_path, rgb=True, target_size=None, resize_factor=None, preserve_aspect_ratio=False, interpolation='bilinear') -> Tensor:   
     if target_size is not None:
         _ = _check_target_size(target_size)
     
@@ -154,7 +154,7 @@ def _url_to_image(url):
         raise ValueError(f'No image found at "{url}"')
 
 
-def imsave(path, img):
+def imsave(path, img) -> bool:
     r"""
         Saves a Tensor to `path`
             
