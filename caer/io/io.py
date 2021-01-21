@@ -16,8 +16,8 @@ from urllib.request import urlopen
 # from urllib.error import URLError
 
 from .resize import resize
-from ..adorad import to_tensor_
-from ..color import to_rgb
+from ..adorad import to_tensor_, Tensor
+from ..color import to_bgr
 from ..path import exists
 from .._internal import _check_target_size
 
@@ -71,7 +71,7 @@ def _imread(image_path, rgb=True, target_size=None, resize_factor=None, preserve
 
     if interpolation not in interpolation_methods:
         raise ValueError('Specify a valid interpolation type - area/nearest/bicubic/bilinear')
-    
+
 
     if exists(image_path):
         img = _read_image(image_path) # returns RGB
@@ -109,16 +109,17 @@ def _imread(image_path, rgb=True, target_size=None, resize_factor=None, preserve
     if target_size is not None or resize_factor is not None:
         img = resize(img, target_size, resize_factor=resize_factor, preserve_aspect_ratio=preserve_aspect_ratio,interpolation=interpolation)
 
-    img = to_tensor_(img)
+    img = to_tensor_(img, override_warnings=True)
     img.cspace = 'rgb'
     
+    # If `rgb=False`, then we assume that BGR is expected
     if not rgb:
-        img = to_rgb(img)
+        img = to_bgr(img)
         # We need to convert back to tensor
-        img = to_tensor_(img)
+        img = to_tensor_(img, override_warnings=True)
         img.cspace = 'bgr'
     
-    return to_tensor_(img)
+    return img
 
 
 def _read_image(image_path):
@@ -153,9 +154,9 @@ def _url_to_image(url):
         raise ValueError(f'No image found at "{url}"')
 
 
-def imsave(path, img, rgb=True):
+def imsave(path, img):
     r"""
-        Saves an image file to `path`
+        Saves a Tensor to `path`
             
     Args:
         path (str): Filepath to save the image to 
@@ -171,10 +172,15 @@ def imsave(path, img, rgb=True):
         True
 
     """
+    img = to_tensor_(img)
+
+    if img.is_null():
+        raise TypeError('Cannot determine the colorspace for foreign tensor `img`. You can set it manually by modifying the `.cspace` attribute.')
+
     try:
-        # OpenCV uses BGR images and saves them as RGB images
-        if rgb:
-            img = to_rgb(img)
+        # OpenCV uses BGR Tensors and saves them as RGB images
+        if img.cspace !='bgr':
+            img = to_bgr(img)
         return cv.imwrite(path, img)
     except:
         raise ValueError('`img` needs to be a caer Tensor. Try reading the image using `caer.imread()`. More support for additional platforms will follow. Check the Changelog for further details.')

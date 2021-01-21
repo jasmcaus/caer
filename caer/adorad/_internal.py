@@ -10,7 +10,6 @@
 # Copyright (c) 2020-2021 The Caer Authors <http://github.com/jasmcaus>
 
 import numpy as np 
-from warnings import warn 
 from .tensor import Tensor 
 
 __all__ = [
@@ -34,7 +33,7 @@ class TensorWarning(UserWarning):
     pass 
 
 
-def to_tensor(x, dtype=None):
+def to_tensor(x, dtype=None, override_warnings=False):
     r"""
         Convert an array to a caer Tensor
         If a caer Tensor is passed, its attributes are NOT preserved. For attributes to be preserved, use 
@@ -45,7 +44,9 @@ def to_tensor(x, dtype=None):
         dtype (numpy): (optional) Data Type 
     """
     if isinstance(x, np.ndarray):
-        warn('<Adorad Tensor Warning: You are converting a Numpy array to a fresh Tensor. Unable to detect the colorspace. You can manually set it by modifying the ``.cspace`` attribute (defaults to ``null``)>', TensorWarning)
+        if override_warnings is False:
+            print('TensorWarning: You are converting a Numpy array to a fresh Tensor, and Caer could not detect the colorspace. You can manually set it by modifying the ``.cspace`` attribute (defaults to ``null``)')
+
         return Tensor(x, dtype=dtype)
 
     elif isinstance(x, Tensor) and x.dtype == dtype:
@@ -65,7 +66,7 @@ def to_tensor(x, dtype=None):
         raise TypeError(f'Cannot convert class {type(x)} to a caer Tensor. Currently, only Numpy arrays are supported.')
 
 
-def to_tensor_(x, dtype=None):
+def to_tensor_(x, dtype=None, override_warnings=False):
     r"""
         Convert an array to a caer Tensor
         If a caer Tensor is passed, its attributes are preserved. 
@@ -74,7 +75,7 @@ def to_tensor_(x, dtype=None):
         x (ndarray, Tensor, PIL): Array to convert.
         dtype (numpy): (optional) Data Type 
     """
-    x = to_tensor(x, dtype=dtype)
+    x = to_tensor(x, dtype=dtype, override_warnings=override_warnings)
     tens = _preserve_tensor_attrs(old=x)
 
     return tens 
@@ -93,7 +94,7 @@ def _preserve_tensor_attrs(old):
     if not isinstance(old, Tensor):
         raise TypeError('`old` needs to be a caer.Tensor.')
 
-    new = to_tensor(old, dtype=old.dtype)
+    new = to_tensor(old, dtype=old.dtype, override_warnings=True)
     new.cspace = old.cspace 
     return new 
 

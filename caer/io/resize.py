@@ -124,7 +124,7 @@ def resize(image, target_size=None, resize_factor=None, preserve_aspect_ratio=Fa
         width, height = new_shape[:2]
         im = _cv2_resize(image, (width, height), interpolation=interpolation_methods[interpolation])
     
-    return to_tensor_(im)
+    return to_tensor_(im, override_warnings=True)
 
 
 def smart_resize(img, target_size, interpolation='bilinear'):
@@ -164,7 +164,7 @@ def smart_resize(img, target_size, interpolation='bilinear'):
     """
 
     im = _resize_with_ratio(img, target_size=target_size, preserve_aspect_ratio=True, interpolation=interpolation)
-    return to_tensor_(im)
+    return to_tensor_(im, override_warnings=True)
 
 
 def _cv2_resize(image, target_size, interpolation=None):
