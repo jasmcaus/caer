@@ -12,7 +12,7 @@
 
 import cv2 as cv 
 
-from ..adorad import Tensor, to_tensor, _convert_to_tensor_and_rename_cspace
+from ..adorad import Tensor, to_tensor
 from ._constants import RGB2BGR, RGB2GRAY, RGB2HSV, RGB2LAB, RGB2HLS
 
 __all__ = [
@@ -47,7 +47,7 @@ def rgb2bgr(img) -> Tensor:
         raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts an RGB Tensor to its BGR counterpart')
 
     im = cv.cvtColor(img, RGB2BGR)
-    return _convert_to_tensor_and_rename_cspace(im, 'bgr')
+    return to_tensor(im, cspace='bgr')
 
 
 def rgb2gray(img) -> Tensor:
@@ -68,7 +68,7 @@ def rgb2gray(img) -> Tensor:
         raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts an RGB Tensor to its Grayscale counterpart')
     
     im = cv.cvtColor(img, RGB2GRAY)
-    return _convert_to_tensor_and_rename_cspace(im, 'gray')
+    return to_tensor(im, cspace='gray')
 
 
 def rgb2hsv(img) -> Tensor:
@@ -89,7 +89,7 @@ def rgb2hsv(img) -> Tensor:
         raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts an RGB Tensor to its HSV counterpart')
     
     im = cv.cvtColor(img, RGB2HSV)
-    return _convert_to_tensor_and_rename_cspace(im, 'hsv')
+    return to_tensor(im, cspace='hsv')
 
 
 def rgb2hls(img) -> Tensor:
@@ -110,7 +110,7 @@ def rgb2hls(img) -> Tensor:
         raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts an RGB Tensor to its HLS counterpart')
     
     im = cv.cvtColor(img, RGB2HLS)
-    return _convert_to_tensor_and_rename_cspace(im, 'hls')
+    return to_tensor(im, cspace='hls')
 
 
 def rgb2lab(img) -> Tensor:
@@ -131,4 +131,4 @@ def rgb2lab(img) -> Tensor:
         raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts an RGB Tensor to its LAB counterpart')
 
     im = cv.cvtColor(img, RGB2LAB)
-    return _convert_to_tensor_and_rename_cspace(im, 'lab')
+    return to_tensor(im, cspace='lab')

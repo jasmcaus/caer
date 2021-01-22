@@ -117,8 +117,7 @@ def _imread(image_path, rgb=True, target_size=None, resize_factor=None, preserve
     if not rgb:
         img = to_bgr(img)
         # We need to convert back to tensor
-        img = to_tensor(img)
-        img.cspace = 'bgr'
+        img = to_tensor(img, cspace='bgr')
     
     return img
 
@@ -173,10 +172,11 @@ def imsave(path, img) -> bool:
         True
 
     """
-    img = to_tensor(img)
+    if not isinstance(img, Tensor):
+        raise TypeError('`img` must be a caer.Tensor')
 
-    if img.is_null():
-        raise TypeError('Cannot determine the colorspace for foreign tensor `img`. You can set it manually by modifying the `.cspace` attribute.')
+    # Convert to tensor 
+    _ = img._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
 
     try:
         # OpenCV uses BGR Tensors and saves them as RGB images

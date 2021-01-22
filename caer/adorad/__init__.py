@@ -17,6 +17,5 @@ from .tensor import (
 
 from ._internal import (
     from_numpy,
-    to_tensor,
-    _convert_to_tensor_and_rename_cspace
+    to_tensor
 )
