@@ -11,33 +11,71 @@
 
 
 import caer 
+import cv2 as cv 
 import os 
 
 here = os.path.dirname(os.path.dirname(__file__))
+img_path = os.path.join(here, 'data', 'green_fish.jpg')
+cv_img = cv.imread(img_path)
+caer_img = caer.imread(img_path)
+
 
 def test_target_sizes():
-    img_path = os.path.join(here, 'data', 'beverages.jpg')
+    # Should return <ndarray>s
+    np_img_400_400 = caer.resize(cv_img, target_size=(400,400))
+    np_img_304_339 = caer.resize(cv_img, target_size=(304,339))
+    np_img_199_206 = caer.resize(cv_img, target_size=(199,206))
 
-    img = caer.imread(img_path)
+    # Should return <caer.Tensor>s
+    caer_img_400_400 = caer.resize(caer_img, target_size=(400,400))
+    caer_img_304_339 = caer.resize(caer_img, target_size=(304,339))
+    caer_img_199_206 = caer.resize(caer_img, target_size=(199,206))
 
-    img_400_400 = caer.resize(img, target_size=(400,400))
-    img_304_339 = caer.resize(img, target_size=(304,339))
-    img_199_206 = caer.resize(img, target_size=(199,206))
+    assert np_img_400_400.shape[:2] == (400,400)
+    assert np_img_304_339.shape[:2] == (339,304)
+    assert np_img_199_206.shape[:2] == (206,199)
 
-    assert img_400_400.shape[:2] == (400,400)
-    assert img_304_339.shape[:2] == (339,304) # Numpy arrays are processed differently (h,w) as opposed to (w,h)
-    assert img_199_206.shape[:2] == (206,199) # Numpy arrays are processed differently (h,w) as opposed to (w,h)
+    assert caer_img_400_400.shape[:2] == (400,400)
+    assert caer_img_304_339.shape[:2] == (339,304)
+    assert caer_img_199_206.shape[:2] == (206,199)
+
+
+    # Type Asserts
+    ## Using isinstance() often mistakes a caer.Tensor as an np.ndarray
+    assert 'numpy.ndarray' in str(type(np_img_400_400))
+    assert 'numpy.ndarray' in str(type(np_img_304_339))
+    assert 'numpy.ndarray' in str(type(np_img_199_206))
+
+    assert 'caer.Tensor' in str(type(caer_img_400_400))
+    assert 'caer.Tensor' in str(type(caer_img_304_339))
+    assert 'caer.Tensor' in str(type(caer_img_199_206))
 
 
 def test_preserve_aspect_ratio():
-    img_path = os.path.join(here, 'data', 'green_fish.jpg')
 
-    img = caer.imread(img_path)
+    np_img_400_400 = caer.resize(cv_img, target_size=(400,400), preserve_aspect_ratio=True)
+    np_img_223_182 = caer.resize(cv_img, target_size=(223,182), preserve_aspect_ratio=True)
+    np_img_93_35 = caer.resize(cv_img, target_size=(93,35), preserve_aspect_ratio=True)
 
-    img_400_400 = caer.resize(img, target_size=(400,400), preserve_aspect_ratio=True)
-    img_223_182 = caer.resize(img, target_size=(223,182), preserve_aspect_ratio=True)
-    img_93_35 = caer.resize(img, target_size=(93,35), preserve_aspect_ratio=True)
+    caer_img_400_400 = caer.resize(caer_img, target_size=(400,400), preserve_aspect_ratio=True)
+    caer_img_223_182 = caer.resize(caer_img, target_size=(223,182), preserve_aspect_ratio=True)
+    caer_img_93_35 = caer.resize(caer_img, target_size=(93,35), preserve_aspect_ratio=True)
 
-    assert img_400_400.shape[:2] == (400,400)
-    assert img_223_182.shape[:2] == (182,223) # Numpy arrays are processed differently (h,w) as opposed to (w,h)
-    assert img_93_35.shape[:2] == (35,93) # Numpy arrays are processed differently (h,w) as opposed to (w,h)
+    assert np_img_400_400.shape[:2] == (400,400)
+    assert np_img_223_182.shape[:2] == (182,223)
+    assert np_img_93_35.shape[:2] == (35,93)
+
+    assert caer_img_400_400.shape[:2] == (400,400)
+    assert caer_img_223_182.shape[:2] == (182,223)
+    assert caer_img_93_35.shape[:2] == (35,93)
+
+
+    # Type Asserts
+    ## Using isinstance() often mistakes a caer.Tensor as an np.ndarray
+    assert 'numpy.ndarray' in str(type(np_img_400_400))
+    assert 'numpy.ndarray' in str(type(np_img_223_182))
+    assert 'numpy.ndarray' in str(type(np_img_93_35))
+
+    assert 'caer.Tensor' in str(type(caer_img_400_400))
+    assert 'caer.Tensor' in str(type(caer_img_223_182))
+    assert 'caer.Tensor' in str(type(caer_img_93_35))

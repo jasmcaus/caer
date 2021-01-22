@@ -83,11 +83,12 @@ def resize(img, target_size=None, resize_factor=None, preserve_aspect_ratio=Fals
     # Opencv uses the (h,w) format
     height, width = img.shape[:2]
     interpolation = str(interpolation)
+    cspace = None 
 
-    if not isinstance(img, Tensor):
-        raise ValueError('This function works only on ``caer.Tensor``s')
+    if isinstance(img, Tensor):
+        # We'll need to preserve this before returning
+        cspace = img.cspace 
 
-    cspace = img.cspace 
 
     if resize_factor is None:
         if target_size is None:
@@ -174,7 +175,7 @@ def smart_resize(img, target_size, interpolation='bilinear'):
     #     raise ValueError('To use `caer.smart_resize()`, `img` needs to be a caer.Tensor')
 
     im = _resize_with_ratio(img, target_size=target_size, preserve_aspect_ratio=True, interpolation=interpolation)
-    
+
     # For this function, the <cspace> attribute is not required.
     # So, we disable the mandatory check that the <cspace> attribute needs to be passed for 
     # foreign Tensors/ndarrays 
