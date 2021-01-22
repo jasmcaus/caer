@@ -11,7 +11,6 @@
 
 import caer 
 import cv2 as cv 
-import numpy as np 
 import os 
 
 here = os.path.dirname(os.path.dirname(__file__))
