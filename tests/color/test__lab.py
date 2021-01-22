@@ -33,7 +33,7 @@ def test_lab2bgr():
     cv_lab = cv.cvtColor(cv_bgr, cv.COLOR_BGR2LAB)
     cv_lab = caer.to_tensor(cv_lab, cspace='lab')
 
-    bgr = caer.lab2lab(cv_lab)
+    bgr = caer.lab2bgr(cv_lab)
 
     assert len(bgr.shape) == 3 
     assert isinstance(bgr, caer.Tensor)
