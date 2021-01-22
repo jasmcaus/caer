@@ -129,7 +129,10 @@ def resize(img, target_size=None, resize_factor=None, preserve_aspect_ratio=Fals
         width, height = new_shape[:2]
         im = _cv2_resize(img, (width, height), interpolation=interpolation_methods[interpolation])
     
-    return to_tensor(im, cspace=cspace)
+    # For this function, the <cspace> attribute is not required.
+    # So, we disable the mandatory check that the <cspace> attribute needs to be passed for 
+    # foreign Tensors/ndarrays 
+    return to_tensor(im, cspace=cspace, override_checks=True)
 
 
 def smart_resize(img, target_size, interpolation='bilinear'):
@@ -167,10 +170,14 @@ def smart_resize(img, target_size, interpolation='bilinear'):
             (200, 200, 3)
 
     """
-    if not isinstance(img, Tensor):
-        raise ValueError('To use `caer.smart_resize()`, `img` needs to be a caer.Tensor')
+    # if not isinstance(img, Tensor):
+    #     raise ValueError('To use `caer.smart_resize()`, `img` needs to be a caer.Tensor')
 
     im = _resize_with_ratio(img, target_size=target_size, preserve_aspect_ratio=True, interpolation=interpolation)
+    
+    # For this function, the <cspace> attribute is not required.
+    # So, we disable the mandatory check that the <cspace> attribute needs to be passed for 
+    # foreign Tensors/ndarrays 
     return to_tensor(im, override_checks=True)
 
 
