@@ -18,32 +18,35 @@ __all__ = [
 ]
 
 
-def from_numpy(x, cspace, dtype=None):
+def from_numpy(x, cspace, dtype=None, override_checks=False):
     r"""
         Convert a Numpy Array to a Caer Tensor. 
+    
+    .. warning::
+        ``override_checks`` should not be used. If not handled property, a silly bug may pop up at an unexpected time.
 
     Args:
         x (ndarray): Array to convert.
         cspace (str): ``must`` be specified. Value should be either bgr/rgb/gray/hsv/hls/lab.
         dtype (numpy): (optional) Data Type 
+        override_checks (bool): WARNING: Internal Usage Only => if not handled properly, a silly bug may pop up at an unexpected time.
     
     Returns:
         ``caer.Tensor``
     """
 
-    if cspace is None:
-        raise ValueError('`cspace` must be specified ==> either bgr/rgb/gray/hsv/hls/lab.')
+    if not override_checks:
+        if cspace is None:
+            raise ValueError('`cspace` must be specified ==> either bgr/rgb/gray/hsv/hls/lab.')
 
     if isinstance(x, np.ndarray):
-        print(type(x))
-        x = Tensor(x, cspace=cspace, dtype=dtype)
-        return x 
+        return Tensor(x, cspace=cspace, dtype=dtype)
     
     else:
         raise TypeError('`x` is not a Numpy Array')
 
 
-def to_tensor(x, cspace=None, dtype=None):
+def to_tensor(x, cspace=None, dtype=None, override_checks=False):
     r"""
         Convert an array to a caer Tensor.
 
@@ -52,13 +55,17 @@ def to_tensor(x, cspace=None, dtype=None):
 
         If ``x`` is a ``caer.Tensor`` and ``cspace`` is specified, the colorspace of the Tensor will be updated accordingly. To prevent this, set ``cspace=None``. 
 
+    .. warning::
+        ``override_checks`` should not be used. If not handled property, a silly bug may pop up at an unexpected time.
+
     Args:
         x (Tensor, ndarray, PIL): Tensor/Array to convert.
         cspace (str): ``must`` be specified if you are converting a Numpy array to a ``caer.Tensor``. Value should be either bgr/rgb/gray/hsv/hls/lab.
         dtype (numpy): (optional) Data Type 
+        override_checks (bool): WARNING: Internal Usage Only => if not handled properly, a silly bug may pop up at an unexpected time.
     """
     if isinstance(x, Tensor):
-        if cspace is None:
+        if cspace is None: # if unsure of the cspace (usually in cases when converting a foreign array to a Caer tensor)
             return x 
 
         else:
@@ -68,7 +75,7 @@ def to_tensor(x, cspace=None, dtype=None):
             return tens 
 
     elif isinstance(x, np.ndarray):
-        return from_numpy(x, cspace)
+        return from_numpy(x, cspace=cspace, override_checks=override_checks)
 
     # If PIL Image 
     elif 'PIL' in str(type(x)):
@@ -102,16 +109,16 @@ def _preserve_tensor_attrs(old):
     return new 
 
 
-def _convert_to_tensor_and_rename_cspace(x, to) -> Tensor:
-    r"""
-    Args:
-        x (Tensor, ndarray): Image Tensor
-        to (str): rgb/bgr/gray/hsv/hls/lab
+# def _convert_to_tensor_and_rename_cspace(x, to) -> Tensor:
+#     r"""
+#     Args:
+#         x (Tensor, ndarray): Image Tensor
+#         to (str): rgb/bgr/gray/hsv/hls/lab
         
-    Returns:
-        Tensor
-    """
-    return to_tensor(x, cspace=to)
+#     Returns:
+#         Tensor
+#     """
+#     return to_tensor(x, cspace=to)
 
 
 # # def _assign_mode_to_tensor(self, rgb, gray, mode=None):

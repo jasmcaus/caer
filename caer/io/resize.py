@@ -167,9 +167,11 @@ def smart_resize(img, target_size, interpolation='bilinear'):
             (200, 200, 3)
 
     """
+    if not isinstance(img, Tensor):
+        raise ValueError('To use `caer.smart_resize()`, `img` needs to be a caer.Tensor')
 
     im = _resize_with_ratio(img, target_size=target_size, preserve_aspect_ratio=True, interpolation=interpolation)
-    return to_tensor(im)
+    return to_tensor(im, override_checks=True)
 
 
 def _cv2_resize(image, target_size, interpolation=None):

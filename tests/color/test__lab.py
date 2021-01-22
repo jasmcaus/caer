@@ -15,10 +15,11 @@ import os
 
 here = os.path.dirname(os.path.dirname(__file__))
 img_path = os.path.join(here, 'data', 'green_fish.jpg')
-
+# BGR
+cv_bgr = cv.imread(img_path)
 
 def test_lab2rgb():
-    cv_lab = cv.imread(img_path)
+    cv_lab = cv.cvtColor(cv_bgr, cv.COLOR_BGR2LAB)
     cv_lab = caer.to_tensor(cv_lab, cspace='lab')
 
     rgb = caer.lab2rgb(cv_lab)
@@ -29,7 +30,7 @@ def test_lab2rgb():
 
 
 def test_lab2bgr():
-    cv_lab = cv.imread(img_path)
+    cv_lab = cv.cvtColor(cv_bgr, cv.COLOR_BGR2LAB)
     cv_lab = caer.to_tensor(cv_lab, cspace='lab')
 
     bgr = caer.lab2lab(cv_lab)
@@ -40,18 +41,18 @@ def test_lab2bgr():
 
     
 def test_lab2gray():
-    cv_lab = cv.imread(img_path)
+    cv_lab = cv.cvtColor(cv_bgr, cv.COLOR_BGR2LAB)
     cv_lab = caer.to_tensor(cv_lab, cspace='lab')
 
     gray = caer.lab2gray(cv_lab)
 
-    assert len(gray.shape) == 2
+    assert len(gray.shape) == 2 or (len(gray.shape) == 3 and gray.shape[-1] == 1)
     assert isinstance(gray, caer.Tensor)
     assert gray.is_gray()
 
 
 def test_lab2hsv():
-    cv_lab = cv.imread(img_path)
+    cv_lab = cv.cvtColor(cv_bgr, cv.COLOR_BGR2LAB)
     cv_lab = caer.to_tensor(cv_lab, cspace='lab')
 
     hsv = caer.lab2hsv(cv_lab)
@@ -62,7 +63,7 @@ def test_lab2hsv():
 
 
 def test_lab2hls():
-    cv_lab = cv.imread(img_path)
+    cv_lab = cv.cvtColor(cv_bgr, cv.COLOR_BGR2LAB)
     cv_lab = caer.to_tensor(cv_lab, cspace='lab')
 
     hls = caer.lab2hls(cv_lab)
