@@ -17,7 +17,7 @@ from urllib.request import urlopen
 
 from .resize import resize
 from ..adorad import to_tensor, Tensor
-from ..color import to_bgr
+from ..color import rgb2bgr, to_bgr
 from ..path import exists
 from .._internal import _check_target_size
 
@@ -76,7 +76,7 @@ def _imread(image_path, rgb=True, target_size=None, resize_factor=None, preserve
     if exists(image_path):
         img = _read_image(image_path) # returns RGB
 
-    # TODO: Create URL validator 
+    # TODO: Create URL validator
     elif image_path.startswith(('http://', 'https://')):
         # Returns RGB image
         img = _url_to_image(image_path)
@@ -107,22 +107,24 @@ def _imread(image_path, rgb=True, target_size=None, resize_factor=None, preserve
     #         raise ValueError('Specify either a valid URL or filepath')
     
     if target_size is not None or resize_factor is not None:
+        # Enforce a Tensor is passed to resize() 
+        to_tensor(img, cspace='rgb')
         img = resize(img, target_size, resize_factor=resize_factor, preserve_aspect_ratio=preserve_aspect_ratio,interpolation=interpolation)
-
-    img = to_tensor(img, cspace='rgb')
-    # img.cspace = 'rgb'
 
 
     # If `rgb=False`, then we assume that BGR is expected
     if not rgb:
-        img = to_bgr(img)
+        img = rgb2bgr(img)
         # We need to convert back to tensor
-        img = to_tensor(img, cspace='bgr')
+        return to_tensor(img, cspace='bgr')
     
-    return img
+    return to_tensor(img, cspace='rgb')
 
 
 def _read_image(image_path):
+    r"""
+        Returns an RGB ndarray
+    """
     if not exists(image_path):
         raise FileNotFoundError('The image file was not found')
 
@@ -137,17 +139,15 @@ def _read_image(image_path):
 
 
 def _url_to_image(url):
-    # Converts the image to a Numpy array and reads it in OpenCV
+    r"""
+        Returns an RGB ndarray.
+    """
     response = urlopen(url)
     img = np.asarray(bytearray(response.read()), dtype='uint8')
     # BGR image
     img = cv.imdecode(img, IMREAD_COLOR)
 
     if img is not None:
-        # Convert to RGB
-        # WARNING: DO NOT USE to_rgb() as it creates a brand new Tensor (which defaults to RGB)
-        # This issue will, hopefully, be fixed in a future update.
-        # img = to_rgb(img)
         return cv.cvtColor(img, cv.COLOR_BGR2RGB)
         
     else:

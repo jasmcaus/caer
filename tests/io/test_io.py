@@ -16,11 +16,10 @@ import cv2 as cv
 import numpy as np 
 
 here = os.path.dirname(os.path.dirname(__file__))
+img_path = os.path.join(here, 'data', 'green_fish.jpg')
 
 
 def test_imread():
-    img_path = os.path.join(here, 'data', 'beverages.jpg')
-
     cv_bgr = cv.imread(img_path) 
     cv_rgb = cv.cvtColor(cv_bgr.copy(), cv.COLOR_BGR2RGB)
     
@@ -47,8 +46,6 @@ def test_imread():
 
 
 def test_imread_target_sizes():
-    img_path = os.path.join(here, 'data', 'beverages.jpg')
-
     img_400_400 = caer.imread(img_path, target_size=(400,400))
     img_304_339 = caer.imread(img_path, target_size=(304,339))
     img_199_206 = caer.imread(img_path, target_size=(199,206))
@@ -57,10 +54,12 @@ def test_imread_target_sizes():
     assert img_304_339.shape[:2] == (339,304) # Numpy arrays are processed differently (h,w) as opposed to (w,h)
     assert img_199_206.shape[:2] == (206,199) # Numpy arrays are processed differently (h,w) as opposed to (w,h)
 
+    assert isinstance(img_400_400, caer.Tensor)
+    assert isinstance(img_304_339, caer.Tensor)
+    assert isinstance(img_199_206, caer.Tensor)
+
 
 def test_imread_preserve_aspect_ratio():
-    img_path = os.path.join(here, 'data', 'green_fish.jpg')
-
     img_400_400 = caer.imread(img_path, target_size=(400,400), preserve_aspect_ratio=True)
     img_223_182 = caer.imread(img_path, target_size=(223,182), preserve_aspect_ratio=True)
     img_93_35 = caer.imread(img_path, target_size=(93,35), preserve_aspect_ratio=True)
@@ -69,12 +68,6 @@ def test_imread_preserve_aspect_ratio():
     assert img_223_182.shape[:2] == (182,223) # Numpy arrays are processed differently (h,w) as opposed to (w,h)
     assert img_93_35.shape[:2] == (35,93) # Numpy arrays are processed differently (h,w) as opposed to (w,h)
 
-
-# def test_gray():
-#     img_path = os.path.join(here, 'data', 'green_fish.jpg')
-
-#     img = caer.imread(img_path, gray=True)
-#     img_chann = caer.imread(img_path, gray=True) # Maintain backwards-compatibility
-
-#     assert len(img.shape) == 2
-#     assert len(img_chann.shape) == 2
+    assert isinstance(img_400_400, caer.Tensor)
+    assert isinstance(img_223_182, caer.Tensor)
+    assert isinstance(img_93_35, caer.Tensor)

@@ -74,4 +74,4 @@ def is_tensor(x):
     Args:
         x (Object): Object to test
     """
-    return isinstance(x, (Tensor, np.ndarray))
+    return 'caer.Tensor' in str(type(x)) or (isinstance(x, Tensor))
