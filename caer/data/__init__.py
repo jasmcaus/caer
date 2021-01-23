@@ -35,8 +35,8 @@ def audio_mixer(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.audio_mixer()
-        >> img.shape
+        >> tens = caer.data.audio_mixer()
+        >> tens.shape
         (427, 640, 3)
 
     """
@@ -56,8 +56,8 @@ def bear(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.bear()
-        >> img.shape
+        >> tens = caer.data.bear()
+        >> tens.shape
         (427, 640, 3)
 
     """
@@ -77,8 +77,8 @@ def beverages(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.beverages()
-        >> img.shape
+        >> tens = caer.data.beverages()
+        >> tens.shape
         (427, 640, 3)
         
     """
@@ -98,8 +98,8 @@ def black_cat(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.black_cat()
-        >> img.shape
+        >> tens = caer.data.black_cat()
+        >> tens.shape
         (427, 640, 3)
         
     """
@@ -119,8 +119,8 @@ def blue_tang(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.audio_mixer()
-        >> img.shape
+        >> tens = caer.data.audio_mixer()
+        >> tens.shape
         (414, 640, 3)
         
     """
@@ -140,8 +140,8 @@ def camera(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.camera()
-        >> img.shape
+        >> tens = caer.data.camera()
+        >> tens.shape
         (427, 640, 3)
         
     """
@@ -161,8 +161,8 @@ def controller(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.controller()
-        >> img.shape
+        >> tens = caer.data.controller()
+        >> tens.shape
         (427, 640, 3)
         
     """
@@ -182,8 +182,8 @@ def drone(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.drone()
-        >> img.shape
+        >> tens = caer.data.drone()
+        >> tens.shape
         (358, 640, 3)
         
     """
@@ -203,8 +203,8 @@ def dusk(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.dusk()
-        >> img.shape
+        >> tens = caer.data.dusk()
+        >> tens.shape
         (427, 640, 3)
         
     """
@@ -224,8 +224,8 @@ def fighter_fish(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.fighter_fish()
-        >> img.shape
+        >> tens = caer.data.fighter_fish()
+        >> tens.shape
         (640, 640, 3)
         
     """
@@ -245,8 +245,8 @@ def gold_fish(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.gold_fish()
-        >> img.shape
+        >> tens = caer.data.gold_fish()
+        >> tens.shape
         (901, 640, 3)
         
     """
@@ -266,8 +266,8 @@ def green_controller(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.green_controller()
-        >> img.shape
+        >> tens = caer.data.green_controller()
+        >> tens.shape
         (512, 640, 3)
         
     """
@@ -287,8 +287,8 @@ def green_fish(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.green_fish()
-        >> img.shape
+        >> tens = caer.data.green_fish()
+        >> tens.shape
         (430, 640, 3)
         
     """
@@ -308,8 +308,8 @@ def guitar(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.guitar()
-        >> img.shape
+        >> tens = caer.data.guitar()
+        >> tens.shape
         (427, 640, 3)
         
     """
@@ -329,8 +329,8 @@ def island(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.island()
-        >> img.shape
+        >> tens = caer.data.island()
+        >> tens.shape
         (426, 640, 3)
         
     """
@@ -350,8 +350,8 @@ def jellyfish(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.jellyfish()
-        >> img.shape
+        >> tens = caer.data.jellyfish()
+        >> tens.shape
         (427, 640, 3)
         
     """
@@ -371,8 +371,8 @@ def laptop(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.laptop()
-        >> img.shape
+        >> tens = caer.data.laptop()
+        >> tens.shape
         (427, 640, 3)
         
     """
@@ -392,8 +392,8 @@ def mountain(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.mountain()
-        >> img.shape
+        >> tens = caer.data.mountain()
+        >> tens.shape
         (427, 640, 3)
         
     """
@@ -413,8 +413,8 @@ def night(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.night()
-        >> img.shape
+        >> tens = caer.data.night()
+        >> tens.shape
         (427, 640, 3)
         
     """
@@ -434,8 +434,8 @@ def puppies(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.puppies()
-        >> img.shape
+        >> tens = caer.data.puppies()
+        >> tens.shape
         (427, 640, 3)
         
     """
@@ -455,8 +455,8 @@ def puppy(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.puppy()
-        >> img.shape
+        >> tens = caer.data.puppy()
+        >> tens.shape
         (512, 640, 3)
         
     """
@@ -476,8 +476,8 @@ def red_fish(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.red_fish()
-        >> img.shape
+        >> tens = caer.data.red_fish()
+        >> tens.shape
         (427, 640, 3)
         
     """
@@ -497,8 +497,8 @@ def phone(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.phone()
-        >> img.shape
+        >> tens = caer.data.phone()
+        >> tens.shape
         (427, 640, 3)
         
     """
@@ -518,8 +518,8 @@ def sea_turtle(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.sea_turtle()
-        >> img.shape
+        >> tens = caer.data.sea_turtle()
+        >> tens.shape
         (400, 640, 3)
         
     """
@@ -539,8 +539,8 @@ def snow(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.snow()
-        >> img.shape
+        >> tens = caer.data.snow()
+        >> tens.shape
         (360, 640, 3)
         
     """
@@ -560,8 +560,8 @@ def snowflake(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.snowflake()
-        >> img.shape
+        >> tens = caer.data.snowflake()
+        >> tens.shape
         (480, 640, 3)
         
     """
@@ -581,8 +581,8 @@ def sunrise(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.sunrise()
-        >> img.shape
+        >> tens = caer.data.sunrise()
+        >> tens.shape
         (427, 640, 3)
         
     """
@@ -602,8 +602,8 @@ def tent(target_size=None, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.tent()
-        >> img.shape
+        >> tens = caer.data.tent()
+        >> tens.shape
         (427, 640, 3)
         
     """

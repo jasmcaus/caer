@@ -740,15 +740,15 @@ a[rel~="prev"], a[rel~="next"] {
   padding: 0.375rem 0 0 0;
 }
 
-img.next-page,
-img.previous-page {
+tens.next-page,
+tens.previous-page {
   width: 8px;
   height: 10px;
   position: relative;
   top: -1px;
 }
 
-img.previous-page {
+tens.previous-page {
   transform: scaleX(-1);
 }
 
@@ -779,7 +779,7 @@ article.pytorch-article {
     color: $not_quite_black;
     width: auto;
     text-align: center;
-    img {
+    tens {
       width: auto;
     }
   }
@@ -903,13 +903,13 @@ a:hover {
     display: none;
   }
 
-  .call-to-action-img, .call-to-action-notebook-img {
+  .call-to-action-tens, .call-to-action-notebook-tens {
     height: rem(22px);
     width: rem(22px);
     margin-right: 10px;
   }
 
-  .call-to-action-notebook-img {
+  .call-to-action-notebook-tens {
     height: rem(16px);
   }
 

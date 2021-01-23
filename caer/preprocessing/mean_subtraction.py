@@ -87,18 +87,18 @@ def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True, recursive
 
     count = 0
 
-    for img_filepath in image_list:
+    for tens_filepath in image_list:
         count += 1
-        img = imread(img_filepath, rgb=True)
+        tens = imread(tens_filepath, rgb=True)
 
         if channels == 3:
-            b, g, r = mean(img.astype('float32'))[:3]
+            b, g, r = mean(tens.astype('float32'))[:3]
             rMean += r
             bMean += b
             gMean += g
 
         if channels == 1:
-            bgrMean += npmean(img.astype('float32'))
+            bgrMean += npmean(tens.astype('float32'))
 
     # Computing average mean
     if channels == 3:
@@ -135,15 +135,15 @@ def compute_mean(data, channels, per_channel_subtraction=True) -> Tuple:
 
     count = 0
 
-    for img in data:
+    for tens in data:
         count += 1
         if channels == 3:
-            b, g, r = mean(img.astype('float32'))[:3]
+            b, g, r = mean(tens.astype('float32'))[:3]
             rMean += r
             gMean += g
             bMean += b
         if channels == 1:
-            bgrMean += npmean(img.astype('float32'))
+            bgrMean += npmean(tens.astype('float32'))
 
     # Computing average mean
     if channels == 3:
@@ -175,6 +175,6 @@ def subtract_mean(data, channels, mean_sub_values) -> List[str]:
     if not isinstance(data, (list, Tensor)):
         raise ValueError('Dataset must be a list of size = number of images and shape = image shape')
 
-    data = [mean_process.mean_preprocess(img, channels) for img in data]
+    data = [mean_process.mean_preprocess(tens, channels) for tens in data]
     
     return data

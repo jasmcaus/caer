@@ -24,45 +24,45 @@ from ..color import (
     to_bgr
 )
 
-def _hls(img, rgb=True) -> Tensor:
+def _hls(tens, rgb=True) -> Tensor:
     if rgb:
-        return to_hls(img)
+        return to_hls(tens)
     else:
-        return to_hls(img)
+        return to_hls(tens)
 
 
-def _bgr(img, rgb=True) -> Tensor:
+def _bgr(tens, rgb=True) -> Tensor:
     if rgb:
-        return to_bgr(img)
+        return to_bgr(tens)
     else:
-        return img
+        return tens
 
 
-def _rgb(img, rgb=True) -> Tensor:
+def _rgb(tens, rgb=True) -> Tensor:
     if rgb:
-        return img
+        return tens
     else:
-        return to_rgb(img)
+        return to_rgb(tens)
 
 
-def _hue(img, rgb=True) -> Tensor:
-    return _hls(img, rgb=rgb)[:,:,0]
+def _hue(tens, rgb=True) -> Tensor:
+    return _hls(tens, rgb=rgb)[:,:,0]
 
 
-def _get_img_size(img) -> Tensor:
+def _get_tens_size(tens) -> Tensor:
     r"""
         Returns image size as (width, height)
     """
-    h, w = img.shape[:2]
+    h, w = tens.shape[:2]
 
     return (w, h)
 
 
-def _get_num_channels(img) -> int:
+def _get_num_channels(tens) -> int:
     r"""
         We assume only images of 1 and 3 channels
     """
-    if len(img.shape) == 3 and img.shape[2] == 3:
+    if len(tens.shape) == 3 and tens.shape[2] == 3:
         return 3
     
     else:
@@ -88,22 +88,22 @@ def is_numeric_list_or_tuple(x):
     return True
 
 
-def _snow_process(img, snow_coeff, rgb=True) -> Tensor:
-    img = _hls(img, rgb=rgb)
+def _snow_process(tens, snow_coeff, rgb=True) -> Tensor:
+    tens = _hls(tens, rgb=rgb)
 
-    img = np.array(img, dtype=np.float64) 
+    tens = np.array(tens, dtype=np.float64) 
 
     brightness_coefficient = 2.5 
 
-    img[:,:,1][img[:,:,1]<snow_coeff] = img[:,:,1][img[:,:,1]<snow_coeff]*brightness_coefficient ## scale pixel values up for channel 1 (lightness)
-    img[:,:,1][img[:,:,1]>255]  = 255 ##Sets all values above 255 to 255
+    tens[:,:,1][tens[:,:,1]<snow_coeff] = tens[:,:,1][tens[:,:,1]<snow_coeff]*brightness_coefficient ## scale pixel values up for channel 1 (lightness)
+    tens[:,:,1][tens[:,:,1]>255]  = 255 ##Sets all values above 255 to 255
 
-    img = np.array(img, dtype=np.uint8)
+    tens = np.array(tens, dtype=np.uint8)
 
     if rgb:
-        return to_rgb(img)
+        return to_rgb(tens)
     else:
-        return to_bgr(img)
+        return to_bgr(tens)
 
 
 def _generate_random_lines(imshape, slant, drop_length, rain_type):
@@ -134,27 +134,27 @@ def _generate_random_lines(imshape, slant, drop_length, rain_type):
     return drops, drop_length
 
 
-def _rain_process(img, slant, drop_length, drop_color, drop_width, rain_drops, rgb=True) -> Tensor:
-    img_t = img.copy()
+def _rain_process(tens, slant, drop_length, drop_color, drop_width, rain_drops, rgb=True) -> Tensor:
+    tens_t = tens.copy()
 
     for rain_drop in rain_drops:
-        cv.line(img_t, (rain_drop[0],rain_drop[1]), (rain_drop[0]+slant,rain_drop[1]+drop_length), drop_color, drop_width)
+        cv.line(tens_t, (rain_drop[0],rain_drop[1]), (rain_drop[0]+slant,rain_drop[1]+drop_length), drop_color, drop_width)
 
-    img = cv.blur(img_t,(7,7)) ## Rainy views are blurred
+    tens = cv.blur(tens_t,(7,7)) ## Rainy views are blurred
     brightness_coefficient = 0.7 ## Rainy days are usually shady 
 
-    img = _hls(img) ## Conversion to hls
-    img[:,:,1] = img[:,:,1]*brightness_coefficient ## scale pixel values down for channel 1(Lightness)
+    tens = _hls(tens) ## Conversion to hls
+    tens[:,:,1] = tens[:,:,1]*brightness_coefficient ## scale pixel values down for channel 1(Lightness)
 
     if rgb:
-        return to_rgb(img)
+        return to_rgb(tens)
     else:
-        return to_bgr(img)
+        return to_bgr(tens)
 
 
-def _add_blur(img, x, y, hw, fog_coeff) -> Tensor:
-    overlay= img.copy()
-    output= img.copy()
+def _add_blur(tens, x, y, hw, fog_coeff) -> Tensor:
+    overlay= tens.copy()
+    output= tens.copy()
     alpha= 0.08*fog_coeff
     rad= hw//2
     point=(x+hw//2, y+hw//2)
@@ -198,9 +198,9 @@ def _generate_gravel_patch(rectangular_roi):
     return gravels
 
 
-def _gravel_process(img, x1, x2, y1, y2, num_patches, rgb=True):
-    x = img.shape[1]
-    y = img.shape[0]
+def _gravel_process(tens, x1, x2, y1, y2, num_patches, rgb=True):
+    x = tens.shape[1]
+    y = tens.shape[0]
     rectangular_roi_default = []
 
     for i in range(num_patches):
@@ -210,7 +210,7 @@ def _gravel_process(img, x1, x2, y1, y2, num_patches, rgb=True):
         yy2 = random.randint(y1, yy1)
         rectangular_roi_default.append((xx2, yy2, min(xx1, xx2+200), min(yy1, yy2+30)))
 
-    img = _hls(img, rgb=rgb)
+    tens = _hls(tens, rgb=rgb)
 
     for roi in rectangular_roi_default:
         gravels = _generate_gravel_patch(roi)
@@ -219,20 +219,20 @@ def _gravel_process(img, x1, x2, y1, y2, num_patches, rgb=True):
             y = gravel[1]
             r = random.randint(1, 4)
             r1 = random.randint(0, 255)
-            img[max(y-r,0):min(y+r,y), max(x-r,0):min(x+r,x), 1] = r1
+            tens[max(y-r,0):min(y+r,y), max(x-r,0):min(x+r,x), 1] = r1
 
     if rgb:
-        return to_rgb(img)
+        return to_rgb(tens)
     else:
-        return to_bgr(img)
+        return to_bgr(tens)
 
 
-def flare_source(img, point, radius, src_color) -> Tensor:
+def flare_source(tens, point, radius, src_color) -> Tensor:
     r"""
         Add a source of light (flare) on an specific region of an image.
 
     Args:
-        img (Tensor) : Any regular BGR/RGB image.
+        tens (Tensor) : Any regular BGR/RGB image.
         point (int): Starting point of the flare.
         radius (int): Intended radius (in pixels) of the flare.
         src_color (tuple): Color of the flare. Must be in the format ``(R,G,B)``
@@ -245,8 +245,8 @@ def flare_source(img, point, radius, src_color) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.filters.add_gravel(img, rgb=True)
+        >> tens = caer.data.sunrise(rgb=True)
+        >> filtered = caer.filters.add_gravel(tens, rgb=True)
         >> filtered
         (427, 640, 3)
 
@@ -258,8 +258,8 @@ def flare_source(img, point, radius, src_color) -> Tensor:
     # We reverse the tuple as OpenCV expects a BGR layout
     src_color = src_color[::-1]
 
-    overlay = img.copy()
-    output = img.copy()
+    overlay = tens.copy()
+    output = tens.copy()
     num_times = radius // 10
     alpha = np.linspace(0.0, 1, num=num_times)
     rad = np.linspace(1, radius, num=num_times)
@@ -285,10 +285,10 @@ def _add_sun_flare_line(flare_center, angle, imshape):
     return x, y
 
 
-def _add_sun_process(img, num_flare_circles, flare_center, src_radius, x, y, src_color) -> Tensor:
-    overlay = img.copy()
-    output = img.copy()
-    imshape = img.shape
+def _add_sun_process(tens, num_flare_circles, flare_center, src_radius, x, y, src_color) -> Tensor:
+    overlay = tens.copy()
+    output = tens.copy()
+    imshape = tens.shape
 
     for i in range(num_flare_circles):
         alpha = random.uniform(0.05,0.2)
@@ -300,9 +300,9 @@ def _add_sun_process(img, num_flare_circles, flare_center, src_radius, x, y, src
     return flare_source(output, (int(flare_center[0]),int(flare_center[1])), src_radius, src_color)
 
 
-def _apply_motion_blur(img, count):
-    img_t = img.copy()
-    imshape = img_t.shape
+def _apply_motion_blur(tens, count):
+    tens_t = tens.copy()
+    imshape = tens_t.shape
     size = 15
     kernel_motion_blur = np.zeros((size, size))
     kernel_motion_blur[int((size-1)/2), :] = np.ones(size)
@@ -311,55 +311,55 @@ def _apply_motion_blur(img, count):
     i= imshape[1]*3//4 - 10 * count
 
     while i <= imshape[1]:
-        img_t[:,i:,:] = cv.filter2D(img_t[:,i:,:], -1, kernel_motion_blur)
-        img_t[:,:imshape[1]-i,:] = cv.filter2D(img_t[:,:imshape[1]-i,:], -1, kernel_motion_blur)
+        tens_t[:,i:,:] = cv.filter2D(tens_t[:,i:,:], -1, kernel_motion_blur)
+        tens_t[:,:imshape[1]-i,:] = cv.filter2D(tens_t[:,:imshape[1]-i,:], -1, kernel_motion_blur)
         i += imshape[1]//25-count
         count+=1
 
-    return img_t
+    return tens_t
 
 
-def _autumn_process(img, rgb=True) -> Tensor:
-    img_t = img.copy()
-    imshape = img_t.shape
-    img_t = _hls(img_t, rgb=rgb)
+def _autumn_process(tens, rgb=True) -> Tensor:
+    tens_t = tens.copy()
+    imshape = tens_t.shape
+    tens_t = _hls(tens_t, rgb=rgb)
     step = 8
     aut_colors=[1, 5, 9, 11]
     col= aut_colors[random.randint(0, 3)]
 
     for i in range(0, imshape[1], step):
         for j in range(0, imshape[0], step):
-            avg = np.average(img_t[j:j+step,i:i+step,0])
+            avg = np.average(tens_t[j:j+step,i:i+step,0])
 
-            if avg > 20 and avg < 100 and np.average(img[j:j+step,i:i+step,1]) < 100:
-                img_t[j:j+step,i:i+step,0] = col
-                img_t[j:j+step,i:i+step,2] =255
+            if avg > 20 and avg < 100 and np.average(tens[j:j+step,i:i+step,1]) < 100:
+                tens_t[j:j+step,i:i+step,0] = col
+                tens_t[j:j+step,i:i+step,2] =255
 
     if rgb:
-        return to_rgb(img)
+        return to_rgb(tens)
     else:
-        return to_bgr(img)
+        return to_bgr(tens)
 
 
-def _exposure_process(img, rgb=True) -> Tensor:
-    img = np.copy(img)
-    img_yuv = cv.cvtColor(img, cv.COLOR_BGR2YUV)
+def _exposure_process(tens, rgb=True) -> Tensor:
+    tens = np.copy(tens)
+    tens_yuv = cv.cvtColor(tens, cv.COLOR_BGR2YUV)
 
     clahe = cv.createCLAHE(clipLimit=2.0, tileGridSize=(4,4))
-    ones = np.ones(img_yuv[:,:,0].shape)
-    ones[img_yuv[:,:,0]>150] = 0.85
-    img_yuv[:,:,0] = img_yuv[:,:,0]*ones
+    ones = np.ones(tens_yuv[:,:,0].shape)
+    ones[tens_yuv[:,:,0]>150] = 0.85
+    tens_yuv[:,:,0] = tens_yuv[:,:,0]*ones
 
-    img_yuv[:,:,0] = clahe.apply(img_yuv[:,:,0])
-    img_yuv[:,:,0] = cv.equalizeHist(img_yuv[:,:,0])
-    img_yuv[:,:,0] = clahe.apply(img_yuv[:,:,0])
+    tens_yuv[:,:,0] = clahe.apply(tens_yuv[:,:,0])
+    tens_yuv[:,:,0] = cv.equalizeHist(tens_yuv[:,:,0])
+    tens_yuv[:,:,0] = clahe.apply(tens_yuv[:,:,0])
 
     if rgb:
-        img_res = cv.cvtColor(img_yuv, cv.COLOR_YUV2RGB)
+        tens_res = cv.cvtColor(tens_yuv, cv.COLOR_YUV2RGB)
     else:
-        img_res = cv.cvtColor(img_yuv, cv.COLOR_YUV2BGR)
+        tens_res = cv.cvtColor(tens_yuv, cv.COLOR_YUV2BGR)
 
-    return cv.fastNlMeansDenoisingColored(img_res, None, 3, 3, 7, 21)
+    return cv.fastNlMeansDenoisingColored(tens_res, None, 3, 3, 7, 21)
 
 
 def _generate_shadow_coordinates(num_shadows, rectangular_roi, shadow_dimension):
@@ -380,20 +380,20 @@ def _generate_shadow_coordinates(num_shadows, rectangular_roi, shadow_dimension)
     return vertices_list ## List of shadow vertices
 
 
-def _shadow_process(img, num_shadows, x1, y1, x2, y2, shadow_dimension, rgb=True) -> Tensor:
-    img = _hls(img, rgb=rgb) ## Conversion to hls
+def _shadow_process(tens, num_shadows, x1, y1, x2, y2, shadow_dimension, rgb=True) -> Tensor:
+    tens = _hls(tens, rgb=rgb) ## Conversion to hls
 
-    mask = np.zeros_like(img) 
-    imshape = img.shape
+    mask = np.zeros_like(tens) 
+    imshape = tens.shape
 
     vertices_list= _generate_shadow_coordinates(num_shadows, (x1,y1,x2,y2), shadow_dimension) #3 getting list of shadow vertices
 
     for vertices in vertices_list: 
         cv.fillPoly(mask, vertices, 255) ## adding all shadow polygons on empty mask, single 255 denotes only red channel
 
-    img[:,:,1][mask[:,:,0]==255] = img[:,:,1][mask[:,:,0]==255]*0.5   ## if red channel is hot, img's "Lightness" channel's brightness is lowered 
+    tens[:,:,1][mask[:,:,0]==255] = tens[:,:,1][mask[:,:,0]==255]*0.5   ## if red channel is hot, tens's "Lightness" channel's brightness is lowered 
 
     if rgb:
-        return to_rgb(img)
+        return to_rgb(tens)
     else:
-        return to_bgr(img)
+        return to_bgr(tens)

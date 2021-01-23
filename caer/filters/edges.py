@@ -35,7 +35,7 @@
 #     ]
 
 
-# def sobel(img, just_filter=False):
+# def sobel(tens, just_filter=False):
 #     """
 #     Compute edges using Sobel's algorithm.
 
@@ -43,7 +43,7 @@
 #     This implementation is tuned to match MATLAB's implementation.
 
 #     Args:
-#         img (2D-Tensor) : 
+#         tens (2D-Tensor) : 
 #         just_filter (boolean, optional) : 
 #             If true, then return the result of filtering the image with the sobel
 #             filters, but do not threashold (default is False).
@@ -55,23 +55,23 @@
 #     """
 #     # This is based on Octave's implementation,
 #     # but with some reverse engineering to match Matlab exactly
-#     img = np.array(img, dtype=np.float)
-#     if img.ndim > 2:
+#     tens = np.array(tens, dtype=np.float)
+#     if tens.ndim > 2:
 #         try:
-#             img = bgr_to_gray(img)
+#             tens = bgr_to_gray(tens)
 #         except Exception:
 #             raise ValueError('caer.filters.sobel() is only available for 2-dimensional images')
 
-#     img -= img.min()
-#     ptp = img.ptp()
+#     tens -= tens.min()
+#     ptp = tens.ptp()
 
 #     if ptp == 0:
-#         return img
-#     img /= ptp
+#         return tens
+#     tens /= ptp
 
 #     # Using 'nearest' seems to be MATLAB's implementation
-#     vfiltered = convolve(img, _vsobel_filter, mode='nearest')
-#     hfiltered = convolve(img, _hsobel_filter, mode='nearest')
+#     vfiltered = convolve(tens, _vsobel_filter, mode='nearest')
+#     hfiltered = convolve(tens, _hsobel_filter, mode='nearest')
 #     vfiltered **= 2
 #     hfiltered **= 2
 #     filtered = vfiltered
@@ -85,13 +85,13 @@
 #     return regmax(filtered) * (np.sqrt(filtered) > thresh)
 
 
-# def dog(img, sigma1 = 2, multiplier = 1.001, just_filter = False):
+# def dog(tens, sigma1 = 2, multiplier = 1.001, just_filter = False):
 #     """
 #     Compute edges using the Difference of Gaussian (DoG) operator.
 #     `edges` is a binary image of edges.
 
 #     Args:
-#         img : Any 2D-Tensor
+#         tens : Any 2D-Tensor
 #         sigma1 : the sigma value of the first Gaussian filter. The second filter 
 #             will have sigma value 1.001*sigma1
 #         multiplier : the multiplier to get sigma2. sigma2 = sigma1 * multiplier
@@ -104,17 +104,17 @@
 #             Binary image of edges, unless `just_filter`, in which case it will be
 #             an array of floating point values.
 #     """
-#     img = np.array(img, dtype=np.float)
-#     if img.ndim != 2:
+#     tens = np.array(tens, dtype=np.float)
+#     if tens.ndim != 2:
 #         raise ValueError('caer.dog: Only available for 2-dimensional images')
 
 #     sigma2 = sigma1 * multiplier
     
-#     G1 = gaussian_filter(img, sigma1, mode = 'nearest')
-#     G2 = gaussian_filter(img, sigma2, mode = 'nearest')
+#     G1 = gaussian_filter(tens, sigma1, mode = 'nearest')
+#     G2 = gaussian_filter(tens, sigma2, mode = 'nearest')
 #     DoG = G2 - G1
     
-#     (m, n) = img.shape
+#     (m, n) = tens.shape
 #     if not just_filter:
 #         e = np.zeros((m, n), dtype=bool)
 #     else:

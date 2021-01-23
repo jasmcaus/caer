@@ -13,8 +13,8 @@ import caer
 # import os  
 
 def test_imsave():
-    img = caer.data.sunrise()
+    tens = caer.data.sunrise()
 
-    saved = caer.imsave('sunrise.jpg', img)
+    saved = caer.imsave('sunrise.jpg', tens)
     assert saved == True
     # os.remove(os.path.join('io', 'sunrise.jpg'))

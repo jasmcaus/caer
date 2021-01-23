@@ -146,9 +146,9 @@ Currently, `caer` supports converting an image from BGR to the RGB, Grayscale, H
 `caer.url_from_image()` reads in an image from a URL and returns it as an RGB image (if `rgb = True`) or BGR (if `rgb=True`)
 ```python
 # Returns an RGB image
->> img_from_url_rgb = caer.url_from_image(url, rgb=True)
+>> tens_from_url_rgb = caer.url_from_image(url, rgb=True)
 # Returns a BGR image
->> img_from_url_bgr = caer.url_from_image(url, rgb=True)
+>> tens_from_url_bgr = caer.url_from_image(url, rgb=True)
 ```
 
 

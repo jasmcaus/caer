@@ -14,11 +14,11 @@ import cv2 as cv
 import os 
 
 here = os.path.dirname(os.path.dirname(__file__))
-img_path = os.path.join(here, 'data', 'green_fish.jpg')
+tens_path = os.path.join(here, 'data', 'green_fish.jpg')
 
 
 def test_gray2rgb():
-    cv_gray = cv.imread(img_path)
+    cv_gray = cv.imread(tens_path)
     cv_gray = cv.cvtColor(cv_gray, cv.COLOR_BGR2GRAY)
     cv_gray = caer.to_tensor(cv_gray, cspace='gray')
 
@@ -30,7 +30,7 @@ def test_gray2rgb():
 
 
 def test_gray2bgr():
-    cv_gray = cv.imread(img_path)
+    cv_gray = cv.imread(tens_path)
     cv_gray = cv.cvtColor(cv_gray, cv.COLOR_BGR2GRAY)
     cv_gray = caer.to_tensor(cv_gray, cspace='gray')
 
@@ -42,7 +42,7 @@ def test_gray2bgr():
 
 
 def test_gray2hsv():
-    cv_gray = cv.imread(img_path)
+    cv_gray = cv.imread(tens_path)
     cv_gray = cv.cvtColor(cv_gray, cv.COLOR_BGR2GRAY)
     cv_gray = caer.to_tensor(cv_gray, cspace='gray')
 
@@ -54,7 +54,7 @@ def test_gray2hsv():
 
 
 def test_gray2hls():
-    cv_gray = cv.imread(img_path)
+    cv_gray = cv.imread(tens_path)
     cv_gray = cv.cvtColor(cv_gray, cv.COLOR_BGR2GRAY)
     cv_gray = caer.to_tensor(cv_gray, cspace='gray')
 
@@ -66,7 +66,7 @@ def test_gray2hls():
 
 
 def test_gray2lab():
-    cv_gray = cv.imread(img_path)
+    cv_gray = cv.imread(tens_path)
     cv_gray = cv.cvtColor(cv_gray, cv.COLOR_BGR2GRAY)
     cv_gray = caer.to_tensor(cv_gray, cspace='gray')
 

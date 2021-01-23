@@ -1,7 +1,7 @@
 # Caer -  Modern Computer Vision on the Fly
 
 [![Downloads](https://pepy.tech/badge/caer)](https://pepy.tech/project/caer)
-[![license](https://img.shields.io/github/license/jasmcaus/caer?label=license)][license]
+[![license](https://tens.shields.io/github/license/jasmcaus/caer?label=license)][license]
 
 
 ## Overview

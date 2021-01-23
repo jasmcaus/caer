@@ -68,7 +68,7 @@ extensions = [
     'sphinx.ext.viewcode',
     'sphinx.ext.autosummary',
     'sphinx.ext.napoleon',
-    'sphinx.ext.imgmath',
+    'sphinx.ext.tensmath',
     'recommonmark',
     'sphinx.ext.autosectionlabel',
     'sphinx_autodoc_typehints',

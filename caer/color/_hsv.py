@@ -24,118 +24,118 @@ __all__ = [
     'hsv2hls'
 ]
 
-def _is_hsv_image(img):
-    # img = to_tensor(img)
-    # return img.is_hsv()
-    return len(img.shape) == 3 and img.shape[-1] == 3
+def _is_hsv_image(tens):
+    # tens = to_tensor(tens)
+    # return tens.is_hsv()
+    return len(tens.shape) == 3 and tens.shape[-1] == 3
 
 
-def hsv2rgb(img) -> Tensor:
+def hsv2rgb(tens) -> Tensor:
     r"""
         Converts a HSV Tensor to its RGB version.
 
     Args:
-        img (Tensor): Valid HSV Tensor
+        tens (Tensor): Valid HSV Tensor
     
     Returns:
         RGB Tensor of shape ``(height, width, channels)``
     
     Raises:
-        ValueError: If `img` is not of shape 3
+        ValueError: If `tens` is not of shape 3
         
     """
-    if not _is_hsv_image(img):
-        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts a HSV Tensor to its RGB counterpart')
+    if not _is_hsv_image(tens):
+        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a HSV Tensor to its RGB counterpart')
 
-    im = cv.cvtColor(img, HSV2RGB)
+    im = cv.cvtColor(tens, HSV2RGB)
     return to_tensor(im, cspace='rgb')
 
 
-def hsv2bgr(img) -> Tensor:
+def hsv2bgr(tens) -> Tensor:
     r"""
         Converts a HSV Tensor to its BGR version.
 
     Args:
-        img (Tensor): Valid HSV Tensor
+        tens (Tensor): Valid HSV Tensor
     
     Returns:
         BGR Tensor of shape ``(height, width, channels)``
     
     Raises:
-        ValueError: If `img` is not of shape 3
+        ValueError: If `tens` is not of shape 3
         
     """
-    if not _is_hsv_image(img):
-        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts a HSV Tensor to its BGR counterpart')
+    if not _is_hsv_image(tens):
+        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a HSV Tensor to its BGR counterpart')
 
-    im = cv.cvtColor(img, HSV2BGR)
+    im = cv.cvtColor(tens, HSV2BGR)
     return to_tensor(im, cspace='bgr')
 
 
-def hsv2gray(img) -> Tensor:
+def hsv2gray(tens) -> Tensor:
     r"""
         Converts a HSV Tensor to its Grayscale version.
 
     Args:
-        img (Tensor): Valid HSV Tensor
+        tens (Tensor): Valid HSV Tensor
     
     Returns:
         Grayscale Tensor of shape ``(height, width, channels)``
     
     Raises:
-        ValueError: If `img` is not of shape 3
+        ValueError: If `tens` is not of shape 3
         
     """
-    if not _is_hsv_image(img):
-        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts a HSV Tensor to its Grayscale counterpart')
+    if not _is_hsv_image(tens):
+        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a HSV Tensor to its Grayscale counterpart')
 
-    bgr = hsv2bgr(img)
+    bgr = hsv2bgr(tens)
 
     im = bgr2gray(bgr)
     return to_tensor(im, cspace='gray')
 
 
-def hsv2hls(img) -> Tensor:
+def hsv2hls(tens) -> Tensor:
     r"""
         Converts a HSV Tensor to its HLS version.
 
     Args:
-        img (Tensor): Valid HSV Tensor
+        tens (Tensor): Valid HSV Tensor
     
     Returns:
         HLS Tensor of shape ``(height, width, channels)``
     
     Raises:
-        ValueError: If `img` is not of shape 3
+        ValueError: If `tens` is not of shape 3
         
     """
-    if not _is_hsv_image(img):
-        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts a HSV Tensor to its HLS counterpart')
+    if not _is_hsv_image(tens):
+        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a HSV Tensor to its HLS counterpart')
 
-    bgr = hsv2bgr(img)
+    bgr = hsv2bgr(tens)
 
     im = bgr2hls(bgr)
     return to_tensor(im, cspace='hls')
 
 
-def hsv2lab(img) -> Tensor:
+def hsv2lab(tens) -> Tensor:
     r"""
         Converts a HSV Tensor to its LAB version.
 
     Args:
-        img (Tensor): Valid HSV Tensor
+        tens (Tensor): Valid HSV Tensor
     
     Returns:
         LAB Tensor of shape ``(height, width, channels)``
     
     Raises:
-        ValueError: If `img` is not of shape 3
+        ValueError: If `tens` is not of shape 3
         
     """
-    if not _is_hsv_image(img):
-        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts a HSV Tensor to its LAB counterpart')
+    if not _is_hsv_image(tens):
+        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a HSV Tensor to its LAB counterpart')
 
-    bgr = hsv2bgr(img)
+    bgr = hsv2bgr(tens)
 
     im = bgr2lab(bgr)
     return to_tensor(im, cspace='lab')

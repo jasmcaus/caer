@@ -14,9 +14,9 @@ import cv2 as cv
 import os 
 
 here = os.path.dirname(os.path.dirname(__file__))
-img_path = os.path.join(here, 'data', 'green_fish.jpg')
+tens_path = os.path.join(here, 'data', 'green_fish.jpg')
 # BGR
-cv_bgr = cv.imread(img_path)
+cv_bgr = cv.imread(tens_path)
 
 def test_hls2rgb():
     cv_hls = cv.cvtColor(cv_bgr, cv.COLOR_BGR2HLS)
