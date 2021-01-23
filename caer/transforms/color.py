@@ -16,7 +16,7 @@ import random
 import cv2 as cv 
 import math
 
-from ..adorad import Tensor, is_tensor
+from ..adorad import Tensor, to_tensor
 
 from .functional import (
     is_list,
@@ -24,10 +24,6 @@ from .functional import (
     _exposure_process
 )
 
-from ..color import (
-    to_bgr,
-    to_rgb
-)
 
 __all__ = [
     'adjust_brightness',
@@ -49,7 +45,7 @@ def adjust_brightness(tens, coeff, rgb=True) -> Tensor:
         Adjust the brightness of an image.
 
     Args:
-        tens (Tensor) : Any regular BGR/RGB image.
+        tens (Tensor) : Any regular ``caer.Tensor``.
         coeff (int): Coefficient value.
             - ``coeff < 1``, the image is darkened.
             - ``coeff = 1``, the image is unchanged.
@@ -67,22 +63,19 @@ def adjust_brightness(tens, coeff, rgb=True) -> Tensor:
         (427, 640, 3)
 
     """
-    tens = _hls(tens, rgb=rgb)
+    tens = to_tensor(tens, enforce_tensor=True)
+    tens = _hls(tens)
+    cspace = tens.cspace 
 
     tens = np.array(tens, dtype=np.float64) 
-    tens[:,:,1] = tens[:,:,1]*coeff ## scale pixel values up or down for channel 1 (for lightness)
+    tens[:,:,1] = tens[:,:,1] * coeff ## scale pixel values up or down for channel 1 (for lightness)
 
     if coeff > 1:
         tens[:,:,1][tens[:,:,1]>255]  = 255 # Set all values > 255 to 255
     else:
-        tens[:,:,1][tens[:,:,1]<0]=0
+        tens[:,:,1][tens[:,:,1]<0] = 0
 
-    tens = np.array(tens, dtype=np.uint8)
-
-    if rgb:
-        return to_rgb(tens)
-    else:
-        return to_bgr(tens)
+    return to_tensor(tens, cspace=cspace, dtype=np.uint8)
 
 
 def brighten(tens, coeff=-1, rgb=True) -> Tensor:
@@ -90,7 +83,7 @@ def brighten(tens, coeff=-1, rgb=True) -> Tensor:
         Brighten an image.
 
     Args:
-        tens (Tensor) : Any regular BGR/RGB image.
+        tens (Tensor) : Any regular ``caer.Tensor``.
         coeff (int): Coefficient value.
         rgb (bool): Operate on RGB images. Default: True.
     
@@ -105,6 +98,9 @@ def brighten(tens, coeff=-1, rgb=True) -> Tensor:
         (427, 640, 3)
 
     """
+    tens = to_tensor(tens, enforce_tensor=True)
+    cspace = tens.cspace
+
     if coeff !=-1:
         if coeff < 0.0 or coeff > 1.0:
             raise ValueError('Brightness coefficient can only be between 0.0 and 1.0')
@@ -114,15 +110,16 @@ def brighten(tens, coeff=-1, rgb=True) -> Tensor:
     else:
         coeff_t = 1 + coeff  # coeff between 1.0 and 2.0
 
-    return adjust_brightness(tens, coeff_t, rgb=rgb)
+    tens = adjust_brightness(tens, coeff_t)
+    return to_tensor(tens, cspace=cspace)
 
 
-def darken(tens, darkness_coeff = -1, rgb=True) -> Tensor:
+def darken(tens, darkness_coeff = -1) -> Tensor:
     r"""
         Darken an image.
 
     Args:
-        tens (Tensor) : Any regular BGR/RGB image.
+        tens (Tensor) : Any regular ``caer.Tensor``.
         darkness_coeff (int): Coefficient value.
         rgb (bool): Operate on RGB images. Default: True.
     
@@ -137,6 +134,9 @@ def darken(tens, darkness_coeff = -1, rgb=True) -> Tensor:
         (427, 640, 3)
 
     """
+    tens = to_tensor(tens, enforce_tensor=True)
+    cspace = tens.cspace 
+
     if darkness_coeff != -1:
         if darkness_coeff < 0.0 or darkness_coeff > 1.0:
             raise ValueError('Darkness coeff must only be between 0.0 and 1.0') 
@@ -146,30 +146,30 @@ def darken(tens, darkness_coeff = -1, rgb=True) -> Tensor:
     else:
         darkness_coeff_t = 1 - darkness_coeff  
 
-    return adjust_brightness(tens, darkness_coeff_t, rgb=True)
+    tens = adjust_brightness(tens, darkness_coeff_t)
+    return to_tensor(tens, cspace=cspace)
 
 
-def random_brightness(tens, rgb=True) -> Tensor:
+def random_brightness(tens) -> Tensor:
     r"""
         Add random brightness to an image.
 
     Args:
-        tens (Tensor) : Any regular BGR/RGB image.
-        rgb (bool): Operate on RGB images. Default: True.
+        tens (Tensor) : Any regular ``caer.Tensor``.
     
     Returns:
         Tensor of shape ``(height, width, channels)``.
 
     Examples::
 
-        >> tens = caer.data.sunrise(rgb=True)
+        >> tens = caer.data.sunrise()
         >> filtered = caer.transforms.random_brightness(tens, rgb=True)
         >> filtered
         (427, 640, 3)
 
     """
     rand_br_coeff = 2 * np.random.uniform(0, 1) # Generates a value between 0.0 and 2.0
-    return adjust_brightness(tens, rand_br_coeff, rgb=rgb)
+    return adjust_brightness(tens, rand_br_coeff)
 
 
 def adjust_contrast(tens, contrast_factor) -> Tensor:
@@ -177,7 +177,7 @@ def adjust_contrast(tens, contrast_factor) -> Tensor:
         Adjust contrast of an image.
 
     Args:
-        tens (Tensor): Any valid BGR/RGB image.
+        tens (Tensor): Any valid ``caer.Tensor``.
         contrast_factor (float): How much to adjust the contrast. Can be any
             non negative number. 0 gives a solid gray image, 1 gives the
             original image while 2 increases the contrast by a factor of 2.
@@ -185,21 +185,28 @@ def adjust_contrast(tens, contrast_factor) -> Tensor:
         numpy Tensor: Contrast adjusted image.
     """
     # It's much faster to use the LUT construction because you have to change dtypes multiple times
-    if not is_tensor(tens):
-        raise TypeError('Expected Numpy Tensor. Got {}'.format(type(tens)))
+    tens = to_tensor(tens, enforce_tensor=True)
+    cspace = tens.cspace 
 
     table = np.array([(i - 74) * contrast_factor + 74
                       for i in range(0, 256)]).clip(0, 255).astype('uint8')
 
-    # enhancer = ImageEnhance.Contrast(tens)
-    # tens = enhancer.enhance(contrast_factor)
-    return cv.LUT(tens, table)
+    try:
+        from PIL import ImageEnhance
+    except ImportError:
+        raise ImportError('Pillow must be installed to use ``caer.color.adjust_saturation()``.')
+
+    enhancer = ImageEnhance.Contrast(tens)
+    tens = enhancer.enhance(contrast_factor)
+    tens = cv.LUT(tens, table)
+    return to_tensor(tens, cspace=cspace)
 
 
 def adjust_saturation(tens, saturation_factor) -> Tensor:
     """Adjust color saturation of an image.
+
     Args:
-        tens (numpy Tensor): Any valid BGR/RGB image.
+        tens (numpy Tensor): Any valid ``caer.Tensor``.
         saturation_factor (float):  How much to adjust the saturation. 0 will
             give a black and white image, 1 will give the original image while
             2 will enhance the saturation by a factor of 2.
@@ -215,20 +222,19 @@ def adjust_saturation(tens, saturation_factor) -> Tensor:
         (427, 640, 3)
 
     """
-    # ~10ms slower than PIL!
-    if not is_tensor(tens):
-        raise TypeError('Expected Numpy Tensor. Got {}'.format(type(tens)))
+    tens = to_tensor(tens, enforce_tensor=True)
+    cspace = tens.cspace 
 
     try:
         from PIL import Image, ImageEnhance
     except ImportError:
-        raise ImportError('Pillow must be installed to use this ``caer.color.adjust_saturation()``.')
+        raise ImportError('Pillow must be installed to use ``caer.color.adjust_saturation()``.')
 
     tens = Image.fromarray(tens)
     enhancer = ImageEnhance.Color(tens)
     tens = enhancer.enhance(saturation_factor)
 
-    return np.array(tens)
+    return to_tensor(tens, cspace=cspace)
 
 
 def adjust_hue(tens, hue_factor) -> Tensor:
@@ -241,7 +247,7 @@ def adjust_hue(tens, hue_factor) -> Tensor:
         .. _Hue: https://en.wikipedia.org/wiki/Hue
 
     Args:
-        tens (Tensor): Any valid BGR/RGB image.
+        tens (Tensor): Any valid ``caer.Tensor``.
         hue_factor (float):  How much to shift the hue channel. Should be in the range [-0.5, 0.5]. 
             0.5 and -0.5 give complete reversal of hue channel in HSV space in positive and negative direction respectively.
             0 means no shift. Therefore, both -0.5 and 0.5 will give an image with complementary colors while 0 gives the original image.
@@ -257,12 +263,11 @@ def adjust_hue(tens, hue_factor) -> Tensor:
         (427, 640, 3)
 
     """
+    tens = to_tensor(tens, enforce_tensor=True)
+    cspace = tens.cspace 
 
     if not (-0.5 <= hue_factor <= 0.5):
         raise ValueError('`hue_factor` is not in [-0.5, 0.5].')
-
-    if not is_tensor(tens):
-        raise TypeError('Expected Numpy Tensor. Got {}'.format(type(tens)))
 
     try:
         from PIL import Image
@@ -284,7 +289,8 @@ def adjust_hue(tens, hue_factor) -> Tensor:
     h = Image.fromarray(np_h, 'L')
 
     tens = Image.merge('HSV', (h, s, v)).convert(input_mode)
-    return np.array(tens)
+
+    return to_tensor(tens, cspace=cspace)
 
 
 def adjust_gamma(tens, gamma, gain=1) -> Tensor:
@@ -299,7 +305,7 @@ def adjust_gamma(tens, gamma, gain=1) -> Tensor:
         .. _Gamma Correction: https://en.wikipedia.org/wiki/Gamma_correction
 
     Args:
-        tens (Tensor): Any valid BGR/RGB image.
+        tens (Tensor): Any valid ``caer.Tensor``.
         gamma (float): Non negative real number, same as :math:`\gamma` in the equation.
             gamma larger than 1 make the shadows darker,
             while gamma smaller than 1 make dark regions lighter.
@@ -313,8 +319,8 @@ def adjust_gamma(tens, gamma, gain=1) -> Tensor:
         (427, 640, 3)
 
     """
-    if not is_tensor(tens):
-        raise TypeError('Expected Numpy Tensor. Got {}'.format(type(tens)))
+    tens = to_tensor(tens, enforce_tensor=True)
+    cspace = tens.cspace 
 
     if gamma < 0:
         raise ValueError('Gamma should be a non-negative real number')
@@ -324,7 +330,8 @@ def adjust_gamma(tens, gamma, gain=1) -> Tensor:
     table = np.array([((i / 255.0)**gamma) * 255 * gain
                       for i in np.arange(0, 256)]).astype('uint8')
 
-    return cv.LUT(tens, table)
+    tens = cv.LUT(tens, table)
+    return to_tensor(tens, cspace=cspace)
 
 
 def _get_affine_matrix(center, angle, translate, scale, shear) -> Tensor:
@@ -352,19 +359,12 @@ def _get_affine_matrix(center, angle, translate, scale, shear) -> Tensor:
     return matrix[:2, :]
 
 
-def affine(tens,
-           angle,
-           translate,
-           scale,
-           shear,
-           interpolation='bilinear',
-           mode=0,
-           fillcolor=0) -> Tensor:
+def affine(tens, angle, translate, scale, shear, interpolation='bilinear', mode=0, fillcolor=0) -> Tensor:
     """
         Apply affine transformation on the image keeping image center invariant.
 
     Args:
-        tens (Tensor): Any valid BGR/RGB image.
+        tens (Tensor): Any valid ``caer.Tensor``.
         angle (float or int): Rotation angle in degrees between -180 and 180, clockwise direction.
         translate (list or tuple of integers): Horizontal and vertical translations (post-rotation translation)
         scale (float): Overall scale
@@ -377,8 +377,8 @@ def affine(tens,
         val (int): Optional fill color for the area outside the transform in the output image. Default: 0
     """
 
-    if not is_tensor(tens):
-        raise TypeError('Expected Numpy Tensor. Got {}'.format(type(tens)))
+    tens = to_tensor(tens, enforce_tensor=True)
+    cspace = tens.cspace 
 
     assert isinstance(translate, (tuple, list)) and len(translate) == 2, \
         'Argument translate should be a list or tuple of length 2'
@@ -408,12 +408,14 @@ def affine(tens,
     center = (tens.shape[1] * 0.5 + 0.5, tens.shape[0] * 0.5 + 0.5)
     matrix = _get_affine_matrix(center, angle, translate, scale, shear)
 
-    return cv.warpAffine(tens,
+    tens = cv.warpAffine(tens,
                             matrix,
                             output_size[::-1],
                             interpolation,
                             borderMode=mode,
                             borderValue=fillcolor)
+
+    return to_tensor(tens, cspace=cspace)
 
 
 def correct_exposure(tens, rgb=True) -> Tensor:
@@ -421,7 +423,7 @@ def correct_exposure(tens, rgb=True) -> Tensor:
         Correct the exposure of an image.
 
     Args:
-        tens (Tensor) : Any regular BGR/RGB image.
+        tens (Tensor) : Any regular ``caer.Tensor``.
         rgb (bool): Operate on RGB images. Default: True.
     
     Returns:
@@ -435,7 +437,7 @@ def correct_exposure(tens, rgb=True) -> Tensor:
         (427, 640, 3)
 
     """
-    return _exposure_process(tens, rgb=rgb)
+    return _exposure_process(tens)
 
 
 def augment_random(tens, aug_types='', volume='expand' ) -> Tensor:
