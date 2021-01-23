@@ -7,7 +7,7 @@
 
 # Licensed under the MIT License <http://opensource.org/licenses/MIT>
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2020-2021 The Caer Authors <http://github.com/jasmcaus>
+# Copyright (c) 2020-21 The Caer Authors <http://github.com/jasmcaus>
 
 import caer 
 import cv2 as cv 

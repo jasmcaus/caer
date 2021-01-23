@@ -7,7 +7,7 @@
 
 # Licensed under the MIT License <http://opensource.org/licenses/MIT>
 # SPDX-License-Identifier: MIT
-# Copyright (c) 2020-2021 The Caer Authors <http://github.com/jasmcaus>
+# Copyright (c) 2020-21 The Caer Authors <http://github.com/jasmcaus>
 
 
 # Pulled from Scikit-Learn's official Github Repo (18 Sep 2020) to speed up 'caer' package import speeds (since this was the only method referenced from sklearn)
