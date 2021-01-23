@@ -16,22 +16,22 @@ import cv2 as cv
 import numpy as np 
 
 here = os.path.dirname(os.path.dirname(__file__))
-img_path = os.path.join(here, 'data', 'green_fish.jpg')
+tens_path = os.path.join(here, 'data', 'green_fish.jpg')
 
 
 def test_imread():
-    cv_bgr = cv.imread(img_path) 
+    cv_bgr = cv.imread(tens_path) 
     cv_rgb = cv.cvtColor(cv_bgr.copy(), cv.COLOR_BGR2RGB)
     
 
-    caer_bgr = caer.imread(img_path, rgb=False) # Expected: BGR
-    caer_rgb = caer.imread(img_path, rgb=True) # Expected: RGB
+    caer_bgr = caer.imread(tens_path, rgb=False) # Expected: BGR
+    caer_rgb = caer.imread(tens_path, rgb=True) # Expected: RGB
 
-    # caer_rgbF_grayF = caer.imread(img_path, rgb=False, gray=False) # Expected: BGR
-    # caer_rgbT_grayF = caer.imread(img_path, rgb=True, gray=False) # Expected: RGB
-    # caer_rgbT_grayT = caer.imread(img_path, rgb=True, gray=True) # Expected: Gray
-    # caer_rgbF_grayT = caer.imread(img_path, rgb=False, gray=True) # Expected: Gray
-    # caer_rgbT_grayT = caer.imread(img_path, rgb=True, gray=True) # Expected: Gray
+    # caer_rgbF_grayF = caer.imread(tens_path, rgb=False, gray=False) # Expected: BGR
+    # caer_rgbT_grayF = caer.imread(tens_path, rgb=True, gray=False) # Expected: RGB
+    # caer_rgbT_grayT = caer.imread(tens_path, rgb=True, gray=True) # Expected: Gray
+    # caer_rgbF_grayT = caer.imread(tens_path, rgb=False, gray=True) # Expected: Gray
+    # caer_rgbT_grayT = caer.imread(tens_path, rgb=True, gray=True) # Expected: Gray
 
 
     # Asserts
@@ -46,28 +46,28 @@ def test_imread():
 
 
 def test_imread_target_sizes():
-    img_400_400 = caer.imread(img_path, target_size=(400,400))
-    img_304_339 = caer.imread(img_path, target_size=(304,339))
-    img_199_206 = caer.imread(img_path, target_size=(199,206))
+    tens_400_400 = caer.imread(tens_path, target_size=(400,400))
+    tens_304_339 = caer.imread(tens_path, target_size=(304,339))
+    tens_199_206 = caer.imread(tens_path, target_size=(199,206))
 
-    assert img_400_400.shape[:2] == (400,400)
-    assert img_304_339.shape[:2] == (339,304) # Numpy arrays are processed differently (h,w) as opposed to (w,h)
-    assert img_199_206.shape[:2] == (206,199) # Numpy arrays are processed differently (h,w) as opposed to (w,h)
+    assert tens_400_400.shape[:2] == (400,400)
+    assert tens_304_339.shape[:2] == (339,304) # Numpy arrays are processed differently (h,w) as opposed to (w,h)
+    assert tens_199_206.shape[:2] == (206,199) # Numpy arrays are processed differently (h,w) as opposed to (w,h)
 
-    assert isinstance(img_400_400, caer.Tensor)
-    assert isinstance(img_304_339, caer.Tensor)
-    assert isinstance(img_199_206, caer.Tensor)
+    assert isinstance(tens_400_400, caer.Tensor)
+    assert isinstance(tens_304_339, caer.Tensor)
+    assert isinstance(tens_199_206, caer.Tensor)
 
 
 def test_imread_preserve_aspect_ratio():
-    img_400_400 = caer.imread(img_path, target_size=(400,400), preserve_aspect_ratio=True)
-    img_223_182 = caer.imread(img_path, target_size=(223,182), preserve_aspect_ratio=True)
-    img_93_35 = caer.imread(img_path, target_size=(93,35), preserve_aspect_ratio=True)
+    tens_400_400 = caer.imread(tens_path, target_size=(400,400), preserve_aspect_ratio=True)
+    tens_223_182 = caer.imread(tens_path, target_size=(223,182), preserve_aspect_ratio=True)
+    tens_93_35 = caer.imread(tens_path, target_size=(93,35), preserve_aspect_ratio=True)
 
-    assert img_400_400.shape[:2] == (400,400)
-    assert img_223_182.shape[:2] == (182,223) # Numpy arrays are processed differently (h,w) as opposed to (w,h)
-    assert img_93_35.shape[:2] == (35,93) # Numpy arrays are processed differently (h,w) as opposed to (w,h)
+    assert tens_400_400.shape[:2] == (400,400)
+    assert tens_223_182.shape[:2] == (182,223) # Numpy arrays are processed differently (h,w) as opposed to (w,h)
+    assert tens_93_35.shape[:2] == (35,93) # Numpy arrays are processed differently (h,w) as opposed to (w,h)
 
-    assert isinstance(img_400_400, caer.Tensor)
-    assert isinstance(img_223_182, caer.Tensor)
-    assert isinstance(img_93_35, caer.Tensor)
+    assert isinstance(tens_400_400, caer.Tensor)
+    assert isinstance(tens_223_182, caer.Tensor)
+    assert isinstance(tens_93_35, caer.Tensor)

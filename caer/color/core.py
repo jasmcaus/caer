@@ -27,252 +27,252 @@ __all__ = [
     'to_lab'
 ]
 
-def to_rgb(img) -> Tensor:
+def to_rgb(tens) -> Tensor:
     r"""
         Converts any supported colorspace to RGB
     
     Args:
-        img (Tensor)
+        tens (Tensor)
     
     Returns:
         Tensor
     """
-    if not isinstance(img, Tensor):
-        raise TypeError('`img` must be a caer.Tensor')
+    if not isinstance(tens, Tensor):
+        raise TypeError('`tens` must be a caer.Tensor')
 
     # Convert to tensor
-    _ = img._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
-    cspace = img.cspace 
+    _ = tens._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
+    cspace = tens.cspace 
 
     # If 'null', we assume we have a brand new Tensor
     if cspace == 'null':
         print('Warning: Caer was unable to assign a colorspace for a foreign tensor. Sticking with "rgb". This issue will be fixed in a future update.')
         
-        # We assume that the img is a BGR image
-        im = bgr2rgb(img)
+        # We assume that the tens is a BGR image
+        im = bgr2rgb(tens)
         im = to_tensor(im, cspace='rgb')
         return im 
 
     elif cspace == 'rgb':
-        return img 
+        return tens 
     
     elif cspace == 'bgr':
-        im = bgr2rgb(img)
+        im = bgr2rgb(tens)
         return to_tensor(im, cspace='rgb')
         
     elif cspace == 'gray':
-        im = gray2rgb(img)
+        im = gray2rgb(tens)
         return to_tensor(im, cspace='rgb')
         
     elif cspace == 'hls':
-        im = hls2rgb(img)
+        im = hls2rgb(tens)
         return to_tensor(im, cspace='rgb')
         
     elif cspace == 'hsv':
-        im = hsv2rgb(img)
+        im = hsv2rgb(tens)
         return to_tensor(im, cspace='rgb')
         
     elif cspace == 'lab':
-        im = lab2rgb(img)
+        im = lab2rgb(tens)
         return to_tensor(im, cspace='rgb')
         
 
-def to_bgr(img) -> Tensor:
+def to_bgr(tens) -> Tensor:
     r"""
         Converts any supported colorspace to BGR
     
     Args:
-        img (Tensor)
+        tens (Tensor)
     
     Returns:
         Tensor
     """
-    if not isinstance(img, Tensor):
-        raise TypeError('`img` must be a caer.Tensor')
+    if not isinstance(tens, Tensor):
+        raise TypeError('`tens` must be a caer.Tensor')
 
     # Convert to tensor 
-    _ = img._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
-    cspace = img.cspace 
+    _ = tens._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
+    cspace = tens.cspace 
 
     if cspace == 'bgr':
-        return img 
+        return tens 
     
     elif cspace == 'gray':
-        im = gray2bgr(img)
+        im = gray2bgr(tens)
         return to_tensor(im, cspace='bgr') 
     
     elif cspace == 'rgb':
-        im = rgb2bgr(img)
+        im = rgb2bgr(tens)
         return to_tensor(im, cspace='bgr') 
     
     elif cspace == 'hls':
-        im = hls2bgr(img)
+        im = hls2bgr(tens)
         return to_tensor(im, cspace='bgr') 
     
     elif cspace == 'hsv':
-        im = hsv2bgr(img)
+        im = hsv2bgr(tens)
         return to_tensor(im, cspace='bgr') 
     
     elif cspace == 'lab':
-        im = lab2bgr(img)
+        im = lab2bgr(tens)
         return to_tensor(im, cspace='bgr') 
 
 
-def to_gray(img) -> Tensor:
+def to_gray(tens) -> Tensor:
     r"""
         Converts any supported colorspace to grayscale
     
     Args:
-        img (Tensor)
+        tens (Tensor)
     
     Returns:
         Tensor
     """
-    if not isinstance(img, Tensor):
-        raise TypeError('`img` must be a caer.Tensor')
+    if not isinstance(tens, Tensor):
+        raise TypeError('`tens` must be a caer.Tensor')
 
     # Convert to tensor 
-    _ = img._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
-    cspace = img.cspace 
+    _ = tens._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
+    cspace = tens.cspace 
 
     if cspace == 'gray':
-        return img 
+        return tens 
     
     elif cspace == 'bgr':
-        im = bgr2gray(img)
+        im = bgr2gray(tens)
         return to_tensor(im, cspace='gray')
         
     elif cspace == 'rgb':
-        im = rgb2gray(img)
+        im = rgb2gray(tens)
         return to_tensor(im, cspace='gray')
         
     elif cspace == 'hls':
-        im = hls2gray(img)
+        im = hls2gray(tens)
         return to_tensor(im, cspace='gray')
         
     elif cspace == 'hsv':
-        im = hsv2gray(img)
+        im = hsv2gray(tens)
         return to_tensor(im, cspace='gray')
         
     elif cspace == 'lab':
-        im = lab2gray(img)
+        im = lab2gray(tens)
         return to_tensor(im, cspace='gray')
         
 
-def to_hsv(img) -> Tensor:
+def to_hsv(tens) -> Tensor:
     r"""
         Converts any supported colorspace to hsv
     
     Args:
-        img (Tensor)
+        tens (Tensor)
     
     Returns:
         Tensor
     """
-    if not isinstance(img, Tensor):
-        raise TypeError('`img` must be a caer.Tensor')
+    if not isinstance(tens, Tensor):
+        raise TypeError('`tens` must be a caer.Tensor')
 
     # Convert to tensor 
-    _ = img._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
-    cspace = img.cspace 
+    _ = tens._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
+    cspace = tens.cspace 
 
     if cspace == 'hsv':
-        return img 
+        return tens 
     
     elif cspace == 'bgr':
-        im = bgr2hsv(img)
+        im = bgr2hsv(tens)
         return to_tensor(im, cspace='hsv')
         
     elif cspace == 'rgb':
-        im = rgb2hsv(img)
+        im = rgb2hsv(tens)
         return to_tensor(im, cspace='hsv')
         
     elif cspace == 'hls':
-        im = hls2hsv(img)
+        im = hls2hsv(tens)
         return to_tensor(im, cspace='hsv')
         
     elif cspace == 'gray':
-        im = gray2hsv(img)
+        im = gray2hsv(tens)
         return to_tensor(im, cspace='hsv')
         
     elif cspace == 'lab':
-        im = lab2hsv(img)
+        im = lab2hsv(tens)
         return to_tensor(im, cspace='hsv')
         
 
-def to_hls(img) -> Tensor:
+def to_hls(tens) -> Tensor:
     r"""
         Converts any supported colorspace to HLS
     
     Args:
-        img (Tensor)
+        tens (Tensor)
     
     Returns:
         Tensor
     """
-    if not isinstance(img, Tensor):
-        raise TypeError('`img` must be a caer.Tensor')
+    if not isinstance(tens, Tensor):
+        raise TypeError('`tens` must be a caer.Tensor')
 
     # Convert to tensor 
-    _ = img._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
-    cspace = img.cspace 
+    _ = tens._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
+    cspace = tens.cspace 
 
     if cspace == 'hls':
-        return img 
+        return tens 
     
     elif cspace == 'bgr':
-        im = bgr2hls(img)
+        im = bgr2hls(tens)
         return to_tensor(im, cspace='hls')
         
     elif cspace == 'rgb':
-        im = rgb2hls(img)
+        im = rgb2hls(tens)
         return to_tensor(im, cspace='hls')
         
     elif cspace == 'hsv':
-        im = hsv2hls(img)
+        im = hsv2hls(tens)
         return to_tensor(im, cspace='hls')
         
     elif cspace == 'gray':
-        im = gray2hls(img)
+        im = gray2hls(tens)
         return to_tensor(im, cspace='hls')
         
     elif cspace == 'lab':
-        im = lab2hls(img)
+        im = lab2hls(tens)
         return to_tensor(im, cspace='hls')
         
 
-def to_lab(img) -> Tensor:
+def to_lab(tens) -> Tensor:
     r"""
         Converts any supported colorspace to LAB
     
     Args:
-        img (Tensor)
+        tens (Tensor)
     
     Returns:
         Tensor
     """
-    if not isinstance(img, Tensor):
-        raise TypeError('`img` must be a caer.Tensor')
+    if not isinstance(tens, Tensor):
+        raise TypeError('`tens` must be a caer.Tensor')
 
     # Convert to tensor 
-    _ = img._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
-    cspace = img.cspace 
+    _ = tens._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
+    cspace = tens.cspace 
 
     if cspace == 'lab':
-        return img 
+        return tens 
     
     elif cspace == 'bgr':
-        im = bgr2lab(img)
+        im = bgr2lab(tens)
         return to_tensor(im, cspace='lab')
     elif cspace == 'rgb':
-        im = rgb2lab(img)
+        im = rgb2lab(tens)
         return to_tensor(im, cspace='lab')
     elif cspace == 'hsv':
-        im = hsv2lab(img)
+        im = hsv2lab(tens)
         return to_tensor(im, cspace='lab')
     elif cspace == 'gray':
-        im = gray2lab(img)
+        im = gray2lab(tens)
         return to_tensor(im, cspace='lab')
     elif cspace == 'hls':
-        im = hls2lab(img)
+        im = hls2lab(tens)
         return to_tensor(im, cspace='lab')

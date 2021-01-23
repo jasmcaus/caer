@@ -15,13 +15,13 @@ from warnings import warn
 
 
 __all__ = [
-    'img_as_float32', 
-    'img_as_float64', 
-    'img_as_float',
-    'img_as_int', 
-    'img_as_uint', 
-    'img_as_ubyte',
-    'img_as_bool', 
+    'tens_as_float32', 
+    'tens_as_float64', 
+    'tens_as_float',
+    'tens_as_int', 
+    'tens_as_uint', 
+    'tens_as_ubyte',
+    'tens_as_bool', 
     'dtype_limits',
     'convert_to_float'
 ]
@@ -378,7 +378,7 @@ def _convert(image, dtype, force_copy=False, uniform=False):
     return image.astype(dtype_out)
 
 
-def img_as_float32(image, force_copy=False):
+def tens_as_float32(image, force_copy=False):
     """Convert an image to single-precision (32-bit) floating point format.
 
     Parameters
@@ -404,7 +404,7 @@ def img_as_float32(image, force_copy=False):
     return _convert(image, np.float32, force_copy)
 
 
-def img_as_float64(image, force_copy=False):
+def tens_as_float64(image, force_copy=False):
     """Convert an image to double-precision (64-bit) floating point format.
 
     Parameters
@@ -430,10 +430,10 @@ def img_as_float64(image, force_copy=False):
     return _convert(image, np.float64, force_copy)
 
 
-def img_as_float(image, force_copy=False):
+def tens_as_float(image, force_copy=False):
     """Convert an image to floating point format.
 
-    This function is similar to `img_as_float64`, but will not convert
+    This function is similar to `tens_as_float64`, but will not convert
     lower-precision floating point arrays to `float64`.
 
     Parameters
@@ -459,7 +459,7 @@ def img_as_float(image, force_copy=False):
     return _convert(image, np.floating, force_copy)
 
 
-def img_as_uint(image, force_copy=False):
+def tens_as_uint(image, force_copy=False):
     """Convert an image to 16-bit unsigned integer format.
 
     Parameters
@@ -483,7 +483,7 @@ def img_as_uint(image, force_copy=False):
     return _convert(image, np.uint16, force_copy)
 
 
-def img_as_int(image, force_copy=False):
+def tens_as_int(image, force_copy=False):
     """Convert an image to 16-bit signed integer format.
 
     Parameters
@@ -508,7 +508,7 @@ def img_as_int(image, force_copy=False):
     return _convert(image, np.int16, force_copy)
 
 
-def img_as_ubyte(image, force_copy=False):
+def tens_as_ubyte(image, force_copy=False):
     """Convert an image to 8-bit unsigned integer format.
 
     Parameters
@@ -532,7 +532,7 @@ def img_as_ubyte(image, force_copy=False):
     return _convert(image, np.uint8, force_copy)
 
 
-def img_as_bool(image, force_copy=False):
+def tens_as_bool(image, force_copy=False):
     """Convert an image to boolean format.
 
     Parameters
@@ -565,7 +565,7 @@ def convert_to_float(image, preserve_range):
         Input image.
     preserve_range : bool
         Determines if the range of the image should be kept or transformed
-        using img_as_float.
+        using tens_as_float.
     Notes:
     ------
     * Input images with `float32` data type are not upcast.
@@ -580,6 +580,6 @@ def convert_to_float(image, preserve_range):
         if image.dtype.char not in 'df':
             image = image.astype(float)
     else:
-        image = img_as_float(image)
+        image = tens_as_float(image)
 
     return image

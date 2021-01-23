@@ -15,20 +15,20 @@ import caer
 
 
 def test_flips():
-    img = caer.data.sunrise()
+    tens = caer.data.sunrise()
 
-    vflip = caer.transforms.vflip(img)
-    hflip = caer.transforms.hflip(img)
-    hvflip = caer.transforms.hvflip(img)
+    vflip = caer.transforms.vflip(tens)
+    hflip = caer.transforms.hflip(tens)
+    hvflip = caer.transforms.hvflip(tens)
 
-    cv_vflip = cv.flip(img, 0)
-    cv_hflip = cv.flip(img, 1)
-    cv_hvflip = cv.flip(img, -1)
+    cv_vflip = cv.flip(tens, 0)
+    cv_hflip = cv.flip(tens, 1)
+    cv_hvflip = cv.flip(tens, -1)
 
     # Assert same shapes
-    assert vflip.shape == img.shape
-    assert hflip.shape == img.shape
-    assert hvflip.shape == img.shape
+    assert vflip.shape == tens.shape
+    assert hflip.shape == tens.shape
+    assert hvflip.shape == tens.shape
 
     # Assert everything else
     assert np.all(vflip == cv_vflip)

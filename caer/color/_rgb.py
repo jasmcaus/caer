@@ -23,112 +23,112 @@ __all__ = [
     'rgb2hls'
 ]
 
-def _is_rgb_image(img):
-    # img = to_tensor(img)
-    # return img.is_rgb()
-    return len(img.shape) == 3 and img.shape[-1] == 3
+def _is_rgb_image(tens):
+    # tens = to_tensor(tens)
+    # return tens.is_rgb()
+    return len(tens.shape) == 3 and tens.shape[-1] == 3
 
 
-def rgb2bgr(img) -> Tensor:
+def rgb2bgr(tens) -> Tensor:
     r"""
         Converts an RGB Tensor to its BGR version.
 
     Args:
-        img (Tensor): Valid RGB Tensor
+        tens (Tensor): Valid RGB Tensor
     
     Returns:
         BGR Tensor of shape ``(height, width, channels)``
     
     Raises:
-        ValueError: If `img` is not of shape 3
+        ValueError: If `tens` is not of shape 3
         
     """
-    if not _is_rgb_image(img):
-        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts an RGB Tensor to its BGR counterpart')
+    if not _is_rgb_image(tens):
+        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts an RGB Tensor to its BGR counterpart')
 
-    im = cv.cvtColor(img, RGB2BGR)
+    im = cv.cvtColor(tens, RGB2BGR)
     return to_tensor(im, cspace='bgr')
 
 
-def rgb2gray(img) -> Tensor:
+def rgb2gray(tens) -> Tensor:
     r"""
         Converts an RGB Tensor to its Grayscale version.
 
     Args:
-        img (Tensor): Valid RGB Tensor
+        tens (Tensor): Valid RGB Tensor
     
     Returns:
         Grayscale Tensor of shape ``(height, width, channels)``
     
     Raises:
-        ValueError: If `img` is not of shape 3
+        ValueError: If `tens` is not of shape 3
         
     """
-    if not _is_rgb_image(img):
-        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts an RGB Tensor to its Grayscale counterpart')
+    if not _is_rgb_image(tens):
+        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts an RGB Tensor to its Grayscale counterpart')
     
-    im = cv.cvtColor(img, RGB2GRAY)
+    im = cv.cvtColor(tens, RGB2GRAY)
     return to_tensor(im, cspace='gray')
 
 
-def rgb2hsv(img) -> Tensor:
+def rgb2hsv(tens) -> Tensor:
     r"""
         Converts an RGB Tensor to its HSV version.
 
     Args:
-        img (Tensor): Valid RGB Tensor
+        tens (Tensor): Valid RGB Tensor
     
     Returns:
         HSV Tensor of shape ``(height, width, channels)``
     
     Raises:
-        ValueError: If `img` is not of shape 3
+        ValueError: If `tens` is not of shape 3
         
     """
-    if not _is_rgb_image(img):
-        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts an RGB Tensor to its HSV counterpart')
+    if not _is_rgb_image(tens):
+        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts an RGB Tensor to its HSV counterpart')
     
-    im = cv.cvtColor(img, RGB2HSV)
+    im = cv.cvtColor(tens, RGB2HSV)
     return to_tensor(im, cspace='hsv')
 
 
-def rgb2hls(img) -> Tensor:
+def rgb2hls(tens) -> Tensor:
     r"""
         Converts an RGB Tensor to its HLS version.
 
     Args:
-        img (Tensor): Valid RGB Tensor
+        tens (Tensor): Valid RGB Tensor
     
     Returns:
         HLS Tensor of shape ``(height, width, channels)``
     
     Raises:
-        ValueError: If `img` is not of shape 3
+        ValueError: If `tens` is not of shape 3
         
     """
-    if not _is_rgb_image(img):
-        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts an RGB Tensor to its HLS counterpart')
+    if not _is_rgb_image(tens):
+        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts an RGB Tensor to its HLS counterpart')
     
-    im = cv.cvtColor(img, RGB2HLS)
+    im = cv.cvtColor(tens, RGB2HLS)
     return to_tensor(im, cspace='hls')
 
 
-def rgb2lab(img) -> Tensor:
+def rgb2lab(tens) -> Tensor:
     r"""
         Converts an RGB Tensor to its LAB version.
 
     Args:
-        img (Tensor): Valid RGB Tensor
+        tens (Tensor): Valid RGB Tensor
     
     Returns:
         LAB Tensor of shape ``(height, width, channels)``
     
     Raises:
-        ValueError: If `img` is not of shape 3
+        ValueError: If `tens` is not of shape 3
         
     """
-    if not _is_rgb_image(img):
-        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(img.shape)}. This function converts an RGB Tensor to its LAB counterpart')
+    if not _is_rgb_image(tens):
+        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts an RGB Tensor to its LAB counterpart')
 
-    im = cv.cvtColor(img, RGB2LAB)
+    im = cv.cvtColor(tens, RGB2LAB)
     return to_tensor(im, cspace='lab')

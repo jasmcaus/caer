@@ -141,34 +141,34 @@ def preprocess_from_dir(DIR,
             class_path = minijoin(DIR, item)
             class_label = classes.index(item)
             count = 0 
-            img_list = list_images(class_path, use_fullpath=True, verbose=0)
+            tens_list = list_images(class_path, use_fullpath=True, verbose=0)
 
-            for image_path in img_list:
+            for image_path in tens_list:
                 if count != per_class_size:
                     # image_path = minijoin(class_path, image)
 
                     # Returns the resized image (ignoring aspect ratio since it isn't relevant for Deep Computer Vision models)
-                    img = imread(image_path, target_size=IMG_SIZE, rgb=True)
+                    tens = imread(image_path, target_size=IMG_SIZE, rgb=True)
 
-                    if img is None:
+                    if tens is None:
                         continue
                     
                     # Gray
                     if channels == 1:
-                        img = to_gray(img)
+                        tens = to_gray(tens)
 
                     # Normalizing
                     if normalize_train:
-                        img = normalize(img)
+                        tens = normalize(tens)
                     
                     # Subtracting Mean
                     # Mean must be calculated ONLY on the training set
                     if mean_subtraction is not None and subtract_mean:
                         mean_subtract = MeanProcess(mean_subtraction, channels)
-                        img = mean_subtract.mean_preprocess(img, channels)
+                        tens = mean_subtract.mean_preprocess(tens, channels)
                         
                     # Appending to train set
-                    data.append([img, class_label])
+                    data.append([tens, class_label])
                     count +=1 
 
                     if display_count is True:

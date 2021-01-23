@@ -47,12 +47,12 @@ __all__ = [
     'sim_shadow'
 ]
 
-def sim_snow(img, snow_coeff=-1, rgb=True) -> Tensor:
+def sim_snow(tens, snow_coeff=-1, rgb=True) -> Tensor:
     r"""
         Simulate snowy conditions on an image.
 
     Args:
-        img (Tensor) : Any regular BGR/RGB image.
+        tens (Tensor) : Any regular BGR/RGB image.
         snow_coeff (int): Coefficient value.
         rgb (bool): Operate on RGB images. Default: True.
     
@@ -61,8 +61,8 @@ def sim_snow(img, snow_coeff=-1, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.filters.sim_snow(img, snow_coeff=-1, rgb=True)
+        >> tens = caer.data.sunrise(rgb=True)
+        >> filtered = caer.filters.sim_snow(tens, snow_coeff=-1, rgb=True)
         >> filtered
         (427, 640, 3)
 
@@ -76,16 +76,16 @@ def sim_snow(img, snow_coeff=-1, rgb=True) -> Tensor:
     snow_coeff*=255/2
     snow_coeff+=255/3
 
-    return _snow_process(img, snow_coeff, rgb=rgb)
+    return _snow_process(tens, snow_coeff, rgb=rgb)
 
 
 # Rain_type = 'drizzle', 'heavy', 'torrential'
-def sim_rain(img, slant=-1, drop_length=20, drop_width=1, drop_color=(200,200,200), rain_type='None', rgb=True) -> Tensor: ## (200,200,200) is a shade of gray
+def sim_rain(tens, slant=-1, drop_length=20, drop_width=1, drop_color=(200,200,200), rain_type='None', rgb=True) -> Tensor: ## (200,200,200) is a shade of gray
     r"""
         Simulate rainy conditions on an image.
 
     Args:
-        img (Tensor) : Any regular BGR/RGB image.
+        tens (Tensor) : Any regular BGR/RGB image.
         slant (int): Slant value.
         drop_length (int): Length of the raindrop.
         drop_width (int): Width of the raindrop.
@@ -98,8 +98,8 @@ def sim_rain(img, slant=-1, drop_length=20, drop_width=1, drop_color=(200,200,20
 
     Examples::
 
-        >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.filters.sim_rain(img, rgb=True)
+        >> tens = caer.data.sunrise(rgb=True)
+        >> filtered = caer.filters.sim_rain(tens, rgb=True)
         >> filtered
         (427, 640, 3)
 
@@ -115,20 +115,20 @@ def sim_rain(img, slant=-1, drop_length=20, drop_width=1, drop_color=(200,200,20
     if not(is_numeric(drop_length) and drop_length>=0 and drop_length<=100):
         raise ValueError('Length must be between 0 and 100')
 
-    imshape = img.shape
+    imshape = tens.shape
     if slant_extreme == -1:
         slant= np.random.randint(-10,10) # generate random slant if no slant value is given
 
     rain_drops, drop_length= _generate_random_lines(imshape, slant, drop_length, rain_type)
-    return _rain_process(img, slant_extreme, drop_length, drop_color, drop_width, rain_drops)
+    return _rain_process(tens, slant_extreme, drop_length, drop_color, drop_width, rain_drops)
 
 
-def sim_fog(img, fog_coeff=-1, rgb=True) -> Tensor:
+def sim_fog(tens, fog_coeff=-1, rgb=True) -> Tensor:
     r"""
         Simulate foggy conditions on an image.
 
     Args:
-        img (Tensor) : Any regular BGR/RGB image.
+        tens (Tensor) : Any regular BGR/RGB image.
         fog_coeff (int): Coefficient value.
         rgb (bool): Operate on RGB images. Default: True.
     
@@ -137,8 +137,8 @@ def sim_fog(img, fog_coeff=-1, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.filters.sim_fog(img, fog_coeff=-1, rgb=True)
+        >> tens = caer.data.sunrise(rgb=True)
+        >> filtered = caer.filters.sim_fog(tens, fog_coeff=-1, rgb=True)
         >> filtered
         (427, 640, 3)
 
@@ -147,7 +147,7 @@ def sim_fog(img, fog_coeff=-1, rgb=True) -> Tensor:
         if fog_coeff < 0.0 or fog_coeff > 1.0:
             raise ValueError('Fog coefficient must be between 0 and 1')
 
-    imshape = img.shape
+    imshape = tens.shape
 
     if fog_coeff == -1:
         fog_coeff_t = random.uniform(0.3,1)
@@ -157,19 +157,19 @@ def sim_fog(img, fog_coeff=-1, rgb=True) -> Tensor:
     hw = int(imshape[1]//3*fog_coeff_t)
     haze_list = _generate_random_blur_coordinates(imshape,hw)
     for haze_points in haze_list: 
-        img = _add_blur(img, haze_points[0], haze_points[1], hw, fog_coeff_t) 
+        tens = _add_blur(tens, haze_points[0], haze_points[1], hw, fog_coeff_t) 
 
-    img = cv.blur(img, (hw//10, hw//10))
+    tens = cv.blur(tens, (hw//10, hw//10))
     
-    return _rgb(img, rgb=rgb)
+    return _rgb(tens, rgb=rgb)
 
 
-def sim_gravel(img, rectangular_roi=(-1,-1,-1,-1), num_patches=8, rgb=True) -> Tensor:
+def sim_gravel(tens, rectangular_roi=(-1,-1,-1,-1), num_patches=8, rgb=True) -> Tensor:
     r"""
         Simulate gravelly conditions on an image.
 
     Args:
-        img (Tensor) : Any regular BGR/RGB image.
+        tens (Tensor) : Any regular BGR/RGB image.
         rectangular_roi (tuple): Rectanglar co-ordinates of the intended region of interest. Default: (-1,-1,-1,-1).
         num_patches (int): Number of patches to operate on.
         rgb (bool): Operate on RGB images. Default: True.
@@ -179,8 +179,8 @@ def sim_gravel(img, rectangular_roi=(-1,-1,-1,-1), num_patches=8, rgb=True) -> T
 
     Examples::
 
-        >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.filters.sim_gravel(img, rgb=True)
+        >> tens = caer.data.sunrise(rgb=True)
+        >> filtered = caer.filters.sim_gravel(tens, rgb=True)
         >> filtered
         (427, 640, 3)
 
@@ -194,29 +194,29 @@ def sim_gravel(img, rectangular_roi=(-1,-1,-1,-1), num_patches=8, rgb=True) -> T
         raise ValueError('Rectangular ROI dimensions are invalid.')
 
     if rectangular_roi == (-1,-1,-1,-1):
-        if is_tensor(img):
+        if is_tensor(tens):
             x1 = 0
-            y1 = int(img.shape[0]*3/4)
-            x2 = img.shape[1]
-            y2 = img.shape[0]
+            y1 = int(tens.shape[0]*3/4)
+            x2 = tens.shape[1]
+            y2 = tens.shape[0]
         else:
             x1 = 0
-            y1 = int(img[0].shape[0]*3/4)
-            x2 = img[0].shape[1]
-            y2 = img[0].shape[0]
+            y1 = int(tens[0].shape[0]*3/4)
+            x2 = tens[0].shape[1]
+            y2 = tens[0].shape[0]
 
     elif x1 == -1 or y1 == -1 or x2 == -1 or y2 == -1 or x2 <= x1 or y2 <= y1:
         raise ValueError('Rectangular ROI dimensions are invalid.')
 
-    return _gravel_process(img, x1, x2, y1, y2, num_patches, rgb=rgb)
+    return _gravel_process(tens, x1, x2, y1, y2, num_patches, rgb=rgb)
 
 
-def sim_sun_flare(img, flare_center=-1, angle=-1, num_flare_circles=8, src_radius=400, src_color=(255,255,255)) -> Tensor:
+def sim_sun_flare(tens, flare_center=-1, angle=-1, num_flare_circles=8, src_radius=400, src_color=(255,255,255)) -> Tensor:
     r"""
         Add a source of light (flare) on an specific region of an image.
 
     Args:
-        img (Tensor) : Any regular BGR/RGB image.
+        tens (Tensor) : Any regular BGR/RGB image.
         flare_center (int): Center of the flare. Default: -1.
         angle (int): Angle of the flare. Default: -1
         num_flare_circles (int): Number of flare circles to operate on.
@@ -228,8 +228,8 @@ def sim_sun_flare(img, flare_center=-1, angle=-1, num_flare_circles=8, src_radiu
 
     Examples::
 
-        >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.filters.sim_sun_flare(img)
+        >> tens = caer.data.sunrise(rgb=True)
+        >> filtered = caer.filters.sim_sun_flare(tens)
         >> filtered
         (427, 640, 3)
 
@@ -240,7 +240,7 @@ def sim_sun_flare(img, flare_center=-1, angle=-1, num_flare_circles=8, src_radiu
     if not(num_flare_circles >= 0 and num_flare_circles <= 20):
         raise ValueError('Numeric value must be between 0 and 20')
 
-    imshape = img.shape
+    imshape = tens.shape
     if angle == -1:
         angle_t = random.uniform(0, 2*math.pi)
         if angle_t == math.pi/2:
@@ -255,15 +255,15 @@ def sim_sun_flare(img, flare_center=-1, angle=-1, num_flare_circles=8, src_radiu
 
     x, y = _add_sun_flare_line(flare_center_t, angle_t, imshape)
 
-    return _add_sun_process(img, num_flare_circles, flare_center_t, src_radius, x, y, src_color)
+    return _add_sun_process(tens, num_flare_circles, flare_center_t, src_radius, x, y, src_color)
 
 
-def sim_motion_blur(img, speed_coeff=-1) -> Tensor:
+def sim_motion_blur(tens, speed_coeff=-1) -> Tensor:
     r"""
         Simulate motion-blur conditions on an image.
 
     Args:
-        img (Tensor) : Any regular BGR/RGB image.
+        tens (Tensor) : Any regular BGR/RGB image.
         speed_coeff (int, float): Speed coefficient. Value must be between 0 and 1.
     
     Returns:
@@ -271,8 +271,8 @@ def sim_motion_blur(img, speed_coeff=-1) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.filters.sim_motion_blur(img, speed_coeff=-1)
+        >> tens = caer.data.sunrise(rgb=True)
+        >> filtered = caer.filters.sim_motion_blur(tens, speed_coeff=-1)
         >> filtered
         (427, 640, 3)
 
@@ -286,15 +286,15 @@ def sim_motion_blur(img, speed_coeff=-1) -> Tensor:
     else:
         count_t = int(15 * speed_coeff)
 
-    return _apply_motion_blur(img, count_t)
+    return _apply_motion_blur(tens, count_t)
 
 
-def sim_autumn(img, rgb=True) -> Tensor:
+def sim_autumn(tens, rgb=True) -> Tensor:
     r"""
         Simulate autumn conditions on an image.
 
     Args:
-        img (Tensor) : Any regular BGR/RGB image.
+        tens (Tensor) : Any regular BGR/RGB image.
         rgb (bool): Operate on RGB images. Default: True.
     
     Returns:
@@ -302,22 +302,22 @@ def sim_autumn(img, rgb=True) -> Tensor:
 
     Examples::
 
-        >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.filters.sim_autumn(img, rgb=True)
+        >> tens = caer.data.sunrise(rgb=True)
+        >> filtered = caer.filters.sim_autumn(tens, rgb=True)
         >> filtered
         (427, 640, 3)
 
     """
-    return _autumn_process(img, rgb=rgb)
+    return _autumn_process(tens, rgb=rgb)
 
 
 ## ROI:(top-left x1,y1, bottom-right x2,y2), shadow_dimension=no. of sides of polygon generated
-def sim_shadow(img, num_shadows=1, rectangular_roi=(-1,-1,-1,-1), shadow_dimension=5, rgb=True) -> Tensor: 
+def sim_shadow(tens, num_shadows=1, rectangular_roi=(-1,-1,-1,-1), shadow_dimension=5, rgb=True) -> Tensor: 
     r"""
         Simulate shadowy conditions on an image.
 
     Args:
-        img (Tensor) : Any regular BGR/RGB image.
+        tens (Tensor) : Any regular BGR/RGB image.
         num_shadows (int): Number of shadows to work with. Value must be between 1 and 10.
         rectangular_roi (tuple): Rectanglar co-ordinates of the intended region of interest. Default: (-1,-1,-1,-1).
         shadow_dimensions (int): Number of shadow dimensions. Value must be > 3. 
@@ -328,8 +328,8 @@ def sim_shadow(img, num_shadows=1, rectangular_roi=(-1,-1,-1,-1), shadow_dimensi
 
     Examples::
 
-        >> img = caer.data.sunrise(rgb=True)
-        >> filtered = caer.filters.sim_shadow(img, rgb=True)
+        >> tens = caer.data.sunrise(rgb=True)
+        >> filtered = caer.filters.sim_shadow(tens, rgb=True)
         >> filtered
         (427, 640, 3)
 
@@ -351,16 +351,16 @@ def sim_shadow(img, num_shadows=1, rectangular_roi=(-1,-1,-1,-1), shadow_dimensi
     if rectangular_roi==(-1,-1,-1,-1):
         x1 = 0
         
-        if(is_tensor(img)):
-            y1 = img.shape[0] // 2
-            x2 = img.shape[1]
-            y2 = img.shape[0]
+        if(is_tensor(tens)):
+            y1 = tens.shape[0] // 2
+            x2 = tens.shape[1]
+            y2 = tens.shape[0]
         else:
-            y1 = img[0].shape[0] // 2
-            x2 = img[0].shape[1]
-            y2 = img[0].shape[0]
+            y1 = tens[0].shape[0] // 2
+            x2 = tens[0].shape[1]
+            y2 = tens[0].shape[0]
 
     elif x1 == -1 or y1 == -1 or x2 == -1 or y2 == -1 or x2 <= x1 or y2 <= y1:
         raise ValueError('Rectangular ROI dimensions are not valid')
 
-    return _shadow_process(img,num_shadows, x1, y1, x2, y2, shadow_dimension, rgb=rgb)
+    return _shadow_process(tens,num_shadows, x1, y1, x2, y2, shadow_dimension, rgb=rgb)

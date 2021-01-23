@@ -24,7 +24,7 @@ __all__ = [
 ]
 
 
-def resize(img, target_size=None, resize_factor=None, preserve_aspect_ratio=False, interpolation='bilinear'):
+def resize(tens, target_size=None, resize_factor=None, preserve_aspect_ratio=False, interpolation='bilinear'):
     r"""
         Resizes an image to a target_size without aspect ratio distortion.
         
@@ -37,7 +37,7 @@ def resize(img, target_size=None, resize_factor=None, preserve_aspect_ratio=Fals
         Alternatively, you may use:
         ```python
         size = (200,200)
-        img = caer.resize(img, target_size=size, preserve_aspect_ratio=True)
+        tens = caer.resize(tens, target_size=size, preserve_aspect_ratio=True)
         ``` 
 
         Note:
@@ -47,7 +47,7 @@ def resize(img, target_size=None, resize_factor=None, preserve_aspect_ratio=Fals
 
     
         Args:
-            img (Tensor): Input Image. Must be in the format ``(height, width, channels)``.
+            tens (Tensor): Input Image. Must be in the format ``(height, width, channels)``.
             target_size (tuple): Target size. Must be a tuple of ``(width, height)`` integer.
             resize_factor (float, tuple): Resizing Factor to employ. 
                 Shrinks the image if ``resize_factor < 1``
@@ -63,31 +63,31 @@ def resize(img, target_size=None, resize_factor=None, preserve_aspect_ratio=Fals
 
         Examples::
 
-            >> img = caer.data.sunrise()
-            >> img.shape
+            >> tens = caer.data.sunrise()
+            >> tens.shape
             (427, 640, 3)
 
-            >> resized = caer.resize(img, target_size=(200,200)) # Hard-resize. May distort aspect ratio
+            >> resized = caer.resize(tens, target_size=(200,200)) # Hard-resize. May distort aspect ratio
             >> resized.shape
             (200, 200, 3)
 
-            >> resized_wf = caer.resize(img, resize_factor=.5) # Resizes the image to half its dimensions
+            >> resized_wf = caer.resize(tens, resize_factor=.5) # Resizes the image to half its dimensions
             >> resized_wf.shape
             (213, 320, 3)
 
-            >> resized = caer.resize(img, target_size=(200,200), preserve_aspect_ratio=True) # Preserves aspect ratio
+            >> resized = caer.resize(tens, target_size=(200,200), preserve_aspect_ratio=True) # Preserves aspect ratio
             >> resized.shape
             (200, 200, 3)
 
     """
     # Opencv uses the (h,w) format
-    height, width = img.shape[:2]
+    height, width = tens.shape[:2]
     interpolation = str(interpolation)
     cspace = None 
 
-    if isinstance(img, Tensor):
+    if isinstance(tens, Tensor):
         # We'll need to preserve this before returning
-        cspace = img.cspace 
+        cspace = tens.cspace 
 
 
     if resize_factor is None:
@@ -125,10 +125,10 @@ def resize(img, target_size=None, resize_factor=None, preserve_aspect_ratio=Fals
         raise ValueError('Specify a valid interpolation type - area/nearest/bicubic/bilinear')
 
     if preserve_aspect_ratio:
-        im = _resize_with_ratio(img, target_size=target_size, preserve_aspect_ratio=preserve_aspect_ratio, interpolation=interpolation_methods[interpolation])
+        im = _resize_with_ratio(tens, target_size=target_size, preserve_aspect_ratio=preserve_aspect_ratio, interpolation=interpolation_methods[interpolation])
     else:
         width, height = new_shape[:2]
-        im = _cv2_resize(img, (width, height), interpolation=interpolation_methods[interpolation])
+        im = _cv2_resize(tens, (width, height), interpolation=interpolation_methods[interpolation])
     
     # For this function, the <cspace> attribute is not required.
     # So, we disable the mandatory check that the <cspace> attribute needs to be passed for 
@@ -136,7 +136,7 @@ def resize(img, target_size=None, resize_factor=None, preserve_aspect_ratio=Fals
     return to_tensor(im, cspace=cspace, override_checks=True)
 
 
-def smart_resize(img, target_size, interpolation='bilinear'):
+def smart_resize(tens, target_size, interpolation='bilinear'):
     r"""
         Resizes an image to a target_size without aspect ratio distortion.
         
@@ -149,11 +149,11 @@ def smart_resize(img, target_size, interpolation='bilinear'):
         Alternatively, you may use:
         ```python
         size = (200,200)
-        img = caer.resize(img, target_size=size, preserve_aspect_ratio=True)
+        tens = caer.resize(tens, target_size=size, preserve_aspect_ratio=True)
         ``` 
     
         Args:
-            img (Tensor): Input Image. Must be in the format `(height, width, channels)`.
+            tens (Tensor): Input Image. Must be in the format `(height, width, channels)`.
             target_size (tuple): Target size. Must be a tuple of `(width, height)` integer.
             interpolation (str): Interpolation to use for resizing. Defaults to `'bilinear'`. 
                 Supports `'bilinear'`, `'bicubic'`, `'area'`, `'nearest'`.
@@ -163,18 +163,18 @@ def smart_resize(img, target_size, interpolation='bilinear'):
 
         Examples::
         
-            >> img = caer.data.sunrise()
-            >> img.shape
+            >> tens = caer.data.sunrise()
+            >> tens.shape
             (427, 640, 3)
-            >> resized = caer.smart_resize(img, target_size=(200,200))
+            >> resized = caer.smart_resize(tens, target_size=(200,200))
             >> resized.shape
             (200, 200, 3)
 
     """
-    # if not isinstance(img, Tensor):
-    #     raise ValueError('To use `caer.smart_resize()`, `img` needs to be a caer.Tensor')
+    # if not isinstance(tens, Tensor):
+    #     raise ValueError('To use `caer.smart_resize()`, `tens` needs to be a caer.Tensor')
 
-    im = _resize_with_ratio(img, target_size=target_size, preserve_aspect_ratio=True, interpolation=interpolation)
+    im = _resize_with_ratio(tens, target_size=target_size, preserve_aspect_ratio=True, interpolation=interpolation)
 
     # For this function, the <cspace> attribute is not required.
     # So, we disable the mandatory check that the <cspace> attribute needs to be passed for 
@@ -199,7 +199,7 @@ def _cv2_resize(image, target_size, interpolation=None):
     return cv.resize(image, dimensions, interpolation=interpolation)
 
 
-def _resize_with_ratio(img, target_size, preserve_aspect_ratio=False, interpolation='bilinear'):
+def _resize_with_ratio(tens, target_size, preserve_aspect_ratio=False, interpolation='bilinear'):
     """
         Resizes an image using advanced algorithms
         :param target_size: Tuple of size 2 in the format (width,height)
@@ -221,7 +221,7 @@ def _resize_with_ratio(img, target_size, preserve_aspect_ratio=False, interpolat
     if interpolation not in interpolation_methods:
         raise ValueError('Specify a valid interpolation type - area/nearest/bicubic/bilinear')
 
-    oh, ow = img.shape[:2]
+    oh, ow = tens.shape[:2]
     target_w, target_h = target_size
 
     if target_h > oh or target_w > ow:
@@ -233,15 +233,15 @@ def _resize_with_ratio(img, target_size, preserve_aspect_ratio=False, interpolat
     minimal_resize_factor = _compute_minimal_resize((ow, oh), (target_w, target_h))
 
     # Resizing minimally
-    img = _cv2_resize(img, (ow//minimal_resize_factor, oh//minimal_resize_factor))
+    tens = _cv2_resize(tens, (ow//minimal_resize_factor, oh//minimal_resize_factor))
 
     # Computing centre crop (to avoid extra crop, we resize minimally first)
-    img = _compute_centre_crop(img, (target_w, target_h))
+    tens = _compute_centre_crop(tens, (target_w, target_h))
 
-    if img.shape[:2] != target_size[:2]:
-        img = _cv2_resize(img, (target_w, target_h), interpolation=interpolation_methods[interpolation])
+    if tens.shape[:2] != target_size[:2]:
+        tens = _cv2_resize(tens, (target_w, target_h), interpolation=interpolation_methods[interpolation])
     
-    return img
+    return tens
     
 
 def _compute_minimal_resize(org_size, target_dim):
@@ -276,22 +276,22 @@ def _compute_minimal_resize(org_size, target_dim):
         return w_factor
 
 
-def _compute_centre_crop(img, target_size):
+def _compute_centre_crop(tens, target_size):
     _ = _check_target_size(target_size)
 
     # Getting org height and target
-    oh, ow = img.shape[:2]
+    oh, ow = tens.shape[:2]
     target_w, target_h = target_size
 
     # The following line is actually the right way of accessing height and width of an opencv-specific image (height, width). However for some reason, while the code runs, this is flipped (it now becomes (width,height)). Testing needs to be done to catch this little bug
-    # oh, ow = img.shape[:2]
+    # oh, ow = tens.shape[:2]
 
 
     if target_h > oh or target_w > ow:
-        raise ValueError('To compute centre crop, target size dimensions must be <= img dimensions')
+        raise ValueError('To compute centre crop, target size dimensions must be <= tens dimensions')
 
     diff_h = (oh - target_h) // 2
     diff_w = (ow - target_w ) // 2
     
-    # img[y:y+h, x:x+h]
-    return img[diff_h:diff_h + target_h, diff_w:diff_w + target_w]
+    # tens[y:y+h, x:x+h]
+    return tens[diff_h:diff_h + target_h, diff_w:diff_w + target_w]

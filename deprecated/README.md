@@ -1,14 +1,14 @@
 <div align="center">
 <!-- ![Caer Logo](https://github.com/jasmcaus/caer/blob/dev/docs/sphinx-theme/_static/thumbs/caer-logo-flat.png) -->
-<img src="https://github.com/jasmcaus/caer/blob/dev/docs/sphinx-theme/_static/thumbs/caer-logo-flat.png" alt="Caer Logo" / >
+<tens src="https://github.com/jasmcaus/caer/blob/dev/docs/sphinx-theme/_static/thumbs/caer-logo-flat.png" alt="Caer Logo" / >
 
 ---
 
-[![Python](https://img.shields.io/pypi/pyversions/caer.svg)][py-versions]
+[![Python](https://tens.shields.io/pypi/pyversions/caer.svg)][py-versions]
 [![PyPI](https://badge.fury.io/py/caer.svg)][pypi-latest-version]
 [![Downloads](https://pepy.tech/badge/caer)][downloads]
 [![Documentation Status](https://readthedocs.org/projects/caer/badge/?version=latest)](https://caer.readthedocs.io/en/latest/?badge=latest)
-[![license](https://img.shields.io/github/license/jasmcaus/caer?label=license)][license]
+[![license](https://tens.shields.io/github/license/jasmcaus/caer?label=license)][license]
 
 </div>
 
