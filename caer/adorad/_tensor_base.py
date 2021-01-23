@@ -54,6 +54,8 @@ class _TensorBase:
     def type(self):
         return self.dtype 
 
+    def clone(self):
+        return self.copy()
 
     # Colorspace stuff
     def is_rgb(self):

@@ -14,7 +14,7 @@ import cv2 as cv
 import random 
 import collections
 
-from ..adorad import Tensor, is_tensor, to_tensor
+from ..adorad import Tensor, to_tensor
 from .._internal import _check_target_size
 from ..globals import (
     INTER_AREA, INTER_CUBIC, INTER_NEAREST, INTER_LINEAR
@@ -51,15 +51,19 @@ __all__ = [
 ]
 
 def _is_rgb_image(tens):
-    tens = to_tensor(tens)
+    tens = to_tensor(tens, override_checks=True)
     return tens.is_rgb()
     # return len(tens.shape) == 3 and tens.shape[-1] == 3
 
 
 def _is_gray_image(tens):
-    tens = to_tensor(tens)
+    tens = to_tensor(tens, override_checks=True)
     return tens.is_gray()
     # return (len(tens.shape) == 2) or (len(tens.shape) == 3 and tens.shape[-1] == 1)
+
+
+def _get_num_channels(tens):
+    return tens.shape[2] if len(tens.shape) == 3 else 1
 
 
 def hflip(tens) -> Tensor:
@@ -72,10 +76,9 @@ def hflip(tens) -> Tensor:
         Flipped image.
 
     """
-    if not is_tensor(tens):
-        raise TypeError(f'tens should be a Numpy array. Got {type(tens)}')
 
-    return np.ascontiguousarray(tens[:, ::-1, ...])
+    tens = np.ascontiguousarray(tens[:, ::-1, ...])
+    return to_tensor(tens, override_checks=True)
 
 
 def vflip(tens) -> Tensor:
@@ -88,10 +91,8 @@ def vflip(tens) -> Tensor:
         Flipped image.
         
     """
-    if not is_tensor(tens):
-        raise TypeError(f'tens should be a Numpy array. Got {type(tens)}')
-
-    return np.ascontiguousarray(tens[::-1, ...])
+    tens = np.ascontiguousarray(tens[::-1, ...])
+    return to_tensor(tens, override_checks=True)
 
 
 def hvflip(tens) -> Tensor:
@@ -105,9 +106,6 @@ def hvflip(tens) -> Tensor:
         Flipped image.
         
     """
-    if not is_tensor(tens):
-        raise TypeError(f'tens should be a Numpy array. Got {type(tens)}')
-
     return hflip(vflip(tens))
 
 
@@ -122,9 +120,6 @@ def rand_flip(tens) -> Tensor:
         Flipped image.
         
     """
-    if not is_tensor(tens):
-        raise TypeError(f'tens should be a Numpy array. Got {type(tens)}')
-
     p = random.uniform(0, 1)
 
     if p > 0.5:
@@ -172,7 +167,8 @@ def rotate(tens, angle, rotPoint=None) -> Tensor:
 
     rotMat = cv.getRotationMatrix2D(rotPoint, angle, scale=1.0)
 
-    return cv.warpAffine(tens, rotMat, (width, height))
+    tens = cv.warpAffine(tens, rotMat, (width, height))
+    return to_tensor(tens, override_checks=True)
 
 
 def translate(image, x, y) -> Tensor:
@@ -207,7 +203,8 @@ def scale(tens, scale_factor, interpolation='bilinear') -> Tensor:
     height, width = tens.shape[:2]
     new_height, new_width = int(height * scale_factor), int(width * scale_factor)
 
-    return cv.resize(tens, (new_width,new_height), interpolation=interpolation)
+    tens = cv.resize(tens, (new_width,new_height), interpolation=interpolation)
+    return to_tensor(tens, override_checks=True)
 
 
 def pad(tens, padding, fill=0, padding_mode='constant') -> Tensor:
@@ -238,9 +235,6 @@ def pad(tens, padding, fill=0, padding_mode='constant') -> Tensor:
         Tensor of shape ``(height, width, channels)``.
 
     """
-    if not is_tensor(tens):
-        raise TypeError(f'tens should be a caer.Tensor. Got {type(tens)}')
-
     if not isinstance(padding, (tuple, list)):
         raise TypeError('Got inappropriate padding argument')
 
@@ -270,13 +264,15 @@ def pad(tens, padding, fill=0, padding_mode='constant') -> Tensor:
         pad_bottom = padding[3]
 
 
-        return cv.copyMakeBorder(tens,
+        tens = cv.copyMakeBorder(tens,
                                 top = pad_top,
                                 bottom = pad_bottom,
                                 left = pad_left,
                                 right = pad_right,
                                 borderType = pad_to_str[padding_mode],
                                 value = fill)
+
+        return to_tensor(tens, override_checks=True)
 
                                 
 def crop(tens, x_min, y_min, x_max, y_max) -> Tensor:
@@ -298,7 +294,7 @@ def crop(tens, x_min, y_min, x_max, y_max) -> Tensor:
             )
         )
 
-    return tens[y_min:y_max, x_min:x_max]
+    return to_tensor(tens[y_min:y_max, x_min:x_max], override_checks=True)
 
 
 def center_crop(image, target_size=None) -> Tensor:
@@ -332,8 +328,8 @@ def rand_crop(tens, crop_height, crop_width, h_start, w_start) -> Tensor:
             )
         )
     x1, y1, x2, y2 = _get_random_crop_coords(height, width, crop_height, crop_width, h_start, w_start)
-    tens = tens[y1:y2, x1:x2]
-    return tens
+
+    return to_tensor(tens[y1:y2, x1:x2], override_checks=True)
 
 
 def _compute_centre_crop(tens, target_size) -> Tensor:
@@ -354,7 +350,7 @@ def _compute_centre_crop(tens, target_size) -> Tensor:
     diff_w = (org_w - target_w ) // 2
     
     # tens[y:y+h, x:x+h]
-    return tens[diff_h:diff_h + target_h, diff_w:diff_w + target_w]
+    return to_tensor(tens[diff_h:diff_h + target_h, diff_w:diff_w + target_w], override_checks=True)
 
 
 def _get_random_crop_coords(height, width, crop_height, crop_width, h_start, w_start):
@@ -365,12 +361,9 @@ def _get_random_crop_coords(height, width, crop_height, crop_width, h_start, w_s
     return x1, y1, x2, y2
 
 
-def _get_num_channels(tens):
-    return tens.shape[2] if len(tens.shape) == 3 else 1
-
-
 def solarize(tens, threshold=128) -> Tensor:
-    r"""Invert all pixel values above a threshold.
+    r"""
+        Invert all pixel values above a threshold.
 
     Args:
         tens (Tensor): The image to solarize.
@@ -387,23 +380,24 @@ def solarize(tens, threshold=128) -> Tensor:
         (427,640,3)
 
     """
-    dtype = tens.dtype
-    max_val = MAX_VALUES_BY_DTYPE[dtype]
+    tens = to_tensor(tens, override_checks=True)
+    max_val = MAX_VALUES_BY_DTYPE[tens.dtype]
 
-    if dtype == np.dtype("uint8"):
+    if tens.dtype == np.dtype("uint8"):
         lut = [(i if i < threshold else max_val - i) for i in range(max_val + 1)]
 
         prev_shape = tens.shape
-        tens = cv.LUT(tens, np.array(lut, dtype=dtype))
+        tens = cv.LUT(tens, np.array(lut, dtype=tens.dtype))
 
         if len(prev_shape) != len(tens.shape):
             tens = np.expand_dims(tens, -1)
-        return tens
+
+        return to_tensor(tens, override_checks=True)
 
     result_tens = tens.copy()
     cond = tens >= threshold
     result_tens[cond] = max_val - result_tens[cond]
-    return result_tens
+    return to_tensor(result_tens, override_checks=True)
 
 
 def posterize(tens, bits) -> Tensor:
@@ -424,6 +418,7 @@ def posterize(tens, bits) -> Tensor:
         (427,640,3)
 
     """
+    tens = to_tensor(tens, override_checks=True)
     bits = np.uint8(bits)
 
     if tens.dtype != np.uint8:
@@ -442,7 +437,8 @@ def posterize(tens, bits) -> Tensor:
         mask = ~np.uint8(2 ** (8 - bits) - 1)
         lut &= mask
 
-        return cv.LUT(tens, lut)
+        return to_tensor(cv.LUT(tens, lut), override_checks=True)
+        
 
     if not _is_rgb_image(tens):
         raise TypeError("If `bits` is iterable, image must be RGB")
@@ -460,16 +456,18 @@ def posterize(tens, bits) -> Tensor:
 
             result_tens[..., i] = cv.LUT(tens[..., i], lut)
 
-    return result_tens
+    return to_tensor(result_tens, override_checks=True)
 
 
 def clip(tens, dtype, maxval) -> Tensor:
-    return np.clip(tens, 0, maxval).astype(dtype)
+    tens = np.clip(tens, 0, maxval).astype(dtype)
+    return to_tensor(tens, override_checks=True)
 
 
 def _equalize_cv(tens, mask=None) -> Tensor:
     if mask is None:
-        return cv.equalizeHist(tens)
+        tens = cv.equalizeHist(tens)
+        return to_tensor(tens, override_checks=True)
 
     histogram = cv.calcHist([tens], [0], mask, [256], (0, 256)).ravel()
     i = 0
@@ -481,7 +479,8 @@ def _equalize_cv(tens, mask=None) -> Tensor:
 
     total = np.sum(histogram)
     if histogram[i] == total:
-        return np.full_like(tens, i)
+        tens = np.full_like(tens, i)
+        return to_tensor(tens, override_checks=True)
 
     scale = 255.0 / (total - histogram[i])
     _sum = 0
@@ -492,15 +491,16 @@ def _equalize_cv(tens, mask=None) -> Tensor:
         _sum += histogram[i]
         lut[i] = clip(round(_sum * scale), np.dtype("uint8"), 255)
 
-    return cv.LUT(tens, lut)
+    tens = cv.LUT(tens, lut)
+    return to_tensor(tens, override_checks=True)
 
 
 def equalize(tens, mask=None, by_channels=True) -> Tensor:
     r"""Equalize the image histogram.
 
     Args:
-        tens (Tensor)*: RGB or grayscale image.
-        mask (Tensor)*: An optional mask.  If given, only the pixels selected by the mask are included in the analysis. Maybe 1 channel or 3 channel array.
+        tens (Tensor): RGB or grayscale image.
+        mask (Tensor): An optional mask.  If given, only the pixels selected by the mask are included in the analysis. Maybe 1 channel or 3 channel array.
         by_channels (bool): If True, use equalization by channels separately, else convert image to YCbCr representation and use equalization by `Y` channel.
 
     Returns:
@@ -523,20 +523,19 @@ def equalize(tens, mask=None, by_channels=True) -> Tensor:
             raise ValueError("Wrong mask shape. Image shape: {}. Mask shape: {}".format(tens.shape, mask.shape))
 
         if not by_channels and not _is_gray_image(mask):
-            raise ValueError(
-                "When `by_channels=False`, only 1-channel mask is supported. Mask shape: {}".format(mask.shape)
-            )
+            raise ValueError("When `by_channels=False`, only 1-channel mask is supported. Mask shape: {}".format(mask.shape))
 
     if mask is not None:
         mask = mask.astype(np.uint8)
 
-    if _is_gray_image(tens):
-        return _equalize_cv(tens, mask)
+    if _is_gray_image(tens): 
+        return to_tensor(_equalize_cv(tens, mask), override_checks=True)
 
     if not by_channels:
         result_tens = cv.cvtColor(tens, cv.COLOR_RGB2YCrCb)
         result_tens[..., 0] = _equalize_cv(result_tens[..., 0], mask)
-        return cv.cvtColor(result_tens, cv.COLOR_YCrCb2RGB)
+        tens = cv.cvtColor(result_tens, cv.COLOR_YCrCb2RGB) 
+        return to_tensor(tens, override_checks=True)
 
     result_tens = np.empty_like(tens)
     for i in range(3):
@@ -549,4 +548,4 @@ def equalize(tens, mask=None, by_channels=True) -> Tensor:
 
         result_tens[..., i] = _equalize_cv(tens[..., i], _mask)
 
-    return result_tens
+    return to_tensor(result_tens, override_checks=True)
