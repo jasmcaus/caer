@@ -43,12 +43,12 @@ Usually, Caer is used either as:
 
 
 # Installation 
-See the Caer **[Installation][install]** guide for detailed installation instructions including building from source.
+See the Caer **[Installation][install]** guide for detailed installation instructions (including building from source).
 
 Currently, `caer` supports releases of Python 3.6 onwards; Python 2 is not supported (nor recommended). 
 To install the current release:
 
-```bash
+```shell
 $ pip install --upgrade caer
 ```
 
