@@ -3,7 +3,7 @@ Contributing to Caer
 
 Thank you for choosing to contribute to Caer.  We'd love to accept your patches! For those just getting started, Github has a `how to <https://help.github.com/articles/using-pull-requests>`__. All bug fixes, new functionality, new tutorials etc. are (and should be) submitted via GitHub's mechanism of pull requests.
 
-Caer was made publically available in August 2020 by Jason Dsouza <jasmcaus@gmail.com> and we are proud to have over 150k installs since then! Caer is now maintained by awesome community members just like you. 
+Caer was made publically available in August 2020 by Jason Dsouza <jasmcaus@gmail.com> and we are proud to have over 1.2m installs since then! Caer is now maintained by awesome community members just like you. 
 
 We have written a comprehensive `Contribution Guide <https://github.com/jasmcaus/caer/blob/master/CONTRIBUTING.md>`__ that you can follow when contributing to the project. 
 
