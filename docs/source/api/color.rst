@@ -6,27 +6,57 @@ caer.color
 .. currentmodule:: caer.color
 
 
+**Using the `to_` syntax**
+----------------------------------
+
+:hidden:`to_rgb`
+~~~~~~~~~~~~~~~~~~~~~
+.. autofunction:: to_rgb
+
+
+:hidden:`to_bgr`
+~~~~~~~~~~~~~~~~~~~~~
+.. autofunction:: to_bgr
+
+:hidden:`to_gray`
+~~~~~~~~~~~~~~~~~~~~~
+.. autofunction:: to_gray
+
+:hidden:`to_hsv`
+~~~~~~~~~~~~~~~~~~~~~
+.. autofunction:: to_hsv
+
+:hidden:`to_hls`
+~~~~~~~~~~~~~~~~~~~~~
+.. autofunction:: to_hls
+
+:hidden:`to_lab`
+~~~~~~~~~~~~~~~~~~~~~
+.. autofunction:: to_lab
+
+
+
 **From the RGB colorspace**
 ----------------------------------
 
-:hidden:`rgb_to_bgr`
+:hidden:`rgb2bgr`
 ~~~~~~~~~~~~~~~~~~~~~
-.. autofunction:: rgb_to_bgr
+.. autofunction:: rgb2bgr
 
 
-:hidden:`rgb_to_gray`
+:hidden:`rgb2gray`
 ~~~~~~~~~~~~~~~~~~~~~~~
-.. autofunction:: rgb_to_gray
+.. autofunction:: rgb2gray
 
 
-:hidden:`rgb_to_hsv`
+:hidden:`rgb2hsv`
 ~~~~~~~~~~~~~~~~~~~~~~~
-.. autofunction:: rgb_to_hsv
+.. autofunction:: rgb2hsv
 
 
-:hidden:`rgb_to_lab`
+:hidden:`rgb2lab`
 ~~~~~~~~~~~~~~~~~~~~~~~
-.. autofunction:: rgb_to_bgr
+.. autofunction:: rgb2bgr
 
 
 -----------------------------------------
@@ -35,67 +65,67 @@ caer.color
 **From the BGR colorspace**
 ----------------------------------
 
-:hidden:`bgr_to_rgb`
+:hidden:`bgr2rgb`
 ~~~~~~~~~~~~~~~~~~~~~~~
-.. autofunction:: bgr_to_rgb
+.. autofunction:: bgr2rgb
 
 
-:hidden:`bgr_to_gray`
+:hidden:`bgr2gray`
 ~~~~~~~~~~~~~~~~~~~~~~~
-.. autofunction:: bgr_to_gray
+.. autofunction:: bgr2gray
 
 
-:hidden:`bgr_to_hsv`
+:hidden:`bgr2hsv`
 ~~~~~~~~~~~~~~~~~~~~~~~
-.. autofunction:: bgr_to_hsv
+.. autofunction:: bgr2hsv
 
 
-:hidden:`bgr_to_lab`
+:hidden:`bgr2lab`
 ~~~~~~~~~~~~~~~~~~~~~~~
-.. autofunction:: bgr_to_lab
+.. autofunction:: bgr2lab
 
 -----------------------------------------
 
 **From the HSV colorspace**
 ----------------------------------
-:hidden:`hsv_to_rgb`
+:hidden:`hsv2rgb`
 ~~~~~~~~~~~~~~~~~~~~~~~
 
-.. autofunction:: hsv_to_rgb
+.. autofunction:: hsv2rgb
 
-:hidden:`hsv_to_bgr`
+:hidden:`hsv2bgr`
 ~~~~~~~~~~~~~~~~~~~~~~~
-.. autofunction:: hsv_to_bgr
+.. autofunction:: hsv2bgr
 
-:hidden:`hsv_to_gray`
+:hidden:`hsv2gray`
 ~~~~~~~~~~~~~~~~~~~~~~~
-.. autofunction:: hsv_to_gray
+.. autofunction:: hsv2gray
 
 
-:hidden:`hsv_to_lab`
+:hidden:`hsv2lab`
 ~~~~~~~~~~~~~~~~~~~~~~~
-.. autofunction:: hsv_to_lab
+.. autofunction:: hsv2lab
 
 -----------------------------------------
 
 **From the LAB colorspace**
 ----------------------------------
 
-:hidden:`lab_to_rgb`
+:hidden:`lab2rgb`
 ~~~~~~~~~~~~~~~~~~~~~~~
-.. autofunction:: lab_to_rgb
+.. autofunction:: lab2rgb
 
 
-:hidden:`lab_to_bgr`
+:hidden:`lab2bgr`
 ~~~~~~~~~~~~~~~~~~~~~~~
-.. autofunction:: lab_to_bgr
+.. autofunction:: lab2bgr
 
 
-:hidden:`lab_to_gray`
+:hidden:`lab2gray`
 ~~~~~~~~~~~~~~~~~~~~~~~
-.. autofunction:: lab_to_gray
+.. autofunction:: lab2gray
 
 
-:hidden:`lab_to_hsv`
+:hidden:`lab2hsv`
 ~~~~~~~~~~~~~~~~~~~~~~~
-.. autofunction:: lab_to_hsv
+.. autofunction:: lab2hsv
