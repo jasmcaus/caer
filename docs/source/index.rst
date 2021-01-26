@@ -18,13 +18,15 @@ This design philosophy makes Caer ideal for students, researchers, hobbyists and
    :maxdepth: 1
    :caption: First Steps
 
+   introduction.md 
    install.md
+   type-checking.md
    community/CONTRIBUTING.md
 
 
 .. toctree::
    :maxdepth: 1
-   :caption: Caer API
+   :caption: API
 
    api/adorad
    api/color

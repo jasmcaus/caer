@@ -1,4 +1,4 @@
-## Installing caer
+## Installation & Setup
 
 Caer supports an installation of Python 3.6 above, available on Windows, MacOS and Linux systems. 
 
