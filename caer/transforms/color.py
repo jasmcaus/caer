@@ -182,7 +182,7 @@ def adjust_contrast(tens, contrast_factor) -> Tensor:
             non negative number. 0 gives a solid gray image, 1 gives the
             original image while 2 increases the contrast by a factor of 2.
     Returns:
-        numpy Tensor: Contrast adjusted image.
+        ``caer.Tensor``: Contrast adjusted image.
     """
     # It's much faster to use the LUT construction because you have to change dtypes multiple times
     tens = to_tensor(tens, enforce_tensor=True)
@@ -206,7 +206,7 @@ def adjust_saturation(tens, saturation_factor) -> Tensor:
     """Adjust color saturation of an image.
 
     Args:
-        tens (numpy Tensor): Any valid ``caer.Tensor``.
+        tens (Tensor): Any valid ``caer.Tensor``.
         saturation_factor (float):  How much to adjust the saturation. 0 will
             give a black and white image, 1 will give the original image while
             2 will enhance the saturation by a factor of 2.
