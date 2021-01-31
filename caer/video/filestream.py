@@ -7,7 +7,7 @@ The very same implementation can be found in stream.py. Until 5 Dec 2020, this w
 # #    _____           ______  _____ 
 # #  / ____/    /\    |  ____ |  __ \
 # # | |        /  \   | |__   | |__) | Caer - Modern Computer Vision
-# # | |       / /\ \  |  __|  |  _  /  Languages: Python, C, C++, Cuda, Cuda
+# # | |       / /\ \  |  __|  |  _  /  Languages: Python, C, C++, Cuda
 # # | |___   / ____ \ | |____ | | \ \  http://github.com/jasmcaus/caer
 # #  \_____\/_/    \_ \______ |_|  \_\
 
