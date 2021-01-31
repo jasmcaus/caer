@@ -2,7 +2,7 @@
    _____           ______  _____ 
  / ____/    /\    |  ____ |  __ \
 | |        /  \   | |__   | |__) | Caer - Modern Computer Vision
-| |       / /\ \  |  __|  |  _  /  Languages: Python, C, C++
+| |       / /\ \  |  __|  |  _  /  Languages: Python, C, C++, Cuda
 | |___   / ____ \ | |____ | | \ \  http://github.com/jasmcaus/caer
  \_____\/_/    \_ \______ |_|  \_\
 
