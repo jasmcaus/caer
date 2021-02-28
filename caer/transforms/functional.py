@@ -93,7 +93,8 @@ def _snow_process(tens, snow_coeff) -> Tensor:
 
     brightness_coefficient = 2.5 
 
-    tens[:,:,1][tens[:,:,1]<snow_coeff] = tens[:,:,1][tens[:,:,1]<snow_coeff]*brightness_coefficient ## scale pixel values up for channel 1 (lightness)
+    ## scale pixel values up for channel 1 (lightness)
+    tens[:,:,1][tens[:,:,1]<snow_coeff] = tens[:,:,1][tens[:,:,1]<snow_coeff]*brightness_coefficient 
     tens[:,:,1][tens[:,:,1]>255]  = 255 ##Sets all values above 255 to 255
 
     tens = np.array(tens, dtype=np.uint8)
@@ -296,7 +297,14 @@ def _add_sun_process(tens, num_flare_circles, flare_center, src_radius, x, y, sr
         alpha = random.uniform(0.05,0.2)
         r = random.randint(0, len(x)-1)
         rad = random.randint(1, imshape[0]//100-2)
-        cv.circle(overlay, (int(x[r]),int(y[r])), rad*rad*rad, (random.randint(max(src_color[0]-50,0), src_color[0]),random.randint(max(src_color[1]-50,0), src_color[1]), random.randint(max(src_color[2]-50,0), src_color[2])), -1)
+        cv.circle(overlay, 
+                 (int(x[r]),int(y[r])), 
+                 rad*rad*rad, 
+                 (random.randint(max(src_color[0]-50,0), src_color[0]),
+                 random.randint(max(src_color[1]-50,0), src_color[1]), 
+                 random.randint(max(src_color[2]-50,0), src_color[2])), 
+                 -1
+        )
         cv.addWeighted(overlay, alpha, output, 1 - alpha,0, output)            
 
     return flare_source(output, (int(flare_center[0]),int(flare_center[1])), src_radius, src_color)
@@ -408,11 +416,13 @@ def _shadow_process(tens, num_shadows, x1, y1, x2, y2, shadow_dimension) -> Tens
     mask = np.zeros_like(tens) 
     imshape = tens.shape
 
-    vertices_list = _generate_shadow_coordinates(num_shadows, (x1,y1,x2,y2), shadow_dimension) #3 getting list of shadow vertices
+    # Get the list of shadow vertices
+    vertices_list = _generate_shadow_coordinates(num_shadows, (x1,y1,x2,y2), shadow_dimension) 
 
     for vertices in vertices_list: 
         cv.fillPoly(mask, vertices, 255) ## adding all shadow polygons on empty mask, single 255 denotes only red channel
 
-    tens[:,:,1][mask[:,:,0]==255] = tens[:,:,1][mask[:,:,0]==255]*0.5   ## if red channel is hot, tens's "Lightness" channel's brightness is lowered 
+    # If red channel is hot, the Tensor's "Lightness" channel's brightness value is lowered 
+    tens[:,:,1][mask[:,:,0]==255] = tens[:,:,1][mask[:,:,0]==255]*0.5   
 
     return to_tensor(tens, cspace=cspace)
