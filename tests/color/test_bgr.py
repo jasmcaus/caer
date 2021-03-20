@@ -16,11 +16,11 @@ import os
 here = os.path.dirname(os.path.dirname(__file__))
 tens_path = os.path.join(here, 'data', 'green_fish.jpg')
 
+cv_bgr = cv.imread(tens_path)
+cv_bgr = caer.to_tensor(cv_bgr, cspace='bgr')
+
 
 def test_bgr2rgb():
-    cv_bgr = cv.imread(tens_path)
-    cv_bgr = caer.to_tensor(cv_bgr, cspace='bgr')
-
     rgb = caer.bgr2rgb(cv_bgr)
 
     assert len(rgb.shape) == 3 
@@ -29,9 +29,6 @@ def test_bgr2rgb():
 
 
 def test_bgr2gray():
-    cv_bgr = cv.imread(tens_path)
-    cv_bgr = caer.to_tensor(cv_bgr, cspace='bgr')
-
     gray = caer.bgr2gray(cv_bgr)
 
     assert len(gray.shape) == 2
@@ -40,9 +37,6 @@ def test_bgr2gray():
 
 
 def test_bgr2hsv():
-    cv_bgr = cv.imread(tens_path)
-    cv_bgr = caer.to_tensor(cv_bgr, cspace='bgr')
-
     hsv = caer.bgr2hsv(cv_bgr)
 
     assert len(hsv.shape) == 3 
@@ -51,9 +45,6 @@ def test_bgr2hsv():
 
 
 def test_bgr2hls():
-    cv_bgr = cv.imread(tens_path)
-    cv_bgr = caer.to_tensor(cv_bgr, cspace='bgr')
-
     hls = caer.bgr2hls(cv_bgr)
 
     assert len(hls.shape) == 3 
@@ -62,11 +53,16 @@ def test_bgr2hls():
 
 
 def test_bgr2lab():
-    cv_bgr = cv.imread(tens_path)
-    cv_bgr = caer.to_tensor(cv_bgr, cspace='bgr')
-
     lab = caer.bgr2lab(cv_bgr)
 
     assert len(lab.shape) == 3 
     assert isinstance(lab, caer.Tensor)
     assert lab.is_lab()
+
+
+def test_bgr2yuv():
+    yuv = caer.bgr2yuv(cv_bgr)
+
+    assert len(yuv.shape) == 3 
+    assert isinstance(yuv, caer.Tensor)
+    assert yuv.is_yuv()

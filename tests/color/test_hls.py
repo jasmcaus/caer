@@ -71,3 +71,13 @@ def test_hls2lab():
     assert len(lab.shape) == 3 
     assert isinstance(lab, caer.Tensor)
     assert lab.is_lab()
+
+
+def test_hls2yuv():
+    cv_hls = cv.cvtColor(cv_bgr, cv.COLOR_BGR2RGB)
+    cv_hls = caer.to_tensor(cv_hls, cspace='rgb')
+    yuv = caer.hls2yuv(cv_hls)
+
+    assert len(yuv.shape) == 3 
+    assert isinstance(yuv, caer.Tensor)
+    assert yuv.is_yuv()
