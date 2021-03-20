@@ -160,7 +160,7 @@ def gray2yuv(tens) -> Tensor:
     if not _is_gray_image(tens):
         raise ValueError(f'Tensor of shape 2 expected. Found shape {len(tens.shape)}. This function converts a Grayscale Tensor to its YUV counterpart')
 
-    bgr = gray2yuv(tens)
+    bgr = gray2bgr(tens)
 
     im = bgr2yuv(bgr)
     return to_tensor(im, cspace='yuv')
