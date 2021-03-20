@@ -75,6 +75,9 @@ class _TensorBase:
     
     def is_hls(self):
         return self.cspace == 'hls'
+    
+    def is_yuv(self):
+        return self.cspace == 'yuv'
 
     
     # Foreign Tensor-stuff
@@ -82,8 +85,8 @@ class _TensorBase:
         return self.foreign
 
     
-    def _valid_cspace(self):
-        if (self.cspace == 'rgb') or (self.cspace == 'bgr') or (self.cspace == 'gray') or (self.cspace == 'hsv') or (self.cspace == 'hls') or (self.cspace == 'lab'):
+    def _is_valid_cspace(self):
+        if (self.cspace == 'rgb') or (self.cspace == 'bgr') or (self.cspace == 'gray') or (self.cspace == 'hsv') or (self.cspace == 'hls') or (self.cspace == 'lab') or (self.cspace == 'yuv'):
             return True 
 
         # Else
@@ -97,7 +100,7 @@ class _TensorBase:
             Returns False, otherwise (usually happens when foreign arrays (like ndarrays) are converted to Caer Tensors).
         """
 
-        return not self._valid_cspace()
+        return not self._is_valid_cspace()
 
 
     def _nullprt(self):
