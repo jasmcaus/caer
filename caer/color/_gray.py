@@ -1,4 +1,4 @@
-#    _____           ______  _____ 
+#    _____           ______  _____
 #  / ____/    /\    |  ____ |  __ \
 # | |        /  \   | |__   | |__) | Caer - Modern Computer Vision
 # | |       / /\ \  |  __|  |  _  /  Languages: Python, C, C++, Cuda
@@ -10,18 +10,19 @@
 # Copyright (c) 2020-2021 The Caer Authors <http://github.com/jasmcaus>
 
 
-import cv2 as cv 
+import cv2 as cv
 
 from ..adorad import Tensor, to_tensor
 from ._constants import GRAY2BGR, GRAY2RGB
-from ._bgr import bgr2lab, bgr2hsv, bgr2hls
+from ._bgr import bgr2lab, bgr2hsv, bgr2hls, bgr2yuv
 
 __all__ = [
     'gray2rgb',
     'gray2bgr',
     'gray2lab',
     'gray2hsv',
-    'gray2hls'
+    'gray2hls',
+    'gray2yuv'
 ]
 
 
@@ -37,13 +38,13 @@ def gray2rgb(tens) -> Tensor:
 
     Args:
         tens (Tensor): Valid Grayscale Tensor
-    
+
     Returns:
         RGB Tensor of shape ``(height, width, channels)``
-    
+
     Raises:
         ValueError: If `tens` is not of shape 2
-        
+
     """
     if not _is_gray_image(tens):
         raise ValueError(f'Tensor of shape 2 expected. Found shape {len(tens.shape)}. This function converts a Grayscale Tensor to its RGB counterpart')
@@ -58,13 +59,13 @@ def gray2bgr(tens) -> Tensor:
 
     Args:
         tens (Tensor): Valid Grayscale Tensor
-    
+
     Returns:
         BGR Tensor of shape ``(height, width, channels)``
-    
+
     Raises:
         ValueError: If `tens` is not of shape 2
-        
+
     """
     if not _is_gray_image(tens):
         raise ValueError(f'Tensor of shape 2 expected. Found shape {len(tens.shape)}. This function converts a Grayscale Tensor to its BGR counterpart')
@@ -79,13 +80,13 @@ def gray2hsv(tens) -> Tensor:
 
     Args:
         tens (Tensor): Valid Grayscale Tensor
-    
+
     Returns:
         HSV Tensor of shape ``(height, width, channels)``
-    
+
     Raises:
         ValueError: If `tens` is not of shape 2
-        
+
     """
     if not _is_gray_image(tens):
         raise ValueError(f'Tensor of shape 2 expected. Found shape {len(tens.shape)}. This function converts a LAB Tensor to its HSV counterpart')
@@ -102,13 +103,13 @@ def gray2hls(tens) -> Tensor:
 
     Args:
         tens (Tensor): Valid Grayscale Tensor
-    
+
     Returns:
         HLS Tensor of shape ``(height, width, channels)``
-    
+
     Raises:
         ValueError: If `tens` is not of shape 2
-        
+
     """
     if not _is_gray_image(tens):
         raise ValueError(f'Tensor of shape 2 expected. Found shape {len(tens.shape)}. This function converts a LAB Tensor to its HLS counterpart')
@@ -125,13 +126,13 @@ def gray2lab(tens) -> Tensor:
 
     Args:
         tens (Tensor): Valid Grayscale Tensor
-    
+
     Returns:
         LAB Tensor of shape ``(height, width, channels)``
-    
+
     Raises:
         ValueError: If `tens` is not of shape 2
-    
+
     """
     if not _is_gray_image(tens):
         raise ValueError(f'Tensor of shape 2 expected. Found shape {len(tens.shape)}. This function converts a Grayscale Tensor to its LAB counterpart')
@@ -140,3 +141,25 @@ def gray2lab(tens) -> Tensor:
 
     im = bgr2lab(bgr)
     return to_tensor(im, cspace='lab')
+
+def gray2yuv(tens) -> Tensor:
+    r"""
+        Converts a Grayscale Tensor to its YUV version.
+
+    Args:
+        tens (Tensor): Valid Grayscale Tensor
+
+    Returns:
+        YUV Tensor of shape ``(height, width, channels)``
+
+    Raises:
+        ValueError: If `tens` is not of shape 2
+
+    """
+    if not _is_gray_image(tens):
+        raise ValueError(f'Tensor of shape 2 expected. Found shape {len(tens.shape)}. This function converts a Grayscale Tensor to its YUV counterpart')
+
+    bgr = gray2yuv(tens)
+
+    im = bgr2yuv(bgr)
+    return to_tensor(im, cspace='yuv')

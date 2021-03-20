@@ -1,4 +1,4 @@
-#    _____           ______  _____ 
+#    _____           ______  _____
 #  / ____/    /\    |  ____ |  __ \
 # | |        /  \   | |__   | |__) | Caer - Modern Computer Vision
 # | |       / /\ \  |  __|  |  _  /  Languages: Python, C, C++, Cuda
@@ -12,16 +12,16 @@
 
 ## Color Spaces
 IMREAD_COLOR = 1
-BGR2RGB = 4  
-BGR2GRAY = 6  
+BGR2RGB = 4
+BGR2GRAY = 6
 RGB2GRAY = 7
 GRAY2BGR = 8
 GRAY2RGB = 8
-BGR2HSV = 40 
-RGB2BGR = BGR2RGB 
-RGB2HSV = 41 
-BGR2LAB = 44  
-RGB2LAB = 45 
+BGR2HSV = 40
+RGB2BGR = BGR2RGB
+RGB2HSV = 41
+BGR2LAB = 44
+RGB2LAB = 45
 BGR2HLS = 52
 RGB2HLS = 53
 HSV2BGR = 54
@@ -30,7 +30,9 @@ LAB2BGR = 56
 LAB2RGB = 57
 HLS2BGR = 60
 HLS2RGB = 61
-
-
+BGR2YUV = 82
+RGB2YUV = 83
+YUV2BGR = 84
+YUV2RGB = 85
 
 __all__ = [d for d in dir() if not d.startswith('_')]

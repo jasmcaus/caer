@@ -1,4 +1,4 @@
-#    _____           ______  _____ 
+#    _____           ______  _____
 #  / ____/    /\    |  ____ |  __ \
 # | |        /  \   | |__   | |__) | Caer - Modern Computer Vision
 # | |       / /\ \  |  __|  |  _  /  Languages: Python, C, C++, Cuda
@@ -16,15 +16,17 @@ from .core import (
     to_hsv,
     to_hls,
     to_lab,
+    to_yuv,
     __all__ as __all_core__
 )
 
 from ._bgr import (
     bgr2rgb,
     bgr2gray,
-    bgr2hsv,    
+    bgr2hsv,
     bgr2hls,
     bgr2lab,
+    bgr2yuv,
     __all__ as __all_bgr__
 )
 
@@ -34,15 +36,17 @@ from ._rgb import (
     rgb2hsv,
     rgb2hls,
     rgb2lab,
+    rgb2yuv,
     __all__ as __all_rgb__
 )
 
 from ._gray import (
     gray2rgb,
-    gray2bgr,    
+    gray2bgr,
     gray2hsv,
     gray2hls,
-    gray2lab,    
+    gray2lab,
+    gray2yuv,
     __all__ as __all_gray__
 )
 
@@ -52,6 +56,7 @@ from ._hsv import (
     hsv2gray,
     hsv2hls,
     hsv2lab,
+    hsv2yuv,
     __all__ as __all_hsv__
 )
 
@@ -61,6 +66,7 @@ from ._hls import (
     hls2gray,
     hls2hsv,
     hls2lab,
+    hls2yuv,
     __all__ as __all_hls__
 )
 
@@ -70,9 +76,19 @@ from ._lab import (
     lab2gray,
     lab2hsv,
     lab2hls,
+    lab2yuv,
     __all__ as __all_lab__
 )
 
+from ._yuv import (
+    yuv2rgb,
+    yuv2bgr,
+    yuv2gray,
+    yuv2hsv,
+    yuv2hls,
+    yuv2lab,
+    __all__ as __all_yuv__
+)
 # from .constants import (
 #     IMREAD_COLOR,
 #     BGR2RGB,
@@ -96,7 +112,7 @@ from ._lab import (
 
 
 # __all__ = __all_const__ + __all_core__ + __all_rgb__ + __all_hls__+ __all_gray__ + __all_bgr__ + __all_hsv__ + __all_lab__
-__all__ = __all_core__ + __all_rgb__ + __all_hls__+ __all_gray__ + __all_bgr__ + __all_hsv__ + __all_lab__
+__all__ = __all_core__ + __all_rgb__ + __all_hls__+ __all_gray__ + __all_bgr__ + __all_hsv__ + __all_lab__ + __all_yuv__
 
 # # Don't pollute namespace
 # del __all_const__
@@ -106,3 +122,5 @@ del __all_gray__
 del __all_hsv__
 del __all_lab__
 del __all_hls__
+del __all_yuv__
+
