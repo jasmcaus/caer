@@ -138,6 +138,7 @@ def bgr2hls(tens) -> Tensor:
     im = cv.cvtColor(tens, BGR2HLS)
     return to_tensor(im, cspace='hls')
 
+
 def bgr2yuv(tens) -> Tensor:
     r"""
         Converts a BGR Tensor to its YUV version.

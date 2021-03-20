@@ -142,6 +142,7 @@ def hls2lab(tens) -> Tensor:
     im = bgr2lab(bgr)
     return to_tensor(im, cspace='lab')
 
+
 def hls2yuv(tens) -> Tensor:
     r"""
         Converts a HLS Tensor to its YUV version.
