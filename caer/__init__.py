@@ -8,7 +8,7 @@ learning models or research ideas.
 Our design philosophy makes Caer ideal for students, researchers, hobbyists and even experts in the fields of Deep Learning 
 and Computer Vision.
 
-Documentation: https://caer.rtfd.io
+Documentation: https://caer.readthedocs.io
 
 Available subpackages
 ---------------------
