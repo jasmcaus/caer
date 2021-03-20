@@ -71,3 +71,13 @@ def test_hsv2lab():
     assert len(lab.shape) == 3 
     assert isinstance(lab, caer.Tensor)
     assert lab.is_lab()
+
+
+def test_hsv2yuv():
+    cv_hsv = cv.cvtColor(cv_bgr, cv.COLOR_BGR2RGB)
+    cv_hsv = caer.to_tensor(cv_hsv, cspace='rgb')
+    yuv = caer.hsv2yuv(cv_hsv)
+
+    assert len(yuv.shape) == 3 
+    assert isinstance(yuv, caer.Tensor)
+    assert yuv.is_yuv()

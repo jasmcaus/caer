@@ -75,3 +75,13 @@ def test_gray2lab():
     assert len(lab.shape) == 3 
     assert isinstance(lab, caer.Tensor)
     assert lab.is_lab()
+
+
+def test_gray2yuv():
+    cv_gray = cv.imread(tens_path)
+    cv_gray = cv.cvtColor(cv_gray, cv.COLOR_BGR2GRAY)
+    yuv = caer.gray2yuv(cv_gray)
+
+    assert len(yuv.shape) == 3 
+    assert isinstance(yuv, caer.Tensor)
+    assert yuv.is_yuv()
