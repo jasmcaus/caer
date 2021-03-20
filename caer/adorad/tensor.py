@@ -53,8 +53,6 @@ class Tensor(_TensorBase, np.ndarray):
                 raise ValueError('The `cspace` attribute needs to be either rgb/bgr/gray/hsv/hls/lab')
 
 
-
-
     def __repr__(self):
         return _str(self)
 
