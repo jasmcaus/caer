@@ -96,7 +96,7 @@ def test_to_bgr():
     caer_hsv_bgr = caer.to_bgr(cv_hsv)
     caer_hls_bgr = caer.to_bgr(cv_hls)
     caer_lab_bgr = caer.to_bgr(cv_lab)
-    caer_yuv_bgr = caer.to_bgr(cv_yuv)
+    caer_yuv_bgr = caer.to_bgr(cv_yuv) 
 
     assert isinstance(caer_bgr_bgr, caer.Tensor)
     assert isinstance(caer_rgb_bgr, caer.Tensor)

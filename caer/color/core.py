@@ -48,7 +48,8 @@ def to_rgb(tens) -> Tensor:
 
     # If 'null', we assume we have a brand new Tensor
     if cspace == 'null':
-        print('Warning: Caer was unable to assign a colorspace for a foreign tensor. Sticking with "rgb". This issue will be fixed in a future update.')
+        print('Warning: Caer was unable to assign a colorspace for a foreign tensor. Sticking with "rgb". This issue will be'
+        'fixed in a future update.')
 
         # We assume that the tens is a BGR image
         im = bgr2rgb(tens)
@@ -123,7 +124,7 @@ def to_bgr(tens) -> Tensor:
         im = lab2bgr(tens)
         return to_tensor(im, cspace='bgr')
 
-    elif cspace == 'lab':
+    elif cspace == 'yuv':
         im = yuv2bgr(tens)
         return to_tensor(im, cspace='bgr')
 
@@ -300,7 +301,7 @@ def to_lab(tens) -> Tensor:
         return to_tensor(im, cspace='lab')
     elif cspace == 'yuv':
         im = yuv2lab(tens)
-        return to_tensor(im, cspace='hls')
+        return to_tensor(im, cspace='lab')
 
 
 def to_yuv(tens) -> Tensor:
