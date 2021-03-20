@@ -163,7 +163,9 @@ from .color import (
     yuv2gray,
     yuv2hsv,
     yuv2hls,
-    yuv2lab
+    yuv2lab, 
+
+    __all__ as __all_color__
 )
 
 
