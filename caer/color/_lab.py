@@ -1,4 +1,4 @@
-#    _____           ______  _____ 
+#    _____           ______  _____
 #  / ____/    /\    |  ____ |  __ \
 # | |        /  \   | |__   | |__) | Caer - Modern Computer Vision
 # | |       / /\ \  |  __|  |  _  /  Languages: Python, C, C++, Cuda
@@ -10,18 +10,19 @@
 # Copyright (c) 2020-2021 The Caer Authors <http://github.com/jasmcaus>
 
 
-import cv2 as cv 
+import cv2 as cv
 
 from ..adorad import Tensor, to_tensor
 from ._constants import LAB2BGR, LAB2RGB
-from ._bgr import bgr2gray, bgr2hsv, bgr2hls
+from ._bgr import bgr2gray, bgr2hsv, bgr2hls, bgr2yuv
 
 __all__ = [
     'lab2rgb',
     'lab2bgr',
     'lab2gray',
     'lab2hsv',
-    'lab2hls'
+    'lab2hls',
+    'lab2yuv'
 ]
 
 
@@ -37,13 +38,13 @@ def lab2rgb(tens) -> Tensor:
 
     Args:
         tens (Tensor): Valid LAB Tensor
-    
+
     Returns:
         RGB Tensor of shape ``(height, width, channels)``
-    
+
     Raises:
         ValueError: If `tens` is not of shape 3
-        
+
     """
     if not _is_lab_image(tens):
         raise ValueError(f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a LAB Tensor to its RGB counterpart')
@@ -58,13 +59,13 @@ def lab2bgr(tens) -> Tensor:
 
     Args:
         tens (Tensor): Valid LAB Tensor
-    
+
     Returns:
         BGR Tensor of shape ``(height, width, channels)``
-    
+
     Raises:
         ValueError: If `tens` is not of shape 3
-        
+
     """
     if not _is_lab_image(tens):
         raise ValueError(f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a LAB Tensor to its BGR counterpart')
@@ -79,13 +80,13 @@ def lab2gray(tens) -> Tensor:
 
     Args:
         tens (Tensor): Valid LAB Tensor
-    
+
     Returns:
         Grayscale Tensor of shape ``(height, width, channels)``
-    
+
     Raises:
         ValueError: If `tens` is not of shape 3
-        
+
     """
     if not _is_lab_image(tens):
         raise ValueError(f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a LAB Tensor to its Grayscale counterpart')
@@ -102,13 +103,13 @@ def lab2hsv(tens) -> Tensor:
 
     Args:
         tens (Tensor): Valid LAB Tensor
-    
+
     Returns:
         HSV Tensor of shape ``(height, width, channels)``
-    
+
     Raises:
         ValueError: If `tens` is not of shape 3
-        
+
     """
     if not _is_lab_image(tens):
         raise ValueError(f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a LAB Tensor to its HSV counterpart')
@@ -125,13 +126,13 @@ def lab2hls(tens) -> Tensor:
 
     Args:
         tens (Tensor): Valid LAB Tensor
-    
+
     Returns:
         HLS Tensor of shape ``(height, width, channels)``
-    
+
     Raises:
         ValueError: If `tens` is not of shape 3
-        
+
     """
     if not _is_lab_image(tens):
         raise ValueError(f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a LAB Tensor to its LAB counterpart')
@@ -140,3 +141,25 @@ def lab2hls(tens) -> Tensor:
 
     im = bgr2hls(bgr)
     return to_tensor(im, cspace='hls')
+
+def lab2yuv(tens) -> Tensor:
+    r"""
+        Converts an LAB Tensor to its YUV version.
+
+    Args:
+        tens (Tensor): Valid LAB Tensor
+
+    Returns:
+        YUV Tensor of shape ``(height, width, channels)``
+
+    Raises:
+        ValueError: If `tens` is not of shape 3
+
+    """
+    if not _is_lab_image(tens):
+        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a LAB Tensor to its YUV counterpart')
+
+    bgr = lab2bgr(tens)
+
+    im = bgr2yuv(bgr)
+    return to_tensor(im, cspace='yuv')

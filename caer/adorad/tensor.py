@@ -1,4 +1,4 @@
-#    _____           ______  _____ 
+#    _____           ______  _____
 #  / ____/    /\    |  ____ |  __ \
 # | |        /  \   | |__   | |__) | Caer - Modern Computer Vision
 # | |       / /\ \  |  __|  |  _  /  Languages: Python, C, C++, Cuda
@@ -11,16 +11,16 @@
 
 #pylint:disable=unused-argument
 
-import numpy as np 
+import numpy as np
 
 from ._tensor_str import _str
 from ._tensor_base import _TensorBase
-   
+
 
 # We use np.ndarray as a super class, because ``ndarray.view()`` expects an ndarray sub-class
 # We also derive useful class methods from ``_TensorBase`` which serves as the Tensor's Base
 class Tensor(_TensorBase, np.ndarray):
-    # This is required to get the type(Tensor) to be 'caer.Tensor'. 
+    # This is required to get the type(Tensor) to be 'caer.Tensor'.
     # Without this, type(Tensor) is 'caer.tensor.Tensor' which is not ideal.
     # Alternatively, we may shove this class to __init__.py, but this would, again, not be ideal
     __module__ = 'caer'
@@ -29,31 +29,31 @@ class Tensor(_TensorBase, np.ndarray):
     def __new__(cls, x, cspace, dtype=None):
         if not isinstance(x, (tuple, list, np.ndarray)):
             raise TypeError('Data needs to be (ideally) a list')
-            
+
         if not isinstance(cspace, str) and cspace is not None:
             raise TypeError(f'`cspace` needs to be of type <string>, not {type(cspace)}')
 
         obj = np.asarray(x, dtype=dtype).view(cls)
         obj.dtype = obj.dtype
 
-        return obj 
-    
+        return obj
+
 
     def __init__(self, x, cspace, dtype=None):
         super().__init__() # gets attributes from '_TensorBase'
         self.x = x
-        
+
         if cspace is None:
             self.cspace = 'null'
 
         else:
-            if cspace in ('rgb', 'bgr', 'gray', 'hsv', 'hls', 'lab'):
-                self.cspace = cspace 
+            if cspace in ('rgb', 'bgr', 'gray', 'hsv', 'hls', 'lab', 'yuv'):
+                self.cspace = cspace
             else:
                 raise ValueError('The `cspace` attribute needs to be either rgb/bgr/gray/hsv/hls/lab')
-                
-        
-        
+
+
+
 
     def __repr__(self):
         return _str(self)
