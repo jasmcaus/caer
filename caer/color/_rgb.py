@@ -134,6 +134,7 @@ def rgb2lab(tens) -> Tensor:
     im = cv.cvtColor(tens, RGB2LAB)
     return to_tensor(im, cspace='lab')
 
+
 def rgb2yuv(tens) -> Tensor:
     r"""
         Converts an RGB Tensor to its YUV version.

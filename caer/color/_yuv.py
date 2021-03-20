@@ -24,8 +24,10 @@ __all__ = [
     'yuv2rgb',
 ]
 
+
 def _is_yuv_image(tens):
     return len(tens.shape) == 3 and tens.shape[-1] == 3
+
 
 def yuv2bgr(tens) -> Tensor:
     r"""
@@ -47,6 +49,7 @@ def yuv2bgr(tens) -> Tensor:
     im = cv.cvtColor(tens, YUV2BGR)
     return to_tensor(im, cspace='bgr')
 
+
 def yuv2rgb(tens) -> Tensor:
     r"""
         Converts a YUV Tensor to its RGB version.
@@ -66,6 +69,7 @@ def yuv2rgb(tens) -> Tensor:
 
     im = cv.cvtColor(tens, YUV2RGB)
     return to_tensor(im, cspace='rgb')
+
 
 def yuv2gray(tens) -> Tensor:
     r"""
@@ -88,6 +92,7 @@ def yuv2gray(tens) -> Tensor:
     im = bgr2gray(tens)
     return to_tensor(im, cspace='gray')
 
+
 def yuv2hls(tens) -> Tensor:
     r"""
         Converts an YUV Tensor to its HLS version.
@@ -109,6 +114,7 @@ def yuv2hls(tens) -> Tensor:
     im = bgr2hls(tens)
     return to_tensor(im, cspace='hls')
 
+
 def yuv2hsv(tens) -> Tensor:
     r"""
         Converts an YUV Tensor to its HSV version.
@@ -129,6 +135,7 @@ def yuv2hsv(tens) -> Tensor:
     im = yuv2bgr(tens)
     im = bgr2hsv(tens)
     return to_tensor(im, cspace='hsv')
+
 
 def yuv2lab(tens) -> Tensor:
     r"""

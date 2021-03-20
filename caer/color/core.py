@@ -127,6 +127,7 @@ def to_bgr(tens) -> Tensor:
         im = yuv2bgr(tens)
         return to_tensor(im, cspace='bgr')
 
+
 def to_gray(tens) -> Tensor:
     r"""
         Converts any supported colorspace to grayscale
@@ -301,6 +302,7 @@ def to_lab(tens) -> Tensor:
         im = yuv2lab(tens)
         return to_tensor(im, cspace='hls')
 
+
 def to_yuv(tens) -> Tensor:
     r"""
         Converts any supported colorspace to YUV
@@ -339,4 +341,3 @@ def to_yuv(tens) -> Tensor:
     elif cspace == 'lab':
         im = lab2yuv(tens)
         return to_tensor(im, cspace='yuv')
-

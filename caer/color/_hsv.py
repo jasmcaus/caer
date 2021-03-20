@@ -141,6 +141,7 @@ def hsv2lab(tens) -> Tensor:
     im = bgr2lab(bgr)
     return to_tensor(im, cspace='lab')
 
+
 def hsv2yuv(tens) -> Tensor:
     r"""
         Converts a HSV Tensor to its YUV version.

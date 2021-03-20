@@ -142,6 +142,7 @@ def gray2lab(tens) -> Tensor:
     im = bgr2lab(bgr)
     return to_tensor(im, cspace='lab')
 
+
 def gray2yuv(tens) -> Tensor:
     r"""
         Converts a Grayscale Tensor to its YUV version.
