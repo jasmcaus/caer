@@ -6,6 +6,7 @@
 
 [![Python](https://img.shields.io/pypi/pyversions/caer.svg)][py-versions]
 [![PyPI](https://badge.fury.io/py/caer.svg)][pypi-latest-version]
+[![Twitter](https://img.shields.io/twitter/follow/jasmcaus.svg?style=flatl&label=Follow&logo=twitter&logoColor=white&color=1da1f2)][twitter-badge]
 [![Downloads](https://pepy.tech/badge/caer)][downloads]
 [![ReadTheDocs](https://readthedocs.org/projects/caer/badge/?version=latest)][docs]
 [![license](https://img.shields.io/github/license/jasmcaus/caer?label=license)][license]
@@ -119,6 +120,7 @@ If you want to cite the framework feel free to use this (but only if you loved i
 [install]: https://github.com/jasmcaus/caer/blob/master/INSTALL.md
 [demos]: https://github.com/jasmcaus/caer/blob/master/examples/
 
+[twitter-badge]: https://twitter.com/jasmcaus
 [downloads]: https://pepy.tech/project/caer
 [py-versions]: https://pypi.org/project/caer/
 [pypi-latest-version]: https://pypi.org/project/caer/
