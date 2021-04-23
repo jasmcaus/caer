@@ -224,19 +224,19 @@ def show_rotated_image():
     if tempAnchorPoint == 'Top Left':
         anchor = (0, 0)
     elif tempAnchorPoint == 'Top Middle':
-        anchor = (int(currentImage.width / 2), 0)
+        anchor = ((currentImage.width() // 2), 0)
     elif tempAnchorPoint == 'Top Right':
-        anchor = (currentImage.width, 0)
+        anchor = (currentImage.width(), 0)
     elif tempAnchorPoint == 'Middle Left':
-        anchor = (0, int(currentImage.height / 2))
+        anchor = (0, (currentImage.height() // 2))
     elif tempAnchorPoint == 'Middle Right':
-        anchor = (currentImage.width, int(currentImage.height / 2))
+        anchor = (currentImage.width(), (currentImage.height() // 2))
     elif tempAnchorPoint == 'Bottom Left':
-        anchor = (0, currentImage.height)
+        anchor = (0, currentImage.height())
     elif tempAnchorPoint == 'Bottom Middle':
-        anchor = (int(currentImage.width / 2), currentImage.height)
+        anchor = ((currentImage.width() // 2), currentImage.height())
     elif tempAnchorPoint == 'Bottom Right':
-        anchor = (currentImage.width, currentImage.height)
+        anchor = (currentImage.width(), currentImage.height())
 
     try:
         if rotateImgBtn['bg'] == 'lightgrey':
@@ -256,7 +256,7 @@ def show_rotated_image():
             else:
                 flipHVImgBtn['bg'] = 'lightgrey'
 
-        rot = caer.transforms.rotate(currentImage, int(angle), rotPoint=anchor)
+        rot = caer.transforms.rotate(currentImage, float(angle), rotPoint=anchor)
         currentImage = rot
         currentImage.cspace = 'rgb'
         image_show(currentImage)
