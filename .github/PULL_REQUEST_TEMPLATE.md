@@ -19,7 +19,7 @@
 <!--- Go over all the following points, and put an `x` in all the boxes that apply. -->
 <!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
 - [ ] I have followed the [contribution guidelines](CONTRIBUTING.md) and code style for this project.
-- [ ] I have added tests covering my contributions (important).
+- [ ] I have added tests covering my contributions (**important**).
 - [ ] I have updated the documentation accordingly.
-- [ ] This PR is being made to `dev` and not `master` (important)
+- [ ] This PR is being made to `dev` and not `master` (**important**).
 - [ ] I will squash merge this PR into `dev` (optional)
