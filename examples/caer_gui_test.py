@@ -1,20 +1,28 @@
-# Tested as working in Windows 10 with python v3.6.8
-# Resizing, flipping and rotating controls are set to manipulate the currently displayed image
-# Hue, Saturation and Motion Blur slider controls are only enabled for the original Sunrise image
+# Simple tkinter GUI app designed to showcase some caer features
+# Requirements: python3, caer, matplotlib
+
+# Run it either via IDLE or from command prompt / terminal with one of these commands:
+# - 'python caer_gui_test.py'
+# - 'python -m caer_gui_test'
+# - 'python3 caer_gui_test.py'
+# - 'python3 -m caer_gui_test'
+
+# Tested as working in Windows 10 with python v3.6.8 and Kubuntu Linux with python v3.6.8
+# The "Original" button will display the original Sunrise image
+# Replace the image with your own by following the instructions here: https://caer.readthedocs.io/en/latest/api/io.html
+# All function controls are set to manipulate the currently displayed image
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
-# Implement the default Matplotlib key bindings.
-from matplotlib.backend_bases import key_press_handler
 from matplotlib.figure import Figure
 
 from tkinter import *
 import platform
 import caer
 
-pythonVersion = platform.python_version()
-
 # Standard 640x427 test image that ships out-of-the-box with caer
 sunrise = caer.data.sunrise(rgb=True)
+
+pythonVersion = platform.python_version()
 
 def show_original_image():
     global currentImage
@@ -24,21 +32,9 @@ def show_original_image():
     global flipVImgBtn
     global flipHVImgBtn
     global rotateImgBtn
-    global sliderHue
-    global hue
-    global sliderSaturation
-    global saturation
-    global sliderMotionBlur
-    global motionBlur
 
     if originalImgBtn['bg'] == 'lightgrey':
         originalImgBtn['bg'] = 'lightblue'
-        sliderHue['state'] = 'normal'
-        hue.set(0)
-        sliderSaturation['state'] = 'normal'
-        saturation.set(1)
-        sliderMotionBlur['state'] = 'normal'
-        motionBlur.set(0)
 
         if resizedImgBtn['bg'] == 'lightblue':
             resizedImgBtn['bg'] = 'lightgrey'
@@ -52,7 +48,8 @@ def show_original_image():
             rotateImgBtn['bg'] = 'lightgrey'
 
     currentImage = sunrise
-    currentImage.cspace = 'rgb'
+    reset_ghs()
+
     image_show(currentImage)
 
 def show_resized_image():
@@ -63,9 +60,6 @@ def show_resized_image():
     global flipVImgBtn
     global flipHVImgBtn
     global rotateImgBtn
-    global sliderHue
-    global sliderSaturation
-    global sliderMotionBlur
 
     tempSize = selectedSize.get()
 
@@ -75,9 +69,6 @@ def show_resized_image():
         try:
             if resizedImgBtn['bg'] == 'lightgrey':
                 resizedImgBtn['bg'] = 'lightblue'
-                sliderHue['state'] = 'disabled'
-                sliderSaturation['state'] = 'disabled'
-                sliderMotionBlur['state'] = 'disabled'
 
                 if originalImgBtn['bg'] == 'lightblue':
                     originalImgBtn['bg'] = 'lightgrey'
@@ -90,13 +81,21 @@ def show_resized_image():
                 else:
                     rotateImgBtn['bg'] = 'lightgrey'
 
+            if not transformedImage is None:
+                currentImage = transformedImage
+                reset_ghs()
+
             # Resize the image without preserving aspect ratio
-            resized = caer.resize(currentImage, target_size=(int(size[0]),int(size[1])), preserve_aspect_ratio=False)
-            currentImage = resized
+            currentImage = caer.resize(currentImage, target_size=(int(size[0]),int(size[1])), preserve_aspect_ratio=False)
+
             currentImage.cspace = 'rgb'
-            image_show(currentImage)
+
+            if rotationApplied:
+                show_rotated_image()
+            else:
+                image_show(currentImage)
         except Exception as e:
-            print(str(e)) # pass
+            print(str(e))
 
 def show_h_flipped_image():
     global currentImage
@@ -106,15 +105,9 @@ def show_h_flipped_image():
     global flipVImgBtn
     global flipHVImgBtn
     global rotateImgBtn
-    global sliderHue
-    global sliderSaturation
-    global sliderMotionBlur
 
     if flipHImgBtn['bg'] == 'lightgrey':
         flipHImgBtn['bg'] = 'lightblue'
-        sliderHue['state'] = 'disabled'
-        sliderSaturation['state'] = 'disabled'
-        sliderMotionBlur['state'] = 'disabled'
 
         if originalImgBtn['bg'] == 'lightblue':
             originalImgBtn['bg'] = 'lightgrey'
@@ -127,10 +120,18 @@ def show_h_flipped_image():
         else:
             rotateImgBtn['bg'] = 'lightgrey'
 
-    hf = caer.transforms.hflip(currentImage)
-    currentImage = hf
+    if not transformedImage is None:
+        currentImage = transformedImage
+        reset_ghs()
+
+    currentImage = caer.transforms.hflip(currentImage)
+
     currentImage.cspace = 'rgb'
-    image_show(currentImage)
+
+    if rotationApplied:
+        show_rotated_image()
+    else:
+        image_show(currentImage)
 
 def show_v_flipped_image():
     global currentImage
@@ -140,15 +141,9 @@ def show_v_flipped_image():
     global flipVImgBtn
     global flipHVImgBtn
     global rotateImgBtn
-    global sliderHue
-    global sliderSaturation
-    global sliderMotionBlur
 
     if flipVImgBtn['bg'] == 'lightgrey':
         flipVImgBtn['bg'] = 'lightblue'
-        sliderHue['state'] = 'disabled'
-        sliderSaturation['state'] = 'disabled'
-        sliderMotionBlur['state'] = 'disabled'
 
         if originalImgBtn['bg'] == 'lightblue':
             originalImgBtn['bg'] = 'lightgrey'
@@ -161,10 +156,18 @@ def show_v_flipped_image():
         else:
             rotateImgBtn['bg'] = 'lightgrey'
 
-    vf = caer.transforms.vflip(currentImage)
-    currentImage = vf
+    if not transformedImage is None:
+        currentImage = transformedImage
+        reset_ghs()
+
+    currentImage = caer.transforms.vflip(currentImage)
+
     currentImage.cspace = 'rgb'
-    image_show(currentImage)
+
+    if rotationApplied:
+        show_rotated_image()
+    else:
+        image_show(currentImage)
 
 def show_hv_flipped_image():
     global currentImage
@@ -174,15 +177,9 @@ def show_hv_flipped_image():
     global flipVImgBtn
     global flipHVImgBtn
     global rotateImgBtn
-    global sliderHue
-    global sliderSaturation
-    global sliderMotionBlur
 
     if flipHVImgBtn['bg'] == 'lightgrey':
         flipHVImgBtn['bg'] = 'lightblue'
-        sliderHue['state'] = 'disabled'
-        sliderSaturation['state'] = 'disabled'
-        sliderMotionBlur['state'] = 'disabled'
 
         if originalImgBtn['bg'] == 'lightblue':
             originalImgBtn['bg'] = 'lightgrey'
@@ -195,27 +192,38 @@ def show_hv_flipped_image():
         else:
             rotateImgBtn['bg'] = 'lightgrey'
 
-    hvf = caer.transforms.hvflip(currentImage)
-    currentImage = hvf
+    if not transformedImage is None:
+        currentImage = transformedImage
+        reset_ghs()
+
+    currentImage = caer.transforms.hvflip(currentImage)
+
     currentImage.cspace = 'rgb'
-    image_show(currentImage)
+
+    if rotationApplied:
+        show_rotated_image()
+    else:
+        image_show(currentImage)
 
 def show_rotated_image():
     global currentImage
+    global rotationApplied
     global originalImgBtn
     global resizedImgBtn
     global flipHImgBtn
     global flipVImgBtn
     global flipHVImgBtn
     global rotateImgBtn
-    global sliderHue
-    global sliderSaturation
-    global sliderMotionBlur
 
     angle = selectedAngle.get()
 
     if angle == '':
         angle = '0'
+        rotationApplied = False
+    elif angle == '0' or ((float(angle) > 0 or float(angle) < 0) and float(angle) % 360 == 0):
+        rotationApplied = False
+    else:
+        rotationApplied = True
 
     anchor = None # Center point
 
@@ -241,9 +249,6 @@ def show_rotated_image():
     try:
         if rotateImgBtn['bg'] == 'lightgrey':
             rotateImgBtn['bg'] = 'lightblue'
-            sliderHue['state'] = 'disabled'
-            sliderSaturation['state'] = 'disabled'
-            sliderMotionBlur['state'] = 'disabled'
 
             if originalImgBtn['bg'] == 'lightblue':
                 originalImgBtn['bg'] = 'lightgrey'
@@ -256,12 +261,21 @@ def show_rotated_image():
             else:
                 flipHVImgBtn['bg'] = 'lightgrey'
 
-        rot = caer.transforms.rotate(currentImage, float(angle), rotPoint=anchor)
-        currentImage = rot
-        currentImage.cspace = 'rgb'
-        image_show(currentImage)
-    except:
-        pass
+        # preserve current image and only display its rotated version
+
+        if not transformedImage is None:
+            rot = caer.transforms.rotate(transformedImage, float(angle), rotPoint=anchor)
+            if not rotationApplied:
+                currentImage = transformedImage
+                reset_ghs()
+        else:
+            rot = caer.transforms.rotate(currentImage, float(angle), rotPoint=anchor)
+
+        rot.cspace = 'rgb'
+
+        image_show(rot)
+    except Exception as e:
+        print(str(e))
 
 def image_show(tens):
     global canvas
@@ -272,30 +286,38 @@ def image_show(tens):
     subplot.imshow(tens)
     canvas.draw()
 
-def adjust_hue(*args):
-    global currentImage
+def adjust_gamma_hue_saturation(*args):
+    global transformedImage
 
-    currentImage = caer.transforms.adjust_hue(sunrise, hue_factor=float(args[0]))
-    image_show(currentImage)
+    # apply all transformations to currently displayed image
+    transformedImage = caer.transforms.adjust_hue(currentImage, hue_factor=hue.get())
+    transformedImage = caer.transforms.adjust_saturation(transformedImage, saturation_factor=saturation.get())
+    transformedImage = caer.transforms.adjust_gamma(transformedImage, gamma=imgGamma.get())
 
-def adjust_saturation(*args):
-    global currentImage
+    if rotationApplied:
+        show_rotated_image()
+    else:
+        image_show(transformedImage)
 
-    currentImage = caer.transforms.adjust_saturation(sunrise, saturation_factor=float(args[0]))
-    image_show(currentImage)
+def reset_ghs():
+    global transformedImage
+    global imgGamma
+    global hue
+    global saturation
 
-def adjust_motion_blur(*args):
-    global currentImage
+    transformedImage = None
 
-    currentImage = caer.transforms.sim_motion_blur(sunrise, speed_coeff=float(args[0]))
-    currentImage.cspace = 'rgb'
-    image_show(currentImage)
+    # reset gamma, hue and saturation sliders
+    imgGamma.set(1.0)
+    hue.set(0.0)
+    saturation.set(1.0)
 
 def main():
     global root
     global canvas
     global subplot
     global currentImage
+    global transformedImage
     global originalImgBtn
     global resizedImgBtn
     global flipHImgBtn
@@ -307,27 +329,28 @@ def main():
     global resizedImgSize
     global rotationAngle
     global anchorSelection
-    global sliderHue
+    global rotationApplied
+    global imgGamma
     global hue
-    global sliderSaturation
     global saturation
-    global sliderMotionBlur
-    global motionBlur
 
     root = Tk()
     root.config(background='white')
     root.title('CAER Sunrise GUI Test - Python v' + pythonVersion)
-    root.geometry('1024x768')
+    root.geometry('1200x768')
 
     currentImage = None
+    transformedImage = None
+    rotationApplied = False
 
     # bind the 'q' keyboard key to quit
     root.bind('q', lambda event:root.destroy())
 
-    # add a frame to hold buttons
+    # add a frame to hold all controls
     frame1 = Frame(root, background='black')
     frame1.pack(side='top', fill=X)
 
+    # create all buttons and an entry box for the re-size dimensions
     originalImgBtn = Button(frame1, text='Original', width=6, bg='lightgrey', relief=RAISED, command=show_original_image)
     originalImgBtn.pack(side=LEFT, padx=2, pady=2)
 
@@ -355,46 +378,48 @@ def main():
     lblAngle = Label(frame1, text='Angle', fg='yellow', bg='black', font='Helvetica 8')
     lblAngle.pack(side=LEFT, padx=2, pady=2)
 
+    # create the rotation angle selection variable and an entry box
     selectedAngle = StringVar()
     rotationAngle = Entry(frame1, justify=CENTER, textvariable=selectedAngle, font='Helvetica 10', width=4, bg='white', relief=RAISED)
     rotationAngle.pack(side=LEFT, padx=2, pady=2)
-    selectedAngle.set('45')
+    selectedAngle.set('90')
 
     # create a label for the rotation anchor
     lblAnchor = Label(frame1, text='Anchor', fg='yellow', bg='black', font='Helvetica 8')
     lblAnchor.pack(side=LEFT, padx=2, pady=2)
 
-    # create the rotation anchor selection variable
+    # create the rotation anchor selection variable and choices
     anchorSelection = StringVar()
-    anchorChoices = { 'Bottom Left', 'Bottom Middle', 'Bottom Right', 'Center', 'Middle Left', 'Middle Right', 'Top Left', 'Top Middle', 'Top Right'}
+    anchorChoices = { 'BottomLeft', 'BottomMiddle', 'BottomRight', 'Center', 'MiddleLeft', 'MiddleRight', 'TopLeft', 'TopMiddle', 'TopRight'}
     anchorSelection.set('Center')
 
     # create the anchor selection popup menu
     popup_menu_anchor = OptionMenu(frame1, anchorSelection, *anchorChoices)
-    # popup_menu_anchor.config(bg = 'lightgreen')
     popup_menu_anchor.pack(side=LEFT, padx=2)
+
+    # create the image gamma slider control
+    imgGamma = DoubleVar()
+    sliderGamma = Scale(frame1, label='Gamma', variable=imgGamma, troughcolor='blue', from_=0.0, to=2.0, resolution=0.1, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_gamma_hue_saturation)
+    sliderGamma.pack(side=LEFT, padx=5, pady=2)
+    imgGamma.set(1.0)
 
     # create the image hue slider control
     hue = DoubleVar()
-    sliderHue = Scale(frame1, label='Hue', variable=hue, troughcolor='blue', from_=-0.5, to=0.5, resolution=0.05, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_hue)
-    sliderHue.pack(side=LEFT, padx=10, pady=2)
-    hue.set(0)
+    sliderHue = Scale(frame1, label='Hue', variable=hue, troughcolor='blue', from_=-0.5, to=0.5, resolution=0.05, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_gamma_hue_saturation)
+    sliderHue.pack(side=LEFT, padx=5, pady=2)
+    hue.set(0.0)
 
     # create the image saturation slider control
     saturation = DoubleVar()
-    sliderSaturation = Scale(frame1, label='Saturation', variable=saturation, troughcolor='blue', from_=0, to=2.0, resolution=0.1, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_saturation)
-    sliderSaturation.pack(side=LEFT, padx=6, pady=2)
-    saturation.set(1)
+    sliderSaturation = Scale(frame1, label='Saturation', variable=saturation, troughcolor='blue', from_=0.0, to=2.0, resolution=0.1, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_gamma_hue_saturation)
+    sliderSaturation.pack(side=LEFT, padx=5, pady=2)
+    saturation.set(1.0)
 
-    # create the image motion blur slider control
-    motionBlur = DoubleVar()
-    sliderMotionBlur = Scale(frame1, label='Motion Blur', variable=motionBlur, troughcolor='blue', from_=0, to=0.2, resolution=0.05, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_motion_blur)
-    sliderMotionBlur.pack(side=LEFT, padx=6, pady=2)
-    motionBlur.set(0)
-
+    # add exit button
     exitBtn = Button(frame1, text='Exit', width=6, bg='lightgrey', relief=RAISED, command=root.destroy)
     exitBtn.pack(side=RIGHT, padx=4, pady=2)
 
+    # create matplotlib figure, subplot, canvas and toolbar
     fig = Figure(figsize=(5, 4), dpi=400)
     subplot = fig.add_subplot(111)
     subplot.xaxis.set_ticks([]), subplot.yaxis.set_ticks([])  # Hides the graph ticks and x / y axis
