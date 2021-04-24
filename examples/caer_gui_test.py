@@ -26,6 +26,7 @@ pythonVersion = platform.python_version()
 
 def show_original_image():
     global currentImage
+    global rotationApplied
     global originalImgBtn
     global resizedImgBtn
     global flipHImgBtn
@@ -48,6 +49,7 @@ def show_original_image():
             rotateImgBtn['bg'] = 'lightgrey'
 
     currentImage = sunrise
+    rotationApplied = False
     reset_ghs()
 
     image_show(currentImage)
@@ -231,19 +233,19 @@ def show_rotated_image():
 
     if tempAnchorPoint == 'Top Left':
         anchor = (0, 0)
-    elif tempAnchorPoint == 'Top Middle':
+    elif tempAnchorPoint == 'TopMiddle':
         anchor = ((currentImage.width() // 2), 0)
-    elif tempAnchorPoint == 'Top Right':
+    elif tempAnchorPoint == 'TopRight':
         anchor = (currentImage.width(), 0)
-    elif tempAnchorPoint == 'Middle Left':
+    elif tempAnchorPoint == 'MiddleLeft':
         anchor = (0, (currentImage.height() // 2))
-    elif tempAnchorPoint == 'Middle Right':
+    elif tempAnchorPoint == 'MiddleRight':
         anchor = (currentImage.width(), (currentImage.height() // 2))
-    elif tempAnchorPoint == 'Bottom Left':
+    elif tempAnchorPoint == 'BottomLeft':
         anchor = (0, currentImage.height())
-    elif tempAnchorPoint == 'Bottom Middle':
+    elif tempAnchorPoint == 'BottomMiddle':
         anchor = ((currentImage.width() // 2), currentImage.height())
-    elif tempAnchorPoint == 'Bottom Right':
+    elif tempAnchorPoint == 'BottomRight':
         anchor = (currentImage.width(), currentImage.height())
 
     try:
