@@ -280,13 +280,18 @@ def show_rotated_image():
         print(str(e))
 
 def image_show(tens):
-    global canvas
-    global subplot
-
     subplot.clear()
-    subplot.xaxis.set_ticks([]), subplot.yaxis.set_ticks([])  # Hides the graph ticks and x / y axis
     subplot.imshow(tens)
     canvas.draw()
+
+def refresh_axis():
+    # Hide / Show the graph x / y axis
+    if checkShowAxis.get() == 0:
+        subplot.xaxis.set_visible(False), subplot.yaxis.set_visible(False)
+    else:
+        subplot.xaxis.set_visible(True), subplot.yaxis.set_visible(True)
+
+    fig.canvas.draw()
 
 def adjust_gamma_hue_saturation(*args):
     global transformedImage
@@ -317,9 +322,11 @@ def reset_ghs():
 def main():
     global root
     global canvas
+    global fig
     global subplot
     global currentImage
     global transformedImage
+    global checkShowAxis
     global originalImgBtn
     global resizedImgBtn
     global flipHImgBtn
@@ -355,6 +362,12 @@ def main():
     # create all buttons and an entry box for the re-size dimensions
     originalImgBtn = Button(frame1, text='Original', width=6, bg='lightgrey', relief=RAISED, command=show_original_image)
     originalImgBtn.pack(side=LEFT, padx=2, pady=2)
+
+    # add 'Show Axis' checkbox
+    checkShowAxis = IntVar()
+    chbShowAxis = Checkbutton(frame1, text='Show Axis', variable=checkShowAxis, command=refresh_axis)
+    checkShowAxis.set(1)
+    chbShowAxis.pack(side=LEFT, padx=2, pady=2)
 
     resizedImgBtn = Button(frame1, text='Resize', width=6, bg='lightgrey', relief=RAISED, command=show_resized_image)
     resizedImgBtn.pack(side=LEFT, padx=2, pady=2)
@@ -422,9 +435,8 @@ def main():
     exitBtn.pack(side=RIGHT, padx=4, pady=2)
 
     # create matplotlib figure, subplot, canvas and toolbar
-    fig = Figure(figsize=(5, 4), dpi=400)
+    fig = Figure(figsize=(6, 4), dpi=100)
     subplot = fig.add_subplot(111)
-    subplot.xaxis.set_ticks([]), subplot.yaxis.set_ticks([])  # Hides the graph ticks and x / y axis
 
     canvas = FigureCanvasTkAgg(fig, master=root)
     canvas.draw()
