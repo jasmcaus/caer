@@ -8,8 +8,9 @@
 # - 'python3 -m caer_gui_test'
 
 # Tested as working in Windows 10 with python v3.6.8 and Kubuntu Linux with python v3.6.8
-# The "Original" button will display the original Sunrise image
-# Replace the image with your own by following the instructions here: https://caer.readthedocs.io/en/latest/api/io.html
+# You can select one of 9 built-in images to display (startup has "Island" selected as default)
+# Replace with or add your own image(s) by following the instructions here: https://caer.readthedocs.io/en/latest/api/io.html
+# The above will require that you modify main() and show_original_image() functions
 # All function controls are set to manipulate the currently displayed image
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
@@ -19,36 +20,49 @@ from tkinter import *
 import platform
 import caer
 
-# Standard 640x427 test image that ships out-of-the-box with caer
-sunrise = caer.data.sunrise(rgb=True)
-
 pythonVersion = platform.python_version()
 
-def show_original_image():
+def show_original_image(*args):
     global currentImage
     global rotationApplied
-    global originalImgBtn
     global resizedImgBtn
     global flipHImgBtn
     global flipVImgBtn
     global flipHVImgBtn
     global rotateImgBtn
 
-    if originalImgBtn['bg'] == 'lightgrey':
-        originalImgBtn['bg'] = 'lightblue'
+    if resizedImgBtn['bg'] == 'lightblue':
+        resizedImgBtn['bg'] = 'lightgrey'
+    elif flipHImgBtn['bg'] == 'lightblue':
+        flipHImgBtn['bg'] = 'lightgrey'
+    elif flipVImgBtn['bg'] == 'lightblue':
+        flipVImgBtn['bg'] = 'lightgrey'
+    elif flipHVImgBtn['bg'] == 'lightblue':
+        flipHVImgBtn['bg'] = 'lightgrey'
+    else:
+        rotateImgBtn['bg'] = 'lightgrey'
 
-        if resizedImgBtn['bg'] == 'lightblue':
-            resizedImgBtn['bg'] = 'lightgrey'
-        elif flipHImgBtn['bg'] == 'lightblue':
-            flipHImgBtn['bg'] = 'lightgrey'
-        elif flipVImgBtn['bg'] == 'lightblue':
-            flipVImgBtn['bg'] = 'lightgrey'
-        elif flipHVImgBtn['bg'] == 'lightblue':
-            flipHVImgBtn['bg'] = 'lightgrey'
-        else:
-            rotateImgBtn['bg'] = 'lightgrey'
+    selectedImage = imageSelection.get()
 
-    currentImage = sunrise
+    if selectedImage == 'Mountain':
+        currentImage = caer.data.mountain(rgb=True)
+    elif selectedImage == 'Sunrise':
+        currentImage = caer.data.sunrise(rgb=True)
+    elif selectedImage == 'Island':
+        currentImage = caer.data.island(rgb=True)
+    elif selectedImage == 'Puppies':
+        currentImage = caer.data.puppies(rgb=True)
+    elif selectedImage == 'Black Cat':
+        currentImage = caer.data.black_cat(rgb=True)
+    elif selectedImage == 'Gold Fish':
+        currentImage = caer.data.gold_fish(rgb=True)
+    elif selectedImage == 'Bear':
+        currentImage = caer.data.bear(rgb=True)
+    elif selectedImage == 'Camera':
+        currentImage = caer.data.camera(rgb=True)
+    else:
+        currentImage = caer.data.guitar(rgb=True)
+
     rotationApplied = False
     reset_ghs()
 
@@ -56,7 +70,6 @@ def show_original_image():
 
 def show_resized_image():
     global currentImage
-    global originalImgBtn
     global resizedImgBtn
     global flipHImgBtn
     global flipVImgBtn
@@ -72,9 +85,7 @@ def show_resized_image():
             if resizedImgBtn['bg'] == 'lightgrey':
                 resizedImgBtn['bg'] = 'lightblue'
 
-                if originalImgBtn['bg'] == 'lightblue':
-                    originalImgBtn['bg'] = 'lightgrey'
-                elif flipHImgBtn['bg'] == 'lightblue':
+                if flipHImgBtn['bg'] == 'lightblue':
                     flipHImgBtn['bg'] = 'lightgrey'
                 elif flipVImgBtn['bg'] == 'lightblue':
                     flipVImgBtn['bg'] = 'lightgrey'
@@ -89,7 +100,6 @@ def show_resized_image():
 
             # Resize the image without preserving aspect ratio
             currentImage = caer.resize(currentImage, target_size=(int(size[0]),int(size[1])), preserve_aspect_ratio=False)
-
             currentImage.cspace = 'rgb'
 
             if rotationApplied:
@@ -101,7 +111,6 @@ def show_resized_image():
 
 def show_h_flipped_image():
     global currentImage
-    global originalImgBtn
     global resizedImgBtn
     global flipHImgBtn
     global flipVImgBtn
@@ -111,9 +120,7 @@ def show_h_flipped_image():
     if flipHImgBtn['bg'] == 'lightgrey':
         flipHImgBtn['bg'] = 'lightblue'
 
-        if originalImgBtn['bg'] == 'lightblue':
-            originalImgBtn['bg'] = 'lightgrey'
-        elif resizedImgBtn['bg'] == 'lightblue':
+        if resizedImgBtn['bg'] == 'lightblue':
             resizedImgBtn['bg'] = 'lightgrey'
         elif flipVImgBtn['bg'] == 'lightblue':
             flipVImgBtn['bg'] = 'lightgrey'
@@ -127,7 +134,6 @@ def show_h_flipped_image():
         reset_ghs()
 
     currentImage = caer.transforms.hflip(currentImage)
-
     currentImage.cspace = 'rgb'
 
     if rotationApplied:
@@ -137,7 +143,6 @@ def show_h_flipped_image():
 
 def show_v_flipped_image():
     global currentImage
-    global originalImgBtn
     global resizedImgBtn
     global flipHImgBtn
     global flipVImgBtn
@@ -147,9 +152,7 @@ def show_v_flipped_image():
     if flipVImgBtn['bg'] == 'lightgrey':
         flipVImgBtn['bg'] = 'lightblue'
 
-        if originalImgBtn['bg'] == 'lightblue':
-            originalImgBtn['bg'] = 'lightgrey'
-        elif resizedImgBtn['bg'] == 'lightblue':
+        if resizedImgBtn['bg'] == 'lightblue':
             resizedImgBtn['bg'] = 'lightgrey'
         elif flipHImgBtn['bg'] == 'lightblue':
             flipHImgBtn['bg'] = 'lightgrey'
@@ -163,7 +166,6 @@ def show_v_flipped_image():
         reset_ghs()
 
     currentImage = caer.transforms.vflip(currentImage)
-
     currentImage.cspace = 'rgb'
 
     if rotationApplied:
@@ -173,7 +175,6 @@ def show_v_flipped_image():
 
 def show_hv_flipped_image():
     global currentImage
-    global originalImgBtn
     global resizedImgBtn
     global flipHImgBtn
     global flipVImgBtn
@@ -183,9 +184,7 @@ def show_hv_flipped_image():
     if flipHVImgBtn['bg'] == 'lightgrey':
         flipHVImgBtn['bg'] = 'lightblue'
 
-        if originalImgBtn['bg'] == 'lightblue':
-            originalImgBtn['bg'] = 'lightgrey'
-        elif resizedImgBtn['bg'] == 'lightblue':
+        if resizedImgBtn['bg'] == 'lightblue':
             resizedImgBtn['bg'] = 'lightgrey'
         elif flipHImgBtn['bg'] == 'lightblue':
             flipHImgBtn['bg'] = 'lightgrey'
@@ -199,7 +198,6 @@ def show_hv_flipped_image():
         reset_ghs()
 
     currentImage = caer.transforms.hvflip(currentImage)
-
     currentImage.cspace = 'rgb'
 
     if rotationApplied:
@@ -210,7 +208,6 @@ def show_hv_flipped_image():
 def show_rotated_image():
     global currentImage
     global rotationApplied
-    global originalImgBtn
     global resizedImgBtn
     global flipHImgBtn
     global flipVImgBtn
@@ -252,9 +249,7 @@ def show_rotated_image():
         if rotateImgBtn['bg'] == 'lightgrey':
             rotateImgBtn['bg'] = 'lightblue'
 
-            if originalImgBtn['bg'] == 'lightblue':
-                originalImgBtn['bg'] = 'lightgrey'
-            elif resizedImgBtn['bg'] == 'lightblue':
+            if resizedImgBtn['bg'] == 'lightblue':
                 resizedImgBtn['bg'] = 'lightgrey'
             elif flipHImgBtn['bg'] == 'lightblue':
                 flipHImgBtn['bg'] = 'lightgrey'
@@ -280,22 +275,40 @@ def show_rotated_image():
         print(str(e))
 
 def image_show(tens):
-    global canvas
-    global subplot
-
     subplot.clear()
-    subplot.xaxis.set_ticks([]), subplot.yaxis.set_ticks([])  # Hides the graph ticks and x / y axis
     subplot.imshow(tens)
     canvas.draw()
 
-def adjust_gamma_hue_saturation(*args):
+def refresh_axis():
+    # Hide / Show the graph x / y axis
+    if checkShowAxis.get() == 0:
+        subplot.xaxis.set_visible(False), subplot.yaxis.set_visible(False)
+    else:
+        subplot.xaxis.set_visible(True), subplot.yaxis.set_visible(True)
+
+    fig.canvas.draw()
+
+def enable_solarize():
+    sliderSolarize['state'] = 'normal' if checkEnableSolarize.get() == 1 else 'disabled'
+    solarize.set(128)
+    adjust_hsgps(None)
+
+def adjust_hsgps(*args):
     global transformedImage
 
     # apply all transformations to currently displayed image
-    transformedImage = caer.transforms.adjust_hue(currentImage, hue_factor=hue.get())
-    transformedImage = caer.transforms.adjust_saturation(transformedImage, saturation_factor=saturation.get())
-    transformedImage = caer.transforms.adjust_gamma(transformedImage, gamma=imgGamma.get())
+    transformedImage = caer.transforms.adjust_hue(currentImage, hue.get())
+    transformedImage = caer.transforms.adjust_saturation(transformedImage, saturation.get())
+    transformedImage = caer.transforms.adjust_gamma(transformedImage, imgGamma.get())
 
+    if posterize.get() < 6:
+        transformedImage = caer.transforms.posterize(transformedImage, posterize.get())
+
+    if checkEnableSolarize.get() == 1:
+        transformedImage = caer.transforms.solarize(transformedImage, solarize.get())
+
+    transformedImage.cspace = 'rgb'
+    
     if rotationApplied:
         show_rotated_image()
     else:
@@ -306,21 +319,31 @@ def reset_ghs():
     global imgGamma
     global hue
     global saturation
+    global posterize
+    global solarize
+    global checkEnableSolarize
 
     transformedImage = None
 
-    # reset gamma, hue and saturation sliders
+    # reset all sliders
     imgGamma.set(1.0)
     hue.set(0.0)
     saturation.set(1.0)
+    posterize.set(6)
+    checkEnableSolarize.set(0)
+    solarize.set(128)
 
 def main():
     global root
     global canvas
+    global fig
     global subplot
     global currentImage
     global transformedImage
-    global originalImgBtn
+    global imageSelection
+    global checkShowAxis
+    global checkEnableSolarize
+    global sliderSolarize
     global resizedImgBtn
     global flipHImgBtn
     global flipVImgBtn
@@ -335,11 +358,13 @@ def main():
     global imgGamma
     global hue
     global saturation
+    global posterize
+    global solarize
 
     root = Tk()
     root.config(background='white')
-    root.title('CAER Sunrise GUI Test - Python v' + pythonVersion)
-    root.geometry('1200x768')
+    root.title('CAER GUI Test - Python v' + pythonVersion)
+    root.geometry('1024x768')
 
     currentImage = None
     transformedImage = None
@@ -348,31 +373,51 @@ def main():
     # bind the 'q' keyboard key to quit
     root.bind('q', lambda event:root.destroy())
 
-    # add a frame to hold all controls
+    # add a frame to hold top controls
     frame1 = Frame(root, background='black')
-    frame1.pack(side='top', fill=X)
+    frame1.pack(side=TOP, fill=X)
 
-    # create all buttons and an entry box for the re-size dimensions
-    originalImgBtn = Button(frame1, text='Original', width=6, bg='lightgrey', relief=RAISED, command=show_original_image)
-    originalImgBtn.pack(side=LEFT, padx=2, pady=2)
+    # create the built-in image selection variable and choices
+    imageSelection = StringVar()
+    imageChoices = { 'Mountain', 'Sunrise', 'Island', 'Puppies', 'Black Cat', 'Gold Fish', 'Bear', 'Camera', 'Guitar'}
+    imageSelection.set('Island')
+    imageSelection.trace('w', show_original_image)
 
+    # create the built-in image selection popup menu
+    popup_menu_image = OptionMenu(frame1, imageSelection, *imageChoices)
+    popup_menu_image['width'] = 10
+    popup_menu_image['bg'] = 'lightgreen'
+    popup_menu_image.pack(side=LEFT, padx=2)
+
+    # add 'Show Axis' checkbox
+    checkShowAxis = IntVar()
+    chbShowAxis = Checkbutton(frame1, text='Show Axis', variable=checkShowAxis, command=refresh_axis)
+    checkShowAxis.set(1)
+    chbShowAxis.pack(side=LEFT, padx=2, pady=2)
+
+    # create a button to re-size the image
     resizedImgBtn = Button(frame1, text='Resize', width=6, bg='lightgrey', relief=RAISED, command=show_resized_image)
     resizedImgBtn.pack(side=LEFT, padx=2, pady=2)
 
+    # create an entry box for re-size dimensions
     selectedSize = StringVar()
-    resizedImgSize = Entry(frame1, justify=CENTER, textvariable=selectedSize, font='Helvetica 10', width=9, bg='white', relief=RAISED)
+    resizedImgSize = Entry(frame1, justify=CENTER, textvariable=selectedSize, font='Helvetica 10', width=10, bg='white', relief=RAISED)
     resizedImgSize.pack(side=LEFT, padx=2, pady=2)
     selectedSize.set('400x400')
 
+    # create a button to flip the image horizontally
     flipHImgBtn = Button(frame1, text='FlipH', width=6, bg='lightgrey', relief=RAISED, command=show_h_flipped_image)
     flipHImgBtn.pack(side=LEFT, padx=2, pady=2)
 
+    # create a button to flip the image vertically
     flipVImgBtn = Button(frame1, text='FlipV', width=6, bg='lightgrey', relief=RAISED, command=show_v_flipped_image)
     flipVImgBtn.pack(side=LEFT, padx=2, pady=2)
 
+    # create a button to flip the image horizontally and vertically
     flipHVImgBtn = Button(frame1, text='FlipHV', width=6, bg='lightgrey', relief=RAISED, command=show_hv_flipped_image)
     flipHVImgBtn.pack(side=LEFT, padx=2, pady=2)
 
+    # create a button to rotate the image
     rotateImgBtn = Button(frame1, text='Rotate', width=6, bg='lightgrey', relief=RAISED, command=show_rotated_image)
     rotateImgBtn.pack(side=LEFT, padx=2, pady=2)
 
@@ -382,7 +427,7 @@ def main():
 
     # create the rotation angle selection variable and an entry box
     selectedAngle = StringVar()
-    rotationAngle = Entry(frame1, justify=CENTER, textvariable=selectedAngle, font='Helvetica 10', width=4, bg='white', relief=RAISED)
+    rotationAngle = Entry(frame1, justify=CENTER, textvariable=selectedAngle, font='Helvetica 10', width=5, bg='white', relief=RAISED)
     rotationAngle.pack(side=LEFT, padx=2, pady=2)
     selectedAngle.set('90')
 
@@ -397,34 +442,58 @@ def main():
 
     # create the anchor selection popup menu
     popup_menu_anchor = OptionMenu(frame1, anchorSelection, *anchorChoices)
+    popup_menu_anchor['width'] = 12
     popup_menu_anchor.pack(side=LEFT, padx=2)
+
+    #-----------------------------------------------------------------------
+
+    # add a frame to hold side controls
+    frame2 = Frame(root, background='black')
+    frame2.pack(side=RIGHT, fill=Y)
 
     # create the image gamma slider control
     imgGamma = DoubleVar()
-    sliderGamma = Scale(frame1, label='Gamma', variable=imgGamma, troughcolor='blue', from_=0.0, to=2.0, resolution=0.1, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_gamma_hue_saturation)
-    sliderGamma.pack(side=LEFT, padx=5, pady=2)
+    sliderGamma = Scale(frame2, label='Gamma', variable=imgGamma, troughcolor='blue', from_=0.0, to=2.0, resolution=0.1, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_hsgps)
+    sliderGamma.pack(side=TOP, anchor=E, padx=2, pady=2)
     imgGamma.set(1.0)
 
     # create the image hue slider control
     hue = DoubleVar()
-    sliderHue = Scale(frame1, label='Hue', variable=hue, troughcolor='blue', from_=-0.5, to=0.5, resolution=0.05, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_gamma_hue_saturation)
-    sliderHue.pack(side=LEFT, padx=5, pady=2)
+    sliderHue = Scale(frame2, label='Hue', variable=hue, troughcolor='blue', from_=-0.5, to=0.5, resolution=0.05, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_hsgps)
+    sliderHue.pack(side=TOP, anchor=E, padx=2, pady=2)
     hue.set(0.0)
 
     # create the image saturation slider control
     saturation = DoubleVar()
-    sliderSaturation = Scale(frame1, label='Saturation', variable=saturation, troughcolor='blue', from_=0.0, to=2.0, resolution=0.1, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_gamma_hue_saturation)
-    sliderSaturation.pack(side=LEFT, padx=5, pady=2)
+    sliderSaturation = Scale(frame2, label='Saturation', variable=saturation, troughcolor='blue', from_=0.0, to=2.0, resolution=0.1, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_hsgps)
+    sliderSaturation.pack(side=TOP, anchor=E, padx=2, pady=2)
     saturation.set(1.0)
 
+    # create the image posterize slider control
+    posterize = IntVar()
+    sliderPosterize = Scale(frame2, label='Posterize', variable=posterize, troughcolor='blue', from_=6, to=1, resolution=1, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_hsgps)
+    sliderPosterize.pack(side=TOP, padx=2, pady=20)
+    posterize.set(6)
+
+    # add 'Enable Solarize' checkbox
+    checkEnableSolarize = IntVar()
+    chbEnableSolarize = Checkbutton(frame2, text='Enable Solarize', variable=checkEnableSolarize, command=enable_solarize)
+    checkEnableSolarize.set(0)
+    chbEnableSolarize.pack(side=TOP, anchor=CENTER, padx=2, pady=5)
+
+    # create the image solarize slider control
+    solarize = IntVar()
+    sliderSolarize = Scale(frame2, label='Solarize', variable=solarize, state='disabled', troughcolor='blue', from_=0, to=255, resolution=1, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_hsgps)
+    sliderSolarize.pack(side=TOP, anchor=E, padx=2, pady=2)
+    solarize.set(128)
+
     # add exit button
-    exitBtn = Button(frame1, text='Exit', width=6, bg='lightgrey', relief=RAISED, command=root.destroy)
-    exitBtn.pack(side=RIGHT, padx=4, pady=2)
+    exitBtn = Button(frame2, text='Exit', width=6, bg='lightgrey', relief=RAISED, command=root.destroy)
+    exitBtn.pack(side=BOTTOM, anchor=CENTER, pady=4)
 
     # create matplotlib figure, subplot, canvas and toolbar
-    fig = Figure(figsize=(5, 4), dpi=400)
+    fig = Figure(figsize=(6, 4), dpi=100)
     subplot = fig.add_subplot(111)
-    subplot.xaxis.set_ticks([]), subplot.yaxis.set_ticks([])  # Hides the graph ticks and x / y axis
 
     canvas = FigureCanvasTkAgg(fig, master=root)
     canvas.draw()
