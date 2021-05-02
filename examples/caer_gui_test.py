@@ -1,4 +1,7 @@
-# Simple tkinter GUI app designed to showcase some caer features
+# Simple tkinter GUI app example, designed to showcase some caer features
+# Should only be used as a base to create a new GUI
+# It can be re-designed, controls re-grouped and code improved
+
 # Requirements: python3, caer, matplotlib
 
 # Run it either via IDLE or from command prompt / terminal with one of these commands:
@@ -9,15 +12,21 @@
 
 # Tested as working in Windows 10 with python v3.6.8 and Kubuntu Linux with python v3.6.8
 # You can select one of 9 built-in images to display (startup has "Island" selected as default)
+# Selecting any of the images, at any point in time, will always start with a fresh original image and reset controls.
 # Replace with or add your own image(s) by following the instructions here: https://caer.readthedocs.io/en/latest/api/io.html
 # The above will require that you modify main() and show_original_image() functions
 # All function controls are set to manipulate the currently displayed image
+# Gamma, Hue, Saturation, Posterize and Solarize effects are currently somewhat unique and, when applied to the image, will follow the following rule:
+# - Applying 'Resize', 'Rotate' and/or any of the 'Flip' functions to transformed image will preserve that image and have all the sliders reset
+# The above mentioned could be corrected by changing all those buttons to checkboxes and applying all the effects within a single function (similar to the current adjust_ghsps() function)
+# The 'Rotation' button is currently set to keep on rotating the image with every tap
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.figure import Figure
 
 from tkinter import *
 import platform
+import math
 import caer
 
 pythonVersion = platform.python_version()
@@ -25,6 +34,8 @@ pythonVersion = platform.python_version()
 def show_original_image(*args):
     global currentImage
     global rotationApplied
+    global lblCurrentAngle
+    global currentAngle
     global resizedImgBtn
     global flipHImgBtn
     global flipVImgBtn
@@ -64,7 +75,10 @@ def show_original_image(*args):
         currentImage = caer.data.guitar(rgb=True)
 
     rotationApplied = False
-    reset_ghs()
+    currentAngle = 0.0
+    lblCurrentAngle['text'] = str(currentAngle)
+    selectedAngle.set('0.0')
+    reset_ghsps()
 
     image_show(currentImage)
 
@@ -96,14 +110,14 @@ def show_resized_image():
 
             if not transformedImage is None:
                 currentImage = transformedImage
-                reset_ghs()
+                reset_ghsps()
 
             # Resize the image without preserving aspect ratio
             currentImage = caer.resize(currentImage, target_size=(int(size[0]),int(size[1])), preserve_aspect_ratio=False)
             currentImage.cspace = 'rgb'
 
             if rotationApplied:
-                show_rotated_image()
+                show_rotated_image(True)
             else:
                 image_show(currentImage)
         except Exception as e:
@@ -131,13 +145,13 @@ def show_h_flipped_image():
 
     if not transformedImage is None:
         currentImage = transformedImage
-        reset_ghs()
+        reset_ghsps()
 
     currentImage = caer.transforms.hflip(currentImage)
     currentImage.cspace = 'rgb'
 
     if rotationApplied:
-        show_rotated_image()
+        show_rotated_image(True)
     else:
         image_show(currentImage)
 
@@ -163,13 +177,13 @@ def show_v_flipped_image():
 
     if not transformedImage is None:
         currentImage = transformedImage
-        reset_ghs()
+        reset_ghsps()
 
     currentImage = caer.transforms.vflip(currentImage)
     currentImage.cspace = 'rgb'
 
     if rotationApplied:
-        show_rotated_image()
+        show_rotated_image(True)
     else:
         image_show(currentImage)
 
@@ -195,19 +209,21 @@ def show_hv_flipped_image():
 
     if not transformedImage is None:
         currentImage = transformedImage
-        reset_ghs()
+        reset_ghsps()
 
     currentImage = caer.transforms.hvflip(currentImage)
     currentImage.cspace = 'rgb'
 
     if rotationApplied:
-        show_rotated_image()
+        show_rotated_image(True)
     else:
         image_show(currentImage)
 
-def show_rotated_image():
+def show_rotated_image(external = False):
     global currentImage
     global rotationApplied
+    global lblCurrentAngle
+    global currentAngle
     global resizedImgBtn
     global flipHImgBtn
     global flipVImgBtn
@@ -217,18 +233,34 @@ def show_rotated_image():
     angle = selectedAngle.get()
 
     if angle == '':
-        angle = '0'
+        angle = '0.0'
+        currentAngle = 0.0
         rotationApplied = False
-    elif angle == '0' or ((float(angle) > 0 or float(angle) < 0) and float(angle) % 360 == 0):
+    elif angle == '0.0' or ((float(angle) > 0 or float(angle) < 0) and math.fmod(float(angle), 360) == 0):
+        currentAngle = 0.0
         rotationApplied = False
     else:
-        rotationApplied = True
+        if not external:
+            currentAngle += float(angle)
 
-    anchor = None # Center point
+        mod = math.fmod(currentAngle, 360)
+
+        if currentAngle > 360 or currentAngle < -360:
+            currentAngle = mod
+            rotationApplied = True
+        elif mod == 0:
+            currentAngle = 0.0
+            rotationApplied = False
+        else:
+            rotationApplied = True
+
+    lblCurrentAngle['text'] = str(currentAngle)
 
     tempAnchorPoint = anchorSelection.get()
 
-    if tempAnchorPoint == 'Top Left':
+    if tempAnchorPoint == 'Center':
+        anchor = None
+    elif tempAnchorPoint == 'TopLeft':
         anchor = (0, 0)
     elif tempAnchorPoint == 'TopMiddle':
         anchor = ((currentImage.width() // 2), 0)
@@ -261,12 +293,12 @@ def show_rotated_image():
         # preserve current image and only display its rotated version
 
         if not transformedImage is None:
-            rot = caer.transforms.rotate(transformedImage, float(angle), rotPoint=anchor)
+            rot = caer.transforms.rotate(transformedImage, float(currentAngle), rotPoint=anchor)
             if not rotationApplied:
                 currentImage = transformedImage
-                reset_ghs()
+                reset_ghsps()
         else:
-            rot = caer.transforms.rotate(currentImage, float(angle), rotPoint=anchor)
+            rot = caer.transforms.rotate(currentImage, float(currentAngle), rotPoint=anchor)
 
         rot.cspace = 'rgb'
 
@@ -288,12 +320,7 @@ def refresh_axis():
 
     fig.canvas.draw()
 
-def enable_solarize():
-    sliderSolarize['state'] = 'normal' if checkEnableSolarize.get() == 1 else 'disabled'
-    solarize.set(128)
-    adjust_hsgps(None)
-
-def adjust_hsgps(*args):
+def adjust_ghsps(*args):
     global transformedImage
 
     # apply all transformations to currently displayed image
@@ -304,24 +331,23 @@ def adjust_hsgps(*args):
     if posterize.get() < 6:
         transformedImage = caer.transforms.posterize(transformedImage, posterize.get())
 
-    if checkEnableSolarize.get() == 1:
+    if solarize.get() < 255:
         transformedImage = caer.transforms.solarize(transformedImage, solarize.get())
 
     transformedImage.cspace = 'rgb'
     
     if rotationApplied:
-        show_rotated_image()
+        show_rotated_image(True)
     else:
         image_show(transformedImage)
 
-def reset_ghs():
+def reset_ghsps():
     global transformedImage
     global imgGamma
     global hue
     global saturation
     global posterize
     global solarize
-    global checkEnableSolarize
 
     transformedImage = None
 
@@ -330,8 +356,7 @@ def reset_ghs():
     hue.set(0.0)
     saturation.set(1.0)
     posterize.set(6)
-    checkEnableSolarize.set(0)
-    solarize.set(128)
+    solarize.set(255)
 
 def main():
     global root
@@ -342,7 +367,6 @@ def main():
     global transformedImage
     global imageSelection
     global checkShowAxis
-    global checkEnableSolarize
     global sliderSolarize
     global resizedImgBtn
     global flipHImgBtn
@@ -355,6 +379,8 @@ def main():
     global rotationAngle
     global anchorSelection
     global rotationApplied
+    global lblCurrentAngle
+    global currentAngle
     global imgGamma
     global hue
     global saturation
@@ -369,6 +395,7 @@ def main():
     currentImage = None
     transformedImage = None
     rotationApplied = False
+    currentAngle = 0.0
 
     # bind the 'q' keyboard key to quit
     root.bind('q', lambda event:root.destroy())
@@ -429,7 +456,11 @@ def main():
     selectedAngle = StringVar()
     rotationAngle = Entry(frame1, justify=CENTER, textvariable=selectedAngle, font='Helvetica 10', width=5, bg='white', relief=RAISED)
     rotationAngle.pack(side=LEFT, padx=2, pady=2)
-    selectedAngle.set('90')
+    selectedAngle.set('0.0')
+
+    # create a read-only label for the current angle
+    lblCurrentAngle = Label(frame1, text='0.0', state='disabled', fg='lightgrey', bg='white', font='Helvetica 8', width=5)
+    lblCurrentAngle.pack(side=LEFT, padx=2, pady=2)
 
     # create a label for the rotation anchor
     lblAnchor = Label(frame1, text='Anchor', fg='yellow', bg='black', font='Helvetica 8')
@@ -453,39 +484,33 @@ def main():
 
     # create the image gamma slider control
     imgGamma = DoubleVar()
-    sliderGamma = Scale(frame2, label='Gamma', variable=imgGamma, troughcolor='blue', from_=0.0, to=2.0, resolution=0.1, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_hsgps)
+    sliderGamma = Scale(frame2, label='Gamma', variable=imgGamma, troughcolor='blue', from_=0.0, to=2.0, resolution=0.1, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_ghsps)
     sliderGamma.pack(side=TOP, anchor=E, padx=2, pady=2)
     imgGamma.set(1.0)
 
     # create the image hue slider control
     hue = DoubleVar()
-    sliderHue = Scale(frame2, label='Hue', variable=hue, troughcolor='blue', from_=-0.5, to=0.5, resolution=0.05, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_hsgps)
+    sliderHue = Scale(frame2, label='Hue', variable=hue, troughcolor='blue', from_=-0.5, to=0.5, resolution=0.05, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_ghsps)
     sliderHue.pack(side=TOP, anchor=E, padx=2, pady=2)
     hue.set(0.0)
 
     # create the image saturation slider control
     saturation = DoubleVar()
-    sliderSaturation = Scale(frame2, label='Saturation', variable=saturation, troughcolor='blue', from_=0.0, to=2.0, resolution=0.1, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_hsgps)
+    sliderSaturation = Scale(frame2, label='Saturation', variable=saturation, troughcolor='blue', from_=0.0, to=2.0, resolution=0.1, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_ghsps)
     sliderSaturation.pack(side=TOP, anchor=E, padx=2, pady=2)
     saturation.set(1.0)
 
     # create the image posterize slider control
     posterize = IntVar()
-    sliderPosterize = Scale(frame2, label='Posterize', variable=posterize, troughcolor='blue', from_=6, to=1, resolution=1, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_hsgps)
-    sliderPosterize.pack(side=TOP, padx=2, pady=20)
+    sliderPosterize = Scale(frame2, label='Posterize', variable=posterize, troughcolor='blue', from_=6, to=1, resolution=1, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_ghsps)
+    sliderPosterize.pack(side=TOP, padx=2, pady=10)
     posterize.set(6)
-
-    # add 'Enable Solarize' checkbox
-    checkEnableSolarize = IntVar()
-    chbEnableSolarize = Checkbutton(frame2, text='Enable Solarize', variable=checkEnableSolarize, command=enable_solarize)
-    checkEnableSolarize.set(0)
-    chbEnableSolarize.pack(side=TOP, anchor=CENTER, padx=2, pady=5)
 
     # create the image solarize slider control
     solarize = IntVar()
-    sliderSolarize = Scale(frame2, label='Solarize', variable=solarize, state='disabled', troughcolor='blue', from_=0, to=255, resolution=1, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_hsgps)
-    sliderSolarize.pack(side=TOP, anchor=E, padx=2, pady=2)
-    solarize.set(128)
+    sliderSolarize = Scale(frame2, label='Solarize', variable=solarize, troughcolor='blue', from_=255, to=0, resolution=1, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_ghsps)
+    sliderSolarize.pack(side=TOP, padx=2, pady=5)
+    solarize.set(255)
 
     # add exit button
     exitBtn = Button(frame2, text='Exit', width=6, bg='lightgrey', relief=RAISED, command=root.destroy)
