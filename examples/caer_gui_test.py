@@ -312,11 +312,15 @@ def image_show(tens):
     canvas.draw()
 
 def refresh_axis():
+    global showAxis
+
     # Hide / Show the graph x / y axis
-    if checkShowAxis.get() == 0:
-        subplot.xaxis.set_visible(False), subplot.yaxis.set_visible(False)
-    else:
+    if not showAxis:
         subplot.xaxis.set_visible(True), subplot.yaxis.set_visible(True)
+        showAxis = True
+    else:
+        subplot.xaxis.set_visible(False), subplot.yaxis.set_visible(False)
+        showAxis = False
 
     fig.canvas.draw()
 
@@ -366,7 +370,7 @@ def main():
     global currentImage
     global transformedImage
     global imageSelection
-    global checkShowAxis
+    global showAxis
     global sliderSolarize
     global resizedImgBtn
     global flipHImgBtn
@@ -395,6 +399,7 @@ def main():
     currentImage = None
     transformedImage = None
     rotationApplied = False
+    showAxis = False
     currentAngle = 0.0
 
     # bind the 'q' keyboard key to quit
@@ -415,12 +420,6 @@ def main():
     popup_menu_image['width'] = 10
     popup_menu_image['bg'] = 'lightgreen'
     popup_menu_image.pack(side=LEFT, padx=2)
-
-    # add 'Show Axis' checkbox
-    checkShowAxis = IntVar()
-    chbShowAxis = Checkbutton(frame1, text='Show Axis', variable=checkShowAxis, command=refresh_axis)
-    checkShowAxis.set(1)
-    chbShowAxis.pack(side=LEFT, padx=2, pady=2)
 
     # create a button to re-size the image
     resizedImgBtn = Button(frame1, text='Resize', width=6, bg='lightgrey', relief=RAISED, command=show_resized_image)
@@ -517,13 +516,18 @@ def main():
     exitBtn.pack(side=BOTTOM, anchor=CENTER, pady=4)
 
     # create matplotlib figure, subplot, canvas and toolbar
-    fig = Figure(figsize=(6, 4), dpi=100)
+    fig = Figure(figsize=(6.4, 4.3), dpi=100)
     subplot = fig.add_subplot(111)
+    subplot.xaxis.set_visible(False), subplot.yaxis.set_visible(False)
 
     canvas = FigureCanvasTkAgg(fig, master=root)
     canvas.draw()
 
     toolbar = NavigationToolbar2Tk(canvas, root)
+    toolbar._Spacer()
+    toolbar._Button('Reload Image', None, toggle=False, command=show_original_image)
+    toolbar._Spacer()
+    toolbar._Button('Show / Hide Axis', None, toggle=True, command=refresh_axis)
     toolbar.update()
 
     canvas.get_tk_widget().pack(side=TOP, fill=BOTH, expand=1)
