@@ -109,12 +109,11 @@ def show_resized_image():
                     rotateImgBtn['bg'] = 'lightgrey'
 
             if not transformedImage is None:
-                currentImage = transformedImage
+                currentImage = caer.to_tensor(transformedImage, cspace = 'rgb')
                 reset_ghsps()
 
             # Resize the image without preserving aspect ratio
-            currentImage = caer.resize(currentImage, target_size=(int(size[0]),int(size[1])), preserve_aspect_ratio=False)
-            currentImage.cspace = 'rgb'
+            currentImage = caer.to_tensor(caer.resize(currentImage, target_size=(int(size[0]),int(size[1])), preserve_aspect_ratio=False), cspace = 'rgb')
 
             if rotationApplied:
                 show_rotated_image(True)
@@ -144,11 +143,10 @@ def show_h_flipped_image():
             rotateImgBtn['bg'] = 'lightgrey'
 
     if not transformedImage is None:
-        currentImage = transformedImage
+        currentImage = caer.to_tensor(transformedImage, cspace = 'rgb')
         reset_ghsps()
 
-    currentImage = caer.transforms.hflip(currentImage)
-    currentImage.cspace = 'rgb'
+    currentImage = caer.to_tensor(caer.transforms.hflip(currentImage), cspace = 'rgb')
 
     if rotationApplied:
         show_rotated_image(True)
@@ -176,11 +174,10 @@ def show_v_flipped_image():
             rotateImgBtn['bg'] = 'lightgrey'
 
     if not transformedImage is None:
-        currentImage = transformedImage
+        currentImage = caer.to_tensor(transformedImage, cspace = 'rgb')
         reset_ghsps()
 
-    currentImage = caer.transforms.vflip(currentImage)
-    currentImage.cspace = 'rgb'
+    currentImage = caer.to_tensor(caer.transforms.vflip(currentImage), cspace = 'rgb')
 
     if rotationApplied:
         show_rotated_image(True)
@@ -208,11 +205,10 @@ def show_hv_flipped_image():
             rotateImgBtn['bg'] = 'lightgrey'
 
     if not transformedImage is None:
-        currentImage = transformedImage
+        currentImage = caer.to_tensor(transformedImage, cspace = 'rgb')
         reset_ghsps()
 
-    currentImage = caer.transforms.hvflip(currentImage)
-    currentImage.cspace = 'rgb'
+    currentImage = caer.to_tensor(caer.transforms.hvflip(currentImage), cspace = 'rgb')
 
     if rotationApplied:
         show_rotated_image(True)
@@ -293,14 +289,12 @@ def show_rotated_image(external = False):
         # preserve current image and only display its rotated version
 
         if not transformedImage is None:
-            rot = caer.transforms.rotate(transformedImage, float(currentAngle), rotPoint=anchor)
+            rot = caer.to_tensor(caer.transforms.rotate(transformedImage, float(currentAngle), rotPoint=anchor), cspace = 'rgb')
             if not rotationApplied:
-                currentImage = transformedImage
+                currentImage = caer.to_tensor(transformedImage, cspace = 'rgb')
                 reset_ghsps()
         else:
-            rot = caer.transforms.rotate(currentImage, float(currentAngle), rotPoint=anchor)
-
-        rot.cspace = 'rgb'
+            rot = caer.to_tensor(caer.transforms.rotate(currentImage, float(currentAngle), rotPoint=anchor), cspace = 'rgb')
 
         image_show(rot)
     except Exception as e:
@@ -312,11 +306,15 @@ def image_show(tens):
     canvas.draw()
 
 def refresh_axis():
+    global showAxis
+
     # Hide / Show the graph x / y axis
-    if checkShowAxis.get() == 0:
-        subplot.xaxis.set_visible(False), subplot.yaxis.set_visible(False)
-    else:
+    if not showAxis:
         subplot.xaxis.set_visible(True), subplot.yaxis.set_visible(True)
+        showAxis = True
+    else:
+        subplot.xaxis.set_visible(False), subplot.yaxis.set_visible(False)
+        showAxis = False
 
     fig.canvas.draw()
 
@@ -324,18 +322,24 @@ def adjust_ghsps(*args):
     global transformedImage
 
     # apply all transformations to currently displayed image
-    transformedImage = caer.transforms.adjust_hue(currentImage, hue.get())
-    transformedImage = caer.transforms.adjust_saturation(transformedImage, saturation.get())
-    transformedImage = caer.transforms.adjust_gamma(transformedImage, imgGamma.get())
+    transformedImage = caer.to_tensor(caer.transforms.adjust_hue(currentImage, hue.get()), cspace = 'rgb')
+    transformedImage = caer.to_tensor(caer.transforms.adjust_saturation(transformedImage, saturation.get()), cspace = 'rgb')
+    transformedImage = caer.to_tensor(caer.transforms.adjust_gamma(transformedImage, imgGamma.get()), cspace = 'rgb')
+
+    gb = gaussian_blur.get()
+
+    if gb > 1:
+        transformedImage = caer.to_tensor(caer.core.cv.GaussianBlur(transformedImage, (gb + 1, gb + 1), caer.core.cv.BORDER_DEFAULT), cspace = 'rgb')
 
     if posterize.get() < 6:
-        transformedImage = caer.transforms.posterize(transformedImage, posterize.get())
+        transformedImage = caer.to_tensor(caer.transforms.posterize(transformedImage, posterize.get()), cspace = 'rgb')
 
     if solarize.get() < 255:
-        transformedImage = caer.transforms.solarize(transformedImage, solarize.get())
+        transformedImage = caer.to_tensor(caer.transforms.solarize(transformedImage, solarize.get()), cspace = 'rgb')
 
-    transformedImage.cspace = 'rgb'
-    
+    if show_edges.get() == 1:
+        transformedImage = caer.to_tensor(caer.core.cv.Canny(transformedImage, low_threshold.get(), low_threshold.get() * 3), cspace = 'rgb')
+
     if rotationApplied:
         show_rotated_image(True)
     else:
@@ -346,8 +350,11 @@ def reset_ghsps():
     global imgGamma
     global hue
     global saturation
+    global gaussian_blur
     global posterize
     global solarize
+    global show_edges
+    global low_threshold
 
     transformedImage = None
 
@@ -355,8 +362,11 @@ def reset_ghsps():
     imgGamma.set(1.0)
     hue.set(0.0)
     saturation.set(1.0)
+    gaussian_blur.set(0)
     posterize.set(6)
     solarize.set(255)
+    show_edges.set(0)
+    low_threshold.set(50)
 
 def main():
     global root
@@ -366,7 +376,7 @@ def main():
     global currentImage
     global transformedImage
     global imageSelection
-    global checkShowAxis
+    global showAxis
     global sliderSolarize
     global resizedImgBtn
     global flipHImgBtn
@@ -384,8 +394,11 @@ def main():
     global imgGamma
     global hue
     global saturation
+    global gaussian_blur
     global posterize
     global solarize
+    global show_edges
+    global low_threshold
 
     root = Tk()
     root.config(background='white')
@@ -395,6 +408,7 @@ def main():
     currentImage = None
     transformedImage = None
     rotationApplied = False
+    showAxis = False
     currentAngle = 0.0
 
     # bind the 'q' keyboard key to quit
@@ -415,12 +429,6 @@ def main():
     popup_menu_image['width'] = 10
     popup_menu_image['bg'] = 'lightgreen'
     popup_menu_image.pack(side=LEFT, padx=2)
-
-    # add 'Show Axis' checkbox
-    checkShowAxis = IntVar()
-    chbShowAxis = Checkbutton(frame1, text='Show Axis', variable=checkShowAxis, command=refresh_axis)
-    checkShowAxis.set(1)
-    chbShowAxis.pack(side=LEFT, padx=2, pady=2)
 
     # create a button to re-size the image
     resizedImgBtn = Button(frame1, text='Resize', width=6, bg='lightgrey', relief=RAISED, command=show_resized_image)
@@ -500,10 +508,16 @@ def main():
     sliderSaturation.pack(side=TOP, anchor=E, padx=2, pady=2)
     saturation.set(1.0)
 
+    # create the image Gaussian Blur slider control
+    gaussian_blur = IntVar()
+    sliderGaussianBlur = Scale(frame2, label='Gaussian Blur', variable=gaussian_blur, troughcolor='blue', from_=0, to=10, resolution=2, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_ghsps)
+    sliderGaussianBlur.pack(side=TOP, padx=2, pady=5)
+    gaussian_blur.set(0)
+
     # create the image posterize slider control
     posterize = IntVar()
     sliderPosterize = Scale(frame2, label='Posterize', variable=posterize, troughcolor='blue', from_=6, to=1, resolution=1, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_ghsps)
-    sliderPosterize.pack(side=TOP, padx=2, pady=10)
+    sliderPosterize.pack(side=TOP, padx=2, pady=5)
     posterize.set(6)
 
     # create the image solarize slider control
@@ -512,18 +526,35 @@ def main():
     sliderSolarize.pack(side=TOP, padx=2, pady=5)
     solarize.set(255)
 
+    # add 'Show Edges' checkbox
+    show_edges = IntVar()
+    chbShowEdges = Checkbutton(frame2, text='Show Edges', variable=show_edges, command=adjust_ghsps)
+    chbShowEdges.pack(side=TOP, padx=2, pady=5)
+    show_edges.set(0)
+
+    # create the image edges low threshold slider control
+    low_threshold = IntVar()
+    sliderLowThreshold = Scale(frame2, label='Edges Threshold', variable=low_threshold, troughcolor='blue', from_=100, to=0, resolution=1, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_ghsps)
+    sliderLowThreshold.pack(side=TOP, padx=2, pady=5)
+    low_threshold.set(50)
+
     # add exit button
     exitBtn = Button(frame2, text='Exit', width=6, bg='lightgrey', relief=RAISED, command=root.destroy)
     exitBtn.pack(side=BOTTOM, anchor=CENTER, pady=4)
 
     # create matplotlib figure, subplot, canvas and toolbar
-    fig = Figure(figsize=(6, 4), dpi=100)
+    fig = Figure(figsize=(6.4, 4.3), dpi=100)
     subplot = fig.add_subplot(111)
+    subplot.xaxis.set_visible(False), subplot.yaxis.set_visible(False)
 
     canvas = FigureCanvasTkAgg(fig, master=root)
     canvas.draw()
 
     toolbar = NavigationToolbar2Tk(canvas, root)
+    toolbar._Spacer()
+    toolbar._Button('Reload Image', None, toggle=False, command=show_original_image)
+    toolbar._Spacer()
+    toolbar._Button('Show / Hide Axis', None, toggle=True, command=refresh_axis)
     toolbar.update()
 
     canvas.get_tk_widget().pack(side=TOP, fill=BOTH, expand=1)
