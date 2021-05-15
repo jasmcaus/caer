@@ -16,9 +16,10 @@
 # Replace with or add your own image(s) by following the instructions here: https://caer.readthedocs.io/en/latest/api/io.html
 # The above will require that you modify main() and show_original_image() functions
 # All function controls are set to manipulate the currently displayed image
-# Gamma, Hue, Saturation, Posterize and Solarize effects are currently somewhat unique and, when applied to the image, will follow the following rule:
-# - Applying 'Resize', 'Rotate' and/or any of the 'Flip' functions to transformed image will preserve that image and have all the sliders reset
-# The above mentioned could be corrected by changing all those buttons to checkboxes and applying all the effects within a single function (similar to the current adjust_ghsps() function)
+# Edges and Emboss effects are mutually exclusive (you can only have one applied at the time)
+# Gamma, Hue, Saturation, Sharpness, Posterize, Solarize, Edges and Emboss effects are currently somewhat unique and, when applied to the image, will follow the following rule:
+# - Applying 'Resize', 'Rotate' and/or any of the 'Flip' functions to transformed image will preserve that image and have all those effects reset
+# The above mentioned could possibly be corrected by converting all those buttons to checkboxes and applying all the effects within a single function (similar to the current adjust_ghsps() function)
 # The 'Rotation' button is currently set to keep on rotating the image with every tap
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
@@ -318,32 +319,57 @@ def refresh_axis():
 
     fig.canvas.draw()
 
+def set_edges():
+    global show_emboss
+
+    if show_edges.get() == 1:
+        show_emboss.set(0)
+
+    adjust_ghsps()
+
+def set_emboss():
+    global show_edges
+
+    if show_emboss.get() == 1:
+        show_edges.set(0)
+    
+    adjust_ghsps()
+
 def adjust_ghsps(*args):
     global transformedImage
 
-    # apply all transformations to currently displayed image
-    transformedImage = caer.to_tensor(caer.transforms.adjust_hue(currentImage, hue.get()), cspace = 'rgb')
-    transformedImage = caer.to_tensor(caer.transforms.adjust_saturation(transformedImage, saturation.get()), cspace = 'rgb')
-    transformedImage = caer.to_tensor(caer.transforms.adjust_gamma(transformedImage, imgGamma.get()), cspace = 'rgb')
+    if not currentImage is None:
+        # apply all transformations to currently displayed image
+        transformedImage = caer.to_tensor(caer.transforms.adjust_hue(currentImage, hue.get()), cspace = 'rgb')
+        transformedImage = caer.to_tensor(caer.transforms.adjust_saturation(transformedImage, saturation.get()), cspace = 'rgb')
+        transformedImage = caer.to_tensor(caer.transforms.adjust_gamma(transformedImage, imgGamma.get()), cspace = 'rgb')
 
-    gb = gaussian_blur.get()
+        if sharpen.get() != 8.9:
+            kernel = caer.data.np.array([[-1, -1, -1], [-1, sharpen.get(), -1], [-1, -1, -1]])
+            transformedImage = caer.to_tensor(caer.core.cv.filter2D(transformedImage, -1, kernel), cspace = 'rgb')
 
-    if gb > 1:
-        transformedImage = caer.to_tensor(caer.core.cv.GaussianBlur(transformedImage, (gb + 1, gb + 1), caer.core.cv.BORDER_DEFAULT), cspace = 'rgb')
+        gb = gaussian_blur.get()
 
-    if posterize.get() < 6:
-        transformedImage = caer.to_tensor(caer.transforms.posterize(transformedImage, posterize.get()), cspace = 'rgb')
+        if gb > 1:
+            transformedImage = caer.to_tensor(caer.core.cv.GaussianBlur(transformedImage, (gb + 1, gb + 1), caer.core.cv.BORDER_DEFAULT), cspace = 'rgb')
 
-    if solarize.get() < 255:
-        transformedImage = caer.to_tensor(caer.transforms.solarize(transformedImage, solarize.get()), cspace = 'rgb')
+        if posterize.get() < 6:
+            transformedImage = caer.to_tensor(caer.transforms.posterize(transformedImage, posterize.get()), cspace = 'rgb')
 
-    if show_edges.get() == 1:
-        transformedImage = caer.to_tensor(caer.core.cv.Canny(transformedImage, low_threshold.get(), low_threshold.get() * 3), cspace = 'rgb')
+        if solarize.get() < 255:
+            transformedImage = caer.to_tensor(caer.transforms.solarize(transformedImage, solarize.get()), cspace = 'rgb')
 
-    if rotationApplied:
-        show_rotated_image(True)
-    else:
-        image_show(transformedImage)
+        if show_edges.get() == 1:
+            transformedImage = caer.to_tensor(caer.core.cv.Canny(transformedImage, low_threshold.get(), low_threshold.get() * 2), cspace = 'rgb')
+
+        if show_emboss.get() == 1:
+            kernel = caer.data.np.array([[0, 1, 0], [0, 0, 0], [0, -1, 0]])
+            transformedImage = caer.to_tensor(caer.core.cv.filter2D(transformedImage, -1, kernel) + emboss.get(), cspace = 'rgb')
+
+        if rotationApplied:
+            show_rotated_image(True)
+        else:
+            image_show(transformedImage)
 
 def reset_ghsps():
     global transformedImage
@@ -355,6 +381,9 @@ def reset_ghsps():
     global solarize
     global show_edges
     global low_threshold
+    global sharpen
+    global show_emboss
+    global emboss
 
     transformedImage = None
 
@@ -367,6 +396,9 @@ def reset_ghsps():
     solarize.set(255)
     show_edges.set(0)
     low_threshold.set(50)
+    sharpen.set(8.9)
+    show_emboss.set(0)
+    emboss.set(114)
 
 def main():
     global root
@@ -399,6 +431,9 @@ def main():
     global solarize
     global show_edges
     global low_threshold
+    global sharpen
+    global show_emboss
+    global emboss
 
     root = Tk()
     root.config(background='white')
@@ -438,7 +473,7 @@ def main():
     selectedSize = StringVar()
     resizedImgSize = Entry(frame1, justify=CENTER, textvariable=selectedSize, font='Helvetica 10', width=10, bg='white', relief=RAISED)
     resizedImgSize.pack(side=LEFT, padx=2, pady=2)
-    selectedSize.set('400x400')
+    selectedSize.set('1280x854')
 
     # create a button to flip the image horizontally
     flipHImgBtn = Button(frame1, text='FlipH', width=6, bg='lightgrey', relief=RAISED, command=show_h_flipped_image)
@@ -508,6 +543,12 @@ def main():
     sliderSaturation.pack(side=TOP, anchor=E, padx=2, pady=2)
     saturation.set(1.0)
 
+    # create the image sharpen slider control
+    sharpen = DoubleVar()
+    sliderSharpen = Scale(frame2, label='Sharpen', variable=sharpen, troughcolor='blue', from_=7.9, to=9.9, resolution=0.1, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_ghsps)
+    sliderSharpen.pack(side=TOP, padx=2, pady=5)
+    sharpen.set(8.9)
+
     # create the image Gaussian Blur slider control
     gaussian_blur = IntVar()
     sliderGaussianBlur = Scale(frame2, label='Gaussian Blur', variable=gaussian_blur, troughcolor='blue', from_=0, to=10, resolution=2, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_ghsps)
@@ -526,9 +567,9 @@ def main():
     sliderSolarize.pack(side=TOP, padx=2, pady=5)
     solarize.set(255)
 
-    # add 'Show Edges' checkbox
+    # add 'Edges' checkbox
     show_edges = IntVar()
-    chbShowEdges = Checkbutton(frame2, text='Show Edges', variable=show_edges, command=adjust_ghsps)
+    chbShowEdges = Checkbutton(frame2, text='Edges', variable=show_edges, width=7, command=set_edges)
     chbShowEdges.pack(side=TOP, padx=2, pady=5)
     show_edges.set(0)
 
@@ -538,9 +579,23 @@ def main():
     sliderLowThreshold.pack(side=TOP, padx=2, pady=5)
     low_threshold.set(50)
 
+    # add 'Emboss' checkbox
+    show_emboss = IntVar()
+    chbShowEmboss = Checkbutton(frame2, text='Emboss', variable=show_emboss, width=7, command=set_emboss)
+    chbShowEmboss.pack(side=TOP, padx=2, pady=5)
+    show_emboss.set(0)
+
+    # create the image emboss slider control
+    emboss = IntVar()
+    sliderEmboss = Scale(frame2, label='Emboss Threshold', variable=emboss, troughcolor='blue', from_=128, to=99, resolution=1, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_ghsps)
+    sliderEmboss.pack(side=TOP, padx=2, pady=5)
+    emboss.set(114)
+
     # add exit button
-    exitBtn = Button(frame2, text='Exit', width=6, bg='lightgrey', relief=RAISED, command=root.destroy)
+    exitBtn = Button(frame2, text='Exit', width=7, fg='red', bg='lightgrey', relief=RAISED, command=root.destroy)
     exitBtn.pack(side=BOTTOM, anchor=CENTER, pady=4)
+
+    #-----------------------------------------------------------------------
 
     # create matplotlib figure, subplot, canvas and toolbar
     fig = Figure(figsize=(6.4, 4.3), dpi=100)
@@ -558,6 +613,8 @@ def main():
     toolbar.update()
 
     canvas.get_tk_widget().pack(side=TOP, fill=BOTH, expand=1)
+
+    #-----------------------------------------------------------------------
 
     # set the minimum window size to the current size
     root.update()
