@@ -19,7 +19,7 @@
 # Edges and Emboss effects are mutually exclusive (you can only have one applied at the time)
 # Gamma, Hue, Saturation, Sharpness, Posterize, Solarize, Edges and Emboss effects are currently somewhat unique and, when applied to the image, will follow the following rule:
 # - Applying 'Resize', 'Rotate' and/or any of the 'Flip' functions to transformed image will preserve that image and have all those effects reset
-# The above mentioned could possibly be corrected by converting all those buttons to checkboxes and applying all the effects within a single function (similar to the current adjust_ghsps() function)
+# The above mentioned could possibly be corrected by converting all those buttons to checkboxes and applying all the effects within a single function (just use the current adjust_ghsps() function)
 # The 'Rotation' button is currently set to keep on rotating the image with every tap
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
@@ -303,13 +303,13 @@ def show_rotated_image(external = False):
 
 def image_show(tens):
     subplot.clear()
-    subplot.imshow(tens)
+    subplot.imshow(tens) # optionally add aspect='auto' to switch to automatic aspect mode
     canvas.draw()
 
 def refresh_axis():
     global showAxis
 
-    # Hide / Show the graph x / y axis
+    # Hide / Show the graph's x / y axis
     if not showAxis:
         subplot.xaxis.set_visible(True), subplot.yaxis.set_visible(True)
         showAxis = True
@@ -435,10 +435,18 @@ def main():
     global show_emboss
     global emboss
 
+    # create our window
     root = Tk()
     root.config(background='white')
     root.title('CAER GUI Test - Python v' + pythonVersion)
     root.geometry('1024x768')
+
+    # the following works for a single screen setup
+    # if using a multi-screen setup then see the following link:
+    # Ref: https://stackoverflow.com/questions/3129322/how-do-i-get-monitor-resolution-in-python/56913005#56913005
+    screenDPI = root.winfo_fpixels('1i')
+    screen_width = root.winfo_screenwidth()
+    screen_height = root.winfo_screenheight()
 
     currentImage = None
     transformedImage = None
@@ -521,7 +529,7 @@ def main():
 
     #-----------------------------------------------------------------------
 
-    # add a frame to hold side controls
+    # add a frame to hold side controls and screen attributes labels
     frame2 = Frame(root, background='black')
     frame2.pack(side=RIGHT, fill=Y)
 
@@ -545,7 +553,7 @@ def main():
 
     # create the image sharpen slider control
     sharpen = DoubleVar()
-    sliderSharpen = Scale(frame2, label='Sharpen', variable=sharpen, troughcolor='blue', from_=7.9, to=9.9, resolution=0.1, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_ghsps)
+    sliderSharpen = Scale(frame2, label='Sharpen', variable=sharpen, troughcolor='blue', from_=7.9, to=9.9, resolution=0.05, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_ghsps)
     sliderSharpen.pack(side=TOP, padx=2, pady=5)
     sharpen.set(8.9)
 
@@ -591,6 +599,15 @@ def main():
     sliderEmboss.pack(side=TOP, padx=2, pady=5)
     emboss.set(114)
 
+    lblScreen = Label(frame2, text='Screen', fg='grey', bg='black', font='Helvetica 9')
+    lblScreen.pack(side=TOP, anchor=CENTER, pady=15)
+
+    lblResolution = Label(frame2, text='res: ' + str(screen_width) + 'x' + str(screen_height), fg='grey', bg='black', font='Helvetica 9')
+    lblResolution.pack(side=TOP, anchor=CENTER)
+
+    lblDPI = Label(frame2, text='dpi: ' + str(int(screenDPI)), fg='grey', bg='black', font='Helvetica 9')
+    lblDPI.pack(side=TOP, anchor=CENTER)
+
     # add exit button
     exitBtn = Button(frame2, text='Exit', width=7, fg='red', bg='lightgrey', relief=RAISED, command=root.destroy)
     exitBtn.pack(side=BOTTOM, anchor=CENTER, pady=4)
@@ -598,9 +615,10 @@ def main():
     #-----------------------------------------------------------------------
 
     # create matplotlib figure, subplot, canvas and toolbar
-    fig = Figure(figsize=(6.4, 4.3), dpi=100)
+    fig = Figure(figsize=(640//screenDPI, 427//screenDPI), dpi=int(screenDPI))
     subplot = fig.add_subplot(111)
     subplot.xaxis.set_visible(False), subplot.yaxis.set_visible(False)
+    fig.set_tight_layout(True)
 
     canvas = FigureCanvasTkAgg(fig, master=root)
     canvas.draw()
@@ -626,3 +644,4 @@ def main():
 
 if __name__=='__main__':
     main()
+    caer.core.cv.destroyAllWindows()
