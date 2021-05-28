@@ -9,7 +9,7 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2020-2021 The Caer Authors <http://github.com/jasmcaus>
 
-#pylint:disable=unused-argument
+# pylint:disable=unused-argument
 
 import numpy as np
 
@@ -31,38 +31,39 @@ class Tensor(_TensorBase, np.ndarray):
             raise TypeError('Data needs to be (ideally) a list')
 
         if not isinstance(cspace, str) and cspace is not None:
-            raise TypeError(f'`cspace` needs to be of type <string>, not {type(cspace)}')
+            raise TypeError(
+                f'`cspace` needs to be of type <string>, not {type(cspace)}'
+            )
 
         obj = np.asarray(x, dtype=dtype).view(cls)
         obj.dtype = obj.dtype
 
         return obj
 
-
     def __init__(self, x, cspace, dtype=None):
-        super().__init__() # gets attributes from '_TensorBase'
+        super().__init__()  # gets attributes from '_TensorBase'
         self.x = x
 
         if cspace is None:
             self.cspace = 'null'
 
         else:
-            if cspace in ('rgb', 'bgr', 'gray', 'hsv', 'hls', 'lab', 'yuv'):
+            if cspace in ('rgb', 'bgr', 'gray', 'hsv', 'hls', 'lab', 'yuv', 'luv'):
                 self.cspace = cspace
             else:
-                raise ValueError('The `cspace` attribute needs to be either rgb/bgr/gray/hsv/hls/lab')
-
+                raise ValueError(
+                    'The `cspace` attribute needs to be either rgb/bgr/gray/hsv/hls/lab/yuv/luv'
+                )
 
     def __repr__(self):
         return _str(self)
-
 
     def __str__(self):
         return self.__repr__()
 
 
 def is_tensor(x):
-    r"""
+    r'''
         Returns True if `x` is a Caer tensor.
 
         Note that this function is simply doing ``isinstance(x, Tensor)``. Using the ``isinstance`` check is better for typechecking with mypy, and more explicit - so it's recommended to use that instead of ``is_tensor``.
@@ -71,5 +72,5 @@ def is_tensor(x):
 
     Args:
         x (Object): Object to test
-    """
+    '''
     return 'caer.Tensor' in str(type(x)) or (isinstance(x, Tensor))
