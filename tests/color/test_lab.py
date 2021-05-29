@@ -1,4 +1,4 @@
-#    _____           ______  _____ 
+#    _____           ______  _____
 #  / ____/    /\    |  ____ |  __ \
 # | |        /  \   | |__   | |__) | Caer - Modern Computer Vision
 # | |       / /\ \  |  __|  |  _  /  Languages: Python, C, C++, Cuda
@@ -9,14 +9,15 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2020-2021 The Caer Authors <http://github.com/jasmcaus>
 
-import caer 
-import cv2 as cv 
-import os 
+import caer
+import cv2 as cv
+import os
 
 here = os.path.dirname(os.path.dirname(__file__))
 tens_path = os.path.join(here, 'data', 'green_fish.jpg')
 # BGR
 cv_bgr = cv.imread(tens_path)
+
 
 def test_lab2rgb():
     cv_lab = cv.cvtColor(cv_bgr, cv.COLOR_BGR2LAB)
@@ -24,7 +25,7 @@ def test_lab2rgb():
 
     rgb = caer.lab2rgb(cv_lab)
 
-    assert len(rgb.shape) == 3 
+    assert len(rgb.shape) == 3
     assert isinstance(rgb, caer.Tensor)
     assert rgb.is_rgb()
 
@@ -35,11 +36,11 @@ def test_lab2bgr():
 
     bgr = caer.lab2bgr(cv_lab)
 
-    assert len(bgr.shape) == 3 
+    assert len(bgr.shape) == 3
     assert isinstance(bgr, caer.Tensor)
     assert bgr.is_bgr()
 
-    
+
 def test_lab2gray():
     cv_lab = cv.cvtColor(cv_bgr, cv.COLOR_BGR2LAB)
     cv_lab = caer.to_tensor(cv_lab, cspace='lab')
@@ -57,7 +58,7 @@ def test_lab2hsv():
 
     hsv = caer.lab2hsv(cv_lab)
 
-    assert len(hsv.shape) == 3 
+    assert len(hsv.shape) == 3
     assert isinstance(hsv, caer.Tensor)
     assert hsv.is_hsv()
 
@@ -68,7 +69,7 @@ def test_lab2hls():
 
     hls = caer.lab2hls(cv_lab)
 
-    assert len(hls.shape) == 3 
+    assert len(hls.shape) == 3
     assert isinstance(hls, caer.Tensor)
     assert hls.is_hls()
 
@@ -78,6 +79,16 @@ def test_lab2yuv():
     cv_lab = caer.to_tensor(cv_lab, cspace='rgb')
     yuv = caer.lab2yuv(cv_lab)
 
-    assert len(yuv.shape) == 3 
+    assert len(yuv.shape) == 3
     assert isinstance(yuv, caer.Tensor)
     assert yuv.is_yuv()
+
+
+def test_lab2luv():
+    cv_lab = cv.cvtColor(cv_bgr, cv.COLOR_BGR2RGB)
+    cv_lab = caer.to_tensor(cv_lab, cspace='rgb')
+    luv = caer.lab2luv(cv_lab)
+
+    assert len(luv.shape) == 3
+    assert isinstance(luv, caer.Tensor)
+    assert luv.is_luv()
