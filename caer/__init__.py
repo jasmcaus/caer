@@ -3,9 +3,9 @@ Caer
 =====
 Caer is a *lightweight, scalable* Computer Vision library for high-performance AI research. It simplifies your approach
 towards Computer Vision by abstracting away unnecessary boilerplate code giving you the flexibility to quickly prototype deep
-learning models or research ideas. 
+learning models or research ideas.
 
-Our design philosophy makes Caer ideal for students, researchers, hobbyists and even experts in the fields of Deep Learning 
+Our design philosophy makes Caer ideal for students, researchers, hobbyists and even experts in the fields of Deep Learning
 and Computer Vision.
 
 Documentation: https://caer.readthedocs.io
@@ -60,8 +60,8 @@ Root Package Info
 """
 
 __version__ = version
-__release__ = release 
-__author__ = author 
+__release__ = release
+__author__ = author
 __author_email__ = author_email
 __contributors__ = contributors
 __license__ = 'MIT License'
@@ -73,7 +73,7 @@ __homepage__ = homepage
 
 
 def license():
-    return __license__ 
+    return __license__
 
 def copyright():
     return __copyright__
@@ -125,13 +125,15 @@ from .color import (
     to_hls,
     to_lab,
     to_yuv,
+    to_luv,
 
     bgr2rgb,
     bgr2gray,
-    bgr2hsv,    
+    bgr2hsv,
     bgr2hls,
     bgr2lab,
     bgr2yuv,
+    bgr2luv,
 
     rgb2bgr,
     rgb2gray,
@@ -139,13 +141,15 @@ from .color import (
     rgb2hls,
     rgb2lab,
     rgb2yuv,
+    rgb2luv,
 
     gray2rgb,
-    gray2bgr,    
+    gray2bgr,
     gray2hsv,
     gray2hls,
-    gray2lab,    
-    gray2yuv,    
+    gray2lab,
+    gray2yuv,
+    gray2luv,
 
     hsv2rgb,
     hsv2bgr,
@@ -153,6 +157,7 @@ from .color import (
     hsv2hls,
     hsv2lab,
     hsv2yuv,
+    hsv2luv,
 
     hls2rgb,
     hls2bgr,
@@ -160,6 +165,7 @@ from .color import (
     hls2hsv,
     hls2lab,
     hls2yuv,
+    hls2luv,
 
     lab2rgb,
     lab2bgr,
@@ -167,13 +173,23 @@ from .color import (
     lab2hsv,
     lab2hls,
     lab2yuv,
+    lab2luv,
 
     yuv2rgb,
     yuv2bgr,
     yuv2gray,
     yuv2hsv,
     yuv2hls,
-    yuv2lab, 
+    yuv2lab,
+    yuv2luv,
+
+    luv2rgb,
+    luv2bgr,
+    luv2gray,
+    luv2hsv,
+    luv2hls,
+    luv2lab,
+    luv2yuv,
 
     __all__ as __all_color__
 )
@@ -182,7 +198,7 @@ from .color import (
 # Bringing in configuration variables from globals.py
 # from .globals import *
 
-# Tensor-stuff 
+# Tensor-stuff
 from .adorad import *
 
 
@@ -213,30 +229,30 @@ __all__ = __all_globals__ + __all_core__ + __all_preprocess__
 
 __all__ += __all_transforms__
 __all__ += __all_color__
-__all__ += __all_data__ 
-# __all__ += __all_filters__ 
-__all__ += __all_io__ 
+__all__ += __all_data__
+# __all__ += __all_filters__
+__all__ += __all_io__
 __all__ += __all_path__
-__all__ += __all_preprocessing__ 
-__all__ += __all_video__ 
+__all__ += __all_preprocessing__
+__all__ += __all_video__
 
 
 # Stop polluting the namespace
 
 ## Remove root package info
 del author
-del version 
+del version
 del release
-del contributors 
+del contributors
 
-## Remove everything else 
-del __all_globals__ 
-del __all_core__ 
-del __all_preprocess__ 
+## Remove everything else
+del __all_globals__
+del __all_core__
+del __all_preprocess__
 
-del __all_transforms__ 
-del __all_color__ 
-del __all_data__ 
+del __all_transforms__
+del __all_color__
+del __all_data__
 # del __all_filters__
-del __all_preprocessing__ 
-del __all_video__ 
+del __all_preprocessing__
+del __all_video__
