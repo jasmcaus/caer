@@ -19,78 +19,78 @@ tens_path = os.path.join(here, 'data', 'green_fish.jpg')
 cv_bgr = cv.imread(tens_path)
 
 
-def test_yuv2rgb():
-    cv_yuv = cv.cvtColor(cv_bgr, cv.COLOR_BGR2YUV)
-    cv_yuv = caer.to_tensor(cv_yuv, cspace='yuv')
+def test_luv2rgb():
+    cv_luv = cv.cvtColor(cv_bgr, cv.COLOR_BGR2LUV)
+    cv_luv = caer.to_tensor(cv_luv, cspace='luv')
 
-    rgb = caer.yuv2rgb(cv_yuv)
+    rgb = caer.luv2rgb(cv_luv)
 
     assert len(rgb.shape) == 3
     assert isinstance(rgb, caer.Tensor)
     assert rgb.is_rgb()
 
 
-def test_yuv2bgr():
-    cv_yuv = cv.cvtColor(cv_bgr, cv.COLOR_BGR2YUV)
-    cv_yuv = caer.to_tensor(cv_yuv, cspace='yuv')
+def test_luv2bgr():
+    cv_luv = cv.cvtColor(cv_bgr, cv.COLOR_BGR2LUV)
+    cv_luv = caer.to_tensor(cv_luv, cspace='luv')
 
-    bgr = caer.yuv2bgr(cv_yuv)
+    bgr = caer.luv2bgr(cv_luv)
 
     assert len(bgr.shape) == 3
     assert isinstance(bgr, caer.Tensor)
     assert bgr.is_bgr()
 
 
-def test_yuv2gray():
-    cv_yuv = cv.cvtColor(cv_bgr, cv.COLOR_BGR2YUV)
-    cv_yuv = caer.to_tensor(cv_yuv, cspace='yuv')
+def test_luv2gray():
+    cv_luv = cv.cvtColor(cv_bgr, cv.COLOR_BGR2LUV)
+    cv_luv = caer.to_tensor(cv_luv, cspace='luv')
 
-    gray = caer.yuv2gray(cv_yuv)
+    gray = caer.luv2gray(cv_luv)
 
     assert len(gray.shape) == 2 or (len(gray.shape) == 3 and gray.shape[-1] == 1)
     assert isinstance(gray, caer.Tensor)
     assert gray.is_gray()
 
 
-def test_yuv2hsv():
-    cv_yuv = cv.cvtColor(cv_bgr, cv.COLOR_BGR2YUV)
-    cv_yuv = caer.to_tensor(cv_yuv, cspace='yuv')
+def test_luv2hsv():
+    cv_luv = cv.cvtColor(cv_bgr, cv.COLOR_BGR2LUV)
+    cv_luv = caer.to_tensor(cv_luv, cspace='luv')
 
-    hsv = caer.yuv2hsv(cv_yuv)
+    hsv = caer.luv2hsv(cv_luv)
 
     assert len(hsv.shape) == 3
     assert isinstance(hsv, caer.Tensor)
     assert hsv.is_hsv()
 
 
-def test_yuv2hls():
-    cv_yuv = cv.cvtColor(cv_bgr, cv.COLOR_BGR2YUV)
-    cv_yuv = caer.to_tensor(cv_yuv, cspace='yuv')
+def test_luv2hls():
+    cv_luv = cv.cvtColor(cv_bgr, cv.COLOR_BGR2LUV)
+    cv_luv = caer.to_tensor(cv_luv, cspace='luv')
 
-    hls = caer.yuv2hls(cv_yuv)
+    hls = caer.luv2hls(cv_luv)
 
     assert len(hls.shape) == 3
     assert isinstance(hls, caer.Tensor)
     assert hls.is_hls()
 
 
-def test_yuv2lab():
-    cv_yuv = cv.cvtColor(cv_bgr, cv.COLOR_BGR2YUV)
-    cv_yuv = caer.to_tensor(cv_yuv, cspace='yuv')
+def test_luv2lab():
+    cv_luv = cv.cvtColor(cv_bgr, cv.COLOR_BGR2LUV)
+    cv_luv = caer.to_tensor(cv_luv, cspace='luv')
 
-    lab = caer.yuv2lab(cv_yuv)
+    lab = caer.luv2lab(cv_luv)
 
     assert len(lab.shape) == 3
     assert isinstance(lab, caer.Tensor)
     assert lab.is_lab()
 
 
-def test_yuv2luv():
-    cv_yuv = cv.cvtColor(cv_bgr, cv.COLOR_BGR2YUV)
-    cv_yuv = caer.to_tensor(cv_yuv, cspace='yuv')
+def test_luv2yuv():
+    cv_luv = cv.cvtColor(cv_bgr, cv.COLOR_BGR2LUV)
+    cv_luv = caer.to_tensor(cv_luv, cspace='luv')
 
-    luv = caer.yuv2luv(cv_yuv)
+    yuv = caer.luv2yuv(cv_luv)
 
-    assert len(luv.shape) == 3
-    assert isinstance(luv, caer.Tensor)
-    assert luv.is_luv()
+    assert len(yuv.shape) == 3
+    assert isinstance(yuv, caer.Tensor)
+    assert yuv.is_yuv()
