@@ -1,7 +1,8 @@
-# A simple TkInter GUI app example, designed to showcase some of Caer's features
-# This should only be used as a base to create a new GUI.
+# Simple tkinter GUI app example, designed to showcase some caer features
+# Should only be used as a base to create a new GUI
+# It can be re-designed, controls re-grouped and code improved
 
-# Requirements: Python, Caer, Matplotlib
+# Requirements: python3, caer, matplotlib
 
 # Run it either via IDLE or from command prompt / terminal with one of these commands:
 # - 'python caer_gui.py'
@@ -9,20 +10,13 @@
 # - 'python3 caer_gui.py'
 # - 'python3 -m caer_gui'
 
-# Tested as working in Windows 10 with python v3.6.8 and Kubuntu Linux with python v3.6.8. 
-# You can select one of 9 built-in images to display (startup has `caer.data.sland` selected as default)
-# Selecting any of the images, at any point in time, will always start with a fresh original image and reset 
-# controls.
+# Tested as working in Windows 10 with python v3.6.8 and Kubuntu Linux with python v3.6.8
+# You can select one of 9 built-in images to display (startup has "Island" selected as default)
+# Selecting any of the images, at any point in time, will always start with a fresh original image and reset controls.
 # Replace with or add your own image(s) by following the instructions here: https://caer.readthedocs.io/en/latest/api/io.html
-# The above will require that you modify main() and show_original_image() functions.
-# All function controls are set to manipulate the currently displayed image.
-# Edges and Emboss effects are mutually exclusive (you can only have one applied at the time).
-# Gamma, Hue, Saturation, Sharpness, Posterize, Solarize, Edges and Emboss effects are currently somewhat unique 
-# and, when applied to the image, will follow the following rule:
-#   - Applying 'Resize', 'Rotate' and/or any of the 'Flip' functions to transformed image will preserve that image 
-#     and have all those effects reset
-#
-# The above mentioned could possibly be corrected by converting all those buttons to checkboxes and applying all the effects within a single function (just use the current adjust_ghsps() function)
+# The above will require that you modify the main() and show_original_image() functions
+# All function controls are set to manipulate the currently displayed image
+# Edges and Emboss effects are mutually exclusive (you can only have one applied at the time)
 # The 'Rotation' button is currently set to keep on rotating the image with every tap
 
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
@@ -37,23 +31,12 @@ pythonVersion = platform.python_version()
 
 def show_original_image(*args):
     global currentImage
-    global rotationApplied
-    global lblCurrentAngle
-    global currentAngle
+    global image_size
     global resizedImgBtn
-    global flipHImgBtn
-    global flipVImgBtn
-    global flipHVImgBtn
     global rotateImgBtn
 
     if resizedImgBtn['bg'] == 'lightblue':
         resizedImgBtn['bg'] = 'lightgrey'
-    elif flipHImgBtn['bg'] == 'lightblue':
-        flipHImgBtn['bg'] = 'lightgrey'
-    elif flipVImgBtn['bg'] == 'lightblue':
-        flipVImgBtn['bg'] = 'lightgrey'
-    elif flipHVImgBtn['bg'] == 'lightblue':
-        flipHVImgBtn['bg'] = 'lightgrey'
     else:
         rotateImgBtn['bg'] = 'lightgrey'
 
@@ -78,225 +61,112 @@ def show_original_image(*args):
     else:
         currentImage = caer.data.guitar(rgb=True)
 
-    rotationApplied = False
-    currentAngle = 0.0
-    lblCurrentAngle['text'] = str(currentAngle)
-    selectedAngle.set('0.0')
+    image_size = [str(int(currentImage.width())), str(int(currentImage.height()))]
+    selectedSize.set(image_size[0] + 'x' + image_size[1])
+
     reset_ghsps()
 
     image_show(currentImage)
 
-def show_resized_image():
-    global currentImage
+def resize_image():
     global resizedImgBtn
-    global flipHImgBtn
-    global flipVImgBtn
-    global flipHVImgBtn
     global rotateImgBtn
+    global image_resized
+    global image_size
 
     tempSize = selectedSize.get()
 
     if 'x' in tempSize:
-        size = tempSize.replace(' ', '').split('x')
-
         try:
-            if resizedImgBtn['bg'] == 'lightgrey':
-                resizedImgBtn['bg'] = 'lightblue'
+            findex = tempSize.index('x')
+            lindex = tempSize.rindex('x')
 
-                if flipHImgBtn['bg'] == 'lightblue':
-                    flipHImgBtn['bg'] = 'lightgrey'
-                elif flipVImgBtn['bg'] == 'lightblue':
-                    flipVImgBtn['bg'] = 'lightgrey'
-                elif flipHVImgBtn['bg'] == 'lightblue':
-                    flipHVImgBtn['bg'] = 'lightgrey'
-                else:
+            if findex == lindex:
+                image_size = tempSize.replace(' ', '').split('x')
+
+                # test if all values can be represented with an integer
+                int(image_size[0])
+                int(image_size[1])
+
+                if resizedImgBtn['bg'] == 'lightgrey':
+                    resizedImgBtn['bg'] = 'lightblue'
                     rotateImgBtn['bg'] = 'lightgrey'
 
-            if not transformedImage is None:
-                currentImage = caer.to_tensor(transformedImage, cspace = 'rgb')
-                reset_ghsps()
+                image_resized = True
 
-            # Resize the image without preserving aspect ratio
-            currentImage = caer.to_tensor(caer.resize(currentImage, target_size=(int(size[0]),int(size[1])), preserve_aspect_ratio=False), cspace = 'rgb')
-
-            if rotationApplied:
-                show_rotated_image(True)
+                adjust_ghsps()
             else:
-                image_show(currentImage)
+                print('Invalid size specified!')
         except Exception as e:
             print(str(e))
-
-def show_h_flipped_image():
-    global currentImage
-    global resizedImgBtn
-    global flipHImgBtn
-    global flipVImgBtn
-    global flipHVImgBtn
-    global rotateImgBtn
-
-    if flipHImgBtn['bg'] == 'lightgrey':
-        flipHImgBtn['bg'] = 'lightblue'
-
-        if resizedImgBtn['bg'] == 'lightblue':
-            resizedImgBtn['bg'] = 'lightgrey'
-        elif flipVImgBtn['bg'] == 'lightblue':
-            flipVImgBtn['bg'] = 'lightgrey'
-        elif flipHVImgBtn['bg'] == 'lightblue':
-            flipHVImgBtn['bg'] = 'lightgrey'
-        else:
-            rotateImgBtn['bg'] = 'lightgrey'
-
-    if not transformedImage is None:
-        currentImage = caer.to_tensor(transformedImage, cspace = 'rgb')
-        reset_ghsps()
-
-    currentImage = caer.to_tensor(caer.transforms.hflip(currentImage), cspace = 'rgb')
-
-    if rotationApplied:
-        show_rotated_image(True)
     else:
-        image_show(currentImage)
-
-def show_v_flipped_image():
-    global currentImage
-    global resizedImgBtn
-    global flipHImgBtn
-    global flipVImgBtn
-    global flipHVImgBtn
-    global rotateImgBtn
-
-    if flipVImgBtn['bg'] == 'lightgrey':
-        flipVImgBtn['bg'] = 'lightblue'
-
-        if resizedImgBtn['bg'] == 'lightblue':
-            resizedImgBtn['bg'] = 'lightgrey'
-        elif flipHImgBtn['bg'] == 'lightblue':
-            flipHImgBtn['bg'] = 'lightgrey'
-        elif flipHVImgBtn['bg'] == 'lightblue':
-            flipHVImgBtn['bg'] = 'lightgrey'
-        else:
-            rotateImgBtn['bg'] = 'lightgrey'
-
-    if not transformedImage is None:
-        currentImage = caer.to_tensor(transformedImage, cspace = 'rgb')
-        reset_ghsps()
-
-    currentImage = caer.to_tensor(caer.transforms.vflip(currentImage), cspace = 'rgb')
-
-    if rotationApplied:
-        show_rotated_image(True)
-    else:
-        image_show(currentImage)
-
-def show_hv_flipped_image():
-    global currentImage
-    global resizedImgBtn
-    global flipHImgBtn
-    global flipVImgBtn
-    global flipHVImgBtn
-    global rotateImgBtn
-
-    if flipHVImgBtn['bg'] == 'lightgrey':
-        flipHVImgBtn['bg'] = 'lightblue'
-
-        if resizedImgBtn['bg'] == 'lightblue':
-            resizedImgBtn['bg'] = 'lightgrey'
-        elif flipHImgBtn['bg'] == 'lightblue':
-            flipHImgBtn['bg'] = 'lightgrey'
-        elif flipVImgBtn['bg'] == 'lightblue':
-            flipVImgBtn['bg'] = 'lightgrey'
-        else:
-            rotateImgBtn['bg'] = 'lightgrey'
-
-    if not transformedImage is None:
-        currentImage = caer.to_tensor(transformedImage, cspace = 'rgb')
-        reset_ghsps()
-
-    currentImage = caer.to_tensor(caer.transforms.hvflip(currentImage), cspace = 'rgb')
-
-    if rotationApplied:
-        show_rotated_image(True)
-    else:
-        image_show(currentImage)
+        print('Invalid size specified!')
 
 def show_rotated_image(external = False):
-    global currentImage
     global rotationApplied
     global lblCurrentAngle
     global currentAngle
     global resizedImgBtn
-    global flipHImgBtn
-    global flipVImgBtn
-    global flipHVImgBtn
     global rotateImgBtn
 
     angle = selectedAngle.get()
 
-    if angle == '':
-        angle = '0.0'
-        currentAngle = 0.0
-        rotationApplied = False
-    elif angle == '0.0' or ((float(angle) > 0 or float(angle) < 0) and math.fmod(float(angle), 360) == 0):
-        currentAngle = 0.0
-        rotationApplied = False
-    else:
-        if not external:
-            currentAngle += float(angle)
+    try:
+        # test if angle value can be represented with a float
+        float(angle)
 
-        mod = math.fmod(currentAngle, 360)
-
-        if currentAngle > 360 or currentAngle < -360:
-            currentAngle = mod
-            rotationApplied = True
-        elif mod == 0:
+        if angle == '':
+            angle = '0.0'
+            currentAngle = 0.0
+            rotationApplied = False
+        elif angle == '0.0' or ((float(angle) > 0 or float(angle) < 0) and math.fmod(float(angle), 360) == 0):
             currentAngle = 0.0
             rotationApplied = False
         else:
-            rotationApplied = True
+            if not external:
+                currentAngle += float(angle)
 
-    lblCurrentAngle['text'] = str(currentAngle)
+            mod = math.fmod(currentAngle, 360)
 
-    tempAnchorPoint = anchorSelection.get()
+            if currentAngle > 360 or currentAngle < -360:
+                currentAngle = mod
+                rotationApplied = True
+            elif mod == 0:
+                currentAngle = 0.0
+                rotationApplied = False
+            else:
+                rotationApplied = True
 
-    if tempAnchorPoint == 'Center':
-        anchor = None
-    elif tempAnchorPoint == 'TopLeft':
-        anchor = (0, 0)
-    elif tempAnchorPoint == 'TopMiddle':
-        anchor = ((currentImage.width() // 2), 0)
-    elif tempAnchorPoint == 'TopRight':
-        anchor = (currentImage.width(), 0)
-    elif tempAnchorPoint == 'MiddleLeft':
-        anchor = (0, (currentImage.height() // 2))
-    elif tempAnchorPoint == 'MiddleRight':
-        anchor = (currentImage.width(), (currentImage.height() // 2))
-    elif tempAnchorPoint == 'BottomLeft':
-        anchor = (0, currentImage.height())
-    elif tempAnchorPoint == 'BottomMiddle':
-        anchor = ((currentImage.width() // 2), currentImage.height())
-    elif tempAnchorPoint == 'BottomRight':
-        anchor = (currentImage.width(), currentImage.height())
+        lblCurrentAngle['text'] = str(currentAngle)
 
-    try:
+        tempAnchorPoint = anchorSelection.get()
+
+        if tempAnchorPoint == 'Center':
+            anchor = None
+        elif tempAnchorPoint == 'TopLeft':
+            anchor = (0, 0)
+        elif tempAnchorPoint == 'TopMiddle':
+            anchor = ((currentImage.width() // 2), 0)
+        elif tempAnchorPoint == 'TopRight':
+            anchor = (currentImage.width(), 0)
+        elif tempAnchorPoint == 'MiddleLeft':
+            anchor = (0, (currentImage.height() // 2))
+        elif tempAnchorPoint == 'MiddleRight':
+            anchor = (currentImage.width(), (currentImage.height() // 2))
+        elif tempAnchorPoint == 'BottomLeft':
+            anchor = (0, currentImage.height())
+        elif tempAnchorPoint == 'BottomMiddle':
+            anchor = ((currentImage.width() // 2), currentImage.height())
+        elif tempAnchorPoint == 'BottomRight':
+            anchor = (currentImage.width(), currentImage.height())
+
         if rotateImgBtn['bg'] == 'lightgrey':
             rotateImgBtn['bg'] = 'lightblue'
+            resizedImgBtn['bg'] = 'lightgrey'
 
-            if resizedImgBtn['bg'] == 'lightblue':
-                resizedImgBtn['bg'] = 'lightgrey'
-            elif flipHImgBtn['bg'] == 'lightblue':
-                flipHImgBtn['bg'] = 'lightgrey'
-            elif flipVImgBtn['bg'] == 'lightblue':
-                flipVImgBtn['bg'] = 'lightgrey'
-            else:
-                flipHVImgBtn['bg'] = 'lightgrey'
-
-        # preserve current image and only display its rotated version
-
+        # only display the rotated version of the image
         if not transformedImage is None:
             rot = caer.to_tensor(caer.transforms.rotate(transformedImage, float(currentAngle), rotPoint=anchor), cspace = 'rgb')
-            if not rotationApplied:
-                currentImage = caer.to_tensor(transformedImage, cspace = 'rgb')
-                reset_ghsps()
         else:
             rot = caer.to_tensor(caer.transforms.rotate(currentImage, float(currentAngle), rotPoint=anchor), cspace = 'rgb')
 
@@ -322,6 +192,18 @@ def refresh_axis():
 
     fig.canvas.draw()
 
+def flip_image_horizontally():
+    global flip_H
+
+    flip_H = not flip_H
+    adjust_ghsps()
+
+def flip_image_vertically():
+    global flip_V
+
+    flip_V = not flip_V
+    adjust_ghsps()
+
 def set_edges():
     global show_emboss
 
@@ -343,7 +225,12 @@ def adjust_ghsps(*args):
 
     if not currentImage is None:
         # apply all transformations to currently displayed image
-        transformedImage = caer.to_tensor(caer.transforms.adjust_hue(currentImage, hue.get()), cspace = 'rgb')
+        if image_resized:
+            transformedImage = caer.to_tensor(caer.resize(currentImage, target_size=(int(image_size[0]),int(image_size[1])), preserve_aspect_ratio=False), cspace = 'rgb')
+            transformedImage = caer.to_tensor(caer.transforms.adjust_hue(transformedImage, hue.get()), cspace = 'rgb')
+        else:
+            transformedImage = caer.to_tensor(caer.transforms.adjust_hue(currentImage, hue.get()), cspace = 'rgb')
+
         transformedImage = caer.to_tensor(caer.transforms.adjust_saturation(transformedImage, saturation.get()), cspace = 'rgb')
         transformedImage = caer.to_tensor(caer.transforms.adjust_gamma(transformedImage, imgGamma.get()), cspace = 'rgb')
 
@@ -369,12 +256,22 @@ def adjust_ghsps(*args):
             kernel = caer.data.np.array([[0, 1, 0], [0, 0, 0], [0, -1, 0]])
             transformedImage = caer.to_tensor(caer.core.cv.filter2D(transformedImage, -1, kernel) + emboss.get(), cspace = 'rgb')
 
+        if flip_H:
+            transformedImage = caer.to_tensor(caer.transforms.hflip(transformedImage), cspace = 'rgb')
+
+        if flip_V:
+            transformedImage = caer.to_tensor(caer.transforms.vflip(transformedImage), cspace = 'rgb')
+
         if rotationApplied:
             show_rotated_image(True)
         else:
             image_show(transformedImage)
 
 def reset_ghsps():
+    global rotationApplied
+    global lblCurrentAngle
+    global currentAngle
+    global image_resized
     global transformedImage
     global imgGamma
     global hue
@@ -387,8 +284,23 @@ def reset_ghsps():
     global sharpen
     global show_emboss
     global emboss
+    global flip_H
+    global flip_V
 
     transformedImage = None
+
+    # reset flags and variables
+    image_resized = False
+    rotationApplied = False
+    selectedAngle.set('0.0')
+    currentAngle = 0.0
+    lblCurrentAngle['text'] = str(currentAngle)
+
+    # reset flip buttons
+    btnFlip_H.deselect()
+    flip_H = False
+    btnFlip_V.deselect()
+    flip_V = False
 
     # reset all sliders
     imgGamma.set(1.0)
@@ -414,9 +326,10 @@ def main():
     global showAxis
     global sliderSolarize
     global resizedImgBtn
-    global flipHImgBtn
-    global flipVImgBtn
-    global flipHVImgBtn
+    global flip_H
+    global flip_V
+    global btnFlip_H
+    global btnFlip_V
     global rotateImgBtn
     global selectedSize
     global selectedAngle
@@ -441,7 +354,7 @@ def main():
     # create our window
     root = Tk()
     root.config(background='white')
-    root.title('CAER GUI Test - Python v' + pythonVersion)
+    root.title('CAER GUI - Python v' + pythonVersion)
     root.geometry('1024x768')
 
     # the following works for a single screen setup
@@ -455,10 +368,13 @@ def main():
     transformedImage = None
     rotationApplied = False
     showAxis = False
+    flip_H, flip_V = False, False
     currentAngle = 0.0
 
     # bind the 'q' keyboard key to quit
     root.bind('q', lambda event:root.destroy())
+
+    #-----------------------------------------------------------------------
 
     # add a frame to hold top controls
     frame1 = Frame(root, background='black')
@@ -477,26 +393,14 @@ def main():
     popup_menu_image.pack(side=LEFT, padx=2)
 
     # create a button to re-size the image
-    resizedImgBtn = Button(frame1, text='Resize', width=6, bg='lightgrey', relief=RAISED, command=show_resized_image)
+    resizedImgBtn = Button(frame1, text='Resize', width=6, bg='lightgrey', relief=RAISED, command=resize_image)
     resizedImgBtn.pack(side=LEFT, padx=2, pady=2)
 
     # create an entry box for re-size dimensions
     selectedSize = StringVar()
     resizedImgSize = Entry(frame1, justify=CENTER, textvariable=selectedSize, font='Helvetica 10', width=10, bg='white', relief=RAISED)
     resizedImgSize.pack(side=LEFT, padx=2, pady=2)
-    selectedSize.set('1280x854')
-
-    # create a button to flip the image horizontally
-    flipHImgBtn = Button(frame1, text='FlipH', width=6, bg='lightgrey', relief=RAISED, command=show_h_flipped_image)
-    flipHImgBtn.pack(side=LEFT, padx=2, pady=2)
-
-    # create a button to flip the image vertically
-    flipVImgBtn = Button(frame1, text='FlipV', width=6, bg='lightgrey', relief=RAISED, command=show_v_flipped_image)
-    flipVImgBtn.pack(side=LEFT, padx=2, pady=2)
-
-    # create a button to flip the image horizontally and vertically
-    flipHVImgBtn = Button(frame1, text='FlipHV', width=6, bg='lightgrey', relief=RAISED, command=show_hv_flipped_image)
-    flipHVImgBtn.pack(side=LEFT, padx=2, pady=2)
+    selectedSize.set('')
 
     # create a button to rotate the image
     rotateImgBtn = Button(frame1, text='Rotate', width=6, bg='lightgrey', relief=RAISED, command=show_rotated_image)
@@ -628,9 +532,13 @@ def main():
 
     toolbar = NavigationToolbar2Tk(canvas, root)
     toolbar._Spacer()
+    toolbar._Button('Show Axis', None, toggle=True, command=refresh_axis)
+    toolbar._Spacer()
     toolbar._Button('Reload Image', None, toggle=False, command=show_original_image)
     toolbar._Spacer()
-    toolbar._Button('Show / Hide Axis', None, toggle=True, command=refresh_axis)
+    btnFlip_H = toolbar._Button('FlipH', None, toggle=True, command=flip_image_horizontally)
+    toolbar._Spacer()
+    btnFlip_V = toolbar._Button('FlipV', None, toggle=True, command=flip_image_vertically)
     toolbar.update()
 
     canvas.get_tk_widget().pack(side=TOP, fill=BOTH, expand=1)
