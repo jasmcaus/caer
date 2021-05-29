@@ -21,5 +21,8 @@ Replace with or add your own image(s) by [following the instructions here](https
 This will require that you modify the `main()` and `show_original_image()` functions.
 
 All function controls are set to manipulate the currently displayed image within the adjust_ghsps() function.
-Edges and Emboss effects are mutually exclusive (you can only have one applied at the time).
-The 'Rotation' button is currently set to keep on rotating the image with every tap (while preserving the whole image and only showing its rotated version).
+
+- Edges and Emboss effects are mutually exclusive (you can only have one applied at the time)
+- Histogram will not be available when Edges are enabled
+- Only one Histogram window can be displayed at any time
+- The 'Rotation' button is currently set to keep on rotating the image with every tap (while preserving the whole image and only showing its rotated version)
