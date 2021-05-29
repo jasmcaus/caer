@@ -1,4 +1,4 @@
-# Simple tkinter GUI app example, designed to showcase some caer features
+# Simple tkinter GUI app example, designed to showcase some caer features for manipulating images
 # Should only be used as a base to create a new GUI
 # It can be re-designed, controls re-grouped and code improved
 
@@ -17,8 +17,11 @@
 # The above will require that you modify the main() and show_original_image() functions
 # All function controls are set to manipulate the currently displayed image
 # Edges and Emboss effects are mutually exclusive (you can only have one applied at the time)
+# Histogram will not be available when Edges are enabled
+# Only one Histogram window can be displayed at any time
 # The 'Rotation' button is currently set to keep on rotating the image with every tap
 
+import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.figure import Figure
 
@@ -112,7 +115,7 @@ def show_rotated_image(external = False):
     angle = selectedAngle.get()
 
     try:
-        # test if angle value can be represented with a float
+        # test if the angle value can be represented with a float
         float(angle)
 
         if angle == '':
@@ -205,10 +208,14 @@ def flip_image_vertically():
     adjust_ghsps()
 
 def set_edges():
+    global btnHistogram
     global show_emboss
 
     if show_edges.get() == 1:
+        btnHistogram['state'] = 'disabled'
         show_emboss.set(0)
+    else:
+        btnHistogram['state'] = 'normal'
 
     adjust_ghsps()
 
@@ -225,6 +232,7 @@ def adjust_ghsps(*args):
 
     if not currentImage is None:
         # apply all transformations to currently displayed image
+        
         if image_resized:
             transformedImage = caer.to_tensor(caer.resize(currentImage, target_size=(int(image_size[0]),int(image_size[1])), preserve_aspect_ratio=False), cspace = 'rgb')
             transformedImage = caer.to_tensor(caer.transforms.adjust_hue(transformedImage, hue.get()), cspace = 'rgb')
@@ -315,10 +323,40 @@ def reset_ghsps():
     show_emboss.set(0)
     emboss.set(114)
 
+    # close any open histogram window
+    plt.close()
+
+def show_histogram_window():
+    plt.close()
+
+    plt.figure()
+    plt.title('Colour Histogram')
+    plt.xlabel('Bins')
+    plt.ylabel('Number of pixels')
+
+    colors = ('r', 'g', 'b')
+
+    for i,col in enumerate(colors):
+        if not transformedImage is None:
+            img = transformedImage
+        else:
+            img = currentImage
+
+        blank = caer.core.np.zeros(img.shape[:2], dtype='uint8')
+        mask = caer.core.cv.circle(blank, (img.shape[1]//2,img.shape[0]//2), 100, 255, -1)
+
+        hist = caer.core.cv.calcHist([img], [i], mask, [256], [0,256])
+
+        plt.plot(hist, color=col)
+        plt.xlim([0,256])
+
+    plt.show()
+
 def main():
     global root
     global canvas
     global fig
+    global fig2
     global subplot
     global currentImage
     global transformedImage
@@ -330,6 +368,7 @@ def main():
     global flip_V
     global btnFlip_H
     global btnFlip_V
+    global btnHistogram
     global rotateImgBtn
     global selectedSize
     global selectedAngle
@@ -351,11 +390,12 @@ def main():
     global show_emboss
     global emboss
 
-    # create our window
+    # create our main window
     root = Tk()
     root.config(background='white')
     root.title('CAER GUI - Python v' + pythonVersion)
     root.geometry('1024x768')
+    root.bind('<Destroy>', on_exit)
 
     # the following works for a single screen setup
     # if using a multi-screen setup then see the following link:
@@ -539,6 +579,8 @@ def main():
     btnFlip_H = toolbar._Button('FlipH', None, toggle=True, command=flip_image_horizontally)
     toolbar._Spacer()
     btnFlip_V = toolbar._Button('FlipV', None, toggle=True, command=flip_image_vertically)
+    toolbar._Spacer()
+    btnHistogram = toolbar._Button('Histogram', None, toggle=False, command=show_histogram_window)
     toolbar.update()
 
     canvas.get_tk_widget().pack(side=TOP, fill=BOTH, expand=1)
@@ -552,6 +594,9 @@ def main():
     show_original_image()
 
     root.mainloop()
+
+def on_exit(*args):
+    plt.close()
 
 if __name__=='__main__':
     main()
