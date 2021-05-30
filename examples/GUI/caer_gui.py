@@ -11,10 +11,10 @@
 # - 'python3 -m caer_gui'
 
 # Tested as working in Windows 10 with python v3.6.8 and Kubuntu Linux with python v3.6.8
-# You can select one of 9 built-in images to display (startup has "Island" selected as default)
+# You can select one of 14 built-in images to display (startup has "Island" selected as default)
+# You can also browse and select one of your images to display ("Open File")
 # Selecting any of the images, at any point in time, will always start with a fresh original image and reset controls.
 # Replace with or add your own image(s) by following the instructions here: https://caer.readthedocs.io/en/latest/api/io.html
-# The above will require that you modify the main() and show_original_image() functions
 # All function controls are set to manipulate the currently displayed image
 # Edges and Emboss effects are mutually exclusive (you can only have one applied at the time)
 # Histogram will not be available when Edges are enabled
@@ -26,17 +26,31 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolb
 from matplotlib.figure import Figure
 
 from tkinter import *
+from tkinter import filedialog as fd
 import platform
 import math
 import caer
 
 pythonVersion = platform.python_version()
 
+def reload_image():
+    global reload_local_file
+
+    if imageSelection.get() == 'Open File':
+        reload_local_file = True
+    
+    show_original_image()
+
 def show_original_image(*args):
     global currentImage
+    global previous_image
+    global reload_local_file
+    global popup_menu_image
     global image_size
     global resizedImgBtn
     global rotateImgBtn
+
+    user_cancelled = False
 
     if resizedImgBtn['bg'] == 'lightblue':
         resizedImgBtn['bg'] = 'lightgrey'
@@ -45,31 +59,59 @@ def show_original_image(*args):
 
     selectedImage = imageSelection.get()
 
-    if selectedImage == 'Mountain':
+    if selectedImage == 'Open File':
+        if not reload_local_file:
+            img_filename = fd.askopenfilename(filetypes=(('PNG files', '*.png'),('BMP files', '*.bmp'),('JPG files', '*.jpg'),('JPEG files', '*.jpeg'),('GIF files', '*.gif')))
+
+            if img_filename != '':
+                currentImage = caer.imread(img_filename)
+            else:
+                # user clicked 'Cancel' button so set the selected image to the previous image
+                imageSelection.set(previous_image)
+                popup_menu_image['bg'] = 'green'
+                popup_menu_image['bg'] = 'lightgreen'
+                selectedImage = previous_image
+                user_cancelled = True
+        else:
+            reload_local_file = False
+    elif selectedImage == 'Mountain':
         currentImage = caer.data.mountain(rgb=True)
+    elif selectedImage == 'Snow':
+        currentImage = caer.data.snow(rgb=True)
     elif selectedImage == 'Sunrise':
         currentImage = caer.data.sunrise(rgb=True)
+    elif selectedImage == 'Night':
+        currentImage = caer.data.night(rgb=True)
     elif selectedImage == 'Island':
         currentImage = caer.data.island(rgb=True)
     elif selectedImage == 'Puppies':
         currentImage = caer.data.puppies(rgb=True)
     elif selectedImage == 'Black Cat':
         currentImage = caer.data.black_cat(rgb=True)
+    elif selectedImage == 'Sea Turtle':
+        currentImage = caer.data.sea_turtle(rgb=True)
     elif selectedImage == 'Gold Fish':
         currentImage = caer.data.gold_fish(rgb=True)
     elif selectedImage == 'Bear':
         currentImage = caer.data.bear(rgb=True)
+    elif selectedImage == 'Beverages':
+        currentImage = caer.data.beverages(rgb=True)
+    elif selectedImage == 'Tent':
+        currentImage = caer.data.tent(rgb=True)
     elif selectedImage == 'Camera':
         currentImage = caer.data.camera(rgb=True)
     else:
         currentImage = caer.data.guitar(rgb=True)
 
-    image_size = [str(int(currentImage.width())), str(int(currentImage.height()))]
-    selectedSize.set(image_size[0] + 'x' + image_size[1])
+    previous_image = selectedImage
 
-    reset_ghsps()
+    if not user_cancelled:
+        image_size = [str(int(currentImage.width())), str(int(currentImage.height()))]
+        selectedSize.set(image_size[0] + 'x' + image_size[1])
 
-    image_show(currentImage)
+        reset_ghsps()
+
+        image_show(currentImage)
 
 def resize_image():
     global resizedImgBtn
@@ -355,8 +397,11 @@ def main():
     global fig
     global subplot
     global currentImage
+    global previous_image
     global transformedImage
     global imageSelection
+    global popup_menu_image
+    global reload_local_file
     global showAxis
     global sliderSolarize
     global resizedImgBtn
@@ -388,7 +433,7 @@ def main():
     # create our main window
     root = Tk()
     root.config(background='white')
-    root.title('CAER GUI - Python v' + pythonVersion)
+    root.title('CAER Image GUI - Python v' + pythonVersion)
     root.geometry('1024x768')
     root.bind('<Destroy>', on_exit)
 
@@ -400,7 +445,9 @@ def main():
     screen_height = root.winfo_screenheight()
 
     currentImage = None
+    previous_image = 'Island'
     transformedImage = None
+    reload_local_file = False
     rotationApplied = False
     showAxis = False
     flip_H, flip_V = False, False
@@ -417,7 +464,7 @@ def main():
 
     # create the built-in image selection variable and choices
     imageSelection = StringVar()
-    imageChoices = { 'Mountain', 'Sunrise', 'Island', 'Puppies', 'Black Cat', 'Gold Fish', 'Bear', 'Camera', 'Guitar'}
+    imageChoices = { 'Open File', 'Mountain', 'Snow', 'Sunrise', 'Night', 'Island', 'Puppies', 'Black Cat', 'Sea Turtle', 'Gold Fish', 'Bear', 'Beverages', 'Tent', 'Camera', 'Guitar'}
     imageSelection.set('Island')
     imageSelection.trace('w', show_original_image)
 
@@ -569,7 +616,7 @@ def main():
     toolbar._Spacer()
     toolbar._Button('Show Axis', None, toggle=True, command=refresh_axis)
     toolbar._Spacer()
-    toolbar._Button('Reload Image', None, toggle=False, command=show_original_image)
+    toolbar._Button('Reload Image', None, toggle=False, command=reload_image)
     toolbar._Spacer()
     btnFlip_H = toolbar._Button('FlipH', None, toggle=True, command=flip_image_horizontally)
     toolbar._Spacer()
