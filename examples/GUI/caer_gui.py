@@ -342,10 +342,7 @@ def show_histogram_window():
         else:
             img = currentImage
 
-        blank = caer.core.np.zeros(img.shape[:2], dtype='uint8')
-        mask = caer.core.cv.circle(blank, (img.shape[1]//2,img.shape[0]//2), 100, 255, -1)
-
-        hist = caer.core.cv.calcHist([img], [i], mask, [256], [0,256])
+        hist = caer.core.cv.calcHist([img], [i], None, [256], [0,256])
 
         plt.plot(hist, color=col)
         plt.xlim([0,256])
@@ -356,7 +353,6 @@ def main():
     global root
     global canvas
     global fig
-    global fig2
     global subplot
     global currentImage
     global transformedImage
@@ -372,7 +368,6 @@ def main():
     global rotateImgBtn
     global selectedSize
     global selectedAngle
-    global resizedImgSize
     global rotationAngle
     global anchorSelection
     global rotationApplied
