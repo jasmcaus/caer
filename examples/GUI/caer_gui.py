@@ -61,7 +61,7 @@ def show_original_image(*args):
 
     if selectedImage == 'Open File':
         if not reload_local_file:
-            img_filename = fd.askopenfilename(filetypes=(('PNG files', '*.png'),('BMP files', '*.bmp'),('JPG files', '*.jpg'),('JPEG files', '*.jpeg'),('GIF files', '*.gif')))
+            img_filename = fd.askopenfilename(filetypes=(('PNG files', '*.png'),('BMP files', '*.bmp'),('JPG files', '*.jpg')))
 
             if img_filename != '':
                 currentImage = caer.imread(img_filename)
