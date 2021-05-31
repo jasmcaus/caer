@@ -50,9 +50,8 @@ def show_original_image(*args):
     global image_size
     global resizedImgBtn
     global rotateImgBtn
-    global lblFileName
 
-    user_cancelled = False
+    user_cancelled_or_error = False
 
     if resizedImgBtn['bg'] == 'lightblue':
         resizedImgBtn['bg'] = 'lightgrey'
@@ -63,22 +62,23 @@ def show_original_image(*args):
 
     previous = lblFileName['text']
     lblFileName['text'] = ''
+    lblError['text'] = ''
 
     if selectedImage == 'Open File >>':
         if not reload_local_file:
-            img_filename = fd.askopenfilename(filetypes=(('PNG files', '*.png'),('BMP files', '*.bmp'),('JPG files', '*.jpg')))
+            try:
+                img_filename = fd.askopenfilename(filetypes=(('PNG files', '*.png'),('BMP files', '*.bmp'),('JPG files', '*.jpg'),('All files', '*.*')))
 
-            if img_filename != '':
-                lblFileName['text'] = img_filename
-                currentImage = caer.imread(img_filename)
-            else:
-                # user clicked 'Cancel' button so set the selected image to the previous image
-                lblFileName['text'] = previous
-                imageSelection.set(previous_image)
-                popup_menu_image['bg'] = 'green'
-                popup_menu_image['bg'] = 'lightgreen'
-                selectedImage = previous_image
-                user_cancelled = True
+                if img_filename != '':
+                    lblFileName['text'] = img_filename
+                    currentImage = caer.imread(img_filename)
+                else:
+                    # user clicked 'Cancel' button
+                    user_cancelled_or_error = True
+            except Exception as e:
+                lblError['text'] = 'Error'
+                user_cancelled_or_error = True
+                print(str(e))
         else:
             reload_local_file = False
             lblFileName['text'] = previous
@@ -111,21 +111,31 @@ def show_original_image(*args):
     else:
         currentImage = caer.data.guitar(rgb=True)
 
-    previous_image = selectedImage
-
-    if not user_cancelled:
+    if not user_cancelled_or_error:
         image_size = [str(int(currentImage.width())), str(int(currentImage.height()))]
         selectedSize.set(image_size[0] + 'x' + image_size[1])
 
         reset_ghsps()
 
         image_show(currentImage)
+    else:
+        lblFileName['text'] = previous
+        imageSelection.set(previous_image)
+        popup_menu_image['bg'] = 'green'
+        popup_menu_image['bg'] = 'lightgreen'
+        selectedImage = previous_image
+
+    previous_image = selectedImage
 
 def resize_image():
     global resizedImgBtn
     global rotateImgBtn
     global image_resized
     global image_size
+
+    # reset the error label's text
+    if lblError['text'] == 'Error':
+        lblError['text'] = ''
 
     tempSize = selectedSize.get()
 
@@ -149,18 +159,24 @@ def resize_image():
 
                 adjust_ghsps()
             else:
+                lblError['text'] = 'Error'
                 print('Invalid size specified!')
         except Exception as e:
+            lblError['text'] = 'Error'
             print(str(e))
     else:
+        lblError['text'] = 'Error'
         print('Invalid size specified!')
 
 def show_rotated_image(external = False):
     global rotationApplied
-    global lblCurrentAngle
     global currentAngle
     global resizedImgBtn
     global rotateImgBtn
+
+    # reset the error label's text
+    if lblError['text'] == 'Error':
+        lblError['text'] = ''
 
     angle = selectedAngle.get()
 
@@ -225,6 +241,7 @@ def show_rotated_image(external = False):
 
         image_show(rot)
     except Exception as e:
+        lblError['text'] = 'Error'
         print(str(e))
 
 def image_show(tens):
@@ -234,6 +251,10 @@ def image_show(tens):
 
 def refresh_axis():
     global showAxis
+
+    # reset the error label's text
+    if lblError['text'] == 'Error':
+        lblError['text'] = ''
 
     # Hide / Show the graph's x / y axis
     if not showAxis:
@@ -281,6 +302,10 @@ def adjust_ghsps(*args):
     global transformedImage
 
     if not currentImage is None:
+        # reset the error label's text
+        if lblError['text'] == 'Error':
+            lblError['text'] = ''
+
         # apply all transformations to currently displayed image
         
         if image_resized:
@@ -327,7 +352,6 @@ def adjust_ghsps(*args):
 
 def reset_ghsps():
     global rotationApplied
-    global lblCurrentAngle
     global currentAngle
     global image_resized
     global transformedImage
@@ -377,6 +401,10 @@ def reset_ghsps():
     plt.close()
 
 def show_histogram_window():
+    # reset the error label's text
+    if lblError['text'] == 'Error':
+        lblError['text'] = ''
+
     plt.close()
 
     plt.figure()
@@ -404,6 +432,7 @@ def main():
     global canvas
     global fig
     global subplot
+    global lblError
     global lblFileName
     global currentImage
     global previous_image
@@ -531,7 +560,7 @@ def main():
 
     #-----------------------------------------------------------------------
 
-    # add a frame to hold side controls and screen attributes labels
+    # add a frame to hold side controls, screen attributes and the Error labels
     frame2 = Frame(root, background='black')
     frame2.pack(side=RIGHT, fill=Y)
 
@@ -612,7 +641,10 @@ def main():
 
     # add exit button
     exitBtn = Button(frame2, text='Exit', width=7, fg='red', bg='lightgrey', relief=RAISED, command=root.destroy)
-    exitBtn.pack(side=BOTTOM, anchor=CENTER, pady=4)
+    exitBtn.pack(side=BOTTOM, anchor=CENTER, pady=5)
+
+    lblError = Label(frame2, text='', fg='red', bg='black', font='Helvetica 12')
+    lblError.pack(side=BOTTOM, anchor=CENTER, pady=10)
 
     #-----------------------------------------------------------------------
 
