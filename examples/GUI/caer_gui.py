@@ -1,4 +1,4 @@
-# Simple tkinter GUI app example, designed to showcase some caer features
+# Simple tkinter GUI app example, designed to showcase some caer features for manipulating images
 # Should only be used as a base to create a new GUI
 # It can be re-designed, controls re-grouped and code improved
 
@@ -11,29 +11,47 @@
 # - 'python3 -m caer_gui'
 
 # Tested as working in Windows 10 with python v3.6.8 and Kubuntu Linux with python v3.6.8
-# You can select one of 9 built-in images to display (startup has "Island" selected as default)
-# Selecting any of the images, at any point in time, will always start with a fresh original image and reset controls.
-# Replace with or add your own image(s) by following the instructions here: https://caer.readthedocs.io/en/latest/api/io.html
-# The above will require that you modify the main() and show_original_image() functions
+# You can select one of 14 built-in images to display (startup has "Island" selected as default)
+# You can also browse and select one of your images (use "Open File >>" and either browse locally or enter a URL), either of PNG / JPG / BMP file types is available and was tested as working
+# Selecting any of the images, at any point in time, will always start with a fresh original image and reset controls (with the exception of 'Open File >>' which will allow you to select a different image)
+# The 'Reload Image' button will reload the original version of currently selected image, including the user opened file
+
 # All function controls are set to manipulate the currently displayed image
 # Edges and Emboss effects are mutually exclusive (you can only have one applied at the time)
+# Histogram will not be available when Edges are enabled
+# Only one Histogram window can be displayed at any time
 # The 'Rotation' button is currently set to keep on rotating the image with every tap
 
+import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.figure import Figure
 
 from tkinter import *
+from tkinter import filedialog as fd
 import platform
 import math
 import caer
 
 pythonVersion = platform.python_version()
 
+def reload_image():
+    global reload_local_file
+
+    if imageSelection.get() == 'Open File >>':
+        reload_local_file = True
+    
+    show_original_image()
+
 def show_original_image(*args):
     global currentImage
+    global previous_image
+    global reload_local_file
+    global popup_menu_image
     global image_size
     global resizedImgBtn
     global rotateImgBtn
+
+    user_cancelled_or_error = False
 
     if resizedImgBtn['bg'] == 'lightblue':
         resizedImgBtn['bg'] = 'lightgrey'
@@ -42,37 +60,82 @@ def show_original_image(*args):
 
     selectedImage = imageSelection.get()
 
-    if selectedImage == 'Mountain':
+    previous = lblFileName['text']
+    lblFileName['text'] = ''
+    lblError['text'] = ''
+
+    if selectedImage == 'Open File >>':
+        if not reload_local_file:
+            try:
+                img_filename = fd.askopenfilename(filetypes=(('PNG files', '*.png'),('BMP files', '*.bmp'),('JPG files', '*.jpg'),('All files', '*.*')))
+
+                if img_filename != '':
+                    lblFileName['text'] = img_filename
+                    currentImage = caer.imread(img_filename)
+                else:
+                    # user clicked 'Cancel' button
+                    user_cancelled_or_error = True
+            except Exception as e:
+                lblError['text'] = 'Error'
+                user_cancelled_or_error = True
+                print(str(e))
+        else:
+            reload_local_file = False
+            lblFileName['text'] = previous
+    elif selectedImage == 'Mountain':
         currentImage = caer.data.mountain(rgb=True)
+    elif selectedImage == 'Snow':
+        currentImage = caer.data.snow(rgb=True)
     elif selectedImage == 'Sunrise':
         currentImage = caer.data.sunrise(rgb=True)
+    elif selectedImage == 'Night':
+        currentImage = caer.data.night(rgb=True)
     elif selectedImage == 'Island':
         currentImage = caer.data.island(rgb=True)
     elif selectedImage == 'Puppies':
         currentImage = caer.data.puppies(rgb=True)
     elif selectedImage == 'Black Cat':
         currentImage = caer.data.black_cat(rgb=True)
+    elif selectedImage == 'Sea Turtle':
+        currentImage = caer.data.sea_turtle(rgb=True)
     elif selectedImage == 'Gold Fish':
         currentImage = caer.data.gold_fish(rgb=True)
     elif selectedImage == 'Bear':
         currentImage = caer.data.bear(rgb=True)
+    elif selectedImage == 'Beverages':
+        currentImage = caer.data.beverages(rgb=True)
+    elif selectedImage == 'Tent':
+        currentImage = caer.data.tent(rgb=True)
     elif selectedImage == 'Camera':
         currentImage = caer.data.camera(rgb=True)
     else:
         currentImage = caer.data.guitar(rgb=True)
 
-    image_size = [str(int(currentImage.width())), str(int(currentImage.height()))]
-    selectedSize.set(image_size[0] + 'x' + image_size[1])
+    if not user_cancelled_or_error:
+        image_size = [str(int(currentImage.width())), str(int(currentImage.height()))]
+        selectedSize.set(image_size[0] + 'x' + image_size[1])
 
-    reset_ghsps()
+        reset_ghsps()
 
-    image_show(currentImage)
+        image_show(currentImage)
+    else:
+        lblFileName['text'] = previous
+        imageSelection.set(previous_image)
+        popup_menu_image['bg'] = 'green'
+        popup_menu_image['bg'] = 'lightgreen'
+        selectedImage = previous_image
+
+    previous_image = selectedImage
 
 def resize_image():
     global resizedImgBtn
     global rotateImgBtn
     global image_resized
     global image_size
+
+    # reset the error label's text
+    if lblError['text'] == 'Error':
+        lblError['text'] = ''
 
     tempSize = selectedSize.get()
 
@@ -96,23 +159,29 @@ def resize_image():
 
                 adjust_ghsps()
             else:
+                lblError['text'] = 'Error'
                 print('Invalid size specified!')
         except Exception as e:
+            lblError['text'] = 'Error'
             print(str(e))
     else:
+        lblError['text'] = 'Error'
         print('Invalid size specified!')
 
 def show_rotated_image(external = False):
     global rotationApplied
-    global lblCurrentAngle
     global currentAngle
     global resizedImgBtn
     global rotateImgBtn
 
+    # reset the error label's text
+    if lblError['text'] == 'Error':
+        lblError['text'] = ''
+
     angle = selectedAngle.get()
 
     try:
-        # test if angle value can be represented with a float
+        # test if the angle value can be represented with a float
         float(angle)
 
         if angle == '':
@@ -172,6 +241,7 @@ def show_rotated_image(external = False):
 
         image_show(rot)
     except Exception as e:
+        lblError['text'] = 'Error'
         print(str(e))
 
 def image_show(tens):
@@ -181,6 +251,10 @@ def image_show(tens):
 
 def refresh_axis():
     global showAxis
+
+    # reset the error label's text
+    if lblError['text'] == 'Error':
+        lblError['text'] = ''
 
     # Hide / Show the graph's x / y axis
     if not showAxis:
@@ -205,10 +279,14 @@ def flip_image_vertically():
     adjust_ghsps()
 
 def set_edges():
+    global btnHistogram
     global show_emboss
 
     if show_edges.get() == 1:
+        btnHistogram['state'] = 'disabled'
         show_emboss.set(0)
+    else:
+        btnHistogram['state'] = 'normal'
 
     adjust_ghsps()
 
@@ -224,7 +302,12 @@ def adjust_ghsps(*args):
     global transformedImage
 
     if not currentImage is None:
+        # reset the error label's text
+        if lblError['text'] == 'Error':
+            lblError['text'] = ''
+
         # apply all transformations to currently displayed image
+        
         if image_resized:
             transformedImage = caer.to_tensor(caer.resize(currentImage, target_size=(int(image_size[0]),int(image_size[1])), preserve_aspect_ratio=False), cspace = 'rgb')
             transformedImage = caer.to_tensor(caer.transforms.adjust_hue(transformedImage, hue.get()), cspace = 'rgb')
@@ -269,7 +352,6 @@ def adjust_ghsps(*args):
 
 def reset_ghsps():
     global rotationApplied
-    global lblCurrentAngle
     global currentAngle
     global image_resized
     global transformedImage
@@ -315,14 +397,49 @@ def reset_ghsps():
     show_emboss.set(0)
     emboss.set(114)
 
+    # close any open histogram window
+    plt.close()
+
+def show_histogram_window():
+    # reset the error label's text
+    if lblError['text'] == 'Error':
+        lblError['text'] = ''
+
+    plt.close()
+
+    plt.figure()
+    plt.title('Colour Histogram')
+    plt.xlabel('Bins')
+    plt.ylabel('Number of pixels')
+
+    colors = ('r', 'g', 'b')
+
+    for i,col in enumerate(colors):
+        if not transformedImage is None:
+            img = transformedImage
+        else:
+            img = currentImage
+
+        hist = caer.core.cv.calcHist([img], [i], None, [256], [0,256])
+
+        plt.plot(hist, color=col)
+        plt.xlim([0,256])
+
+    plt.show()
+
 def main():
     global root
     global canvas
     global fig
     global subplot
+    global lblError
+    global lblFileName
     global currentImage
+    global previous_image
     global transformedImage
     global imageSelection
+    global popup_menu_image
+    global reload_local_file
     global showAxis
     global sliderSolarize
     global resizedImgBtn
@@ -330,10 +447,10 @@ def main():
     global flip_V
     global btnFlip_H
     global btnFlip_V
+    global btnHistogram
     global rotateImgBtn
     global selectedSize
     global selectedAngle
-    global resizedImgSize
     global rotationAngle
     global anchorSelection
     global rotationApplied
@@ -351,11 +468,12 @@ def main():
     global show_emboss
     global emboss
 
-    # create our window
+    # create our main window
     root = Tk()
     root.config(background='white')
-    root.title('CAER GUI - Python v' + pythonVersion)
+    root.title('CAER Image GUI - Python v' + pythonVersion)
     root.geometry('1024x768')
+    root.bind('<Destroy>', on_exit)
 
     # the following works for a single screen setup
     # if using a multi-screen setup then see the following link:
@@ -365,7 +483,9 @@ def main():
     screen_height = root.winfo_screenheight()
 
     currentImage = None
+    previous_image = 'Island'
     transformedImage = None
+    reload_local_file = False
     rotationApplied = False
     showAxis = False
     flip_H, flip_V = False, False
@@ -382,7 +502,7 @@ def main():
 
     # create the built-in image selection variable and choices
     imageSelection = StringVar()
-    imageChoices = { 'Mountain', 'Sunrise', 'Island', 'Puppies', 'Black Cat', 'Gold Fish', 'Bear', 'Camera', 'Guitar'}
+    imageChoices = { 'Open File >>', 'Mountain', 'Snow', 'Sunrise', 'Night', 'Island', 'Puppies', 'Black Cat', 'Sea Turtle', 'Gold Fish', 'Bear', 'Beverages', 'Tent', 'Camera', 'Guitar'}
     imageSelection.set('Island')
     imageSelection.trace('w', show_original_image)
 
@@ -434,9 +554,13 @@ def main():
     popup_menu_anchor['width'] = 12
     popup_menu_anchor.pack(side=LEFT, padx=2)
 
+    # create a label to show the name of the local image file opened by user
+    lblFileName = Label(frame1, text='', fg='yellow', bg='black', font='Helvetica 10')
+    lblFileName.pack(side=RIGHT, padx=10, pady=2)
+
     #-----------------------------------------------------------------------
 
-    # add a frame to hold side controls and screen attributes labels
+    # add a frame to hold side controls, screen attributes and the Error labels
     frame2 = Frame(root, background='black')
     frame2.pack(side=RIGHT, fill=Y)
 
@@ -517,7 +641,10 @@ def main():
 
     # add exit button
     exitBtn = Button(frame2, text='Exit', width=7, fg='red', bg='lightgrey', relief=RAISED, command=root.destroy)
-    exitBtn.pack(side=BOTTOM, anchor=CENTER, pady=4)
+    exitBtn.pack(side=BOTTOM, anchor=CENTER, pady=5)
+
+    lblError = Label(frame2, text='', fg='red', bg='black', font='Helvetica 12')
+    lblError.pack(side=BOTTOM, anchor=CENTER, pady=10)
 
     #-----------------------------------------------------------------------
 
@@ -534,11 +661,13 @@ def main():
     toolbar._Spacer()
     toolbar._Button('Show Axis', None, toggle=True, command=refresh_axis)
     toolbar._Spacer()
-    toolbar._Button('Reload Image', None, toggle=False, command=show_original_image)
+    toolbar._Button('Reload Image', None, toggle=False, command=reload_image)
     toolbar._Spacer()
     btnFlip_H = toolbar._Button('FlipH', None, toggle=True, command=flip_image_horizontally)
     toolbar._Spacer()
     btnFlip_V = toolbar._Button('FlipV', None, toggle=True, command=flip_image_vertically)
+    toolbar._Spacer()
+    btnHistogram = toolbar._Button('Histogram', None, toggle=False, command=show_histogram_window)
     toolbar.update()
 
     canvas.get_tk_widget().pack(side=TOP, fill=BOTH, expand=1)
@@ -552,6 +681,9 @@ def main():
     show_original_image()
 
     root.mainloop()
+
+def on_exit(*args):
+    plt.close()
 
 if __name__=='__main__':
     main()
