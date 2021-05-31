@@ -12,9 +12,10 @@
 
 # Tested as working in Windows 10 with python v3.6.8 and Kubuntu Linux with python v3.6.8
 # You can select one of 14 built-in images to display (startup has "Island" selected as default)
-# You can also browse and select one of your images to display ("Open File")
-# Selecting any of the images, at any point in time, will always start with a fresh original image and reset controls.
-# Replace with or add your own image(s) by following the instructions here: https://caer.readthedocs.io/en/latest/api/io.html
+# You can also browse and select one of your images (use "Open File >>" and either browse locally or enter a URL), either of PNG / JPG / BMP file types is available and was tested as working
+# Selecting any of the images, at any point in time, will always start with a fresh original image and reset controls (with the exception of 'Open File >>' which will allow you to select a different image)
+# The 'Reload Image' button will reload the original version of currently selected image, including the user opened file
+
 # All function controls are set to manipulate the currently displayed image
 # Edges and Emboss effects are mutually exclusive (you can only have one applied at the time)
 # Histogram will not be available when Edges are enabled
@@ -36,7 +37,7 @@ pythonVersion = platform.python_version()
 def reload_image():
     global reload_local_file
 
-    if imageSelection.get() == 'Open File':
+    if imageSelection.get() == 'Open File >>':
         reload_local_file = True
     
     show_original_image()
@@ -49,6 +50,7 @@ def show_original_image(*args):
     global image_size
     global resizedImgBtn
     global rotateImgBtn
+    global lblFileName
 
     user_cancelled = False
 
@@ -59,14 +61,19 @@ def show_original_image(*args):
 
     selectedImage = imageSelection.get()
 
-    if selectedImage == 'Open File':
+    previous = lblFileName['text']
+    lblFileName['text'] = ''
+
+    if selectedImage == 'Open File >>':
         if not reload_local_file:
             img_filename = fd.askopenfilename(filetypes=(('PNG files', '*.png'),('BMP files', '*.bmp'),('JPG files', '*.jpg')))
 
             if img_filename != '':
+                lblFileName['text'] = img_filename
                 currentImage = caer.imread(img_filename)
             else:
                 # user clicked 'Cancel' button so set the selected image to the previous image
+                lblFileName['text'] = previous
                 imageSelection.set(previous_image)
                 popup_menu_image['bg'] = 'green'
                 popup_menu_image['bg'] = 'lightgreen'
@@ -74,6 +81,7 @@ def show_original_image(*args):
                 user_cancelled = True
         else:
             reload_local_file = False
+            lblFileName['text'] = previous
     elif selectedImage == 'Mountain':
         currentImage = caer.data.mountain(rgb=True)
     elif selectedImage == 'Snow':
@@ -396,6 +404,7 @@ def main():
     global canvas
     global fig
     global subplot
+    global lblFileName
     global currentImage
     global previous_image
     global transformedImage
@@ -464,7 +473,7 @@ def main():
 
     # create the built-in image selection variable and choices
     imageSelection = StringVar()
-    imageChoices = { 'Open File', 'Mountain', 'Snow', 'Sunrise', 'Night', 'Island', 'Puppies', 'Black Cat', 'Sea Turtle', 'Gold Fish', 'Bear', 'Beverages', 'Tent', 'Camera', 'Guitar'}
+    imageChoices = { 'Open File >>', 'Mountain', 'Snow', 'Sunrise', 'Night', 'Island', 'Puppies', 'Black Cat', 'Sea Turtle', 'Gold Fish', 'Bear', 'Beverages', 'Tent', 'Camera', 'Guitar'}
     imageSelection.set('Island')
     imageSelection.trace('w', show_original_image)
 
@@ -515,6 +524,10 @@ def main():
     popup_menu_anchor = OptionMenu(frame1, anchorSelection, *anchorChoices)
     popup_menu_anchor['width'] = 12
     popup_menu_anchor.pack(side=LEFT, padx=2)
+
+    # create a label to show the name of the local image file opened by user
+    lblFileName = Label(frame1, text='', fg='yellow', bg='black', font='Helvetica 10')
+    lblFileName.pack(side=RIGHT, padx=10, pady=2)
 
     #-----------------------------------------------------------------------
 
