@@ -212,7 +212,7 @@ def main():
 
     # create the video source selection variable and choices
     sourceSelection = StringVar()
-    sourceChoices = { 'None', 'Open File >>', 'Camera_0', 'Camera_1', 'Camera_2', 'Camera_3'}
+    sourceChoices = ['None', 'Open File >>', 'Camera_0', 'Camera_1', 'Camera_2', 'Camera_3']
     sourceSelection.set('None')
     sourceSelection.trace('w', select_video_source)
 
@@ -228,7 +228,7 @@ def main():
 
     # create the video scale selection variable and choices
     scaleSelection = StringVar()
-    scaleChoices = { '2.00', '1.75', '1.50', '1.00', '0.75', '0.50', '0.25'}
+    scaleChoices = ['2.00', '1.75', '1.50', '1.00', '0.75', '0.50', '0.25']
     scaleSelection.set('1.00')
 
     # create the built-in image selection popup menu
