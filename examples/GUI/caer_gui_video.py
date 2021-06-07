@@ -40,6 +40,7 @@ pythonVersion = platform.python_version()
 def select_video_source(*args):
     global video_file
     global video_cam
+    global sourceSelection
 
     selectedSource = sourceSelection.get()
 
@@ -49,6 +50,10 @@ def select_video_source(*args):
 
                 if video_file != '':
                     start_playing_file_video()
+                else:
+                    sourceSelection.set('None')
+                    popup_menu_source['bg'] = 'green'
+                    popup_menu_source['bg'] = 'lightgreen'
             except Exception as e:
                 print(str(e))
     elif selectedSource != 'None':
@@ -183,7 +188,7 @@ def main():
     root = Tk()
     root.config(background='white')
     root.title('CAER Video GUI - Python v' + pythonVersion)
-    root.geometry('375x135')
+    root.geometry('384x138')
     root.resizable(0,0)
 
     # the following works for a single screen setup
@@ -203,11 +208,11 @@ def main():
     #-----------------------------------------------------------------------
 
     # add a frame to hold top controls
-    frame1 = Frame(root, background='black')
+    frame1 = Frame(root, background='navy')
     frame1.pack(side=TOP, fill=X)
 
     # create a label for the video source
-    lblSource = Label(frame1, text='Video Source', fg='yellow', bg='black', font='Helvetica 10')
+    lblSource = Label(frame1, text='Video Source', fg='yellow', bg='navy', font='Helvetica 10')
     lblSource.pack(side=LEFT, padx=5, pady=10)
 
     # create the video source selection variable and choices
@@ -219,11 +224,12 @@ def main():
     # create the video source selection popup menu
     popup_menu_source = OptionMenu(frame1, sourceSelection, *sourceChoices)
     popup_menu_source['width'] = 10
+    popup_menu_source['font'] = 'Helvetica 10'
     popup_menu_source['bg'] = 'lightgreen'
     popup_menu_source.pack(side=LEFT, padx=5, pady=10)
 
     # create a label for the video scaling
-    lblScale = Label(frame1, text='Video Scale', fg='yellow', bg='black', font='Helvetica 10')
+    lblScale = Label(frame1, text='Video Scale', fg='yellow', bg='navy', font='Helvetica 10')
     lblScale.pack(side=LEFT, padx=5, pady=10)
 
     # create the video scale selection variable and choices
@@ -234,23 +240,24 @@ def main():
     # create the built-in image selection popup menu
     popup_menu_scale = OptionMenu(frame1, scaleSelection, *scaleChoices)
     popup_menu_scale['width'] = 3
+    popup_menu_scale['font'] = 'Helvetica 10'
     popup_menu_scale['bg'] = 'lightgreen'
     popup_menu_scale.pack(side=LEFT, padx=5, pady=10)
 
     #-----------------------------------------------------------------------
 
     # add a frame to hold screen attributes label
-    frame2 = Frame(root, background='black')
+    frame2 = Frame(root, background='navy')
     frame2.pack(side=TOP, fill=X)
 
-    lblScreen = Label(frame2, text='Screen : ' + str(screen_width) + ' x ' + str(screen_height) + '   dpi: ' + str(int(screenDPI)), fg='grey', bg='black', font='Helvetica 9')
+    lblScreen = Label(frame2, text='Screen : ' + str(screen_width) + ' x ' + str(screen_height) + '   dpi: ' + str(int(screenDPI)), fg='lightgrey', bg='navy', font='Helvetica 9')
     lblScreen.pack(side=TOP, anchor=CENTER, padx=5, pady=10)
 
     #-----------------------------------------------------------------------
 
     # add a frame to hold Close and Exit buttons
-    frame3 = Frame(root, background='black')
-    frame3.pack(side=TOP, fill=X)
+    frame3 = Frame(root, background='navy')
+    frame3.pack(side=TOP, fill=BOTH)
 
     # add Close button
     closeBtn = Button(frame3, text='Close Video', width=10, fg='blue', bg='lightgrey', state='disabled', relief=RAISED, command=close_video)
