@@ -28,7 +28,7 @@ All function controls are set to manipulate the currently displayed image within
 - The 'Rotation' button is currently set to keep on rotating the image with every tap (while preserving the whole image and only showing its rotated version)
 
 # Caer GUI Video
-A simple Tkinter GUI app example, designed to showcase some of Caer's features for playing videos.
+A rather simple Tkinter GUI app example, designed to showcase some of Caer's features for playing videos.
 This should only be used as a base to create a new GUI.
 
 App Requirements:
@@ -44,4 +44,5 @@ Note: Tested as working in Windows 10 with python v3.6.8.
 
 - You can select to display video from one of your cameras (0 is usually a default for laptop's built-in camera)
 - You can also select to play one of your own video files (use `Open File >>` option to browse locally or enter a URL to the file), either of MP4 / MPG / AVI file types is available and was tested as working
+- You can take a screenshot of the current video frame
 - There is no audio playback
