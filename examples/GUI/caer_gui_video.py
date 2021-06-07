@@ -12,6 +12,7 @@
 
 # You can select the camera source to capture the video from (0 is usually default)
 # You can also open and play a video file
+# You can take a screenshot of the current video frame
 
 # Tested as working in Windows 10 with python v3.6.8
 
@@ -71,6 +72,7 @@ def start_playing_file_video():
 def play_file_video():
     global close_video_window
     global sourceSelection
+    global take_a_screenshot
 
     if not video_file is None:
         capture1 = None
@@ -78,6 +80,7 @@ def play_file_video():
         popup_menu_source['state'] = 'disabled'
         popup_menu_scale['state'] = 'disabled'
         closeBtn['state'] = 'normal'
+        screenshotBtn['state'] = 'normal'
 
         try:
             capture1 = caer.core.cv.VideoCapture(video_file)
@@ -94,6 +97,10 @@ def play_file_video():
 
                         frame = caer.core.cv.resize(frame, dimensions, interpolation = caer.core.cv.INTER_AREA)
 
+                        if take_a_screenshot:
+                            caer.core.cv.imwrite('./Screenshot_' + str(screenshot_count) + '.png', frame)
+                            take_a_screenshot = False
+
                         caer.core.cv.imshow(video_file, frame)
                     else:
                         caer.core.cv.imshow(video_file, frame)
@@ -109,6 +116,7 @@ def play_file_video():
             popup_menu_source['state'] = 'normal'
             popup_menu_scale['state'] = 'normal'
             closeBtn['state'] = 'disabled'
+            screenshotBtn['state'] = 'disabled'
             sourceSelection.set('None')
 
         capture1.release()
@@ -125,6 +133,7 @@ def start_playing_camera_video():
 def play_camera_video():
     global close_video_window
     global sourceSelection
+    global take_a_screenshot
 
     if not video_cam is None:
         capture2 = None
@@ -132,6 +141,7 @@ def play_camera_video():
         popup_menu_source['state'] = 'disabled'
         popup_menu_scale['state'] = 'disabled'
         closeBtn['state'] = 'normal'
+        screenshotBtn['state'] = 'normal'
 
         try:
             capture2 = caer.core.cv.VideoCapture(video_cam)
@@ -148,6 +158,10 @@ def play_camera_video():
 
                         frame = caer.core.cv.resize(frame, dimensions, interpolation = caer.core.cv.INTER_AREA)
 
+                        if take_a_screenshot:
+                            caer.core.cv.imwrite('./Screenshot_' + str(screenshot_count) + '.png', frame)
+                            take_a_screenshot = False
+
                         caer.core.cv.imshow('Camera_' + str(video_cam), frame)
                     else:
                         caer.core.cv.imshow('Camera_' + str(video_cam), frame)
@@ -163,6 +177,7 @@ def play_camera_video():
             popup_menu_source['state'] = 'normal'
             popup_menu_scale['state'] = 'normal'
             closeBtn['state'] = 'disabled'
+            screenshotBtn['state'] = 'disabled'
             sourceSelection.set('None')
 
         capture2.release()
@@ -173,11 +188,21 @@ def close_video():
 
     close_video_window = True
 
+def take_screenshot():
+    global take_a_screenshot
+    global screenshot_count
+
+    take_a_screenshot = True
+    screenshot_count += 1
+
 def main():
     global root
     global video_file
     global video_cam
     global closeBtn
+    global screenshotBtn
+    global screenshot_count
+    global take_a_screenshot
     global close_video_window
     global sourceSelection
     global scaleSelection
@@ -199,6 +224,9 @@ def main():
     screen_height = root.winfo_screenheight()
 
     video_file, video_cam = None, None
+
+    take_a_screenshot = False
+    screenshot_count = 0
 
     # bind the 'q' keyboard key to quit
     root.bind('q', lambda event:root.destroy())
@@ -263,7 +291,11 @@ def main():
     closeBtn = Button(frame3, text='Close Video', width=10, fg='blue', bg='lightgrey', state='disabled', relief=RAISED, command=close_video)
     closeBtn.pack(side=LEFT, padx=10, pady=10)
 
-    # add exit button
+    # add Screenshot button
+    screenshotBtn = Button(frame3, text='Screenshot', width=10, fg='blue', bg='lightgrey', state='disabled', relief=RAISED, command=take_screenshot)
+    screenshotBtn.pack(side=LEFT, padx=1, pady=10)
+
+    # add Exit button
     exitBtn = Button(frame3, text='Exit', width=10, fg='red', bg='lightgrey', relief=RAISED, command=root.destroy)
     exitBtn.pack(side=RIGHT, anchor=CENTER, padx=10, pady=10)
 
