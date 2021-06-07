@@ -103,6 +103,10 @@ def play_file_video():
 
                         caer.core.cv.imshow(video_file, frame)
                     else:
+                        if take_a_screenshot:
+                            caer.core.cv.imwrite('./Screenshot_' + str(screenshot_count) + '.png', frame)
+                            take_a_screenshot = False
+
                         caer.core.cv.imshow(video_file, frame)
                 else:
                     break
@@ -164,6 +168,10 @@ def play_camera_video():
 
                         caer.core.cv.imshow('Camera_' + str(video_cam), frame)
                     else:
+                        if take_a_screenshot:
+                            caer.core.cv.imwrite('./Screenshot_' + str(screenshot_count) + '.png', frame)
+                            take_a_screenshot = False
+
                         caer.core.cv.imshow('Camera_' + str(video_cam), frame)
                 else:
                     break
