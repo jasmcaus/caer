@@ -97,17 +97,13 @@ def play_file_video():
 
                         frame = caer.core.cv.resize(frame, dimensions, interpolation = caer.core.cv.INTER_AREA)
 
-                        if take_a_screenshot:
-                            caer.core.cv.imwrite('./Screenshot_' + str(screenshot_count) + '.png', frame)
-                            take_a_screenshot = False
-
                         caer.core.cv.imshow(video_file, frame)
                     else:
-                        if take_a_screenshot:
-                            caer.core.cv.imwrite('./Screenshot_' + str(screenshot_count) + '.png', frame)
-                            take_a_screenshot = False
-
                         caer.core.cv.imshow(video_file, frame)
+
+                    if take_a_screenshot:
+                        caer.core.cv.imwrite('./Screenshot_' + str(screenshot_count) + '.png', frame)
+                        take_a_screenshot = False
                 else:
                     break
 
@@ -162,17 +158,13 @@ def play_camera_video():
 
                         frame = caer.core.cv.resize(frame, dimensions, interpolation = caer.core.cv.INTER_AREA)
 
-                        if take_a_screenshot:
-                            caer.core.cv.imwrite('./Screenshot_' + str(screenshot_count) + '.png', frame)
-                            take_a_screenshot = False
-
                         caer.core.cv.imshow('Camera_' + str(video_cam), frame)
                     else:
-                        if take_a_screenshot:
-                            caer.core.cv.imwrite('./Screenshot_' + str(screenshot_count) + '.png', frame)
-                            take_a_screenshot = False
-
                         caer.core.cv.imshow('Camera_' + str(video_cam), frame)
+
+                    if take_a_screenshot:
+                        caer.core.cv.imwrite('./Screenshot_' + str(screenshot_count) + '.png', frame)
+                        take_a_screenshot = False
                 else:
                     break
 
