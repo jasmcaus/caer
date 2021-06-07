@@ -385,7 +385,7 @@ def reset_ghsps():
     flip_V = False
 
     # reset all sliders
-    imgGamma.set(1.0)
+    imgGamma.set(1.05)
     hue.set(0.0)
     saturation.set(1.0)
     gaussian_blur.set(0)
@@ -502,7 +502,7 @@ def main():
 
     # create the built-in image selection variable and choices
     imageSelection = StringVar()
-    imageChoices = { 'Open File >>', 'Mountain', 'Snow', 'Sunrise', 'Night', 'Island', 'Puppies', 'Black Cat', 'Sea Turtle', 'Gold Fish', 'Bear', 'Beverages', 'Tent', 'Camera', 'Guitar'}
+    imageChoices = ['Open File >>', 'Bear', 'Beverages', 'Black Cat', 'Camera', 'Gold Fish', 'Guitar', 'Island', 'Mountain', 'Night', 'Puppies', 'Snow', 'Sunrise', 'Sea Turtle', 'Tent']
     imageSelection.set('Island')
     imageSelection.trace('w', show_original_image)
 
@@ -546,7 +546,7 @@ def main():
 
     # create the rotation anchor selection variable and choices
     anchorSelection = StringVar()
-    anchorChoices = { 'BottomLeft', 'BottomMiddle', 'BottomRight', 'Center', 'MiddleLeft', 'MiddleRight', 'TopLeft', 'TopMiddle', 'TopRight'}
+    anchorChoices = ['BottomLeft', 'BottomMiddle', 'BottomRight', 'Center', 'MiddleLeft', 'MiddleRight', 'TopLeft', 'TopMiddle', 'TopRight']
     anchorSelection.set('Center')
 
     # create the anchor selection popup menu
@@ -566,9 +566,9 @@ def main():
 
     # create the image gamma slider control
     imgGamma = DoubleVar()
-    sliderGamma = Scale(frame2, label='Gamma', variable=imgGamma, troughcolor='blue', from_=0.0, to=2.0, resolution=0.1, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_ghsps)
+    sliderGamma = Scale(frame2, label='Gamma', variable=imgGamma, troughcolor='blue', from_=0.1, to=2.0, resolution=0.05, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_ghsps)
     sliderGamma.pack(side=TOP, anchor=E, padx=2, pady=2)
-    imgGamma.set(1.0)
+    imgGamma.set(1.05)
 
     # create the image hue slider control
     hue = DoubleVar()
