@@ -37,6 +37,7 @@ class play_camera_video_thread(threading.Thread):
 
 app_closing = False
 pythonVersion = platform.python_version()
+caerVersion = caer.__version__
 
 def select_video_source(*args):
     global video_file
@@ -47,7 +48,7 @@ def select_video_source(*args):
 
     if selectedSource == 'Open File >>':
             try:
-                video_file = fd.askopenfilename(filetypes=(('MP4 files', '*.mp4'),('MPG files', '*.mpg'),('AVI files', '*.avi'),('All files', '*.*')))
+                video_file = fd.askopenfilename(filetypes=(('AVI files', '*.avi'),('MKV files', '*.mkv'),('MP4 files', '*.mp4'),('MPG files', '*.mpg'),('WMV files', '*.wmv'),('All files', '*.*')))
 
                 if video_file != '':
                     start_playing_file_video()
@@ -58,7 +59,7 @@ def select_video_source(*args):
             except Exception as e:
                 print(str(e))
     elif selectedSource != 'None':
-        # [-1:] is functional for 0 to 9 indexes, use [7:] instead to cover any index provided all names still start with 'Camera_'
+        # [-1:] is functional for 0 to 9 indexes, use [7:] instead to cover any index (provided all names still start with 'Camera_')
         video_cam = int(selectedSource[-1:])
         start_playing_camera_video()
 
@@ -105,7 +106,7 @@ def play_file_video():
                         caer.core.cv.imshow(video_file, frame)
 
                     if take_a_screenshot:
-                        caer.core.cv.imwrite('./Screenshot_' + str(screenshot_count) + '.png', frame)
+                        caer.imsave('./Screenshot_' + str(screenshot_count) + '.png', caer.to_tensor(frame, cspace='bgr'))
                         take_a_screenshot = False
                 else:
                     if checkVarLoop.get() == 1:
@@ -172,7 +173,7 @@ def play_camera_video():
                         caer.core.cv.imshow('Camera_' + str(video_cam), frame)
 
                     if take_a_screenshot:
-                        caer.core.cv.imwrite('./Screenshot_' + str(screenshot_count) + '.png', frame)
+                        caer.imsave('./Screenshot_' + str(screenshot_count) + '.png', caer.to_tensor(frame, cspace='bgr'))
                         take_a_screenshot = False
                 else:
                     break
@@ -222,9 +223,9 @@ def main():
 
     # create our window
     root = Tk()
-    root.config(background='white')
+    root.config(background='navy')
     root.title('CAER Video GUI - Python v' + pythonVersion)
-    root.geometry('384x138')
+    root.geometry('390x140')
     root.resizable(0,0)
 
     # the following works for a single screen setup
@@ -252,7 +253,7 @@ def main():
 
     # create a label for the video source
     lblSource = Label(frame1, text='Video Source', fg='yellow', bg='navy', font='Helvetica 10')
-    lblSource.pack(side=LEFT, padx=5, pady=10)
+    lblSource.pack(side=LEFT, padx=10, pady=10)
 
     # create the video source selection variable and choices
     sourceSelection = StringVar()
@@ -265,11 +266,7 @@ def main():
     popup_menu_source['width'] = 10
     popup_menu_source['font'] = 'Helvetica 10'
     popup_menu_source['bg'] = 'lightgreen'
-    popup_menu_source.pack(side=LEFT, padx=5, pady=10)
-
-    # create a label for the video scaling
-    lblScale = Label(frame1, text='Video Scale', fg='yellow', bg='navy', font='Helvetica 10')
-    lblScale.pack(side=LEFT, padx=5, pady=10)
+    popup_menu_source.pack(side=LEFT, pady=10)
 
     # create the video scale selection variable and choices
     scaleSelection = StringVar()
@@ -281,16 +278,23 @@ def main():
     popup_menu_scale['width'] = 3
     popup_menu_scale['font'] = 'Helvetica 10'
     popup_menu_scale['bg'] = 'lightgreen'
-    popup_menu_scale.pack(side=LEFT, padx=5, pady=10)
+    popup_menu_scale.pack(side=RIGHT, padx=10, pady=10)
+
+    # create a label for the video scaling
+    lblScale = Label(frame1, text='Video Scale', fg='yellow', bg='navy', font='Helvetica 10')
+    lblScale.pack(side=RIGHT, pady=10)
 
     #-----------------------------------------------------------------------
 
-    # add a frame to hold screen attributes label
+    # add a frame to hold caer version and screen attributes labels
     frame2 = Frame(root, background='navy')
     frame2.pack(side=TOP, fill=X)
 
     lblScreen = Label(frame2, text='Screen : ' + str(screen_width) + ' x ' + str(screen_height) + '   dpi: ' + str(int(screenDPI)), fg='lightgrey', bg='navy', font='Helvetica 9')
-    lblScreen.pack(side=TOP, anchor=CENTER, padx=5, pady=10)
+    lblScreen.pack(side=LEFT, padx=10, pady=10)
+
+    lblVersion = Label(frame2, text='caer  v' + caerVersion, fg='lightgrey', bg='navy', font='Helvetica 9')
+    lblVersion.pack(side=RIGHT, padx=10, pady=10)
 
     #-----------------------------------------------------------------------
 
