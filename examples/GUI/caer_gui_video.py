@@ -11,7 +11,7 @@
 # - 'python3 -m caer_gui_video'
 
 # You can select the camera source to capture the video from (0 is usually default)
-# You can also open and play a video file
+# You can also open and play a video file as well as loop it
 # You can take a screenshot of the current video frame
 
 # Tested as working in Windows 10 with python v3.6.8
@@ -58,6 +58,7 @@ def select_video_source(*args):
             except Exception as e:
                 print(str(e))
     elif selectedSource != 'None':
+        # [-1:] is functional for 0 to 9 indexes, use [7:] instead to cover any index provided all names still start with 'Camera_'
         video_cam = int(selectedSource[-1:])
         start_playing_camera_video()
 
@@ -73,6 +74,7 @@ def play_file_video():
     global close_video_window
     global sourceSelection
     global take_a_screenshot
+    global checkVarLoop
 
     if not video_file is None:
         capture1 = None
@@ -81,6 +83,7 @@ def play_file_video():
         popup_menu_scale['state'] = 'disabled'
         closeBtn['state'] = 'normal'
         screenshotBtn['state'] = 'normal'
+        chbLoop['state'] = 'normal'
 
         try:
             capture1 = caer.core.cv.VideoCapture(video_file)
@@ -105,7 +108,11 @@ def play_file_video():
                         caer.core.cv.imwrite('./Screenshot_' + str(screenshot_count) + '.png', frame)
                         take_a_screenshot = False
                 else:
-                    break
+                    if checkVarLoop.get() == 1:
+                        capture1.release()
+                        capture1 = caer.core.cv.VideoCapture(video_file)
+                    else:
+                        break
 
                 if caer.core.cv.waitKey(20) & 0xFF == ord('d') or app_closing or close_video_window:
                     break
@@ -117,6 +124,8 @@ def play_file_video():
             popup_menu_scale['state'] = 'normal'
             closeBtn['state'] = 'disabled'
             screenshotBtn['state'] = 'disabled'
+            checkVarLoop.set(0)
+            chbLoop['state'] = 'disabled'
             sourceSelection.set('None')
 
         capture1.release()
@@ -208,6 +217,8 @@ def main():
     global scaleSelection
     global popup_menu_source
     global popup_menu_scale
+    global checkVarLoop
+    global chbLoop
 
     # create our window
     root = Tk()
@@ -283,17 +294,23 @@ def main():
 
     #-----------------------------------------------------------------------
 
-    # add a frame to hold Close and Exit buttons
+    # add a frame to hold Loop checkbox and Close Video, Screenshot and Exit buttons
     frame3 = Frame(root, background='navy')
     frame3.pack(side=TOP, fill=BOTH)
 
-    # add Close button
+    # add Close Video button
     closeBtn = Button(frame3, text='Close Video', width=10, fg='blue', bg='lightgrey', state='disabled', relief=RAISED, command=close_video)
     closeBtn.pack(side=LEFT, padx=10, pady=10)
 
     # add Screenshot button
     screenshotBtn = Button(frame3, text='Screenshot', width=10, fg='blue', bg='lightgrey', state='disabled', relief=RAISED, command=take_screenshot)
     screenshotBtn.pack(side=LEFT, padx=1, pady=10)
+
+    # add Loop checkbox
+    checkVarLoop = IntVar()
+    chbLoop = Checkbutton(frame3, text='Loop', variable=checkVarLoop, bg='lightgrey', fg='blue', font='Helvetica 8', state='disabled')
+    checkVarLoop.set(0)
+    chbLoop.pack(side=LEFT, padx=10, pady=8)
 
     # add Exit button
     exitBtn = Button(frame3, text='Exit', width=10, fg='red', bg='lightgrey', relief=RAISED, command=root.destroy)
