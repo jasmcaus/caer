@@ -1,8 +1,8 @@
 # Caer GUI
-A simple TkInter GUI app example, designed to showcase some of Caer's features.
+A simple Tkinter GUI app example, designed to showcase some of Caer's features for manipulating images.
 This should only be used as a base to create a new GUI.
 
-Requirements: 
+App Requirements:
 * Python3
 * Caer
 * Matplotlib
@@ -13,6 +13,7 @@ python caer_gui.py
 ```
 
 Note: Tested as working in Windows 10 with python v3.6.8 and Kubuntu Linux with python v3.6.8. 
+
 - You can select one of 14 built-in images to display (startup has `caer.data.island` selected as default)
 - You can also select one of your own images (use `Open File >>` option to browse locally or enter a URL to the image), either of PNG / JPG / BMP file types is available and was tested as working
 - Selecting any of the images, at any point in time, will always start with a fresh original image and reset 
@@ -25,3 +26,24 @@ All function controls are set to manipulate the currently displayed image within
 - Histogram will not be available when Edges are enabled
 - Only one Histogram window can be displayed at any time
 - The 'Rotation' button is currently set to keep on rotating the image with every tap (while preserving the whole image and only showing its rotated version)
+
+# Caer GUI Video
+A rather simple Tkinter GUI app example, designed to showcase some of Caer's features for playing videos.
+This should only be used as a base to create a new GUI.
+
+App Requirements:
+* Python3
+* Caer
+
+Running it is as simple as 
+```python
+python caer_gui_video.py
+```
+
+Note: Tested as working in Windows 10 with python v3.6.8.
+
+- You can select to display video from one of your cameras (0 is usually a default for laptop's built-in camera)
+- You can also select to play one of your own video files (use `Open File >>` option to browse locally or enter a URL to the file), either of AVI / MKV / MP4 / MPG / WMV file types is available and was tested as working
+- You can loop the playback of the video file
+- You can take a screenshot of the current video frame (file will be saved in the app's folder)
+- There is no audio playback
