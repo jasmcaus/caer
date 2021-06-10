@@ -47,3 +47,6 @@ Note: Tested as working in Windows 10 with python v3.6.8.
 - You can loop the playback of the video file
 - You can take a screenshot of the current video frame (file will be saved in the app's folder)
 - There is no audio playback
+
+# Useful Resources
+Check the other GUI examples [here](https://github.com/GitHubDragonFly/CAER_Video_GUI).
