@@ -315,11 +315,8 @@ def adjust_ghsps(*args):
         if image_resized:
             transformedImage = caer.resize(transformedImage, target_size=(int(image_size[0]),int(image_size[1])), preserve_aspect_ratio=False)
         
-            if hue.get() != 0.0:
-                transformedImage = caer.transforms.adjust_hue(transformedImage, hue.get())
-        else:
-            if hue.get() != 0.0:
-                transformedImage = caer.transforms.adjust_hue(transformedImage, hue.get())
+        if hue.get() != 0.0:
+            transformedImage = caer.transforms.adjust_hue(transformedImage, hue.get())
 
         if saturation.get() != 1.0:
             transformedImage = caer.transforms.adjust_saturation(transformedImage, saturation.get())
