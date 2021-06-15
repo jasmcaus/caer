@@ -18,7 +18,6 @@
 
 # All function controls are set to manipulate the currently displayed image
 # Edges and Emboss effects are mutually exclusive (you can only have one applied at the time)
-# Histogram will not be available when Edges are enabled
 # Only one Histogram window can be displayed at any time
 # The 'Rotation' button is currently set to keep on rotating the image with every tap
 
@@ -67,7 +66,7 @@ def show_original_image(*args):
     if selectedImage == 'Open File >>':
         if not reload_local_file:
             try:
-                img_filename = fd.askopenfilename(filetypes=(('PNG files', '*.png'),('BMP files', '*.bmp'),('JPG files', '*.jpg'),('All files', '*.*')))
+                img_filename = fd.askopenfilename(filetypes=(('All files', '*.*'),('PNG files', '*.png'),('BMP files', '*.bmp'),('JPG files', '*.jpg')))
 
                 if img_filename != '':
                     lblFileName['text'] = img_filename
@@ -235,9 +234,9 @@ def show_rotated_image(external = False):
 
         # only display the rotated version of the image
         if not transformedImage is None:
-            rot = caer.to_tensor(caer.transforms.rotate(transformedImage, float(currentAngle), rotPoint=anchor), cspace = 'rgb')
+            rot = caer.transforms.rotate(transformedImage, float(currentAngle), rotPoint=anchor)
         else:
-            rot = caer.to_tensor(caer.transforms.rotate(currentImage, float(currentAngle), rotPoint=anchor), cspace = 'rgb')
+            rot = caer.transforms.rotate(currentImage, float(currentAngle), rotPoint=anchor)
 
         image_show(rot)
     except Exception as e:
@@ -279,14 +278,10 @@ def flip_image_vertically():
     adjust_ghsps()
 
 def set_edges():
-    global btnHistogram
     global show_emboss
 
     if show_edges.get() == 1:
-        btnHistogram['state'] = 'disabled'
         show_emboss.set(0)
-    else:
-        btnHistogram['state'] = 'normal'
 
     adjust_ghsps()
 
@@ -298,6 +293,13 @@ def set_emboss():
     
     adjust_ghsps()
 
+def set_sharpen_kernel(*args):
+    global sharpenKernel
+
+    sharpenKernel = caer.data.np.array([[-1, -1, -1], [-1, sharpen.get(), -1], [-1, -1, -1]])
+
+    adjust_ghsps()
+
 def adjust_ghsps(*args):
     global transformedImage
 
@@ -306,44 +308,52 @@ def adjust_ghsps(*args):
         if lblError['text'] == 'Error':
             lblError['text'] = ''
 
-        # apply all transformations to currently displayed image
-        
-        if image_resized:
-            transformedImage = caer.to_tensor(caer.resize(currentImage, target_size=(int(image_size[0]),int(image_size[1])), preserve_aspect_ratio=False), cspace = 'rgb')
-            transformedImage = caer.to_tensor(caer.transforms.adjust_hue(transformedImage, hue.get()), cspace = 'rgb')
-        else:
-            transformedImage = caer.to_tensor(caer.transforms.adjust_hue(currentImage, hue.get()), cspace = 'rgb')
+        transformedImage = currentImage
 
-        transformedImage = caer.to_tensor(caer.transforms.adjust_saturation(transformedImage, saturation.get()), cspace = 'rgb')
-        transformedImage = caer.to_tensor(caer.transforms.adjust_gamma(transformedImage, imgGamma.get()), cspace = 'rgb')
+        # apply all transformations to currently displayed image
+
+        if image_resized:
+            transformedImage = caer.resize(transformedImage, target_size=(int(image_size[0]),int(image_size[1])), preserve_aspect_ratio=False)
+        
+            if hue.get() != 0.0:
+                transformedImage = caer.transforms.adjust_hue(transformedImage, hue.get())
+        else:
+            if hue.get() != 0.0:
+                transformedImage = caer.transforms.adjust_hue(transformedImage, hue.get())
+
+        if saturation.get() != 1.0:
+            transformedImage = caer.transforms.adjust_saturation(transformedImage, saturation.get())
+
+        if imgGamma.get() != 1.05:
+            transformedImage = caer.transforms.adjust_gamma(transformedImage, imgGamma.get())
 
         if sharpen.get() != 8.9:
-            kernel = caer.data.np.array([[-1, -1, -1], [-1, sharpen.get(), -1], [-1, -1, -1]])
-            transformedImage = caer.to_tensor(caer.core.cv.filter2D(transformedImage, -1, kernel), cspace = 'rgb')
+            transformedImage = caer.core.cv.filter2D(transformedImage, -1, sharpenKernel)
 
         gb = gaussian_blur.get()
 
         if gb > 1:
-            transformedImage = caer.to_tensor(caer.core.cv.GaussianBlur(transformedImage, (gb + 1, gb + 1), caer.core.cv.BORDER_DEFAULT), cspace = 'rgb')
+            transformedImage = caer.core.cv.GaussianBlur(transformedImage, (gb + 1, gb + 1), caer.core.cv.BORDER_DEFAULT)
 
         if posterize.get() < 6:
-            transformedImage = caer.to_tensor(caer.transforms.posterize(transformedImage, posterize.get()), cspace = 'rgb')
+            transformedImage = caer.transforms.posterize(transformedImage, posterize.get())
 
         if solarize.get() < 255:
-            transformedImage = caer.to_tensor(caer.transforms.solarize(transformedImage, solarize.get()), cspace = 'rgb')
+            transformedImage = caer.transforms.solarize(transformedImage, solarize.get())
 
         if show_edges.get() == 1:
-            transformedImage = caer.to_tensor(caer.core.cv.Canny(transformedImage, low_threshold.get(), low_threshold.get() * 2), cspace = 'rgb')
+            transformedImage = caer.core.cv.cvtColor(transformedImage, caer.core.cv.COLOR_RGB2GRAY)
+            transformedImage = caer.core.cv.Canny(transformedImage, low_threshold.get(), low_threshold.get() * 2)
+            transformedImage = caer.core.cv.cvtColor(transformedImage, caer.core.cv.COLOR_GRAY2RGB)
 
         if show_emboss.get() == 1:
-            kernel = caer.data.np.array([[0, 1, 0], [0, 0, 0], [0, -1, 0]])
-            transformedImage = caer.to_tensor(caer.core.cv.filter2D(transformedImage, -1, kernel) + emboss.get(), cspace = 'rgb')
+            transformedImage = caer.core.cv.filter2D(transformedImage, -1, embossKernel) + emboss.get()
 
         if flip_H:
-            transformedImage = caer.to_tensor(caer.transforms.hflip(transformedImage), cspace = 'rgb')
+            transformedImage = caer.transforms.hflip(transformedImage)
 
         if flip_V:
-            transformedImage = caer.to_tensor(caer.transforms.vflip(transformedImage), cspace = 'rgb')
+            transformedImage = caer.transforms.vflip(transformedImage)
 
         if rotationApplied:
             show_rotated_image(True)
@@ -447,7 +457,6 @@ def main():
     global flip_V
     global btnFlip_H
     global btnFlip_V
-    global btnHistogram
     global rotateImgBtn
     global selectedSize
     global selectedAngle
@@ -467,6 +476,7 @@ def main():
     global sharpen
     global show_emboss
     global emboss
+    global embossKernel
 
     # create our main window
     root = Tk()
@@ -490,6 +500,8 @@ def main():
     showAxis = False
     flip_H, flip_V = False, False
     currentAngle = 0.0
+
+    embossKernel = caer.data.np.array([[0, 1, 0], [0, 0, 0], [0, -1, 0]])
 
     # bind the 'q' keyboard key to quit
     root.bind('q', lambda event:root.destroy())
@@ -584,7 +596,7 @@ def main():
 
     # create the image sharpen slider control
     sharpen = DoubleVar()
-    sliderSharpen = Scale(frame2, label='Sharpen', variable=sharpen, troughcolor='blue', from_=7.9, to=9.9, resolution=0.05, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_ghsps)
+    sliderSharpen = Scale(frame2, label='Sharpen', variable=sharpen, troughcolor='blue', from_=7.9, to=9.9, resolution=0.05, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=set_sharpen_kernel)
     sliderSharpen.pack(side=TOP, padx=2, pady=5)
     sharpen.set(8.9)
 
@@ -667,7 +679,7 @@ def main():
     toolbar._Spacer()
     btnFlip_V = toolbar._Button('FlipV', None, toggle=True, command=flip_image_vertically)
     toolbar._Spacer()
-    btnHistogram = toolbar._Button('Histogram', None, toggle=False, command=show_histogram_window)
+    toolbar._Button('Histogram', None, toggle=False, command=show_histogram_window)
     toolbar.update()
 
     canvas.get_tk_widget().pack(side=TOP, fill=BOTH, expand=1)
