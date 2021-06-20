@@ -2,9 +2,9 @@
 # Should only be used as a base to create a new GUI
 # It can be re-designed, controls re-grouped and code improved
 
-# Requirements: python3, caer, matplotlib, svglib
+# Requirements: python3, caer, matplotlib, pyvips
 
-# SVG Limitation: color gradients are not supported
+# SVG Requirements: pyvips libraries, see https://libvips.github.io/libvips/install.html
 
 # Run it either via IDLE or from command prompt / terminal with one of these commands:
 # - 'python caer_gui.py'
@@ -27,8 +27,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2Tk
 from matplotlib.figure import Figure
 
-from svglib.svglib import svg2rlg
-from reportlab.graphics import renderPM
+import pyvips
 
 from tkinter import *
 from tkinter import filedialog as fd
@@ -38,6 +37,20 @@ import math
 import caer
 
 pythonVersion = platform.python_version()
+
+# map vips formats to np dtypes
+format_to_dtype = {
+    'uchar': caer.core.np.uint8,
+    'char': caer.core.np.int8,
+    'ushort': caer.core.np.uint16,
+    'short': caer.core.np.int16,
+    'uint': caer.core.np.uint32,
+    'int': caer.core.np.int32,
+    'float': caer.core.np.float32,
+    'double': caer.core.np.float64,
+    'complex': caer.core.np.complex64,
+    'dpcomplex': caer.core.np.complex128,
+}
 
 def reload_image():
     global reload_local_file
@@ -77,7 +90,10 @@ def show_original_image(*args):
                 if img_filename != '':
                     lblFileName['text'] = img_filename
                     if img_filename.endswith('.svg') or img_filename.endswith('.svgz'):
-                        currentImage = caer.to_tensor(renderPM.drawToPIL(svg2rlg(img_filename)), cspace='rgb')
+                        img = pyvips.Image.new_from_file(img_filename, access='sequential')
+                        mem_img = img.write_to_memory()
+                        np_3d = caer.core.np.ndarray(buffer=mem_img, dtype=format_to_dtype[img.format], shape=[img.height, img.width, img.bands])
+                        currentImage = caer.to_tensor(np_3d, cspace='rgb')
                     else:
                         currentImage = caer.imread(img_filename)
                 else:
