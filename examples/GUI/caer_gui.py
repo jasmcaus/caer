@@ -14,7 +14,8 @@
 
 # Tested as working in Windows 10 with python v3.6.8 and Kubuntu Linux with python v3.6.8
 # You can select one of 14 built-in images to display (startup has "Island" selected as default)
-# You can also browse and select one of your images (use "Open File >>" and either browse locally or enter a URL), either of PNG / SVG / JPG / BMP file types is available and was tested as working
+# You can also browse and select one of your images (use "Open File >>" and either browse locally or enter a URL), either of:
+# PNG / SVG / GIF / JPG / BMP / TIFF file types is available and was tested as working
 # Selecting any of the images, at any point in time, will always start with a fresh original image and reset controls (with the exception of 'Open File >>' which will allow you to select a different image)
 # The 'Reload Image' button will reload the original version of currently selected image, including the user opened file
 
@@ -84,12 +85,21 @@ def show_original_image(*args):
 
     if selectedImage == 'Open File >>':
         if not reload_local_file:
+            all_ext = ('All files', '*.*')
+            png_ext = ('PNG files', '.png')
+            svg_ext = ('SVG files', '.svg .svgz')
+            gif_ext = ('GIF files', '.gif')
+            jpg_ext = ('JPG files', '.jpg .jpeg')
+            bmp_ext = ('BMP files', '.bmp')
+            tiff_ext = ('TIFF files', '.tif .tiff')
+
             try:
-                img_filename = fd.askopenfilename(filetypes=(('All files', '*.*'),('PNG files', '*.png'),('SVG files', '*.svg'),('BMP files', '*.bmp'),('JPG files', '*.jpg')))
+                img_filename = fd.askopenfilename(filetypes=(all_ext, png_ext, svg_ext, gif_ext, jpg_ext, bmp_ext, tiff_ext))
 
                 if img_filename != '':
                     lblFileName['text'] = img_filename
-                    if img_filename.endswith('.svg') or img_filename.endswith('.svgz'):
+                    extension = img_filename[img_filename.rindex('.'):].casefold()
+                    if extension == '.svg' or extension == '.svgz' or extension == '.gif':
                         img = pyvips.Image.new_from_file(img_filename, access='sequential')
                         mem_img = img.write_to_memory()
                         np_3d = caer.core.np.ndarray(buffer=mem_img, dtype=format_to_dtype[img.format], shape=[img.height, img.width, img.bands])
