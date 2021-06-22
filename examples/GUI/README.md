@@ -15,9 +15,10 @@ python caer_gui.py
 Note: Tested as working in Windows 10 with python v3.6.8 and Kubuntu Linux with python v3.6.8. 
 
 - You can select one of 14 built-in images to display (startup has `caer.data.island` selected as default)
-- You can also select one of your own images (use `Open File >>` option to browse locally or enter a URL to the image), either of PNG / JPG / BMP file types is available and was tested as working while some others might work as well
-- Selecting any of the images, at any point in time, will always start with a fresh original image and reset 
-controls (with the exception of the 'Open File >>' option which will allow you to browse and select a different image)
+- You can also select one of your own images (use the `Open File >>` option to browse locally or enter a URL to the image)
+- Either of PNG / JPG / BMP / TIFF file types is available and was tested as working while some others might work as well
+- Selecting any of the images, at any point in time, will always start with a fresh original image and reset controls
+- The exception to the above is the 'Open File >>' option which will allow you to browse and select a different image
 - 'Reload Image' button will reload the original version of currently selected image, including the image file loaded by the user
 
 All function controls are set to manipulate the currently displayed image within the adjust_ghsps() function.
