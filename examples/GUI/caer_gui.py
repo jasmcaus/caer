@@ -179,6 +179,7 @@ def resize_image():
 def show_rotated_image(external = False):
     global rotationApplied
     global currentAngle
+    global anchor
     global resizedImgBtn
     global rotateImgBtn
 
@@ -203,43 +204,43 @@ def show_rotated_image(external = False):
             if not external:
                 currentAngle += float(angle)
 
-            mod = math.fmod(currentAngle, 360)
+                mod = math.fmod(currentAngle, 360)
 
-            if currentAngle > 360 or currentAngle < -360:
-                currentAngle = mod
-                rotationApplied = True
-            elif mod == 0:
-                currentAngle = 0.0
-                rotationApplied = False
-            else:
-                rotationApplied = True
+                if currentAngle > 360 or currentAngle < -360:
+                    currentAngle = mod
+                    rotationApplied = True
+                elif mod == 0:
+                    currentAngle = 0.0
+                    rotationApplied = False
+                else:
+                    rotationApplied = True
 
-        lblCurrentAngle['text'] = str(currentAngle)
+                lblCurrentAngle['text'] = str(currentAngle)
 
-        tempAnchorPoint = anchorSelection.get()
+                tempAnchorPoint = anchorSelection.get()
 
-        if tempAnchorPoint == 'Center':
-            anchor = None
-        elif tempAnchorPoint == 'TopLeft':
-            anchor = (0, 0)
-        elif tempAnchorPoint == 'TopMiddle':
-            anchor = ((currentImage.width() // 2), 0)
-        elif tempAnchorPoint == 'TopRight':
-            anchor = (currentImage.width(), 0)
-        elif tempAnchorPoint == 'MiddleLeft':
-            anchor = (0, (currentImage.height() // 2))
-        elif tempAnchorPoint == 'MiddleRight':
-            anchor = (currentImage.width(), (currentImage.height() // 2))
-        elif tempAnchorPoint == 'BottomLeft':
-            anchor = (0, currentImage.height())
-        elif tempAnchorPoint == 'BottomMiddle':
-            anchor = ((currentImage.width() // 2), currentImage.height())
-        elif tempAnchorPoint == 'BottomRight':
-            anchor = (currentImage.width(), currentImage.height())
+                if tempAnchorPoint == 'Center':
+                    anchor = None
+                elif tempAnchorPoint == 'TopLeft':
+                    anchor = (0, 0)
+                elif tempAnchorPoint == 'TopMiddle':
+                    anchor = ((currentImage.width() // 2), 0)
+                elif tempAnchorPoint == 'TopRight':
+                    anchor = (currentImage.width(), 0)
+                elif tempAnchorPoint == 'MiddleLeft':
+                    anchor = (0, (currentImage.height() // 2))
+                elif tempAnchorPoint == 'MiddleRight':
+                    anchor = (currentImage.width(), (currentImage.height() // 2))
+                elif tempAnchorPoint == 'BottomLeft':
+                    anchor = (0, currentImage.height())
+                elif tempAnchorPoint == 'BottomMiddle':
+                    anchor = ((currentImage.width() // 2), currentImage.height())
+                elif tempAnchorPoint == 'BottomRight':
+                    anchor = (currentImage.width(), currentImage.height())
 
-        if rotateImgBtn['bg'] == 'lightgrey':
-            rotateImgBtn['bg'] = 'lightblue'
-            resizedImgBtn['bg'] = 'lightgrey'
+                if rotateImgBtn['bg'] == 'lightgrey':
+                    rotateImgBtn['bg'] = 'lightblue'
+                    resizedImgBtn['bg'] = 'lightgrey'
 
         # only display the rotated version of the image
         if not transformedImage is None:
@@ -386,6 +387,7 @@ def adjust_ghsps(*args):
 def reset_ghsps():
     global rotationApplied
     global currentAngle
+    global anchor
     global image_resized
     global transformedImage
     global imgGamma
@@ -408,6 +410,7 @@ def reset_ghsps():
     # reset flags and variables
     image_resized = False
     rotationApplied = False
+    anchor = None
     selectedAngle.set('0.0')
     currentAngle = 0.0
     lblCurrentAngle['text'] = str(currentAngle)
@@ -487,6 +490,7 @@ def main():
     global selectedSize
     global selectedAngle
     global rotationAngle
+    global anchor
     global anchorSelection
     global rotationApplied
     global lblCurrentAngle
@@ -526,6 +530,7 @@ def main():
     transformedImage = None
     reload_local_file = False
     rotationApplied = False
+    anchor = None
     showAxis = False
     flip_H, flip_V = False, False
     currentAngle = 0.0
