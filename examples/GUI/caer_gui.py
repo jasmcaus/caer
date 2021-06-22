@@ -357,8 +357,10 @@ def adjust_ghsps(*args):
 
         if sobel_threshold.get() > 0:
             transformedImage = caer.core.cv.cvtColor(transformedImage, caer.core.cv.COLOR_RGB2GRAY)
-            sobelx = caer.core.cv.Sobel(transformedImage, caer.core.cv.IMREAD_GRAYSCALE, sobel_threshold.get() - 2 if sobel_threshold.get() > 2 else sobel_threshold.get(), 0, ksize=sobel_threshold.get() if sobel_threshold.get() % 2 != 0 else sobel_threshold.get() + 1)
-            sobely = caer.core.cv.Sobel(transformedImage, caer.core.cv.IMREAD_GRAYSCALE, 0, sobel_threshold.get() - 2 if sobel_threshold.get() > 2 else sobel_threshold.get(), ksize=sobel_threshold.get() if sobel_threshold.get() % 2 != 0 else sobel_threshold.get() + 1)
+            sobelKernel = sobel_threshold.get() if sobel_threshold.get() % 2 != 0 else sobel_threshold.get() + 1 # values 1, 3 and 5
+            dx = dy = sobel_threshold.get() - 2 if sobel_threshold.get() > 2 else sobel_threshold.get()
+            sobelx = caer.core.cv.Sobel(transformedImage, caer.core.cv.IMREAD_GRAYSCALE, dx, 0, ksize=sobelKernel)
+            sobely = caer.core.cv.Sobel(transformedImage, caer.core.cv.IMREAD_GRAYSCALE, 0, dy, ksize=sobelKernel)
             transformedImage = caer.core.cv.bitwise_or(sobelx, sobely)
             transformedImage = caer.core.cv.cvtColor(transformedImage, caer.core.cv.COLOR_GRAY2RGB)
 
@@ -647,7 +649,7 @@ def main():
 
     # create the image sobel threshold slider control
     sobel_threshold = IntVar()
-    sliderSobelThreshold = Scale(frame2, label='Sobel Gradient', variable=sobel_threshold, troughcolor='blue', from_=0, to=5, resolution=1, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_ghsps)
+    sliderSobelThreshold = Scale(frame2, label='Sobel Gradient', variable=sobel_threshold, troughcolor='blue', from_=0, to=4, resolution=1, sliderlength=15, showvalue=False, orient=HORIZONTAL, command=adjust_ghsps)
     sliderSobelThreshold.pack(side=TOP, padx=2, pady=3)
     sobel_threshold.set(0)
 
