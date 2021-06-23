@@ -573,7 +573,7 @@ def main():
     rotateImgBtn.pack(side=LEFT, padx=2, pady=2)
 
     # create a label for the rotation angle
-    lblAngle = Label(frame1, text='Angle', fg='yellow', bg='black', font='Helvetica 8')
+    lblAngle = Label(frame1, text=u'\u2220', fg='yellow', bg='black', font='Helvetica 10')
     lblAngle.pack(side=LEFT, padx=2, pady=2)
 
     # create the rotation angle selection variable and an entry box
@@ -587,7 +587,7 @@ def main():
     lblCurrentAngle.pack(side=LEFT, padx=2, pady=2)
 
     # create a label for the rotation anchor
-    lblAnchor = Label(frame1, text='Anchor', fg='yellow', bg='black', font='Helvetica 8')
+    lblAnchor = Label(frame1, text=u'\u2693', fg='yellow', bg='black', font='Helvetica 10')
     lblAnchor.pack(side=LEFT, padx=2, pady=2)
 
     # create the rotation anchor selection variable and choices
