@@ -326,7 +326,7 @@ def adjust_ghsps(*args):
         if lblError['text'] == 'Error':
             lblError['text'] = ''
 
-        transformedImage = currentImage
+        transformedImage = caer.to_tensor(currentImage, cspace = 'rgb')
 
         # apply all transformations to currently displayed image
 
