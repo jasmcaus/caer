@@ -32,7 +32,7 @@ __all__ = [
 ]
 
 
-def to_rgb(tens) -> Tensor:
+def to_rgb(tens: Tensor) -> Tensor:
     r'''
         Converts any supported colorspace to RGB
 
@@ -95,7 +95,7 @@ def to_rgb(tens) -> Tensor:
         return to_tensor(im, cspace='rgb')
 
 
-def to_bgr(tens) -> Tensor:
+def to_bgr(tens: Tensor) -> Tensor:
     r'''
         Converts any supported colorspace to BGR
 
@@ -146,7 +146,7 @@ def to_bgr(tens) -> Tensor:
         return to_tensor(im, cspace='bgr')
 
 
-def to_gray(tens) -> Tensor:
+def to_gray(tens: Tensor) -> Tensor:
     r'''
         Converts any supported colorspace to grayscale
 
@@ -197,7 +197,7 @@ def to_gray(tens) -> Tensor:
         return to_tensor(im, cspace='gray')
 
 
-def to_hsv(tens) -> Tensor:
+def to_hsv(tens: Tensor) -> Tensor:
     r'''
         Converts any supported colorspace to hsv
 
@@ -248,7 +248,7 @@ def to_hsv(tens) -> Tensor:
         return to_tensor(im, cspace='hsv')
 
 
-def to_hls(tens) -> Tensor:
+def to_hls(tens: Tensor) -> Tensor:
     r'''
         Converts any supported colorspace to HLS
 
@@ -299,7 +299,7 @@ def to_hls(tens) -> Tensor:
         return to_tensor(im, cspace='hls')
 
 
-def to_lab(tens) -> Tensor:
+def to_lab(tens: Tensor) -> Tensor:
     r'''
         Converts any supported colorspace to LAB
 
@@ -344,7 +344,7 @@ def to_lab(tens) -> Tensor:
         return to_tensor(im, cspace='lab')
 
 
-def to_yuv(tens) -> Tensor:
+def to_yuv(tens: Tensor) -> Tensor:
     r'''
         Converts any supported colorspace to YUV
 
@@ -389,7 +389,7 @@ def to_yuv(tens) -> Tensor:
         return to_tensor(im, cspace='yuv')
 
 
-def to_luv(tens) -> Tensor:
+def to_luv(tens: Tensor) -> Tensor:
     r'''
         Converts any supported colorspace to LUV
 
