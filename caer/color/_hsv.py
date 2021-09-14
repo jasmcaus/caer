@@ -27,13 +27,13 @@ __all__ = [
 ]
 
 
-def _is_hsv_image(tens):
+def _is_hsv_image(tens:Tensor)->bool:
     # tens = to_tensor(tens)
     # return tens.is_hsv()
     return len(tens.shape) == 3 and tens.shape[-1] == 3
 
 
-def hsv2rgb(tens) -> Tensor:
+def hsv2rgb(tens: Tensor) -> Tensor:
     r'''
         Converts a HSV Tensor to its RGB version.
 
@@ -56,7 +56,7 @@ def hsv2rgb(tens) -> Tensor:
     return to_tensor(im, cspace='rgb')
 
 
-def hsv2bgr(tens) -> Tensor:
+def hsv2bgr(tens: Tensor) -> Tensor:
     r'''
         Converts a HSV Tensor to its BGR version.
 
@@ -79,7 +79,7 @@ def hsv2bgr(tens) -> Tensor:
     return to_tensor(im, cspace='bgr')
 
 
-def hsv2gray(tens) -> Tensor:
+def hsv2gray(tens: Tensor) -> Tensor:
     r'''
         Converts a HSV Tensor to its Grayscale version.
 
@@ -104,7 +104,7 @@ def hsv2gray(tens) -> Tensor:
     return to_tensor(im, cspace='gray')
 
 
-def hsv2hls(tens) -> Tensor:
+def hsv2hls(tens: Tensor) -> Tensor:
     r'''
         Converts a HSV Tensor to its HLS version.
 
@@ -129,7 +129,7 @@ def hsv2hls(tens) -> Tensor:
     return to_tensor(im, cspace='hls')
 
 
-def hsv2lab(tens) -> Tensor:
+def hsv2lab(tens: Tensor) -> Tensor:
     r'''
         Converts a HSV Tensor to its LAB version.
 
@@ -154,7 +154,7 @@ def hsv2lab(tens) -> Tensor:
     return to_tensor(im, cspace='lab')
 
 
-def hsv2yuv(tens) -> Tensor:
+def hsv2yuv(tens: Tensor) -> Tensor:
     r'''
         Converts a HSV Tensor to its YUV version.
 
@@ -179,7 +179,7 @@ def hsv2yuv(tens) -> Tensor:
     return to_tensor(im, cspace='yuv')
 
 
-def hsv2luv(tens) -> Tensor:
+def hsv2luv(tens: Tensor) -> Tensor:
     r'''
         Converts a HSV Tensor to its LUV version.
 
