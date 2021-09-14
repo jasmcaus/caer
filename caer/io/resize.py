@@ -15,10 +15,14 @@ import cv2 as cv
 
 from ..adorad import Tensor, to_tensor
 from .._internal import _check_target_size
-from ..globals import INTER_AREA, INTER_CUBIC, INTER_NEAREST, INTER_LINEAR
+from ..globals import (
+    INTER_AREA, INTER_CUBIC, INTER_NEAREST, INTER_LINEAR
+    )
 from typing import Tuple, Optional, Union
 
-__all__ = ["resize"]
+__all__ = [
+    'resize'
+]
 
 
 def resize(
@@ -29,58 +33,58 @@ def resize(
     interpolation="bilinear",
 ) -> Tensor:
     r"""
-    Resizes an image to a target_size without aspect ratio distortion.
+        Resizes an image to a target_size without aspect ratio distortion.
 
-    Your output images will be of size ``target_size``, and will not be distorted. Instead, the parts of the image that do not fit within the target size get cropped out.
+        Your output images will be of size ``target_size``, and will not be distorted. Instead, the parts of the image that do not fit within the target size get cropped out.
 
-    The resizing process is:
-    1. Resize the image as minimally as possible.
-    2. Take the largest centered crop of the image with dimensions = ``target_size``.
+        The resizing process is:
+        1. Resize the image as minimally as possible.
+        2. Take the largest centered crop of the image with dimensions = ``target_size``.
 
-    Alternatively, you may use:
-    ```python
-    size = (200,200)
-    tens = caer.resize(tens, target_size=size, preserve_aspect_ratio=True)
-    ```
+        Alternatively, you may use:
+        ```python
+        size = (200,200)
+        tens = caer.resize(tens, target_size=size, preserve_aspect_ratio=True)
+        ```
 
-    Note:
-        ``caer.imread()`` comes with an in-built functionality to resize your images, eliminating the need for you to call ``caer.resize()``. This is purely optional and may appeal to certain users.
+        Note:
+            ``caer.imread()`` comes with an in-built functionality to resize your images, eliminating the need for you to call ``caer.resize()``. This is purely optional and may appeal to certain users.
 
-        You may also use ``caer.smart_resize()`` for on-the-fly image resizing that `preserves the aspect ratio`.
-
-
-    Args:
-        tens (Tensor): Input Image. Must be in the format ``(height, width, channels)``.
-        target_size (tuple): Target size. Must be a tuple of ``(width, height)`` integer.
-        resize_factor (float, tuple): Resizing Factor to employ.
-            Shrinks the image if ``resize_factor < 1``
-            Enlarges the image if ``resize_factor > 1``
-        preserve_aspect_ratio (bool): Prevent aspect ratio distortion (employs center crop).
-        interpolation (str): Interpolation to use for resizing. Defaults to `'bilinear'`.
-            Supports `'bilinear'`, `'bicubic'`, `'area'`, `'nearest'`.
+            You may also use ``caer.smart_resize()`` for on-the-fly image resizing that `preserves the aspect ratio`.
 
 
-    Returns:
-        Tensor of shape ``(height, width, channels)``.
+        Args:
+            tens (Tensor): Input Image. Must be in the format ``(height, width, channels)``.
+            target_size (tuple): Target size. Must be a tuple of ``(width, height)`` integer.
+            resize_factor (float, tuple): Resizing Factor to employ.
+                Shrinks the image if ``resize_factor < 1``
+                Enlarges the image if ``resize_factor > 1``
+            preserve_aspect_ratio (bool): Prevent aspect ratio distortion (employs center crop).
+            interpolation (str): Interpolation to use for resizing. Defaults to `'bilinear'`.
+                Supports `'bilinear'`, `'bicubic'`, `'area'`, `'nearest'`.
 
 
-    Examples::
+        Returns:
+        T   ensor of shape ``(height, width, channels)``.
 
-        >> tens = caer.data.sunrise()
-        >> tens.shape
-        (427, 640, 3)
 
-        >> resized = caer.resize(tens, target_size=(200,200)) # Hard-resize. May distort aspect ratio
-        >> resized.shape
-        (200, 200, 3)
+        Examples::
 
-        >> resized_wf = caer.resize(tens, resize_factor=.5) # Resizes the image to half its dimensions
-        >> resized_wf.shape
-        (213, 320, 3)
+            >> tens = caer.data.sunrise()
+            >> tens.shape
+            (427, 640, 3)
 
-        >> resized = caer.resize(tens, target_size=(200,200), preserve_aspect_ratio=True) # Preserves aspect ratio
-        >> resized.shape
-        (200, 200, 3)
+            >> resized = caer.resize(tens, target_size=(200,200)) # Hard-resize. May distort aspect ratio
+            >> resized.shape
+            (200, 200, 3)
+
+            >> resized_wf = caer.resize(tens, resize_factor=.5) # Resizes the image to half its dimensions
+            >> resized_wf.shape
+            (213, 320, 3)
+
+            >> resized = caer.resize(tens, target_size=(200,200), preserve_aspect_ratio=True) # Preserves aspect ratio
+            >> resized.shape
+            (200, 200, 3)
 
     """
     # Opencv uses the (h,w) format
@@ -95,52 +99,39 @@ def resize(
     if resize_factor is None:
         if target_size is None:
             if preserve_aspect_ratio:
-                raise ValueError("Specify a target size")
+                raise ValueError('Specify a target size')
             else:
-                raise ValueError("Specify either a resize factor or target dimensions")
+                raise ValueError('Specify either a resize factor or target dimensions')
         if target_size is not None:
             if len(target_size) == 2:
                 new_shape = target_size
             else:
-                raise ValueError("Tuple shape must be = 2 (width, height)")
+                raise ValueError('Tuple shape must be = 2 (width, height)')
 
     if resize_factor is not None:
         target_size = None
         preserve_aspect_ratio = False
 
         if not isinstance(resize_factor, (int, float)):
-            raise ValueError("resize_factor must be an integer or float")
+            raise ValueError('resize_factor must be an integer or float')
 
         if resize_factor > 1:
-            interpolation = "bicubic"
+            interpolation = 'bicubic'
 
         new_shape = (int(resize_factor * width), int(resize_factor * height))
 
     interpolation_methods = {
-        "nearest": INTER_NEAREST,
-        "0": INTER_NEAREST,
-        0: INTER_NEAREST,  # 0
-        "bilinear": INTER_LINEAR,
-        "1": INTER_LINEAR,
-        1: INTER_LINEAR,  # 1
-        "bicubic": INTER_CUBIC,
-        "2": INTER_CUBIC,
-        2: INTER_CUBIC,  # 2
-        "area": INTER_AREA,
-        "3": INTER_AREA,
-        3: INTER_AREA,  # 3
+        "nearest": INTER_NEAREST,"0": INTER_NEAREST, 0: INTER_NEAREST,  # 0
+        "bilinear": INTER_LINEAR,"1": INTER_LINEAR,  1: INTER_LINEAR,  # 1
+        "bicubic": INTER_CUBIC,  "2": INTER_CUBIC,   2: INTER_CUBIC,  # 2
+        "area": INTER_AREA,      "3": INTER_AREA,    3: INTER_AREA,  # 3
     }
 
     if interpolation not in interpolation_methods:
-        raise ValueError("Specify a valid interpolation type - area/nearest/bicubic/bilinear")
+        raise ValueError('Specify a valid interpolation type - area/nearest/bicubic/bilinear')
 
     if preserve_aspect_ratio:
-        im = _resize_with_ratio(
-            tens,
-            target_size=target_size,
-            preserve_aspect_ratio=preserve_aspect_ratio,
-            interpolation=interpolation_methods[interpolation],
-        )
+        im = _resize_with_ratio(tens,target_size=target_size,preserve_aspect_ratio=preserve_aspect_ratio,interpolation=interpolation_methods[interpolation])
     else:
         width, height = new_shape[:2]
         im = _cv2_resize(tens, (width, height), interpolation=interpolation_methods[interpolation])
@@ -153,38 +144,37 @@ def resize(
 
 def smart_resize(tens: Tensor, target_size: Tuple[int, int], interpolation="bilinear") -> Tensor:
     r"""
-    Resizes an image to a target_size without aspect ratio distortion.
+        Resizes an image to a target_size without aspect ratio distortion.
 
-    Your output images will be of size `target_size`, and will not be distorted. Instead, the parts of the image that do not fit within the target size get cropped out.
+        Your output images will be of size `target_size`, and will not be distorted. Instead, the parts of the image that do not fit within the target size get cropped out.
 
-    The resizing process is:
-    1. Resize the image as minimally as possible.
-    2. Take the largest centered crop of the image with dimensions = `target_size`.
+        The resizing process is:
+        1. Resize the image as minimally as possible.
+        2. Take the largest centered crop of the image with dimensions = `target_size`.
 
-    Alternatively, you may use:
-    ```python
-    size = (200,200)
-    tens = caer.resize(tens, target_size=size, preserve_aspect_ratio=True)
-    ```
+        Alternatively, you may use:
+        ```python
+        size = (200,200)
+        tens = caer.resize(tens, target_size=size, preserve_aspect_ratio=True)
+        ```
 
-    Args:
-        tens (Tensor): Input Image. Must be in the format `(height, width, channels)`.
-        target_size (tuple): Target size. Must be a tuple of `(width, height)` integer.
-        interpolation (str): Interpolation to use for resizing. Defaults to `'bilinear'`.
-            Supports `'bilinear'`, `'bicubic'`, `'area'`, `'nearest'`.
+        Args:
+            tens (Tensor): Input Image. Must be in the format `(height, width, channels)`.
+            target_size (tuple): Target size. Must be a tuple of `(width, height)` integer.
+            interpolation (str): Interpolation to use for resizing. Defaults to `'bilinear'`.
+                Supports `'bilinear'`, `'bicubic'`, `'area'`, `'nearest'`.
 
-    Returns:
-        Tensor of shape `(height, width, channels)`
+        Returns:
+            Tensor of shape `(height, width, channels)`
 
-    Examples::
+        Examples::
 
-        >> tens = caer.data.sunrise()
-        >> tens.shape
-        (427, 640, 3)
-        >> resized = caer.smart_resize(tens, target_size=(200,200))
-        >> resized.shape
-        (200, 200, 3)
-
+            >> tens = caer.data.sunrise()
+            >> tens.shape
+            (427, 640, 3)
+            >> resized = caer.smart_resize(tens, target_size=(200,200))
+            >> resized.shape
+            (200, 200, 3)
     """
     # if not isinstance(tens, Tensor):
     #     raise ValueError('To use `caer.smart_resize()`, `tens` needs to be a caer.Tensor')
@@ -218,37 +208,31 @@ def _resize_with_ratio(
     tens: Tensor, target_size: Tuple[int, int], preserve_aspect_ratio: bool = False, interpolation="bilinear"
 ) -> Tensor:
     """
-    Resizes an image using advanced algorithms
-    :param target_size: Tuple of size 2 in the format (width,height)
-    :param preserve_aspect_ratio: Boolean to keep/ignore aspect ratio when resizing
+        Resizes an image using advanced algorithms
+        :param target_size: Tuple of size 2 in the format (width,height)
+        :param preserve_aspect_ratio: Boolean to keep/ignore aspect ratio when resizing
     """
     _ = _check_target_size(target_size)
     interpolation = str(interpolation)
 
     if not isinstance(preserve_aspect_ratio, bool):
-        raise ValueError("preserve_aspect_ratio must be a boolean")
+        raise ValueError('preserve_aspect_ratio must be a boolean')
 
     interpolation_methods = {
-        "nearest": INTER_NEAREST,
-        "0": INTER_NEAREST,  # 0
-        "bilinear": INTER_LINEAR,
-        "1": INTER_LINEAR,  # 1
-        "bicubic": INTER_CUBIC,
-        "2": INTER_CUBIC,  # 2
-        "area": INTER_AREA,
-        "3": INTER_AREA,  # 3
+        "nearest": INTER_NEAREST,"0": INTER_NEAREST,  # 0
+        "bilinear": INTER_LINEAR,"1": INTER_LINEAR,  # 1
+        "bicubic": INTER_CUBIC,  "2": INTER_CUBIC,  # 2
+        "area": INTER_AREA,      "3": INTER_AREA,  # 3
     }
 
     if interpolation not in interpolation_methods:
-        raise ValueError("Specify a valid interpolation type - area/nearest/bicubic/bilinear")
+        raise ValueError('Specify a valid interpolation type - area/nearest/bicubic/bilinear')
 
     oh, ow = tens.shape[:2]
     target_w, target_h = target_size
 
     if target_h > oh or target_w > ow:
-        raise ValueError(
-            "To compute resizing keeping the aspect ratio, the target size dimensions must be <= actual image dimensions"
-        )
+        raise ValueError('To compute resizing keeping the aspect ratio, the target size dimensions must be <= actual image dimensions')
 
     # Computing minimal resize
     # min_width, w_factor = _compute_minimal_resize(ow, target_w)
@@ -282,10 +266,10 @@ def _compute_minimal_resize(org_size: Tuple[int, int], target_dim: Tuple[int, in
     # return d, mi
 
     if not isinstance(org_size, tuple) or not isinstance(target_dim, tuple):
-        raise ValueError("org_size and target_dim must be a tuple")
+        raise ValueError('org_size and target_dim must be a tuple')
 
     if len(org_size) != 2 or len(target_dim) != 2:
-        raise ValueError("Size of tuple must be = 2")
+        raise ValueError('Size of tuple must be = 2')
 
     oh, ow = org_size[:2]
     targ_w, targ_h = target_dim[:2]
@@ -310,7 +294,7 @@ def _compute_centre_crop(tens: Tensor, target_size: Tuple[int, int]) -> Tensor:
     # oh, ow = tens.shape[:2]
 
     if target_h > oh or target_w > ow:
-        raise ValueError("To compute centre crop, target size dimensions must be <= tens dimensions")
+        raise ValueError('To compute centre crop, target size dimensions must be <= tens dimensions')
 
     diff_h = (oh - target_h) // 2
     diff_w = (ow - target_w) // 2

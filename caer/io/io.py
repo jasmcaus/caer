@@ -25,7 +25,10 @@ from typing import Tuple, Optional, Union
 from nptyping import NDArray, Float64
 
 
-__all__ = ["imread", "imsave"]
+__all__ = [
+    'imread', 
+    'imsave'
+    ]
 
 IMREAD_COLOR = 1
 
@@ -39,7 +42,7 @@ def imread(
     interpolation="bilinear",
 ) -> Tensor:
     r"""
-    Loads in an image from `image_path` (can be either a system filepath or a URL)
+        Loads in an image from `image_path` (can be either a system filepath or a URL)
 
     Args:
         image_path (str): Filepath/URL to read the image from.
@@ -65,14 +68,7 @@ def imread(
 
     """
 
-    return _imread(
-        image_path,
-        rgb=rgb,
-        target_size=target_size,
-        resize_factor=resize_factor,
-        preserve_aspect_ratio=preserve_aspect_ratio,
-        interpolation=interpolation,
-    )
+    return _imread(image_path,rgb=rgb,target_size=target_size,resize_factor=resize_factor,preserve_aspect_ratio=preserve_aspect_ratio,interpolation=interpolation,)
 
 
 def _imread(
@@ -85,37 +81,29 @@ def _imread(
     #     raise ValueError('channels must be an integer - 1 (Grayscale) or 3 (RGB)')
 
     interpolation_methods = {
-        "nearest": 0,
-        "0": 0,
-        0: 0,  # 0
-        "bilinear": 1,
-        "1": 1,
-        1: 1,  # 1
-        "bicubic": 2,
-        "2": 2,
-        2: 2,  # 2
-        "area": 3,
-        "3": 3,
-        3: 3,  # 3
+        'nearest':  0, '0': 0, 0: 0,  # 0
+        'bilinear': 1, '1': 1, 1: 1,  # 1
+        'bicubic':  2, '2': 2, 2: 2,  # 2
+        'area':     3, '3': 3, 3: 3,  # 3
     }
 
     if interpolation not in interpolation_methods:
-        raise ValueError("Specify a valid interpolation type - area/nearest/bicubic/bilinear")
+        raise ValueError('Specify a valid interpolation type - area/nearest/bicubic/bilinear')
 
     if exists(image_path):
         tens = _read_image(image_path)  # returns RGB
 
     # TODO: Create URL validator
-    elif image_path.startswith(("http://", "https://")):
+    elif image_path.startswith(('http://", "https://')):
         # Returns RGB image
         tens = _url_to_image(image_path)
 
         # If the URL is valid, but no image at that URL, NoneType is returned
         if tens is None:
-            raise ValueError("The URL specified does not point to an image")
+            raise ValueError('The URL specified does not point to an image')
 
     else:
-        raise ValueError("Specify either a valid URL or filepath")
+        raise ValueError('Specify either a valid URL or filepath')
 
     # try:
     #     # Returns RGB image
@@ -137,33 +125,27 @@ def _imread(
 
     if target_size is not None or resize_factor is not None:
         # Enforce a Tensor is passed to resize()
-        to_tensor(tens, cspace="rgb")
-        tens = resize(
-            tens,
-            target_size,
-            resize_factor=resize_factor,
-            preserve_aspect_ratio=preserve_aspect_ratio,
-            interpolation=interpolation,
-        )
+        to_tensor(tens, cspace='rgb')
+        tens = resize(tens,target_size,resize_factor=resize_factor,preserve_aspect_ratio=preserve_aspect_ratio,interpolation=interpolation,)
 
     # If `rgb=False`, then we assume that BGR is expected
     if not rgb:
         tens = rgb2bgr(tens)
         # We need to convert back to tensor
-        return to_tensor(tens, cspace="bgr")
+        return to_tensor(tens, cspace='bgr')
 
-    return to_tensor(tens, cspace="rgb")
+    return to_tensor(tens, cspace='rgb')
 
 
 def _read_image(image_path: str) -> NDArray[Float64]:
     r"""
-    Returns an RGB ndarray
+        Returns an RGB ndarray
 
     Args:
         image_path (str): Filepath/URL to read the image from.
     """
     if not exists(image_path):
-        raise FileNotFoundError("The image file was not found")
+        raise FileNotFoundError('The image file was not found')
 
     # BGR image
     tens = cv.imread(image_path)
@@ -177,7 +159,7 @@ def _read_image(image_path: str) -> NDArray[Float64]:
 
 def _url_to_image(url: str) -> NDArray[Float64]:
     r"""
-    Returns an RGB ndarray.
+        Returns an RGB ndarray.
     """
     response = urlopen(url)
     tens = np.asarray(bytearray(response.read()), dtype="uint8")
@@ -210,17 +192,15 @@ def imsave(path: str, tens: Tensor) -> bool:
 
     """
     if not isinstance(tens, Tensor):
-        raise TypeError("`tens` must be a caer.Tensor")
+        raise TypeError('`tens` must be a caer.Tensor')
 
     # Convert to tensor
     _ = tens._nullprt()  # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
 
     try:
         # OpenCV uses BGR Tensors and saves them as RGB images
-        if tens.cspace != "bgr":
+        if tens.cspace != 'bgr':
             tens = to_bgr(tens)
         return cv.imwrite(path, tens)
     except:
-        raise ValueError(
-            "`tens` needs to be a caer Tensor. Try reading the image using `caer.imread()`. More support for additional platforms will follow. Check the Changelog for further details."
-        )
+        raise ValueError('`tens` needs to be a caer Tensor. Try reading the image using `caer.imread()`. More support for additional platforms will follow. Check the Changelog for further details.')
