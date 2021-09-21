@@ -14,7 +14,10 @@ import numpy as np
 from numpy.core.multiarray import normalize_axis_index
 from . import cndsupport
 from . import cndi
+from typing import Optional, Union
+from collections.abc import Iterable
 
+from adorad.tensor import Tensor
 
 __all__ = [
     'fourier_gaussian', 
@@ -24,7 +27,7 @@ __all__ = [
 ]
 
 
-def _get_output_fourier(output, inp):
+def _get_output_fourier(output: Optional[np.dtype], inp:np.dtype) -> np.dtype:
     if output is None:
         if inp.dtype.type in [np.complex64, np.complex128,
                                 np.float32]:
@@ -44,7 +47,7 @@ def _get_output_fourier(output, inp):
     return output
 
 
-def _get_output_fourier_complex(output, inp):
+def _get_output_fourier_complex(output: Optional[np.dtype], inp:np.dtype) -> np.dtype:
     if output is None:
         if inp.dtype.type in [np.complex64, np.complex128]:
             output = np.zeros(inp.shape, dtype=inp.dtype)
@@ -61,7 +64,7 @@ def _get_output_fourier_complex(output, inp):
     return output
 
 
-def fourier_gaussian(inp, sigma, n=-1, axis=-1, output=None):
+def fourier_gaussian(inp:np.dtype, sigma:Union[Iterable,float], n: Optional[int]=-1, axis: Optional[int]=-1, output:Optional[Tensor]=None)->Tensor:
     """
     Multidimensional Gaussian fourier filter.
 
@@ -106,7 +109,7 @@ def fourier_gaussian(inp, sigma, n=-1, axis=-1, output=None):
     return output
 
 
-def fourier_uniform(inp, size, n=-1, axis=-1, output=None):
+def fourier_uniform(inp:np.dtype, size:Union[Iterable,float],n: Optional[int]=-1, axis: Optional[int]=-1, output:Optional[Tensor]=None)->Tensor:
     """
     Multidimensional uniform fourier filter.
 
@@ -151,7 +154,7 @@ def fourier_uniform(inp, size, n=-1, axis=-1, output=None):
     return output
 
 
-def fourier_ellipsoid(inp, size, n=-1, axis=-1, output=None):
+def fourier_ellipsoid(inp:np.dtype, size:Union[Iterable,float],n: Optional[int]=-1, axis: Optional[int]=-1, output:Optional[Tensor]=None)->Tensor:
     """
     Multidimensional ellipsoid Fourier filter.
 
@@ -200,7 +203,7 @@ def fourier_ellipsoid(inp, size, n=-1, axis=-1, output=None):
     return output
 
 
-def fourier_shift(inp, shift, n=-1, axis=-1, output=None):
+def fourier_shift(inp:np.dtype, shift:Union[Iterable,float],n: Optional[int]=-1, axis: Optional[int]=-1, output:Optional[Tensor]=None)->Tensor:
     """
     Multidimensional Fourier shift filter.
 
