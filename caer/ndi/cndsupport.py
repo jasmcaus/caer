@@ -12,9 +12,10 @@
 
 from collections.abc import Iterable
 import numpy as np
+from typing import  Union,Optional,List
 
 
-def _extend_mode_to_code(mode):
+def _extend_mode_to_code(mode: str)-> int:
     """Convert an extension mode to the corresponding integer code.
     """
     if mode == 'nearest':
@@ -31,7 +32,7 @@ def _extend_mode_to_code(mode):
         raise RuntimeError('boundary mode not supported')
 
 
-def _normalize_sequence(inp, rank):
+def _normalize_sequence(inp: Union[Iterable,str], rank) -> List:
     """If inp is a scalar, create a sequence of length equal to the
     rank by duplicating the inp. If inp is a sequence,
     check if its length is equal to the length of array.
@@ -50,7 +51,7 @@ def _normalize_sequence(inp, rank):
     return normalized
 
 
-def _get_output(output, inp, shape=None, complex_output=False):
+def _get_output(output: Optional[Union[np.dtype,str]], inp: np.dtype, shape=None, complex_output:bool = False) -> np.dtype:
     if shape is None:
         shape = inp.shape
 
