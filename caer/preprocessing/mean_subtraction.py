@@ -18,7 +18,8 @@ from ..io import imread
 from ..adorad import Tensor
 from ..jit.annotations import Tuple, List
 
-import numpy as np 
+import numpy as np
+import cv2 as cv
 
 """
     Important notes:
