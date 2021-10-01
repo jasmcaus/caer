@@ -14,7 +14,7 @@ import random
 import time
 import numpy as np
 
-from .core import get_classes_from_dir, to_array
+from .core import get_classes_from_dir
 from .io import imread
 from .preprocessing import MeanProcess
 from ._internal import _check_target_size, _check_mean_sub_values
@@ -181,7 +181,7 @@ def preprocess_from_dir(DIR,
             data = shuffle(data)
 
         # Converting to Numpy
-        data = to_array(data)
+        data = np.array(data)
 
         # Saves the Data set as a .npy file
         if save_data:
@@ -258,7 +258,7 @@ def sep_train(data, IMG_SIZE, channels=1):
 
     # Converting to Numpy + Reshaping X
     x = reshape(x, IMG_SIZE, channels)
-    y = to_array(y)
+    y = np.array(y)
 
     return x, y
 
@@ -267,7 +267,7 @@ def reshape(x, IMG_SIZE, channels):
     _ = _check_target_size(IMG_SIZE)
 
     width, height = IMG_SIZE[:2]
-    return to_array(x).reshape(-1, width, height, channels)
+    return np.array(x).reshape(-1, width, height, channels)
 
 
 def normalize(x, dtype='float32'):
