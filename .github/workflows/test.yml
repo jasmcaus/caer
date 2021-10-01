@@ -34,7 +34,7 @@ jobs:
       shell: bash -l {0}
       run: |
         conda install curl make -c conda-forge
-        pip install -r requirements/test.txt
+        pip install -r tools/requirements/test.txt
         make install
 
     - name: Run Tests

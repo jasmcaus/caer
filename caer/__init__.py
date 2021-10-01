@@ -18,8 +18,6 @@ color
     Colorspace manipulation
 data
     Standard high-quality test images
-filters
-    Advanced Image Filters
 path
     OS-specific Path Manipulations
 preprocessing
@@ -93,22 +91,11 @@ from .io import (
 from .preprocess import (
     preprocess_from_dir,
     sep_train,
-    shuffle,
-    reshape,
-    normalize,
     __all__ as __all_preprocess__
 )
 
 # General utilities
 from .core import (
-    median,
-    mean,
-    merge,
-    split,
-    npmean,
-    to_array,
-    array,
-    asarray,
     train_val_split,
     get_classes_from_dir,
     sort_dict,
@@ -219,7 +206,6 @@ from .globals import __all__ as __all_globals__
 
 from .transforms import __all__ as __all_transforms__
 from .data import __all__ as __all_data__
-# from .filters import __all__ as __all_filters__
 from .path import __all__ as __all_path__
 from .preprocessing import __all__ as __all_preprocessing__
 from .video import __all__ as __all_video__
@@ -230,7 +216,6 @@ __all__ = __all_globals__ + __all_core__ + __all_preprocess__
 __all__ += __all_transforms__
 __all__ += __all_color__
 __all__ += __all_data__
-# __all__ += __all_filters__
 __all__ += __all_io__
 __all__ += __all_path__
 __all__ += __all_preprocessing__
@@ -253,6 +238,5 @@ del __all_preprocess__
 del __all_transforms__
 del __all_color__
 del __all_data__
-# del __all_filters__
 del __all_preprocessing__
 del __all_video__

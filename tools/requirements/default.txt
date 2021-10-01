@@ -1,0 +1,4 @@
+numpy<1.21.3
+opencv-contrib-python>=4.2.0
+typing_extensions
+mypy
