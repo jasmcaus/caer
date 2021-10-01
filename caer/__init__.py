@@ -91,9 +91,6 @@ from .io import (
 from .preprocess import (
     preprocess_from_dir,
     sep_train,
-    shuffle,
-    reshape,
-    normalize,
     __all__ as __all_preprocess__
 )
 

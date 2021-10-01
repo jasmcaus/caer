@@ -10,23 +10,19 @@
 # Copyright (c) 2020-2021 The Caer Authors <http://github.com/jasmcaus>
 
 
+import os
 import random
 import time
 import numpy as np
 
-from .core import get_classes_from_dir
 from .io import imread
-from .preprocessing import MeanProcess
-from ._internal import _check_target_size, _check_mean_sub_values
-from .path import listdir, minijoin, exists, list_images
+from ._internal import _check_target_size
+from .path import minijoin, list_images
 from .color import to_gray
 
 __all__ = [
     'preprocess_from_dir',
     'sep_train',
-    'shuffle',
-    'reshape',
-    'normalize'
 ]
 
 
@@ -54,10 +50,9 @@ def preprocess_from_dir(DIR,
         data: Image Pixel Values with corresponding labels (float32)
         Saves the above variables as .npy files if `save_data = True`
     """
-    return_classes_flag = False
     data = [] 
 
-    if not exists(DIR):
+    if not os.path.exists(DIR):
         raise ValueError('The specified directory does not exist')
 
     if IMG_SIZE is None:
@@ -129,7 +124,7 @@ def preprocess_from_dir(DIR,
 
         # Shuffling the Training Set
         if isShuffle is True:
-            data = shuffle(data)
+            random.shuffle(data)
 
         # Converting to Numpy
         data = np.array(data)
@@ -164,31 +159,6 @@ def preprocess_from_dir(DIR,
         return data
 
 
-def _printTotal(count, category):
-    print(f'{count} - {category}')
-
-
-def _check_for_false_folders(base_dir, classes):
-    if len(classes) == 0:
-        return []
-    else:
-        g = []
-        for i in classes:
-            path = minijoin(base_dir, i)
-            if list_images(path, recursive=False, verbose=0) is not None:
-                g.append(i)
-    
-    return g
-
-
-def shuffle(data):
-    """
-    Shuffles the Array
-    """
-    random.shuffle(data)
-    return data
-
-
 def sep_train(data, IMG_SIZE, channels=1):
     # x = []
     # y = []
@@ -216,15 +186,3 @@ def reshape(x, IMG_SIZE, channels):
 
     width, height = IMG_SIZE[:2]
     return np.array(x).reshape(-1, width, height, channels)
-
-
-def normalize(x, dtype='float32'):
-    """
-    Normalizes the data to mean 0 and standard deviation 1
-    """
-    # x/=255.0 raises a TypeError
-    # x = x/255.0
-    
-    # Converting to float32 and normalizing (float32 saves memory)
-    x = x.astype(dtype) / 255
-    return x
