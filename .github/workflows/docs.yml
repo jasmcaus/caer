@@ -29,8 +29,8 @@ jobs:
     #   - name: Install Reqs
     #     run: |
     #       python -m pip install --upgrade pip
-    #       python -m pip install -r requirements/default.txt
-    #       python -m pip install -r requirements/build-docs.txt
+    #       python -m pip install -r tools/requirements/default.txt
+    #       python -m pip install -r tools/requirements/build-docs.txt
     #       python -m pip install .
           
     #   - name: Building Docs

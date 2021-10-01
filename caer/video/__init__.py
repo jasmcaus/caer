@@ -36,14 +36,8 @@ from .frames_and_fps import (
     __all__ as __all_ffps__
 )
 
-from .stablizer import (
-    Stabilizer,
-    __all__ as __all_st__
-)
 
-
-
-__all__ = __all_extract__ + __all_str__ + __all_live__ + __all_ffps__ + __all_gpu__ + __all_st__
+__all__ = __all_extract__ + __all_str__ + __all_live__ + __all_ffps__ + __all_gpu__
 
 
 # Stop polluting the namespace
@@ -52,4 +46,3 @@ del __all_str__
 del __all_ffps__
 del __all_gpu__
 del __all_live__
-del __all_st__

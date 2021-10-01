@@ -15,11 +15,11 @@
 from .._internal import _check_mean_sub_values
 from ..path import exists, list_images
 from ..io import imread 
-from ..core import mean, merge, split, npmean
 from ..adorad import Tensor
 from ..jit.annotations import Tuple, List
 
-import numpy as np 
+import numpy as np
+import cv2 as cv
 
 """
     Important notes:
@@ -52,7 +52,7 @@ class MeanProcess:
         """
 
         if channels == 3:
-            b, g, r = split(image.astype('float32'))[:3]
+            b, g, r = cv.split(image.astype('float32'))[:3]
 
             # Subtracting the mean
             r -= self.rMean
@@ -60,7 +60,7 @@ class MeanProcess:
             b -= self.bMean
 
             # Merging 
-            return merge([b,g,r])
+            return cv.merge([b,g,r])
         
         if channels == 1:
             image -= self.bgrMean
@@ -92,13 +92,13 @@ def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True, recursive
         tens = imread(tens_filepath, rgb=True)
 
         if channels == 3:
-            b, g, r = mean(tens.astype('float32'))[:3]
+            b, g, r = cv.mean(tens.astype('float32'))[:3]
             rMean += r
             bMean += b
             gMean += g
 
         if channels == 1:
-            bgrMean += npmean(tens.astype('float32'))
+            bgrMean += np.mean(tens.astype('float32'))
 
     # Computing average mean
     if channels == 3:
@@ -138,12 +138,12 @@ def compute_mean(data, channels, per_channel_subtraction=True) -> Tuple:
     for tens in data:
         count += 1
         if channels == 3:
-            b, g, r = mean(tens.astype('float32'))[:3]
+            b, g, r = cv.mean(tens.astype('float32'))[:3]
             rMean += r
             gMean += g
             bMean += b
         if channels == 1:
-            bgrMean += npmean(tens.astype('float32'))
+            bgrMean += np.mean(tens.astype('float32'))
 
     # Computing average mean
     if channels == 3:

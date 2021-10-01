@@ -16,7 +16,8 @@ disable=R,
     no-name-in-module,
     invalid-unary-operand-type,
     redefined-outer-name,
-    pointless-string-statement
+    pointless-string-statement,
+    unspecified-encoding
 
 # disable=R,
 #         C,
