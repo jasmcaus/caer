@@ -19,7 +19,7 @@ __all__ = [
 ]
 
 
-def count_frames(video_path=None):
+def count_frames(video_path):
     r"""
         Returns the number of frames in a video at ``video_path``.
 
@@ -56,4 +56,5 @@ def get_fps(video_path=None):
     stream = Stream(video_path)
     fps_count = stream.get_fps()
     stream.release()
+    
     return fps_count
