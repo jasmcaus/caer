@@ -15,7 +15,7 @@ from .._base import __curr__
 from ..jit.annotations import Optional
 import numpy as np 
 
-from ..adorad import Tensor
+from ..coreten import Tensor
 
 here = minijoin(__curr__, 'data').replace('\\', "/") + "/"
 

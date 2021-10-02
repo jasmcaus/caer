@@ -186,7 +186,7 @@ from .color import (
 # from .globals import *
 
 # Tensor-stuff
-from .adorad import *
+from .coreten import *
 
 
 def get_caer_version():

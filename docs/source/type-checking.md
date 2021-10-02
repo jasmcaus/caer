@@ -55,7 +55,7 @@ For other editors, the [``mypy`` docs](https://github.com/python/mypy#ide-linter
 *Static type checking* means that your editor (or other tools) will check the code using the declared types before running it. Because it is done before running the code, it’s called “static”. The contrary would be *dynamic* type checking, where checks are performed at runtime, while the program is running and the code is being executed. (Once complete, Caer will also do runtime validation!) As editors and similar tools can’t just randomly run your code to verify that it’s correct, we have these type annotations to help editors check the code and provide autocompletion.
 
 
-Even if you never run a type-checker, adding type-annotations to your code can greatly improve its readability. Multi-dimensional Tensor libraries like ``adorad`` and ``numpy`` make it easy to write terse, fairly general code; but when you revisit the code later, it’s often very hard to figure out what’s happening without executing the code and debugging.
+Even if you never run a type-checker, adding type-annotations to your code can greatly improve its readability. Multi-dimensional Tensor libraries like ``coreten`` and ``numpy`` make it easy to write terse, fairly general code; but when you revisit the code later, it’s often very hard to figure out what’s happening without executing the code and debugging.
 
 Consider this function (from the ``caer.transforms`` module): 
 

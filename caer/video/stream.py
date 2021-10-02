@@ -21,7 +21,7 @@ from .constants import (
     FPS, FRAME_COUNT, FRAME_HEIGHT, FRAME_WIDTH
 )
 from ..jit.annotations import Tuple
-from ..adorad import Tensor
+from ..coreten import Tensor
 
 __all__ = [
     'Stream'
