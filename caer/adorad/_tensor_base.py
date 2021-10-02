@@ -43,7 +43,7 @@ class _TensorBase:
         return self.cspace
 
     def numel(self):
-        return self.numelem
+        return self.size
 
     def dim(self):
         return self.ndim
@@ -85,7 +85,6 @@ class _TensorBase:
     # Foreign Tensor-stuff
     def is_foreign(self):
         return self.foreign
-
 
     def _is_valid_cspace(self):
         if (self.cspace == 'rgb') or (self.cspace == 'bgr') or (self.cspace == 'gray') or (self.cspace == 'hsv') or (self.cspace == 'hls') or (self.cspace == 'lab') or (self.cspace == 'yuv') or (self.cspace == 'luv'):
