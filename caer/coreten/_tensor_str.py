@@ -84,7 +84,7 @@ class _Formatter(object):
 
 def _scalar_str(self, formatter):
     # Usually, we must never come here. 
-    # This is only for when the 'Adorad' library is built.
+    # This is only for when the 'coreten' library is built.
     # Changes may be made to this.
     return formatter.format(self.item())
 

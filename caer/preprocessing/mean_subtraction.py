@@ -15,7 +15,7 @@
 from .._internal import _check_mean_sub_values
 from ..path import exists, list_images
 from ..io import imread 
-from ..adorad import Tensor
+from ..coreten import Tensor
 from ..jit.annotations import Tuple, List
 
 import numpy as np

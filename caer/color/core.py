@@ -9,7 +9,7 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2020-2021 The Caer Authors <http://github.com/jasmcaus>
 
-from ..adorad import Tensor, to_tensor
+from ..coreten import Tensor, to_tensor
 
 from ._bgr import bgr2gray, bgr2hsv, bgr2lab, bgr2rgb, bgr2hls, bgr2yuv, bgr2luv
 from ._rgb import rgb2gray, rgb2hsv, rgb2lab, rgb2bgr, rgb2hls, rgb2yuv, rgb2luv

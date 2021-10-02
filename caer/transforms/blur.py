@@ -12,7 +12,7 @@
 import cv2 as cv 
 import numpy as np 
 
-from ..adorad import Tensor
+from ..coreten import Tensor
 from .position import _proc_in_chunks
 
 
