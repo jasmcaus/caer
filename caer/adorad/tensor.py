@@ -36,7 +36,7 @@ class Tensor(_TensorBase, np.ndarray):
             )
 
         obj = np.asarray(x, dtype=dtype).view(cls)
-        obj.dtype = obj.dtype
+        obj.dtype = dtype
 
         return obj
 
