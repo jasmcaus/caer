@@ -13,8 +13,6 @@ color
     Colorspace manipulation
 data
     Standard high-quality test images
-filters
-    Advanced Image Filters
 path
     OS-specific Path Manipulations
 preprocessing
@@ -45,9 +43,9 @@ __homepage__
 import sys 
 import platform
 
-MAJOR = 1 
-MINOR = 9
-MICRO = 9
+MAJOR = 2
+MINOR = 0
+MICRO = 0
 ISRELEASED = True
 VERSION = f'{MAJOR}.{MINOR}.{MICRO}'
 

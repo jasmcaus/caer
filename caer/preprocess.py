@@ -60,8 +60,6 @@ def preprocess_from_dir(DIR,
 
     if not isinstance(IMG_SIZE, tuple) or len(IMG_SIZE) != 2:
         raise ValueError('IMG_SIZE must be a tuple of size 2 (width,height)')
-    else:
-        raise ValueError('verbose flag must be either 1 (display progress to terminal) or 0 otherwise')
 
     if not isinstance(save_data, bool):
         raise ValueError('save_data must be a boolean (True/False)')
