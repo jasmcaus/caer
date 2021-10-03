@@ -3,9 +3,9 @@
 # Copyright 2020-2021, Caer
 author = 'Jason Dsouza'
 author_email = 'jasmcaus@gmail.com'
-version = '2.0.0'
-full_version = '2.0.0'
-git_version = '0b34c58770651d755f75e7f3ddf28abc7c525432'
+version = '2.0.1'
+full_version = '2.0.1'
+git_version = '71eed494c0f5f527a5624091cfb0927b5b92f0bb'
 release = True
 contributors = ['Jason Dsouza <@jasmcaus>', '', 'Special Thanks to:', '@MalikMAlna', '@lucasace', '@GitHubDragonFly']
 homepage = 'https://github.com/jasmcaus/caer'
