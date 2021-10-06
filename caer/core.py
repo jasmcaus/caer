@@ -34,10 +34,7 @@ def median(arr, axis=None):
 
  
 def mean(image, mask=None):
-    try:
-        return cv.mean(image, mask=mask)
-    except:
-        raise ValueError('mean() expects an image')
+    return cv.mean(image, mask=mask)
 
 
 def merge(tens):
