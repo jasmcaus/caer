@@ -17,7 +17,7 @@ import numpy as np
 
 from .io import imread
 from ._internal import _check_target_size
-from .path import minijoin, list_images
+from .path import join, list_images
 from .color import to_gray
 
 __all__ = [
@@ -103,7 +103,7 @@ def preprocess_from_dir(DIR,
         since_preprocess = time.time()
 
         for item in classes:
-            class_path = minijoin(DIR, item)
+            class_path = join(DIR, item)
             class_label = classes.index(item)
             count = 0 
             tens_list = list_images(class_path, use_fullpath=True, verbose=0)

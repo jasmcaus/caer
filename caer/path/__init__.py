@@ -28,7 +28,7 @@ from .paths import (
     mkdir,
     osname,
     chdir,
-    minijoin,
+    join,
     dirname,
 
     # Variables
