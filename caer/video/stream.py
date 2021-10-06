@@ -20,7 +20,7 @@ import numpy as np
 from .constants import (
     FPS, FRAME_COUNT, FRAME_HEIGHT, FRAME_WIDTH
 )
-from ..annotations.annotations import Tuple
+from ..annotations import Tuple
 from ..coreten import Tensor
 
 __all__ = [
