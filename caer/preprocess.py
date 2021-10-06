@@ -169,21 +169,6 @@ def normalize(x, dtype='float32'):
     x = x.astype(dtype) / 255
     return x
 
-def train_val_split(x, y, val_ratio = 0.2):
-    r"""
-        The SKLearn Python package is necessary for this to work.
-        Returns:
-            x_train, x_val, y_train, y_val
-    """
-    try:
-        import sklearn.model_selection as skm
-    except ImportError:
-        raise ImportError("Expected the `scikit-learn` package.")
-
-    split_data = skm.train_test_split(x, y, test_size = val_ratio)
-    x_train, x_val, y_train, y_val = (np.array(item) for item in split_data)
-    return x_train, x_val, y_train, y_val
-
 def sep_train(data, IMG_SIZE, channels=1):
     # x = []
     # y = []
