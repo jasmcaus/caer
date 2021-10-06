@@ -13,10 +13,10 @@ color
     Colorspace manipulation
 data
     Standard high-quality test images
+io
+    Input/Output
 path
     OS-specific Path Manipulations
-preprocessing
-    Image preprocessing utilities
 transforms
     Image transformations & augmentations
 video
