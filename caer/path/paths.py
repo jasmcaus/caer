@@ -370,7 +370,7 @@ def exists(path) -> bool:
     if not isinstance(path, str):
         raise ValueError('Filepath must be a string')
 
-    return os.path.exists(path):
+    return os.path.exists(path)
 
 
 def isfile(path) -> bool:
