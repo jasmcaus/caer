@@ -13,7 +13,7 @@
 #pylint:disable=redefined-outer-name
 
 import os
-from ..jit.annotations import List
+from ..annotations.annotations import List, Union
 
 _acceptable_video_formats = ('.mp4', '.avi', '.mov', '.mkv', '.webm')
 _acceptable_image_formats = ('.jpg', '.jpeg', '.png', '.bmp', '.tif', '.tiff')
@@ -209,9 +209,72 @@ def _get_paths_from_ext(DIR, recursive=True, use_fullpath=False, show_size=True,
         
 
 
-def listdir(DIR, recursive=True, use_fullpath=False, show_size=True, verbose=1) -> List[str]:
+# def listdir(DIR, recursive=True, use_fullpath=False, show_size=True, verbose=1) -> List[str]:
+#     r"""
+#         Lists all files within a specific directory (and sub-directories if `recursive=True`)
+    
+#     Args:
+#         DIR (str): Directory to search for files
+#         recursive (bool): Indicate whether to search all subdirectories as well (default = False)
+#         use_fullpath (bool): Include full filepaths in the returned list (default = False)
+#         show_size (bool): Prints the disk size of the files (default = False)
+    
+#     Returns:
+#         files (list): List of names (or full filepaths if `use_fullpath=True`) of the files
+
+#     """
+
+#     if not exists(DIR):
+#         raise ValueError('Specified directory does not exist')
+    
+#     if not isinstance(recursive, bool):
+#         raise ValueError('recursive must be a boolean')
+
+#     if not isinstance(use_fullpath, bool):
+#         raise ValueError('use_fullpath must be a boolean')
+
+#     if not isinstance(show_size, bool):
+#         raise ValueError('show_size must be a boolean')
+
+#     dirs = []
+#     count_files= 0
+#     size_dirs_list = 0
+    
+#     if recursive:
+#         for root, _, files in os.walk(DIR):
+#             for file in files:
+#                 fullpath = join(root, file).replace('\\', '/')
+#                 size_dirs_list += get_size(fullpath, disp_format='mb')
+#                 if use_fullpath:
+#                     dirs.append(fullpath)
+#                 else:
+#                     dirs.append(file)
+
+#     else:
+#         for file in os.listdir(DIR):
+#             fullpath = join(DIR, file).replace('\\', '/')
+#             size_dirs_list += get_size(fullpath, disp_format='mb')
+#             if use_fullpath:
+#                 dirs.append(fullpath)
+#             else:
+#                 dirs.append(file)
+
+#     if verbose != 0:
+#         count_files = len(dirs)
+#         if count_files == 1:
+#             print(f'[INFO] {count_files} file found')
+#         else:
+#             print(f'[INFO] {count_files} files found')
+
+#         if show_size:
+#             print(f'[INFO] Total disk size of files were {size_dirs_list:.2f}Mb ')
+
+#     return dirs
+
+def listdir(DIR, recursive=True, use_fullpath=False, ext : Union[str, List[str]], show_size=True, verbose=1) -> List[str]:
     r"""
-        Lists all files within a specific directory (and sub-directories if `recursive=True`)
+        Lists all files within a specific directory (and sub-directories if `recursive=True`).
+        This can be filtered for certain extensions.
     
     Args:
         DIR (str): Directory to search for files
@@ -270,6 +333,7 @@ def listdir(DIR, recursive=True, use_fullpath=False, show_size=True, verbose=1) 
             print(f'[INFO] Total disk size of files were {size_dirs_list:.2f}Mb ')
 
     return dirs
+
 
 
 def is_image(path) -> bool:

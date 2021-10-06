@@ -12,7 +12,7 @@
 from ..io import imread 
 from ..path import abspath, join
 from .._base import __curr__ 
-from ..jit.annotations import Optional
+from ..annotations.annotations import Optional
 import numpy as np 
 
 from ..coreten import Tensor
