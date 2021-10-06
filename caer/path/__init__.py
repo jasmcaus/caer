@@ -13,7 +13,6 @@
 #pylint:disable=undefined-all-variable
 
 from .paths import (
-    list_media,
     list_images,
     list_videos,
     listdir,
