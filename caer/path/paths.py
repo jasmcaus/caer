@@ -36,7 +36,7 @@ __all__ = [
     'dirname'
 ]
 
-def list_images(DIR, recursive=True, use_fullpath=False, show_size=False, verbose=True) -> List[str]:
+def list_images(DIR, recursive=True, use_fullpath=False, verbose=True) -> List[str]:
     r"""
         Lists all image files within a specific directory (and sub-directories if `recursive=True`)
     
@@ -44,16 +44,15 @@ def list_images(DIR, recursive=True, use_fullpath=False, show_size=False, verbos
         DIR (str): Directory to search for image files
         recursive (bool): Indicate whether to search all subdirectories as well (default = False)
         use_fullpath (bool): Include full filepaths in the returned list (default = False)
-        show_size (bool): Prints the disk size of the image files (default = False)
     
     Returns:
         image_files (list): List of names (or full filepaths if `use_fullpath=True`) of the image files
 
     """
-    return listdir(DIR=DIR, recursive=recursive, use_fullpath=use_fullpath, ext = _acceptable_image_formats, show_size=show_size, verbose=verbose)
+    return listdir(DIR=DIR, recursive=recursive, use_fullpath=use_fullpath, ext = _acceptable_image_formats, verbose=verbose)
 
 
-def list_videos(DIR, recursive=True, use_fullpath=False, show_size=False, verbose=True) -> List[str]:
+def list_videos(DIR, recursive=True, use_fullpath=False, verbose=True) -> List[str]:
     r"""
         Lists all video files within a specific directory (and sub-directories if `recursive=True`)
     
@@ -68,7 +67,7 @@ def list_videos(DIR, recursive=True, use_fullpath=False, show_size=False, verbos
 
     """
 
-    return listdir(DIR=DIR, recursive=recursive, use_fullpath=use_fullpath, ext = _acceptable_video_formats, show_size=show_size, verbose=verbose)
+    return listdir(DIR=DIR, recursive=recursive, use_fullpath=use_fullpath, ext = _acceptable_video_formats, verbose=verbose)
 
 
 def listdir(
@@ -76,7 +75,6 @@ def listdir(
         recursive : bool = False, 
         use_fullpath: bool = False, 
         ext : Union[str, List[str]] = None, 
-        show_size : bool = False, 
         verbose : bool = True
     ) -> List[str]:
     r"""
@@ -113,16 +111,12 @@ def listdir(
             for i in ext:
                 if not isinstance(i, str):
                     raise TypeError("`ext` must be a homogenous list of `str`")
-
-    if not isinstance(show_size, bool):
-        raise ValueError('show_size must be a boolean')
     
     if not isinstance(verbose, bool):
         raise ValueError('verbose must be a boolean')
 
     dirs : list = []
     count_files : int = 0
-    size_dirs_list : int = 0
     
     if recursive:
         for root, _, files in os.walk(DIR):
@@ -130,7 +124,6 @@ def listdir(
                 if ext is not None and not file.endswith(ext):
                     continue
                 fullpath = join(root, file).replace('\\', '/')
-                size_dirs_list += get_size(fullpath, disp_format='mb')
                 if use_fullpath:
                     dirs.append(fullpath)
                 else:
@@ -141,7 +134,6 @@ def listdir(
             if ext is not None and not file.endswith(ext):
                 continue
             fullpath = join(DIR, file).replace('\\', '/')
-            size_dirs_list += get_size(fullpath, disp_format='mb')
             if use_fullpath:
                 dirs.append(fullpath)
             else:
@@ -153,9 +145,6 @@ def listdir(
             print(f'[INFO] {count_files} file found')
         else:
             print(f'[INFO] {count_files} files found')
-
-        if show_size:
-            print(f'[INFO] Total disk size of files were {size_dirs_list:.2f}Mb ')
 
     return dirs
 
