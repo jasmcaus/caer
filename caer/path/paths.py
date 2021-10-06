@@ -30,7 +30,7 @@ __all__ = [
     'isfile',
     'cwd',
     'exists',
-    'minijoin',
+    'join',
     'get_size',
     'chdir',
     'osname',
@@ -53,7 +53,7 @@ def list_images(DIR, recursive=True, use_fullpath=False, show_size=False, verbos
         image_files (list): List of names (or full filepaths if `use_fullpath=True`) of the image files
 
     """
-    images = _get_media_from_dir(DIR=DIR, recursive=recursive, use_fullpath=use_fullpath, show_size=show_size, list_image_files=True, verbose=verbose)
+    images = _get_paths_from_ext(DIR=DIR, recursive=recursive, use_fullpath=use_fullpath, show_size=show_size, list_image_files=True, verbose=verbose)
 
     if images is not None:   
         return images # images is a list
@@ -74,7 +74,7 @@ def list_videos(DIR, recursive=True, use_fullpath=False, show_size=False, verbos
 
     """
 
-    videos = _get_media_from_dir(DIR=DIR, recursive=recursive, use_fullpath=use_fullpath, show_size=show_size, list_video_files=True, verbose=verbose)
+    videos = _get_paths_from_ext(DIR=DIR, recursive=recursive, use_fullpath=use_fullpath, show_size=show_size, list_video_files=True, verbose=verbose)
 
     if videos is not None:   
         return videos # videos is a list
@@ -95,13 +95,13 @@ def list_media(DIR, recursive=True, use_fullpath=False, show_size=True, verbose=
 
     """
 
-    media = _get_media_from_dir(DIR=DIR, recursive=recursive, use_fullpath=use_fullpath, show_size=show_size, list_image_files=True, list_video_files=True, verbose=verbose)
+    media = _get_paths_from_ext(DIR=DIR, recursive=recursive, use_fullpath=use_fullpath, show_size=show_size, list_image_files=True, list_video_files=True, verbose=verbose)
 
     if media is not None:   
         return media # media is a list
 
 
-def _get_media_from_dir(DIR, recursive=True, use_fullpath=False, show_size=True,  list_image_files=False, list_video_files=False, verbose=1) -> List[str]:
+def _get_paths_from_ext(DIR, recursive=True, use_fullpath=False, show_size=True,  list_image_files=False, list_video_files=False, verbose=1) -> List[str]:
     r"""
         Lists all media files within a specific directory (and sub-directories if `recursive=True`)
     
@@ -131,7 +131,7 @@ def _get_media_from_dir(DIR, recursive=True, use_fullpath=False, show_size=True,
     if recursive:
         for root, _, files in os.walk(DIR):
             for file in files:
-                fullpath = minijoin(root, file).replace('\\', '/')
+                fullpath = join(root, file).replace('\\', '/')
                 decider = _is_extension_acceptable(file)
 
                 if decider == -1:
@@ -153,7 +153,7 @@ def _get_media_from_dir(DIR, recursive=True, use_fullpath=False, show_size=True,
 
     else:
         for file in os.listdir(DIR):
-            fullpath = minijoin(DIR, file).replace('\\', '/')
+            fullpath = join(DIR, file).replace('\\', '/')
             decider = _is_extension_acceptable(file)
                 
             if decider == -1:
@@ -243,7 +243,7 @@ def listdir(DIR, recursive=True, use_fullpath=False, show_size=True, verbose=1) 
     if recursive:
         for root, _, files in os.walk(DIR):
             for file in files:
-                fullpath = minijoin(root, file).replace('\\', '/')
+                fullpath = join(root, file).replace('\\', '/')
                 size_dirs_list += get_size(fullpath, disp_format='mb')
                 if use_fullpath:
                     dirs.append(fullpath)
@@ -252,7 +252,7 @@ def listdir(DIR, recursive=True, use_fullpath=False, show_size=True, verbose=1) 
 
     else:
         for file in os.listdir(DIR):
-            fullpath = minijoin(DIR, file).replace('\\', '/')
+            fullpath = join(DIR, file).replace('\\', '/')
             size_dirs_list += get_size(fullpath, disp_format='mb')
             if use_fullpath:
                 dirs.append(fullpath)
@@ -370,9 +370,7 @@ def exists(path) -> bool:
     if not isinstance(path, str):
         raise ValueError('Filepath must be a string')
 
-    if os.path.exists(path):
-        return True 
-    return False
+    return os.path.exists(path):
 
 
 def isfile(path) -> bool:
@@ -471,7 +469,7 @@ def get_size(file, disp_format='bytes') -> float:
         return size * 1e-12
 
 
-def minijoin(*paths) -> str:
+def join(*paths) -> str:
     r"""
         Join multiple filepaths together
 

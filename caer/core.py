@@ -13,7 +13,7 @@
 import cv2 as cv
 import numpy as np
 
-from .path import listdir, minijoin
+from .path import listdir, join
 
 
 __all__ = [
@@ -57,7 +57,7 @@ def get_classes_from_dir(DIR, verbose=0):
         raise ValueError('The specified directory does not seem to have any folders in it')
     else:
         import os 
-        classes = [i for i in listdir(DIR, recursive=False, verbose=verbose) if os.path.isdir(minijoin(DIR, i))]
+        classes = [i for i in listdir(DIR, recursive=False, verbose=verbose) if os.path.isdir(join(DIR, i))]
         return classes
 
 
