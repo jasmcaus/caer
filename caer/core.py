@@ -12,6 +12,7 @@
 
 import cv2 as cv
 import numpy as np
+import gc
 
 from .path import listdir, join
 
@@ -19,18 +20,11 @@ from .path import listdir, join
 __all__ = [
     'get_classes_from_dir',
     'median',
-    'npmean',
-    'asarray',
-    'to_array',
-    'array',
     'train_val_split',
     'sort_dict',
     'get_opencv_version',
     'mean',
     'merge',
-    'split',
-    # 'color_map',
-    # 'energy_map',
     'edges'
 ]
 
@@ -71,7 +65,6 @@ def _sep(data):
 
 def train_val_split(X, y, val_ratio=.2):
     """
-        Do not use if mean subtraction is being employed
         Returns X_train, X_val, y_train, y_val
     """
     if len(X) != len(y):
@@ -84,12 +77,13 @@ def train_val_split(X, y, val_ratio=.2):
     split = int(len(X) - (len(X) * val_ratio)) - 1
 
     data_train = data[0:split]
-    data_test = data[split:]
+    data_val = data[split:]
 
-    X_train, y_train = _sep(data_train)
-    X_val, y_val = _sep(data_test)
+    X_train, y_train = (np.array(item) for item in _sep(data_train))
+    X_val, y_val = (np.array(item) for item in _sep(data_val))
 
     del data
+    gc.collect()
 
     return X_train, X_val, y_train, y_val
 

@@ -45,18 +45,6 @@ def test_list_videos():
         assert os.path.exists(i) 
 
 
-def test_list_media():
-    DIR = PATH_TO_MEDIA_FILES
-
-    media_list = caer.path.list_media(DIR, recursive=True, use_fullpath=True)
-
-    assert media_list is not None 
-    assert len(media_list) == 6 # There are 3 images & 3 videos in tests/media
-
-    for i in media_list:
-        assert os.path.exists(i) 
-
-
 def test_listdir():
     DIR = PATH_TO_MEDIA_FILES
 
