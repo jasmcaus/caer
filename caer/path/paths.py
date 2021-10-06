@@ -13,6 +13,7 @@
 #pylint:disable=redefined-outer-name
 
 import os
+from time import time
 from ..annotations import List, Union
 
 _acceptable_video_formats = ('.mp4', '.avi', '.mov', '.mkv', '.webm')
@@ -118,6 +119,7 @@ def listdir(
     dirs : list = []
     count_files : int = 0
     
+    start = time()
     if recursive:
         for root, _, files in os.walk(DIR):
             for file in files:
@@ -138,13 +140,14 @@ def listdir(
                 dirs.append(fullpath)
             else:
                 dirs.append(file)
-
+    end = time()
+    
     if verbose:
         count_files = len(dirs)
         if count_files == 1:
-            print(f'[INFO] {count_files} file found')
+            print(f'[INFO] {count_files} file found in {end-start}s')
         else:
-            print(f'[INFO] {count_files} files found')
+            print(f'[INFO] {count_files} files found in {end-start}s')
 
     return dirs
 
