@@ -106,7 +106,7 @@ def preprocess_from_dir(DIR,
             class_path = join(DIR, item)
             class_label = classes.index(item)
             count = 0 
-            tens_list = list_images(class_path, use_fullpath=True, verbose=0)
+            tens_list = list_images(class_path, use_fullpath=True, verbose=verbose)
 
             for image_path in tens_list:
                 tens = imread(image_path, target_size=IMG_SIZE, rgb=True)
