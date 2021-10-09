@@ -76,7 +76,7 @@ def listdir(
         recursive : bool = False, 
         use_fullpath: bool = False, 
         ext : Union[str, List[str]] = None, 
-        verbose : bool = True,
+        verbose : (bool, int) = True,
         every : int = 1000
     ) -> List[str]:
     r"""
@@ -116,7 +116,9 @@ def listdir(
                     raise TypeError("`ext` must be a homogenous list of `str`")
     
     if not isinstance(verbose, bool):
-        raise TypeError('verbose must be a boolean')
+        if isinstance(verbose, int) and verbose not in [0, 1]:
+            raise TypeError('verbose must be a boolean (either True or False)')
+        raise TypeError('verbose must be a boolean (either True or False)')
     
     if not isinstance(every, int):
         raise TypeError("`every` must be an int")
