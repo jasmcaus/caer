@@ -37,7 +37,7 @@ __all__ = [
     'dirname'
 ]
 
-def list_images(DIR, recursive=True, use_fullpath=False, verbose=True) -> List[str]:
+def list_images(DIR, recursive=True, use_fullpath=False, verbose=True, every : int = 1000) -> List[str]:
     r"""
         Lists all image files within a specific directory (and sub-directories if `recursive=True`)
     
@@ -50,10 +50,10 @@ def list_images(DIR, recursive=True, use_fullpath=False, verbose=True) -> List[s
         image_files (list): List of names (or full filepaths if `use_fullpath=True`) of the image files
 
     """
-    return listdir(DIR=DIR, recursive=recursive, use_fullpath=use_fullpath, ext = _acceptable_image_formats, verbose=verbose)
+    return listdir(DIR=DIR, recursive=recursive, use_fullpath=use_fullpath, ext = _acceptable_image_formats, verbose=verbose, every=every)
 
 
-def list_videos(DIR, recursive=True, use_fullpath=False, verbose=True) -> List[str]:
+def list_videos(DIR, recursive=True, use_fullpath=False, verbose=True, every : int = 1000) -> List[str]:
     r"""
         Lists all video files within a specific directory (and sub-directories if `recursive=True`)
     
@@ -68,7 +68,7 @@ def list_videos(DIR, recursive=True, use_fullpath=False, verbose=True) -> List[s
 
     """
 
-    return listdir(DIR=DIR, recursive=recursive, use_fullpath=use_fullpath, ext = _acceptable_video_formats, verbose=verbose)
+    return listdir(DIR=DIR, recursive=recursive, use_fullpath=use_fullpath, ext = _acceptable_video_formats, verbose=verbose, every=every)
 
 
 def listdir(
@@ -77,7 +77,7 @@ def listdir(
         use_fullpath: bool = False, 
         ext : Union[str, List[str]] = None, 
         verbose : bool = True,
-        every : int = 100
+        every : int = 1000
     ) -> List[str]:
     r"""
         Lists all files within a specific directory (and sub-directories if `recursive=True`).
