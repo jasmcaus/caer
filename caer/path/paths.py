@@ -76,7 +76,8 @@ def listdir(
         recursive : bool = False, 
         use_fullpath: bool = False, 
         ext : Union[str, List[str]] = None, 
-        verbose : bool = True
+        verbose : bool = True,
+        every : int = 100
     ) -> List[str]:
     r"""
         Lists all files within a specific directory (and sub-directories if `recursive=True`).
@@ -88,7 +89,8 @@ def listdir(
         use_fullpath (bool): Include full filepaths in the returned list (default = False)
         ext (str, list(str), tuple(str)): Filter by extension names.
         show_size (bool): Prints the disk size of the files (default = False)
-        verbose(bool): Print info
+        verbose (bool): Print info
+        every (int): If ``verbose = True``, logging info is displayed after every `every` times.
     
     Returns:
         files (list): List of names (or full filepaths if `use_fullpath=True`) of the files
@@ -102,7 +104,7 @@ def listdir(
         raise ValueError('recursive must be a boolean')
 
     if not isinstance(use_fullpath, bool):
-        raise ValueError('use_fullpath must be a boolean')
+        raise TypeError('use_fullpath must be a boolean')
 
     if ext is not None:
         if not isinstance(ext, (str, list, tuple)):
@@ -114,35 +116,47 @@ def listdir(
                     raise TypeError("`ext` must be a homogenous list of `str`")
     
     if not isinstance(verbose, bool):
-        raise ValueError('verbose must be a boolean')
+        raise TypeError('verbose must be a boolean')
+    
+    if not isinstance(every, int):
+        raise TypeError("`every` must be an int")
 
     dirs : list = []
     count_files : int = 0
     
     start = time()
+    count = 0
     if recursive:
         for root, _, files in os.walk(DIR):
             for file in files:
                 if ext is not None and not file.endswith(ext):
                     continue
+                count += 1
                 fullpath = join(root, file).replace('\\', '/')
                 if use_fullpath:
                     dirs.append(fullpath)
                 else:
                     dirs.append(file)
 
+                if verbose is True and count % every == 0:
+                    print(f"[INFO] At {count} files") # come up with a better log message!
+
     else:
         for file in os.listdir(DIR):
             if ext is not None and not file.endswith(ext):
                 continue
+            count += 1
             fullpath = join(DIR, file).replace('\\', '/')
             if use_fullpath:
                 dirs.append(fullpath)
             else:
                 dirs.append(file)
+            
+            if verbose is True and count % every == 0:
+                print(f"[INFO] At {count} files") # come up with a better log message!
     end = time()
     
-    if verbose:
+    if verbose is True:
         count_files = len(dirs)
         if count_files == 1:
             print(f'[INFO] {count_files} file found in {end-start}s')
@@ -166,7 +180,7 @@ def is_image(path) -> bool:
     """
 
     if not isinstance(path, str):
-        raise ValueError('path must be a string')
+        raise TypeError('path must be a string')
 
     if path.endswith(_acceptable_image_formats):
         return True 
