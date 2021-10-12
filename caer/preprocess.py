@@ -127,7 +127,7 @@ def preprocess_from_dir(DIR,
             random.shuffle(data)
 
         # Converting to Numpy
-        data = np.array(data)
+        data = np.array(data, dtype=object)
 
         # Saves the Data set as a .npy file
         if save_data:
