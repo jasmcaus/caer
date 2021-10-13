@@ -70,7 +70,7 @@ def sim_snow(tens: Tensor, snow_coeff : Union[float, int] = -1) -> Tensor:
     """
     if snow_coeff != -1:
         if snow_coeff < 0.0 or snow_coeff > 1.0:
-            raise ValueError('Snow coeff must only be between 0 and 1')
+            raise ValueError("Snow coeff must only be between 0 and 1")
     else:
         snow_coeff = random.uniform(0, 1)
 
@@ -108,13 +108,13 @@ def sim_rain(tens: Tensor, slant:int=-1, drop_length:int=20, drop_width:int=1, d
     
     slant_extreme = slant
     if not(is_numeric(slant_extreme) and (slant_extreme >=-20 and slant_extreme <= 20) or slant_extreme==-1):
-        raise ValueError('Numeric value must be between -20 and 20')
+        raise ValueError("Numeric value must be between -20 and 20")
 
     if not(is_numeric(drop_width) and drop_width>=1 and drop_width<=5):
-        raise ValueError('Width must be between 1 and 5')
+        raise ValueError("Width must be between 1 and 5")
 
     if not(is_numeric(drop_length) and drop_length>=0 and drop_length<=100):
-        raise ValueError('Length must be between 0 and 100')
+        raise ValueError("Length must be between 0 and 100")
 
     imshape = tens.shape
     if slant_extreme == -1:
@@ -145,7 +145,7 @@ def sim_fog(tens: Tensor, fog_coeff:int=-1) -> Tensor:
     """
     if fog_coeff != -1:
         if fog_coeff < 0.0 or fog_coeff > 1.0:
-            raise ValueError('Fog coefficient must be between 0 and 1')
+            raise ValueError("Fog coefficient must be between 0 and 1")
 
     imshape = tens.shape
 
@@ -190,7 +190,7 @@ def sim_gravel(tens: Tensor, rectangular_roi:Tuple=(-1,-1,-1,-1), num_patches:in
         x2 = rectangular_roi[2]
         y2 = rectangular_roi[3]
     else:
-        raise ValueError('Rectangular ROI dimensions are invalid.')
+        raise ValueError("Rectangular ROI dimensions are invalid.")
 
     if rectangular_roi == (-1,-1,-1,-1):
         if is_tensor(tens):
@@ -205,7 +205,7 @@ def sim_gravel(tens: Tensor, rectangular_roi:Tuple=(-1,-1,-1,-1), num_patches:in
             y2 = tens[0].shape[0]
 
     elif x1 == -1 or y1 == -1 or x2 == -1 or y2 == -1 or x2 <= x1 or y2 <= y1:
-        raise ValueError('Rectangular ROI dimensions are invalid.')
+        raise ValueError("Rectangular ROI dimensions are invalid.")
 
     return _gravel_process(tens, x1, x2, y1, y2, num_patches)
 
@@ -237,7 +237,7 @@ def sim_sun_flare(tens: Tensor, flare_center:int=-1, angle:int=-1, num_flare_cir
         angle = angle % (2*math.pi) # type: ignore
 
     if not(num_flare_circles >= 0 and num_flare_circles <= 20):
-        raise ValueError('Numeric value must be between 0 and 20')
+        raise ValueError("Numeric value must be between 0 and 20")
 
     imshape = tens.shape
     if angle == -1:
@@ -278,7 +278,7 @@ def sim_motion_blur(tens: Tensor, speed_coeff:int=-1) -> Tensor:
     """
     if speed_coeff != -1:
         if speed_coeff < 0.0 or speed_coeff > 1.0:
-            raise ValueError('Speed coefficient must be between 0 and 1')
+            raise ValueError("Speed coefficient must be between 0 and 1")
 
     if speed_coeff == -1:
         count_t = int(15 * random.uniform(0, 1))
@@ -337,10 +337,10 @@ def sim_shadow(
 
     """
     if not(is_numeric(num_shadows) and num_shadows >= 1 and num_shadows <= 10):
-        raise ValueError('Only 1-10 shadows can be introduced in an image')
+        raise ValueError("Only 1-10 shadows can be introduced in an image")
 
     if not(is_numeric(shadow_dimension) and shadow_dimension >= 3 and shadow_dimension <= 10):
-        raise ValueError('Polygons with dimensions < 3 don\'t exist and take time to plot')
+        raise ValueError("Polygons with dimensions < 3 don\'t exist and take time to plot")
 
     if is_tuple(rectangular_roi) and is_numeric_list_or_tuple(rectangular_roi) and len(rectangular_roi)==4:
         x1 = rectangular_roi[0]
@@ -348,7 +348,7 @@ def sim_shadow(
         x2 = rectangular_roi[2]
         y2 = rectangular_roi[3]
     else:
-        raise ValueError('Rectangular ROI dimensions are not valid')
+        raise ValueError("Rectangular ROI dimensions are not valid")
 
     if rectangular_roi==(-1,-1,-1,-1):
         x1 = 0
@@ -363,6 +363,6 @@ def sim_shadow(
             y2 = tens[0].shape[0]
 
     elif x1 == -1 or y1 == -1 or x2 == -1 or y2 == -1 or x2 <= x1 or y2 <= y1:
-        raise ValueError('Rectangular ROI dimensions are not valid')
+        raise ValueError("Rectangular ROI dimensions are not valid")
 
     return _shadow_process(tens,num_shadows, x1, y1, x2, y2, shadow_dimension)

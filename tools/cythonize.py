@@ -105,13 +105,13 @@ def process_pyx():
     try:
         from Cython.Compiler.Version import version as cython_version
     except ImportError:
-        raise OSError('[ERROR] Cython needs to be installed')
+        raise OSError("Cython needs to be installed")
 
     # Cython 0.29.21 is required for Python 3.9 and there are other fixes in the 0.29 series that are needed for earlier Python versions.
     # Note: keep in sync with that in pyproject.toml
     pyproject_toml = os.path.join(os.path.dirname(__file__), '..', 'pyproject.toml')
     if not os.path.exists(pyproject_toml):
-        raise RuntimeError('[ERROR] pyproject.toml was not found. Ensure it was not deleted')
+        raise RuntimeError("pyproject.toml was not found. Ensure it was not deleted")
 
     # Try to find the minimum version from pyproject.toml
     # required_cython_version = '0.29.21'
@@ -123,10 +123,10 @@ def process_pyx():
             required_cython_version, _ = line.split("'")
             break
         else:
-            raise RuntimeError('[ERROR] An appropriate version for Cython could not be found from pyproject.toml')
+            raise RuntimeError("[ERROR] An appropriate version for Cython could not be found from pyproject.toml")
 
     if cython_version < required_cython_version:
-        raise RuntimeError(f'[ERROR] Building Caer requires Cython >= {required_cython_version}')
+        raise RuntimeError(f"[ERROR] Building Caer requires Cython >= {required_cython_version}")
 
     # Populating CYTHON_SOURCES
     find_files(ROOT_DIR, '.pyx')
@@ -234,7 +234,7 @@ if __name__ == '__main__':
 #         # try the cython in the installed python first (somewhat related to scipy/scipy#2397)
 #         from Cython.Compiler.Version import version as cython_version
 #     except ImportError:
-#         raise OSError('Cython needs to be installed')
+#         raise OSError("Cython needs to be installed")
 
 #     # Cython 0.29.21 is required for Python 3.9 and there are
 #     # other fixes in the 0.29 series that are needed even for earlier
@@ -243,7 +243,7 @@ if __name__ == '__main__':
 #     required_cython_version = '0.29.21'
 
 #     if cython_version < required_cython_version:
-#         raise RuntimeError(f'Building Caer requires Cython >= {required_cython_version}')
+#         raise RuntimeError(f"Building Caer requires Cython >= {required_cython_version}")
 #     # subprocess.check_call(
 #     #     [sys.executable, '-m', 'cython'] + flags + ["-o", tofile, fromfile])
 
@@ -365,13 +365,13 @@ if __name__ == '__main__':
 #     fulltopath = os.path.join(path, tofile)
 #     current_hash = get_hash(fullfrompath, fulltopath)
 #     if current_hash == hash_db.get(normpath(fullfrompath), None):
-#         print(f'{fullfrompath} has not changed')
+#         print(f"{fullfrompath} has not changed")
 #         return
 
 #     orig_cwd = os.getcwd()
 #     try:
 #         os.chdir(path)
-#         print(f'Processing {fullfrompath}')
+#         print(f"Processing {fullfrompath}")
 #         processor_function(fromfile, tofile)
 #     finally:
 #         os.chdir(orig_cwd)

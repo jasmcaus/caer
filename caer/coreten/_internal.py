@@ -42,17 +42,17 @@ def from_numpy(
 
     if cspace is None:
         if not override_checks:
-            raise ValueError('The `cspace` attribute must be specified when converting from foreign arrays to a caer.Tensor. Supported values: bgr/rgb/gray/hsv/hls/lab.')
+            raise ValueError("The `cspace` attribute must be specified when converting from foreign arrays to a caer.Tensor. Supported values: bgr/rgb/gray/hsv/hls/lab.")
 
         # For certain functions, it is imperative that a caer.Tensor must be passed
         if enforce_tensor:
-            raise ValueError('To use this function, a caer.Tensor must be passed')
+            raise ValueError("To use this function, a caer.Tensor must be passed")
 
     if isinstance(x, np.ndarray):
         return Tensor(x, cspace=cspace, dtype=dtype)
 
     else:
-        raise TypeError('`x` is not a Numpy Array')
+        raise TypeError("`x` is not a Numpy Array")
 
 
 def to_tensor(
@@ -97,13 +97,13 @@ def to_tensor(
     # If PIL Image
     elif 'PIL' in str(type(x)):
         if cspace is None:
-            raise ValueError('The `cspace` attribute must be specified when converting from foreign arrays to a caer.Tensor. Supported values: bgr/rgb/gray/hsv/hls/lab.')
+            raise ValueError("The `cspace` attribute must be specified when converting from foreign arrays to a caer.Tensor. Supported values: bgr/rgb/gray/hsv/hls/lab.")
 
         x = np.array(x)
         return Tensor(x, cspace=cspace, dtype=dtype)
 
     else:
-        raise TypeError(f'Cannot convert class {type(x)} to a caer.Tensor. Currently, only Numpy arrays and (to a limited extend) PIL images) are supported.')
+        raise TypeError(f"Cannot convert class {type(x)} to a caer.Tensor. Currently, only Numpy arrays and (to a limited extend) PIL images) are supported.")
 
 
 def _preserve_tensor_attrs(old: Tensor) -> Tensor:
@@ -117,7 +117,7 @@ def _preserve_tensor_attrs(old: Tensor) -> Tensor:
         caer Tensor
     """
     if not isinstance(old, Tensor):
-        raise TypeError('`old` needs to be a caer.Tensor.')
+        raise TypeError("`old` needs to be a caer.Tensor.")
 
     new = Tensor(old, cspace=None, dtype=old.dtype)
     new.cspace = old.cspace
@@ -141,18 +141,18 @@ def _preserve_tensor_attrs(old: Tensor) -> Tensor:
 # #         Assign proper value of self.cspace
 
 # #         Idea:
-# #             rgb = True ==> self.cspace = 'rgb'
-# #             rgb = False ==> self.cspace = 'bgr'
-# #             gray = True ==> self.cspace = 'gray'
+# #             rgb = True ==> self.cspace = "rgb"
+# #             rgb = False ==> self.cspace = "bgr"
+# #             gray = True ==> self.cspace = "gray"
 
 # #         WARNING:
 # #             Use `mode` explicitely ONLY if you are inside a function that converts to HSV, HLS or LAB.
 # #     """
 # #     if not isinstance(rgb, bool):
-# #         raise TypeError('`rgb` needs to be boolean')
+# #         raise TypeError("`rgb` needs to be boolean")
 
 # #     if not isinstance(gray, bool):
-# #         raise TypeError('`gray` needs to be boolean')
+# #         raise TypeError("`gray` needs to be boolean")
 
 # #     if mode is not None and isinstance(mode, str):
 # #         self.cspace = mode

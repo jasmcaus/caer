@@ -69,7 +69,7 @@ def start_playing_file_video():
         thread1.setDaemon(True)
         thread1.start()
     except Exception as e:
-        print('unable to start play_file_video_thread, ' + str(e))
+        print("unable to start play_file_video_thread, " + str(e))
 
 def play_file_video():
     global close_video_window
@@ -106,7 +106,7 @@ def play_file_video():
                         caer.core.cv.imshow(video_file, frame)
 
                     if take_a_screenshot:
-                        caer.imsave('./Screenshot_' + str(screenshot_count) + '.png', caer.to_tensor(frame, cspace='bgr'))
+                        caer.imsave('./Screenshot_' + str(screenshot_count) + '.png', caer.to_tensor(frame, cspace="bgr"))
                         take_a_screenshot = False
                 else:
                     if checkVarLoop.get() == 1:
@@ -138,7 +138,7 @@ def start_playing_camera_video():
         thread2.setDaemon(True)
         thread2.start()
     except Exception as e:
-        print('unable to start play_camera_video_thread, ' + str(e))
+        print("unable to start play_camera_video_thread, ' + str(e)")
 
 def play_camera_video():
     global close_video_window
@@ -173,7 +173,7 @@ def play_camera_video():
                         caer.core.cv.imshow('Camera_' + str(video_cam), frame)
 
                     if take_a_screenshot:
-                        caer.imsave('./Screenshot_' + str(screenshot_count) + '.png', caer.to_tensor(frame, cspace='bgr'))
+                        caer.imsave('./Screenshot_' + str(screenshot_count) + '.png', caer.to_tensor(frame, cspace="bgr"))
                         take_a_screenshot = False
                 else:
                     break

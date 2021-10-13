@@ -72,12 +72,12 @@ def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True, recursive
         Mean must be computed ONLY on the train set
     """
     if not exists(DIR):
-        raise ValueError('The specified directory does not exist')
+        raise ValueError("The specified directory does not exist")
     
     image_list : list = list_images(DIR, recursive=recursive, use_fullpath=True, verbose=0)
 
     if len(image_list) == 0:
-        raise ValueError(f'No images found at {DIR}')
+        raise ValueError(f"No images found at {DIR}")
 
     if channels == 3:
         rMean, gMean, bMean = 0.0, 0.0, 0.0
@@ -124,10 +124,10 @@ def compute_mean(data, channels, per_channel_subtraction=True) -> Union[Tuple, N
         Train should not be normalized
     """
     if len(data) == 0:
-        raise ValueError('Dataset is empty')
+        raise ValueError("Dataset is empty")
     
     if not isinstance(data, (list, Tensor)):
-        raise ValueError('Dataset must be a list of size=number of images and shape=image shape')
+        raise ValueError("Dataset must be a list of size=number of images and shape=image shape")
 
     if channels == 3:
         rMean, gMean, bMean = 0.0, 0.0, 0.0
@@ -173,10 +173,10 @@ def subtract_mean(data, channels, mean_sub_values) -> List[str]:
     mean_process = MeanProcess(mean_sub_values, channels)
 
     if len(data) == 0:
-        raise ValueError('Dataset is empty')
+        raise ValueError("Dataset is empty")
     
     if not isinstance(data, (list, Tensor)):
-        raise ValueError('Dataset must be a list of size = number of images and shape = image shape')
+        raise ValueError("Dataset must be a list of size = number of images and shape = image shape")
 
     data = [mean_process.mean_preprocess(tens, channels) for tens in data]
     

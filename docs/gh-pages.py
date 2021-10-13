@@ -122,14 +122,14 @@ if __name__ == '__main__':
         if not re.match(b'nothing to commit', status):
             sh2('git commit -m"Updated doc release: %s"' % tag)
         else:
-            print('\n! Note: no changes to commit\n')
+            print("\n! Note: no changes to commit\n")
 
-        print('Most recent commit:')
+        print("Most recent commit:")
         sys.stdout.flush()
         sh('git --no-pager log --oneline HEAD~1..')
     finally:
         cd(startdir)
 
-    print('')
-    print('Now verify the build in: %r' % dest)
+    print("")
+    print("Now verify the build in: %r' % des")
     print("If everything looks good, run 'git push' inside doc/gh-pages.")

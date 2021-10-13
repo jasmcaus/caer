@@ -43,7 +43,7 @@ class GPUFileStream:
         """
 
         if not isinstance(source, str):
-            raise ValueError(f'Expected either a filepath. Got {type(source)}. Consider using VideoStream which supports both live video as well as pre-existing videos')
+            raise ValueError(f"Expected either a filepath. Got {type(source)}. Consider using VideoStream which supports both live video as well as pre-existing videos")
 
         # initialize the file video stream along with the boolean
         # used to indicate if the thread should be stopped or not
@@ -130,7 +130,7 @@ class GPUFileStream:
             
 
         if self.live_video:
-            print('[WARNING] Frames cannot be computed on live streams')
+            print("[WARNING] Frames cannot be computed on live streams")
             return -1
 
 

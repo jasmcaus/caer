@@ -195,7 +195,7 @@ def scale(tens: Tensor, scale_factor:int, interpolation='bilinear') -> Tensor:
         'area': INTER_AREA,       '3': INTER_AREA,    3: INTER_AREA     # 3
     }
     if interpolation not in interpolation_methods:
-        raise ValueError('Specify a valid interpolation type - area/nearest/bicubic/bilinear')
+        raise ValueError("Specify a valid interpolation type - area/nearest/bicubic/bilinear")
 
     if scale_factor > 1:
         # Neater, more precise
@@ -237,19 +237,19 @@ def pad(tens: Tensor, padding:Union[int,Tuple], fill:int=0, padding_mode='consta
 
     """
     if not isinstance(padding, (tuple, list)):
-        raise TypeError('Got inappropriate padding argument')
+        raise TypeError("Got inappropriate padding argument")
 
     if not isinstance(fill, (str, tuple)):
-        raise TypeError('Got inappropriate fill argument')
+        raise TypeError("Got inappropriate fill argument")
 
     if not isinstance(padding_mode, str):
-        raise TypeError('Got inappropriate padding_mode argument')
+        raise TypeError("Got inappropriate padding_mode argument")
 
     if isinstance(padding, collections.Sequence) and len(padding) not in [2, 4]:
-        raise ValueError(f'Padding must be an int or a 2, or 4 element tuple, not a {len(padding)} element tuple')
+        raise ValueError(f"Padding must be an int or a 2, or 4 element tuple, not a {len(padding)} element tuple")
 
-    assert padding_mode in ['constant', 'edge', 'reflect', 'symmetric'], \
-        'Padding mode should be either constant, edge, reflect or symmetric'
+    assert padding_mode in ["constant", "edge", "reflect", "symmetric"], \
+        "Padding mode should be either constant, edge, reflect or symmetric"
 
     if isinstance(padding, int):
         pad_left = pad_right = pad_top = pad_bottom = padding
@@ -345,7 +345,7 @@ def _compute_centre_crop(tens, target_size) -> Tensor:
 
 
     if target_h > org_h or target_w > org_w:
-        raise ValueError('To compute centre crop, target size dimensions must be <= tens dimensions')
+        raise ValueError("To compute centre crop, target size dimensions must be <= tens dimensions")
 
     diff_h = (org_h - target_h) // 2
     diff_w = (org_w - target_w ) // 2

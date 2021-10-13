@@ -111,7 +111,7 @@ def listdir(
         raise ValueError("recursive must be a boolean")
 
     if not isinstance(use_fullpath, bool):
-        raise TypeError('use_fullpath must be a boolean')
+        raise TypeError("use_fullpath must be a boolean")
 
     if ext is not None:
         if not isinstance(ext, (str, list, tuple)):
@@ -124,8 +124,8 @@ def listdir(
     
     if not isinstance(verbose, bool):
         if isinstance(verbose, int) and verbose not in [0, 1]:
-            raise TypeError('verbose must be a boolean (either True or False)')
-        raise TypeError('verbose must be a boolean (either True or False)')
+            raise TypeError("verbose must be a boolean (either True or False)")
+        raise TypeError("verbose must be a boolean (either True or False)")
     
     if not isinstance(every, int):
         raise TypeError("`every` must be an int")
@@ -168,9 +168,9 @@ def listdir(
     if verbose is True:
         count_files = len(dirs)
         if count_files == 1:
-            print(f'[INFO] {count_files} file found in {end-start}s')
+            print(f"[INFO] {count_files} file found in {end-start}s")
         else:
-            print(f'[INFO] {count_files} files found in {end-start}s')
+            print(f"[INFO] {count_files} files found in {end-start}s")
 
     return dirs
 
@@ -189,7 +189,7 @@ def is_image(path: str) -> bool:
     """
 
     if not isinstance(path, str):
-        raise TypeError('path must be a string')
+        raise TypeError("path must be a string")
 
     if path.endswith(_acceptable_image_formats):
         return True

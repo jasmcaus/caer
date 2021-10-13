@@ -53,10 +53,10 @@ class Stream:
         
         if isinstance(source, int):
             self.live_video = True
-            # raise ValueError('Expected a filepath. Got an integer. FileVideoStream is not for live feed. Use LiveVideoStream instead')
+            # raise ValueError("Expected a filepath. Got an integer. FileVideoStream is not for live feed. Use LiveVideoStream instead"ConnectionRefusedError())
 
         if not isinstance(source, (int,str)):
-            raise ValueError(f'Expected either an integer or filepath. Got {type(source)}')
+            raise ValueError(f"Expected either an integer or filepath. Got {type(source)}")
         
         # initializing the video stream
         self._video_stream = cv.VideoCapture(source)
@@ -145,7 +145,7 @@ class Stream:
             
 
         if self.live_video:
-            print('[WARNING] Frames cannot be computed on live streams')
+            print("[WARNING] Frames cannot be computed on live streams")
             return -1
 
 
@@ -187,9 +187,7 @@ class Stream:
 
 #     def __init__(self, source=0):
 #         # Initializing the stream from DefaultVideoStream
-#         print('Beg of f')
 #         self._video_stream = FileStream(source=source)
-#         print('End of f')
 
 #         self.width = self._video_stream.width
 #         self.height = self._video_stream.height

@@ -48,13 +48,11 @@ class LiveStream:
             Source must either be an integer (0, 1, 2 etc) or a path to a video file
         """
         if isinstance(source, str):
-            raise ValueError('Expected an integer. Got a filepath. LiveVideoStream is for live streams only')
+            raise ValueError("Expected an integer. Got a filepath. LiveVideoStream is for live streams only")
         
         # Initializing the video stream
         self.stream = cv.VideoCapture(source)
-        print('Live yes')
         self.ret, self.frame = self.stream.read()
-        print('Live not')
 
         self.width = int(self.stream.get(cv.CAP_PROP_FRAME_WIDTH))
         self.height = int(self.stream.get(cv.CAP_PROP_FRAME_HEIGHT))
@@ -67,6 +65,7 @@ class LiveStream:
 
         # Boolean to check whether stream should be killed
         self.kill_stream = False
+
 
     def begin_stream(self):
         # Starting the thread to read frames from the video stream

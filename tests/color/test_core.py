@@ -18,28 +18,28 @@ tens_path = os.path.join(here, 'data', 'green_fish.jpg')
 
 # BGR
 cv_bgr = cv.imread(tens_path)
-cv_bgr = caer.to_tensor(cv_bgr, cspace='bgr')
+cv_bgr = caer.to_tensor(cv_bgr, cspace="bgr")
 # RGB
 cv_rgb = cv.cvtColor(cv_bgr, cv.COLOR_BGR2RGB)
-cv_rgb = caer.to_tensor(cv_rgb, cspace='rgb')
+cv_rgb = caer.to_tensor(cv_rgb, cspace="rgb")
 # GRAY
 cv_gray = cv.cvtColor(cv_bgr, cv.COLOR_BGR2GRAY)
-cv_gray = caer.to_tensor(cv_gray, cspace='gray')
+cv_gray = caer.to_tensor(cv_gray, cspace="gray")
 # HSV
 cv_hsv = cv.cvtColor(cv_bgr, cv.COLOR_BGR2HSV)
-cv_hsv = caer.to_tensor(cv_hsv, cspace='hsv')
+cv_hsv = caer.to_tensor(cv_hsv, cspace="hsv")
 # HLS
 cv_hls = cv.cvtColor(cv_bgr, cv.COLOR_BGR2HLS)
-cv_hls = caer.to_tensor(cv_hls, cspace='hls')
+cv_hls = caer.to_tensor(cv_hls, cspace="hls")
 # LAB
 cv_lab = cv.cvtColor(cv_bgr, cv.COLOR_BGR2LAB)
-cv_lab = caer.to_tensor(cv_lab, cspace='lab')
+cv_lab = caer.to_tensor(cv_lab, cspace="lab")
 # YUV
 cv_yuv = cv.cvtColor(cv_bgr, cv.COLOR_BGR2YUV)
-cv_yuv = caer.to_tensor(cv_yuv, cspace='yuv')
+cv_yuv = caer.to_tensor(cv_yuv, cspace="yuv")
 # LUV
 cv_luv = cv.cvtColor(cv_bgr, cv.COLOR_BGR2LUV)
-cv_luv = caer.to_tensor(cv_luv, cspace='luv')
+cv_luv = caer.to_tensor(cv_luv, cspace="luv")
 
 
 def test_to_rgb():
@@ -70,14 +70,14 @@ def test_to_rgb():
     assert caer_yuv_rgb.shape == cv_rgb.shape
     assert caer_luv_rgb.shape == cv_rgb.shape
 
-    assert caer_rgb_rgb.cspace == 'rgb'
-    assert caer_bgr_rgb.cspace == 'rgb'
-    assert caer_gray_rgb.cspace == 'rgb'
-    assert caer_hsv_rgb.cspace == 'rgb'
-    assert caer_hls_rgb.cspace == 'rgb'
-    assert caer_lab_rgb.cspace == 'rgb'
-    assert caer_yuv_rgb.cspace == 'rgb'
-    assert caer_luv_rgb.cspace == 'rgb'
+    assert caer_rgb_rgb.cspace == "rgb"
+    assert caer_bgr_rgb.cspace == "rgb"
+    assert caer_gray_rgb.cspace == "rgb"
+    assert caer_hsv_rgb.cspace == "rgb"
+    assert caer_hls_rgb.cspace == "rgb"
+    assert caer_lab_rgb.cspace == "rgb"
+    assert caer_yuv_rgb.cspace == "rgb"
+    assert caer_luv_rgb.cspace == "rgb"
 
     assert len(caer_rgb_rgb.shape) == 3
     assert len(caer_bgr_rgb.shape) == 3
@@ -125,14 +125,14 @@ def test_to_bgr():
     assert caer_yuv_bgr.shape == cv_bgr.shape
     assert caer_luv_bgr.shape == cv_bgr.shape
 
-    assert caer_bgr_bgr.cspace == 'bgr'
-    assert caer_rgb_bgr.cspace == 'bgr'
-    assert caer_gray_bgr.cspace == 'bgr'
-    assert caer_hsv_bgr.cspace == 'bgr'
-    assert caer_hls_bgr.cspace == 'bgr'
-    assert caer_lab_bgr.cspace == 'bgr'
-    assert caer_yuv_bgr.cspace == 'bgr'
-    assert caer_luv_bgr.cspace == 'bgr'
+    assert caer_bgr_bgr.cspace == "bgr"
+    assert caer_rgb_bgr.cspace == "bgr"
+    assert caer_gray_bgr.cspace == "bgr"
+    assert caer_hsv_bgr.cspace == "bgr"
+    assert caer_hls_bgr.cspace == "bgr"
+    assert caer_lab_bgr.cspace == "bgr"
+    assert caer_yuv_bgr.cspace == "bgr"
+    assert caer_luv_bgr.cspace == "bgr"
 
     assert len(caer_bgr_bgr.shape) == 3
     assert len(caer_rgb_bgr.shape) == 3
@@ -180,14 +180,14 @@ def test_to_gray():
     assert caer_yuv_gray.shape == cv_gray.shape
     assert caer_luv_gray.shape == cv_gray.shape
 
-    assert caer_gray_gray.cspace == 'gray'
-    assert caer_bgr_gray.cspace == 'gray'
-    assert caer_rgb_gray.cspace == 'gray'
-    assert caer_hsv_gray.cspace == 'gray'
-    assert caer_hls_gray.cspace == 'gray'
-    assert caer_lab_gray.cspace == 'gray'
-    assert caer_yuv_gray.cspace == 'gray'
-    assert caer_luv_gray.cspace == 'gray'
+    assert caer_gray_gray.cspace == "gray"
+    assert caer_bgr_gray.cspace == "gray"
+    assert caer_rgb_gray.cspace == "gray"
+    assert caer_hsv_gray.cspace == "gray"
+    assert caer_hls_gray.cspace == "gray"
+    assert caer_lab_gray.cspace == "gray"
+    assert caer_yuv_gray.cspace == "gray"
+    assert caer_luv_gray.cspace == "gray"
 
     assert len(caer_gray_gray.shape) == 2
     assert len(caer_bgr_gray.shape) == 2
@@ -235,14 +235,14 @@ def test_to_hsv():
     assert caer_yuv_hsv.shape == cv_hsv.shape
     assert caer_luv_hsv.shape == cv_hsv.shape
 
-    assert caer_hsv_hsv.cspace == 'hsv'
-    assert caer_bgr_hsv.cspace == 'hsv'
-    assert caer_gray_hsv.cspace == 'hsv'
-    assert caer_rgb_hsv.cspace == 'hsv'
-    assert caer_hls_hsv.cspace == 'hsv'
-    assert caer_lab_hsv.cspace == 'hsv'
-    assert caer_yuv_hsv.cspace == 'hsv'
-    assert caer_luv_hsv.cspace == 'hsv'
+    assert caer_hsv_hsv.cspace == "hsv"
+    assert caer_bgr_hsv.cspace == "hsv"
+    assert caer_gray_hsv.cspace == "hsv"
+    assert caer_rgb_hsv.cspace == "hsv"
+    assert caer_hls_hsv.cspace == "hsv"
+    assert caer_lab_hsv.cspace == "hsv"
+    assert caer_yuv_hsv.cspace == "hsv"
+    assert caer_luv_hsv.cspace == "hsv"
 
     assert len(caer_hsv_hsv.shape) == 3
     assert len(caer_bgr_hsv.shape) == 3
@@ -290,14 +290,14 @@ def test_to_hls():
     assert caer_yuv_hls.shape == cv_hls.shape
     assert caer_luv_hls.shape == cv_hls.shape
 
-    assert caer_hls_hls.cspace == 'hls'
-    assert caer_bgr_hls.cspace == 'hls'
-    assert caer_gray_hls.cspace == 'hls'
-    assert caer_hsv_hls.cspace == 'hls'
-    assert caer_rgb_hls.cspace == 'hls'
-    assert caer_lab_hls.cspace == 'hls'
-    assert caer_yuv_hls.cspace == 'hls'
-    assert caer_luv_hls.cspace == 'hls'
+    assert caer_hls_hls.cspace == "hls"
+    assert caer_bgr_hls.cspace == "hls"
+    assert caer_gray_hls.cspace == "hls"
+    assert caer_hsv_hls.cspace == "hls"
+    assert caer_rgb_hls.cspace == "hls"
+    assert caer_lab_hls.cspace == "hls"
+    assert caer_yuv_hls.cspace == "hls"
+    assert caer_luv_hls.cspace == "hls"
 
     assert len(caer_hls_hls.shape) == 3
     assert len(caer_bgr_hls.shape) == 3
@@ -345,14 +345,14 @@ def test_to_lab():
     assert caer_yuv_lab.shape == cv_lab.shape
     assert caer_luv_lab.shape == cv_lab.shape
 
-    assert caer_lab_lab.cspace == 'lab'
-    assert caer_bgr_lab.cspace == 'lab'
-    assert caer_gray_lab.cspace == 'lab'
-    assert caer_hsv_lab.cspace == 'lab'
-    assert caer_hls_lab.cspace == 'lab'
-    assert caer_rgb_lab.cspace == 'lab'
-    assert caer_yuv_lab.cspace == 'lab'
-    assert caer_luv_lab.cspace == 'lab'
+    assert caer_lab_lab.cspace == "lab"
+    assert caer_bgr_lab.cspace == "lab"
+    assert caer_gray_lab.cspace == "lab"
+    assert caer_hsv_lab.cspace == "lab"
+    assert caer_hls_lab.cspace == "lab"
+    assert caer_rgb_lab.cspace == "lab"
+    assert caer_yuv_lab.cspace == "lab"
+    assert caer_luv_lab.cspace == "lab"
 
     assert len(caer_lab_lab.shape) == 3
     assert len(caer_bgr_lab.shape) == 3
@@ -400,14 +400,14 @@ def test_to_yuv():
     assert caer_lab_yuv.shape == cv_yuv.shape
     assert caer_luv_yuv.shape == cv_yuv.shape
 
-    assert caer_yuv_yuv.cspace == 'yuv'
-    assert caer_bgr_yuv.cspace == 'yuv'
-    assert caer_gray_yuv.cspace == 'yuv'
-    assert caer_hsv_yuv.cspace == 'yuv'
-    assert caer_hls_yuv.cspace == 'yuv'
-    assert caer_rgb_yuv.cspace == 'yuv'
-    assert caer_lab_yuv.cspace == 'yuv'
-    assert caer_luv_yuv.cspace == 'yuv'
+    assert caer_yuv_yuv.cspace == "yuv"
+    assert caer_bgr_yuv.cspace == "yuv"
+    assert caer_gray_yuv.cspace == "yuv"
+    assert caer_hsv_yuv.cspace == "yuv"
+    assert caer_hls_yuv.cspace == "yuv"
+    assert caer_rgb_yuv.cspace == "yuv"
+    assert caer_lab_yuv.cspace == "yuv"
+    assert caer_luv_yuv.cspace == "yuv"
 
     assert len(caer_yuv_yuv.shape) == 3
     assert len(caer_bgr_yuv.shape) == 3
@@ -455,14 +455,14 @@ def test_to_luv():
     assert caer_lab_luv.shape == cv_luv.shape
     assert caer_yuv_luv.shape == cv_luv.shape
 
-    assert caer_luv_luv.cspace == 'luv'
-    assert caer_bgr_luv.cspace == 'luv'
-    assert caer_gray_luv.cspace == 'luv'
-    assert caer_hsv_luv.cspace == 'luv'
-    assert caer_hls_luv.cspace == 'luv'
-    assert caer_rgb_luv.cspace == 'luv'
-    assert caer_lab_luv.cspace == 'luv'
-    assert caer_yuv_luv.cspace == 'luv'
+    assert caer_luv_luv.cspace == "luv"
+    assert caer_bgr_luv.cspace == "luv"
+    assert caer_gray_luv.cspace == "luv"
+    assert caer_hsv_luv.cspace == "luv"
+    assert caer_hls_luv.cspace == "luv"
+    assert caer_rgb_luv.cspace == "luv"
+    assert caer_lab_luv.cspace == "luv"
+    assert caer_yuv_luv.cspace == "luv"
 
     assert len(caer_luv_luv.shape) == 3
     assert len(caer_bgr_luv.shape) == 3

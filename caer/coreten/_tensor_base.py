@@ -20,7 +20,7 @@ class _TensorBase(np.ndarray):
         self.numelem = self.size
         self.foreign = True
 
-        # self._mode = 'rgb'
+        # self._mode = "rgb"
         # self.mode = self._mode # '._mode' is used internally --> prevents misuse of the API
         self.cspace = "null" # default
 

@@ -250,7 +250,7 @@ def flare_source(tens: Tensor, point : Tuple[int, int], radius : int, src_color:
     tens = to_tensor(tens, override_checks=True)
 
     if not isinstance(src_color, tuple):
-        raise ValueError('`src_color` needs to be a tuple in the format `(R,G,B)`')
+        raise ValueError("`src_color` needs to be a tuple in the format `(R,G,B)`")
     
     # By default, assume a RGB-format
     # We reverse the tuple as OpenCV expects a BGR layout
@@ -366,24 +366,24 @@ def _exposure_process(tens: Tensor) -> Tensor:
     tens_yuv[:,:,0] = clahe.apply(tens_yuv[:,:,0])
 
     tens_res = cv.cvtColor(tens_yuv, cv.COLOR_YUV2BGR)
-    tens = to_tensor(tens_res, cspace='bgr')
+    tens = to_tensor(tens_res, cspace="bgr")
     tens = _cvt_color(tens, cspace)
 
     return cv.fastNlMeansDenoisingColored(tens, None, 3, 3, 7, 21)
 
 
 def _cvt_color(tens, cspace):
-    if cspace == 'rgb':
+    if cspace == "rgb":
         return to_rgb(tens)
-    if cspace == 'bgr':
+    if cspace == "bgr":
         return to_bgr(tens)
-    if cspace == 'gray':
+    if cspace == "gray":
         return to_gray(tens)
-    if cspace == 'hsv':
+    if cspace == "hsv":
         return to_hsv(tens)
-    if cspace == 'hls':
+    if cspace == "hls":
         return to_hls(tens)
-    if cspace == 'lab':
+    if cspace == "lab":
         return to_lab(tens)
 
 

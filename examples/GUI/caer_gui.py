@@ -168,13 +168,13 @@ def resize_image():
                 adjust_ghsps()
             else:
                 lblError['text'] = 'Error'
-                print('Invalid size specified!')
+                print("Invalid size specified!")
         except Exception as e:
             lblError['text'] = 'Error'
             print(str(e))
     else:
         lblError['text'] = 'Error'
-        print('Invalid size specified!')
+        print("Invalid size specified!")
 
 def show_rotated_image(external = False):
     global rotationApplied
@@ -326,7 +326,7 @@ def adjust_ghsps(*args):
         if lblError['text'] == 'Error':
             lblError['text'] = ''
 
-        transformedImage = caer.to_tensor(currentImage, cspace = 'rgb')
+        transformedImage = caer.to_tensor(currentImage, cspace = "rgb")
 
         # apply all transformations to currently displayed image
 

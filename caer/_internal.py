@@ -38,7 +38,7 @@ def _check_mean_sub_values(value, channels):
         False -> Expression is invalid
     """
     if value is None:
-        raise ValueError('Value(s) specified is of NoneType()')
+        raise ValueError("Value(s) specified is of NoneType()")
     
     if isinstance(value, tuple):
         # If not a tuple, we convert it to one
@@ -48,16 +48,16 @@ def _check_mean_sub_values(value, channels):
             value = tuple([value])
     
     if channels not in [1,3]:
-        raise ValueError('Number of channels must be either 1 (Grayscale) or 3 (RGB/BGR)')
+        raise ValueError("Number of channels must be either 1 (Grayscale) or 3 (RGB/BGR)")
 
     if len(value) not in [1,3]:
-        raise ValueError('Tuple length must be either 1 (subtraction over the entire image) or 3 (per channel subtraction)', value)
+        raise ValueError("Tuple length must be either 1 (subtraction over the entire image) or 3 (per channel subtraction)', valu")
     
     if len(value) == channels:
         return True 
 
     else:
-        raise ValueError(f'Expected a tuple of dimension {channels}', value) 
+        raise ValueError(f"Expected a tuple of dimension {channels}. Got {value}") 
 
 
 def _get_output(array, out, fname, dtype=None, output=None):
@@ -96,10 +96,10 @@ def _get_output(array, out, fname, dtype=None, output=None):
                 (fname, out.dtype, dtype, detail))
 
     if out.shape != array.shape:
-        raise ValueError('caer.%s: `out` has wrong shape (got %s, while expecting %s)%s' % (fname, out.shape, array.shape, detail))
+        raise ValueError("caer.%s: `out` has wrong shape (got %s, while expecting %s)%s' % (fname, out.shape, array.shape, detail")
 
     if not out.flags.contiguous:
-        raise ValueError('caer.%s: `out` is not c-array%s' % (fname,detail))
+        raise ValueError("caer.%s: `out` is not c-array%s' % (fname,detail")
 
     return out
 
@@ -122,7 +122,7 @@ def _get_axis(array, axis, fname):
         axis += len(array.shape)
 
     if not (0 <= axis < len(array.shape)):
-        raise ValueError('caer.%s: `axis` is out of bounds (maximum was %s, got %s)' % (fname, array.ndim, axis))
+        raise ValueError("caer.%s: `axis` is out of bounds (maximum was %s, got %s)' % (fname, array.ndim, axis")
 
     return axis
 
@@ -148,7 +148,7 @@ def _normalize_sequence(array, value, fname):
     except TypeError:
         return [value for s in array.shape]
     if len(value) != array.ndim:
-        raise ValueError('caer.%s: argument is sequence, but has wrong size (%s for an array of %s dimensions)' % (fname, len(value), array.ndim))
+        raise ValueError("caer.%s: argument is sequence, but has wrong size (%s for an array of %s dimensions)' % (fname, len(value), array.ndim")
     return value
 
 
@@ -164,7 +164,7 @@ def _verify_is_floatingpoint_type(A, function_name):
         Used for error messages
     '''
     if not np.issubdtype(A.dtype, np.floating):
-        raise TypeError('caer.{}: This function only accepts floating-point types (passed array of type {})'.format(function_name, A.dtype))
+        raise TypeError(f"caer.{function_name}: This function only accepts floating-point types (passed array of type {A.dtype})")
 
 
 def _verify_is_integer_type(A, function_name):
@@ -180,7 +180,7 @@ def _verify_is_integer_type(A, function_name):
     '''
     k = A.dtype.kind
     if k not in "iub": # integer, unsigned integer, boolean
-        raise TypeError('caer.%s: This function only accepts integer types (passed array of type %s)' % (function_name, A.dtype))
+        raise TypeError(f"caer.{function_name}: This function only accepts integer types (passed array of type {A.dtype})")
 
 
 def _verify_is_nonnegative_integer_type(A, function_name):
@@ -196,7 +196,7 @@ def _verify_is_nonnegative_integer_type(A, function_name):
     '''
     _verify_is_integer_type(A, function_name)
     if A.dtype.kind == 'i' and not np.all(A >= 0):
-        raise ValueError('caer.{0}: This function only accepts positive integer types (passed array of type {1})'.format(function_name, A.dtype))
+        raise ValueError("caer.{0}: This function only accepts positive integer types (passed array of type {1})'.format(function_name, A.dtype")
 
 
 def _make_binary(array):
@@ -223,9 +223,9 @@ def _as_floating_point_array(array):
 
 def _check_3(arr, funcname):
     if arr.ndim != 3 or arr.shape[2] != 3:
-        raise ValueError('caer.%s: this function expects an array of shape (h, w, 3), received an array of shape %s.' % (funcname, arr.shape))
+        raise ValueError("caer.%s: this function expects an array of shape (h, w, 3), received an array of shape %s.' % (funcname, arr.shape")
 
 
 def _check_2(arr, funcname):
     if arr.ndim != 2:
-        raise ValueError('caer.%s: this function can only handle 2D arrays (passed array with shape %s).' % (funcname, arr.shape))
+        raise ValueError("caer.%s: this function can only handle 2D arrays (passed array with shape %s).' % (funcname, arr.shape")
