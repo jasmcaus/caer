@@ -22,7 +22,6 @@ from ..color import rgb2bgr, to_bgr
 from ..path import exists
 from .._internal import _check_target_size
 from typing import Tuple, Optional, Union
-from nptyping import NDArray, Float64
 
 
 __all__ = [
@@ -137,7 +136,7 @@ def _imread(
     return to_tensor(tens, cspace='rgb')
 
 
-def _read_image(image_path: str) -> NDArray[Float64]:
+def _read_image(image_path: str) -> np.ndarray:
     r"""
         Returns an RGB ndarray
 
@@ -157,7 +156,7 @@ def _read_image(image_path: str) -> NDArray[Float64]:
     return cv.cvtColor(tens, cv.COLOR_BGR2RGB)
 
 
-def _url_to_image(url: str) -> NDArray[Float64]:
+def _url_to_image(url: str) -> np.ndarray:
     r"""
         Returns an RGB ndarray.
     """
