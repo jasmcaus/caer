@@ -10,17 +10,17 @@
 # Copyright (c) 2020-2021 The Caer Authors <http://github.com/jasmcaus>
 
 from ..io import imread 
-from ..path import abspath, minijoin
+from ..path import abspath, join
 from .._base import __curr__ 
-from ..jit.annotations import Optional
+from ..annotations import Optional
 import numpy as np 
 
-from ..adorad import Tensor
+from ..coreten import Tensor
 
-here = minijoin(__curr__, 'data').replace('\\', "/") + "/"
+here = join(__curr__, 'data').replace('\\', "/") + "/"
 
 def _get_path_to_data(name) -> str:
-    return minijoin(here, name)
+    return join(here, name)
 
 
 def audio_mixer(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:

@@ -16,7 +16,7 @@ import random
 import math 
 import numpy as np 
 
-from ..adorad import Tensor, to_tensor
+from ..coreten import Tensor, to_tensor
 
 from ..color import (
     to_hls, 

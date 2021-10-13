@@ -11,7 +11,7 @@
 
 
 # We don't want to modify the root dir in any way 
-# This gets distrupted if this file is called directly
+# This gets disrupted if this file is called directly
 # Checks are in place:
 
 if __name__ != '__main__':

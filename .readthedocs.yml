@@ -19,5 +19,5 @@ formats:
 python:
   version: 3.7
   install:
-    - requirements: requirements/default.txt
-    - requirements: requirements/build-docs.txt
+    - requirements: tools/requirements/default.txt
+    - requirements: tools/requirements/build-docs.txt

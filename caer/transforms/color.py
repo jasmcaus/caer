@@ -16,7 +16,7 @@ import random
 import cv2 as cv 
 import math
 
-from ..adorad import Tensor, to_tensor
+from ..coreten import Tensor, to_tensor
 
 from .functional import (
     is_list,

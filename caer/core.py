@@ -12,25 +12,19 @@
 
 import cv2 as cv
 import numpy as np
+import gc
 
-from .path import listdir, minijoin
+from .path import listdir, join
 
 
 __all__ = [
     'get_classes_from_dir',
     'median',
-    'npmean',
-    'asarray',
-    'to_array',
-    'array',
     'train_val_split',
     'sort_dict',
     'get_opencv_version',
     'mean',
     'merge',
-    'split',
-    # 'color_map',
-    # 'energy_map',
     'edges'
 ]
 
@@ -38,12 +32,9 @@ __all__ = [
 def median(arr, axis=None):
     return np.median(arr, axis=axis)
 
-
+ 
 def mean(image, mask=None):
-    try:
-        return cv.mean(image, mask=mask)
-    except:
-        raise ValueError('mean() expects an image')
+    return cv.mean(image, mask=mask)
 
 
 def merge(tens):
@@ -52,36 +43,12 @@ def merge(tens):
 
     return cv.merge(tens)
 
-
-def split(tens):
-    try:
-        return cv.split(tens)
-    except:
-        raise ValueError('mean() expects an image')
-    
-
-def npmean(arr):
-    return np.mean(arr)
-
-
-def array(obj, dtype=None, order='K'):
-    return np.array(obj, dtype=dtype, order=order)
-
-
-def to_array(obj, dtype=None, order='K'):
-    return np.array(obj, dtype=dtype, order=order)
-
-
-def asarray(obj, dtype=None, order=None):
-    return np.asarray(obj, dtype=dtype, order=order)
-
-
 def get_classes_from_dir(DIR, verbose=0):
     if len(listdir(DIR, verbose=0)) == 0:
         raise ValueError('The specified directory does not seem to have any folders in it')
     else:
         import os 
-        classes = [i for i in listdir(DIR, recursive=False, verbose=verbose) if os.path.isdir(minijoin(DIR, i))]
+        classes = [i for i in listdir(DIR, recursive=False, verbose=verbose) if os.path.isdir(join(DIR, i))]
         return classes
 
 
@@ -95,7 +62,6 @@ def _sep(data):
 
 def train_val_split(X, y, val_ratio=.2):
     """
-        Do not use if mean subtraction is being employed
         Returns X_train, X_val, y_train, y_val
     """
     if len(X) != len(y):
@@ -104,17 +70,17 @@ def train_val_split(X, y, val_ratio=.2):
     data = [] 
     for i in range(len(X)):
         data.append([X[i], y[i]])
-    
-    # import random
-    # random.shuffle(data)
 
     split = int(len(X) - (len(X) * val_ratio)) - 1
 
     data_train = data[0:split]
-    data_test = data[split:]
+    data_val = data[split:]
 
-    X_train, y_train = _sep(data_train)
-    X_val, y_val = _sep(data_test)
+    X_train, y_train = (np.array(item) for item in _sep(data_train))
+    X_val, y_val = (np.array(item) for item in _sep(data_val))
+
+    del data
+    gc.collect()
 
     return X_train, X_val, y_train, y_val
 
@@ -162,24 +128,3 @@ def edges(tens, threshold1=None, threshold2=None, use_median=True, sigma=None):
         canny_edges = cv.Canny(tens, threshold1, threshold2)
 
     return canny_edges
-
-
-# def energy_map(tens):
-#     tens = bgr_to_gray(tens.astype(np.uint8))
-
-#     dx = cv.Sobel(tens, cv.CV_16S, 1, 0, ksize=3)
-#     abs_x = cv.convertScaleAbs(dx)
-#     dy = cv.Sobel(tens, cv.CV_16S, 0, 1, ksize=3)
-#     abs_y = cv.convertScaleAbs(dy)
-#     output = cv.addWeighted(abs_x, 0.5, abs_y, 0.5, 0)
-
-#     return output
-
-
-# def color_map(tens):
-#     gray_tens = bgr_to_gray(tens) 
-
-#     heatmap = cv.applyColorMap(gray_tens, 11)
-#     superimpose = cv.addWeighted(heatmap, 0.7, tens, 0.3, 0)
-
-#     return superimpose

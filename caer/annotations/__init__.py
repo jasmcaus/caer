@@ -9,35 +9,7 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2020-2021 The Caer Authors <http://github.com/jasmcaus>
 
-
-#pylint:disable=undefined-all-variable
-
-from .paths import (
-    list_images,
-    list_videos,
-    listdir,
-    is_image,
-    is_video,
-    cwd,
-    exists,
-    get_size,
-    abspath,
-    isdir,
-    isfile,
-    mkdir,
-    osname,
-    chdir,
-    join,
-    dirname,
-
-    # Variables
-    _acceptable_video_formats,
-    _acceptable_image_formats,
-
-    __all__ as __all_paths__,
+from typing import (
+    Any, Tuple, BinaryIO, Callable, ContextManager, Dict, Iterator, List, NamedTuple,
+    Optional, overload, Sequence, TypeVar, Type, Union, Generic, Set, AnyStr
 )
-
-__all__ = __all_paths__ 
-
-# Stop polluting the namespace
-del __all_paths__

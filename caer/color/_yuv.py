@@ -11,7 +11,7 @@
 
 import cv2 as cv
 
-from ..adorad import Tensor, to_tensor
+from ..coreten import Tensor, to_tensor
 from ._constants import YUV2BGR, YUV2RGB
 from ._bgr import bgr2gray, bgr2hls, bgr2hsv, bgr2lab, bgr2luv
 
