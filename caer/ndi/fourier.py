@@ -17,7 +17,7 @@ from . import cndi
 from typing import Optional, Union
 from collections.abc import Iterable
 
-from adorad.tensor import Tensor
+from ..adorad import Tensor
 
 __all__ = [
     'fourier_gaussian', 
