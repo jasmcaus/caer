@@ -14,12 +14,10 @@ from .tensor import Tensor
 
 from typing import Tuple, Optional, Union
 
-import PIL
-
 __all__ = [
     'from_numpy', 
     'to_tensor'
-    ]
+]
 
 
 def from_numpy(
@@ -58,19 +56,20 @@ def from_numpy(
 
 
 def to_tensor(
-    x: Union[Tensor, np.ndarray, PIL.Image],
+    x: Union[Tensor, np.ndarray],
     cspace: Optional[str] = None,
     dtype=None,
     override_checks: bool = False,
     enforce_tensor: bool = False,
-)->Tensor:
+) -> Tensor:
     r"""
         Convert an array to a caer.Tensor.
 
         To convert a Numpy Array to a ``caer.Tensor``, specify the ``cspace`` attribute (either bgr/rgb/gray/hsv/hls/lab).
         If a ``caer.Tensor`` is passed, its attributes are preserved.
 
-        If ``x`` is a ``caer.Tensor`` and ``cspace`` is specified, the colorspace of the Tensor will be updated accordingly. To prevent this, set ``cspace=None``.
+        If ``x`` is a ``caer.Tensor`` and ``cspace`` is specified, the colorspace of the Tensor will be updated accordingly. 
+        To prevent this, set ``cspace=None``.
 
     .. warning::
         ``override_checks`` and ``enforce_tensor`` should not be used. If not handled property, a silly bug may pop up at an unexpected time.
@@ -79,8 +78,8 @@ def to_tensor(
         x (Tensor, ndarray, PIL): Tensor/Array to convert.
         cspace (str): ``must`` be specified if you are converting a Numpy array to a ``caer.Tensor``. Value should be either bgr/rgb/gray/hsv/hls/lab.
         dtype (numpy): (optional) Data Type
-        override_checks (bool): WARNING: Intended for internal Usage only => if not handled properly, a silly bug may pop up at an unexpected time.
-        enforce_tensor (bool): WARNING: Intended for internal Usage only => if not handled properly, a silly bug may pop up at an unexpected time.
+        override_checks (bool): WARNING: Intended for internal usage only. If not handled properly, a silly bug may pop up at an unexpected time.
+        enforce_tensor (bool): WARNING: Intended for internal usage only. If not handled properly, a silly bug may pop up at an unexpected time.
     """
     if isinstance(x, Tensor):
         if cspace is None:  # if unsure of the cspace (usually in cases when converting a foreign array to a caer.Tensor)
@@ -93,7 +92,7 @@ def to_tensor(
             return tens
 
     elif isinstance(x, np.ndarray):
-        return from_numpy(x, cspace=cspace, override_checks=override_checks, enforce_tensor=enforce_tensor)
+        return from_numpy(x, cspace=cspace, override_checks=override_checks, enforce_tensor=enforce_tensor) # type: ignore[arg-type]
 
     # If PIL Image
     elif 'PIL' in str(type(x)):

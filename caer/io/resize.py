@@ -30,7 +30,7 @@ def resize(
     target_size: Optional[Tuple[int, int]] = None,
     resize_factor: Optional[Union[float, Tuple]] = None,
     preserve_aspect_ratio: bool = False,
-    interpolation="bilinear",
+    interpolation: str = "bilinear",
 ) -> Tensor:
     r"""
         Resizes an image to a target_size without aspect ratio distortion.
@@ -65,7 +65,7 @@ def resize(
 
 
         Returns:
-        T   ensor of shape ``(height, width, channels)``.
+        Tensor of shape ``(height, width, channels)``.
 
 
         Examples::
@@ -121,25 +121,30 @@ def resize(
         new_shape = (int(resize_factor * width), int(resize_factor * height))
 
     interpolation_methods = {
-        "nearest": INTER_NEAREST,"0": INTER_NEAREST, 0: INTER_NEAREST,  # 0
-        "bilinear": INTER_LINEAR,"1": INTER_LINEAR,  1: INTER_LINEAR,  # 1
-        "bicubic": INTER_CUBIC,  "2": INTER_CUBIC,   2: INTER_CUBIC,  # 2
-        "area": INTER_AREA,      "3": INTER_AREA,    3: INTER_AREA,  # 3
+        "nearest": INTER_NEAREST,  "0": INTER_NEAREST,
+        "bilinear": INTER_LINEAR,  "1": INTER_LINEAR,
+        "bicubic": INTER_CUBIC,    "2": INTER_CUBIC,
+        "area": INTER_AREA,        "3": INTER_AREA,
     }
 
     if interpolation not in interpolation_methods:
-        raise ValueError('Specify a valid interpolation type - area/nearest/bicubic/bilinear')
+        raise ValueError("Specify a valid interpolation type - area/nearest/bicubic/bilinear")
 
     if preserve_aspect_ratio:
-        im = _resize_with_ratio(tens,target_size=target_size,preserve_aspect_ratio=preserve_aspect_ratio,interpolation=interpolation_methods[interpolation])
+        img = _resize_with_ratio(
+                tens,
+                target_size=target_size, # type: ignore[arg-type]
+                preserve_aspect_ratio=preserve_aspect_ratio,
+                interpolation=interpolation_methods[interpolation]
+            )
     else:
         width, height = new_shape[:2]
-        im = _cv2_resize(tens, (width, height), interpolation=interpolation_methods[interpolation])
+        img = _cv2_resize(tens, (width, height), interpolation=interpolation_methods[interpolation])
 
     # For this function, the <cspace> attribute is not required.
     # So, we disable the mandatory check that the <cspace> attribute needs to be passed for
     # foreign Tensors/ndarrays
-    return to_tensor(im, cspace=cspace, override_checks=True)
+    return to_tensor(img, cspace=cspace, override_checks=True)
 
 
 def smart_resize(tens: Tensor, target_size: Tuple[int, int], interpolation="bilinear") -> Tensor:
@@ -205,7 +210,10 @@ def _cv2_resize(image, target_size, interpolation=None):
 
 
 def _resize_with_ratio(
-    tens: Tensor, target_size: Tuple[int, int], preserve_aspect_ratio: bool = False, interpolation="bilinear"
+    tens: Tensor, 
+    target_size: Tuple[int, int], 
+    preserve_aspect_ratio: bool = False, 
+    interpolation: int = INTER_LINEAR
 ) -> Tensor:
     """
         Resizes an image using advanced algorithms
@@ -213,26 +221,18 @@ def _resize_with_ratio(
         :param preserve_aspect_ratio: Boolean to keep/ignore aspect ratio when resizing
     """
     _ = _check_target_size(target_size)
-    interpolation = str(interpolation)
 
     if not isinstance(preserve_aspect_ratio, bool):
         raise ValueError('preserve_aspect_ratio must be a boolean')
-
-    interpolation_methods = {
-        "nearest": INTER_NEAREST,"0": INTER_NEAREST,  # 0
-        "bilinear": INTER_LINEAR,"1": INTER_LINEAR,  # 1
-        "bicubic": INTER_CUBIC,  "2": INTER_CUBIC,  # 2
-        "area": INTER_AREA,      "3": INTER_AREA,  # 3
-    }
-
-    if interpolation not in interpolation_methods:
-        raise ValueError('Specify a valid interpolation type - area/nearest/bicubic/bilinear')
 
     oh, ow = tens.shape[:2]
     target_w, target_h = target_size
 
     if target_h > oh or target_w > ow:
-        raise ValueError('To compute resizing keeping the aspect ratio, the target size dimensions must be <= actual image dimensions')
+        raise ValueError(
+            "To compute resizing keeping the aspect ratio, the target size dimensions "
+            "must be <= actual image dimensions"
+        )
 
     # Computing minimal resize
     # min_width, w_factor = _compute_minimal_resize(ow, target_w)
@@ -246,7 +246,7 @@ def _resize_with_ratio(
     tens = _compute_centre_crop(tens, (target_w, target_h))
 
     if tens.shape[:2] != target_size[:2]:
-        tens = _cv2_resize(tens, (target_w, target_h), interpolation=interpolation_methods[interpolation])
+        tens = _cv2_resize(tens, (target_w, target_h), interpolation=interpolation)
 
     return tens
 

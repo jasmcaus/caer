@@ -16,6 +16,7 @@ import math
 from queue import Queue
 import cv2 as cv
 
+from ..annotations import Optional
 from .constants import FRAME_COUNT, FPS
 
 __all__ = [
@@ -49,9 +50,10 @@ class GPUFileStream:
         self.stream = cv.VideoCapture(source)
         self.kill_stream = False
         self.count = 0
+        self.live_video: bool = False
 
         # initialize the queue to store frames
-        self.Q = Queue(maxsize=qsize)
+        self.Q: Queue = Queue(maxsize=qsize)
 
         self.width = int(self.stream.get(cv.CAP_PROP_FRAME_WIDTH))
         self.height = int(self.stream.get(cv.CAP_PROP_FRAME_HEIGHT))
@@ -59,6 +61,8 @@ class GPUFileStream:
 
         self.fps = math.ceil(self.stream.get(FPS))
         self.frames = int(self.stream.get(FRAME_COUNT))
+
+        self._thread: Optional[Thread] = None
         
         # since we use UMat to store the images to
         # we need to initialize them beforehand
@@ -69,9 +73,9 @@ class GPUFileStream:
 
     def begin_stream(self):
         # start a thread to read frames from the file video stream
-        t = Thread(target=self.update, args=())
-        t.daemon = True
-        t.start()
+        self._thread = Thread(target=self.update, args=())
+        self._thread.daemon = True
+        self._thread.start()
         return self
 
 
@@ -112,7 +116,7 @@ class GPUFileStream:
     def release(self):
         self.kill_stream = True
         # wait until stream resources are released
-        self.thread.join()
+        self._thread.join() # type: ignore[union-attr]
 
 
     # Gets frame count

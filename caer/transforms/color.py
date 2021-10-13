@@ -41,7 +41,7 @@ __all__ = [
 ]
 
 
-def adjust_brightness(tens: Tensor, coeff:int, rgb:bool=True) -> Tensor:
+def adjust_brightness(tens: Tensor, coeff : float, rgb : bool = True) -> Tensor:
     r"""
         Adjust the brightness of an image.
 
@@ -79,13 +79,13 @@ def adjust_brightness(tens: Tensor, coeff:int, rgb:bool=True) -> Tensor:
     return to_tensor(tens, cspace=cspace, dtype=np.uint8)
 
 
-def brighten(tens:Tensor, coeff:bool=-1, rgb:bool=True) -> Tensor:
+def brighten(tens: Tensor, coeff : float = -1, rgb : bool = True) -> Tensor:
     r"""
         Brighten an image.
 
     Args:
         tens (Tensor) : Any regular ``caer.Tensor``.
-        coeff (int): Coefficient value.
+        coeff (float): Coefficient value.
         rgb (bool): Operate on RGB images. Default: True.
     
     Returns:
@@ -115,7 +115,7 @@ def brighten(tens:Tensor, coeff:bool=-1, rgb:bool=True) -> Tensor:
     return to_tensor(tens, cspace=cspace)
 
 
-def darken(tens:Tensor, darkness_coeff:bool = -1) -> Tensor:
+def darken(tens: Tensor, darkness_coeff : int = -1) -> Tensor:
     r"""
         Darken an image.
 
@@ -147,11 +147,11 @@ def darken(tens:Tensor, darkness_coeff:bool = -1) -> Tensor:
     else:
         darkness_coeff_t = 1 - darkness_coeff  
 
-    tens = adjust_brightness(tens, darkness_coeff_t)
+    tens = adjust_brightness(tens, coeff=darkness_coeff_t)
     return to_tensor(tens, cspace=cspace)
 
 
-def random_brightness(tens:Tensor) -> Tensor:
+def random_brightness(tens: Tensor) -> Tensor:
     r"""
         Add random brightness to an image.
 
@@ -173,7 +173,7 @@ def random_brightness(tens:Tensor) -> Tensor:
     return adjust_brightness(tens, rand_br_coeff)
 
 
-def adjust_contrast(tens:Tensor, contrast_factor:float) -> Tensor:
+def adjust_contrast(tens: Tensor, contrast_factor:float) -> Tensor:
     """
         Adjust contrast of an image.
 
@@ -203,7 +203,7 @@ def adjust_contrast(tens:Tensor, contrast_factor:float) -> Tensor:
     return to_tensor(tens, cspace=cspace)
 
 
-def adjust_saturation(tens:Tensor, saturation_factor:float) -> Tensor:
+def adjust_saturation(tens: Tensor, saturation_factor:float) -> Tensor:
     """Adjust color saturation of an image.
 
     Args:
@@ -221,7 +221,6 @@ def adjust_saturation(tens:Tensor, saturation_factor:float) -> Tensor:
         >> filtered = caer.transforms.adjust_saturation(tens, saturation_factor=1.5, rgb=True)
         >> filtered
         (427, 640, 3)
-
     """
     tens = to_tensor(tens, enforce_tensor=True)
     cspace = tens.cspace 
@@ -238,7 +237,7 @@ def adjust_saturation(tens:Tensor, saturation_factor:float) -> Tensor:
     return to_tensor(tens, cspace=cspace)
 
 
-def adjust_hue(tens:Tensor, hue_factor:float) -> Tensor:
+def adjust_hue(tens: Tensor, hue_factor:float) -> Tensor:
     r"""
         Adjust hue of an image.
 
@@ -294,7 +293,7 @@ def adjust_hue(tens:Tensor, hue_factor:float) -> Tensor:
     return to_tensor(tens, cspace=cspace)
 
 
-def adjust_gamma(tens:Tensor, gamma:float, gain:float=1) -> Tensor:
+def adjust_gamma(tens: Tensor, gamma:float, gain:float=1) -> Tensor:
     r"""
         Perform gamma correction on an image.
 
@@ -360,7 +359,7 @@ def _get_affine_matrix(center, angle, translate, scale, shear) -> Tensor:
     return matrix[:2, :]
 
 
-def affine(tens:Tensor, angle:Union[float,int], translate:Union[List[int],Tuple[int]], scale:float, shear:float, interpolation='bilinear', mode:Union[str,int]=0, fillcolor:int=0) -> Tensor:
+def affine(tens: Tensor, angle:Union[float,int], translate:Union[List[int],Tuple[int]], scale:float, shear:float, interpolation='bilinear', mode:Union[str,int]=0, fillcolor:int=0) -> Tensor:
     """
         Apply affine transformation on the image keeping image center invariant.
 
@@ -419,7 +418,7 @@ def affine(tens:Tensor, angle:Union[float,int], translate:Union[List[int],Tuple[
     return to_tensor(tens, cspace=cspace)
 
 
-def correct_exposure(tens:Tensor, rgb:bool=True) -> Tensor:
+def correct_exposure(tens: Tensor, rgb : bool = True) -> Tensor:
     r"""
         Correct the exposure of an image.
 
@@ -441,12 +440,15 @@ def correct_exposure(tens:Tensor, rgb:bool=True) -> Tensor:
     return _exposure_process(tens)
 
 
-def augment_random(tens:Tensor, aug_types:str='', volume:str='expand' ) -> Tensor:
-    aug_types_all = ['random_brightness','add_shadow','add_snow','add_rain','add_fog','add_gravel','add_sun_flare','add_motion_blur','add_autumn','random_flip']
+def augment_random(tens: Tensor, aug_types : Union[str, List[str]] = '', volume : str = 'expand') -> List:
+    aug_types_all = [
+        'random_brightness', 'add_shadow', 'add_snow', 'add_rain', 'add_fog', 
+        'add_gravel', 'add_sun_flare','add_motion_blur','add_autumn','random_flip'
+    ]
 
-    if aug_types=='':
-        aug_types=aug_types_all
-    output=[]
+    if aug_types == '':
+        aug_types = aug_types_all
+    output : list = []
 
     if not is_list(aug_types):
         raise ValueError('`aug_types` should be a list of function names (str)')

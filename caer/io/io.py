@@ -199,7 +199,10 @@ def imsave(path: str, tens: Tensor) -> bool:
     try:
         # OpenCV uses BGR Tensors and saves them as RGB images
         if tens.cspace != 'bgr':
-            tens = to_bgr(tens)
+            tens = to_bgr(tens) # type: ignore
         return cv.imwrite(path, tens)
     except:
-        raise ValueError('`tens` needs to be a caer Tensor. Try reading the image using `caer.imread()`. More support for additional platforms will follow. Check the Changelog for further details.')
+        raise ValueError(
+            "`tens` needs to be a caer Tensor. Try reading the image using `caer.imread()`."
+            "More support for additional platforms will follow. Check the Changelog for further details."
+        )
