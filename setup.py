@@ -13,12 +13,10 @@ color
     Colorspace manipulation
 data
     Standard high-quality test images
-filters
-    Advanced Image Filters
+io
+    Input/Output
 path
     OS-specific Path Manipulations
-preprocessing
-    Image preprocessing utilities
 transforms
     Image transformations & augmentations
 video
@@ -45,9 +43,9 @@ __homepage__
 import sys 
 import platform
 
-MAJOR = 1 
-MINOR = 9
-MICRO = 8
+MAJOR = 2
+MINOR = 0
+MICRO = 7
 ISRELEASED = True
 VERSION = f'{MAJOR}.{MINOR}.{MICRO}'
 
@@ -72,7 +70,8 @@ if not is_right_py_version(min_version):
     sys.exit(-1)
 
 
-from setuptools import setup, Extension, find_packages
+from setuptools import setup, find_packages
+# from setuptools import Extension
 from distutils.command.build_ext import build_ext
 from configparser import ConfigParser
 import subprocess
@@ -107,7 +106,7 @@ for i in expected: assert i in cfg, f'Missing expected setting: {i}'
 
 # # Prevent numpy from thinking it is still in its setup process:
 # set_builtin('__NUMPY_SETUP__', False)
-import numpy as np 
+# import numpy as np 
 
 
 # Defining Setup Variables
@@ -130,22 +129,22 @@ KEYWORDS = [i for i in cfg['keywords'].split(', ')]
 REQUIREMENTS = [i for i in cfg['pip_requirements'].split(', ')]
 CLASSIFIERS = [i for i in cfg['classifiers'].split('\n')][1:]
 PYTHON_REQUIRES = '>=' + cfg['min_python']
-EXTENSIONS = {
-    'caer.filters.cconvex': ['caer/filters/cconvex.cpp'],
-    'caer.filters.cconvolve': ['caer/filters/cconvolve.cpp', 'caer/src/cfilters.cpp'],
-    'caer.distance.cdistance': ['caer/distance/cdistance.cpp'],
-    'caer.morph.cmorph': ['caer/morph/cmorph.cpp', 'caer/src/cfilters.cpp'],
-    'caer.ndi.cndi' : ['caer/ndi/include/cndimage.c', 
-                       'caer/ndi/include/cndfilters.c',
-                       'caer/ndi/include/cndfourier.c',
-                       'caer/ndi/include/cndinterpolation.c',
-                       'caer/ndi/include/cndmeasure.c',
-                       'caer/ndi/include/cndmorphology.c',
-                       'caer/ndi/include/cndsplines.c',
-                       'caer/ndi/include/cndsupport.c'
-                ]
-}
-EXT_MODULES = [Extension(key, sources=sources, include_dirs=[np.get_include()]) for key, sources in EXTENSIONS.items()]
+# EXTENSIONS = {
+#     'caer.filters.cconvex': ['caer/filters/cconvex.cpp'],
+#     'caer.filters.cconvolve': ['caer/filters/cconvolve.cpp', 'caer/src/cfilters.cpp'],
+#     'caer.distance.cdistance': ['caer/distance/cdistance.cpp'],
+#     'caer.morph.cmorph': ['caer/morph/cmorph.cpp', 'caer/src/cfilters.cpp'],
+#     'caer.ndi.cndi' : ['caer/ndi/include/cndimage.c', 
+#                        'caer/ndi/include/cndfilters.c',
+#                        'caer/ndi/include/cndfourier.c',
+#                        'caer/ndi/include/cndinterpolation.c',
+#                        'caer/ndi/include/cndmeasure.c',
+#                        'caer/ndi/include/cndmorphology.c',
+#                        'caer/ndi/include/cndsplines.c',
+#                        'caer/ndi/include/cndsupport.c'
+#                 ]
+# }
+# EXT_MODULES = [Extension(key, sources=sources, include_dirs=[np.get_include()]) for key, sources in EXTENSIONS.items()]
 
 STATUSES = [ 
     '1 - Planning', 

@@ -14,7 +14,7 @@ import cv2 as cv
 import random 
 import collections
 
-from ..adorad import Tensor, to_tensor
+from ..coreten import Tensor, to_tensor
 from .._internal import _check_target_size
 from ..globals import (
     INTER_AREA, INTER_CUBIC, INTER_NEAREST, INTER_LINEAR

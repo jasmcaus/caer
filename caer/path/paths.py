@@ -13,35 +13,31 @@
 # pylint:disable=redefined-outer-name
 
 import os
-from ..jit.annotations import List
+from time import time
+from ..annotations import List, Union
 
 _acceptable_video_formats = (".mp4", ".avi", ".mov", ".mkv", ".webm")
 _acceptable_image_formats = (".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff")
 
-
 __all__ = [
-    "list_media",
-    "list_images",
-    "list_videos",
-    "mkdir",
-    "listdir",
-    "is_image",
-    "is_video",
-    "isfile",
-    "cwd",
-    "exists",
-    "minijoin",
-    "get_size",
-    "chdir",
-    "osname",
-    "abspath",
-    "dirname",
+    'list_images',
+    'list_videos',
+    'listdir',
+    'is_image',
+    'is_video',
+    'isfile',
+    'mkdir',
+    'cwd',
+    'exists',
+    'join',
+    'get_size',
+    'chdir',
+    'osname',
+    'abspath',
+    'dirname'
 ]
 
-
-def list_images(
-    DIR: str, recursive: bool = True, use_fullpath: bool = False, show_size: bool = False, verbose=1
-) -> List[str]:
+def list_images(DIR, recursive=True, use_fullpath=False, verbose=True, every : int = 1000) -> List[str]:
     r"""
         Lists all image files within a specific directory (and sub-directories if `recursive=True`)
 
@@ -49,28 +45,15 @@ def list_images(
         DIR (str): Directory to search for image files
         recursive (bool): Indicate whether to search all subdirectories as well (default = False)
         use_fullpath (bool): Include full filepaths in the returned list (default = False)
-        show_size (bool): Prints the disk size of the image files (default = False)
-
+    
     Returns:
         image_files (list): List of names (or full filepaths if `use_fullpath=True`) of the image files
 
     """
-    images = _get_media_from_dir(
-        DIR=DIR,
-        recursive=recursive,
-        use_fullpath=use_fullpath,
-        show_size=show_size,
-        list_image_files=True,
-        verbose=verbose,
-    )
-
-    if images is not None:
-        return images  # images is a list
+    return listdir(DIR=DIR, recursive=recursive, use_fullpath=use_fullpath, ext = _acceptable_image_formats, verbose=verbose, every=every)
 
 
-def list_videos(
-    DIR: str, recursive: bool = True, use_fullpath: bool = False, show_size: bool = False, verbose=1
-) -> List[str]:
+def list_videos(DIR, recursive=True, use_fullpath=False, verbose=True, every : int = 1000) -> List[str]:
     r"""
         Lists all video files within a specific directory (and sub-directories if `recursive=True`)
 
@@ -85,177 +68,30 @@ def list_videos(
 
     """
 
-    videos = _get_media_from_dir(
-        DIR=DIR,
-        recursive=recursive,
-        use_fullpath=use_fullpath,
-        show_size=show_size,
-        list_video_files=True,
-        verbose=verbose,
-    )
-
-    if videos is not None:
-        return videos  # videos is a list
-
-
-def list_media(
-    DIR: str, recursive: bool = True, use_fullpath: bool = False, show_size: bool = True, verbose: int = 0
-) -> List[str]:
-    r"""
-        Lists all media files within a specific directory (and sub-directories if `recursive=True`)
-
-    Args:
-        DIR (str): Directory to search for media files
-        recursive (bool): Indicate whether to search all subdirectories as well (default = False)
-        use_fullpath (bool): Include full filepaths in the returned list (default = False)
-        show_size (bool): Prints the disk size of the media files (default = False)
-
-    Returns:
-        media_files (list): List of names (or full filepaths if `use_fullpath=True`) of the media files
-
-    """
-
-    media = _get_media_from_dir(
-        DIR=DIR,
-        recursive=recursive,
-        use_fullpath=use_fullpath,
-        show_size=show_size,
-        list_image_files=True,
-        list_video_files=True,
-        verbose=verbose,
-    )
-
-    if media is not None:
-        return media  # media is a list
-
-
-def _get_media_from_dir(
-    DIR: str,
-    recursive: bool = True,
-    use_fullpath: bool = False,
-    show_size: bool = True,
-    list_image_files: bool = False,
-    list_video_files: bool = False,
-    verbose: int = 1,
-) -> List[str]:
-    r"""
-        Lists all media files within a specific directory (and sub-directories if `recursive=True`)
-
-    Args:
-        DIR (str): Directory to search for media files
-        recursive (bool): Indicate whether to search all subdirectories as well (default = False)
-        use_fullpath (bool): Include full filepaths in the returned list (default = False)
-        show_size (bool): Prints the disk size of the media files (default = False)
-
-    Returns:
-        media_files (list): List of names (or full filepaths if `use_fullpath=True`) of the media files
-
-    """
-
-    if not exists(DIR):
-        raise ValueError("Specified directory does not exist")
-
-    list_media_files = False
-    if list_video_files and list_image_files:
-        list_media_files = True
-
-    video_files = []
-    image_files = []
-    size_image_list = 0
-    size_video_list = 0
-
-    if recursive:
-        for root, _, files in os.walk(DIR):
-            for file in files:
-                fullpath = minijoin(root, file).replace("\\", "/")
-                decider = _is_extension_acceptable(file)
-
-                if decider == -1:
-                    continue
-
-                elif decider == 0:  # if image
-                    size_image_list += get_size(fullpath, disp_format="mb")
-                    if use_fullpath:
-                        image_files.append(fullpath)
-                    else:
-                        image_files.append(file)
-
-                elif decider == 1:  # if video
-                    size_video_list += get_size(fullpath, disp_format="mb")
-                    if use_fullpath:
-                        video_files.append(fullpath)
-                    else:
-                        video_files.append(file)
-
-    else:
-        for file in os.listdir(DIR):
-            fullpath = minijoin(DIR, file).replace("\\", "/")
-            decider = _is_extension_acceptable(file)
-
-            if decider == -1:
-                continue
-
-            elif decider == 0:  # if image
-                size_image_list += get_size(fullpath, disp_format="mb")
-                if use_fullpath:
-                    image_files.append(fullpath)
-                else:
-                    image_files.append(file)
-
-            elif decider == 1:  # if video
-                size_video_list += get_size(fullpath, disp_format="mb")
-                if use_fullpath:
-                    video_files.append(fullpath)
-                else:
-                    video_files.append(file)
-
-    count_image_list = len(image_files)
-    count_video_list = len(video_files)
-
-    if count_image_list == 0 and count_video_list == 0:
-        print("[ERROR] No media files were found")
-
-    else:
-        if list_media_files:
-            if verbose != 0:
-                tot_count = count_image_list + count_video_list
-                print(f"[INFO] {tot_count} files found")
-                if show_size:
-                    tot_size = size_image_list + size_video_list
-                    print(f"[INFO] Total disk size of media files were {tot_size:.2f}Mb ")
-
-            media_files = image_files + video_files
-            return media_files
-
-        elif list_image_files:
-            if verbose != 0:
-                print(f"[INFO] {count_image_list} images found")
-                if show_size:
-                    print(f"[INFO] Total disk size of media files were {size_image_list:.2f}Mb ")
-
-            return image_files
-
-        elif list_video_files:
-            if verbose != 0:
-                print(f"[INFO] {count_video_list} videos found")
-                if show_size:
-                    print(f"[INFO] Total disk size of videos were {size_video_list:.2f}Mb ")
-
-            return video_files
+    return listdir(DIR=DIR, recursive=recursive, use_fullpath=use_fullpath, ext = _acceptable_video_formats, verbose=verbose, every=every)
 
 
 def listdir(
-    DIR: str, recursive: bool = True, use_fullpath: bool = False, show_size: bool = True, verbose: int = 1
-) -> List[str]:
+        DIR : str,
+        recursive : bool = False, 
+        use_fullpath: bool = False, 
+        ext : Union[str, List[str]] = None, 
+        verbose : (bool, int) = True,
+        every : int = 1000
+    ) -> List[str]:
     r"""
-        Lists all files within a specific directory (and sub-directories if `recursive=True`)
-
+        Lists all files within a specific directory (and sub-directories if `recursive=True`).
+        This can be filtered for certain extensions (by populating `ext`)
+    
     Args:
         DIR (str): Directory to search for files
         recursive (bool): Indicate whether to search all subdirectories as well (default = False)
         use_fullpath (bool): Include full filepaths in the returned list (default = False)
+        ext (str, list(str), tuple(str)): Filter by extension names.
         show_size (bool): Prints the disk size of the files (default = False)
-
+        verbose (bool): Print info
+        every (int): If ``verbose = True``, logging info is displayed after every `every` times.
+    
     Returns:
         files (list): List of names (or full filepaths if `use_fullpath=True`) of the files
 
@@ -268,43 +104,66 @@ def listdir(
         raise ValueError("recursive must be a boolean")
 
     if not isinstance(use_fullpath, bool):
-        raise ValueError("use_fullpath must be a boolean")
+        raise TypeError('use_fullpath must be a boolean')
 
-    if not isinstance(show_size, bool):
-        raise ValueError("show_size must be a boolean")
+    if ext is not None:
+        if not isinstance(ext, (str, list, tuple)):
+            raise TypeError("`ext` must either be of type `str`, or tuple/list of `str`")
 
-    dirs = []
-    count_files = 0
-    size_dirs_list = 0
+        if isinstance(ext, (list, tuple)):
+            for i in ext:
+                if not isinstance(i, str):
+                    raise TypeError("`ext` must be a homogenous list of `str`")
+    
+    if not isinstance(verbose, bool):
+        if isinstance(verbose, int) and verbose not in [0, 1]:
+            raise TypeError('verbose must be a boolean (either True or False)')
+        raise TypeError('verbose must be a boolean (either True or False)')
+    
+    if not isinstance(every, int):
+        raise TypeError("`every` must be an int")
 
+    dirs : list = []
+    count_files : int = 0
+    
+    start = time()
+    count = 0
     if recursive:
         for root, _, files in os.walk(DIR):
             for file in files:
-                fullpath = minijoin(root, file).replace("\\", "/")
-                size_dirs_list += get_size(fullpath, disp_format="mb")
+                if ext is not None and not file.endswith(ext):
+                    continue
+                count += 1
+                fullpath = join(root, file).replace('\\', '/')
                 if use_fullpath:
                     dirs.append(fullpath)
                 else:
                     dirs.append(file)
 
+                if verbose is True and count % every == 0:
+                    print(f"[INFO] At {count} files") # come up with a better log message!
+
     else:
         for file in os.listdir(DIR):
-            fullpath = minijoin(DIR, file).replace("\\", "/")
-            size_dirs_list += get_size(fullpath, disp_format="mb")
+            if ext is not None and not file.endswith(ext):
+                continue
+            count += 1
+            fullpath = join(DIR, file).replace('\\', '/')
             if use_fullpath:
                 dirs.append(fullpath)
             else:
                 dirs.append(file)
-
-    if verbose != 0:
+            
+            if verbose is True and count % every == 0:
+                print(f"[INFO] At {count} files") # come up with a better log message!
+    end = time()
+    
+    if verbose is True:
         count_files = len(dirs)
         if count_files == 1:
-            print(f"[INFO] {count_files} file found")
+            print(f'[INFO] {count_files} file found in {end-start}s')
         else:
-            print(f"[INFO] {count_files} files found")
-
-        if show_size:
-            print(f"[INFO] Total disk size of files were {size_dirs_list:.2f}Mb ")
+            print(f'[INFO] {count_files} files found in {end-start}s')
 
     return dirs
 
@@ -323,7 +182,7 @@ def is_image(path: str) -> bool:
     """
 
     if not isinstance(path, str):
-        raise ValueError("path must be a string")
+        raise TypeError('path must be a string')
 
     if path.endswith(_acceptable_image_formats):
         return True
@@ -350,34 +209,6 @@ def is_video(path: str) -> bool:
         return True
 
     return False
-
-
-def _is_extension_acceptable(path: str) -> bool:
-    """
-    0 --> Image
-    1 --> Video
-    """
-    # char_total = len(file)
-    # # Finding the last index of '.' to grab the extension
-    # try:
-    #     idx = file.rindex('.')
-    # except ValueError:
-    #     return -1
-    # file_ext = file[idx:char_total]
-
-    # if file_ext in _acceptable_image_formats:
-    #     return 0
-    # elif file_ext in _acceptable_video_formats:
-    #     return 1
-    # else:
-    #     return -1
-
-    if is_image(path):
-        return 0
-    elif is_video(path):
-        return 1
-    else:
-        return -1
 
 
 def osname() -> str:
@@ -407,9 +238,7 @@ def exists(path: str) -> bool:
     if not isinstance(path, str):
         raise ValueError("Filepath must be a string")
 
-    if os.path.exists(path):
-        return True
-    return False
+    return os.path.exists(path)
 
 
 def isfile(path: str) -> bool:
@@ -508,7 +337,7 @@ def get_size(file: str, disp_format: str = "bytes") -> float:
         return size * 1e-12
 
 
-def minijoin(*paths) -> str:
+def join(*paths) -> str:
     r"""
     Join multiple filepaths together
 

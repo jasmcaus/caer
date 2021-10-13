@@ -12,7 +12,7 @@
 
 import cv2 as cv
 
-from ..adorad import Tensor, to_tensor
+from ..coreten import Tensor, to_tensor
 from ._constants import BGR2RGB, BGR2GRAY, BGR2HSV, BGR2LAB, BGR2HLS, BGR2YUV, BGR2LUV
 
 __all__ = [

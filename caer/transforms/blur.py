@@ -12,12 +12,15 @@
 import cv2 as cv 
 import numpy as np 
 
-from ..adorad import Tensor
+from ..coreten import Tensor
 from .position import _proc_in_chunks
 
 
 __all__ = [
-
+    'blur',
+    'gaussian_blur',
+    'median_blur',
+    'motion_blur'
 ]
 
 def blur(tens, ksize) -> Tensor:

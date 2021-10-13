@@ -27,7 +27,7 @@ def test_list_images():
     images_list = caer.path.list_images(DIR, recursive=True, use_fullpath=True)
 
     assert images_list is not None 
-    assert len(images_list) == 18 #There are 18 images & 7 videos in tests/media
+    assert len(images_list) == 3 # There are 3 images & 3 videos in tests/media
 
     for i in images_list:
         assert os.path.exists(i) 
@@ -39,21 +39,9 @@ def test_list_videos():
     videos_list = caer.path.list_videos(DIR, recursive=True, use_fullpath=True)
 
     assert videos_list is not None 
-    assert len(videos_list) == 7 #There are 18 images & 7 videos in tests/media
+    assert len(videos_list) == 3 #There are 3 images & 3 videos in tests/media
 
     for i in videos_list:
-        assert os.path.exists(i) 
-
-
-def test_list_media():
-    DIR = PATH_TO_MEDIA_FILES
-
-    media_list = caer.path.list_media(DIR, recursive=True, use_fullpath=True)
-
-    assert media_list is not None 
-    assert len(media_list) == 25 #There are 18 images & 7 videos in tests/media
-
-    for i in media_list:
         assert os.path.exists(i) 
 
 
@@ -63,26 +51,26 @@ def test_listdir():
     dir_list = caer.path.listdir(DIR, recursive=True, use_fullpath=True)
 
     assert dir_list is not None 
-    assert len(dir_list) == 26 #There are 18 images, 7 videos and 1 README.md in tests/media
+    assert len(dir_list) == 7 # There are 3 images, 3 videos and 1 README.md in tests/media
 
     for i in dir_list:
         assert os.path.exists(i) 
 
 
 def test_is_image():
-    IMAGE = os.path.join(PATH_TO_MEDIA_FILES, 'birger-strahl-CkZhVAV5ZNE-unsplash.jpg')
+    IMAGE = os.path.join(PATH_TO_MEDIA_FILES, 'silvestri-matteo-6-C0VRsagUw-unsplash.jpg')
 
     assert caer.path.is_image(IMAGE)
 
 
 def test_is_video():
-    VIDEO = os.path.join(PATH_TO_MEDIA_FILES, 'Keyboard - 1046.mp4')
+    VIDEO = os.path.join(PATH_TO_MEDIA_FILES, 'Bird - 46026.mp4')
 
     assert caer.path.is_video(VIDEO)
 
 
 def test_isfile():
-    FILE = os.path.join(PATH_TO_MEDIA_FILES, 'birger-strahl-CkZhVAV5ZNE-unsplash.jpg')
+    FILE = os.path.join(PATH_TO_MEDIA_FILES, 'silvestri-matteo-6-C0VRsagUw-unsplash.jpg')
 
     assert caer.path.isfile(FILE) == os.path.isfile(FILE)
 
@@ -94,7 +82,7 @@ def test_isdir():
 
 
 def test_get_size():
-    FILE = os.path.join(PATH_TO_MEDIA_FILES, 'GoPro', 'gopro3.mp4')
+    FILE = os.path.join(PATH_TO_MEDIA_FILES, 'Nature', 'Bird - 46026.mp4')
 
     assert caer.path.get_size(FILE, 'bytes') == os.path.getsize(FILE)
     assert caer.path.get_size(FILE, 'kb') == (os.path.getsize(FILE) * 1e-3)

@@ -7,32 +7,11 @@
 ### [data](data)
 Test images and example data.
 
-### [distance](distance)
-Distance-computing algorithms
-
-### [exposure](exposure)
-Image intensity adjustment, e.g., histogram equalization, etc.
-
-### [features](features)
-Feature detection and extraction, e.g., texture analysis corners, etc.
-
-### [filters](filters)
-Sharpening, edge finding, rank filters, thresholding, etc.
-
-### [morph](morph)
-Morphological operations, e.g., skeletonization.
-
 ### [path](path)
 OS-specific Path Manipulations
 
 ### [preprocessing](preprocessing)
 Image preprocessing utilities
-
-### [segmentation](segmentation)
-Partitioning an image into multiple regions.  
-
-### [utils](utils)
-Generic utilities.
 
 ### [video](video)
 Video processing utilities

@@ -17,7 +17,7 @@ from urllib.request import urlopen
 # from urllib.error import URLError
 
 from .resize import resize
-from ..adorad import to_tensor, Tensor
+from ..coreten import to_tensor, Tensor
 from ..color import rgb2bgr, to_bgr
 from ..path import exists
 from .._internal import _check_target_size
