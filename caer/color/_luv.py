@@ -30,7 +30,7 @@ def _is_luv_image(tens):
     return len(tens.shape) == 3 and tens.shape[-1] == 3
 
 
-def luv2bgr(tens) -> Tensor:
+def luv2bgr(tens: Tensor) -> Tensor:
     r'''
         Converts an LUV Tensor to its BGR version.
 
@@ -53,7 +53,7 @@ def luv2bgr(tens) -> Tensor:
     return to_tensor(im, cspace='bgr')
 
 
-def luv2rgb(tens) -> Tensor:
+def luv2rgb(tens: Tensor) -> Tensor:
     r'''
         Converts a LUV Tensor to its RGB version.
 
@@ -76,7 +76,7 @@ def luv2rgb(tens) -> Tensor:
     return to_tensor(im, cspace='rgb')
 
 
-def luv2gray(tens) -> Tensor:
+def luv2gray(tens: Tensor) -> Tensor:
     r'''
         Converts an LUV Tensor to its GRAY version.
 
@@ -100,7 +100,7 @@ def luv2gray(tens) -> Tensor:
     return to_tensor(im, cspace='gray')
 
 
-def luv2hls(tens) -> Tensor:
+def luv2hls(tens: Tensor) -> Tensor:
     r'''
         Converts an LUV Tensor to its HLS version.
 
@@ -124,7 +124,7 @@ def luv2hls(tens) -> Tensor:
     return to_tensor(im, cspace='hls')
 
 
-def luv2hsv(tens) -> Tensor:
+def luv2hsv(tens: Tensor) -> Tensor:
     r'''
         Converts an LUV Tensor to its HSV version.
 
@@ -148,7 +148,7 @@ def luv2hsv(tens) -> Tensor:
     return to_tensor(im, cspace='hsv')
 
 
-def luv2lab(tens) -> Tensor:
+def luv2lab(tens: Tensor) -> Tensor:
     r'''
         Converts an LUV Tensor to its LAB version.
 
@@ -172,7 +172,7 @@ def luv2lab(tens) -> Tensor:
     return to_tensor(im, cspace='lab')
 
 
-def luv2yuv(tens) -> Tensor:
+def luv2yuv(tens: Tensor) -> Tensor:
     r'''
         Converts an LUV Tensor to its YUV version.
 

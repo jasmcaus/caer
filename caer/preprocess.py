@@ -19,6 +19,7 @@ from .io import imread
 from ._internal import _check_target_size
 from .path import join, list_images
 from .color import to_gray
+from .annotations import Optional,List,Tuple
 
 __all__ = [
     'preprocess_from_dir',
@@ -28,14 +29,14 @@ __all__ = [
 ]
 
 
-def preprocess_from_dir(DIR, 
-                        classes=None, 
-                        IMG_SIZE=None, 
-                        channels=3, 
-                        isShuffle=True, 
-                        save_data=False, 
-                        destination_filename=None, 
-                        verbose=True):
+def preprocess_from_dir(DIR:str, 
+                        classes:Optional[List[str]]=None, 
+                        IMG_SIZE:Optional[Tuple[int,int]]=None, 
+                        channels:int=3, 
+                        isShuffle:bool=True, 
+                        save_data:bool=False, 
+                        destination_filename:Optional[str]=None, 
+                        verbose:bool=True):
     """
     Reads Images in base directory DIR using 'classes' (computed from sub directories )
     Arguments:
@@ -169,7 +170,7 @@ def normalize(x, dtype='float32'):
     x = x.astype(dtype) / 255
     return x
 
-def sep_train(data, IMG_SIZE, channels=1):
+def sep_train(data, IMG_SIZE:Tuple[int,int], channels:int=1):
     # x = []
     # y = []
     # for feature, label in data:
@@ -191,7 +192,7 @@ def sep_train(data, IMG_SIZE, channels=1):
     return x, y
 
 
-def reshape(x, IMG_SIZE, channels):
+def reshape(x, IMG_SIZE:Tuple[int,int], channels:int):
     _ = _check_target_size(IMG_SIZE)
 
     width, height = IMG_SIZE[:2]

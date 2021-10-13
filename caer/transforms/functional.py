@@ -17,6 +17,7 @@ import math
 import numpy as np 
 
 from ..coreten import Tensor, to_tensor
+from ..annotations import Tuple
 
 from ..color import (
     to_hls, 
@@ -226,7 +227,7 @@ def _gravel_process(tens, x1, x2, y1, y2, num_patches):
     return to_tensor(tens, cspace=cspace)
 
 
-def flare_source(tens, point, radius, src_color) -> Tensor:
+def flare_source(tens:Tensor, point:int, radius:int, src_color: Tuple[int]) -> Tensor:
     r"""
         Add a source of light (flare) on an specific region of an image.
 
