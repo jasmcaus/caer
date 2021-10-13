@@ -19,7 +19,7 @@ import cv2 as cv
 from .constants import FPS
 
 __all__ = [
-    'LiveStream'
+    "LiveStream"
 ]
 
 """
@@ -61,7 +61,7 @@ class LiveStream:
         self.fps = math.ceil(self.stream.get(FPS))
 
         # Initializing the thread name
-        self.thread_name = 'DefaultVideoStream'
+        self.thread_name = "DefaultVideoStream"
 
         # Boolean to check whether stream should be killed
         self.kill_stream = False
@@ -91,7 +91,7 @@ class LiveStream:
     # # Gets frame count
     # def count_frames(self):
     #     if not self.kill_stream:
-    #         if get_opencv_version() == '2':
+    #         if get_opencv_version() == "2":
     #             return int(self.stream.get(FRAME_COUNT_DEPR))
     #         else:
     #             return int(self.stream.get(FRAME_COUNT))
@@ -100,7 +100,7 @@ class LiveStream:
     def get_fps(self):
         if not self.kill_stream:
             return self.fps
-            # if get_opencv_version() == '2':
+            # if get_opencv_version() == "2":
             #     return math.ceil(self.stream.get(FPS_DEPR))
             # else:
             #     return math.ceil(self.stream.get(FPS))

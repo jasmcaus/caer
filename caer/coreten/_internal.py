@@ -21,7 +21,11 @@ __all__ = [
 
 
 def from_numpy(
-    x: np.ndarray, cspace: str, dtype=None, override_checks: bool = False, enforce_tensor: bool = False
+    x: np.ndarray, 
+    cspace: str, 
+    dtype=None, 
+    override_checks: bool = False, 
+    enforce_tensor: bool = False
 ) -> Tensor:
     r"""
         Convert a Numpy Array to a Caer Tensor.
@@ -95,7 +99,7 @@ def to_tensor(
         return from_numpy(x, cspace=cspace, override_checks=override_checks, enforce_tensor=enforce_tensor) # type: ignore[arg-type]
 
     # If PIL Image
-    elif 'PIL' in str(type(x)):
+    elif "PIL" in str(type(x)):
         if cspace is None:
             raise ValueError("The `cspace` attribute must be specified when converting from foreign arrays to a caer.Tensor. Supported values: bgr/rgb/gray/hsv/hls/lab.")
 

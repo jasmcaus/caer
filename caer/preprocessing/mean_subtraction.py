@@ -27,10 +27,10 @@ import cv2 as cv
 """
 
 __all__ = [
-    'MeanProcess',
-    'compute_mean',
-    'compute_mean_from_dir',
-    'subtract_mean',
+    "MeanProcess",
+    "compute_mean",
+    "compute_mean_from_dir",
+    "subtract_mean",
 ]
 
 class MeanProcess:
@@ -52,7 +52,7 @@ class MeanProcess:
         """
 
         if channels == 3:
-            b, g, r = cv.split(image.astype('float32'))[:3]
+            b, g, r = cv.split(image.astype("float32"))[:3]
 
             # Subtracting the mean
             r -= self.rMean
@@ -91,13 +91,13 @@ def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True, recursive
         tens = imread(tens_filepath, rgb=True)
 
         if channels == 3:
-            b, g, r = cv.mean(tens.astype('float32'))[:3]
+            b, g, r = cv.mean(tens.astype("float32"))[:3]
             rMean += r
             bMean += b
             gMean += g
 
         if channels == 1:
-            bgrMean += np.mean(tens.astype('float32'))
+            bgrMean += np.mean(tens.astype("float32"))
 
     # Computing average mean
     if channels == 3:
@@ -139,12 +139,12 @@ def compute_mean(data, channels, per_channel_subtraction=True) -> Union[Tuple, N
     for tens in data:
         count += 1
         if channels == 3:
-            b, g, r = cv.mean(tens.astype('float32'))[:3]
+            b, g, r = cv.mean(tens.astype("float32"))[:3]
             rMean += r
             gMean += g
             bMean += b
         if channels == 1:
-            bgrMean += np.mean(tens.astype('float32'))
+            bgrMean += np.mean(tens.astype("float32"))
 
     # Computing average mean
     if channels == 3:

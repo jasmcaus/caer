@@ -20,18 +20,18 @@ from .constants import FRAME_COUNT, FPS
 from ..io import imsave, resize
 from ..annotations import Tuple,Optional,Union
 __all__ = [
-    'extract_frames'
+    "extract_frames"
 ]
 
-def extract_frames(input_folder : str,
-                   output_folder : str,
-                   target_size : Optional[Tuple[int, int]] = None, 
-                   recursive : bool = False,
-                   label_counter : int = None, 
-                   max_video_count : int = None, 
-                   frames_per_sec : Optional[Union[int,float]] = None, 
-                   frame_interval : Optional[Union[int,float]] = None,
-                   dest_filetype : str = 'jpg'
+def extract_frames(input_folder: str,
+                   output_folder: str,
+                   target_size: Optional[Tuple[int, int]] = None, 
+                   recursive: bool = False,
+                   label_counter: int = None, 
+                   max_video_count: int = None, 
+                   frames_per_sec: Optional[Union[int,float]] = None, 
+                   frame_interval: Optional[Union[int,float]] = None,
+                   dest_filetype: str = "jpg"
     ) -> int:
     r"""
         Extract frames from videos within a directory and save them as separate frames in an output directory.
@@ -52,7 +52,7 @@ def extract_frames(input_folder : str,
 
     """
 
-    dest_filetype.replace('.', '')
+    dest_filetype.replace(".", "")
     processed_videos = 0
     vid_count = 0 # to check if < max_video_count
 
@@ -60,7 +60,7 @@ def extract_frames(input_folder : str,
         raise ValueError(f"Input folder `{input_folder}` does not exist")
     
     if target_size is not None:
-        _ = _check_target_size(target_size)
+        _check_target_size(target_size)
     
     video_list = list_videos(input_folder, recursive=recursive, use_fullpath=True, verbose=False)
 
@@ -88,7 +88,7 @@ def extract_frames(input_folder : str,
             # Find the number of frames and FPS
             video_frame_count = int(capture.get(FRAME_COUNT)) - 1
             video_fps = math.ceil(capture.get(FPS))
-            file = vid_filepath[vid_filepath.rindex('/')+1:]
+            file = vid_filepath[vid_filepath.rindex("/")+1:]
             
             if frames_per_sec is not None:
                 if frame_interval is None:
@@ -103,7 +103,7 @@ def extract_frames(input_folder : str,
             
             # processed_frames = (video_frame_count//video_fps) * frames_per_sec
 
-            print(f"{vid_count}. Reading \'{file}\'. Frame Count: {video_frame_count}. FPS: {video_fps}. Processed frames: {video_frame_count//interval}")
+            print(f"{vid_count}. Reading '{file}'. Frame Count: {video_frame_count}. FPS: {video_fps}. Processed frames: {video_frame_count//interval}")
             
             # Start converting the video
             while capture.isOpened():
@@ -142,9 +142,9 @@ def extract_frames(input_folder : str,
 
 
 def _determine_interval(x : Union[int, float]) -> Union[int, float]:
-    y = '{x:.1f}'
-    inde = y.find('.') + 1
-    if inde == -1: # if no '.' (if an integer)
+    y = "{x:.1f}"
+    inde = y.find(".") + 1
+    if inde == -1: # if no "." (if an integer)
         return x
 
     if int(y[inde]) < 5:

@@ -11,10 +11,10 @@
 
 
 __all__ = [
-    'FPS',
-    'FRAME_COUNT',
-    'FRAME_WIDTH',
-    'FRAME_HEIGHT'
+    "FPS",
+    "FRAME_COUNT",
+    "FRAME_WIDTH",
+    "FRAME_HEIGHT"
 ]
 
 

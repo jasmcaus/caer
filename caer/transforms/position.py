@@ -22,10 +22,10 @@ from ..globals import (
 from ..annotations import Union,Tuple,Optional
 
 pad_to_str = {
-    'constant':  0,
-    'edge':      1,
-    'reflect':   4,
-    'symmetric': 2
+    "constant":  0,
+    "edge":      1,
+    "reflect":   4,
+    "symmetric": 2
 }
 
 MAX_VALUES_BY_DTYPE = {
@@ -36,19 +36,19 @@ MAX_VALUES_BY_DTYPE = {
 }
 
 __all__ = [
-    'hflip',
-    'vflip',
-    'hvflip',
-    'rand_flip',
-    'transpose',
-    'scale',
-    'rotate',
-    'translate',
-    'solarize',
-    'posterize',
-    'equalize',
-    'clip',
-    'pad'
+    "hflip",
+    "vflip",
+    "hvflip",
+    "rand_flip",
+    "transpose",
+    "scale",
+    "rotate",
+    "translate",
+    "solarize",
+    "posterize",
+    "equalize",
+    "clip",
+    "pad"
 ]
 
 def _is_rgb_image(tens):
@@ -187,19 +187,19 @@ def translate(image:Tensor, x:int, y:int) -> Tensor:
     return cv.warpAffine(image, transMat, (image.shape[1], image.shape[0]))
 
 
-def scale(tens: Tensor, scale_factor:int, interpolation='bilinear') -> Tensor:
+def scale(tens: Tensor, scale_factor:int, interpolation="bilinear") -> Tensor:
     interpolation_methods = {
-        'nearest': INTER_NEAREST, '0': INTER_NEAREST, 0: INTER_NEAREST, # 0
-        'bilinear': INTER_LINEAR, '1': INTER_LINEAR,  1: INTER_LINEAR,  # 1
-        'bicubic': INTER_CUBIC,   '2': INTER_CUBIC,   2: INTER_CUBIC,   # 2
-        'area': INTER_AREA,       '3': INTER_AREA,    3: INTER_AREA     # 3
+        "nearest": INTER_NEAREST, "0": INTER_NEAREST, 0: INTER_NEAREST, # 0
+        "bilinear": INTER_LINEAR, "1": INTER_LINEAR,  1: INTER_LINEAR,  # 1
+        "bicubic": INTER_CUBIC,   "2": INTER_CUBIC,   2: INTER_CUBIC,   # 2
+        "area": INTER_AREA,       "3": INTER_AREA,    3: INTER_AREA     # 3
     }
     if interpolation not in interpolation_methods:
         raise ValueError("Specify a valid interpolation type - area/nearest/bicubic/bilinear")
 
     if scale_factor > 1:
         # Neater, more precise
-        interpolation = 'bicubic'
+        interpolation = "bicubic"
 
     height, width = tens.shape[:2]
     new_height, new_width = int(height * scale_factor), int(width * scale_factor)
@@ -208,7 +208,7 @@ def scale(tens: Tensor, scale_factor:int, interpolation='bilinear') -> Tensor:
     return to_tensor(tens, override_checks=True)
 
 
-def pad(tens: Tensor, padding:Union[int,Tuple], fill:int=0, padding_mode='constant') -> Tensor:
+def pad(tens: Tensor, padding:Union[int,Tuple], fill:int=0, padding_mode="constant") -> Tensor:
     r"""
         Pad the given image on all sides with specified padding mode and fill value.
 
@@ -334,7 +334,7 @@ def rand_crop(tens: Tensor, crop_height, crop_width, h_start, w_start) -> Tensor
 
 
 def _compute_centre_crop(tens, target_size) -> Tensor:
-    _ = _check_target_size(target_size)
+    _check_target_size(target_size)
 
     # Getting org height and target
     org_h, org_w = tens.shape[:2]

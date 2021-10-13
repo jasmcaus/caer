@@ -16,8 +16,6 @@ from .mean_subtraction import compute_mean_from_dir
 from .mean_subtraction import subtract_mean
 from .mean_subtraction import _check_mean_sub_values
 
-
-# __all__ globals 
 from .mean_subtraction import __all__ as __all_mean__ 
 
 __all__ = __all_mean__

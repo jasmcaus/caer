@@ -17,10 +17,10 @@ import numpy as np
 
 from ..coreten import Tensor
 
-here = join(__curr__, 'data').replace('\\', "/") + "/"
+HERE = join(__curr__, 'data').replace('\\', "/") + "/"
 
 def _get_path_to_data(name) -> str:
-    return join(here, name)
+    return join(HERE, name)
 
 
 def audio_mixer(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -42,7 +42,7 @@ def audio_mixer(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True)
         (427, 640, 3)
 
     """
-    return imread(here+'audio_mixer.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'audio_mixer.jpg', target_size=target_size, rgb=rgb)
 
 
 def bear(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -64,7 +64,7 @@ def bear(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Ten
         (427, 640, 3)
 
     """
-    return imread(here+'bear.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'bear.jpg', target_size=target_size, rgb=rgb)
 
 
 def beverages(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -86,7 +86,7 @@ def beverages(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -
         (427, 640, 3)
         
     """
-    return imread(here+'beverages.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'beverages.jpg', target_size=target_size, rgb=rgb)
 
 
 def black_cat(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -108,7 +108,7 @@ def black_cat(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -
         (427, 640, 3)
         
     """
-    return imread(here+'black_cat.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'black_cat.jpg', target_size=target_size, rgb=rgb)
 
 
 def blue_tang(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -130,7 +130,7 @@ def blue_tang(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -
         (414, 640, 3)
         
     """
-    return imread(here+'blue_tang.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'blue_tang.jpg', target_size=target_size, rgb=rgb)
 
 
 def camera(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -152,7 +152,7 @@ def camera(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> T
         (427, 640, 3)
         
     """
-    return imread(here+'camera.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'camera.jpg', target_size=target_size, rgb=rgb)
 
 
 def controller(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -174,7 +174,7 @@ def controller(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) 
         (427, 640, 3)
         
     """
-    return imread(here+'controller.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'controller.jpg', target_size=target_size, rgb=rgb)
 
 
 def drone(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -196,7 +196,7 @@ def drone(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Te
         (358, 640, 3)
         
     """
-    return imread(here+'drone.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'drone.jpg', target_size=target_size, rgb=rgb)
 
 
 def dusk(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -218,7 +218,7 @@ def dusk(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Ten
         (427, 640, 3)
         
     """
-    return imread(here+'dusk.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'dusk.jpg', target_size=target_size, rgb=rgb)
 
 
 def fighter_fish(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -240,7 +240,7 @@ def fighter_fish(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True
         (640, 640, 3)
         
     """
-    return imread(here+'fighter_fish.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'fighter_fish.jpg', target_size=target_size, rgb=rgb)
 
 
 def gold_fish(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -262,7 +262,7 @@ def gold_fish(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -
         (901, 640, 3)
         
     """
-    return imread(here+'gold_fish.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'gold_fish.jpg', target_size=target_size, rgb=rgb)
 
 
 def green_controller(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -284,7 +284,7 @@ def green_controller(target_size: Optional[Tuple[int, int]] = None, rgb: bool = 
         (512, 640, 3)
         
     """
-    return imread(here+'green_controller.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'green_controller.jpg', target_size=target_size, rgb=rgb)
 
 
 def green_fish(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -306,7 +306,7 @@ def green_fish(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) 
         (430, 640, 3)
         
     """
-    return imread(here+'green_fish.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'green_fish.jpg', target_size=target_size, rgb=rgb)
 
 
 def guitar(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -328,7 +328,7 @@ def guitar(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> T
         (427, 640, 3)
         
     """
-    return imread(here+'guitar.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'guitar.jpg', target_size=target_size, rgb=rgb)
 
 
 def island(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -350,7 +350,7 @@ def island(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> T
         (426, 640, 3)
         
     """
-    return imread(here+'island.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'island.jpg', target_size=target_size, rgb=rgb)
 
 
 def jellyfish(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -372,7 +372,7 @@ def jellyfish(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -
         (427, 640, 3)
         
     """
-    return imread(here+'jellyfish.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'jellyfish.jpg', target_size=target_size, rgb=rgb)
 
 
 def laptop(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -394,7 +394,7 @@ def laptop(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> T
         (427, 640, 3)
         
     """
-    return imread(here+'laptop.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'laptop.jpg', target_size=target_size, rgb=rgb)
 
 
 def mountain(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -416,7 +416,7 @@ def mountain(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) ->
         (427, 640, 3)
         
     """
-    return imread(here+'mountain.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'mountain.jpg', target_size=target_size, rgb=rgb)
 
 
 def night(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -438,7 +438,7 @@ def night(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Te
         (427, 640, 3)
         
     """
-    return imread(here+'night.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'night.jpg', target_size=target_size, rgb=rgb)
 
 
 def puppies(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -460,7 +460,7 @@ def puppies(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> 
         (427, 640, 3)
         
     """
-    return imread(here+'puppies.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'puppies.jpg', target_size=target_size, rgb=rgb)
 
 
 def puppy(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -482,7 +482,7 @@ def puppy(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Te
         (512, 640, 3)
         
     """
-    return imread(here+'puppy.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'puppy.jpg', target_size=target_size, rgb=rgb)
 
 
 def red_fish(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -504,7 +504,7 @@ def red_fish(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) ->
         (427, 640, 3)
         
     """
-    return imread(here+'red_fish.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'red_fish.jpg', target_size=target_size, rgb=rgb)
 
 
 def phone(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -526,7 +526,7 @@ def phone(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Te
         (427, 640, 3)
         
     """
-    return imread(here+'rotary_phone.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'rotary_phone.jpg', target_size=target_size, rgb=rgb)
 
 
 def sea_turtle(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -548,7 +548,7 @@ def sea_turtle(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) 
         (400, 640, 3)
         
     """
-    return imread(here+'sea_turtle.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'sea_turtle.jpg', target_size=target_size, rgb=rgb)
 
 
 def snow(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -570,7 +570,7 @@ def snow(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Ten
         (360, 640, 3)
         
     """
-    return imread(here+'snow.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'snow.jpg', target_size=target_size, rgb=rgb)
 
 
 def snowflake(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -592,7 +592,7 @@ def snowflake(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -
         (480, 640, 3)
         
     """
-    return imread(here+'snowflake.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'snowflake.jpg', target_size=target_size, rgb=rgb)
 
 
 def sunrise(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -614,7 +614,7 @@ def sunrise(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> 
         (427, 640, 3)
         
     """
-    return imread(here+'sunrise.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'sunrise.jpg', target_size=target_size, rgb=rgb)
 
 
 def tent(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
@@ -636,7 +636,7 @@ def tent(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Ten
         (427, 640, 3)
         
     """
-    return imread(here+'tent.jpg', target_size=target_size, rgb=rgb)
+    return imread(HERE+'tent.jpg', target_size=target_size, rgb=rgb)
 
 
 __all__ = [d for d in dir() if not d.startswith('_')]

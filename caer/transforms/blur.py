@@ -15,10 +15,10 @@ import numpy as np
 from ..coreten import Tensor
 
 __all__ = [
-    'blur',
-    'gaussian_blur',
-    'median_blur',
-    'motion_blur'
+    "blur",
+    "gaussian_blur",
+    "median_blur",
+    "motion_blur"
 ]
 
 def blur(tens: Tensor, ksize:int) -> Tensor:
