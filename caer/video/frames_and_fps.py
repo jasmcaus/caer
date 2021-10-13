@@ -12,6 +12,7 @@
 
 from .stream import Stream
 from ..path import exists
+from ..annotations import Optional
 
 __all__ = [
     'count_frames',
@@ -19,7 +20,7 @@ __all__ = [
 ]
 
 
-def count_frames(video_path):
+def count_frames(video_path:str):
     r"""
         Returns the number of frames in a video at ``video_path``.
 
@@ -39,7 +40,7 @@ def count_frames(video_path):
     return frame_count
 
 
-def get_fps(video_path=None):
+def get_fps(video_path:Optional[str]=None):
     r"""
         Returns the FPS in a video at ``video_path``.
 

@@ -18,20 +18,20 @@ from .._internal import _check_target_size
 from ..path import list_videos, exists, mkdir
 from .constants import FRAME_COUNT, FPS
 from ..io import imsave, resize
-
+from ..annotations import Tuple,Optional,Union
 __all__ = [
     'extract_frames'
 ]
 
-def extract_frames(input_folder, 
-                   output_folder, 
-                   target_size=None, 
-                   recursive=False,
-                   label_counter = None, 
-                   max_video_count=None, 
-                   frames_per_sec=None, 
-                   frame_interval=None,
-                   dest_filetype='jpg') -> int:
+def extract_frames(input_folder:str, 
+                   output_folder:str, 
+                   target_size: Optional[Tuple[int, int]]=None, 
+                   recursive:int=False,
+                   label_counter:int = None, 
+                   max_video_count:int=None, 
+                   frames_per_sec:Optional[Union[int,float]]=None, 
+                   frame_interval:Optional[Union[int,float]]=None,
+                   dest_filetype:str='jpg') -> int:
     r"""
         Extract frames from videos within a directory and save them as separate frames in an output directory.
 
@@ -139,7 +139,7 @@ def extract_frames(input_folder,
     return label_counter
 
 
-def _determine_interval(x) -> int:
+def _determine_interval(x:int) -> int:
     y = '{x:.1f}'
     inde = y.find('.') + 1
     if inde == -1: # if no '.' (if an integer)
