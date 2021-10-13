@@ -14,7 +14,6 @@ from .tensor import Tensor
 
 from typing import Tuple, Optional, Union
 
-from nptyping import NDArray, Float64
 import PIL
 
 __all__ = [
@@ -24,8 +23,8 @@ __all__ = [
 
 
 def from_numpy(
-    x: NDArray[Float64], cspace: str, dtype=None, override_checks: bool = False, enforce_tensor: bool = False
-):
+    x: np.ndarray, cspace: str, dtype=None, override_checks: bool = False, enforce_tensor: bool = False
+) -> Tensor:
     r"""
         Convert a Numpy Array to a Caer Tensor.
 
@@ -59,12 +58,12 @@ def from_numpy(
 
 
 def to_tensor(
-    x: Union[Tensor, NDArray[Float64], PIL.Image],
+    x: Union[Tensor, np.ndarray, PIL.Image],
     cspace: Optional[str] = None,
     dtype=None,
     override_checks: bool = False,
     enforce_tensor: bool = False,
-):
+)->Tensor:
     r"""
         Convert an array to a caer.Tensor.
 
