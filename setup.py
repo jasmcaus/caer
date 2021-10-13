@@ -45,7 +45,7 @@ import platform
 
 MAJOR = 2
 MINOR = 0
-MICRO = 6
+MICRO = 7
 ISRELEASED = True
 VERSION = f'{MAJOR}.{MINOR}.{MICRO}'
 
