@@ -18,14 +18,14 @@ from .path import listdir, join
 
 
 __all__ = [
-    'get_classes_from_dir',
-    'median',
-    'train_val_split',
-    'sort_dict',
-    'get_opencv_version',
-    'mean',
-    'merge',
-    'edges'
+    "get_classes_from_dir",
+    "median",
+    "train_val_split",
+    "sort_dict",
+    "get_opencv_version",
+    "mean",
+    "merge",
+    "edges"
 ]
 
 

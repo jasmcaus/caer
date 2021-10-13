@@ -25,9 +25,9 @@ from typing import Tuple, Optional, Union
 
 
 __all__ = [
-    'imread', 
-    'imsave'
-    ]
+    "imread", 
+    "imsave"
+]
 
 IMREAD_COLOR = 1
 
@@ -38,7 +38,7 @@ def imread(
     target_size: Optional[Tuple[int, int]] = None,
     resize_factor: Optional[Union[float, Tuple]] = None,
     preserve_aspect_ratio: bool = False,
-    interpolation="bilinear",
+    interpolation: str = "bilinear",
 ) -> Tensor:
     r"""
         Loads in an image from `image_path` (can be either a system filepath or a URL)
@@ -71,10 +71,15 @@ def imread(
 
 
 def _imread(
-    image_path, rgb=True, target_size=None, resize_factor=None, preserve_aspect_ratio=False, interpolation="bilinear"
+    image_path, 
+    rgb: bool = True, 
+    target_size=None, 
+    resize_factor=None, 
+    preserve_aspect_ratio=False, 
+    interpolation: str = "bilinear"
 ) -> Tensor:
     if target_size is not None:
-        _ = _check_target_size(target_size)
+        _check_target_size(target_size)
 
     # if not isinstance(channels, int) or channels not in [1, 3]:
     #     raise ValueError("channels must be an integer - 1 (Grayscale) or 3 (RGB)")
@@ -186,7 +191,7 @@ def imsave(path: str, tens: Tensor) -> bool:
     Examples::
 
         >> tens = caer.data.audio_mixer()
-        >> caer.imsave('audio_mixer.png', tens)
+        >> caer.imsave("audio_mixer.png", tens)
         True
 
     """
@@ -194,7 +199,7 @@ def imsave(path: str, tens: Tensor) -> bool:
         raise TypeError("`tens` must be a caer.Tensor")
 
     # Convert to tensor
-    _ = tens._nullprt()  # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
+    tens._nullprt()  # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
 
     try:
         # OpenCV uses BGR Tensors and saves them as RGB images

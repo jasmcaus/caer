@@ -35,9 +35,9 @@
         # # author = 'Martin v. Loewis',
         # # author_email = 'martin@v.loewis.de',
         # # url = 'https://docs.python.org/extending/building',
-        # # long_description = '''
+        # # long_description = """
         # #       This is really just a demo package.
-        # #       ''',
+        # #       """,
     #     ext_modules = [module1])
 """
 

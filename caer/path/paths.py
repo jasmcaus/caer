@@ -20,21 +20,21 @@ _acceptable_video_formats = (".mp4", ".avi", ".mov", ".mkv", ".webm")
 _acceptable_image_formats = (".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff")
 
 __all__ = [
-    'list_images',
-    'list_videos',
-    'listdir',
-    'is_image',
-    'is_video',
-    'isfile',
-    'mkdir',
-    'cwd',
-    'exists',
-    'join',
-    'get_size',
-    'chdir',
-    'osname',
-    'abspath',
-    'dirname'
+    "list_images",
+    "list_videos",
+    "listdir",
+    "is_image",
+    "is_video",
+    "isfile",
+    "mkdir",
+    "cwd",
+    "exists",
+    "join",
+    "get_size",
+    "chdir",
+    "osname",
+    "abspath",
+    "dirname"
 ]
 
 def list_images(DIR: str, recursive: bool=True, use_fullpath:bool=False, verbose=True, every : int = 1000) -> List[str]:
@@ -141,7 +141,7 @@ def listdir(
                 if ext is not None and not file.endswith(ext): # type: ignore[arg-type]
                     continue
                 count += 1
-                fullpath = join(root, file).replace('\\', '/')
+                fullpath = join(root, file).replace("\\", "/")
                 if use_fullpath:
                     dirs.append(fullpath)
                 else:
@@ -155,7 +155,7 @@ def listdir(
             if ext is not None and not file.endswith(ext): # type: ignore[arg-type]
                 continue
             count += 1
-            fullpath = join(DIR, file).replace('\\', '/')
+            fullpath = join(DIR, file).replace("\\", "/")
             if use_fullpath:
                 dirs.append(fullpath)
             else:

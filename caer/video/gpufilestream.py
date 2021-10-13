@@ -20,7 +20,7 @@ from ..annotations import Optional
 from .constants import FRAME_COUNT, FPS
 
 __all__ = [
-    'GPUFileStream'
+    "GPUFileStream"
 ]
 
 
@@ -123,7 +123,7 @@ class GPUFileStream:
     def count_frames(self):
         if not self.kill_stream and not self.live_video:
             return self.frames
-            # if get_opencv_version() == '2':
+            # if get_opencv_version() == "2":
             #     return int(self.stream.get(FRAME_COUNT_DEPR))
             # else:
             #     return int(self.stream.get(FRAME_COUNT))

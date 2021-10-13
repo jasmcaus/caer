@@ -17,11 +17,11 @@ from ..coreten import Tensor, to_tensor
 from .._internal import _check_target_size
 from ..globals import (
     INTER_AREA, INTER_CUBIC, INTER_NEAREST, INTER_LINEAR
-    )
+)
 from typing import Tuple, Optional, Union
 
 __all__ = [
-    'resize'
+    "resize"
 ]
 
 
@@ -197,7 +197,7 @@ def _cv2_resize(image, target_size, interpolation=None):
     ONLY TO BE USED INTERNALLY. NOT AVAILABLE FOR EXTERNAL USAGE.
     Resizes the image ignoring the aspect ratio of the original image
     """
-    _ = _check_target_size(target_size)
+    _check_target_size(target_size)
 
     width, height = target_size[:2]
 
@@ -220,7 +220,7 @@ def _resize_with_ratio(
         :param target_size: Tuple of size 2 in the format (width,height)
         :param preserve_aspect_ratio: Boolean to keep/ignore aspect ratio when resizing
     """
-    _ = _check_target_size(target_size)
+    _check_target_size(target_size)
 
     if not isinstance(preserve_aspect_ratio, bool):
         raise ValueError("preserve_aspect_ratio must be a boolean")
@@ -284,7 +284,7 @@ def _compute_minimal_resize(org_size: Tuple[int, int], target_dim: Tuple[int, in
 
 
 def _compute_centre_crop(tens: Tensor, target_size: Tuple[int, int]) -> Tensor:
-    _ = _check_target_size(target_size)
+    _check_target_size(target_size)
 
     # Getting org height and target
     oh, ow = tens.shape[:2]

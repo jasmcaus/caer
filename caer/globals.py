@@ -11,15 +11,15 @@
 
 
 __all__ = [
-    'CROP_CENTRE',
-    'CROP_TOP',
-    'CROP_LEFT',
-    'CROP_RIGHT',
-    'CROP_BOTTOM',
-    'INTER_NEAREST',
-    'INTER_LINEAR',
-    'INTER_AREA',
-    'INTER_CUBIC',
+    "CROP_CENTRE",
+    "CROP_TOP",
+    "CROP_LEFT",
+    "CROP_RIGHT",
+    "CROP_BOTTOM",
+    "INTER_NEAREST",
+    "INTER_LINEAR",
+    "INTER_AREA",
+    "INTER_CUBIC",
 ]
 
 

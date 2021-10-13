@@ -24,7 +24,7 @@ class Tensor(_TensorBase, np.ndarray):
     # This is required to get the type(Tensor) to be 'caer.Tensor'.
     # Without this, type(Tensor) is 'caer.tensor.Tensor' which is not ideal.
     # Alternatively, we may shove this class to __init__.py, but this would, again, not be ideal
-    __module__ = 'caer'
+    __module__ = "caer"
 
     # def __new__(cls, x, dtype=None):
     def __new__(cls, x: Union[Tuple, List, np.ndarray], cspace: str, dtype=None):
@@ -50,9 +50,7 @@ class Tensor(_TensorBase, np.ndarray):
             if cspace in ("rgb", "bgr", "gray", "hsv", "hls", "lab", "yuv", "luv"):
                 self.cspace = cspace
             else:
-                raise ValueError(
-                    'The `cspace` attribute needs to be either rgb/bgr/gray/hsv/hls/lab/yuv/luv'
-                )
+                raise ValueError("The `cspace` attribute needs to be either rgb/bgr/gray/hsv/hls/lab/yuv/luv")
 
     def __repr__(self):
         return _str(self)
@@ -62,7 +60,7 @@ class Tensor(_TensorBase, np.ndarray):
 
 
 def is_tensor(x: Tensor) -> bool:
-    r'''
+    r"""
         Returns True if `x` is a Caer tensor.
 
         Note that this function is simply doing ``isinstance(x, Tensor)``. Using the ``isinstance`` check is better for typechecking with mypy, and more explicit - so it's recommended to use that instead of ``is_tensor``.
@@ -71,5 +69,5 @@ def is_tensor(x: Tensor) -> bool:
 
     Args:
         x (Object): Object to test
-    '''
-    return 'caer.Tensor' in str(type(x)) or (isinstance(x, Tensor))
+    """
+    return isinstance(x, Tensor) or "caer.Tensor" in str(type(x))

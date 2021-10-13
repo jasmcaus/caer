@@ -19,7 +19,7 @@ class __PrinterOptions(object):
     edgeitems = 3
     linewidth = 80
     sci_mode = None
-    prefix = 'tensor('
+    prefix = "tensor("
 
 
 PRINT_OPTS = __PrinterOptions()
@@ -27,7 +27,7 @@ PRINT_OPTS = __PrinterOptions()
 
 class _Formatter(object):
     def __init__(self, tensor):
-        self.floating_dtype = 'float' in str(repr(tensor.dtype))
+        self.floating_dtype = "float" in str(repr(tensor.dtype))
         self.int_mode = True
         self.sci_mode = False
         self.max_width = 1
@@ -36,7 +36,7 @@ class _Formatter(object):
 
         if not self.floating_dtype:
             for value in tensor_view:
-                value_str = '{}'.format(value)
+                value_str = "{}".format(value)
                 # d = max(self.max_width, len(value_str))
                 d = max(2, len(value_str))
                 self.max_width = d
@@ -51,7 +51,7 @@ class _Formatter(object):
 
             if self.int_mode:
                 for value in tensor_view:
-                    value_str = ('{:.0f}').format(value)
+                    value_str = ("{:.0f}").format(value)
                     self.max_width = max(self.max_width, len(value_str) + 1)
 
 
@@ -66,25 +66,26 @@ class _Formatter(object):
     def format(self, value):
         if self.floating_dtype:
             if self.sci_mode:
-                ret = ('{{:{}.{}e}}').format(self.max_width, PRINT_OPTS.precision).format(value)
+                ret = ("{{:{}.{}e}}").format(self.max_width, PRINT_OPTS.precision).format(value)
 
             elif self.int_mode:
-                ret = '{:.0f}'.format(value)
+                ret = "{:.0f}".format(value)
                 if not (math.isinf(value) or math.isnan(value)):
-                    ret += '.'
+                    ret += "."
 
             else:
-                ret = ('{{:.{}f}}').format(PRINT_OPTS.precision).format(value)
+                ret = ("{{:.{}f}}").format(PRINT_OPTS.precision).format(value)
 
         else:
-            ret = '{}'.format(value)
+            ret = "{}".format(value)
 
-        # return (self.max_width - len(ret)) * ' ' + ret
-        return (2 - len(ret)) * ' ' + ret
+        # return (self.max_width - len(ret)) * " " + ret
+        return (2 - len(ret)) * " " + ret
+
 
 def _scalar_str(self, formatter):
     # Usually, we must never come here. 
-    # This is only for when the 'coreten' library is built.
+    # This is only for when the "coreten" library is built.
     # Changes may be made to this.
     return formatter.format(self.item())
 
@@ -103,15 +104,15 @@ def _vector_str(self, indent, summarize, formatter):
     # We (figuratively) "prune" the tensor for output
     if summarize and self.size_dim(0) > 2 * PRINT_OPTS.edgeitems:
         data = ([_val_formatter(val) for val in self[:PRINT_OPTS.edgeitems].tolist()] +
-                [' ...'] +
+                [" ..."] +
                 [_val_formatter(val) for val in self[-PRINT_OPTS.edgeitems:].tolist()])
     else:
         data = [_val_formatter(val) for val in self.tolist()]
 
     data_lines = [data[i:i + elements_per_line] for i in range(0, len(data), elements_per_line)]
-    lines = [', '.join(line) for line in data_lines]
+    lines = [", ".join(line) for line in data_lines]
 
-    return '[' + (',' + '\n' + ' ' * (indent + 1)).join(lines) + ']'
+    return "[" + ("," + "\n" + " " * (indent + 1)).join(lines) + "]"
 
 
 def _tensor_str_with_formatter(self, indent, summarize, formatter):
@@ -129,7 +130,7 @@ def _tensor_str_with_formatter(self, indent, summarize, formatter):
     if summarize and self.size_dim(0) > 2 * PRINT_OPTS.edgeitems:
         slices = ([_tensor_str_with_formatter(self[i], indent + 1, summarize, formatter)
                    for i in range(0, PRINT_OPTS.edgeitems)] +
-                  ['...'] +
+                  ["..."] +
                   [_tensor_str_with_formatter(self[i], indent + 1, summarize, formatter)
                    for i in range(len(self) - PRINT_OPTS.edgeitems, len(self))])
 
@@ -138,13 +139,13 @@ def _tensor_str_with_formatter(self, indent, summarize, formatter):
         slices = [_tensor_str_with_formatter(self[i], indent + 1, summarize, formatter)
                   for i in range(0, self.size_dim(0))]
 
-    tensor_str = (',' + '\n' * (dim - 1) + ' ' * (indent + 1)).join(slices)
-    return '[' + tensor_str + ']'
+    tensor_str = ("," + "\n" * (dim - 1) + " " * (indent + 1)).join(slices)
+    return "[" + tensor_str + "]"
 
 
 def _tensor_str(self, indent):
     if self.numel() == 0:
-        return '[]'
+        return "[]"
     summarize = self.numel() > PRINT_OPTS.threshold
     # summarize = self.size_dim > PRINT_OPTS.threshold
 
@@ -161,22 +162,22 @@ def _tensor_str(self, indent):
 
 def _add_suffixes(tensor_str, suffixes, indent, force_newline):
     tensor_strs = [tensor_str]
-    last_line_len = len(tensor_str) - tensor_str.rfind('\n') + 1
+    last_line_len = len(tensor_str) - tensor_str.rfind("\n") + 1
 
     for suffix in suffixes:
         suffix_len = len(suffix)
 
         if force_newline or last_line_len + suffix_len + 2 > PRINT_OPTS.linewidth:
-            tensor_strs.append(',\n' + ' ' * indent + suffix)
+            tensor_strs.append(",\n" + " " * indent + suffix)
             last_line_len = indent + suffix_len
             force_newline = False
         else:
-            tensor_strs.append(', ' + suffix)
+            tensor_strs.append(", " + suffix)
             last_line_len += suffix_len + 2
 
-    tensor_strs.append(')')
+    tensor_strs.append(")")
 
-    return ''.join(tensor_strs)
+    return "".join(tensor_strs)
 
 
 def get_summarized_data(self):
@@ -211,12 +212,12 @@ def _str_intern(self):
     if self.numel() == 0:
         # Explicitly print the shape if it is not (0,), to match NumPy behavior
         if self.dim() != 1:
-            suffixes.append('size=' + str(tuple(self.shape)))
+            suffixes.append("size=" + str(tuple(self.shape)))
 
-        tensor_str = '[]'
+        tensor_str = "[]"
 
     else:
-        suffixes.append('dtype=' + str(self.dtype))
+        suffixes.append("dtype=" + str(self.dtype))
 
         tensor_str = _tensor_str(self, indent)
 

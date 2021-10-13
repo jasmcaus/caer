@@ -15,8 +15,8 @@ from ..path import exists
 from ..annotations import Optional
 
 __all__ = [
-    'count_frames',
-    'get_fps'
+    "count_frames",
+    "get_fps"
 ]
 
 

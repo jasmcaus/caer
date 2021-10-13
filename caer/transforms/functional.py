@@ -104,14 +104,14 @@ def _generate_random_lines(imshape, slant, drop_length, rain_type):
     area=imshape[0] * imshape[1]
     num_drops = area//600
 
-    if rain_type.lower() == 'drizzle':
+    if rain_type.lower() == "drizzle":
         num_drops = area//770
         drop_length = 10
 
-    elif rain_type.lower() == 'heavy':
+    elif rain_type.lower() == "heavy":
         drop_length = 30
 
-    elif rain_type.lower() == 'torrential':
+    elif rain_type.lower() == "torrential":
         num_drops = area//500
         drop_length = 60
 

@@ -102,7 +102,6 @@ class _TensorBase(np.ndarray):
             Returns True if the ``.cspace`` attribute is valid (either bgr/rgb/gray/hsv/hls/lab)
             Returns False, otherwise (usually happens when foreign arrays (like ndarrays) are converted to Caer Tensors).
         """
-
         return not self._is_valid_cspace()
 
 
@@ -112,5 +111,7 @@ class _TensorBase(np.ndarray):
             Raises a TypeError ==> usually happens when foreign arrays (like ndarrays) are converted to Caer Tensors.
         """
         if self.is_null():
-            raise TypeError("IllegalTensorWarning: Cannot determine the colorspace for this foreign tensor."
-            "You can set it manually by modifying the `.cspace` attribute. We suggest operating solely in Caer Tensors.")
+            raise TypeError(
+                "IllegalTensorWarning: Cannot determine the colorspace for this foreign tensor."
+                "You can set it manually by modifying the `.cspace` attribute. We suggest operating solely in Caer Tensors."
+            )

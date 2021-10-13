@@ -16,7 +16,15 @@ from ..coreten import Tensor, to_tensor
 from ._constants import LAB2BGR, LAB2RGB
 from ._bgr import bgr2gray, bgr2hsv, bgr2hls, bgr2yuv, bgr2luv
 
-__all__ = ['lab2rgb', 'lab2bgr', 'lab2gray', 'lab2hsv', 'lab2hls', 'lab2yuv', 'lab2luv']
+__all__ = [
+    "lab2rgb", 
+    "lab2bgr", 
+    "lab2gray", 
+    "lab2hsv", 
+    "lab2hls", 
+    "lab2yuv", 
+    "lab2luv"
+]
 
 
 def _is_lab_image(tens):
@@ -26,7 +34,7 @@ def _is_lab_image(tens):
 
 
 def lab2rgb(tens: Tensor) -> Tensor:
-    r'''
+    r"""
         Converts an LAB Tensor to its RGB version.
 
     Args:
@@ -38,18 +46,19 @@ def lab2rgb(tens: Tensor) -> Tensor:
     Raises:
         ValueError: If `tens` is not of shape 3
 
-    '''
+    """
     if not _is_lab_image(tens):
         raise ValueError(
-            f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a LAB Tensor to its RGB counterpart'
+            f"Tensor of shape 3 expected. Found shape {len(tens.shape)}. "
+            "This function converts a LAB Tensor to its RGB counterpart"
         )
 
-    im = cv.cvtColor(tens, LAB2RGB)
-    return to_tensor(im, cspace="rgb")
+    img = cv.cvtColor(tens, LAB2RGB)
+    return to_tensor(img, cspace="rgb")
 
 
 def lab2bgr(tens: Tensor) -> Tensor:
-    r'''
+    r"""
         Converts an LAB Tensor to its BGR version.
 
     Args:
@@ -61,18 +70,19 @@ def lab2bgr(tens: Tensor) -> Tensor:
     Raises:
         ValueError: If `tens` is not of shape 3
 
-    '''
+    """
     if not _is_lab_image(tens):
         raise ValueError(
-            f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a LAB Tensor to its BGR counterpart'
+            f"Tensor of shape 3 expected. Found shape {len(tens.shape)}. "
+            "This function converts a LAB Tensor to its BGR counterpart"
         )
 
-    im = cv.cvtColor(tens, LAB2BGR)
-    return to_tensor(im, cspace="bgr")
+    img = cv.cvtColor(tens, LAB2BGR)
+    return to_tensor(img, cspace="bgr")
 
 
 def lab2gray(tens: Tensor) -> Tensor:
-    r'''
+    r"""
         Converts an LAB Tensor to its Grayscale version.
 
     Args:
@@ -84,20 +94,21 @@ def lab2gray(tens: Tensor) -> Tensor:
     Raises:
         ValueError: If `tens` is not of shape 3
 
-    '''
+    """
     if not _is_lab_image(tens):
         raise ValueError(
-            f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a LAB Tensor to its Grayscale counterpart'
+            f"Tensor of shape 3 expected. Found shape {len(tens.shape)}. "
+            "This function converts a LAB Tensor to its Grayscale counterpart"
         )
 
     bgr = lab2bgr(tens)
 
-    im = bgr2gray(bgr)
-    return to_tensor(im, cspace="gray")
+    img = bgr2gray(bgr)
+    return to_tensor(img, cspace="gray")
 
 
 def lab2hsv(tens: Tensor) -> Tensor:
-    r'''
+    r"""
         Converts an LAB Tensor to its HSV version.
 
     Args:
@@ -109,20 +120,21 @@ def lab2hsv(tens: Tensor) -> Tensor:
     Raises:
         ValueError: If `tens` is not of shape 3
 
-    '''
+    """
     if not _is_lab_image(tens):
         raise ValueError(
-            f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a LAB Tensor to its HSV counterpart'
+            f"Tensor of shape 3 expected. Found shape {len(tens.shape)}. "
+            "This function converts a LAB Tensor to its HSV counterpart"
         )
 
     bgr = lab2bgr(tens)
 
-    im = bgr2hsv(bgr)
-    return to_tensor(im, cspace="hsv")
+    img = bgr2hsv(bgr)
+    return to_tensor(img, cspace="hsv")
 
 
 def lab2hls(tens: Tensor) -> Tensor:
-    r'''
+    r"""
         Converts an LAB Tensor to its HLS version.
 
     Args:
@@ -134,20 +146,21 @@ def lab2hls(tens: Tensor) -> Tensor:
     Raises:
         ValueError: If `tens` is not of shape 3
 
-    '''
+    """
     if not _is_lab_image(tens):
         raise ValueError(
-            f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a LAB Tensor to its LAB counterpart'
+            f"Tensor of shape 3 expected. Found shape {len(tens.shape)}. "
+            "This function converts a LAB Tensor to its LAB counterpart"
         )
 
     bgr = lab2bgr(tens)
 
-    im = bgr2hls(bgr)
-    return to_tensor(im, cspace="hls")
+    img = bgr2hls(bgr)
+    return to_tensor(img, cspace="hls")
 
 
 def lab2yuv(tens: Tensor) -> Tensor:
-    r'''
+    r"""
         Converts an LAB Tensor to its YUV version.
 
     Args:
@@ -159,19 +172,20 @@ def lab2yuv(tens: Tensor) -> Tensor:
     Raises:
         ValueError: If `tens` is not of shape 3
 
-    '''
+    """
     if not _is_lab_image(tens):
         raise ValueError(
-            f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a LAB Tensor to its YUV counterpart'
+            f"Tensor of shape 3 expected. Found shape {len(tens.shape)}. "
+            "This function converts a LAB Tensor to its YUV counterpart"
         )
 
     bgr = lab2bgr(tens)
-    im = bgr2yuv(bgr)
-    return to_tensor(im, cspace="yuv")
+    img = bgr2yuv(bgr)
+    return to_tensor(img, cspace="yuv")
 
 
 def lab2luv(tens: Tensor) -> Tensor:
-    r'''
+    r"""
         Converts an LAB Tensor to its LUV version.
 
     Args:
@@ -183,12 +197,13 @@ def lab2luv(tens: Tensor) -> Tensor:
     Raises:
         ValueError: If `tens` is not of shape 3
 
-    '''
+    """
     if not _is_lab_image(tens):
         raise ValueError(
-            f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a LAB Tensor to its LUV counterpart'
+            f"Tensor of shape 3 expected. Found shape {len(tens.shape)}. "
+            "This function converts a LAB Tensor to its LUV counterpart"
         )
 
     bgr = lab2bgr(tens)
-    im = bgr2luv(bgr)
-    return to_tensor(im, cspace="luv")
+    img = bgr2luv(bgr)
+    return to_tensor(img, cspace="luv")

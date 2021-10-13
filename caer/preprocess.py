@@ -22,10 +22,10 @@ from .color import to_gray
 from .annotations import Optional,List,Tuple
 
 __all__ = [
-    'preprocess_from_dir',
-    'sep_train',
-    'normalize',
-    'train_val_split'
+    "preprocess_from_dir",
+    "sep_train",
+    "normalize",
+    "train_val_split"
 ]
 
 
@@ -77,7 +77,7 @@ def preprocess_from_dir(
         if destination_filename is None:
             raise ValueError("Specify a destination file name")
 
-        elif not ('.npy' in destination_filename or '.npz' in destination_filename):
+        elif not (".npy" in destination_filename or ".npz" in destination_filename):
             raise ValueError("Specify the correct numpy destination file extension (.npy or .npz)")
     
     if not save_data and destination_filename is not None:
@@ -136,9 +136,9 @@ def preprocess_from_dir(
         # Saves the Data set as a .npy file
         if save_data:
             #Converts to Numpy and saves
-            if destination_filename.endswith('.npy'):   # type: ignore
+            if destination_filename.endswith(".npy"):   # type: ignore
                 print("[INFO] Saving as .npy file")
-            elif destination_filename.endswith('.npz'): # type: ignore
+            elif destination_filename.endswith(".npz"): # type: ignore
                 print("[INFO] Saving as .npz file")
             
             # Saving
@@ -162,7 +162,7 @@ def preprocess_from_dir(
 
         return data
 
-def normalize(x, dtype='float32'):
+def normalize(x, dtype="float32"):
     """
     Normalizes the data to mean 0 and standard deviation 1
     """
@@ -180,7 +180,7 @@ def sep_train(data, IMG_SIZE:Tuple[int,int], channels:int=1):
     #     x.append(feature)
     #     y.append(label)
     
-    _ = _check_target_size(IMG_SIZE)
+    _check_target_size(IMG_SIZE)
 
     x = [i[0] for i in data]
     y = [i[1] for i in data]
@@ -196,7 +196,7 @@ def sep_train(data, IMG_SIZE:Tuple[int,int], channels:int=1):
 
 
 def reshape(x, IMG_SIZE:Tuple[int,int], channels:int):
-    _ = _check_target_size(IMG_SIZE)
+    _check_target_size(IMG_SIZE)
 
     width, height = IMG_SIZE[:2]
     return np.array(x).reshape(-1, width, height, channels)

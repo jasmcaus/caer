@@ -39,14 +39,14 @@ from .functional import (
 )
 
 __all__ = [
-    'sim_snow',
-    'sim_rain',
-    'sim_fog',
-    'sim_gravel',
-    'sim_sun_flare',
-    'sim_motion_blur',
-    'sim_autumn',
-    'sim_shadow'
+    "sim_snow",
+    "sim_rain",
+    "sim_fog",
+    "sim_gravel",
+    "sim_sun_flare",
+    "sim_motion_blur",
+    "sim_autumn",
+    "sim_shadow"
 ]
 
 def sim_snow(tens: Tensor, snow_coeff : Union[float, int] = -1) -> Tensor:
@@ -81,8 +81,15 @@ def sim_snow(tens: Tensor, snow_coeff : Union[float, int] = -1) -> Tensor:
     
 
 
-# Rain_type = 'drizzle', 'heavy', 'torrential'
-def sim_rain(tens: Tensor, slant:int=-1, drop_length:int=20, drop_width:int=1, drop_color:Tuple=(200,200,200), rain_type:Optional[str]='None') -> Tensor: ## (200,200,200) is a shade of gray
+# Rain_type = "drizzle", "heavy", "torrential"
+def sim_rain(
+    tens: Tensor, 
+    slant: int = -1, 
+    drop_length: int = 20, 
+    drop_width: int = 1, 
+    drop_color: Tuple = (200,200,200), 
+    rain_type: Optional[str] = "None"
+) -> Tensor: ## (200,200,200) is a shade of gray
     r"""
         Simulate rainy conditions on an image.
 
@@ -92,7 +99,7 @@ def sim_rain(tens: Tensor, slant:int=-1, drop_length:int=20, drop_width:int=1, d
         drop_length (int): Length of the raindrop.
         drop_width (int): Width of the raindrop.
         drop_color (tuple): Color of the raindrop.
-        rain_type (str): Type of rain. Can be either 'drizzle', 'heavy' or 'torrential'.
+        rain_type (str): Type of rain. Can be either "drizzle", "heavy" or "torrential".
     
     Returns:
         Tensor of shape ``(height, width, channels)``.
@@ -340,7 +347,7 @@ def sim_shadow(
         raise ValueError("Only 1-10 shadows can be introduced in an image")
 
     if not(is_numeric(shadow_dimension) and shadow_dimension >= 3 and shadow_dimension <= 10):
-        raise ValueError("Polygons with dimensions < 3 don\'t exist and take time to plot")
+        raise ValueError("Polygons with dimensions < 3 don't exist and take time to plot")
 
     if is_tuple(rectangular_roi) and is_numeric_list_or_tuple(rectangular_roi) and len(rectangular_roi)==4:
         x1 = rectangular_roi[0]

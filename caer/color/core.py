@@ -22,14 +22,14 @@ from ._yuv import yuv2bgr, yuv2rgb, yuv2hsv, yuv2hls, yuv2gray, yuv2lab, yuv2luv
 from ._luv import luv2bgr, luv2rgb, luv2hsv, luv2hls, luv2gray, luv2lab, luv2yuv
 
 __all__ = [
-    'to_rgb',
-    'to_bgr',
-    'to_gray',
-    'to_hsv',
-    'to_hls',
-    'to_lab',
-    'to_yuv',
-    'to_luv',
+    "to_rgb",
+    "to_bgr",
+    "to_gray",
+    "to_hsv",
+    "to_hls",
+    "to_lab",
+    "to_yuv",
+    "to_luv",
 ]
 
 
@@ -47,14 +47,14 @@ def to_rgb(tens: Tensor) -> Tensor: # type: ignore[return]
         raise TypeError("`tens` must be a caer.Tensor")
 
     # Convert to tensor
-    _ = tens._nullprt()  # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
+    tens._nullprt()  # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
     cspace = tens.cspace
 
     # If "null", we assume we have a brand new Tensor
     if cspace == "null":
         print(
-            'Warning: Caer was unable to assign a colorspace for a foreign tensor. Sticking with "rgb."'
-            'This issue will be fixed in a future update.'
+            "Warning: Caer was unable to assign a colorspace for a foreign tensor. Sticking with `rgb`."
+            "This issue will be fixed in a future update."
         )
 
         # We assume that the tens is a BGR image
@@ -108,7 +108,7 @@ def to_bgr(tens: Tensor) -> Tensor: # type: ignore[return]
         raise TypeError("`tens` must be a caer.Tensor")
 
     # Convert to tensor
-    _ = tens._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
+    tens._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
     cspace = tens.cspace
 
     if cspace == "bgr":
@@ -157,7 +157,7 @@ def to_gray(tens: Tensor) -> Tensor: # type: ignore[return]
         raise TypeError("`tens` must be a caer.Tensor")
 
     # Convert to tensor
-    _ = tens._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
+    tens._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
     cspace = tens.cspace
 
     if cspace == "gray":
@@ -206,7 +206,7 @@ def to_hsv(tens: Tensor) -> Tensor: # type: ignore[return]
         raise TypeError("`tens` must be a caer.Tensor")
 
     # Convert to tensor
-    _ = tens._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
+    tens._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
     cspace = tens.cspace
 
     if cspace == "hsv":
@@ -255,7 +255,7 @@ def to_hls(tens: Tensor) -> Tensor: # type: ignore[return]
         raise TypeError("`tens` must be a caer.Tensor")
 
     # Convert to tensor
-    _ = tens._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
+    tens._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
     cspace = tens.cspace
 
     if cspace == "hls":
@@ -304,7 +304,7 @@ def to_lab(tens: Tensor) -> Tensor: # type: ignore[return]
         raise TypeError("`tens` must be a caer.Tensor")
 
     # Convert to tensor
-    _ = tens._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
+    tens._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
     cspace = tens.cspace
 
     if cspace == "lab":
@@ -354,7 +354,7 @@ def to_yuv(tens: Tensor) -> Tensor: # type: ignore[return]
         raise TypeError("`tens` must be a caer.Tensor")
 
     # Convert to tensor
-    _ = tens._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
+    tens._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
     cspace = tens.cspace
 
     if cspace == "yuv":
@@ -403,7 +403,7 @@ def to_luv(tens: Tensor) -> Tensor: # type: ignore[return]
         raise TypeError("`tens` must be a caer.Tensor")
 
     # Convert to tensor
-    _ = tens._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
+    tens._nullprt() # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
     cspace = tens.cspace
 
     if cspace == "luv":

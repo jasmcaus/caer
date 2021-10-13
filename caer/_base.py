@@ -14,7 +14,7 @@
 # This gets disrupted if this file is called directly
 # Checks are in place:
 
-if __name__ != '__main__':
+if __name__ != "__main__":
     from .path import dirname
 
     __curr__ = dirname(__file__).replace("\\", "/")

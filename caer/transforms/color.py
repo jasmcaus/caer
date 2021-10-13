@@ -27,17 +27,17 @@ from .functional import (
 
 
 __all__ = [
-    'adjust_brightness',
-    'adjust_contrast',
-    'adjust_hue',
-    'adjust_saturation',
-    'adjust_gamma',
-    'affine',
-    'darken',
-    'brighten',
-    'random_brightness',
-    'correct_exposure',
-    'augment_random'
+    "adjust_brightness",
+    "adjust_contrast",
+    "adjust_hue",
+    "adjust_saturation",
+    "adjust_gamma",
+    "affine",
+    "darken",
+    "brighten",
+    "random_brightness",
+    "correct_exposure",
+    "augment_random"
 ]
 
 
@@ -140,7 +140,7 @@ def darken(tens: Tensor, darkness_coeff : int = -1) -> Tensor:
 
     if darkness_coeff != -1:
         if darkness_coeff < 0.0 or darkness_coeff > 1.0:
-            raise ValueError("Darkness coeff must only be between 0.0 and 1.0'")
+            raise ValueError("Darkness coeff must only be between 0.0 and 1.0")
 
     if darkness_coeff == -1:
         darkness_coeff_t = 1 - random.uniform(0, 1)
@@ -190,7 +190,7 @@ def adjust_contrast(tens: Tensor, contrast_factor:float) -> Tensor:
     cspace = tens.cspace 
 
     table = np.array([(i - 74) * contrast_factor + 74
-                      for i in range(0, 256)]).clip(0, 255).astype('uint8')
+                      for i in range(0, 256)]).clip(0, 255).astype("uint8")
 
     try:
         from PIL import ImageEnhance
@@ -276,7 +276,7 @@ def adjust_hue(tens: Tensor, hue_factor:float) -> Tensor:
 
     tens = Image.fromarray(tens)
     input_mode = tens.mode
-    if input_mode in {'L', '1', 'I', 'F'}:
+    if input_mode in {"L", "1", "I", "F"}:
         return np.array(tens)
 
     h, s, v = tens.convert("hsv").split()
@@ -284,9 +284,9 @@ def adjust_hue(tens: Tensor, hue_factor:float) -> Tensor:
     np_h = np.array(h, dtype=np.uint8)
 
     # uint8 addition take cares of rotation across boundaries
-    with np.errstate(over='ignore'):
+    with np.errstate(over="ignore"):
         np_h += np.uint8(hue_factor * 255)
-    h = Image.fromarray(np_h, 'L')
+    h = Image.fromarray(np_h, "L")
 
     tens = Image.merge("hsv", (h, s, v)).convert(input_mode)
 
@@ -328,7 +328,7 @@ def adjust_gamma(tens: Tensor, gamma:float, gain:float=1) -> Tensor:
     # from here
     # https://stackoverflow.com/questions/33322488/how-to-change-image-illumination-in-opencv-python/41061351
     table = np.array([((i / 255.0)**gamma) * 255 * gain
-                      for i in np.arange(0, 256)]).astype('uint8')
+                      for i in np.arange(0, 256)]).astype("uint8")
 
     tens = cv.LUT(tens, table)
     return to_tensor(tens, cspace=cspace)
@@ -359,7 +359,16 @@ def _get_affine_matrix(center, angle, translate, scale, shear) -> Tensor:
     return matrix[:2, :]
 
 
-def affine(tens: Tensor, angle:Union[float,int], translate:Union[List[int],Tuple[int]], scale:float, shear:float, interpolation='bilinear', mode:Union[str,int]=0, fillcolor:int=0) -> Tensor:
+def affine(
+    tens: Tensor, 
+    angle: Union[float,int], 
+    translate: Union[List[int],Tuple[int]], 
+    scale: float, 
+    shear: float, 
+    interpolation: str = "bilinear", 
+    mode: Union[str,int] = 0, 
+    fillcolor: int = 0
+) -> Tensor:
     """
         Apply affine transformation on the image keeping image center invariant.
 
@@ -369,11 +378,11 @@ def affine(tens: Tensor, angle:Union[float,int], translate:Union[List[int],Tuple
         translate (list or tuple of integers): Horizontal and vertical translations (post-rotation translation)
         scale (float): Overall scale
         shear (float): Shear angle value in degrees between -180 to 180, clockwise direction.
-        interpolation (int, str): Interpolation to use for resizing. Defaults to `'bilinear'`. 
-                Supports `'bilinear'`, `'bicubic'`, `'area'`, `'nearest'`.
+        interpolation (int, str): Interpolation to use for resizing. Defaults to `"bilinear"`. 
+                Supports `"bilinear"`, `"bicubic"`, `"area"`, `"nearest"`.
         mode (int, str): Method for filling in border regions. 
                 Defaults to ``constant`` meaning areas outside the image are filled with a value (val, default 0). 
-                Supports ``'replicate'``, ``'reflect'``, ``'reflect-101'``.
+                Supports ``"replicate"``, ``"reflect"``, ``"reflect-101"``.
         fillcolor (int): Optional fill color for the area outside the transform in the output image. Default: 0
     """
 
@@ -381,21 +390,21 @@ def affine(tens: Tensor, angle:Union[float,int], translate:Union[List[int],Tuple
     cspace = tens.cspace 
 
     assert isinstance(translate, (tuple, list)) and len(translate) == 2, \
-        'Argument translate should be a list or tuple of length 2'
+        "Argument translate should be a list or tuple of length 2"
 
-    assert scale > 0.0, 'Argument scale should be positive'
+    assert scale > 0.0, "Argument scale should be positive"
 
     interpolation_methods = {
-        'nearest': 0,  '0': 0,  0: 0, # 0
-        'bilinear': 1, '1': 1,  1: 1, # 1
-        'bicubic': 2,  '2': 2,  2: 2, # 2
-        'area': 3,     '3': 3,  3: 3 # 3
+        "nearest": 0,  "0": 0,  0: 0, # 0
+        "bilinear": 1, "1": 1,  1: 1, # 1
+        "bicubic": 2,  "2": 2,  2: 2, # 2
+        "area": 3,     "3": 3,  3: 3 # 3
     }
     border_methods = {
-        'constant': 0,    '0': 0, 0: 0, # 0
-        'replicate': 1,   '1': 1, 1: 1, # 1
-        'reflect': 2,     '2': 2, 2: 2, # 2
-        'reflect-101': 4, '4': 4, 4: 4 # 4
+        "constant": 0,    "0": 0, 0: 0, # 0
+        "replicate": 1,   "1": 1, 1: 1, # 1
+        "reflect": 2,     "2": 2, 2: 2, # 2
+        "reflect-101": 4, "4": 4, 4: 4 # 4
     }
 
     if interpolation not in interpolation_methods:
@@ -440,36 +449,36 @@ def correct_exposure(tens: Tensor, rgb : bool = True) -> Tensor:
     return _exposure_process(tens)
 
 
-def augment_random(tens: Tensor, aug_types : Union[str, List[str]] = '', volume : str = 'expand') -> List:
+def augment_random(tens: Tensor, aug_types : Union[str, List[str]] = "", volume : str = "expand") -> List:
     aug_types_all = [
-        'random_brightness', 'add_shadow', 'add_snow', 'add_rain', 'add_fog', 
-        'add_gravel', 'add_sun_flare','add_motion_blur','add_autumn','random_flip'
+        "random_brightness", "add_shadow", "add_snow", "add_rain", "add_fog", 
+        "add_gravel", "add_sun_flare","add_motion_blur","add_autumn","random_flip"
     ]
 
-    if aug_types == '':
+    if aug_types == "":
         aug_types = aug_types_all
     output : list = []
 
     if not is_list(aug_types):
         raise ValueError("`aug_types` should be a list of function names (str)")
     
-    if volume == 'expand':
+    if volume == "expand":
         for aug_type in aug_types:
             if not(aug_type in aug_types_all):
                 raise ValueError("Incorrect transformation function defined")
 
-            command = aug_type + '(tens)'
+            command = aug_type + "(tens)"
             result = eval(command)
 
             output.append(result)
 
-    elif volume == 'same':
+    elif volume == "same":
         for aug_type in aug_types:
             if not (aug_type in aug_types_all):
                 raise ValueError("Incorrect transformation function defined")
 
         selected_aug = aug_types[random.randint(0, len(aug_types)-1)]
-        command = selected_aug+'(tens)'
+        command = selected_aug+"(tens)"
         output = eval(command)
 
     else: 

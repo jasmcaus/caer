@@ -24,12 +24,12 @@ from ..annotations import Tuple, Optional
 from ..coreten import Tensor
 
 __all__ = [
-    'Stream'
+    "Stream"
 ]
 
 #pylint:disable=no-member
 
-# ret, jpeg = cv2.imencode('.jpg', image)
+# ret, jpeg = cv2.imencode(".jpg", image)
 # return jpeg.tobytes()
 
 # This class can handle both live as well as pre-existing videos. 
@@ -138,7 +138,7 @@ class Stream:
         """
         if not self.kill_stream and not self.live_video:
             return self.frames
-            # if get_opencv_version() == '2':
+            # if get_opencv_version() == "2":
             #     return int(self.stream.get(FRAME_COUNT_DEPR))
             # else:
             #     return int(self.stream.get(FRAME_COUNT))
@@ -174,7 +174,7 @@ class Stream:
 
 
 # __all__ = [
-#     'Stream'
+#     "Stream"
 # ]
 
 # # Using the FileStream class as it can handle both live as well as pre-existing videos
