@@ -32,7 +32,7 @@ def _is_rgb_image(tens):
     return len(tens.shape) == 3 and tens.shape[-1] == 3
 
 
-def rgb2bgr(tens) -> Tensor:
+def rgb2bgr(tens: Tensor) -> Tensor:
     r'''
         Converts an RGB Tensor to its BGR version.
 
@@ -55,7 +55,7 @@ def rgb2bgr(tens) -> Tensor:
     return to_tensor(im, cspace='bgr')
 
 
-def rgb2gray(tens) -> Tensor:
+def rgb2gray(tens: Tensor) -> Tensor:
     r'''
         Converts an RGB Tensor to its Grayscale version.
 
@@ -78,7 +78,7 @@ def rgb2gray(tens) -> Tensor:
     return to_tensor(im, cspace='gray')
 
 
-def rgb2hsv(tens) -> Tensor:
+def rgb2hsv(tens: Tensor) -> Tensor:
     r'''
         Converts an RGB Tensor to its HSV version.
 
@@ -101,7 +101,7 @@ def rgb2hsv(tens) -> Tensor:
     return to_tensor(im, cspace='hsv')
 
 
-def rgb2hls(tens) -> Tensor:
+def rgb2hls(tens: Tensor) -> Tensor:
     r'''
         Converts an RGB Tensor to its HLS version.
 
@@ -124,7 +124,7 @@ def rgb2hls(tens) -> Tensor:
     return to_tensor(im, cspace='hls')
 
 
-def rgb2lab(tens) -> Tensor:
+def rgb2lab(tens: Tensor) -> Tensor:
     r'''
         Converts an RGB Tensor to its LAB version.
 
@@ -147,7 +147,7 @@ def rgb2lab(tens) -> Tensor:
     return to_tensor(im, cspace='lab')
 
 
-def rgb2yuv(tens) -> Tensor:
+def rgb2yuv(tens: Tensor) -> Tensor:
     r'''
         Converts an RGB Tensor to its YUV version.
 
@@ -170,7 +170,7 @@ def rgb2yuv(tens) -> Tensor:
     return to_tensor(im, cspace='yuv')
 
 
-def rgb2luv(tens) -> Tensor:
+def rgb2luv(tens: Tensor) -> Tensor:
     r'''
         Converts an RGB Tensor to its LUV version.
 

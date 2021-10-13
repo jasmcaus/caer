@@ -62,7 +62,7 @@ class Tensor(_TensorBase, np.ndarray):
         return self.__repr__()
 
 
-def is_tensor(x):
+def is_tensor(x: Tensor) -> bool:
     r'''
         Returns True if `x` is a Caer tensor.
 

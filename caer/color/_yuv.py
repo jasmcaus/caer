@@ -30,7 +30,7 @@ def _is_yuv_image(tens):
     return len(tens.shape) == 3 and tens.shape[-1] == 3
 
 
-def yuv2bgr(tens) -> Tensor:
+def yuv2bgr(tens: Tensor) -> Tensor:
     r'''
         Converts an YUV Tensor to its BGR version.
 
@@ -53,7 +53,7 @@ def yuv2bgr(tens) -> Tensor:
     return to_tensor(im, cspace='bgr')
 
 
-def yuv2rgb(tens) -> Tensor:
+def yuv2rgb(tens: Tensor) -> Tensor:
     r'''
         Converts a YUV Tensor to its RGB version.
 
@@ -76,7 +76,7 @@ def yuv2rgb(tens) -> Tensor:
     return to_tensor(im, cspace='rgb')
 
 
-def yuv2gray(tens) -> Tensor:
+def yuv2gray(tens: Tensor) -> Tensor:
     r'''
         Converts an YUV Tensor to its GRAY version.
 
@@ -100,7 +100,7 @@ def yuv2gray(tens) -> Tensor:
     return to_tensor(im, cspace='gray')
 
 
-def yuv2hls(tens) -> Tensor:
+def yuv2hls(tens: Tensor) -> Tensor:
     r'''
         Converts an YUV Tensor to its HLS version.
 
@@ -124,7 +124,7 @@ def yuv2hls(tens) -> Tensor:
     return to_tensor(im, cspace='hls')
 
 
-def yuv2hsv(tens) -> Tensor:
+def yuv2hsv(tens: Tensor) -> Tensor:
     r'''
         Converts an YUV Tensor to its HSV version.
 
@@ -148,7 +148,7 @@ def yuv2hsv(tens) -> Tensor:
     return to_tensor(im, cspace='hsv')
 
 
-def yuv2lab(tens) -> Tensor:
+def yuv2lab(tens: Tensor) -> Tensor:
     r'''
         Converts an YUV Tensor to its LAB version.
 
@@ -172,7 +172,7 @@ def yuv2lab(tens) -> Tensor:
     return to_tensor(im, cspace='lab')
 
 
-def yuv2luv(tens) -> Tensor:
+def yuv2luv(tens: Tensor) -> Tensor:
     r'''
         Converts an YUV Tensor to its LUV version.
 
