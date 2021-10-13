@@ -39,13 +39,13 @@ def mean(image, mask=None):
 
 def merge(tens):
     # if not isinstance(tens, (list, caer.Tensor)):
-    #     raise ValueError('tens must be a list or caer.Tensor of (ideally) shape = 3)')
+    #     raise ValueError("tens must be a list or caer.Tensor of (ideally) shape = 3)")
 
     return cv.merge(tens)
 
 def get_classes_from_dir(DIR, verbose=0):
     if len(listdir(DIR, verbose=0)) == 0:
-        raise ValueError('The specified directory does not seem to have any folders in it')
+        raise ValueError("The specified directory does not seem to have any folders in it")
     else:
         import os 
         classes = [i for i in listdir(DIR, recursive=False, verbose=verbose) if os.path.isdir(join(DIR, i))]
@@ -65,7 +65,7 @@ def train_val_split(X, y, val_ratio=.2):
         Returns X_train, X_val, y_train, y_val
     """
     if len(X) != len(y):
-        raise ValueError('X must be equal to y')
+        raise ValueError("X must be equal to y")
     
     data = [] 
     for i in range(len(X)):
@@ -90,7 +90,7 @@ def sort_dict(unsorted_dict, descending=False):
         Sorts a dictionary in ascending order (if descending = False) or descending order (if descending = True)
     """
     if not isinstance(descending, bool):
-        raise ValueError('`descending` must be a boolean')
+        raise ValueError("`descending` must be a boolean")
 
     return sorted(unsorted_dict.items(), key=lambda x:x[1], reverse=descending)
 
@@ -101,16 +101,16 @@ def get_opencv_version():
 
 def edges(tens, threshold1=None, threshold2=None, use_median=True, sigma=None):
     if not isinstance(use_median, bool):
-        raise ValueError('use_median must be a boolean')
+        raise ValueError("use_median must be a boolean")
 
     if not isinstance(threshold1, int) or not isinstance(threshold2, int):
-        raise ValueError('Threshold values must be integers')
+        raise ValueError("Threshold values must be integers")
 
     if tens is None:
-        raise ValueError('Image is of NoneType()')
+        raise ValueError("Image is of NoneType()")
 
     if not use_median and (threshold1 is None or threshold2 is None):
-        raise ValueError('Specify valid threshold values')
+        raise ValueError("Specify valid threshold values")
     
     if use_median:
         if sigma is None:

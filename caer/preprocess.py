@@ -59,49 +59,49 @@ def preprocess_from_dir(
     data = [] 
 
     if not os.path.exists(DIR):
-        raise ValueError('The specified directory does not exist')
+        raise ValueError("The specified directory does not exist")
 
     if IMG_SIZE is None:
-        raise ValueError('IMG_SIZE must be specified')
+        raise ValueError("IMG_SIZE must be specified")
 
     if not isinstance(IMG_SIZE, tuple) or len(IMG_SIZE) != 2:
-        raise ValueError('IMG_SIZE must be a tuple of size 2 (width,height)')
+        raise ValueError("IMG_SIZE must be a tuple of size 2 (width,height)")
 
     if not isinstance(save_data, bool):
-        raise ValueError('save_data must be a boolean (True/False)')
+        raise ValueError("save_data must be a boolean (True/False)")
 
     if not isinstance(classes, list):
-        raise ValueError('"classes" must be a list')
+        raise ValueError("`classes` must be a list")
 
     if save_data:
         if destination_filename is None:
-            raise ValueError('Specify a destination file name')
+            raise ValueError("Specify a destination file name")
 
         elif not ('.npy' in destination_filename or '.npz' in destination_filename):
-            raise ValueError('Specify the correct numpy destination file extension (.npy or .npz)')
+            raise ValueError("Specify the correct numpy destination file extension (.npy or .npz)")
     
     if not save_data and destination_filename is not None:
         destination_filename = None
 
     # Loading from Numpy Files
     if destination_filename is not None and os.path.exists(destination_filename):
-        print('[INFO] Loading from Numpy Files')
+        print("[INFO] Loading from Numpy Files")
         since = time.time()
         data = np.load(destination_filename, allow_pickle=True)
         end = time.time()
         took = end - since
-        print('----------------------------------------------')
-        print(f'[INFO] Loaded in {took:.0f}s from Numpy Files')
+        print("----------------------------------------------")
+        print(f"[INFO] Loaded in {took:.0f}s from Numpy Files")
 
         return data
 
     # Extracting image data and adding to `data`
     else:
         if destination_filename is not None:
-            print(f'[INFO] Could not find {destination_filename}. Generating the training data')
+            print(f"[INFO] Could not find {destination_filename}. Generating the training data")
         else:
-            print('[INFO] Could not find a file to load from. Generating the training data')
-        print('----------------------------------------------')
+            print("[INFO] Could not find a file to load from. Generating the training data")
+        print("----------------------------------------------")
 
         # Starting timer
         since_preprocess = time.time()
@@ -137,9 +137,9 @@ def preprocess_from_dir(
         if save_data:
             #Converts to Numpy and saves
             if destination_filename.endswith('.npy'):   # type: ignore
-                print('[INFO] Saving as .npy file')
+                print("[INFO] Saving as .npy file")
             elif destination_filename.endswith('.npz'): # type: ignore
-                print('[INFO] Saving as .npz file')
+                print("[INFO] Saving as .npz file")
             
             # Saving
             since = time.time()
@@ -149,7 +149,7 @@ def preprocess_from_dir(
             time_elapsed = end-since
             minu_elapsed = time_elapsed // 60
             sec_elapsed = time_elapsed % 60
-            print(f'[INFO] {destination_filename} saved! Took {minu_elapsed:.0f}m {sec_elapsed:.0f}s')
+            print(f"[INFO] {destination_filename} saved! Took {minu_elapsed:.0f}m {sec_elapsed:.0f}s")
 
         #Returns Training Set
         end_preprocess = time.time()
@@ -157,8 +157,8 @@ def preprocess_from_dir(
         minu = time_elapsed_preprocess // 60
         sec = time_elapsed_preprocess % 60
 
-        print('----------------------------------------------')
-        print(f'[INFO] {len(data)} files preprocessed! Took {minu:.0f}m {sec:.0f}s')
+        print("----------------------------------------------")
+        print(f"[INFO] {len(data)} files preprocessed! Took {minu:.0f}m {sec:.0f}s")
 
         return data
 

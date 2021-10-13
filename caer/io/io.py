@@ -77,7 +77,7 @@ def _imread(
         _ = _check_target_size(target_size)
 
     # if not isinstance(channels, int) or channels not in [1, 3]:
-    #     raise ValueError('channels must be an integer - 1 (Grayscale) or 3 (RGB)')
+    #     raise ValueError("channels must be an integer - 1 (Grayscale) or 3 (RGB)")
 
     interpolation_methods = {
         'nearest':  0, '0': 0, 0: 0,  # 0
@@ -87,7 +87,7 @@ def _imread(
     }
 
     if interpolation not in interpolation_methods:
-        raise ValueError('Specify a valid interpolation type - area/nearest/bicubic/bilinear')
+        raise ValueError("Specify a valid interpolation type - area/nearest/bicubic/bilinear")
 
     if exists(image_path):
         tens = _read_image(image_path)  # returns RGB
@@ -99,10 +99,10 @@ def _imread(
 
         # If the URL is valid, but no image at that URL, NoneType is returned
         if tens is None:
-            raise ValueError('The URL specified does not point to an image')
+            raise ValueError("The URL specified does not point to an image")
 
     else:
-        raise ValueError('Specify either a valid URL or filepath')
+        raise ValueError("Specify either a valid URL or filepath")
 
     # try:
     #     # Returns RGB image
@@ -110,7 +110,7 @@ def _imread(
 
     #     # If the URL is valid, but no image at that URL, NoneType is returned
     #     if tens is None:
-    #         raise ValueError('The URL specified does not point to an image')
+    #         raise ValueError("The URL specified does not point to an image")
 
     #     # return tens
 
@@ -120,20 +120,20 @@ def _imread(
     #         tens = _read_image(image_path) # returns RGB
 
     #     else:
-    #         raise ValueError('Specify either a valid URL or filepath')
+    #         raise ValueError("Specify either a valid URL or filepath")
 
     if target_size is not None or resize_factor is not None:
         # Enforce a Tensor is passed to resize()
-        to_tensor(tens, cspace='rgb')
+        to_tensor(tens, cspace="rgb")
         tens = resize(tens,target_size,resize_factor=resize_factor,preserve_aspect_ratio=preserve_aspect_ratio,interpolation=interpolation,)
 
     # If `rgb=False`, then we assume that BGR is expected
     if not rgb:
         tens = rgb2bgr(tens)
         # We need to convert back to tensor
-        return to_tensor(tens, cspace='bgr')
+        return to_tensor(tens, cspace="bgr")
 
-    return to_tensor(tens, cspace='rgb')
+    return to_tensor(tens, cspace="rgb")
 
 
 def _read_image(image_path: str) -> np.ndarray:
@@ -144,7 +144,7 @@ def _read_image(image_path: str) -> np.ndarray:
         image_path (str): Filepath/URL to read the image from.
     """
     if not exists(image_path):
-        raise FileNotFoundError('The image file was not found')
+        raise FileNotFoundError("The image file was not found")
 
     # BGR image
     tens = cv.imread(image_path)
@@ -169,7 +169,7 @@ def _url_to_image(url: str) -> np.ndarray:
         return cv.cvtColor(tens, cv.COLOR_BGR2RGB)
 
     else:
-        raise ValueError(f'No image found at "{url}"')
+        raise ValueError(f"No image found at '{url}'")
 
 
 def imsave(path: str, tens: Tensor) -> bool:
@@ -191,14 +191,14 @@ def imsave(path: str, tens: Tensor) -> bool:
 
     """
     if not isinstance(tens, Tensor):
-        raise TypeError('`tens` must be a caer.Tensor')
+        raise TypeError("`tens` must be a caer.Tensor")
 
     # Convert to tensor
     _ = tens._nullprt()  # raises a ValueError if we're dealing with a Foreign Tensor with illegal `.cspace` value
 
     try:
         # OpenCV uses BGR Tensors and saves them as RGB images
-        if tens.cspace != 'bgr':
+        if tens.cspace != "bgr":
             tens = to_bgr(tens) # type: ignore
         return cv.imwrite(path, tens)
     except:

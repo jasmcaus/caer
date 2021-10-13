@@ -50,7 +50,7 @@ def luv2bgr(tens: Tensor) -> Tensor:
         )
 
     im = cv.cvtColor(tens, LUV2BGR)
-    return to_tensor(im, cspace='bgr')
+    return to_tensor(im, cspace="bgr")
 
 
 def luv2rgb(tens: Tensor) -> Tensor:
@@ -73,7 +73,7 @@ def luv2rgb(tens: Tensor) -> Tensor:
         )
 
     im = cv.cvtColor(tens, LUV2RGB)
-    return to_tensor(im, cspace='rgb')
+    return to_tensor(im, cspace="rgb")
 
 
 def luv2gray(tens: Tensor) -> Tensor:
@@ -97,7 +97,7 @@ def luv2gray(tens: Tensor) -> Tensor:
 
     im = luv2bgr(tens)
     im = bgr2gray(tens)
-    return to_tensor(im, cspace='gray')
+    return to_tensor(im, cspace="gray")
 
 
 def luv2hls(tens: Tensor) -> Tensor:
@@ -121,7 +121,7 @@ def luv2hls(tens: Tensor) -> Tensor:
 
     im = luv2bgr(tens)
     im = bgr2hls(tens)
-    return to_tensor(im, cspace='hls')
+    return to_tensor(im, cspace="hls")
 
 
 def luv2hsv(tens: Tensor) -> Tensor:
@@ -145,7 +145,7 @@ def luv2hsv(tens: Tensor) -> Tensor:
 
     im = luv2bgr(tens)
     im = bgr2hsv(tens)
-    return to_tensor(im, cspace='hsv')
+    return to_tensor(im, cspace="hsv")
 
 
 def luv2lab(tens: Tensor) -> Tensor:
@@ -169,7 +169,7 @@ def luv2lab(tens: Tensor) -> Tensor:
 
     im = luv2bgr(tens)
     im = bgr2lab(tens)
-    return to_tensor(im, cspace='lab')
+    return to_tensor(im, cspace="lab")
 
 
 def luv2yuv(tens: Tensor) -> Tensor:
@@ -193,4 +193,4 @@ def luv2yuv(tens: Tensor) -> Tensor:
 
     im = luv2bgr(tens)
     im = bgr2yuv(tens)
-    return to_tensor(im, cspace='yuv')
+    return to_tensor(im, cspace="yuv")

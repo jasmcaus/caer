@@ -21,7 +21,7 @@ cv_bgr = cv.imread(tens_path)
 
 def test_hsv2rgb():
     cv_hsv = cv.cvtColor(cv_bgr, cv.COLOR_BGR2HSV)
-    cv_hsv = caer.to_tensor(cv_hsv, cspace='hsv')
+    cv_hsv = caer.to_tensor(cv_hsv, cspace="hsv")
 
     rgb = caer.hsv2rgb(cv_hsv)
 
@@ -32,7 +32,7 @@ def test_hsv2rgb():
 
 def test_hsv2bgr():
     cv_hsv = cv.cvtColor(cv_bgr, cv.COLOR_BGR2HSV)
-    cv_hsv = caer.to_tensor(cv_hsv, cspace='hsv')
+    cv_hsv = caer.to_tensor(cv_hsv, cspace="hsv")
 
     bgr = caer.hsv2bgr(cv_hsv)
 
@@ -43,7 +43,7 @@ def test_hsv2bgr():
 
 def test_hsv2gray():
     cv_hsv = cv.cvtColor(cv_bgr, cv.COLOR_BGR2HSV)
-    cv_hsv = caer.to_tensor(cv_hsv, cspace='hsv')
+    cv_hsv = caer.to_tensor(cv_hsv, cspace="hsv")
 
     gray = caer.hsv2gray(cv_hsv)
 
@@ -54,7 +54,7 @@ def test_hsv2gray():
 
 def test_hsv2hls():
     cv_hsv = cv.cvtColor(cv_bgr, cv.COLOR_BGR2HSV)
-    cv_hsv = caer.to_tensor(cv_hsv, cspace='hsv')
+    cv_hsv = caer.to_tensor(cv_hsv, cspace="hsv")
 
     hls = caer.hsv2hls(cv_hsv)
 
@@ -65,7 +65,7 @@ def test_hsv2hls():
 
 def test_hsv2lab():
     cv_hsv = cv.cvtColor(cv_bgr, cv.COLOR_BGR2HSV)
-    cv_hsv = caer.to_tensor(cv_hsv, cspace='hsv')
+    cv_hsv = caer.to_tensor(cv_hsv, cspace="hsv")
 
     lab = caer.hsv2lab(cv_hsv)
 
@@ -76,7 +76,7 @@ def test_hsv2lab():
 
 def test_hsv2yuv():
     cv_hsv = cv.cvtColor(cv_bgr, cv.COLOR_BGR2RGB)
-    cv_hsv = caer.to_tensor(cv_hsv, cspace='rgb')
+    cv_hsv = caer.to_tensor(cv_hsv, cspace="rgb")
     yuv = caer.hsv2yuv(cv_hsv)
 
     assert len(yuv.shape) == 3
@@ -86,7 +86,7 @@ def test_hsv2yuv():
 
 def test_hsv2luv():
     cv_hsv = cv.cvtColor(cv_bgr, cv.COLOR_BGR2RGB)
-    cv_hsv = caer.to_tensor(cv_hsv, cspace='rgb')
+    cv_hsv = caer.to_tensor(cv_hsv, cspace="rgb")
     luv = caer.hsv2luv(cv_hsv)
 
     assert len(luv.shape) == 3

@@ -99,21 +99,21 @@ def resize(
     if resize_factor is None:
         if target_size is None:
             if preserve_aspect_ratio:
-                raise ValueError('Specify a target size')
+                raise ValueError("Specify a target size")
             else:
-                raise ValueError('Specify either a resize factor or target dimensions')
+                raise ValueError("Specify either a resize factor or target dimensions")
         if target_size is not None:
             if len(target_size) == 2:
                 new_shape = target_size
             else:
-                raise ValueError('Tuple shape must be = 2 (width, height)')
+                raise ValueError("Tuple shape must be = 2 (width, height)")
 
     if resize_factor is not None:
         target_size = None
         preserve_aspect_ratio = False
 
         if not isinstance(resize_factor, (int, float)):
-            raise ValueError('resize_factor must be an integer or float')
+            raise ValueError("resize_factor must be an integer or float")
 
         if resize_factor > 1:
             interpolation = 'bicubic'
@@ -182,7 +182,7 @@ def smart_resize(tens: Tensor, target_size: Tuple[int, int], interpolation="bili
             (200, 200, 3)
     """
     # if not isinstance(tens, Tensor):
-    #     raise ValueError('To use `caer.smart_resize()`, `tens` needs to be a caer.Tensor')
+    #     raise ValueError("To use `caer.smart_resize()`, `tens` needs to be a caer.Tensor")
 
     im = _resize_with_ratio(tens, target_size=target_size, preserve_aspect_ratio=True, interpolation=interpolation)
 
@@ -223,7 +223,7 @@ def _resize_with_ratio(
     _ = _check_target_size(target_size)
 
     if not isinstance(preserve_aspect_ratio, bool):
-        raise ValueError('preserve_aspect_ratio must be a boolean')
+        raise ValueError("preserve_aspect_ratio must be a boolean")
 
     oh, ow = tens.shape[:2]
     target_w, target_h = target_size
@@ -266,10 +266,10 @@ def _compute_minimal_resize(org_size: Tuple[int, int], target_dim: Tuple[int, in
     # return d, mi
 
     if not isinstance(org_size, tuple) or not isinstance(target_dim, tuple):
-        raise ValueError('org_size and target_dim must be a tuple')
+        raise ValueError("org_size and target_dim must be a tuple")
 
     if len(org_size) != 2 or len(target_dim) != 2:
-        raise ValueError('Size of tuple must be = 2')
+        raise ValueError("Size of tuple must be = 2")
 
     oh, ow = org_size[:2]
     targ_w, targ_h = target_dim[:2]
@@ -294,7 +294,7 @@ def _compute_centre_crop(tens: Tensor, target_size: Tuple[int, int]) -> Tensor:
     # oh, ow = tens.shape[:2]
 
     if target_h > oh or target_w > ow:
-        raise ValueError('To compute centre crop, target size dimensions must be <= tens dimensions')
+        raise ValueError("To compute centre crop, target size dimensions must be <= tens dimensions")
 
     diff_h = (oh - target_h) // 2
     diff_w = (ow - target_w) // 2

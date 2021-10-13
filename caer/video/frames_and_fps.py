@@ -32,7 +32,7 @@ def count_frames(video_path : str):
 
     """
     if video_path is None:
-        raise ValueError('Specify a valid video path')
+        raise ValueError("Specify a valid video path")
 
     stream = Stream(video_path)
     frame_count = stream.count_frames()
@@ -52,7 +52,7 @@ def get_fps(video_path : str):
 
     """
     if not exists(video_path):
-        raise ValueError('Specify a valid video path')
+        raise ValueError("Specify a valid video path")
 
     stream = Stream(video_path)
     fps_count = stream.get_fps()

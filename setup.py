@@ -183,7 +183,7 @@ def get_contributors_list(filename='CONTRIBUTORS'):
 
 
 def write_meta(filename='caer/_meta.py'):
-    print('[INFO] Writing _meta.py')
+    print("[INFO] Writing _meta.py")
     TEXT = META_PY_TEXT
     FULL_VERSION = VERSION
     CONTRIBUTORS = get_contributors_list()
@@ -211,12 +211,12 @@ def get_docs_url():
 CYTHON_SOURCES = ('',)
 def generate_cython():
     cwd = os.path.abspath(os.path.dirname(__file__))
-    print('[INFO] Cythonizing sources')
+    print("[INFO] Cythonizing sources")
     p = subprocess.call([sys.executable,
                         os.path.join(cwd, 'tools', 'cythonize.py')],
                         cwd=cwd)
     if p != 0:
-        raise RuntimeError('[ERROR] Running cythonize failed!')
+        raise RuntimeError("[ERROR] Running cythonize failed!")
 
 
 copt={

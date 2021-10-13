@@ -13,6 +13,7 @@
 
 import numpy as np
 
+from ..annotations import Union, Tuple, List
 from ._tensor_str import _str
 from ._tensor_base import _TensorBase
 
@@ -26,14 +27,12 @@ class Tensor(_TensorBase, np.ndarray):
     __module__ = 'caer'
 
     # def __new__(cls, x, dtype=None):
-    def __new__(cls, x, cspace, dtype=None):
+    def __new__(cls, x: Union[Tuple, List, np.ndarray], cspace: str, dtype=None):
         if not isinstance(x, (tuple, list, np.ndarray)):
-            raise TypeError('Data needs to be (ideally) a list')
+            raise TypeError("Data needs to be (ideally) a list")
 
         if not isinstance(cspace, str) and cspace is not None:
-            raise TypeError(
-                f'`cspace` needs to be of type <string>, not {type(cspace)}'
-            )
+            raise TypeError(f"`cspace` needs to be of type <string>, not {type(cspace)}")
 
         obj = np.asarray(x, dtype=dtype).view(cls)
         obj.dtype = obj.dtype
@@ -45,10 +44,10 @@ class Tensor(_TensorBase, np.ndarray):
         self.x = x
 
         if cspace is None:
-            self.cspace = 'null'
+            self.cspace = "null"
 
         else:
-            if cspace in ('rgb', 'bgr', 'gray', 'hsv', 'hls', 'lab', 'yuv', 'luv'):
+            if cspace in ("rgb", "bgr", "gray", "hsv", "hls", "lab", "yuv", "luv"):
                 self.cspace = cspace
             else:
                 raise ValueError(

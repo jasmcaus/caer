@@ -49,10 +49,10 @@ def hls2rgb(tens: Tensor) -> Tensor:
 
     """
     if not _is_hls_image(tens):
-        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a HLS Tensor to its RGB counterpart')
+        raise ValueError(f"Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a HLS Tensor to its RGB counterpart")
 
     im = cv.cvtColor(tens, HLS2RGB)
-    return to_tensor(im, cspace='rgb')
+    return to_tensor(im, cspace="rgb")
 
 
 def hls2bgr(tens: Tensor) -> Tensor:
@@ -70,10 +70,10 @@ def hls2bgr(tens: Tensor) -> Tensor:
 
     """
     if not _is_hls_image(tens):
-        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a HLS Tensor to its BGR counterpart')
+        raise ValueError(f"Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a HLS Tensor to its BGR counterpart")
 
     im = cv.cvtColor(tens, HLS2BGR)
-    return to_tensor(im, cspace='bgr')
+    return to_tensor(im, cspace="bgr")
 
 
 def hls2gray(tens: Tensor) -> Tensor:
@@ -91,12 +91,12 @@ def hls2gray(tens: Tensor) -> Tensor:
 
     """
     if not _is_hls_image(tens):
-        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a HLS Tensor to its Grayscale counterpart')
+        raise ValueError(f"Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a HLS Tensor to its Grayscale counterpart")
 
     bgr = hls2bgr(tens)
 
     im = bgr2gray(bgr)
-    return to_tensor(im, cspace='gray')
+    return to_tensor(im, cspace="gray")
 
 
 def hls2hsv(tens: Tensor) -> Tensor:
@@ -114,12 +114,12 @@ def hls2hsv(tens: Tensor) -> Tensor:
 
     """
     if not _is_hls_image(tens):
-        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a HLS Tensor to its LAB counterpart')
+        raise ValueError(f"Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a HLS Tensor to its LAB counterpart")
 
     bgr = hls2bgr(tens)
 
     im = bgr2hsv(bgr)
-    return to_tensor(im, cspace='hsv')
+    return to_tensor(im, cspace="hsv")
 
 
 def hls2lab(tens: Tensor) -> Tensor:
@@ -137,12 +137,12 @@ def hls2lab(tens: Tensor) -> Tensor:
 
     """
     if not _is_hls_image(tens):
-        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a HLS Tensor to its LAB counterpart')
+        raise ValueError(f"Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a HLS Tensor to its LAB counterpart")
 
     bgr = hls2bgr(tens)
 
     im = bgr2lab(bgr)
-    return to_tensor(im, cspace='lab')
+    return to_tensor(im, cspace="lab")
 
 
 def hls2yuv(tens: Tensor) -> Tensor:
@@ -160,12 +160,12 @@ def hls2yuv(tens: Tensor) -> Tensor:
 
     """
     if not _is_hls_image(tens):
-        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a HLS Tensor to its YUV counterpart')
+        raise ValueError(f"Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a HLS Tensor to its YUV counterpart")
 
     bgr = hls2bgr(tens)
 
     im = bgr2yuv(bgr)
-    return to_tensor(im, cspace='yuv')
+    return to_tensor(im, cspace="yuv")
 
 
 def hls2luv(tens: Tensor) -> Tensor:
@@ -183,9 +183,9 @@ def hls2luv(tens: Tensor) -> Tensor:
 
     """
     if not _is_hls_image(tens):
-        raise ValueError(f'Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a HLS Tensor to its LUV counterpart')
+        raise ValueError(f"Tensor of shape 3 expected. Found shape {len(tens.shape)}. This function converts a HLS Tensor to its LUV counterpart")
 
     bgr = hls2bgr(tens)
 
     im = bgr2luv(bgr)
-    return to_tensor(im, cspace='luv')
+    return to_tensor(im, cspace="luv")

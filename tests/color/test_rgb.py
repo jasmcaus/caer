@@ -18,12 +18,12 @@ tens_path = os.path.join(here, 'data', 'green_fish.jpg')
 # BGR
 cv_bgr = cv.imread(tens_path)
 cv_rgb = cv.cvtColor(cv_bgr, cv.COLOR_BGR2RGB)
-cv_rgb = caer.to_tensor(cv_rgb, cspace='rgb')
+cv_rgb = caer.to_tensor(cv_rgb, cspace="rgb")
 
 
 def test_rgb2bgr():
     cv_rgb = cv.cvtColor(cv_bgr, cv.COLOR_BGR2RGB)
-    cv_rgb = caer.to_tensor(cv_rgb, cspace='rgb')
+    cv_rgb = caer.to_tensor(cv_rgb, cspace="rgb")
     bgr = caer.rgb2bgr(cv_rgb)
 
     assert len(bgr.shape) == 3
@@ -33,7 +33,7 @@ def test_rgb2bgr():
 
 def test_rgb2gray():
     cv_rgb = cv.cvtColor(cv_bgr, cv.COLOR_BGR2RGB)
-    cv_rgb = caer.to_tensor(cv_rgb, cspace='rgb')
+    cv_rgb = caer.to_tensor(cv_rgb, cspace="rgb")
     gray = caer.rgb2gray(cv_rgb)
 
     assert len(gray.shape) == 2 or (len(gray.shape) == 3 and gray.shape[-1] == 1)
@@ -43,7 +43,7 @@ def test_rgb2gray():
 
 def test_rgb2hsv():
     cv_rgb = cv.cvtColor(cv_bgr, cv.COLOR_BGR2RGB)
-    cv_rgb = caer.to_tensor(cv_rgb, cspace='rgb')
+    cv_rgb = caer.to_tensor(cv_rgb, cspace="rgb")
     hsv = caer.rgb2hsv(cv_rgb)
 
     assert len(hsv.shape) == 3
@@ -53,7 +53,7 @@ def test_rgb2hsv():
 
 def test_rgb2hls():
     cv_rgb = cv.cvtColor(cv_bgr, cv.COLOR_BGR2RGB)
-    cv_rgb = caer.to_tensor(cv_rgb, cspace='rgb')
+    cv_rgb = caer.to_tensor(cv_rgb, cspace="rgb")
     hls = caer.rgb2hls(cv_rgb)
 
     assert len(hls.shape) == 3
@@ -63,7 +63,7 @@ def test_rgb2hls():
 
 def test_rgb2lab():
     cv_rgb = cv.cvtColor(cv_bgr, cv.COLOR_BGR2RGB)
-    cv_rgb = caer.to_tensor(cv_rgb, cspace='rgb')
+    cv_rgb = caer.to_tensor(cv_rgb, cspace="rgb")
     lab = caer.rgb2lab(cv_rgb)
 
     assert len(lab.shape) == 3
@@ -73,7 +73,7 @@ def test_rgb2lab():
 
 def test_rgb2yuv():
     cv_rgb = cv.cvtColor(cv_bgr, cv.COLOR_BGR2RGB)
-    cv_rgb = caer.to_tensor(cv_rgb, cspace='rgb')
+    cv_rgb = caer.to_tensor(cv_rgb, cspace="rgb")
     yuv = caer.rgb2yuv(cv_rgb)
 
     assert len(yuv.shape) == 3
@@ -83,7 +83,7 @@ def test_rgb2yuv():
 
 def test_rgb2luv():
     cv_rgb = cv.cvtColor(cv_bgr, cv.COLOR_BGR2RGB)
-    cv_rgb = caer.to_tensor(cv_rgb, cspace='rgb')
+    cv_rgb = caer.to_tensor(cv_rgb, cspace="rgb")
     luv = caer.rgb2luv(cv_rgb)
 
     assert len(luv.shape) == 3

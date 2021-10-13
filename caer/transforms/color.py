@@ -104,7 +104,7 @@ def brighten(tens: Tensor, coeff : float = -1, rgb : bool = True) -> Tensor:
 
     if coeff !=-1:
         if coeff < 0.0 or coeff > 1.0:
-            raise ValueError('Brightness coefficient can only be between 0.0 and 1.0')
+            raise ValueError("Brightness coefficient can only be between 0.0 and 1.0")
 
     if coeff == -1:
         coeff_t = 1 + random.uniform(0, 1) # coeff between 1.0 and 1.5
@@ -140,7 +140,7 @@ def darken(tens: Tensor, darkness_coeff : int = -1) -> Tensor:
 
     if darkness_coeff != -1:
         if darkness_coeff < 0.0 or darkness_coeff > 1.0:
-            raise ValueError('Darkness coeff must only be between 0.0 and 1.0') 
+            raise ValueError("Darkness coeff must only be between 0.0 and 1.0'")
 
     if darkness_coeff == -1:
         darkness_coeff_t = 1 - random.uniform(0, 1)
@@ -195,7 +195,7 @@ def adjust_contrast(tens: Tensor, contrast_factor:float) -> Tensor:
     try:
         from PIL import ImageEnhance
     except ImportError:
-        raise ImportError('Pillow must be installed to use ``caer.color.adjust_saturation()``.')
+        raise ImportError("Pillow must be installed to use ``caer.color.adjust_saturation()``.")
 
     enhancer = ImageEnhance.Contrast(tens)
     tens = enhancer.enhance(contrast_factor)
@@ -228,7 +228,7 @@ def adjust_saturation(tens: Tensor, saturation_factor:float) -> Tensor:
     try:
         from PIL import Image, ImageEnhance
     except ImportError:
-        raise ImportError('Pillow must be installed to use ``caer.color.adjust_saturation()``.')
+        raise ImportError("Pillow must be installed to use ``caer.color.adjust_saturation()``.")
 
     tens = Image.fromarray(tens)
     enhancer = ImageEnhance.Color(tens)
@@ -267,19 +267,19 @@ def adjust_hue(tens: Tensor, hue_factor:float) -> Tensor:
     cspace = tens.cspace 
 
     if not (-0.5 <= hue_factor <= 0.5):
-        raise ValueError('`hue_factor` is not in [-0.5, 0.5].')
+        raise ValueError("`hue_factor` is not in [-0.5, 0.5].")
 
     try:
         from PIL import Image
     except ImportError:
-        raise ImportError('Pillow must be installed to use this ``caer.color.adjust_hue()``.')
+        raise ImportError("Pillow must be installed to use this ``caer.color.adjust_hue()``.")
 
     tens = Image.fromarray(tens)
     input_mode = tens.mode
     if input_mode in {'L', '1', 'I', 'F'}:
         return np.array(tens)
 
-    h, s, v = tens.convert('HSV').split()
+    h, s, v = tens.convert("hsv").split()
 
     np_h = np.array(h, dtype=np.uint8)
 
@@ -288,7 +288,7 @@ def adjust_hue(tens: Tensor, hue_factor:float) -> Tensor:
         np_h += np.uint8(hue_factor * 255)
     h = Image.fromarray(np_h, 'L')
 
-    tens = Image.merge('HSV', (h, s, v)).convert(input_mode)
+    tens = Image.merge("hsv", (h, s, v)).convert(input_mode)
 
     return to_tensor(tens, cspace=cspace)
 
@@ -323,7 +323,7 @@ def adjust_gamma(tens: Tensor, gamma:float, gain:float=1) -> Tensor:
     cspace = tens.cspace 
 
     if gamma < 0:
-        raise ValueError('Gamma should be a non-negative real number')
+        raise ValueError("Gamma should be a non-negative real number")
 
     # from here
     # https://stackoverflow.com/questions/33322488/how-to-change-image-illumination-in-opencv-python/41061351
@@ -399,10 +399,10 @@ def affine(tens: Tensor, angle:Union[float,int], translate:Union[List[int],Tuple
     }
 
     if interpolation not in interpolation_methods:
-        raise ValueError('Specify a valid interpolation type - area/nearest/bicubic/bilinear')
+        raise ValueError("Specify a valid interpolation type - area/nearest/bicubic/bilinear")
 
     if mode not in border_methods:
-        raise ValueError('Specify a valid border type - constant/replicate/reflect/reflect-101')
+        raise ValueError("Specify a valid border type - constant/replicate/reflect/reflect-101")
 
     output_size = tens.shape[0:2]
     center = (tens.shape[1] * 0.5 + 0.5, tens.shape[0] * 0.5 + 0.5)
@@ -451,12 +451,12 @@ def augment_random(tens: Tensor, aug_types : Union[str, List[str]] = '', volume 
     output : list = []
 
     if not is_list(aug_types):
-        raise ValueError('`aug_types` should be a list of function names (str)')
+        raise ValueError("`aug_types` should be a list of function names (str)")
     
     if volume == 'expand':
         for aug_type in aug_types:
             if not(aug_type in aug_types_all):
-                raise ValueError('Incorrect transformation function defined')
+                raise ValueError("Incorrect transformation function defined")
 
             command = aug_type + '(tens)'
             result = eval(command)
@@ -466,13 +466,13 @@ def augment_random(tens: Tensor, aug_types : Union[str, List[str]] = '', volume 
     elif volume == 'same':
         for aug_type in aug_types:
             if not (aug_type in aug_types_all):
-                raise ValueError('Incorrect transformation function defined')
+                raise ValueError("Incorrect transformation function defined")
 
         selected_aug = aug_types[random.randint(0, len(aug_types)-1)]
         command = selected_aug+'(tens)'
         output = eval(command)
 
     else: 
-        raise ValueError('volume type can only be "same" or "expand"')
+        raise ValueError("volume type can only be `same` or `expand`")
 
     return output

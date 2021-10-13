@@ -57,7 +57,7 @@ def extract_frames(input_folder : str,
     vid_count = 0 # to check if < max_video_count
 
     if not exists(input_folder):
-        raise ValueError('Input folder does not exist', input_folder)
+        raise ValueError(f"Input folder `{input_folder}` does not exist")
     
     if target_size is not None:
         _ = _check_target_size(target_size)
@@ -65,7 +65,7 @@ def extract_frames(input_folder : str,
     video_list = list_videos(input_folder, recursive=recursive, use_fullpath=True, verbose=False)
 
     if len(video_list) == 0:
-        raise ValueError(f'No videos found at {input_folder}')
+        raise ValueError(f"No videos found at {input_folder}")
 
     if label_counter is None:
         label_counter = 0
@@ -103,7 +103,7 @@ def extract_frames(input_folder : str,
             
             # processed_frames = (video_frame_count//video_fps) * frames_per_sec
 
-            print(f'{vid_count}. Reading \'{file}\'. Frame Count: {video_frame_count}. FPS: {video_fps}. Processed frames: {video_frame_count//interval}')
+            print(f"{vid_count}. Reading \'{file}\'. Frame Count: {video_frame_count}. FPS: {video_fps}. Processed frames: {video_frame_count//interval}")
             
             # Start converting the video
             while capture.isOpened():
@@ -114,10 +114,10 @@ def extract_frames(input_folder : str,
                 
                 # Write the results back to output location as per specified frames per second
                 if video_frame_counter % interval == 0:
-                    imsave(f'{output_folder}/{file}_{label_counter}.{dest_filetype}', frame)
+                    imsave(f"{output_folder}/{file}_{label_counter}.{dest_filetype}", frame)
                     video_frame_counter += 1
                     label_counter += 1
-                    # print('Frame counter: ', video_frame_counter)
+                    # print("Frame counter: ", video_frame_counter)
                 
                 video_frame_counter += 1
 
@@ -134,9 +134,9 @@ def extract_frames(input_folder : str,
     minu = taken // 60
     sec = taken % 60
     if processed_videos > 1:
-        print(f'[INFO] {processed_videos} videos extracted in {minu:.0f}m {sec:.0f}s')
+        print(f"[INFO] {processed_videos} videos extracted in {minu:.0f}m {sec:.0f}s")
     else:
-        print(f'[INFO] {processed_videos} video extracted in {minu:.0f}m {sec:.0f}s')
+        print(f"[INFO] {processed_videos} video extracted in {minu:.0f}m {sec:.0f}s")
 
     return label_counter
 
