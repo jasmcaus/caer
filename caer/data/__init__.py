@@ -12,7 +12,7 @@
 from ..io import imread 
 from ..path import abspath, join
 from .._base import __curr__ 
-from ..annotations import Optional
+from ..annotations import Optional, Tuple
 import numpy as np 
 
 from ..coreten import Tensor
@@ -23,12 +23,12 @@ def _get_path_to_data(name) -> str:
     return join(here, name)
 
 
-def audio_mixer(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def audio_mixer(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x427 image Tensor (RGB, by default) of an audio mixer.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -45,12 +45,12 @@ def audio_mixer(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor
     return imread(here+'audio_mixer.jpg', target_size=target_size, rgb=rgb)
 
 
-def bear(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def bear(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x427 image Tensor (RGB, by default) of a bear.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -67,12 +67,12 @@ def bear(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
     return imread(here+'bear.jpg', target_size=target_size, rgb=rgb)
 
 
-def beverages(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def beverages(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x427 image Tensor (RGB, by default) of beverages.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -89,12 +89,12 @@ def beverages(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
     return imread(here+'beverages.jpg', target_size=target_size, rgb=rgb)
 
 
-def black_cat(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def black_cat(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x427 image Tensor (RGB, by default) of a black cat.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -111,12 +111,12 @@ def black_cat(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
     return imread(here+'black_cat.jpg', target_size=target_size, rgb=rgb)
 
 
-def blue_tang(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def blue_tang(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x414 image Tensor (RGB, by default) of a blue tang (a type of fish).
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -133,12 +133,12 @@ def blue_tang(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
     return imread(here+'blue_tang.jpg', target_size=target_size, rgb=rgb)
 
 
-def camera(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def camera(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x427 image Tensor (RGB, by default) of a camera.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -155,12 +155,12 @@ def camera(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
     return imread(here+'camera.jpg', target_size=target_size, rgb=rgb)
 
 
-def controller(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def controller(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x427 image Tensor (RGB, by default) of a game controller.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -177,12 +177,12 @@ def controller(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
     return imread(here+'controller.jpg', target_size=target_size, rgb=rgb)
 
 
-def drone(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def drone(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x358 image Tensor (RGB, by default) of a robotic drone.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -199,12 +199,12 @@ def drone(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
     return imread(here+'drone.jpg', target_size=target_size, rgb=rgb)
 
 
-def dusk(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def dusk(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x427 image Tensor (RGB, by default) of a dusk landscape.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -221,12 +221,12 @@ def dusk(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
     return imread(here+'dusk.jpg', target_size=target_size, rgb=rgb)
 
 
-def fighter_fish(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def fighter_fish(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x640 image Tensor (RGB, by default) of a fighter fish.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -243,12 +243,12 @@ def fighter_fish(target_size: Optional[tuple] = None, rgb: bool = True) -> Tenso
     return imread(here+'fighter_fish.jpg', target_size=target_size, rgb=rgb)
 
 
-def gold_fish(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def gold_fish(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x901 image Tensor (RGB, by default) of a gold fish.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -265,12 +265,12 @@ def gold_fish(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
     return imread(here+'gold_fish.jpg', target_size=target_size, rgb=rgb)
 
 
-def green_controller(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def green_controller(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x512 image Tensor (RGB, by default) of a green game controller.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -287,12 +287,12 @@ def green_controller(target_size: Optional[tuple] = None, rgb: bool = True) -> T
     return imread(here+'green_controller.jpg', target_size=target_size, rgb=rgb)
 
 
-def green_fish(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def green_fish(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x430 image Tensor (RGB, by default) of a green fish.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -309,12 +309,12 @@ def green_fish(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
     return imread(here+'green_fish.jpg', target_size=target_size, rgb=rgb)
 
 
-def guitar(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def guitar(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x427 image Tensor (RGB, by default) of a guitar.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -331,12 +331,12 @@ def guitar(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
     return imread(here+'guitar.jpg', target_size=target_size, rgb=rgb)
 
 
-def island(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def island(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x426 image Tensor (RGB, by default) of an island.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -353,12 +353,12 @@ def island(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
     return imread(here+'island.jpg', target_size=target_size, rgb=rgb)
 
 
-def jellyfish(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def jellyfish(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x427 image Tensor (RGB, by default) of a jellyfish.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -375,12 +375,12 @@ def jellyfish(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
     return imread(here+'jellyfish.jpg', target_size=target_size, rgb=rgb)
 
 
-def laptop(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def laptop(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x427 image Tensor (RGB, by default) of a laptop.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -397,12 +397,12 @@ def laptop(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
     return imread(here+'laptop.jpg', target_size=target_size, rgb=rgb)
 
 
-def mountain(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def mountain(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x427 image Tensor (RGB, by default) of a mountain.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -419,12 +419,12 @@ def mountain(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
     return imread(here+'mountain.jpg', target_size=target_size, rgb=rgb)
 
 
-def night(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def night(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x427 image Tensor (RGB, by default) of a night landscape.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -441,12 +441,12 @@ def night(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
     return imread(here+'night.jpg', target_size=target_size, rgb=rgb)
 
 
-def puppies(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def puppies(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x427 image Tensor (RGB, by default) of a litter of puppies.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -463,12 +463,12 @@ def puppies(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
     return imread(here+'puppies.jpg', target_size=target_size, rgb=rgb)
 
 
-def puppy(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def puppy(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x512 image Tensor (RGB, by default) of a puppy.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -485,12 +485,12 @@ def puppy(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
     return imread(here+'puppy.jpg', target_size=target_size, rgb=rgb)
 
 
-def red_fish(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def red_fish(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x427 image Tensor (RGB, by default) of a red fish.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -507,12 +507,12 @@ def red_fish(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
     return imread(here+'red_fish.jpg', target_size=target_size, rgb=rgb)
 
 
-def phone(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def phone(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x427 image Tensor (RGB, by default) of a rotary phone.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -529,12 +529,12 @@ def phone(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
     return imread(here+'rotary_phone.jpg', target_size=target_size, rgb=rgb)
 
 
-def sea_turtle(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def sea_turtle(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x400 image Tensor (RGB, by default) of a sea turtle.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -551,12 +551,12 @@ def sea_turtle(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
     return imread(here+'sea_turtle.jpg', target_size=target_size, rgb=rgb)
 
 
-def snow(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def snow(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x360 image Tensor (RGB, by default) of snow.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -573,12 +573,12 @@ def snow(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
     return imread(here+'snow.jpg', target_size=target_size, rgb=rgb)
 
 
-def snowflake(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def snowflake(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x480 image Tensor (RGB, by default) of a snowflake.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -595,12 +595,12 @@ def snowflake(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
     return imread(here+'snowflake.jpg', target_size=target_size, rgb=rgb)
 
 
-def sunrise(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def sunrise(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x427 image Tensor (RGB, by default) of a sunrise landscape.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     
@@ -617,12 +617,12 @@ def sunrise(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
     return imread(here+'sunrise.jpg', target_size=target_size, rgb=rgb)
 
 
-def tent(target_size: Optional[tuple] = None, rgb: bool = True) -> Tensor:
+def tent(target_size: Optional[Tuple[int, int]] = None, rgb: bool = True) -> Tensor:
     r"""
         Returns a standard 640x427 image Tensor (RGB, by default) of a tent.
 
     Args:
-        target_size (Optional[tuple]): Intended target size (follows the ``(width, height)`` format).
+        target_size (Optional[Tuple[int, int]]): Intended target size (follows the ``(width, height)`` format).
             If None, the unaltered tensor will be returned.
         rgb (bool): Boolean whether to return an RGB Tensor (default is ``True``).
     

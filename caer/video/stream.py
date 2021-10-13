@@ -20,13 +20,12 @@ import numpy as np
 from .constants import (
     FPS, FRAME_COUNT, FRAME_HEIGHT, FRAME_WIDTH
 )
-from ..annotations import Tuple
+from ..annotations import Tuple, Optional
 from ..coreten import Tensor
 
 __all__ = [
     'Stream'
 ]
-
 
 #pylint:disable=no-member
 
@@ -71,13 +70,13 @@ class Stream:
         self.frames = int(self._video_stream.get(FRAME_COUNT))
         
         # initialize the queue to store frames 
-        self._Q = Queue(maxsize=qsize)
+        self._Q: Queue = Queue(maxsize=qsize)
 
         # intialize thread
-        self._thread = None
+        self._thread: Optional[Thread] = None
 
 
-    def start(self) -> None:
+    def start(self):
         # start a thread to read frames from the video stream
         self._thread = Thread(target=self._update, name="caer.video.Stream()", args=())
         self._thread.daemon = True
@@ -85,7 +84,7 @@ class Stream:
         return self
 
 
-    def _update(self) -> Tensor:
+    def _update(self):
         while True:
             if self.kill_stream:
                 break
@@ -126,13 +125,13 @@ class Stream:
         # wait until stream resources are released
         if self._thread is not None:
             self._thread.join()
-            self._thread = None 
+            self._thread = None
         self.frames = 0 
         self.fps = 0
     
 
     # Gets frame count
-    def count_frames(self) -> int:
+    def count_frames(self) -> int: # type: ignore[return]
         """
             Returns the number of frames for the current video
             Optional: use the `frames` attribute
@@ -151,28 +150,24 @@ class Stream:
 
 
     # Gets FPS count
-    def get_fps(self) -> (float, int):
+    def get_fps(self) -> int: # type: ignore[return]
         """
             Returns the fps (frames per second) value for the current video
             Optional: use the `fps` attribute
         """
         if not self.kill_stream:
             return self.fps
-            # if get_opencv_version() == '2':
-            #     return math.ceil(self.stream.get(FPS_DEPR))
-            # else:
-            #     return math.ceil(self.stream.get(FPS))
     
     
     # Get frame dimensions
-    def get_res(self) -> Tuple[int]:
+    def get_res(self) -> Tuple[int, int]:
         return self.res
 
 
 
 ###########################################################################################
-# Old implementation of stream.py when it used to inherit the FileStream() from filestream.py
-# Until 5 Dec 2020, this was the implementation
+# Old implementation of stream.py when it used to inherit the FileStream() from filestream.py.
+# Until 5 Dec 2020, this was the implementation.
 ###########################################################################################
 
 # from .filestream import FileStream

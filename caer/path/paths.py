@@ -14,7 +14,7 @@
 
 import os
 from time import time
-from ..annotations import List, Union
+from ..annotations import List, Union, Optional, Tuple
 
 _acceptable_video_formats = (".mp4", ".avi", ".mov", ".mkv", ".webm")
 _acceptable_image_formats = (".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff")
@@ -68,14 +68,21 @@ def list_videos(DIR:str, recursive: bool=True, use_fullpath: bool=False, verbose
 
     """
 
-    return listdir(DIR=DIR, recursive=recursive, use_fullpath=use_fullpath, ext = _acceptable_video_formats, verbose=verbose, every=every)
+    return listdir(
+        DIR=DIR, 
+        recursive=recursive, 
+        use_fullpath=use_fullpath, 
+        ext=_acceptable_video_formats, 
+        verbose=verbose, 
+        every=every
+    )
 
 
 def listdir(
         DIR : str,
         recursive : bool = False, 
         use_fullpath: bool = False, 
-        ext : Union[str, List[str]] = None, 
+        ext : Union[str, List[str], Tuple[str, ...]] = None, 
         verbose : Union[bool, int] = True,
         every : int = 1000
     ) -> List[str]:
@@ -131,7 +138,7 @@ def listdir(
     if recursive:
         for root, _, files in os.walk(DIR):
             for file in files:
-                if ext is not None and not file.endswith(ext):
+                if ext is not None and not file.endswith(ext): # type: ignore[arg-type]
                     continue
                 count += 1
                 fullpath = join(root, file).replace('\\', '/')
@@ -145,7 +152,7 @@ def listdir(
 
     else:
         for file in os.listdir(DIR):
-            if ext is not None and not file.endswith(ext):
+            if ext is not None and not file.endswith(ext): # type: ignore[arg-type]
                 continue
             count += 1
             fullpath = join(DIR, file).replace('\\', '/')
@@ -298,7 +305,7 @@ def chdir(path: str) -> None:
     os.chdir(path)
 
 
-def get_size(file: str, disp_format: str = "bytes") -> float:
+def get_size(file: str, disp_format: str = "bytes") -> Optional[float]:
     r"""
         Returns: the size of `file` in bytes/kb/mb/gb/tb
 
@@ -335,6 +342,8 @@ def get_size(file: str, disp_format: str = "bytes") -> float:
 
     if disp_format == "tb":
         return size * 1e-12
+    
+    return None
 
 
 def join(*paths) -> str:

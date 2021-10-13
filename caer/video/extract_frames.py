@@ -23,15 +23,16 @@ __all__ = [
     'extract_frames'
 ]
 
-def extract_frames(input_folder:str, 
-                   output_folder:str, 
-                   target_size: Optional[Tuple[int, int]]=None, 
-                   recursive:int=False,
-                   label_counter:int = None, 
-                   max_video_count:int=None, 
-                   frames_per_sec:Optional[Union[int,float]]=None, 
-                   frame_interval:Optional[Union[int,float]]=None,
-                   dest_filetype:str='jpg') -> int:
+def extract_frames(input_folder : str,
+                   output_folder : str,
+                   target_size : Optional[Tuple[int, int]] = None, 
+                   recursive : bool = False,
+                   label_counter : int = None, 
+                   max_video_count : int = None, 
+                   frames_per_sec : Optional[Union[int,float]] = None, 
+                   frame_interval : Optional[Union[int,float]] = None,
+                   dest_filetype : str = 'jpg'
+    ) -> int:
     r"""
         Extract frames from videos within a directory and save them as separate frames in an output directory.
 
@@ -39,6 +40,7 @@ def extract_frames(input_folder:str,
         input_folder (str): Input video directory.
         output_folder (str): Output directory to save the frames.
         target_size (tuple): Destination Image Size (tuple of size 2)
+        recursive (bool): Recursive search
         label_counter (int): Starting label counter (optional)
         max_video_count (int): Number of videos to process.
         frames_per_sec (int, float): Number of frames to process per second. 
@@ -60,7 +62,7 @@ def extract_frames(input_folder:str,
     if target_size is not None:
         _ = _check_target_size(target_size)
     
-    video_list = list_videos(input_folder, recursive=recursive, use_fullpath=True, verbose=0)
+    video_list = list_videos(input_folder, recursive=recursive, use_fullpath=True, verbose=False)
 
     if len(video_list) == 0:
         raise ValueError(f'No videos found at {input_folder}')
@@ -139,11 +141,12 @@ def extract_frames(input_folder:str,
     return label_counter
 
 
-def _determine_interval(x:int) -> int:
+def _determine_interval(x : Union[int, float]) -> Union[int, float]:
     y = '{x:.1f}'
     inde = y.find('.') + 1
     if inde == -1: # if no '.' (if an integer)
         return x
+
     if int(y[inde]) < 5:
         return math.floor(x)
     else:

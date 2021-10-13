@@ -16,7 +16,7 @@ from .._internal import _check_mean_sub_values
 from ..path import exists, list_images
 from ..io import imread 
 from ..coreten import Tensor
-from ..annotations import Tuple, List
+from ..annotations import Tuple, List, Union
 
 import numpy as np
 import cv2 as cv
@@ -62,12 +62,11 @@ class MeanProcess:
             # Merging 
             return cv.merge([b,g,r])
         
-        if channels == 1:
-            image -= self.bgrMean
-            return image
+        image -= self.bgrMean
+        return image
             
 
-def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True, recursive=True) -> Tuple:
+def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True, recursive=True) -> Union[tuple, None]:
     """
         Computes mean per channel
         Mean must be computed ONLY on the train set
@@ -75,17 +74,17 @@ def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True, recursive
     if not exists(DIR):
         raise ValueError('The specified directory does not exist')
     
-    image_list = list_images(DIR, recursive=recursive, use_fullpath=True, verbose=0)
+    image_list : list = list_images(DIR, recursive=recursive, use_fullpath=True, verbose=0)
 
     if len(image_list) == 0:
         raise ValueError(f'No images found at {DIR}')
 
     if channels == 3:
-        rMean, gMean, bMean = 0, 0, 0
+        rMean, gMean, bMean = 0.0, 0.0, 0.0
     if channels == 1:
-        bgrMean = 0
+        bgrMean : float = 0.0
 
-    count = 0
+    count : int = 0
 
     for tens_filepath in image_list:
         count += 1
@@ -115,9 +114,11 @@ def compute_mean_from_dir(DIR, channels, per_channel_subtraction=True, recursive
     if channels == 1:
         bgrMean /= count
         return tuple([bgrMean])
+    
+    return None
 
 
-def compute_mean(data, channels, per_channel_subtraction=True) -> Tuple:
+def compute_mean(data, channels, per_channel_subtraction=True) -> Union[Tuple, None]:
     """
         Computes mean per channel over the train set and returns a tuple of dimensions=channels
         Train should not be normalized
@@ -129,11 +130,11 @@ def compute_mean(data, channels, per_channel_subtraction=True) -> Tuple:
         raise ValueError('Dataset must be a list of size=number of images and shape=image shape')
 
     if channels == 3:
-        rMean, gMean, bMean = 0,0,0
+        rMean, gMean, bMean = 0.0, 0.0, 0.0
     if channels == 1:
-        bgrMean = 0
+        bgrMean : float = 0.0
 
-    count = 0
+    count : int = 0
 
     for tens in data:
         count += 1
@@ -159,6 +160,8 @@ def compute_mean(data, channels, per_channel_subtraction=True) -> Tuple:
     if channels == 1:
         bgrMean /= count
         return tuple([bgrMean])
+    
+    return None
 
 
 def subtract_mean(data, channels, mean_sub_values) -> List[str]:

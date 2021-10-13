@@ -29,16 +29,19 @@ __all__ = [
 ]
 
 
-def preprocess_from_dir(DIR:str, 
-                        classes:Optional[List[str]]=None, 
-                        IMG_SIZE:Optional[Tuple[int,int]]=None, 
-                        channels:int=3, 
-                        isShuffle:bool=True, 
-                        save_data:bool=False, 
-                        destination_filename:Optional[str]=None, 
-                        verbose:bool=True):
+def preprocess_from_dir(
+        DIR : str, 
+        classes : Optional[List[str]] = None, 
+        IMG_SIZE : Optional[Tuple[int,int]] = None, 
+        channels : int = 3, 
+        isShuffle : bool = True, 
+        save_data : bool = False, 
+        destination_filename : Optional[str] = None, 
+        verbose : bool = True
+    ):
     """
-    Reads Images in base directory DIR using 'classes' (computed from sub directories )
+    Reads Images in base directory DIR using ``classes`` (computed from sub directories)
+
     Arguments:
         DIR (str): Base directory 
         classes (list): A list of folder names within `DIR`.
@@ -46,7 +49,7 @@ def preprocess_from_dir(DIR:str,
         channels (int): Number of channels each image will be processed to (default: 3)
         isShuffle (bool): Shuffle the training set
         save_data (bool): If True, saves the training set as a .npy or .npz file based on destination_filename
-        destination_filename (str): if save_data is True, the train set will be saved as the filename specified
+        destination_filename (Optional[str]): if save_data is True, the train set will be saved as the filename specified
         verbose (bool): Displays the progress to the terminal as preprocessing continues. Default = True
     
     Returns
@@ -133,9 +136,9 @@ def preprocess_from_dir(DIR:str,
         # Saves the Data set as a .npy file
         if save_data:
             #Converts to Numpy and saves
-            if destination_filename.endswith('.npy'):
+            if destination_filename.endswith('.npy'):   # type: ignore
                 print('[INFO] Saving as .npy file')
-            elif destination_filename.endswith('.npz'):
+            elif destination_filename.endswith('.npz'): # type: ignore
                 print('[INFO] Saving as .npz file')
             
             # Saving

@@ -9,8 +9,9 @@
 # SPDX-License-Identifier: MIT
 # Copyright (c) 2020-2021 The Caer Authors <http://github.com/jasmcaus>
 
+import numpy as np
 
-class _TensorBase:
+class _TensorBase(np.ndarray):
     def __init__(self):
         self.max_width = 2
         self.is_floating_point = False
@@ -21,7 +22,7 @@ class _TensorBase:
 
         # self._mode = 'rgb'
         # self.mode = self._mode # '._mode' is used internally --> prevents misuse of the API
-        self.cspace = 'null' # default
+        self.cspace = "null" # default
 
 
     def __repr__(self):
@@ -59,39 +60,40 @@ class _TensorBase:
 
     # Colorspace stuff
     def is_rgb(self):
-        return self.cspace == 'rgb'
+        return self.cspace == "rgb"
 
     def is_bgr(self):
-        return self.cspace == 'bgr'
+        return self.cspace == "bgr"
 
     def is_gray(self):
-        return self.cspace == 'gray'
+        return self.cspace == "gray"
 
     def is_hsv(self):
-        return self.cspace == 'hsv'
+        return self.cspace == "hsv"
 
     def is_lab(self):
-        return self.cspace == 'lab'
+        return self.cspace == "lab"
 
     def is_hls(self):
-        return self.cspace == 'hls'
+        return self.cspace == "hls"
 
     def is_yuv(self):
-        return self.cspace == 'yuv'
+        return self.cspace == "yuv"
 
     def is_luv(self):
-        return self.cspace == 'luv'
+        return self.cspace == "luv"
 
     # Foreign Tensor-stuff
     def is_foreign(self):
         return self.foreign
 
     def _is_valid_cspace(self):
-        if (self.cspace == 'rgb') or (self.cspace == 'bgr') or (self.cspace == 'gray') or (self.cspace == 'hsv') or (self.cspace == 'hls') or (self.cspace == 'lab') or (self.cspace == 'yuv') or (self.cspace == 'luv'):
+        if (self.cspace == "rgb") or (self.cspace == "bgr") or (self.cspace == "gray") or (self.cspace == "hsv") or \
+            (self.cspace == "hls") or (self.cspace == "lab") or (self.cspace == "yuv") or (self.cspace == "luv"):
             return True
 
         # Else
-        self.cspace = 'null'
+        self.cspace = "null"
         return False
 
 
@@ -110,4 +112,5 @@ class _TensorBase:
             Raises a TypeError ==> usually happens when foreign arrays (like ndarrays) are converted to Caer Tensors.
         """
         if self.is_null():
-            raise TypeError('IllegalTensorWarning: Cannot determine the colorspace for this foreign tensor. You can set it manually by modifying the `.cspace` attribute. We suggest operating solely in Caer Tensors.')
+            raise TypeError("IllegalTensorWarning: Cannot determine the colorspace for this foreign tensor."
+            "You can set it manually by modifying the `.cspace` attribute. We suggest operating solely in Caer Tensors.")

@@ -27,7 +27,7 @@ __all__ = [
 ]
 
 
-def _is_hsv_image(tens:Tensor)->bool:
+def _is_hsv_image(tens: Tensor)->bool:
     # tens = to_tensor(tens)
     # return tens.is_hsv()
     return len(tens.shape) == 3 and tens.shape[-1] == 3

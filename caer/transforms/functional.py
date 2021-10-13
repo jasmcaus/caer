@@ -17,7 +17,7 @@ import math
 import numpy as np 
 
 from ..coreten import Tensor, to_tensor
-from ..annotations import Tuple
+from ..annotations import Tuple, Union
 
 from ..color import (
     to_hls, 
@@ -28,26 +28,26 @@ from ..color import (
     to_lab
 )
 
-def _hls(tens) -> Tensor:
+def _hls(tens: Tensor) -> Tensor:
     tens = to_tensor(tens, enforce_tensor=True)
     return to_hls(tens)
 
 
-def _bgr(tens) -> Tensor:
+def _bgr(tens: Tensor) -> Tensor:
     tens = to_tensor(tens, enforce_tensor=True)
     return to_bgr(tens)
 
 
-def _rgb(tens) -> Tensor:
+def _rgb(tens: Tensor) -> Tensor:
     tens = to_tensor(tens, enforce_tensor=True)
     return to_rgb(tens)
 
 
-def _hue(tens) -> Tensor:
+def _hue(tens: Tensor) -> Tensor:
     return _hls(tens)[:,:,0]
 
 
-def _get_tens_size(tens) -> Tensor:
+def _get_tens_size(tens: Tensor) -> Tuple[int, int]:
     r"""
         Returns image size as (width, height)
     """
@@ -56,13 +56,12 @@ def _get_tens_size(tens) -> Tensor:
     return (w, h)
 
 
-def _get_num_channels(tens) -> int:
+def _get_num_channels(tens: Tensor) -> int:
     r"""
         We assume only images of 1 and 3 channels
     """
     if len(tens.shape) == 3 and tens.shape[2] == 3:
         return 3
-    
     else:
         return 1
 
@@ -70,14 +69,11 @@ def _get_num_channels(tens) -> int:
 def is_tuple(x) -> bool:
     return isinstance(x, tuple)
 
-
 def is_list(x):
     return isinstance(x, list)
 
-
 def is_numeric(x):
     return isinstance(x, int)
-
 
 def is_numeric_list_or_tuple(x):
     for i in x:
@@ -86,7 +82,7 @@ def is_numeric_list_or_tuple(x):
     return True
 
 
-def _snow_process(tens, snow_coeff) -> Tensor:
+def _snow_process(tens: Tensor, snow_coeff : Union[float, int]) -> Tensor:
     tens = _hls(tens)
     cspace = tens.cspace 
 
@@ -227,13 +223,13 @@ def _gravel_process(tens, x1, x2, y1, y2, num_patches):
     return to_tensor(tens, cspace=cspace)
 
 
-def flare_source(tens:Tensor, point:int, radius:int, src_color: Tuple[int]) -> Tensor:
+def flare_source(tens: Tensor, point : Tuple[int, int], radius : int, src_color: Tuple[int]) -> Tensor:
     r"""
         Add a source of light (flare) on an specific region of an image.
 
     Args:
         tens (Tensor) : Any regular BGR/RGB image.
-        point (int): Starting point of the flare.
+        point (Tuple[int, int]): Starting point of the flare.
         radius (int): Intended radius (in pixels) of the flare.
         src_color (tuple): Color of the flare. Must be in the format ``(R,G,B)``
         rectangular_roi (tuple): Rectanglar co-ordinates of the intended region of interest. Default: (-1,-1,-1,-1).
@@ -275,7 +271,7 @@ def flare_source(tens:Tensor, point:int, radius:int, src_color: Tuple[int]) -> T
     return to_tensor(tens, override_checks=True)
 
 
-def _add_sun_flare_line(flare_center, angle, imshape):
+def _add_sun_flare_line(flare_center : Tuple[int, int], angle, imshape):
     x = []
     y = []
     i = 0
@@ -308,7 +304,7 @@ def _add_sun_process(tens, num_flare_circles, flare_center, src_radius, x, y, sr
         )
         cv.addWeighted(overlay, alpha, output, 1 - alpha,0, output)            
 
-    return flare_source(output, (int(flare_center[0]),int(flare_center[1])), src_radius, src_color)
+    return flare_source(output, (int(flare_center[0]), int(flare_center[1])), src_radius, src_color)
 
 
 def _apply_motion_blur(tens, count):
@@ -332,7 +328,7 @@ def _apply_motion_blur(tens, count):
     return to_tensor(tens_t, override_checks=True)
 
 
-def _autumn_process(tens) -> Tensor:
+def _autumn_process(tens: Tensor) -> Tensor:
     tens = to_tensor(tens, enforce_tensor=True)
     imshape = tens.shape
     tens = _hls(tens)
@@ -353,7 +349,7 @@ def _autumn_process(tens) -> Tensor:
     return to_tensor(tens, cspace=cspace)
 
 
-def _exposure_process(tens) -> Tensor:
+def _exposure_process(tens: Tensor) -> Tensor:
     tens = to_tensor(tens, enforce_tensor=True)
     cspace = tens.cspace 
 

@@ -67,7 +67,7 @@ def _get_num_channels(tens):
     return tens.shape[2] if len(tens.shape) == 3 else 1
 
 
-def hflip(tens:Tensor) -> Tensor:
+def hflip(tens: Tensor) -> Tensor:
     r"""
         Flip an image horizontally. 
     Args:
@@ -82,7 +82,7 @@ def hflip(tens:Tensor) -> Tensor:
     return to_tensor(tens, override_checks=True)
 
 
-def vflip(tens:Tensor) -> Tensor:
+def vflip(tens: Tensor) -> Tensor:
     r"""
         Flip an image vertically. 
     Args:
@@ -96,7 +96,7 @@ def vflip(tens:Tensor) -> Tensor:
     return to_tensor(tens, override_checks=True)
 
 
-def hvflip(tens:Tensor) -> Tensor:
+def hvflip(tens: Tensor) -> Tensor:
     r"""
         Flip an image both horizontally and vertically. 
 
@@ -110,7 +110,7 @@ def hvflip(tens:Tensor) -> Tensor:
     return hflip(vflip(tens))
 
 
-def rand_flip(tens:Tensor) -> Tensor: 
+def rand_flip(tens: Tensor) -> Tensor: 
     r"""
         Randomly flip an image vertically or horizontally. 
 
@@ -136,7 +136,7 @@ def transpose(tens: Tensor) -> Tensor:
         return tens.transpose(1, 0)
 
 
-def rotate(tens:Tensor, angle, rotPoint=None) -> Tensor:
+def rotate(tens: Tensor, angle, rotPoint=None) -> Tensor:
     r"""
         Rotates an given image by an angle around a particular rotation point (if provided) or centre otherwise.
         
@@ -187,7 +187,7 @@ def translate(image:Tensor, x:int, y:int) -> Tensor:
     return cv.warpAffine(image, transMat, (image.shape[1], image.shape[0]))
 
 
-def scale(tens:Tensor, scale_factor:int, interpolation='bilinear') -> Tensor:
+def scale(tens: Tensor, scale_factor:int, interpolation='bilinear') -> Tensor:
     interpolation_methods = {
         'nearest': INTER_NEAREST, '0': INTER_NEAREST, 0: INTER_NEAREST, # 0
         'bilinear': INTER_LINEAR, '1': INTER_LINEAR,  1: INTER_LINEAR,  # 1
@@ -208,7 +208,7 @@ def scale(tens:Tensor, scale_factor:int, interpolation='bilinear') -> Tensor:
     return to_tensor(tens, override_checks=True)
 
 
-def pad(tens:Tensor, padding:Union[int,Tuple], fill:int=0, padding_mode='constant') -> Tensor:
+def pad(tens: Tensor, padding:Union[int,Tuple], fill:int=0, padding_mode='constant') -> Tensor:
     r"""
         Pad the given image on all sides with specified padding mode and fill value.
 
@@ -276,7 +276,7 @@ def pad(tens:Tensor, padding:Union[int,Tuple], fill:int=0, padding_mode='constan
         return to_tensor(tens, override_checks=True)
 
                                 
-def crop(tens:Tensor, x_min, y_min, x_max, y_max) -> Tensor:
+def crop(tens: Tensor, x_min, y_min, x_max, y_max) -> Tensor:
     height, width = tens.shape[:2]
     if x_max <= x_min or y_max <= y_min:
         raise ValueError(
@@ -319,7 +319,7 @@ def center_crop(image:Tensor, target_size:Optional[Tuple]=None) -> Tensor:
     return _compute_centre_crop(image, target_size)
 
 
-def rand_crop(tens:Tensor, crop_height, crop_width, h_start, w_start) -> Tensor:
+def rand_crop(tens: Tensor, crop_height, crop_width, h_start, w_start) -> Tensor:
     height, width = tens.shape[:2]
     if height < crop_height or width < crop_width:
         raise ValueError(
@@ -362,7 +362,7 @@ def _get_random_crop_coords(height, width, crop_height, crop_width, h_start, w_s
     return x1, y1, x2, y2
 
 
-def solarize(tens:Tensor, threshold:int=128) -> Tensor:
+def solarize(tens: Tensor, threshold:int=128) -> Tensor:
     r"""
         Invert all pixel values above a threshold.
 
@@ -385,7 +385,7 @@ def solarize(tens:Tensor, threshold:int=128) -> Tensor:
     max_val = MAX_VALUES_BY_DTYPE[tens.dtype]
 
     if tens.dtype == np.dtype("uint8"):
-        lut = [(i if i < threshold else max_val - i) for i in range(max_val + 1)]
+        lut = [(i if i < threshold else max_val - i) for i in range(max_val + 1)] # type: ignore[call-overload]
 
         prev_shape = tens.shape
         tens = cv.LUT(tens, np.array(lut, dtype=tens.dtype))
@@ -401,7 +401,7 @@ def solarize(tens:Tensor, threshold:int=128) -> Tensor:
     return to_tensor(result_tens, override_checks=True)
 
 
-def posterize(tens: Tensor, bits:int) -> Tensor:
+def posterize(tens: Tensor, bits: int) -> Tensor:
     r"""Reduce the number of bits for each color channel in the image.
 
     Args:
@@ -428,7 +428,7 @@ def posterize(tens: Tensor, bits:int) -> Tensor:
     if np.any((bits < 0) | (bits > 8)):
         raise ValueError("bits must be in range [0, 8]")
 
-    if not bits.shape or len(bits) == 1:
+    if not bits.shape or len(bits) == 1: # type: ignore[arg-type, attr-defined]
         if bits == 0:
             return np.zeros_like(tens)
         if bits == 8:
@@ -440,12 +440,11 @@ def posterize(tens: Tensor, bits:int) -> Tensor:
 
         return to_tensor(cv.LUT(tens, lut), override_checks=True)
         
-
     if not _is_rgb_image(tens):
         raise TypeError("If `bits` is iterable, image must be RGB")
 
     result_tens = np.empty_like(tens)
-    for i, channel_bits in enumerate(bits):
+    for i, channel_bits in enumerate(bits): # type: ignore[arg-type, var-annotated]
         if channel_bits == 0:
             result_tens[..., i] = np.zeros_like(tens[..., i])
         elif channel_bits == 8:
@@ -460,12 +459,12 @@ def posterize(tens: Tensor, bits:int) -> Tensor:
     return to_tensor(result_tens, override_checks=True)
 
 
-def clip(tens: Tensor, dtype:str, maxval:int) -> Tensor:
+def clip(tens: Tensor, dtype: str, maxval: int) -> Tensor:
     tens = np.clip(tens, 0, maxval).astype(dtype)
     return to_tensor(tens, override_checks=True)
 
 
-def _equalize_cv(tens, mask=None) -> Tensor:
+def _equalize_cv(tens, mask = None) -> Tensor:
     if mask is None:
         tens = cv.equalizeHist(tens)
         return to_tensor(tens, override_checks=True)
@@ -490,7 +489,7 @@ def _equalize_cv(tens, mask=None) -> Tensor:
     i += 1
     for i in range(i, len(histogram)):
         _sum += histogram[i]
-        lut[i] = clip(round(_sum * scale), np.dtype("uint8"), 255)
+        lut[i] = clip(round(_sum * scale), np.dtype("uint8"), 255) # type: ignore[arg-type]
 
     tens = cv.LUT(tens, lut)
     return to_tensor(tens, override_checks=True)
