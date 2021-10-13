@@ -17,6 +17,7 @@ import cv2 as cv
 import math
 
 from ..coreten import Tensor, to_tensor
+from ..annotations import Union,List,Tuple
 
 from .functional import (
     is_list,
@@ -40,7 +41,7 @@ __all__ = [
 ]
 
 
-def adjust_brightness(tens, coeff, rgb=True) -> Tensor:
+def adjust_brightness(tens: Tensor, coeff:int, rgb:bool=True) -> Tensor:
     r"""
         Adjust the brightness of an image.
 
@@ -78,7 +79,7 @@ def adjust_brightness(tens, coeff, rgb=True) -> Tensor:
     return to_tensor(tens, cspace=cspace, dtype=np.uint8)
 
 
-def brighten(tens, coeff=-1, rgb=True) -> Tensor:
+def brighten(tens:Tensor, coeff:bool=-1, rgb:bool=True) -> Tensor:
     r"""
         Brighten an image.
 
@@ -114,7 +115,7 @@ def brighten(tens, coeff=-1, rgb=True) -> Tensor:
     return to_tensor(tens, cspace=cspace)
 
 
-def darken(tens, darkness_coeff = -1) -> Tensor:
+def darken(tens:Tensor, darkness_coeff:bool = -1) -> Tensor:
     r"""
         Darken an image.
 
@@ -150,7 +151,7 @@ def darken(tens, darkness_coeff = -1) -> Tensor:
     return to_tensor(tens, cspace=cspace)
 
 
-def random_brightness(tens) -> Tensor:
+def random_brightness(tens:Tensor) -> Tensor:
     r"""
         Add random brightness to an image.
 
@@ -172,7 +173,7 @@ def random_brightness(tens) -> Tensor:
     return adjust_brightness(tens, rand_br_coeff)
 
 
-def adjust_contrast(tens, contrast_factor) -> Tensor:
+def adjust_contrast(tens:Tensor, contrast_factor:float) -> Tensor:
     """
         Adjust contrast of an image.
 
@@ -202,7 +203,7 @@ def adjust_contrast(tens, contrast_factor) -> Tensor:
     return to_tensor(tens, cspace=cspace)
 
 
-def adjust_saturation(tens, saturation_factor) -> Tensor:
+def adjust_saturation(tens:Tensor, saturation_factor:float) -> Tensor:
     """Adjust color saturation of an image.
 
     Args:
@@ -237,7 +238,7 @@ def adjust_saturation(tens, saturation_factor) -> Tensor:
     return to_tensor(tens, cspace=cspace)
 
 
-def adjust_hue(tens, hue_factor) -> Tensor:
+def adjust_hue(tens:Tensor, hue_factor:float) -> Tensor:
     r"""
         Adjust hue of an image.
 
@@ -293,7 +294,7 @@ def adjust_hue(tens, hue_factor) -> Tensor:
     return to_tensor(tens, cspace=cspace)
 
 
-def adjust_gamma(tens, gamma, gain=1) -> Tensor:
+def adjust_gamma(tens:Tensor, gamma:float, gain:float=1) -> Tensor:
     r"""
         Perform gamma correction on an image.
 
@@ -359,7 +360,7 @@ def _get_affine_matrix(center, angle, translate, scale, shear) -> Tensor:
     return matrix[:2, :]
 
 
-def affine(tens, angle, translate, scale, shear, interpolation='bilinear', mode=0, fillcolor=0) -> Tensor:
+def affine(tens:Tensor, angle:Union[float,int], translate:Union[List[int],Tuple[int]], scale:float, shear:float, interpolation='bilinear', mode:Union[str,int]=0, fillcolor:int=0) -> Tensor:
     """
         Apply affine transformation on the image keeping image center invariant.
 
@@ -374,7 +375,7 @@ def affine(tens, angle, translate, scale, shear, interpolation='bilinear', mode=
         mode (int, str): Method for filling in border regions. 
                 Defaults to ``constant`` meaning areas outside the image are filled with a value (val, default 0). 
                 Supports ``'replicate'``, ``'reflect'``, ``'reflect-101'``.
-        val (int): Optional fill color for the area outside the transform in the output image. Default: 0
+        fillcolor (int): Optional fill color for the area outside the transform in the output image. Default: 0
     """
 
     tens = to_tensor(tens, enforce_tensor=True)
@@ -418,7 +419,7 @@ def affine(tens, angle, translate, scale, shear, interpolation='bilinear', mode=
     return to_tensor(tens, cspace=cspace)
 
 
-def correct_exposure(tens, rgb=True) -> Tensor:
+def correct_exposure(tens:Tensor, rgb:bool=True) -> Tensor:
     r"""
         Correct the exposure of an image.
 
@@ -440,7 +441,7 @@ def correct_exposure(tens, rgb=True) -> Tensor:
     return _exposure_process(tens)
 
 
-def augment_random(tens, aug_types='', volume='expand' ) -> Tensor:
+def augment_random(tens:Tensor, aug_types:str='', volume:str='expand' ) -> Tensor:
     aug_types_all = ['random_brightness','add_shadow','add_snow','add_rain','add_fog','add_gravel','add_sun_flare','add_motion_blur','add_autumn','random_flip']
 
     if aug_types=='':

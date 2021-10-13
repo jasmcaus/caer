@@ -19,6 +19,7 @@ from .._internal import _check_target_size
 from ..globals import (
     INTER_AREA, INTER_CUBIC, INTER_NEAREST, INTER_LINEAR
 )
+from ..annotations import Union,Tuple,Optional
 
 pad_to_str = {
     'constant':  0,
@@ -66,7 +67,7 @@ def _get_num_channels(tens):
     return tens.shape[2] if len(tens.shape) == 3 else 1
 
 
-def hflip(tens) -> Tensor:
+def hflip(tens:Tensor) -> Tensor:
     r"""
         Flip an image horizontally. 
     Args:
@@ -81,7 +82,7 @@ def hflip(tens) -> Tensor:
     return to_tensor(tens, override_checks=True)
 
 
-def vflip(tens) -> Tensor:
+def vflip(tens:Tensor) -> Tensor:
     r"""
         Flip an image vertically. 
     Args:
@@ -95,7 +96,7 @@ def vflip(tens) -> Tensor:
     return to_tensor(tens, override_checks=True)
 
 
-def hvflip(tens) -> Tensor:
+def hvflip(tens:Tensor) -> Tensor:
     r"""
         Flip an image both horizontally and vertically. 
 
@@ -109,7 +110,7 @@ def hvflip(tens) -> Tensor:
     return hflip(vflip(tens))
 
 
-def rand_flip(tens) -> Tensor: 
+def rand_flip(tens:Tensor) -> Tensor: 
     r"""
         Randomly flip an image vertically or horizontally. 
 
@@ -128,14 +129,14 @@ def rand_flip(tens) -> Tensor:
         return hflip(tens)
 
 
-def transpose(tens) -> Tensor:
+def transpose(tens: Tensor) -> Tensor:
     if len(tens.shape) > 2:
         return tens.transpose(1, 0, 2)
     else:
         return tens.transpose(1, 0)
 
 
-def rotate(tens, angle, rotPoint=None) -> Tensor:
+def rotate(tens:Tensor, angle, rotPoint=None) -> Tensor:
     r"""
         Rotates an given image by an angle around a particular rotation point (if provided) or centre otherwise.
         
@@ -171,7 +172,7 @@ def rotate(tens, angle, rotPoint=None) -> Tensor:
     return to_tensor(tens, override_checks=True)
 
 
-def translate(image, x, y) -> Tensor:
+def translate(image:Tensor, x:int, y:int) -> Tensor:
     r"""Translates a given image across the x-axis and the y-axis
 
     Args:
@@ -186,7 +187,7 @@ def translate(image, x, y) -> Tensor:
     return cv.warpAffine(image, transMat, (image.shape[1], image.shape[0]))
 
 
-def scale(tens, scale_factor, interpolation='bilinear') -> Tensor:
+def scale(tens:Tensor, scale_factor:int, interpolation='bilinear') -> Tensor:
     interpolation_methods = {
         'nearest': INTER_NEAREST, '0': INTER_NEAREST, 0: INTER_NEAREST, # 0
         'bilinear': INTER_LINEAR, '1': INTER_LINEAR,  1: INTER_LINEAR,  # 1
@@ -207,7 +208,7 @@ def scale(tens, scale_factor, interpolation='bilinear') -> Tensor:
     return to_tensor(tens, override_checks=True)
 
 
-def pad(tens, padding, fill=0, padding_mode='constant') -> Tensor:
+def pad(tens:Tensor, padding:Union[int,Tuple], fill:int=0, padding_mode='constant') -> Tensor:
     r"""
         Pad the given image on all sides with specified padding mode and fill value.
 
@@ -275,7 +276,7 @@ def pad(tens, padding, fill=0, padding_mode='constant') -> Tensor:
         return to_tensor(tens, override_checks=True)
 
                                 
-def crop(tens, x_min, y_min, x_max, y_max) -> Tensor:
+def crop(tens:Tensor, x_min, y_min, x_max, y_max) -> Tensor:
     height, width = tens.shape[:2]
     if x_max <= x_min or y_max <= y_min:
         raise ValueError(
@@ -297,7 +298,7 @@ def crop(tens, x_min, y_min, x_max, y_max) -> Tensor:
     return to_tensor(tens[y_min:y_max, x_min:x_max], override_checks=True)
 
 
-def center_crop(image, target_size=None) -> Tensor:
+def center_crop(image:Tensor, target_size:Optional[Tuple]=None) -> Tensor:
     r"""Computes the centre crop of an image using `target_size`
 
     Args:
@@ -318,7 +319,7 @@ def center_crop(image, target_size=None) -> Tensor:
     return _compute_centre_crop(image, target_size)
 
 
-def rand_crop(tens, crop_height, crop_width, h_start, w_start) -> Tensor:
+def rand_crop(tens:Tensor, crop_height, crop_width, h_start, w_start) -> Tensor:
     height, width = tens.shape[:2]
     if height < crop_height or width < crop_width:
         raise ValueError(
@@ -361,7 +362,7 @@ def _get_random_crop_coords(height, width, crop_height, crop_width, h_start, w_s
     return x1, y1, x2, y2
 
 
-def solarize(tens, threshold=128) -> Tensor:
+def solarize(tens:Tensor, threshold:int=128) -> Tensor:
     r"""
         Invert all pixel values above a threshold.
 
@@ -400,7 +401,7 @@ def solarize(tens, threshold=128) -> Tensor:
     return to_tensor(result_tens, override_checks=True)
 
 
-def posterize(tens, bits) -> Tensor:
+def posterize(tens: Tensor, bits:int) -> Tensor:
     r"""Reduce the number of bits for each color channel in the image.
 
     Args:
@@ -459,7 +460,7 @@ def posterize(tens, bits) -> Tensor:
     return to_tensor(result_tens, override_checks=True)
 
 
-def clip(tens, dtype, maxval) -> Tensor:
+def clip(tens: Tensor, dtype:str, maxval:int) -> Tensor:
     tens = np.clip(tens, 0, maxval).astype(dtype)
     return to_tensor(tens, override_checks=True)
 
@@ -495,7 +496,7 @@ def _equalize_cv(tens, mask=None) -> Tensor:
     return to_tensor(tens, override_checks=True)
 
 
-def equalize(tens, mask=None, by_channels=True) -> Tensor:
+def equalize(tens: Tensor, mask:Tensor=None, by_channels:bool=True) -> Tensor:
     r"""Equalize the image histogram.
 
     Args:
