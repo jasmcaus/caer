@@ -279,7 +279,7 @@ def adjust_hue(tens: Tensor, hue_factor:float) -> Tensor:
     if input_mode in {"L", "1", "I", "F"}:
         return np.array(tens)
 
-    h, s, v = tens.convert("hsv").split()
+    h, s, v = tens.convert("HSV").split()
 
     np_h = np.array(h, dtype=np.uint8)
 
@@ -288,7 +288,7 @@ def adjust_hue(tens: Tensor, hue_factor:float) -> Tensor:
         np_h += np.uint8(hue_factor * 255)
     h = Image.fromarray(np_h, "L")
 
-    tens = Image.merge("hsv", (h, s, v)).convert(input_mode)
+    tens = Image.merge("HSV", (h, s, v)).convert(input_mode)
 
     return to_tensor(tens, cspace=cspace)
 
