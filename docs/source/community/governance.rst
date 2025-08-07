@@ -5,8 +5,8 @@ Caer Governance | Persons of interest
 
 Leads
 -------
-- Jason Dsouza (`jasmcaus <https://github.com/jasmcaus>`_) (Caer founder)
+- Jason (`@jasmcaus <https://github.com/jasmcaus>`_)
 
 Core Maintainers
 ------------------
-- Jason Dsouza (`jasmcaus <https://github.com/jasmcaus>`_) (Caer founder)
+- Jason (`@jasmcaus <https://github.com/jasmcaus>`_)

@@ -1,6 +1,6 @@
 # See https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/about-code-owners#codeowners-syntax
 
-# Caer has been originally written by Jason Dsouza.
+# Caer has been originally written by @jasmcaus.
 # This CODEOWNERS file is only to make sure that @jasmcaus is requested
 # for a code review in case of a pull request.
 

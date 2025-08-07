@@ -26,8 +26,8 @@ GIT_HERE = os.path.abspath('../../.github')
 # -- Project information -----------------------------------------------------
 
 project = 'Caer'
-copyright = '2020-2021, Jason Dsouza'
-author = 'Jason Dsouza'
+copyright = '2020-2021, Jason'
+author = 'Jason'
 
 def get_version():
     # find the version number from caer/_meta__.py
