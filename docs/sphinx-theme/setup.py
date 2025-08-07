@@ -36,7 +36,6 @@ setup(
     name = 'caer_sphinx_theme',
     version =__version__,
     author = 'Jason',
-    author_email= 'jasmcaus@gmail.com',
     url="https://github.com/jasmcaus/caer-sphinx-theme",
     docs_url="https://github.com/jasmcaus/caer-sphinx-theme",
     description='Caer Sphinx Theme',
