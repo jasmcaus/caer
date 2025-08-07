@@ -23,7 +23,7 @@ formats:
 
 # Optionally set the version of Python and requirements required to build your docs
 python:
-  version: 3.10
+  # version: 3.10
   install:
     - requirements: tools/requirements/default.txt
     - requirements: tools/requirements/build-docs.txt
