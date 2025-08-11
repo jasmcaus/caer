@@ -48,7 +48,6 @@ from ._meta import (
     version,
     release,
     author,
-    author_email,
     contributors,
     homepage
 )
@@ -60,7 +59,6 @@ Root Package Info
 __version__ = version
 __release__ = release
 __author__ = author
-__author_email__ = author_email
 __contributors__ = contributors
 __license__ = "MIT License"
 __copyright__ = r"""
