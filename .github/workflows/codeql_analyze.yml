@@ -1,8 +1,9 @@
 name: 'CodeQL Analysis' 
 
 on:
-  schedule:
-    - cron: '30 6 * * 1'
+  push:
+    branches: dev
+  workflow_dispatch:
 
 jobs:
   analyze:
