@@ -99,7 +99,7 @@ def luv2gray(tens: Tensor) -> Tensor:
         )
 
     img = luv2bgr(tens)
-    img = bgr2gray(tens)
+    img = bgr2gray(img)
     return to_tensor(img, cspace="gray")
 
 
@@ -124,7 +124,7 @@ def luv2hls(tens: Tensor) -> Tensor:
         )
 
     img = luv2bgr(tens)
-    img = bgr2hls(tens)
+    img = bgr2hls(img)
     return to_tensor(img, cspace="hls")
 
 
@@ -149,7 +149,7 @@ def luv2hsv(tens: Tensor) -> Tensor:
         )
 
     img = luv2bgr(tens)
-    img = bgr2hsv(tens)
+    img = bgr2hsv(img)
     return to_tensor(img, cspace="hsv")
 
 
@@ -174,7 +174,7 @@ def luv2lab(tens: Tensor) -> Tensor:
         )
 
     img = luv2bgr(tens)
-    img = bgr2lab(tens)
+    img = bgr2lab(img)
     return to_tensor(img, cspace="lab")
 
 
@@ -199,5 +199,5 @@ def luv2yuv(tens: Tensor) -> Tensor:
         )
 
     img = luv2bgr(tens)
-    img = bgr2yuv(tens)
+    img = bgr2yuv(img)
     return to_tensor(img, cspace="yuv")

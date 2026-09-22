@@ -12,6 +12,7 @@
 import caer
 import cv2 as cv
 import os
+import numpy as np
 
 here = os.path.dirname(os.path.dirname(__file__))
 tens_path = os.path.join(here, 'data', 'green_fish.jpg')
@@ -50,6 +51,7 @@ def test_yuv2gray():
     assert len(gray.shape) == 2 or (len(gray.shape) == 3 and gray.shape[-1] == 1)
     assert isinstance(gray, caer.Tensor)
     assert gray.is_gray()
+    assert np.all(gray == cv.cvtColor(cv.cvtColor(cv_yuv, cv.COLOR_YUV2BGR), cv.COLOR_BGR2GRAY))
 
 
 def test_yuv2hsv():
@@ -61,6 +63,7 @@ def test_yuv2hsv():
     assert len(hsv.shape) == 3
     assert isinstance(hsv, caer.Tensor)
     assert hsv.is_hsv()
+    assert np.all(hsv == cv.cvtColor(cv.cvtColor(cv_yuv, cv.COLOR_YUV2BGR), cv.COLOR_BGR2HSV))
 
 
 def test_yuv2hls():
@@ -72,6 +75,7 @@ def test_yuv2hls():
     assert len(hls.shape) == 3
     assert isinstance(hls, caer.Tensor)
     assert hls.is_hls()
+    assert np.all(hls == cv.cvtColor(cv.cvtColor(cv_yuv, cv.COLOR_YUV2BGR), cv.COLOR_BGR2HLS))
 
 
 def test_yuv2lab():
@@ -83,6 +87,7 @@ def test_yuv2lab():
     assert len(lab.shape) == 3
     assert isinstance(lab, caer.Tensor)
     assert lab.is_lab()
+    assert np.all(lab == cv.cvtColor(cv.cvtColor(cv_yuv, cv.COLOR_YUV2BGR), cv.COLOR_BGR2LAB))
 
 
 def test_yuv2luv():
@@ -94,3 +99,4 @@ def test_yuv2luv():
     assert len(luv.shape) == 3
     assert isinstance(luv, caer.Tensor)
     assert luv.is_luv()
+    assert np.all(luv == cv.cvtColor(cv.cvtColor(cv_yuv, cv.COLOR_YUV2BGR), cv.COLOR_BGR2LUV))
