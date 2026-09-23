@@ -50,8 +50,8 @@ def luv2bgr(tens: Tensor) -> Tensor:
             "This function converts an LUV Tensor to its BGR counterpart"
         )
 
-    img = cv.cvtColor(tens, LUV2BGR)
-    return to_tensor(img, cspace="bgr")
+    tens = cv.cvtColor(tens, LUV2BGR)
+    return to_tensor(tens, cspace="bgr")
 
 
 def luv2rgb(tens: Tensor) -> Tensor:
@@ -74,8 +74,8 @@ def luv2rgb(tens: Tensor) -> Tensor:
             "This function converts a LUV Tensor to its RGB counterpart"
         )
 
-    img = cv.cvtColor(tens, LUV2RGB)
-    return to_tensor(img, cspace="rgb")
+    tens = cv.cvtColor(tens, LUV2RGB)
+    return to_tensor(tens, cspace="rgb")
 
 
 def luv2gray(tens: Tensor) -> Tensor:
@@ -98,9 +98,9 @@ def luv2gray(tens: Tensor) -> Tensor:
             "This function converts an LUV Tensor to its GRAY counterpart"
         )
 
-    img = luv2bgr(tens)
-    img = bgr2gray(img)
-    return to_tensor(img, cspace="gray")
+    tens = luv2bgr(tens)
+    tens = bgr2gray(tens)
+    return to_tensor(tens, cspace="gray")
 
 
 def luv2hls(tens: Tensor) -> Tensor:
@@ -123,9 +123,9 @@ def luv2hls(tens: Tensor) -> Tensor:
             "This function converts an LUV Tensor to its HLS counterpart"
         )
 
-    img = luv2bgr(tens)
-    img = bgr2hls(img)
-    return to_tensor(img, cspace="hls")
+    tens = luv2bgr(tens)
+    tens = bgr2hls(tens)
+    return to_tensor(tens, cspace="hls")
 
 
 def luv2hsv(tens: Tensor) -> Tensor:
@@ -148,9 +148,9 @@ def luv2hsv(tens: Tensor) -> Tensor:
             "This function converts an LUV Tensor to its HSV counterpart"
         )
 
-    img = luv2bgr(tens)
-    img = bgr2hsv(img)
-    return to_tensor(img, cspace="hsv")
+    tens = luv2bgr(tens)
+    tens = bgr2hsv(tens)
+    return to_tensor(tens, cspace="hsv")
 
 
 def luv2lab(tens: Tensor) -> Tensor:
@@ -173,9 +173,9 @@ def luv2lab(tens: Tensor) -> Tensor:
             "This function converts an LUV Tensor to its LAB counterpart"
         )
 
-    img = luv2bgr(tens)
-    img = bgr2lab(img)
-    return to_tensor(img, cspace="lab")
+    tens = luv2bgr(tens)
+    tens = bgr2lab(tens)
+    return to_tensor(tens, cspace="lab")
 
 
 def luv2yuv(tens: Tensor) -> Tensor:
@@ -198,6 +198,6 @@ def luv2yuv(tens: Tensor) -> Tensor:
             "This function converts an LUV Tensor to its YUV counterpart"
         )
 
-    img = luv2bgr(tens)
-    img = bgr2yuv(img)
-    return to_tensor(img, cspace="yuv")
+    tens = luv2bgr(tens)
+    tens = bgr2yuv(tens)
+    return to_tensor(tens, cspace="yuv")
